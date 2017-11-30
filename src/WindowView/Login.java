@@ -34,29 +34,14 @@ public class Login extends JDialog {
 	private JTextField textField;
 	private JPasswordField passwordField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public Login() {
+		int idUser = 0;
 		setAlwaysOnTop(true);
 		setTitle("Login");
 		setBounds(100, 100, 254, 145);
 		getContentPane().setLayout(new BorderLayout());
 		// центрира рамката (центъра на текущия монитор)
-	    setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -73,23 +58,28 @@ public class Login extends JDialog {
 			passwordField.setBounds(56, 43, 115, 20);
 			contentPanel.add(passwordField);
 		}
+		
+		
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			buttonPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{okButton, cancelButton}));
+			buttonPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { okButton, cancelButton }));
+
 			{
 				okButton = new JButton("OK");
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
-				
+
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
-					
+						okButton();
+
 					}
+
 				});
-				
+
 			}
+
 			{
 				cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
@@ -100,10 +90,50 @@ public class Login extends JDialog {
 						textField.setText("");
 					}
 				});
+
 			}
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			buttonPane.add(okButton);
 			buttonPane.add(cancelButton);
 		}
+	}
+
+	private void okButton() {
+		String name = textField.getText();
+
+		char[] pass = passwordField.getPassword();
+
+		String final_pass = "";
+		for (char x : pass) {
+			final_pass += x;
+		}
+		String pass12 = "123";
+		// String md5_encrypted_pass_userInput =
+		// encrypt(final_pass); //kriptirane na string v MD5
+		// format
+
+		if (final_pass
+				.equals(pass12)) { /*
+									 * pass1 = the password from the database
+									 */
+			// Correct password
+			System.out.println("corect pass = " + final_pass);
+		}
+		System.out.println("name = " + name + "   pass = " + final_pass);
+	}
+
+	public static final String encrypt(String md5) { // kriptirane na string v
+														// MD5 format
+		try {
+			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+			byte[] array = md.digest(md5.getBytes());
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < array.length; ++i) {
+				sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+			}
+			return sb.toString();
+		} catch (java.security.NoSuchAlgorithmException e) {
+		}
+		return null;
 	}
 }

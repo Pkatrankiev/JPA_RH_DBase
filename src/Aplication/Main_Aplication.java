@@ -38,7 +38,8 @@ public class Main_Aplication {
 //		Internal_applicantDAO.setBasikValueInternal_applicant();
 //		RequestDAO. setBasicValueRequest();
 		
-		BasicWindow.main(null);
+		BasicWindow win = new BasicWindow();
+		win.setVisible(true);
 //		Login.main(null);
 	}
 }

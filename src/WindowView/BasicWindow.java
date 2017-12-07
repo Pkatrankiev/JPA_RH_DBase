@@ -35,6 +35,27 @@ public class BasicWindow extends JFrame{
 	
 	public BasicWindow() {
 		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        Login loginDlg = new Login();
+                        loginDlg.setVisible(true);
+                        // if logon successfully
+                        if(loginDlg.isSucceeded()){
+                            btnLogin.setText("Hi " + loginDlg.getUsername() + "!");
+                            System.out.println("Hi " + loginDlg.getUsername() + "!");
+                        }else{
+                        	 System.out.println("Hi NOT " + loginDlg.getUsername() + "!");
+                        }
+                    }
+                });
+		
+		menuBar.add(btnLogin);
+		
 	}
 	
 	public boolean Login (){

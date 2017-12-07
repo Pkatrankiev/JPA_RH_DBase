@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -33,6 +34,7 @@ public class Login extends JDialog {
 	private JButton cancelButton;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private boolean succeeded;
 
 	public Login() {
 		int idUser = 0;
@@ -97,29 +99,51 @@ public class Login extends JDialog {
 			buttonPane.add(cancelButton);
 		}
 	}
-
+	 public boolean isSucceeded() {
+	        return succeeded;
+	    }
+	 
+	 public String getUsername() {
+	        return textField.getText().trim();
+	    }
+	
 	private void okButton() {
 		String name = textField.getText();
 
 		char[] pass = passwordField.getPassword();
 
-		String final_pass = "";
+		String enter_pass = "";
 		for (char x : pass) {
-			final_pass += x;
+			enter_pass += x;
 		}
-		String pass12 = "123";
+		String originPass = "123";
 		// String md5_encrypted_pass_userInput =
 		// encrypt(final_pass); //kriptirane na string v MD5
 		// format
 
-		if (final_pass
-				.equals(pass12)) { /*
+		if (enter_pass
+				.equals(originPass)) { /*
 									 * pass1 = the password from the database
 									 */
 			// Correct password
-			System.out.println("corect pass = " + final_pass);
-		}
-		System.out.println("name = " + name + "   pass = " + final_pass);
+			JOptionPane.showMessageDialog(Login.this,
+                    "Hi " + getUsername() + "! You have successfully logged in.",
+                    "Login",
+                    JOptionPane.INFORMATION_MESSAGE);
+			succeeded = true;
+			System.out.println("corect pass = " + enter_pass);
+			 dispose();
+		}else {
+            JOptionPane.showMessageDialog(Login.this,
+                    "Invalid username or password",
+                    "Login",
+                    JOptionPane.ERROR_MESSAGE);
+            // reset username and password
+            passwordField.setText("");
+			textField.setText("");
+            succeeded = false;
+
+        }
 	}
 
 	public static final String encrypt(String md5) { // kriptirane na string v

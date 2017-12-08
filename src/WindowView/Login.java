@@ -2,19 +2,27 @@ package WindowView;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -34,12 +42,14 @@ public class Login extends JDialog {
 	private JButton cancelButton;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private JLabel lbUsername;
+    private JLabel lbPassword;
 	private boolean succeeded;
 
-	public Login() {
+	public Login(Frame parent) {
+        super(parent, "Login2", true);
 		int idUser = 0;
-		setAlwaysOnTop(true);
-		setTitle("Login");
+
 		setBounds(100, 100, 254, 145);
 		getContentPane().setLayout(new BorderLayout());
 		// центрира рамката (центъра на текущия монитор)
@@ -61,6 +71,7 @@ public class Login extends JDialog {
 			contentPanel.add(passwordField);
 		}
 		
+	
 		
 		{
 			JPanel buttonPane = new JPanel();
@@ -99,14 +110,18 @@ public class Login extends JDialog {
 			buttonPane.add(cancelButton);
 		}
 	}
-	 public boolean isSucceeded() {
+	
+
+	public boolean isSucceeded() {
 	        return succeeded;
 	    }
-	 
+	
+	
 	 public String getUsername() {
 	        return textField.getText().trim();
 	    }
 	
+	 
 	private void okButton() {
 		String name = textField.getText();
 
@@ -146,6 +161,7 @@ public class Login extends JDialog {
         }
 	}
 
+	
 	public static final String encrypt(String md5) { // kriptirane na string v
 														// MD5 format
 		try {

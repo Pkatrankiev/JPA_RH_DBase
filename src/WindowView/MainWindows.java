@@ -24,15 +24,23 @@ public class MainWindows {
 			btnLogin.addActionListener(
 		            new ActionListener(){
 		                public void actionPerformed(ActionEvent e) {
+		                	String textBtnLogin = btnLogin.getText();
+		                	if (textBtnLogin.equals("LogOut") ) {
+		                		btnLogin.setText("LogIn");
+		                		 win.setTitle("my RHA");
+							}
+		                	else{
 		                    Login loginDlg = new Login(win);
 		                    loginDlg.setVisible(true);
 		                    // if logon successfully
 		                    if(loginDlg.isSucceeded()){
-		                    	 win.setTitle("Hi " + loginDlg.getUsername() + "!");
+		                    	 win.setTitle("my RHA"+" -> Hi " + loginDlg.getUsername() + "!");
+		                    	 btnLogin.setText("LogOut");
 		                        System.out.println("Hi " + loginDlg.getUsername() + "!");
 		                    }else{
 		                    	 System.out.println("Hi NOT " + loginDlg.getUsername() + "!");
 		                    }
+		                }
 		                }
 		            });
 			win.setSize(900, 600);

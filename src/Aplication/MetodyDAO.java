@@ -6,8 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
 
 import DBase_Class.Metody;
+import DBase_Class.Sample;
 
 public class MetodyDAO {
 
@@ -73,5 +76,19 @@ public class MetodyDAO {
 		return list;
 	}
 
+	@GET
+	@QueryParam("{id}")
+	public static Metody getValueMetodyById(@QueryParam("id") int id) {
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	EntityManager entitymanager = emfactory.createEntityManager();
+	entitymanager.getTransaction().begin();
+	Metody  metody = (Metody) entitymanager.find(Metody.class, id);
+	
+	entitymanager.close();
+	emfactory.close();
+
+	return metody;
+}
+	
 	
 }

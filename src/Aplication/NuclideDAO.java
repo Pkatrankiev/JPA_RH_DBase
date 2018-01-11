@@ -7,9 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
 
 import DBase_Class.Nuclide;
+import DBase_Class.Sample;
 
 public class NuclideDAO {
 
@@ -108,7 +110,22 @@ public class NuclideDAO {
 		setValueNuclide("Америций", "Americium", "AM-241", 1.365E+10, 't', true);
 	
 		}
-	}
+	
+	@GET
+	@QueryParam("{id}")
+public static Nuclide getValueSNuclideById(@QueryParam("id") int id) {
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	EntityManager entitymanager = emfactory.createEntityManager();
+	entitymanager.getTransaction().begin();
+	Nuclide  nuclide = (Nuclide) entitymanager.find(Nuclide.class, id);
+	
+	entitymanager.close();
+	emfactory.close();
+
+	return nuclide;
+}
+
+}
 
 	
 

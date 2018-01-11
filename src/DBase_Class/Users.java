@@ -20,13 +20,15 @@ public class Users implements Serializable {
 
 	private String name;
 	private String family;
+	private String nikName;
 	private String pass;
 	private Integer priority;
 
-	public Users(Integer id, String name, String family, String pass, Integer priority) {
+	public Users(Integer id, String name, String family, String nikName, String pass, Integer priority) {
 		super();
 		this.name = name;
 		this.family = family;
+		this.nikName = nikName;
 		this.pass = pass;
 		this.priority = priority;
 	}
@@ -53,6 +55,14 @@ public class Users implements Serializable {
 
 	public void setFamily_users(String family) {
 		this.family = family;
+	}
+	
+	public String getNikName_users() {
+		return nikName;
+	}
+
+	public void setNikName_users(String nikName) {
+		this.nikName = nikName;
 	}
 
 	public String getPass_users() {

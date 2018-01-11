@@ -17,12 +17,12 @@ public class UsersDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setBasicValueUsers(){
-	setValueUsers("Михаил", "Балачев", "123", 1);
-	setValueUsers("Петър", "Катранкиев", "123", 1);
-	setValueUsers("Мартин", "Илиев", "123", 2);
+	setValueUsers("Михаил", "Балачев", "mbalachev", "123", 1);
+	setValueUsers("Петър", "Катранкиев","pkatrankiev", "123", 1);
+	setValueUsers("Мартин", "Илиев", "miliev", "123", 2);
 }
 //	Users
-	public static void setValueUsers(String name, String family, String pass, Integer priority) {
+	public static void setValueUsers(String name, String family, String nikName, String pass, Integer priority) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -31,6 +31,7 @@ public class UsersDAO {
 		Users valueEnt = new Users();
 		valueEnt.setName_users(name);
 		valueEnt.setFamily_users(family);
+		valueEnt.setNikName_users(nikName);
 		valueEnt.setPass_users(pass);
 		valueEnt.setPriority_users(priority);
 
@@ -49,9 +50,11 @@ public class UsersDAO {
 		entitymanager.close();
 		emfactory.close();
 		
+		
 		for (Users e : list) {
+			
 			System.out.println("setValueUsers(\"" + ((Users) e).getId_users() + "\", \"" + ((Users) e).getName_users()
-					+ "\", \"" + ((Users) e).getFamily_users() +"\", \"" + ((Users) e).getPass_users()
+					+ "\", \"" + ((Users) e).getFamily_users() +"\", \"" + ((Users) e).getNikName_users()+"\", \"" + ((Users) e).getPass_users()
 					+ "\", " + ((Users) e).getPriority_users()+");");
 		}
 

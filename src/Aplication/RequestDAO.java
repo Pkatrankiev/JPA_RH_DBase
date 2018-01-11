@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 
@@ -72,7 +74,7 @@ public class RequestDAO {
 		emfactory.close();
 	}
 
-	public static List<Request> getInListAllValueNuclide() {
+	public static List<Request> getInListAllValueRequest() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -123,7 +125,7 @@ public class RequestDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
-for (int i = 1; i < 4; i++) {
+for (int i = 1; i < 9; i++) {
 	
 
 		// Get random External_applicant object
@@ -207,7 +209,7 @@ for (int i = 1; i < 4; i++) {
 
 		
 		 setValueRequest(
-		 2255,
+		 2255+i,
 		 "12.12.2017",
 		 true, //accreditation
 		 true, //section
@@ -215,10 +217,10 @@ for (int i = 1; i < 4; i++) {
 		 internal_applicant, //intrnal_applicant
 		 "Иван", //applicant_name
 		 "Иванов", //applicant_family
-		 3, //number_samples
+		 1+i, //number_samples
 		 "проби1", //description_sample_group
 		 "22.12.2017 /12:00", //date_time_reception
-		 " 25.12.2017g", //date_execution
+		 "25.12.2017", //date_execution
 		 ind_num_doc, //ind_num_doc
 		 izpitvan_produkt, //izpitvan_produkt
 		 obekt_na_izpitvane, //obekt_na_izpitvane
@@ -253,4 +255,19 @@ for (int i = 1; i < 4; i++) {
 
 	}
 
+	@GET
+	@QueryParam("{id}")
+public static Request getValueRequestById(@QueryParam("id") int id) {
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	EntityManager entitymanager = emfactory.createEntityManager();
+	entitymanager.getTransaction().begin();
+	Request  request = (Request) entitymanager.find(Request.class, id);
+	
+	entitymanager.close();
+	emfactory.close();
+
+	return request;
+}
+
+	
 }

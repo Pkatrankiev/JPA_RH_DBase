@@ -21,6 +21,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	 <class>DBase_Class.Internal_applicant</class>
 	 <class>DBase_Class.External_applicant</class>
 	 <class>DBase_Class.Request</class>
+	 <class>DBase_Class.Sample</class>
 	 		
 	 <properties>
          <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rhdbase?characterEncoding=UTF-8"/>

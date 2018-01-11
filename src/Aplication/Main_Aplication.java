@@ -27,9 +27,10 @@ public class Main_Aplication {
 	public static void main(String[] args) {
 		
 
+		SampleDAO.getInListAllValueSample();
 //		SetBasikValueInDataBase();
 		
-		StartMainWindow();
+//		StartMainWindow();
 	}
 
 	private static void StartMainWindow() {
@@ -49,7 +50,8 @@ public class Main_Aplication {
 		UsersDAO.setBasicValueUsers();
 		ZabelejkiDAO.setBasicValueZabelejki();
 		Internal_applicantDAO.setBasikValueInternal_applicant();
-		RequestDAO. setBasicValueRequest();
+		RequestDAO.setBasicValueRequest();
+		SampleDAO.setBasicValueSample();
 	}
 }
 	

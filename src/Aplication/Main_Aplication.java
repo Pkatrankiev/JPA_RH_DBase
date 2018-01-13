@@ -27,8 +27,8 @@ public class Main_Aplication {
 	public static void main(String[] args) {
 		
 
-		SampleDAO.getInListAllValueSample();
-//		SetBasikValueInDataBase();
+//		SampleDAO.getInListAllValueSample();
+		SetBasikValueInDataBase();
 		
 //		StartMainWindow();
 	}
@@ -39,19 +39,20 @@ public class Main_Aplication {
 	}
 
 	private static void SetBasikValueInDataBase() {
-		External_applicantDAO.setBasikValueExternal_applicant();
-		Ind_num_docDAO.setBasikValueInd_num_doc();
-		Izpitvan_pokazatelDAO.setBasikValuePokazatel();
-		Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
-		MetodyDAO.setBasikValueMetody();
-		NuclideDAO.setBasicValueNuclide();
-		Obekt_na_izpitvaneDAO.setBasicValueObekt_na_izpitvane();
-		RazmernostiDAO.setBasicValueRazmernosti();
-		UsersDAO.setBasicValueUsers();
-		ZabelejkiDAO.setBasicValueZabelejki();
-		Internal_applicantDAO.setBasikValueInternal_applicant();
-		RequestDAO.setBasicValueRequest();
-		SampleDAO.setBasicValueSample();
+//		External_applicantDAO.setBasikValueExternal_applicant();
+//		Ind_num_docDAO.setBasikValueInd_num_doc();
+//		Izpitvan_pokazatelDAO.setBasikValuePokazatel();
+//		Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
+//		MetodyDAO.setBasikValueMetody();
+//		NuclideDAO.setBasicValueNuclide();
+//		Obekt_na_izpitvaneDAO.setBasicValueObekt_na_izpitvane();
+//		RazmernostiDAO.setBasicValueRazmernosti();
+//		UsersDAO.setBasicValueUsers();
+//		ZabelejkiDAO.setBasicValueZabelejki();
+//		Internal_applicantDAO.setBasikValueInternal_applicant();
+//		RequestDAO.setBasicValueRequest();
+//		SampleDAO.setBasicValueSample();
+		ResultsDAO.setBasicValueResults();
 	}
 }
 	

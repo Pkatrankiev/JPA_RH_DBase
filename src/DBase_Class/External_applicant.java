@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table
 @NamedQuery(name="externalApplicantList", query="SELECT r FROM External_applicant r")
 public class External_applicant {
-
 	
 
 	private static final long serialVersionUID = 1L;

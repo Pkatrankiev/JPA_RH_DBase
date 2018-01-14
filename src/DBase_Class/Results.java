@@ -31,6 +31,7 @@ public class Results implements Serializable {
 	private String date_measur;
 	private String date_redac;
 	private String basic_value;
+	private Boolean inProtokol;
 
 	@ManyToOne
 	private Nuclide nuclide;
@@ -65,7 +66,8 @@ public class Results implements Serializable {
 			Users user_measur,
 			String date_measur,
 			Users user_redac,
-			String date_redac
+			String date_redac,
+			Boolean inProtokol
 			) {
 		
 		super();
@@ -86,6 +88,7 @@ public class Results implements Serializable {
 		this.date_measur = date_measur;
 		this.user_redac = user_redac;
 		this.date_redac = date_redac;
+		this.inProtokol = inProtokol;
 		
 	}
 
@@ -101,6 +104,14 @@ public class Results implements Serializable {
 
 	public void setId_results(int id_results) {
 		Id_results = id_results;
+	}
+
+	public Boolean getInProtokol() {
+		return inProtokol;
+	}
+
+	public void setInProtokol(Boolean inProtokol) {
+		this.inProtokol = inProtokol;
 	}
 
 	public Double getValue_result() {

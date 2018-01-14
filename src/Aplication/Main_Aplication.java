@@ -47,12 +47,13 @@ public class Main_Aplication {
 //		NuclideDAO.setBasicValueNuclide();
 //		Obekt_na_izpitvaneDAO.setBasicValueObekt_na_izpitvane();
 //		RazmernostiDAO.setBasicValueRazmernosti();
-//		UsersDAO.setBasicValueUsers();
+		PostDAO.setBasikValuePost();
+		UsersDAO.setBasicValueUsers();
 //		ZabelejkiDAO.setBasicValueZabelejki();
 //		Internal_applicantDAO.setBasikValueInternal_applicant();
 //		RequestDAO.setBasicValueRequest();
 //		SampleDAO.setBasicValueSample();
-		ResultsDAO.setBasicValueResults();
+//		ResultsDAO.setBasicValueResults();
 	}
 }
 	

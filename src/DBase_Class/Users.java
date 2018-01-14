@@ -22,15 +22,23 @@ public class Users implements Serializable {
 	private String family;
 	private String nikName;
 	private String pass;
-	private Integer priority;
+	private Boolean isAdmin;
+	private Post post;
 
-	public Users(Integer id, String name, String family, String nikName, String pass, Integer priority) {
+	public Users(Integer id, 
+			String name, 
+			String family, 
+			String nikName, 
+			String pass, 
+			Boolean isAdmin, 
+			Post post) {
 		super();
 		this.name = name;
 		this.family = family;
 		this.nikName = nikName;
 		this.pass = pass;
-		this.priority = priority;
+		this.isAdmin = isAdmin;
+		this.post = post;
 	}
 
 	public Users() {
@@ -40,6 +48,8 @@ public class Users implements Serializable {
 	public int getId_users() {
 		return Id_users;
 	}
+
+	
 
 	public String getName_users() {
 		return name;
@@ -73,12 +83,19 @@ public class Users implements Serializable {
 		this.pass = pass;
 	}
 
-	public Integer getPriority_users() {
-		return priority;
+	public Boolean  getIsAdmin() {
+		return isAdmin;
 	}
 
-	public void setPriority_users(Integer priority) {
-		this.priority = priority;
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	public Post getPost() {
+		return post;
 	}
 
+	public void setPost(Post post) {
+		this.post = post;
+	}
+	
 }

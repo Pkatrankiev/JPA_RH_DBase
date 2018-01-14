@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Post;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 
@@ -17,12 +18,18 @@ public class UsersDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setBasicValueUsers(){
-	setValueUsers("Михаил", "Балачев", "mbalachev", "123", 1);
-	setValueUsers("Петър", "Катранкиев","pkatrankiev", "123", 1);
-	setValueUsers("Мартин", "Илиев", "miliev", "123", 2);
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		
+		
+	setValueUsers("Михаил", "Балачев", "mbalachev", "123", false, PostDAO.getValuePostById(1));
+	setValueUsers("Петър", "Катранкиев","pkatrankiev", "123", false, PostDAO.getValuePostById(2));
+	setValueUsers("Мартин", "Илиев", "miliev", "123", true, PostDAO.getValuePostById(3));
 }
 //	Users
-	public static void setValueUsers(String name, String family, String nikName, String pass, Integer priority) {
+	public static void setValueUsers(String name, String family, String nikName, String pass, Boolean isAdmin, Post post) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -33,7 +40,8 @@ public class UsersDAO {
 		valueEnt.setFamily_users(family);
 		valueEnt.setNikName_users(nikName);
 		valueEnt.setPass_users(pass);
-		valueEnt.setPriority_users(priority);
+		valueEnt.setIsAdmin(isAdmin);
+		valueEnt.setPost(post);
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
@@ -55,7 +63,7 @@ public class UsersDAO {
 			
 			System.out.println("setValueUsers(\"" + ((Users) e).getId_users() + "\", \"" + ((Users) e).getName_users()
 					+ "\", \"" + ((Users) e).getFamily_users() +"\", \"" + ((Users) e).getNikName_users()+"\", \"" + ((Users) e).getPass_users()
-					+ "\", " + ((Users) e).getPriority_users()+");");
+					+ "\", " + ((Users) e).getIsAdmin()+");");
 		}
 
 //		for (Users e : list) {

@@ -50,7 +50,8 @@ public class ResultsDAO {
 			Users user_measur, 
 			String date_measur, 
 			Users user_redac,
-			String date_redac) {
+			String date_redac,
+			Boolean inProtokol) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -78,6 +79,7 @@ public class ResultsDAO {
 
 		valueEnt.setUser_redac(user_redac);
 		valueEnt.setDate_redac(date_redac);
+		valueEnt.setInProtokol(inProtokol);
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
@@ -96,18 +98,25 @@ public class ResultsDAO {
 		emfactory.close();
 
 		for (Results e : list) {
-			System.out.println("Num:" + ((Results) e).getId_results() + "  Nuclide :" + ((Results) e).getNuclide()
-					+ "  Sample :" + ((Results) e).getSample() + "  Metody :" + ((Results) e).getMetody()
-					+ "  Rtazmernosti :" + ((Results) e).getRtazmernosti() + "  Basic_value :"
-					+ ((Results) e).getBasic_value() + "  Value_result :" + ((Results) e).getValue_result()
-					+ "  Sigma :" + ((Results) e).getSigma() + "  Uncertainty :" + ((Results) e).getUncertainty()
-					+ "  Mda :" + ((Results) e).getMda() + "  Zabelejki :" + ((Results) e).getZabelejki()
+			System.out.println("Num:" + ((Results) e).getId_results() 
+					+ "  Nuclide :" + ((Results) e).getNuclide()
+					+ "  Sample :" + ((Results) e).getSample() 
+					+ "  Metody :" + ((Results) e).getMetody()
+					+ "  Rtazmernosti :" + ((Results) e).getRtazmernosti() 
+					+ "  Basic_value :" + ((Results) e).getBasic_value() 
+					+ "  Value_result :" + ((Results) e).getValue_result()
+					+ "  Sigma :" + ((Results) e).getSigma() 
+					+ "  Uncertainty :" + ((Results) e).getUncertainty()
+					+ "  Mda :" + ((Results) e).getMda() 
+					+ "  Zabelejki :" + ((Results) e).getZabelejki()
 					+ "  chim_oper_family :" + ((Results) e).getUser_chim_oper().getFamily_users()
-					+ "  Date_chim_oper :" + ((Results) e).getDate_chim_oper() + "  User_measur_family :"
-					+ ((Results) e).getUser_measur().getFamily_users() + "  Date_measur :"
-					+ ((Results) e).getDate_measur() + "  User_redac_family :"
-					+ ((Results) e).getUser_redac().getFamily_users() + "  Date_redac :"
-					+ ((Results) e).getDate_redac());
+					+ "  Date_chim_oper :" + ((Results) e).getDate_chim_oper() 
+					+ "  User_measur_family :"
+					+ ((Results) e).getUser_measur().getFamily_users() 
+					+ "  Date_measur :" + ((Results) e).getDate_measur() 
+					+ "  User_redac_family :" + ((Results) e).getUser_redac().getFamily_users() 
+					+ "  Date_redac :" + ((Results) e).getDate_redac()
+					+ "In Protokol :"  + ((Results) e).getInProtokol());
 		}
 		return list;
 	}
@@ -239,7 +248,8 @@ public class ResultsDAO {
 						users_measur, 
 						dat[1][0]+"."+dat[1][1]+".2017", 
 						users_redac,
-						dat[2][0]+"."+dat[2][1]+".2017"); 
+						dat[2][0]+"."+dat[2][1]+".2017",
+						true); 
 			}
 		}
 		entitymanager.close();

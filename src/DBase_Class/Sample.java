@@ -30,8 +30,7 @@ public class Sample implements Serializable {
 	private Request request;
 	@ManyToOne
 	private Obekt_na_izpitvane obekt_na_izpitvane;
-	@ManyToOne
-	private Izpitvan_pokazatel pokazatel;
+	
 	
 
 	public Sample( 
@@ -39,8 +38,7 @@ public class Sample implements Serializable {
 			String description_sample, 
 			String date_time_reference,
 			Request request,
-			Obekt_na_izpitvane obekt_na_izpitvane, 
-			Izpitvan_pokazatel pokazatel
+			Obekt_na_izpitvane obekt_na_izpitvane
 			) {
 		
 		super();
@@ -50,7 +48,7 @@ public class Sample implements Serializable {
 		this.date_time_reference = date_time_reference;
 		this.request = request;
 		this.obekt_na_izpitvane = obekt_na_izpitvane;
-		this.pokazatel = pokazatel;
+		
 		
 	}
 
@@ -107,15 +105,7 @@ public class Sample implements Serializable {
 		this.obekt_na_izpitvane = obekt_na_izpitvane;
 	}
 
-	public Izpitvan_pokazatel getPokazatel() {
-		return pokazatel;
-	}
-
-	public void setPokazatel(Izpitvan_pokazatel pokazatel) {
-		this.pokazatel = pokazatel;
-	}
-
-	
+		
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

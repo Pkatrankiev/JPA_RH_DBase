@@ -23,7 +23,6 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Results;
-import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Nuclide;
 import DBase_Class.Zabelejki;
@@ -36,7 +35,6 @@ public class ResultsDAO {
 
 	public static void setValueResults(
 			Nuclide nuclide, 
-			Sample sample, 
 			Metody metody, 
 			Razmernosti rtazmernosti,
 			String basic_value, 
@@ -60,7 +58,6 @@ public class ResultsDAO {
 		Results valueEnt = new Results();
 
 		valueEnt.setNuclide(nuclide);
-		valueEnt.setSample(sample);
 		valueEnt.setMetody(metody);
 		valueEnt.setRtazmernosti(rtazmernosti);
 
@@ -100,7 +97,6 @@ public class ResultsDAO {
 		for (Results e : list) {
 			System.out.println("Num:" + ((Results) e).getId_results() 
 					+ "  Nuclide :" + ((Results) e).getNuclide()
-					+ "  Sample :" + ((Results) e).getSample() 
 					+ "  Metody :" + ((Results) e).getMetody()
 					+ "  Rtazmernosti :" + ((Results) e).getRtazmernosti() 
 					+ "  Basic_value :" + ((Results) e).getBasic_value() 
@@ -132,16 +128,16 @@ public class ResultsDAO {
 		int ran = 1;
 
 		// Get Sample list
-		List<Sample> listSample = entitymanager.createQuery("SELECT e FROM Sample e").getResultList();
-		System.out.println("Num Sample:" + listSample.size());
+		List<Metody> listMetody = entitymanager.createQuery("SELECT e FROM Metody e").getResultList();
+		System.out.println("Num Metody:" + listMetody.size());
 
-		for (int samNum = 1; samNum <= listSample.size(); samNum++) {
+		for (int samNum = 1; samNum <= listMetody.size(); samNum++) {
 
-			Sample sample = SampleDAO.getValueSampleById(samNum);
+			Metody metody = MetodyDAO.getValueMetodyById(samNum);
 			int ranval = 1 + (int) (Math.random() * 3);
 			System.out.println();
 			System.out.println("***********************************************************");
-			System.out.println("Num Results:" + ranval);
+			System.out.println("Num Metody:" + ranval);
 			for (int i = 1; i <= ranval; i++) {
 
 				
@@ -154,14 +150,6 @@ public class ResultsDAO {
 				ran = min + (int) (Math.random() * ((max - min) + 1));
 				Nuclide nuclide = NuclideDAO.getValueSNuclideById(ran);
 				System.out.println("Name nuclide:" + nuclide.getSymbol_nuclide());
-
-				// Get random Metody object
-				List<Metody> listI = entitymanager.createQuery("SELECT e FROM Metody e").getResultList();
-				System.out.println("Num Metody:" + listI.size());
-				max = listI.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Metody metody = MetodyDAO.getValueMetodyById(ran);
-				System.out.println("Name Metody:" + metody.getName_metody());
 
 				// Get random Razmernosti object
 				List<Razmernosti> listR = entitymanager.createQuery("SELECT e FROM Razmernosti e").getResultList();
@@ -234,7 +222,6 @@ public class ResultsDAO {
 				}
 				setValueResults(
 						nuclide, 
-						sample, 
 						metody, 
 						razmernosti, 
 						"undefinition", 

@@ -6,28 +6,44 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table
+@NamedQuery(name="metodyList", query="SELECT r FROM Metody r")
+
 public class Metody implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
-		@Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_metody;
+	
+	@ManyToOne
+	private Sample sample;
+	@ManyToOne
+	private List_Metody list_metody;
 
-	private String name;
-	private String code;
+	@ManyToOne
+	private Izpitvan_pokazatel pokazatel;
 
-	public Metody(Integer id, String name, String code) {
+	
+	public Metody(
+			Sample sample,
+			List_Metody list_metody,
+			Izpitvan_pokazatel pokazatel) {
+		
 		super();
-		this.code = code;
-		this.name = name;
+		
+		this.sample = sample;
+		this.list_metody = list_metody;
+		this.pokazatel = pokazatel;
 	}
-
-	public Metody() {
+	
+	public Metody (){
 		super();
 	}
 
@@ -35,20 +51,40 @@ public class Metody implements Serializable {
 		return Id_metody;
 	}
 
-	public String getName_metody() {
-		return name;
+	public void setId_metody(int id_metody) {
+		Id_metody = id_metody;
 	}
 
-	public void setName_metody(String name) {
-		this.name = name;
+	
+	public Izpitvan_pokazatel getPokazatel() {
+		return pokazatel;
 	}
 
-	public String getCode_metody() {
-		return code;
+	public void setPokazatel(Izpitvan_pokazatel pokazatel) {
+		this.pokazatel = pokazatel;
 	}
 
-	public void setCode_metody(String code) {
-		this.code = code;
+	public Sample getSample() {
+		return sample;
 	}
 
+	public void setSample(Sample sample) {
+		this.sample = sample;
+	}
+
+	public List_Metody getList_metody() {
+		return list_metody;
+	}
+
+	public void setList_metody(List_Metody list_metody) {
+		this.list_metody = list_metody;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
+	
+	
 }

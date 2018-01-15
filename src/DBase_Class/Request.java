@@ -43,10 +43,6 @@ public class Request implements Serializable {
 	@ManyToOne
 	private Izpitvan_produkt izpitvan_produkt;
 	@ManyToOne
-	private Obekt_na_izpitvane obekt_na_izpitvane;
-	@ManyToOne
-	private Izpitvan_pokazatel pokazatel;
-	@ManyToOne
 	private Razmernosti razmernosti;
 	@ManyToOne
 	private Zabelejki zabelejki;
@@ -68,8 +64,6 @@ public class Request implements Serializable {
 			String date_execution,
 			Ind_num_doc ind_num_doc,
 			Izpitvan_produkt izpitvan_produkt, 
-			Obekt_na_izpitvane obekt_na_izpitvane, 
-			Izpitvan_pokazatel pokazatel,
 			Razmernosti razmernosti, 
 			Zabelejki zabelejki, 
 			Users users) {
@@ -90,8 +84,6 @@ public class Request implements Serializable {
 		this.date_execution = date_execution;
 		this.ind_num_doc = ind_num_doc;
 		this.izpitvan_produkt = izpitvan_produkt;
-		this.obekt_na_izpitvane = obekt_na_izpitvane;
-		this.pokazatel = pokazatel;
 		this.razmernosti = razmernosti;
 		this.zabelejki = zabelejki;
 		this.users = users;
@@ -209,22 +201,6 @@ public class Request implements Serializable {
 
 	public void setIzpitvan_produkt(Izpitvan_produkt izpitvan_produkt) {
 		this.izpitvan_produkt = izpitvan_produkt;
-	}
-
-	public Obekt_na_izpitvane getObekt_na_izpitvane() {
-		return obekt_na_izpitvane;
-	}
-
-	public void setObekt_na_izpitvane(Obekt_na_izpitvane obekt_na_izpitvane) {
-		this.obekt_na_izpitvane = obekt_na_izpitvane;
-	}
-
-	public Izpitvan_pokazatel getPokazatel() {
-		return pokazatel;
-	}
-
-	public void setPokazatel(Izpitvan_pokazatel pokazatel) {
-		this.pokazatel = pokazatel;
 	}
 
 	public Razmernosti getRazmernosti() {

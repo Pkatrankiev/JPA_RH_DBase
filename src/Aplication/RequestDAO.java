@@ -16,7 +16,7 @@ import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
-import DBase_Class.Metody;
+import DBase_Class.List_Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
@@ -35,8 +35,7 @@ public class RequestDAO {
 			External_applicant external_applicant, Internal_applicant internal_applicant, String applicant_name,
 			String applicant_family, int number_samples, String description_sample_group, String date_time_reception,
 			String date_execution, Ind_num_doc ind_num_doc, Izpitvan_produkt izpitvan_produkt,
-			Obekt_na_izpitvane obekt_na_izpitvane, Izpitvan_pokazatel pokazatel, Razmernosti razmernosti,
-			Zabelejki zabelejki, Users users) {
+			 Razmernosti razmernosti, Zabelejki zabelejki, Users users) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -61,8 +60,7 @@ public class RequestDAO {
 		valueEnt.setInd_num_doc(ind_num_doc);
 		valueEnt.setIzpitvan_produkt(izpitvan_produkt);
 		
-		valueEnt.setObekt_na_izpitvane(obekt_na_izpitvane);
-		valueEnt.setPokazatel(pokazatel);
+		
 		valueEnt.setRazmernosti(razmernosti);
 		
 		valueEnt.setZabelejki(zabelejki);
@@ -85,36 +83,27 @@ public class RequestDAO {
 		emfactory.close();
 
 		for (Request e : list) {
-			System.out.println("Num:" + ((Request) e).getId_recuest() + "  recuest_code :"
-					+ ((Request) e).getRecuest_code() + "  date_request :" + ((Request) e).getDate_request()
-					+ "  accreditation :" + ((Request) e).getAccreditation() +
-
-					"  external_applicant_name :" + ((Request) e).getExternal_applicant().getExternal_applicant_name()
-					+ "  external_applicant_address :"
-					+ ((Request) e).getExternal_applicant().getExternal_applicant_address()
-					+ "  external_applicant_telephone :"
-					+ ((Request) e).getExternal_applicant().getExternal_applicant_telephone()
-					+ "  external_applicant_contract_number :"
-					+ ((Request) e).getExternal_applicant().getExternal_applicant_contract_number() +
-
-					"  internal_applicant_organization :"
-					+ ((Request) e).getInternal_applicant().getInternal_applicant_organization()
-					+ "  internal_applicant_address :"
-					+ ((Request) e).getInternal_applicant().getInternal_applicant_address()
-					+ "  internal_applicant_telephone :"
-					+ ((Request) e).getInternal_applicant().getInternal_applicant_telephone() +
-
-					"  applicant_name :" + ((Request) e).getApplicant_name() + "  number_samples :"
-					+ ((Request) e).getNumber_samples() + "  description_sample_group :"
-					+ ((Request) e).getDescription_sample_group() + "  date_time_reception :"
-					+ ((Request) e).getDate_time_reception() + "  date_execution :" + ((Request) e).getDate_execution()
-					+ "  ind_num_doc :" + ((Request) e).getInd_num_doc().getName() + "  izpitvan_produkt :"
-					+ ((Request) e).getIzpitvan_produkt().getName_zpitvan_produkt() + "  obekt_na_izpitvane :"
-					+ ((Request) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane() + "  pokazatel :"
-					+ ((Request) e).getPokazatel().getName_pokazatel() + "  razmernosti :"
-					+ ((Request) e).getRazmernosti().getName_razmernosti() + "  zabelejki :"
-					+ ((Request) e).getZabelejki().getName_zabelejki() + "  users :"
-					+ ((Request) e).getUsers().getName_users() + " " + ((Request) e).getUsers().getFamily_users());
+			System.out.println("Num:" + ((Request) e).getId_recuest() 
+					+ "  recuest_code :"+ ((Request) e).getRecuest_code() 
+					+ "  date_request :" + ((Request) e).getDate_request()
+					+ "  accreditation :" + ((Request) e).getAccreditation() 
+					+"  external_applicant_name :" + ((Request) e).getExternal_applicant().getExternal_applicant_name()
+					+ "  external_applicant_address :"+ ((Request) e).getExternal_applicant().getExternal_applicant_address()
+					+ "  external_applicant_telephone :"+ ((Request) e).getExternal_applicant().getExternal_applicant_telephone()
+					+ "  external_applicant_contract_number :"+ ((Request) e).getExternal_applicant().getExternal_applicant_contract_number() 
+					+"  internal_applicant_organization :"+ ((Request) e).getInternal_applicant().getInternal_applicant_organization()
+					+ "  internal_applicant_address :"+ ((Request) e).getInternal_applicant().getInternal_applicant_address()
+					+ "  internal_applicant_telephone :"+ ((Request) e).getInternal_applicant().getInternal_applicant_telephone() 
+					+"  applicant_name :" + ((Request) e).getApplicant_name() 
+					+ "  number_samples :"+ ((Request) e).getNumber_samples() 
+					+ "  description_sample_group :"+ ((Request) e).getDescription_sample_group() 
+					+ "  date_time_reception :"+ ((Request) e).getDate_time_reception() 
+					+ "  date_execution :" + ((Request) e).getDate_execution()
+					+ "  ind_num_doc :" + ((Request) e).getInd_num_doc().getName() 
+					+ "  izpitvan_produkt :"+ ((Request) e).getIzpitvan_produkt().getName_zpitvan_produkt() 
+					+ "  razmernosti :"+ ((Request) e).getRazmernosti().getName_razmernosti() 
+					+ "  zabelejki :"+ ((Request) e).getZabelejki().getName_zabelejki() 
+					+ "  users :"+ ((Request) e).getUsers().getName_users() + " " + ((Request) e).getUsers().getFamily_users());
 		}
 		return list;
 	}
@@ -223,8 +212,6 @@ for (int i = 1; i < 9; i++) {
 		 "25.12.2017", //date_execution
 		 ind_num_doc, //ind_num_doc
 		 izpitvan_produkt, //izpitvan_produkt
-		 obekt_na_izpitvane, //obekt_na_izpitvane
-		 izpitvan_pokazatel, //izpitvan_pokazatel
 		 razmernosti, //razmernosti
 		 zabelejki, //zabelejki
 		 users); //users

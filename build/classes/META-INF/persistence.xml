@@ -14,9 +14,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	 <class>DBase_Class.Obekt_na_izpitvane</class>
 	 <class>DBase_Class.Zabelejki</class>
 	 <class>DBase_Class.Razmernosti</class>
-	 <class>DBase_Class.Metody</class>
+	 <class>DBase_Class.List_Metody</class>
 	 <class>DBase_Class.Users</class>
 	 <class>DBase_Class.Nuclide</class>
+	 <class>DBase_Class.Metody</class>
 	 <class>DBase_Class.Internal_applicant</class>
 	 <class>DBase_Class.External_applicant</class>
 	 <class>DBase_Class.Request</class>

@@ -19,7 +19,7 @@ public class SampleDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setValueSample(int sample_code, String description_sample, String date_time_reference,
-			Request request, Obekt_na_izpitvane obekt_na_izpitvane, Izpitvan_pokazatel pokazatel) {
+			Request request, Obekt_na_izpitvane obekt_na_izpitvane) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -31,7 +31,7 @@ public class SampleDAO {
 		valueEnt.setDate_time_reference(date_time_reference);
 		valueEnt.setRequest(request);
 		valueEnt.setObekt_na_izpitvane(obekt_na_izpitvane);
-		valueEnt.setPokazatel(pokazatel);
+		
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
@@ -59,8 +59,7 @@ public class SampleDAO {
 							((Sample) e).getSample_code(),
 							((Sample) e).getDescription_sample(),
 							((Sample) e).getDate_time_reference(),
-							((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane(),
-							((Sample) e).getPokazatel().getName_pokazatel() );
+							((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
 			System.out.println();
 			
 			
@@ -105,22 +104,13 @@ public class SampleDAO {
 			Obekt_na_izpitvane obekt_na_izpitvane = Obekt_na_izpitvaneDAO.getValueObekt_na_izpitvaneById(ran);
 			System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
 
-			// Get random Izpitvan_pokazatel object
-			List<Izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e")
-					.getResultList();
-			System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
-			max = listIp.size();
-			ran = min + (int) (Math.random() * ((max - min) + 1));
-			Izpitvan_pokazatel izpitvan_pokazatel = Izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
-			System.out.println("Name Izpitvan_pokazatel:" + izpitvan_pokazatel.getName_pokazatel());
+		
 
 			setValueSample(i, // sample_code
 					"проби1", // description_sample
 					"22.12.2017 /12:00", // date_time_reference
 					request, // request object
-					obekt_na_izpitvane, // obekt_na_izpitvane
-					izpitvan_pokazatel // izpitvan_pokazatel
-			);
+					obekt_na_izpitvane );
 		}
 					}
 		entitymanager.close();

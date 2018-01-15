@@ -9,86 +9,126 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Izpitvan_pokazatel;
+import DBase_Class.List_Metody;
 import DBase_Class.Metody;
+import DBase_Class.Results;
 import DBase_Class.Sample;
 
 public class MetodyDAO {
-
+	
+	private static final String internal_applicant = null;
 	static String name_DBase = "JPA_RH_DBase";
 
-	public static void setBasikValueMetody(){
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю юктю-хгкзвбюых пюдхнмсйкхдх х 89/90Sr бзб бндх х цнпхлх люрепхюкх", "л.кх-пу √ 01 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю рпхрхи", "л.кх-пу √ 03 педюйжхъ 03");
-		setValueMetody("йюкхапхпюме мю ревмняжхмрхкюжхнмем яоейрпнлерзп", "л.кх-пу √ 04 педюйжхъ 03");
-		setValueMetody("йюкхапхпюме мю юктю-яоейрпнлерпхвмю яхярелю", "л.кх-пу √ 05 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю рпхрхи бзб бндх", "л.кх-пу √ 03 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 241Pu якед юктю-яоейрпнлерпхъ", "л.кх-пу √ 07 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю юктю-хгкзвбюых пюдхнмсйкхдх б пюгкхвмх люрпхжх", "л.кх-пу √ 08 педюйжхъ 02");
-		setValueMetody("нопедекъме мю етейрхбмняррю мю пецхярпхпюме мю пюдхнмсйкхдхре 89SR, 90SR х 90Y опх вепемйнбн апнеме", "л.кх-пу √ 09 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю цюлю-хгкзвбюых пюдхнмсйкхдх", "л.кх-пу √ 10 педюйжхъ 02");
-		setValueMetody("йюкхапхпюме мю цюлю-яоейрпнлерпхвмю яхярелю", "л.кх-пу √ 11 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 129I впег мхяйнемепцхимю цюлю-яоейрпнлерпхъ", "л.кх-пу √ 12 педюйжхъ 01");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 232Th х 237Np бзб бндх", "л.кх-пу √ 13 педюйжхъ 01");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 99рЯ б пюгкхвмх люрпхжх", "л.кх-пу √ 14 педюйжхъ 03");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 14C б пюгкхвмх люрпхжх", "л.кх-пу √ 15 педюйжхъ 02");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 14C б пюгкхвмх люрпхжх", "л.кх-пу √ 15 педюйжхъ 03");
-		setValueMetody("нопедекъме мю яздзпфюмхерн мю 55Fe, 63Ni, 89/90Sr х 241Pu б пюгкхвмх люрпхжх", "л.кх-пу √ 16 педюйжхъ 03");
-		setValueMetody("йюкхапхпюме мю юктю-яоейрпнлерпхвмю яхярелю CANBERRA ALPHA ANALYST", "л.кх-пу √ 21 педюйжхъ 01");
-
+	public static void setValueMetody(
+			Sample sample,
+			List_Metody list_metody,
+			Izpitvan_pokazatel pokazatel){
 		
-	}
-	
-//	Metody
-	
-	public static void setValueMetody(String value, String code) {
-
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
+
 		Metody valueEnt = new Metody();
-		valueEnt.setName_metody(value);
-		valueEnt.setCode_metody(code);
+
+		valueEnt.setSample(sample);
+		valueEnt.setList_metody(list_metody);
+		valueEnt.setPokazatel(pokazatel);
+		
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
+		
 	}
-
-	public static List<Metody> getInListAllValueMetody() {
+	
+	public static List<Metody> getInListAllValueResults() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Metody e");
+
 		List<Metody> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 
-//		for (Metody e : list) {
-//			System.out.println("setValueMetody(\"" + ((Metody) e).getName_metody()
-//					+"\", \"" + ((Metody) e).getCode_metody()+"\");");
-//		}
-		
-		
-//		for (Metody e : list) {
-//			System.out.println("Num:" + ((Metody) e).getId_metody() + "  NAME :" + ((Metody) e).getName_metody()
-//					+ "  Kode :" + ((Metody) e).getCode_metody());
-//		}
+		for (Metody e : list) {
+			System.out.println("Num:" + ((Metody) e).getId_metody() 
+					+ "  Sample :" + ((Metody) e).getSample()
+					+ "  Metody :" + ((Metody) e).getList_metody());
+					
+		}
 		return list;
-	}
 
+}
+	
+	public static void setBasicValueMetody() {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		int min = 1;
+		int max = 1;
+		int ran = 1;
+		
+		// Get Sample list
+				List<Sample> listSample = entitymanager.createQuery("SELECT e FROM Sample e").getResultList();
+				System.out.println("Num Sample:" + listSample.size());
+
+				for (int samNum = 1; samNum <= listSample.size(); samNum++) {
+
+		Sample sample = SampleDAO.getValueSampleById(samNum);
+		int ranval = 1 + (int) (Math.random() * 2);
+		System.out.println();
+		System.out.println("***********************************************************");
+		System.out.println("Num Results:" + ranval);
+		for (int i = 1; i <= ranval; i++) {
+				
+		
+		// Get random Metody object
+		List<List_Metody> listI = entitymanager.createQuery("SELECT e FROM List_Metody e").getResultList();
+		System.out.println("Num List_Metody:" + listI.size());
+		max = listI.size();
+		ran = min + (int) (Math.random() * ((max - min) + 1));
+		List_Metody list_metody = List_MetodyDAO.getValueMetodyById(ran);
+		System.out.println("Name Metody:" + list_metody.getName_metody());
+		
+		
+		// Get random Izpitvan_pokazatel object
+		List<Izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e")
+				.getResultList();
+		System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
+		max = listIp.size();
+		ran = min + (int) (Math.random() * ((max - min) + 1));
+		Izpitvan_pokazatel izpitvan_pokazatel = Izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
+		System.out.println("Name Izpitvan_pokazatel:" + izpitvan_pokazatel.getName_pokazatel());
+		
+		setValueMetody(sample,
+				list_metody,
+				izpitvan_pokazatel
+				);
+		
+		
+					}
+				}
+				
+				entitymanager.close();
+				emfactory.close();
+	}
+	
+	
 	@GET
 	@QueryParam("{id}")
 	public static Metody getValueMetodyById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-	EntityManager entitymanager = emfactory.createEntityManager();
-	entitymanager.getTransaction().begin();
-	Metody  metody = (Metody) entitymanager.find(Metody.class, id);
-	
-	entitymanager.close();
-	emfactory.close();
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Metody request = (Metody) entitymanager.find(Metody.class, id);
 
-	return metody;
-}
-	
-	
+		entitymanager.close();
+		emfactory.close();
+
+		return request;
+	}
 }

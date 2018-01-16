@@ -58,7 +58,7 @@ public static void setBasikValuePokazatel(){
 
 	@GET
 	@QueryParam("{id}")
-public static Izpitvan_pokazatel getValueIzpitvan_pokazatelById(@QueryParam("id") int id) {
+	public static Izpitvan_pokazatel getValueIzpitvan_pokazatelById(@QueryParam("id") int id) {
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();

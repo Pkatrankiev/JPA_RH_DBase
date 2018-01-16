@@ -13,5 +13,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Soft/workspaceDPRAOJava/doc/Lib/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/workspaceDPRAOJava/doc/Lib/poi-scratchpad-3.9.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

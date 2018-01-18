@@ -1,13 +1,13 @@
 package WindowView;
 
 import java.io.FileInputStream;
+import java.util.List;
+
 import org.apache.poi.hwpf.model.*;
 import org.apache.poi.hwpf.usermodel.*;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
-import org.apache.poi.hwpf.usermodel.HeaderStories;
-import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 public class ReaderWordDoc {
@@ -25,13 +25,13 @@ public class ReaderWordDoc {
 			int pageNumber = 1;
 
 			/** We will try reading the header for page 1 **/
-			readHeader(doc, pageNumber);
+//			readHeader(doc, pageNumber);
 
 			/** Let's try reading the footer for page 1 **/
-			readFooter(doc, pageNumber);
+//			readFooter(doc, pageNumber);
 
 			/** Read the document summary **/
-			readDocumentSummary(doc);
+//			readDocumentSummary(doc);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class ReaderWordDoc {
 
 	}
 
-	public static void readTable(HWPFDocument doc) {
+	public static void readTable1(HWPFDocument doc) {
 		Range range = doc.getRange();
 		int tab = 0;
 		int row = 0;
@@ -132,68 +132,149 @@ public class ReaderWordDoc {
 
 		}
 
-		 for (int tab1 = 0; tab1 < tab; tab1++) {
-		 if (cels[tab1][0][0] != null) {
-		// System.out.println("tab " + (tab1 + 1));
-		// System.out.println();
-		 }
-		
-		String columnNames[] = new String[maxcol[tab1]];
-		Object data[][] = new Object[maxrow[tab1] - 1][maxcol[tab1]];
-		String cleanString = "";
-
-		for (int row1 = 0; row1 < maxrow[tab1]; row1++) {
-			// System.out.println();
-
-			for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
-				// System.out.println(cels[tab1][row1][col1]);
-
-				// System.out.format("|%20s", cels[tab1][row1][col1]);
-				if (cels[tab1][row1][col1] == null) {
-					cleanString = "";
-				} else
-					cleanString = cels[tab1][row1][col1].replaceAll("\r", "").replaceAll("\n", "");
-				if (row1 == 0) {
-					columnNames[col1] = cleanString;
-				} else
-					data[row1 - 1][col1] = cleanString;
+		for (int tab1 = 0; tab1 < tab; tab1++) {
+			if (cels[tab1][0][0] != null) {
+				// System.out.println("tab " + (tab1 + 1));
+				// System.out.println();
 			}
 
-		}
-//		for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
-//			System.out.print(columnNames[col1] + "\", \"");
-//		}
+			String columnNames[] = new String[maxcol[tab1]];
+			Object data[][] = new Object[maxrow[tab1] - 1][maxcol[tab1]];
+			String cleanString = "";
+
+			for (int row1 = 0; row1 < maxrow[tab1]; row1++) {
+				// System.out.println();
+
+				for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
+					// System.out.println(cels[tab1][row1][col1]);
+
+					// System.out.format("|%20s", cels[tab1][row1][col1]);
+					if (cels[tab1][row1][col1] == null) {
+						cleanString = "";
+					} else
+						cleanString = cels[tab1][row1][col1].replaceAll("\r", "").replaceAll("\n", "");
+					if (row1 == 0) {
+						columnNames[col1] = cleanString;
+					} else
+						data[row1 - 1][col1] = cleanString;
+				}
+
+			}
+			// for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
+			// System.out.print(columnNames[col1] + "\", \"");
+			// }
 			for (String objects : columnNames) {
 				System.out.print(objects + "\", \"");
 			}
-			
-			
-		
-		for (int row1 = 0; row1 < maxrow[tab1] - 1; row1++) {
-			System.out.println();
-			for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
-				System.out.print(data[row1][col1] + "\", \"");
+
+			for (int row1 = 0; row1 < maxrow[tab1] - 1; row1++) {
+				System.out.println();
+				for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
+					System.out.print(data[row1][col1] + "\", \"");
+				}
 			}
+			TablePrintDemo.createAndShowGUI(columnNames, data);
 		}
-		TablePrintDemo.createAndShowGUI(columnNames, data);
+
+		// String[] columnNames = {"1", "2", "3", "4", "5", "6", ""};
+		// Object[][] data = {
+		// {"3344-1", "", "БНС-1 , СК-1 ", "Bq/g", "3.05E+04 ± 0.34E+04",
+		// "-",
+		// ""},
+		// {"", "", "Съдържание на 63Ni", "", "2.26E+04 ± 0.27E+04", "-",
+		// ""},
+		// {"", "", "Съдържание на 90Sr", "", "", "","-"},
+		// {"", "", "Съдържание на 241Pu", "", "3.93E+03 ± 0.52E+03", "-",
+		// ""},
+		// {"3344-2", "", "Съдържание на алфа-излъчващи радионуклиди:", "",
+		// "#",
+		// "#", "#"},
+		// {"", "M.ЛИ-РХ-08 Редакция 02/2014", "241Am", "Bq/g", "5.52E+01 ±
+		// 0.52E+01", "-", ""}
+		//
+		// };
+
 	}
 
-	// String[] columnNames = {"1", "2", "3", "4", "5", "6", ""};
-	// Object[][] data = {
-	// {"3344-1", "", "БНС-1 , СК-1 ", "Bq/g", "3.05E+04 ± 0.34E+04", "-",
-	// ""},
-	// {"", "", "Съдържание на 63Ni", "", "2.26E+04 ± 0.27E+04", "-",
-	// ""},
-	// {"", "", "Съдържание на 90Sr", "", "", "","-"},
-	// {"", "", "Съдържание на 241Pu", "", "3.93E+03 ± 0.52E+03", "-",
-	// ""},
-	// {"3344-2", "", "Съдържание на алфа-излъчващи радионуклиди:", "", "#",
-	// "#", "#"},
-	// {"", "M.ЛИ-РХ-08 Редакция 02/2014", "241Am", "Bq/g", "5.52E+01 ±
-	// 0.52E+01", "-", ""}
-	//
-	// };
+	public static void readTable(HWPFDocument doc) {
+		Range range = doc.getRange();
+		Boolean endTab = true;
 
-	 }
+		int numtab = -1;
+		int numPargraf = 0;
+		String[] paragrafList;
+		String cels[][][] = new String[5][100][20];
+		int maxrow[] = new int[5];
+		int maxcol[] = new int[5];
+
+		for (int i = 0; i < range.numParagraphs(); i++)
+
+		{
+			Paragraph tablePar = range.getParagraph(i);
+
+			if (tablePar.isInTable()) {
+				if (endTab) {
+					endTab = false;
+
+					
+					Table table = range.getTable(tablePar);
+					numtab++;
+					for (int rowIdx = 0; rowIdx < table.numRows(); rowIdx++) {
+						TableRow row = table.getRow(rowIdx);
+						
+						for (int colIdx = 0; colIdx < row.numCells(); colIdx++) {
+							TableCell cell = row.getCell(colIdx);
+							String text = "";
+							for (int celIdx = 0; celIdx < cell.numParagraphs(); celIdx++) {
+
+								text = text + cell.getParagraph(celIdx).text();
+
+							}
+							i = i + cell.numParagraphs();
+							
+							cels[numtab][rowIdx][colIdx] = text;
+						}
+						maxcol[numtab] = row.numCells();
+					}
+					maxrow[numtab] = table.numRows();
+
+				}
+			} else {
+				endTab = true;
+				
+				System.out.println("***** "+tablePar.text());
+			}
+
+		}
+		
+
+		for (int tab1 = 0; tab1 <= numtab; tab1++) {
+			
+
+			String columnNames[] = new String[maxcol[tab1]];
+			Object data[][] = new Object[maxrow[tab1] - 1][maxcol[tab1]];
+			String cleanString = "";
+
+			for (int row1 = 0; row1 < maxrow[tab1]; row1++) {
+			
+				for (int col1 = 0; col1 < maxcol[tab1]; col1++) {
+
+					if (cels[tab1][row1][col1] == null) {
+						cleanString = "";
+					} else
+						cleanString = cels[tab1][row1][col1].replaceAll("\r", " ").replaceAll("\n", " ");
+
+					if (row1 == 0) {
+						columnNames[col1] = cleanString;
+					} else
+						data[row1 - 1][col1] = cleanString;
+				}
+
+			}
+
+			TablePrintDemo.createAndShowGUI(columnNames, data);
+		}
+
+	}
 
 }

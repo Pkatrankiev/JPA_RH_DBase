@@ -18,19 +18,20 @@ public class Ind_num_docDAO {
 	
 
 	public static void setBasikValueInd_num_doc(){
-		setValueInd_num_doc("��12-��.���.��.007/00");
-		setValueInd_num_doc("��08-��.���.��.002/00");
-		setValueInd_num_doc("��01-��.���.��.001/01");
+		setValueInd_num_doc("ПП12-ИЕ.РНК.ПН.007/00","Охарактеризиране на шламове и утайки в СП,,ИЕ 1÷4 блок");
+		setValueInd_num_doc("ОП08-ИЕ.ФХК.ПР.002/00", "Проект 5f. Осигуряване проследимост на пробите от БНС и БВС на СК-1 и СК-2");
+		setValueInd_num_doc("ОП01-ИЕ.РНК.УН.001/01", "Обем и организация на радиохимичния и технологичен контрол");
 		
 	}
 	
-	public static void setValueInd_num_doc(String value) {
+	public static void setValueInd_num_doc(String value, String content) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Ind_num_doc valueEnt = new Ind_num_doc();
 		valueEnt.setName(value);
+		valueEnt.setContent(content);
 		;
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();

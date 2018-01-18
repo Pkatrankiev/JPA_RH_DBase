@@ -31,8 +31,8 @@ public class Main_Aplication {
 
 //		SampleDAO.getInListAllValueSample();
 //		SetBasikValueInDataBase();
-		
-		String fileName = "C:\\Users\\ALPHA\\Desktop\\3344.doc";
+	
+		String fileName = "C:\\Users\\ALPHA\\Desktop\\3484.doc";
 		ReaderWordDoc.readMyDocument(fileName);
 //		StartMainWindow();
 	}

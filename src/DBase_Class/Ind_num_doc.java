@@ -20,12 +20,12 @@ public class Ind_num_doc implements Serializable {
 	 private int Id_ind_num_doc;
 
 	 private String name;
-	
+	private String content;
 
-	 public Ind_num_doc(Integer id, String name) {
+	 public Ind_num_doc(Integer id, String name, String content) {
 	     super( );
 	     
-	     
+	     this.content = content;
 	     this.name = name;
 	    
 	  }
@@ -39,7 +39,23 @@ public class Ind_num_doc implements Serializable {
 	 }
 
 	
-	 public String getName() {
+	 public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setId_ind_num_doc(int id_ind_num_doc) {
+		Id_ind_num_doc = id_ind_num_doc;
+	}
+
+	public String getName() {
 	 return name;
 	 }
 

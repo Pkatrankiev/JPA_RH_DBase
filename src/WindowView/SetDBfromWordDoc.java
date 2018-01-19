@@ -13,7 +13,8 @@ public class SetDBfromWordDoc {
 	 System.out.println("Broy coll "+celsTranfer[0][0].length);
 	 String cellVolume;
 	 
-	 
+	 String[] columnNames = null; 
+	 Object[][] data;
 	 
 	 for (int tab = 0; tab < celsTranfer.length; tab++) {
 		 
@@ -22,30 +23,42 @@ public class SetDBfromWordDoc {
 			 for (int coll = 0; coll < celsTranfer[0][0].length; coll++) {
 				 
 				 cellVolume = celsTranfer[tab][row][coll];
-				
+				if (row==0){
+					 columnNames[coll] = cellVolume;
+				} data
+				 
+				 
 				 /** is RECUEST_CODE in RECUEST Class**/
-				 cellVolume.replaceAll(" ", "");
-				 String recuest_code = "";
-				 if(cellVolume.startsWith("№")){
-					
-					recuest_code = cellVolume.substring(1,5);
-				}
-				 System.out.println("RECUEST_CODE "+ recuest_code);
+//				 Search_RECUEST_CODE(cellVolume);
 				 
 				 
 				 /** is ACCREDITATION in RECUEST Class**/
-				 System.out.println("cellVolume  "+cellVolume);
-				 Boolean accreditation=false;
-				 cellVolume.replaceAll(" ", "");
-				 if(cellVolume.startsWith("Сертификат")){
-					 accreditation=true;
-						}
-				 System.out.println("ACCREDITATION "+ accreditation);
+//				 Search_ACCREDITATION(cellVolume);
 			}
 			
 		}
 		
 	}
 	
+	}
+
+	private static void Search_ACCREDITATION(String cellVolume) {
+		System.out.println("cellVolume  "+cellVolume);
+		 Boolean accreditation=false;
+		 cellVolume.replaceAll(" ", "");
+		 if(cellVolume.startsWith("Сертификат")){
+			 accreditation=true;
+				}
+		 System.out.println("ACCREDITATION "+ accreditation);
+	}
+
+	private static void Search_RECUEST_CODE(String cellVolume) {
+		cellVolume.replaceAll(" ", "");
+		 String recuest_code = "";
+		 if(cellVolume.startsWith("№")){
+			
+			recuest_code = cellVolume.substring(1,5);
+		}
+		 System.out.println("RECUEST_CODE "+ recuest_code);
 	}
 }

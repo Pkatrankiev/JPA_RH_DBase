@@ -18,6 +18,7 @@ import DBase_Class.Nuclide;
 import WindowView.Login;
 import WindowView.MainWindows;
 import WindowView.ReaderWordDoc;
+import WindowView.SetDBfromWordDoc;
 import WindowView.TablePrintDemo;
 import DBase_Class.Izpitvan_pokazatel;
 
@@ -32,8 +33,10 @@ public class Main_Aplication {
 //		SampleDAO.getInListAllValueSample();
 //		SetBasikValueInDataBase();
 	
-		String fileName = "C:\\Users\\ALPHA\\Desktop\\3484.doc";
-		ReaderWordDoc.readMyDocument(fileName);
+		String fileName = "C:\\Users\\ALPHA\\Desktop\\3344.doc";
+//		ReaderWordDoc.readMyDocument(fileName);
+		SetDBfromWordDoc.setVolume(fileName);
+//		TablePrintDemo.createAndShowGUI(columnNames, data);
 //		StartMainWindow();
 	}
 

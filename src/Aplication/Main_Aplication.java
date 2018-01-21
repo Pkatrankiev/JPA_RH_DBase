@@ -31,13 +31,16 @@ public class Main_Aplication {
 		
 
 //		SampleDAO.getInListAllValueSample();
+		
 //		SetBasikValueInDataBase();
 	
-		String fileName = "C:\\Users\\ALPHA\\Desktop\\3344.doc";
+		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";
 //		ReaderWordDoc.readMyDocument(fileName);
 		SetDBfromWordDoc.setVolume(fileName);
-//		TablePrintDemo.createAndShowGUI(columnNames, data);
 //		StartMainWindow();
+		
+//		System.out.println(Izpitvan_produktDAO.getValueIzpitvan_produktByName("Течни изхвърляния8").getName_zpitvan_produkt());
+		
 	}
 
 	private static void StartMainWindow() {

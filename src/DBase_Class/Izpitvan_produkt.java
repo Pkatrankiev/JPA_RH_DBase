@@ -16,7 +16,7 @@ import javax.persistence.Table;
 	// get all posts
 	@NamedQuery(name = "getAllValueIzpitvan_produkt", query = "SELECT p FROM Izpitvan_produkt p"), 
 	// get posts by author
-	@NamedQuery(name = "getValueIzpitvan_produktById", query = "SELECT p FROM Izpitvan_produkt p WHERE p.Id_izpitvan_produkt=:Id_izpitvan_produkt"),
+	@NamedQuery(name = "getValueIzpitvan_produktByName", query = "SELECT p FROM Izpitvan_produkt p WHERE p.name=:name"),
 		})
 public class Izpitvan_produkt implements Serializable {
 	

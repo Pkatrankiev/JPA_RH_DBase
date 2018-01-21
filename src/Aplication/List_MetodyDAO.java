@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_Metody;
 import DBase_Class.Sample;
 
@@ -90,5 +91,24 @@ public class List_MetodyDAO {
 	return metody;
 }
 	
-	
+	@GET
+	public static List_Metody getValueList_MetodyByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM List_Metody e WHERE e.code = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueMetody("uknou", name);	
+		}
+		List_Metody list = (List_Metody) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}	
 }

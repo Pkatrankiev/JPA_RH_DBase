@@ -182,7 +182,7 @@ public class ReaderWordDoc {
 
 		int totalMaxRaw = 0;
 
-		int numtab = -1;
+		int numtab = 0;
 
 		int numPargraf = 0;
 
@@ -308,11 +308,11 @@ public class ReaderWordDoc {
 
 		
 
-		String celsTranfer[][][] = new String[numtab+2][totalMaxRaw][totalMaxColl];
+		String celsTranfer[][][] = new String[numtab+1][totalMaxRaw][totalMaxColl];
 
 		
 
-		for (int tab1 = 0; tab1 <= numtab; tab1++) {
+		for (int tab1 = 1; tab1 <= numtab; tab1++) {
 
 
 
@@ -389,7 +389,7 @@ public class ReaderWordDoc {
 
 			data[k][0] = dataPragraph;
 
-			celsTranfer[numtab+1][k][0] =  dataPragraph;
+			celsTranfer[0][k][0] =  dataPragraph;
 
 			k++;
 

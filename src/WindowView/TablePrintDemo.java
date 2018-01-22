@@ -79,7 +79,6 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 	}
 
 
-
 	public TablePrintDemo(String[] columnNames, Object[][] data) {
 
 		super(new GridLayout(1, 0));

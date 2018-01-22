@@ -394,7 +394,7 @@ public class ReaderWordDoc {
 			k++;
 
 		}
-		System.out.println("numtab+1 "+numtab+1);
+		System.out.println("numtab+1 "+(numtab+1));
 		TablePrintDemo.createAndShowGUI(columnNames, data);
 
 	return celsTranfer;

@@ -137,7 +137,7 @@ public class SetDBfromWordDoc {
 			sample[i] = str.substring((str.indexOf("/", 0) + 1), str.length()).trim();
 
 		}
-		
+
 		/** split tabs in one tab **/
 		int new_tab_row = 0;
 		Boolean flag = false;
@@ -147,8 +147,9 @@ public class SetDBfromWordDoc {
 					new_tab_row++;
 				flag = false;
 				for (int coll = 0; coll < celsTranfer[0][0].length; coll++) {
-					if (celsTranfer[tab][row][coll] != null)
+					if (celsTranfer[tab][row][coll] != null) {
 						flag = true;
+					}
 				}
 			}
 		}
@@ -156,129 +157,160 @@ public class SetDBfromWordDoc {
 		System.out.println("row :" + new_tab_row + " cell :" + celsTranfer[0][0].length);
 		int new_row = 0;
 		int new_cell = celsTranfer[0][0].length;
-		
-		String[][] newTab = new String[new_tab_row + 2][celsTranfer[0][0].length];
+
+		String[][] newTab = new String[new_tab_row][celsTranfer[0][0].length];
 		for (int tab = 2; tab < celsTranfer.length; tab++) {
 			for (int row = 0; row < celsTranfer[0].length; row++) {
 				if (flag)
-					new_tab_row++;
+					new_row++;
 				flag = false;
 				for (int coll = 0; coll < new_cell; coll++) {
 					if (celsTranfer[tab][row][coll] != null) {
 						flag = true;
+					}
+					if (new_row < new_tab_row) {
+
 						newTab[new_row][coll] = celsTranfer[tab][row][coll];
+
 					}
 				}
+			}
+		}
+		String[] columnNames2 = new String[newTab[0].length];
 
+		for (int j = 0; j < newTab[0].length; j++) {
+
+			columnNames2[j] = j + "";
+		}
+
+		TablePrintDemo.createAndShowGUI(columnNames2, newTab);
+
+		/** SET interval SAMPLES **/
+		int sample_N = 0;
+
+		int[] row_sample_start = new int[number_samples];
+		String qurent_sample = null;
+		for (int row = 0; row < newTab.length; row++) {
+			cellVolume = newTab[row][0];
+			cellVolume = cellVolume.replaceAll(" ", "").replaceAll("\r", "");
+
+			if (cellVolume.startsWith(recuest_code) & !cellVolume.equals(qurent_sample)) {
+				qurent_sample = cellVolume;
+				sample_N = (Integer.parseInt(cellVolume.substring((cellVolume.indexOf("-") + 1), cellVolume.length())))
+						- 1;
+				row_sample_start[sample_N] = row;
+				System.out.println("sample_N " + sample_N + " start " + row_sample_start[sample_N]);
 			}
 		}
 
-		List_Metody[][] metodi_sample = new List_Metody[number_samples][10];
-		Izpitvan_pokazatel[][][] pokazatel_metodi_sample = new Izpitvan_pokazatel[number_samples][10][10];
-		int sample_N = 0;
-		int num_mtody = 0;
-		Boolean flag_metody = false;
-		int num_pokazatel_mtody = 0;
+		/** LIST_METODY in METODY Class **/
+		int[][] row_metody_start = new int[number_samples][10];
+		int end_num = 0;
 		int[] max_num_metody = new int[number_samples];
-		int[][] max_num_pokazatel_metody = new int[number_samples][10];
-		String qurent_sample = null;
+		      
 
+		List_Metody[][] metodi_sample = new List_Metody[number_samples][10];
+		for (int num_samples = 0; num_samples < number_samples; num_samples++) {
+			int num_metody = 0;
+			if (num_samples == number_samples - 1) {
+				end_num = newTab.length;
+			} else {
+				end_num = row_sample_start[num_samples + 1];
+			}
+
+			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
+				cellVolume = newTab[row][1];
+
+				cellVolume = cellVolume.replaceAll("\r", " ").trim();
+
+				if (cellVolume.startsWith("M.ЛИ-РХ")) {
+
+//					metodi_sample[num_samples][num_metody] = List_MetodyDAO.getValueList_MetodyByName(cellVolume);
+
+					row_metody_start[num_samples][num_metody] = row - 1;
+					num_metody++;
+					max_num_metody[num_samples] = num_metody;
+					
+					}
+				
+			}
+			System.out.println("max_num_metody ["+num_samples+"] "+max_num_metody[num_samples]);
+		}
+		/**
+		 * List_Metody-metodi_sample[number_samples][max_num_metody[num_samples]
+		 * ] int-row_metody_start[number_samples][num_metody]
+		 * int-max_num_metody[number_samples]
+		 **/
+
+		/** POKAZATEL in METODY Class **/
+		int num = max_num_metody[number_samples-1];
+		Izpitvan_pokazatel[][][] pokazatel_metodi_sample = new Izpitvan_pokazatel[number_samples][num][10];
+		int[][] max_num_pokazatel_metody = new int[number_samples][num];
+		int num_metody_pokazatel = 0;
+		for (int num_samples = 0; num_samples < number_samples; num_samples++) {
+			
+			for (int num_metody_samples = 0; num_metody_samples < max_num_metody[num_samples]; num_metody_samples++) {
+				
+				
+				if (row_metody_start[num_samples][num_metody_samples] == max_num_metody[num_samples]) {
+					end_num = newTab.length;
+				} else {
+					end_num = row_metody_start[num_samples][num_metody_pokazatel+1];
+				}
 	
-
-		 for (int row = 0; row < new_row; row++) {
-		 for (int coll = 0; coll < new_cell; coll++) {
-		
-		 cellVolume = newTab[row][coll];
-		 if (cellVolume != null) {
-		
-		 /** LIST_METODY **/
-		
-		 if (coll == 0) {
-		 cellVolume = cellVolume.replaceAll(" ", "").replaceAll("\r", "");
-		 System.out.println("cellVolume " + cellVolume);
-		 if (cellVolume.startsWith(recuest_code) &
-		 !cellVolume.equals(qurent_sample)) {
-		 qurent_sample = cellVolume;
-		 num_mtody = 0;
-		 sample_N = Integer
-		 .parseInt(cellVolume.substring((cellVolume.indexOf("-") + 1),
-		 cellVolume.length()));
-		 System.out.println("sample_N " + sample_N);
-		 }
-		 }
-		 /** LIST_METODY in METODY Class **/
-		 cellVolume = cellVolume.replaceAll("\r", " ").trim();
-		 if (flag_metody & cellVolume.startsWith("M.ЛИ-РХ")) {
-		 flag_metody = false;
-		 } else {
-		 if (cellVolume.startsWith("M.ЛИ-РХ")) {
-		 flag_metody = true;
-		 row--;
-		 metodi_sample[sample_N - 1][num_mtody] = List_MetodyDAO
-		 .getValueList_MetodyByName(cellVolume);
-		 System.out.println("-----------------------------------metodi_sample"
-		 + (sample_N - 1)
-		 + " / " + num_mtody + " - "
-		 + metodi_sample[sample_N - 1][num_mtody].getCode_metody());
-		 num_mtody++;
-		 num_pokazatel_mtody = 0;
-		 max_num_metody[sample_N - 1] = num_mtody;
-		 }
-		 }
-		
-		 /** POKAZATEL in METODY Class **/
-		 cellVolume = cellVolume.trim();
-		 System.out.println("A-----------pokazatel_metodi_sample--------metodi_sample-" 
-		 + cellVolume + ".");
-		 if (cellVolume.startsWith("Съдържание на")) {
-		
-		 if (flag_metody) {
-		 pokazatel_metodi_sample[sample_N
-		 - 1][num_mtody][num_pokazatel_mtody] = Izpitvan_pokazatelDAO
-		 .getValueIzpitvan_pokazatelByName(cellVolume);
-		 System.out.println("------------------------------pokazatel_metodi_sample"
-		 + (sample_N - 1)
-		 + " / " + num_mtody + " / " + num_pokazatel_mtody);
-		 num_pokazatel_mtody++;
-		 max_num_pokazatel_metody[sample_N - 1][num_mtody] =
-		 num_pokazatel_mtody;
-		
-		 }
-		 }
-		
-		 /** ............................................... **/
-		 }
-		
-		 }
-		 }
-		System.out.println("RECUEST_CODE " + recuest_code);
-		System.out.println("ACCREDITATION " + accreditation);
-		System.out.println("DATE_TIME_RECEPTION " + date_time_reception);
-		System.out.println("DATE_REQUEST " + date_recuest);
-		System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
-		System.out.println("IZPITVAN_PRODUKT " + izpitvan_produkt.getName_zpitvan_produkt() + " № "
-				+ izpitvan_produkt.getId_zpitvan_produkt());
-		System.out.println("DESCRIPTION_SAMPLE_GROUP " + description_sample_group);
-		System.out.println("NUMBER_SAMPLES " + number_samples);
-
-		for (int j = 0; j < number_samples; j++) {
-			System.out.println();
-			System.out.println("DESCRIPTION_SAMPLE " + (j + 1) + " - " + sample[j] + ".");
-			System.out.println("OBEKT_NA_IZPITVANE " + (j + 1) + " - " + ob_na_izpit[j] + ".");
-
-			for (int i = 0; i < max_num_metody[j]; i++) {
-				System.out.println("LIST_METODY " + (j + 1) + " - " + metodi_sample[j][i].getCode_metody() + " / "
-						+ metodi_sample[j][i].getName_metody());
-
-				for (int k = 0; k < max_num_pokazatel_metody[j][i]; k++) {
-					System.out.println(" POKAZATEL " + (j + 1) + " / " + (i + 1) + " - "
-							+ pokazatel_metodi_sample[j][i][k].getName_pokazatel());
-
+				for (int row = row_metody_start[num_samples][num_metody_pokazatel]; row < end_num; row++) {
+					cellVolume = newTab[row][2];
+					cellVolume = cellVolume.trim();
+					System.out.println("cellVolume "+cellVolume+" row "+row);
+					if (cellVolume.startsWith("Съдържание на")) {
+						
+//						pokazatel_metodi_sample[num_samples][num_metody_samples][num_metody_pokazatel] = Izpitvan_pokazatelDAO
+//								.getValueIzpitvan_pokazatelByName(cellVolume);
+						System.out.println("--pokazatel_metodi_sample" + num_samples + " / "
+								+ num_metody_samples + " / " + num_metody_pokazatel);
+						
+						max_num_pokazatel_metody[num_samples][num_metody_pokazatel] = num_metody_pokazatel;
+						num_metody_pokazatel++;
+					}
 				}
 			}
 		}
+		//
+		//
+		// System.out.println("RECUEST_CODE " + recuest_code);
+		// System.out.println("ACCREDITATION " + accreditation);
+		// System.out.println("DATE_TIME_RECEPTION " + date_time_reception);
+		// System.out.println("DATE_REQUEST " + date_recuest);
+		// System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
+		// System.out.println("IZPITVAN_PRODUKT " +
+		// izpitvan_produkt.getName_zpitvan_produkt() + " № "
+		// + izpitvan_produkt.getId_zpitvan_produkt());
+		// System.out.println("DESCRIPTION_SAMPLE_GROUP " +
+		// description_sample_group);
+		// System.out.println("NUMBER_SAMPLES " + number_samples);
+		//
+		// for (int j = 0; j < number_samples; j++) {
+		// System.out.println();
+		// System.out.println("DESCRIPTION_SAMPLE " + (j + 1) + " - " +
+		// sample[j] + ".");
+		// System.out.println("OBEKT_NA_IZPITVANE " + (j + 1) + " - " +
+		// ob_na_izpit[j] + ".");
+		//
+		// for (int i = 0; i < max_num_metody[j]; i++) {
+		// System.out.println("LIST_METODY " + (j + 1) + " - " +
+		// metodi_sample[j][i].getCode_metody() + " / "
+		// + metodi_sample[j][i].getName_metody());
+		//
+		// for (int k = 0; k < max_num_pokazatel_metody[j][i]; k++) {
+		// System.out.println(" POKAZATEL " + (j + 1) + " / " + (i + 1) + " - "
+		// + pokazatel_metodi_sample[j][i][k].getName_pokazatel());
+		//
+		// }
+		// }
+		// }
 
 		/** --------------------------------------------------------------- **/
+
 	}
 
 }

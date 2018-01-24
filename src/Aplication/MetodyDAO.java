@@ -9,126 +9,106 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Izpitvan_pokazatel;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_Metody;
-import DBase_Class.Metody;
-import DBase_Class.Results;
 import DBase_Class.Sample;
 
-public class MetodyDAO {
-	
-	private static final String internal_applicant = null;
+public class List_MetodyDAO {
+
 	static String name_DBase = "JPA_RH_DBase";
 
-	public static void setValueMetody(
-			Sample sample,
-			List_Metody list_metody,
-			Izpitvan_pokazatel pokazatel){
+	public static void setBasikValueMetody(){
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ ÀËÔÀ-ÈÇËÚ×ÂÀÙÈ ĞÀÄÈÎÍÓÊËÈÄÈ È 89/90Sr ÂÚÂ ÂÎÄÈ È ÃÎĞÈÌÈ ÌÀÒÅĞÈÀËÈ", "Ì.ËÈ-ĞÕ – 01 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ ÒĞÈÒÈÉ", "Ì.ËÈ-ĞÕ – 03 ĞÅÄÀÊÖÈß 03");
+		setValueMetody("ÊÀËÈÁĞÈĞÀÍÅ ÍÀ ÒÅ×ÍÎÑÖÈÍÒÈËÀÖÈÎÍÅÍ ÑÏÅÊÒĞÎÌÅÒÚĞ", "Ì.ËÈ-ĞÕ – 04 ĞÅÄÀÊÖÈß 03");
+		setValueMetody("ÊÀËÈÁĞÈĞÀÍÅ ÍÀ ÀËÔÀ-ÑÏÅÊÒĞÎÌÅÒĞÈ×ÍÀ ÑÈÑÒÅÌÀ", "Ì.ËÈ-ĞÕ – 05 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ ÒĞÈÒÈÉ ÂÚÂ ÂÎÄÈ", "Ì.ËÈ-ĞÕ – 03 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 241Pu ÑËÅÄ ÀËÔÀ-ÑÏÅÊÒĞÎÌÅÒĞÈß", "Ì.ËÈ-ĞÕ – 07 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ ÀËÔÀ-ÈÇËÚ×ÂÀÙÈ ĞÀÄÈÎÍÓÊËÈÄÈ Â ĞÀÇËÈ×ÍÈ ÌÀÒĞÈÖÈ", "Ì.ËÈ-ĞÕ – 08 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÅÔÅÊÒÈÂÍÎÑÒÒÀ ÍÀ ĞÅÃÈÑÒĞÈĞÀÍÅ ÍÀ ĞÀÄÈÎÍÓÊËÈÄÈÒÅ 89SR, 90SR È 90Y ÏĞÈ ×ÅĞÅÍÊÎÂÎ ÁĞÎÅÍÅ", "Ì.ËÈ-ĞÕ – 09 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ ÃÀÌÀ-ÈÇËÚ×ÂÀÙÈ ĞÀÄÈÎÍÓÊËÈÄÈ", "Ì.ËÈ-ĞÕ – 10 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÊÀËÈÁĞÈĞÀÍÅ ÍÀ ÃÀÌÀ-ÑÏÅÊÒĞÎÌÅÒĞÈ×ÍÀ ÑÈÑÒÅÌÀ", "Ì.ËÈ-ĞÕ – 11 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 129I ×ĞÅÇ ÍÈÑÊÎÅÍÅĞÃÈÉÍÀ ÃÀÌÀ-ÑÏÅÊÒĞÎÌÅÒĞÈß", "Ì.ËÈ-ĞÕ – 12 ĞÅÄÀÊÖÈß 01");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 232Th È 237Np ÂÚÂ ÂÎÄÈ", "Ì.ËÈ-ĞÕ – 13 ĞÅÄÀÊÖÈß 01");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 99Òñ Â ĞÀÇËÈ×ÍÈ ÌÀÒĞÈÖÈ", "Ì.ËÈ-ĞÕ – 14 ĞÅÄÀÊÖÈß 03");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 14C Â ĞÀÇËÈ×ÍÈ ÌÀÒĞÈÖÈ", "Ì.ËÈ-ĞÕ – 15 ĞÅÄÀÊÖÈß 02");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 14C Â ĞÀÇËÈ×ÍÈ ÌÀÒĞÈÖÈ", "Ì.ËÈ-ĞÕ – 15 ĞÅÄÀÊÖÈß 03");
+		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 55Fe, 63Ni, 89/90Sr È 241Pu Â ĞÀÇËÈ×ÍÈ ÌÀÒĞÈÖÈ", "Ì.ËÈ-ĞÕ – 16 ĞÅÄÀÊÖÈß 03");
+		setValueMetody("ÊÀËÈÁĞÈĞÀÍÅ ÍÀ ÀËÔÀ-ÑÏÅÊÒĞÎÌÅÒĞÈ×ÍÀ ÑÈÑÒÅÌÀ CANBERRA ALPHA ANALYST", "Ì.ËÈ-ĞÕ – 21 ĞÅÄÀÊÖÈß 01");
+
 		
+	}
+	
+//	Metody
+	
+	public static void setValueMetody(String value, String code) {
+
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-
-		Metody valueEnt = new Metody();
-
-		valueEnt.setSample(sample);
-		valueEnt.setList_metody(list_metody);
-		valueEnt.setPokazatel(pokazatel);
-		
+		List_Metody valueEnt = new List_Metody();
+		valueEnt.setName_metody(value);
+		valueEnt.setCode_metody(code);
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
-		
 	}
-	
-	public static List<Metody> getInListAllValueResults() {
+
+	public static List<List_Metody> getInListAllValueMetody() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Metody e");
-
-		List<Metody> list = query.getResultList();
+		List<List_Metody> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 
-		for (Metody e : list) {
-			System.out.println("Num:" + ((Metody) e).getId_metody() 
-					+ "  Sample :" + ((Metody) e).getSample()
-					+ "  Metody :" + ((Metody) e).getList_metody());
-					
-		}
+//		for (Metody e : list) {
+//			System.out.println("setValueMetody(\"" + ((Metody) e).getName_metody()
+//					+"\", \"" + ((Metody) e).getCode_metody()+"\");");
+//		}
+		
+		
+//		for (Metody e : list) {
+//			System.out.println("Num:" + ((Metody) e).getId_metody() + "  NAME :" + ((Metody) e).getName_metody()
+//					+ "  Kode :" + ((Metody) e).getCode_metody());
+//		}
 		return list;
-
-}
-	
-	public static void setBasicValueMetody() {
-
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		int min = 1;
-		int max = 1;
-		int ran = 1;
-		
-		// Get Sample list
-				List<Sample> listSample = entitymanager.createQuery("SELECT e FROM Sample e").getResultList();
-				System.out.println("Num Sample:" + listSample.size());
-
-				for (int samNum = 1; samNum <= listSample.size(); samNum++) {
-
-		Sample sample = SampleDAO.getValueSampleById(samNum);
-		int ranval = 1 + (int) (Math.random() * 2);
-		System.out.println();
-		System.out.println("***********************************************************");
-		System.out.println("Num Results:" + ranval);
-		for (int i = 1; i <= ranval; i++) {
-				
-		
-		// Get random Metody object
-		List<List_Metody> listI = entitymanager.createQuery("SELECT e FROM List_Metody e").getResultList();
-		System.out.println("Num List_Metody:" + listI.size());
-		max = listI.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		List_Metody list_metody = List_MetodyDAO.getValueMetodyById(ran);
-		System.out.println("Name Metody:" + list_metody.getName_metody());
-		
-		
-		// Get random Izpitvan_pokazatel object
-		List<Izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e")
-				.getResultList();
-		System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
-		max = listIp.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Izpitvan_pokazatel izpitvan_pokazatel = Izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
-		System.out.println("Name Izpitvan_pokazatel:" + izpitvan_pokazatel.getName_pokazatel());
-		
-		setValueMetody(sample,
-				list_metody,
-				izpitvan_pokazatel
-				);
-		
-		
-					}
-				}
-				
-				entitymanager.close();
-				emfactory.close();
 	}
-	
-	
+
 	@GET
 	@QueryParam("{id}")
-	public static Metody getValueMetodyById(@QueryParam("id") int id) {
+	public static List_Metody getValueMetodyById(@QueryParam("id") int id) {
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	EntityManager entitymanager = emfactory.createEntityManager();
+	entitymanager.getTransaction().begin();
+	List_Metody  metody = (List_Metody) entitymanager.find(List_Metody.class, id);
+	
+	entitymanager.close();
+	emfactory.close();
+
+	return metody;
+}
+	
+	@GET
+	public static List_Metody getValueList_MetodyByName(String name) {
+
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Metody request = (Metody) entitymanager.find(Metody.class, id);
 
+		String hql = "SELECT e FROM List_Metody e WHERE e.code = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueMetody("uknou", name);	
+		}
+		List_Metody list = (List_Metody) query.getSingleResult();
 		entitymanager.close();
 		emfactory.close();
 
-		return request;
-	}
+		return list;
+	}	
 }

@@ -6,43 +6,65 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class Izpitvan_pokazatel implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
-			 @Id
-		 @GeneratedValue(strategy = GenerationType.IDENTITY)
-		 private int Id_pokazatel;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int Id_pokazatel;
 
-		 private String name;
-		
-		 public Izpitvan_pokazatel(Integer id, String name) {
-		     super( );
-		     		     
-		     this.name = name;
-		    		  }
-		 
-		 public Izpitvan_pokazatel(){
-		 super( );
-		 }
-		 
-		 public int getId_pokazatel() {
-		 return Id_pokazatel;
-		 }
+	@ManyToOne
+	private List_izpitvan_pokazatel pokazatel;
 
-		
-		 public String getName_pokazatel() {
-		 return name;
-		 }
+	@ManyToOne
+	private Sample sample;
 
-		 public void setName_pokazatel(String name) {
-		 this.name = name;
-		 }
+	public Izpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample) {
+		super();
 
+		this.pokazatel = pokazatel;
+		this.sample = sample;
+	}
 
+	public Izpitvan_pokazatel() {
+		super();
+	}
+
+	public int getId_pokazatel() {
+		return Id_pokazatel;
+	}
+
+	public void setId_pokazatel(int id_pokazatel) {
+		Id_pokazatel = id_pokazatel;
+	}
+
+	
+
+	public List_izpitvan_pokazatel getPokazatel() {
+		return pokazatel;
+	}
+
+	public void setPokazatel(List_izpitvan_pokazatel pokazatel) {
+		this.pokazatel = pokazatel;
+	}
+
+	
+	public Sample getSample() {
+		return sample;
+	}
+
+	public void setSample(Sample sample) {
+		this.sample = sample;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

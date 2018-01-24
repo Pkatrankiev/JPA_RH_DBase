@@ -1,6 +1,5 @@
 package Aplication;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,20 +8,14 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
-
-import com.mysql.fabric.xmlrpc.base.Data;
-
 import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
-import DBase_Class.List_Metody;
-import DBase_Class.Nuclide;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
-import DBase_Class.Nuclide;
 import DBase_Class.Zabelejki;
 import DBase_Class.Obekt_na_izpitvane;
 
@@ -163,15 +156,7 @@ for (int i = 1; i < 9; i++) {
 		Obekt_na_izpitvane obekt_na_izpitvane = Obekt_na_izpitvaneDAO.getValueObekt_na_izpitvaneById(ran);
 		System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
 
-		// Get random Izpitvan_pokazatel object
-		List<Izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e")
-				.getResultList();
-		System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
-		max = listIp.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Izpitvan_pokazatel izpitvan_pokazatel = Izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
-		System.out.println("Name Izpitvan_pokazatel:" + izpitvan_pokazatel.getName_pokazatel());
-
+		
 		// Get random Razmernosti object
 		List<Razmernosti> listR = entitymanager.createQuery("SELECT e FROM Razmernosti e").getResultList();
 		System.out.println("Num Razmernosti:" + listR.size());

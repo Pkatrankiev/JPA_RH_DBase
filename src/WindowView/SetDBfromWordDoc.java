@@ -4,10 +4,12 @@ import javax.swing.JTable;
 
 import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
-import Aplication.List_MetodyDAO;
+import Aplication.List_izpitvan_pokazatelDAO;
+import Aplication.MetodyDAO;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
-import DBase_Class.List_Metody;
+import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
 
 public class SetDBfromWordDoc {
 
@@ -204,46 +206,49 @@ public class SetDBfromWordDoc {
 		}
 
 		/** LIST_METODY in METODY Class **/
-		int[][] row_metody_start = new int[number_samples][10];
-		int end_num = 0;
-		int[] max_num_metody = new int[number_samples];
+		// int[][] row_metody_start = new int[number_samples][10];
+		// int end_num = 0;
+		// int[] max_num_metody = new int[number_samples];
+		//
+		// String[][] str_metodi_sample = new String[number_samples][10];
+		// for (int num_samples = 0; num_samples < number_samples;
+		// num_samples++) {
+		// int num_metody = 0;
+		// if (num_samples == number_samples - 1) {
+		// end_num = newTab.length;
+		// } else {
+		// end_num = row_sample_start[num_samples + 1];
+		// }
+		//
+		// for (int row = row_sample_start[num_samples]; row < end_num; row++) {
+		// cellVolume = newTab[row][1];
+		//
+		// cellVolume = cellVolume.replaceAll("\r", " ").trim();
+		//
+		// if (cellVolume.startsWith("M.ЛИ-РХ")) {
+		//
+		// str_metodi_sample[num_samples][num_metody] = cellVolume;
+		//
+		// row_metody_start[num_samples][num_metody] = row - 1;
+		// num_metody++;
+		// max_num_metody[num_samples] = num_metody;
+		//
+		// }
+		//
+		// }
+		//
+		// }
 
-		String[][] str_metodi_sample = new String[number_samples][10];
-		for (int num_samples = 0; num_samples < number_samples; num_samples++) {
-			int num_metody = 0;
-			if (num_samples == number_samples - 1) {
-				end_num = newTab.length;
-			} else {
-				end_num = row_sample_start[num_samples + 1];
-			}
-
-			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
-				cellVolume = newTab[row][1];
-
-				cellVolume = cellVolume.replaceAll("\r", " ").trim();
-
-				if (cellVolume.startsWith("M.ЛИ-РХ")) {
-
-					str_metodi_sample[num_samples][num_metody] = cellVolume;
-
-					row_metody_start[num_samples][num_metody] = row - 1;
-					num_metody++;
-					max_num_metody[num_samples] = num_metody;
-
-				}
-
-			}
-
-		}
-
-		List_Metody[][] metodi_sample = new List_Metody[number_samples][max_num_metody[number_samples - 1]];
-		for (int i = 0; i < number_samples; i++) {
-			for (int j = 0; j < max_num_metody[i]; j++) {
-				metodi_sample[i][j] = List_MetodyDAO.getValueList_MetodyByName(str_metodi_sample[i][j]);
-				// System.out.println("metody [" + i + "] " + "[" + j + "] " +
-				// str_metodi_sample[i][j]);
-			}
-		}
+		// Metody[][] metodi_sample = new
+		// Metody[number_samples][max_num_metody[number_samples - 1]];
+		// for (int i = 0; i < number_samples; i++) {
+		// for (int j = 0; j < max_num_metody[i]; j++) {
+		// metodi_sample[i][j] =
+		// MetodyDAO.getValueList_MetodyByName(str_metodi_sample[i][j]);
+		// // System.out.println("metody [" + i + "] " + "[" + j + "] " +
+		// // str_metodi_sample[i][j]);
+		// }
+		// }
 
 		/**
 		 * List_Metody-metodi_sample[number_samples][max_num_metody[num_samples]
@@ -252,98 +257,95 @@ public class SetDBfromWordDoc {
 		 **/
 
 		/** POKAZATEL in METODY Class **/
-		int num = max_num_metody[number_samples - 1];
-		int num_metody_pokazatel = 0;
-		String[][][] str_pokazatel_metodi_sample = new String[number_samples][num][10];
-		int[][] max_num_pokazatel_metody = new int[number_samples][10];
-		for (int poreden_nom_sample = 0; poreden_nom_sample < number_samples; poreden_nom_sample++) {
-			for (int num_metody_samples = 0; num_metody_samples < num; num_metody_samples++) {
-				if ((num_metody_samples < max_num_metody[poreden_nom_sample] - 1)) {
-					end_num = row_metody_start[poreden_nom_sample][num_metody_samples + 1];
-				} else {
-					if ((poreden_nom_sample < number_samples - 1)) {
-						end_num = row_metody_start[poreden_nom_sample + 1][0];
-					} else
-						end_num = newTab.length;
-				}
-				num_metody_pokazatel = 0;
-				for (int row = row_metody_start[poreden_nom_sample][num_metody_samples]; row < end_num; row++) {
-					cellVolume = newTab[row][2];
-					cellVolume = cellVolume.trim();
-					if (cellVolume.startsWith("Съдържание на")) {
 
-						str_pokazatel_metodi_sample[poreden_nom_sample][num_metody_samples][num_metody_pokazatel] = cellVolume;
+		int[][] row_pokazatel_start = new int[number_samples][20];
+		int end_num = 0;
+		int num_pokazatel = 0;
+		int[] max_num_pokazatel = new int[number_samples];
+		String[][] str_pokazatel_sample = new String[number_samples][20];
 
-						max_num_pokazatel_metody[poreden_nom_sample][num_metody_samples] = num_metody_pokazatel;
+		for (int num_samples = 0; num_samples < number_samples; num_samples++) {
 
-						num_metody_pokazatel++;
-					}
+			if (num_samples == number_samples - 1) {
+				end_num = newTab.length;
+			} else {
+				end_num = row_sample_start[num_samples + 1];
+			}
+
+			num_pokazatel = 0;
+			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
+				cellVolume = newTab[row][2];
+
+				cellVolume = cellVolume.replaceAll("\r", " ").trim();
+				if (cellVolume.startsWith("Съдържание на")) {
+
+					str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
+					row_pokazatel_start[num_samples][num_pokazatel] = row - 1;
+					max_num_pokazatel[num_samples] = num_pokazatel;
+
+					num_pokazatel++;
 				}
 			}
 		}
 
-		Izpitvan_pokazatel[][][] pokazatel_metodi_sample = new Izpitvan_pokazatel[number_samples][metodi_sample[0].length][num_metody_pokazatel];
+		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[number_samples][max_num_pokazatel[number_samples
+				- 1]];
 		for (int i = 0; i < number_samples; i++) {
-			// System.out.println("Sample " + (i + 1));
-			for (int j = 0; j < metodi_sample[0].length; j++) {
-				// System.out.println("metody [" + i + "] " + "[" + j + "] " +
-				// str_metodi_sample[i][j]);
-				for (int k = 0; k <= max_num_pokazatel_metody[i][j]; k++) {
-					pokazatel_metodi_sample[i][j][k] = Izpitvan_pokazatelDAO
-							.getValueIzpitvan_pokazatelByName(str_pokazatel_metodi_sample[i][j][k]);
-					// System.out.println("pokazatel " +
-					// str_pokazatel_metodi_sample[i][j][k]);
-				}
+
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+
+				// pokazatel_sample[i][j] =
+				// List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
+
 			}
 
 		}
-
-		String[][][][] results = new String[number_samples][metodi_sample[0].length][num_metody_pokazatel][50];
+		System.out.println("******************************* sample: " + num_pokazatel);
+		String[][][] results = new String[number_samples][num_pokazatel][50];
 		int num_results = 0;
 		for (int i = 0; i < number_samples; i++) {
-			for (int j = 0; j < num; j++) {
-				for (int k = 0; k <= max_num_pokazatel_metody[i][j]; k++) {
-					if ((j < max_num_metody[i] - 1)) {
-						end_num = row_metody_start[i][j + 1];
-					} else {
-						if ((i < number_samples - 1)) {
-							end_num = row_metody_start[i + 1][0];
-						} else
-							end_num = newTab.length;
-					}
-					num_results = 0;
-					for (int row = row_metody_start[i][j]; row < end_num; row++) {
-						cellVolume = newTab[row][2];
-						cellVolume = cellVolume.trim();
-						String str_cell = null;
-						if (cellVolume.startsWith("Съдържание на")) {
-							
-							str_cell = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
-							
-						}else str_cell = cellVolume;
-							try {								
-								if(Integer.parseInt(str_cell.substring(0, 2))>10){
-								System.out.println("str_cell-" + str_cell);
-								results[i][i][k][num_results]
-										 = cellVolume;
-								num_results++;}
-							} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-								// Will Throw exception!
-								// do something! anything to handle the
-								// exception.
-							}
-							 
-							//
-							// max_num_pokazatel_metody[poreden_nom_sample][num_metody_samples]
-							// = num_metody_pokazatel;
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 
-							
-						
+				if ((j <= max_num_pokazatel[i] - 1)) {
+					end_num = row_pokazatel_start[i][j + 1];
+				} else {
+					if ((i < number_samples - 1)) {
+						end_num = row_pokazatel_start[i + 1][0];
+					} else
+						end_num = newTab.length - 1;
+				}
+
+				for (int row = row_pokazatel_start[i][j] + 1; row <= end_num; row++) {
+					cellVolume = newTab[row][2];
+					cellVolume = cellVolume.trim();
+					String str_cell = null;
+					if (cellVolume.startsWith("Съдържание на ")) {
+						num_results = 0;
+						str_cell = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
+					} else
+						str_cell = cellVolume;
+					try {
+						if (Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
+							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results + " - "
+									+ str_cell + " row " + row);
+							results[i][j][num_results] = cellVolume;
+							num_results++;
+						}
+					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+
 					}
 				}
 			}
 		}
-
+		
+		for (int i = 0; i < number_samples; i++) {
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+				for (int k = 0; k < num_results; k++) {
+					System.out.println("sample " + i + " pokazatel-" + j + " results " + results[i][j][k] );
+			}
+				
+			}
+		}
 		//
 		//
 		// System.out.println("RECUEST_CODE " + recuest_code);

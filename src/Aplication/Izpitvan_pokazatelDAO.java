@@ -10,49 +10,47 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Izpitvan_pokazatel;
-import DBase_Class.List_Metody;
+import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane;
+import DBase_Class.Sample;
 
 public class Izpitvan_pokazatelDAO {
 	
 static String name_DBase = "JPA_RH_DBase";
 	
-public static void setBasikValuePokazatel(){
-	setValuePokazatel("Гама излъчващи радионуклиди");
-	setValuePokazatel("Алфа радионуклиди");
-	setValuePokazatel("Бета радионуклиди");
-	
-}
+
 
 
 //	Pokazatel
-	public static void setValuePokazatel(String value) {
-		// Bq
-		// kBq
-		// Bq/g
+	public static void setValueIzpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample) {
+		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Izpitvan_pokazatel pokazatal = new Izpitvan_pokazatel();
-		pokazatal.setName_pokazatel(value);
+		
+		pokazatal.setPokazatel(pokazatel);
+		pokazatal.setSample(sample);
+		
 		entitymanager.persist(pokazatal);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
 	}
 
-	public static List<Izpitvan_pokazatel> getInListAllValuePokazatel() {
+	public static List<Izpitvan_pokazatel> getInListAllValueIzpitvan_pokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Pokazatel e");
+		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e");
 		List<Izpitvan_pokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 
 		for (Izpitvan_pokazatel e : list) {
 			System.out.println(
-					"Num:" + ((Izpitvan_pokazatel) e).getId_pokazatel() + "  NAME :" + ((Izpitvan_pokazatel) e).getName_pokazatel());
+					"Num:" + ((Izpitvan_pokazatel) e).getId_pokazatel() + "  NAME :" + ((Izpitvan_pokazatel) e).getId_pokazatel());
 		}
 		return list;
 	}
@@ -73,25 +71,84 @@ public static void setBasikValuePokazatel(){
 }
 
 	@GET
-	public static Izpitvan_pokazatel getValueIzpitvan_pokazatelByName(String name) {
+	public static List <Izpitvan_pokazatel> getValueIzpitvan_pokazatelBySample(Sample sample) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Izpitvan_pokazatel e WHERE e.name = :text";
+		String hql = "SELECT e FROM Izpitvan_pokazatel e WHERE e.sample = :text";
 
 		Query query = entitymanager.createQuery(hql);
-		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
-			setValuePokazatel(name);	
-		}
-		Izpitvan_pokazatel list = (Izpitvan_pokazatel) query.getSingleResult();
+		query.setParameter("text", sample);
+				List<Izpitvan_pokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 
 		return list;
 	}	
 	
+	@GET
+	public static List <Izpitvan_pokazatel> getValueIzpitvan_pokazatelByPokazatel(List_izpitvan_pokazatel pokazatel) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Izpitvan_pokazatel e WHERE e.List_izpitvan_pokazatel = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", pokazatel);
+				List<Izpitvan_pokazatel> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}	
+	
+	public static void setBasikValueIzpitvan_pokazatel() {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		int min = 1;
+		int max = 1;
+		int ran = 1;
+		
+		// Get Sample list
+				List<Sample> listSample = entitymanager.createQuery("SELECT e FROM Sample e").getResultList();
+				System.out.println("Num Sample:" + listSample.size());
+
+				for (int samNum = 1; samNum <= listSample.size(); samNum++) {
+
+		Sample sample = SampleDAO.getValueSampleById(samNum);
+		int ranval = 1 + (int) (Math.random() * 2);
+		System.out.println();
+		System.out.println("***********************************************************");
+		System.out.println("Num Results:" + ranval);
+		for (int i = 1; i <= ranval; i++) {
+				
+		
+	
+		
+		// Get random List_izpitvan_pokazatel object
+		List<List_izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM List_izpitvan_pokazatel e")
+				.getResultList();
+		System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
+		max = listIp.size();
+		ran = min + (int) (Math.random() * ((max - min) + 1));
+		List_izpitvan_pokazatel izpitvan_pokazatel = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
+		System.out.println("Name Izpitvan_pokazatel:" + izpitvan_pokazatel.getId_pokazatel());
+		
+		setValueIzpitvan_pokazatel(izpitvan_pokazatel, sample);
+		
+		
+					}
+				}
+				
+				entitymanager.close();
+				emfactory.close();
+	}
 	
 }

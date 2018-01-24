@@ -16,13 +16,13 @@ import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
-import DBase_Class.Metody;
+
 import DBase_Class.Nuclide;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
-import DBase_Class.Results;
+
 import DBase_Class.Users;
 import DBase_Class.Nuclide;
 import DBase_Class.Zabelejki;
@@ -35,7 +35,7 @@ public class ResultsDAO {
 
 	public static void setValueResults(
 			Nuclide nuclide, 
-			Metody metody, 
+			Izpitvan_pokazatel pokazatel, 
 			Razmernosti rtazmernosti,
 			String basic_value, 
 			Double value_result, 
@@ -58,7 +58,7 @@ public class ResultsDAO {
 		Results valueEnt = new Results();
 
 		valueEnt.setNuclide(nuclide);
-		valueEnt.setMetody(metody);
+		valueEnt.setPokazatel(pokazatel); 
 		valueEnt.setRtazmernosti(rtazmernosti);
 
 		valueEnt.setBasic_value(basic_value);
@@ -97,7 +97,7 @@ public class ResultsDAO {
 		for (Results e : list) {
 			System.out.println("Num:" + ((Results) e).getId_results() 
 					+ "  Nuclide :" + ((Results) e).getNuclide()
-					+ "  Metody :" + ((Results) e).getMetody()
+					+ "  Pokazatel :" + ((Results) e).getPokazatel()
 					+ "  Rtazmernosti :" + ((Results) e).getRtazmernosti() 
 					+ "  Basic_value :" + ((Results) e).getBasic_value() 
 					+ "  Value_result :" + ((Results) e).getValue_result()
@@ -127,17 +127,19 @@ public class ResultsDAO {
 		int max = 1;
 		int ran = 1;
 
-		// Get Sample list
-		List<Metody> listMetody = entitymanager.createQuery("SELECT e FROM Metody e").getResultList();
-		System.out.println("Num Metody:" + listMetody.size());
-
-		for (int samNum = 1; samNum <= listMetody.size(); samNum++) {
-
-			Metody metody = MetodyDAO.getValueMetodyById(samNum);
-			int ranval = 1 + (int) (Math.random() * 3);
+		// Get pokazatel list
+		List<Izpitvan_pokazatel> list_pokazatel = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e").getResultList();
+		System.out.println("Num pokazatel:" + list_pokazatel.size());
+		
+	
+		for (int samNum = 1; samNum <= list_pokazatel.size(); samNum++) {
+			
+			int ranval = 1 + (int) (Math.random() * ((5 - 1) + 1));
+			Izpitvan_pokazatel pokazatel = Izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(samNum);
+			
 			System.out.println();
 			System.out.println("***********************************************************");
-			System.out.println("Num Metody:" + ranval);
+			System.out.println("Num pokazatel:" + ranval);
 			for (int i = 1; i <= ranval; i++) {
 
 				
@@ -196,17 +198,17 @@ public class ResultsDAO {
 				Double value_result = 10 + (Math.random() * ((max - min) + 1));
 				System.out.println("value_result:" + value_result);
 
-				// Get random value_result
+				// Get random uncertainty
 				max = 9999;
 				Double uncertainty = 10 + (Math.random() * ((max - min) + 1));
 				System.out.println("uncertainty :" + uncertainty);
 
-				// Get random value_result
+				// Get random mda
 				max = 59999;
 				Double mda = 10 + (Math.random() * ((max - min) + 1));
 				System.out.println("mda :" + mda);
 
-				// Get random value_result
+				// Get random sigma
 				max = 2;
 				int sigma = 1 + (int) (Math.random() * ((max - 1) + 1));
 				System.out.println("sigma :" + sigma);
@@ -222,7 +224,7 @@ public class ResultsDAO {
 				}
 				setValueResults(
 						nuclide, 
-						metody, 
+						pokazatel, 
 						razmernosti, 
 						"undefinition", 
 						value_result, 

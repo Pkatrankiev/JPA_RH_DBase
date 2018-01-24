@@ -36,7 +36,7 @@ public class Results implements Serializable {
 	@ManyToOne
 	private Nuclide nuclide;
 	@ManyToOne
-	private Metody metody;
+	private Izpitvan_pokazatel pokazatel;
 	@ManyToOne
 	private Razmernosti rtazmernosti;
 	@ManyToOne
@@ -51,7 +51,7 @@ public class Results implements Serializable {
 	public Results( 
 			Nuclide nuclide, 
 			Sample sample, 
-			Metody metody,
+			Izpitvan_pokazatel pokazatel,
 			Razmernosti rtazmernosti,
 			String basic_value,
 			Double value_result,
@@ -71,7 +71,7 @@ public class Results implements Serializable {
 		super();
 		
 		this.nuclide = nuclide;
-		this.metody = metody;
+		this.pokazatel = pokazatel;
 		this.rtazmernosti = rtazmernosti;
 		this.basic_value = basic_value;
 		this.value_result = value_result;
@@ -183,13 +183,13 @@ public class Results implements Serializable {
 		this.nuclide = nuclide;
 	}
 
-	
-	public Metody getMetody() {
-		return metody;
+
+	public Izpitvan_pokazatel getPokazatel() {
+		return pokazatel;
 	}
 
-	public void setMetody(Metody metody) {
-		this.metody = metody;
+	public void setPokazatel(Izpitvan_pokazatel pokazatel) {
+		this.pokazatel = pokazatel;
 	}
 
 	public Razmernosti getRtazmernosti() {

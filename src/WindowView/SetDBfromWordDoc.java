@@ -206,57 +206,7 @@ public class SetDBfromWordDoc {
 		}
 		number_samples = sample_N+1;
 
-		/** LIST_METODY in METODY Class **/
-		// int[][] row_metody_start = new int[number_samples][10];
-		// int end_num = 0;
-		// int[] max_num_metody = new int[number_samples];
-		//
-		// String[][] str_metodi_sample = new String[number_samples][10];
-		// for (int num_samples = 0; num_samples < number_samples;
-		// num_samples++) {
-		// int num_metody = 0;
-		// if (num_samples == number_samples - 1) {
-		// end_num = newTab.length;
-		// } else {
-		// end_num = row_sample_start[num_samples + 1];
-		// }
-		//
-		// for (int row = row_sample_start[num_samples]; row < end_num; row++) {
-		// cellVolume = newTab[row][1];
-		//
-		// cellVolume = cellVolume.replaceAll("\r", " ").trim();
-		//
-		// if (cellVolume.startsWith("M.ЛИ-РХ")) {
-		//
-		// str_metodi_sample[num_samples][num_metody] = cellVolume;
-		//
-		// row_metody_start[num_samples][num_metody] = row - 1;
-		// num_metody++;
-		// max_num_metody[num_samples] = num_metody;
-		//
-		// }
-		//
-		// }
-		//
-		// }
-
-		// Metody[][] metodi_sample = new
-		// Metody[number_samples][max_num_metody[number_samples - 1]];
-		// for (int i = 0; i < number_samples; i++) {
-		// for (int j = 0; j < max_num_metody[i]; j++) {
-		// metodi_sample[i][j] =
-		// MetodyDAO.getValueList_MetodyByName(str_metodi_sample[i][j]);
-		// // System.out.println("metody [" + i + "] " + "[" + j + "] " +
-		// // str_metodi_sample[i][j]);
-		// }
-		// }
-
-		/**
-		 * List_Metody-metodi_sample[number_samples][max_num_metody[num_samples]
-		 * ] int-row_metody_start[number_samples][num_metody]
-		 * int-max_num_metody[number_samples]
-		 **/
-
+	
 		/** POKAZATEL in METODY Class **/
 
 		int[][] row_pokazatel_start = new int[number_samples][20];
@@ -290,9 +240,7 @@ public class SetDBfromWordDoc {
 						i--;}
 					
 				} while (!flag_pokazatel & i >= 0);
-				
-			
-				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
+			row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
 				if (i == row) {
@@ -314,66 +262,73 @@ public class SetDBfromWordDoc {
 			}
 
 		}
-//		System.out.println("******************************* sample: " + num_pokazatel);
-//		String[][][] results = new String[number_samples][num_pokazatel][50];
-//		int num_results = 0;
-//		int number_sample = 0;
-//		for (int i = 0; i < number_samples; i++) {
-//			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-//				if ((j <= max_num_pokazatel[i] - 1)) {
-//					end_num = row_pokazatel_start[i][j + 1];
-//				} else {
-//					if ((i < number_samples - 1)) {
-//						end_num = row_pokazatel_start[i + 1][0];
-//					} else
-//						end_num = newTab.length - 1;
-//				}
-//				for (int row = row_pokazatel_start[i][j] + 1; row <= end_num; row++) {
-//					cellVolume = newTab[row][2];
-//					cellVolume = cellVolume.trim();
-//
+		
+		
+		
+		
+		/** RESULYS  Class **/	
+		
+		
+		System.out.println("******************************* sample: " + num_pokazatel);
+		String[][][] results = new String[number_samples][num_pokazatel][50];
+		int num_results = 0;
+		int number_sample = 0;
+		for (int i = 0; i < number_samples; i++) {
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+				if ((j <= max_num_pokazatel[i] - 1)) {
+					end_num = row_pokazatel_start[i][j + 1];
+				} else {
+					if ((i < number_samples - 1)) {
+						end_num = row_pokazatel_start[i + 1][0];
+					} else
+						end_num = newTab.length - 1;
+				}
+				for (int row = row_pokazatel_start[i][j] + 1; row <= end_num; row++) {
+					cellVolume = newTab[row][2];
+					cellVolume = cellVolume.trim();
+
 //					System.out.println("1-sample_N " + number_sample + " start " + row_sample_start[number_sample]);
-//					String str_cell = null;
-//					if (cellVolume.startsWith("Съдържание на ")) {
-//						num_results = 0;
-//						str_cell = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
-//					} else
-//						str_cell = cellVolume;
-//					try {
-//						if (Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
-//
-//							for (int k = 0; k < number_samples; k++) {
+					String str_cell = null;
+					if (cellVolume.startsWith("Съдържание на ")) {
+						num_results = 0;
+						str_cell = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
+					} else
+						str_cell = cellVolume;
+					try {
+						if (Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
+
+							for (int k = 0; k < number_samples; k++) {
 //								System.out.println("--start " + row_sample_start[k] + " row " + row);
-//								if (k < number_samples - 1) {
-//									if (row >= row_sample_start[k] & row < row_sample_start[k + 1]) {
-//										number_sample = k;
-//									}
-//								} else
-//									number_sample = k;
-//
-//							}
-//
-//							System.out.println("sample " + number_sample + " pokazatel-" + j + " results " + num_results
-//									+ " - " + str_cell + " row " + row + "  " + str_cell);
-//							results[number_sample][j][num_results] = str_cell;
-//							num_results++;
-//						}
-//					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-//
-//					}
-//				}
-//			}
-//		}
-//
-//		for (int i = 0; i < number_samples; i++) {
-//			System.out.println("-" + i);
-//			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-//				for (int k = 0; k < num_results; k++) {
-//					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results[i][j][k]);
-//				}
-//
-//			}
-//		}
+								if (k < number_samples - 1) {
+									if (row >= row_sample_start[k] & row < row_sample_start[k + 1]) {
+										number_sample = k;
+									}
+								} else
+									number_sample = k;
+
+							}
+
+							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results
+									+ " - " + str_cell + " row " + row + "  " + str_cell);
+							results[i][j][num_results] = str_cell;
+							num_results++;
+						}
+					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < number_samples; i++) {
+			System.out.println("-" + i);
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+				for (int k = 0; k < num_results; k++) {
+					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results[i][j][k]);
+				}
+
+			}
+		}
 		//
 		//
 		// System.out.println("RECUEST_CODE " + recuest_code);

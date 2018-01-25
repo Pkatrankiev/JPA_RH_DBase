@@ -269,8 +269,9 @@ public class SetDBfromWordDoc {
 		/** RESULYS  Class **/	
 		
 		
-		System.out.println("******************************* sample: " + num_pokazatel);
-		String[][][] results = new String[number_samples][num_pokazatel][50];
+		System.out.println("******************************* sample: " + number_samples+"  "+num_pokazatel);
+		String[][][] results = new String[number_samples][num_pokazatel+1][50];
+		int [][] max_num_results = new int [number_samples][num_pokazatel+1];
 		int num_results = 0;
 		int number_sample = 0;
 		for (int i = 0; i < number_samples; i++) {
@@ -283,7 +284,7 @@ public class SetDBfromWordDoc {
 					} else
 						end_num = newTab.length - 1;
 				}
-				for (int row = row_pokazatel_start[i][j] + 1; row <= end_num; row++) {
+				for (int row = row_pokazatel_start[i][j]; row <= end_num; row++) {
 					cellVolume = newTab[row][2];
 					cellVolume = cellVolume.trim();
 
@@ -311,7 +312,9 @@ public class SetDBfromWordDoc {
 							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results
 									+ " - " + str_cell + " row " + row + "  " + str_cell);
 							results[i][j][num_results] = str_cell;
+							
 							num_results++;
+							max_num_results [i][j] = num_results;
 						}
 					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
 
@@ -323,7 +326,8 @@ public class SetDBfromWordDoc {
 		for (int i = 0; i < number_samples; i++) {
 			System.out.println("-" + i);
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				for (int k = 0; k < num_results; k++) {
+				System.out.println(i+"/"+j+"-"+max_num_results [i][j]);
+				for (int k = 0; k <= max_num_results [i][j]; k++) {
 					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results[i][j][k]);
 				}
 

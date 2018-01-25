@@ -291,22 +291,15 @@ public class SetDBfromWordDoc {
 					
 				} while (!flag_pokazatel & i >= 0);
 				
-				System.out.println("+row_pokazatel_start["+num_samples+"]["+num_pokazatel+"]=");
+			
 				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
 				if (i == row) {
-					
 					flag2=true;
 					row_pokazatel_start[num_samples][num_pokazatel] = row;
 					num_pokazatel++;
-				
 				}
-				
-				System.out.println("-row_pokazatel_start["+num_samples+"]["+num_pokazatel+"]=");
-				
-				
-				
 			}
 		}
 		System.out.println("**********************num_pokazatel: " + num_pokazatel);
@@ -314,8 +307,7 @@ public class SetDBfromWordDoc {
 				- 1]];
 		for (int i = 0; i < number_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				System.out.println("str_pokazatel_sample["+i+"]["+j+"]= "+str_pokazatel_sample[i][j]);
-				System.out.println("Start ["+i+"]["+j+"]= "+row_pokazatel_start[i][j]);
+				System.out.println("str_pokazatel_sample["+i+"]["+j+"]= "+str_pokazatel_sample[i][j]+" Start ["+i+"]["+j+"]= "+row_pokazatel_start[i][j]);
 				// pokazatel_sample[i][j] =
 				// List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
 

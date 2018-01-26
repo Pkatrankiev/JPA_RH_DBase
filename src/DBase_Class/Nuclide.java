@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import javafx.scene.chart.Chart;
-
 @Entity
 @Table
 public class Nuclide implements Serializable {

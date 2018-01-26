@@ -269,22 +269,27 @@ public class SetDBfromWordDoc {
 		/** RESULYS  Class **/	
 		
 		
-		System.out.println("******************************* sample: " + number_samples+"  "+num_pokazatel);
-		String[][][] results = new String[number_samples][num_pokazatel+1][50];
-		int [][] max_num_results = new int [number_samples][num_pokazatel+1];
+if(num_pokazatel==0){
+	num_pokazatel++;
+}
+		System.out.println("*************** sample: " + number_samples+" num_pokazatel: " + num_pokazatel);
+		String[][][] results = new String[number_samples][num_pokazatel][50];
+		int [][]max_num_results = new int[number_samples][num_pokazatel];
+
 		int num_results = 0;
 		int number_sample = 0;
 		for (int i = 0; i < number_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				if ((j <= max_num_pokazatel[i] - 1)) {
+				if ((j < max_num_pokazatel[i] - 1)) {
 					end_num = row_pokazatel_start[i][j + 1];
 				} else {
 					if ((i < number_samples - 1)) {
 						end_num = row_pokazatel_start[i + 1][0];
 					} else
-						end_num = newTab.length - 1;
+						end_num = newTab.length;
 				}
-				for (int row = row_pokazatel_start[i][j]; row <= end_num; row++) {
+				System.out.println("start "+ row_pokazatel_start[i][j]+" end "+ (end_num-1));
+				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
 					cellVolume = newTab[row][2];
 					cellVolume = cellVolume.trim();
 
@@ -296,25 +301,16 @@ public class SetDBfromWordDoc {
 					} else
 						str_cell = cellVolume;
 					try {
+						System.out.println("nuklid "+str_cell.substring(0, 2));
 						if (Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
-
-							for (int k = 0; k < number_samples; k++) {
-//								System.out.println("--start " + row_sample_start[k] + " row " + row);
-								if (k < number_samples - 1) {
-									if (row >= row_sample_start[k] & row < row_sample_start[k + 1]) {
-										number_sample = k;
-									}
-								} else
-									number_sample = k;
-
-							}
-
+						
 							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results
 									+ " - " + str_cell + " row " + row + "  " + str_cell);
 							results[i][j][num_results] = str_cell;
+
+							max_num_results[i][j] = num_results;
+						num_results++;
 							
-							num_results++;
-							max_num_results [i][j] = num_results;
 						}
 					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
 
@@ -326,8 +322,12 @@ public class SetDBfromWordDoc {
 		for (int i = 0; i < number_samples; i++) {
 			System.out.println("-" + i);
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+
+		
+
 				System.out.println(i+"/"+j+"-"+max_num_results [i][j]);
 				for (int k = 0; k <= max_num_results [i][j]; k++) {
+
 					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results[i][j][k]);
 				}
 

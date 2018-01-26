@@ -19,7 +19,7 @@ public class MainWindows {
 			JMenuBar menuBar_1 = new JMenuBar();
 			win.setJMenuBar(menuBar_1);
 			
-			JButton btnLogin = new JButton("Login");
+			final JButton btnLogin = new JButton("Login");
 			menuBar_1.add(btnLogin);
 			btnLogin.addActionListener(
 		            new ActionListener(){

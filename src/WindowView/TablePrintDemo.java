@@ -129,15 +129,33 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 
 		printButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(java.awt.event.ActionEvent ignore) {
+			public void actionPerformed(java.awt.event.ActionEvent ignore) 
+			
+			{	
+			MessageFormat header = new MessageFormat("Page {0,number,integer}");
 
+			try {
 
+				table.print(JTable.PrintMode.FIT_WIDTH, header, null);
 
-				printTableData(table);
+			} catch (java.awt.print.PrinterException e) {
 
-
+				System.err.format("Cannot print %s%n", e.getMessage());
 
 			}
+			}
+			
+			
+			
+			
+			
+//
+//				
+////				printTableData(table);
+//
+//
+//
+//			}
 
 		});
 

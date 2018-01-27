@@ -279,8 +279,9 @@ if(num_pokazatel==0){
 		int num_results = 0;
 		int number_sample = 0;
 		for (int i = 0; i < number_samples; i++) {
+			num_results = 0;
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				if ((j < max_num_pokazatel[i] - 1)) {
+				if ((j < max_num_pokazatel[i])) {
 					end_num = row_pokazatel_start[i][j + 1];
 				} else {
 					if ((i < number_samples - 1)) {
@@ -302,7 +303,8 @@ if(num_pokazatel==0){
 						str_cell = cellVolume;
 					try {
 						System.out.println("nuklid "+str_cell.substring(0, 2));
-						if (Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
+						
+						if ((str_cell.substring(0, 2)).equals("3H") || Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
 						
 							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results
 									+ " - " + str_cell + " row " + row + "  " + str_cell);

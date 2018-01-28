@@ -351,13 +351,14 @@ public class SetDBfromWordDoc {
 					results_value_str = results_value[i][j][k];
 					if (results_value_str.startsWith("<")) {
 						
-					results_MDA[i][j][num_results] = stepenValues(results_value_str.substring(results_value_str.indexOf("<")+1));
-					System.out.println("MDA "+frm.format(results_MDA[i][j][num_results]));
+					results_MDA[i][j][num_results] = Double.valueOf(results_value_str.substring(results_value_str.indexOf("<")+1));
+					System.out.println("MDA "+results_MDA[i][j][num_results]+"  "+formatter(results_MDA[i][j][num_results]));
+					
 									}else{
-					results_value_result[i][j][num_results] = stepenValues(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
-					System.out.println(" Values "+results_value_result[i][j][num_results]);	
-					results_uncertainty[i][j][num_results] = stepenValues(results_value_str.substring(results_value_str.indexOf("±")+1).trim());
-					System.out.println("Uncertainty "+results_uncertainty[i][j][num_results]);	
+					results_value_result[i][j][num_results] = Double.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
+					System.out.println("Values "+results_value_result[i][j][num_results]+"  "+formatter(results_value_result[i][j][num_results]));	
+					results_uncertainty[i][j][num_results] = Double.valueOf(results_value_str.substring(results_value_str.indexOf("±")+1).trim());
+					System.out.println("Uncertainty "+results_uncertainty[i][j][num_results]+" "+formatter(results_uncertainty[i][j][num_results]));	
 									}
 					
 					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
@@ -404,13 +405,14 @@ public class SetDBfromWordDoc {
 		/** --------------------------------------------------------------- **/
 
 	}
-	
-	public static Double stepenValues(String value){
-		int stepen = Integer.parseInt( value.substring(value.indexOf("E")+1));
-			Double results = Double.parseDouble(value
-				.substring(0, value.indexOf("E")).trim())*Math.pow(10,stepen);
-		
-	return results;
+	 private static String formatter(double number){
+		    DecimalFormat formatter = new DecimalFormat("0.00E00");
+		    String fnumber = formatter.format(number);
+		    if (!fnumber.contains("E-")) { //don't blast a negative sign
+		        fnumber = fnumber.replace("E", "E+");
+		    }
+		    fnumber = fnumber.replace(",", ".");
+		    return fnumber;
 		}
 
 }

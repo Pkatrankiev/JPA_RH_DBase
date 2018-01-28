@@ -204,9 +204,8 @@ public class SetDBfromWordDoc {
 				System.out.println("sample_N " + sample_N + " start " + row_sample_start[sample_N]);
 			}
 		}
-		number_samples = sample_N+1;
+		number_samples = sample_N + 1;
 
-	
 		/** POKAZATEL in METODY Class **/
 
 		int[][] row_pokazatel_start = new int[number_samples][20];
@@ -224,7 +223,7 @@ public class SetDBfromWordDoc {
 			}
 
 			num_pokazatel = 0;
-			Boolean flag2=false;
+			Boolean flag2 = false;
 			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
 				cellVolume = newTab[row][2];
 
@@ -235,16 +234,17 @@ public class SetDBfromWordDoc {
 					cellVolume = newTab[i][2];
 					if (cellVolume.startsWith("Съдържание на")) {
 						flag_pokazatel = true;
-						
-					} else{
-						i--;}
-					
+
+					} else {
+						i--;
+					}
+
 				} while (!flag_pokazatel & i >= 0);
-			row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
+				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
 				if (i == row) {
-					flag2=true;
+					flag2 = true;
 					row_pokazatel_start[num_samples][num_pokazatel] = row;
 					num_pokazatel++;
 				}
@@ -255,27 +255,25 @@ public class SetDBfromWordDoc {
 				- 1]];
 		for (int i = 0; i < number_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				System.out.println("str_pokazatel_sample["+i+"]["+j+"]= "+str_pokazatel_sample[i][j]+" Start ["+i+"]["+j+"]= "+row_pokazatel_start[i][j]);
+				System.out.println("str_pokazatel_sample[" + i + "][" + j + "]= " + str_pokazatel_sample[i][j]
+						+ " Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j]);
 				// pokazatel_sample[i][j] =
 				// List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
 
 			}
 
 		}
-		
-		
-		
-		
-		/** RESULYS  Class **/	
-		
-		
-if(num_pokazatel==0){
-	num_pokazatel++;
-}
-		System.out.println("*************** sample: " + number_samples+" num_pokazatel: " + num_pokazatel);
-		String[][][] results = new String[number_samples][num_pokazatel][50];
-		int [][]max_num_results = new int[number_samples][num_pokazatel];
 
+		/** RESULYS Class **/
+
+		if (num_pokazatel == 0) {
+			num_pokazatel++;
+		}
+		System.out.println("*************** sample: " + number_samples + " num_pokazatel: " + num_pokazatel);
+		String[][][] results_nuklide = new String[number_samples][num_pokazatel][50];
+		String[][][] results_value = new String[number_samples][num_pokazatel][50];
+		int[][] max_num_results = new int[number_samples][num_pokazatel];
+		String[] razmernost = new String[number_samples];
 		int num_results = 0;
 		int number_sample = 0;
 		for (int i = 0; i < number_samples; i++) {
@@ -289,12 +287,17 @@ if(num_pokazatel==0){
 					} else
 						end_num = newTab.length;
 				}
-				System.out.println("start "+ row_pokazatel_start[i][j]+" end "+ (end_num-1));
+				System.out.println("start " + row_pokazatel_start[i][j] + " end " + (end_num - 1));
 				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
 					cellVolume = newTab[row][2];
 					cellVolume = cellVolume.trim();
 
-//					System.out.println("1-sample_N " + number_sample + " start " + row_sample_start[number_sample]);
+					if (newTab[row][3].contains("Bq")) {
+						razmernost[i] = newTab[row][3];
+					}
+
+					// System.out.println("1-sample_N " + number_sample + "
+					// start " + row_sample_start[number_sample]);
 					String str_cell = null;
 					if (cellVolume.startsWith("Съдържание на ")) {
 						num_results = 0;
@@ -302,35 +305,40 @@ if(num_pokazatel==0){
 					} else
 						str_cell = cellVolume;
 					try {
-						System.out.println("nuklid "+str_cell.substring(0, 2));
-						
-						if ((str_cell.substring(0, 2)).equals("3H") || Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
-						
-							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results
-									+ " - " + str_cell + " row " + row + "  " + str_cell);
-							results[i][j][num_results] = str_cell;
+						System.out.println("nuklid " + str_cell.substring(0, 2));
+
+						if ((str_cell.substring(0, 2)).equals("3H")
+								|| Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
+
+							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results + " - "
+									+ str_cell + " row " + row + "  " + str_cell);
+							results_nuklide[i][j][num_results] = str_cell;
+							results_value[i][j][num_results] = newTab[row][4];
 
 							max_num_results[i][j] = num_results;
-						num_results++;
-							
+							num_results++;
+
 						}
 					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
 
 					}
 				}
 			}
+			if (razmernost[i] == null) {
+				razmernost[i] = razmernost[i - 1];
+			}
+			System.out.println("razmernost " + i + "-" + razmernost[i]);
 		}
 
 		for (int i = 0; i < number_samples; i++) {
 			System.out.println("-" + i);
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 
-		
+				System.out.println(i + "/" + j + "-" + max_num_results[i][j]);
+				for (int k = 0; k <= max_num_results[i][j]; k++) {
 
-				System.out.println(i+"/"+j+"-"+max_num_results [i][j]);
-				for (int k = 0; k <= max_num_results [i][j]; k++) {
-
-					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results[i][j][k]);
+					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
+							+ " results " + results_value[i][j][k]);
 				}
 
 			}

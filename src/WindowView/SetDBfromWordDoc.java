@@ -1,5 +1,8 @@
 package WindowView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import javax.swing.JTable;
 
 import Aplication.Izpitvan_pokazatelDAO;
@@ -23,7 +26,7 @@ public class SetDBfromWordDoc {
 
 		String[] columnNames = null;
 		Object[][] data;
-
+		NumberFormat frm = new DecimalFormat("#0.00000");
 		String recuest_code = "";
 		String date_time_reception = null;
 		String obekt_na_izpitvane = null;
@@ -272,8 +275,12 @@ public class SetDBfromWordDoc {
 		System.out.println("*************** sample: " + number_samples + " num_pokazatel: " + num_pokazatel);
 		String[][][] results_nuklide = new String[number_samples][num_pokazatel][50];
 		String[][][] results_value = new String[number_samples][num_pokazatel][50];
+		double[][][] results_MDA = new double[number_samples][num_pokazatel][50];
+		double[][][] results_uncertainty = new double[number_samples][num_pokazatel][50];
+		double[][][] results_value_result = new double[number_samples][num_pokazatel][50];
 		int[][] max_num_results = new int[number_samples][num_pokazatel];
 		String[] razmernost = new String[number_samples];
+		String results_value_str = null;
 		int num_results = 0;
 		int number_sample = 0;
 		for (int i = 0; i < number_samples; i++) {
@@ -312,9 +319,14 @@ public class SetDBfromWordDoc {
 
 							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results + " - "
 									+ str_cell + " row " + row + "  " + str_cell);
-							results_nuklide[i][j][num_results] = str_cell;
-							results_value[i][j][num_results] = newTab[row][4];
+							
+							
+							results_value_str = newTab[row][4].trim();
+							
 
+							
+							results_nuklide[i][j][num_results] = str_cell;
+							results_value[i][j][num_results] = newTab[row][4].trim();
 							max_num_results[i][j] = num_results;
 							num_results++;
 
@@ -336,9 +348,21 @@ public class SetDBfromWordDoc {
 
 				System.out.println(i + "/" + j + "-" + max_num_results[i][j]);
 				for (int k = 0; k <= max_num_results[i][j]; k++) {
-
+					results_value_str = results_value[i][j][k];
+					if (results_value_str.startsWith("<")) {
+						
+					results_MDA[i][j][num_results] = stepenValues(results_value_str.substring(results_value_str.indexOf("<")+1));
+					System.out.println("MDA "+frm.format(results_MDA[i][j][num_results]));
+									}else{
+					results_value_result[i][j][num_results] = stepenValues(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
+					System.out.println(" Values "+results_value_result[i][j][num_results]);	
+					results_uncertainty[i][j][num_results] = stepenValues(results_value_str.substring(results_value_str.indexOf("±")+1).trim());
+					System.out.println("Uncertainty "+results_uncertainty[i][j][num_results]);	
+									}
+					
 					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
 							+ " results " + results_value[i][j][k]);
+
 				}
 
 			}
@@ -380,5 +404,13 @@ public class SetDBfromWordDoc {
 		/** --------------------------------------------------------------- **/
 
 	}
+	
+	public static Double stepenValues(String value){
+		int stepen = Integer.parseInt( value.substring(value.indexOf("E")+1));
+			Double results = Double.parseDouble(value
+				.substring(0, value.indexOf("E")).trim())*Math.pow(10,stepen);
+		
+	return results;
+		}
 
 }

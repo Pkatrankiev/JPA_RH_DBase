@@ -30,21 +30,20 @@ public class Main_Aplication {
 
 		// SetBasikValueInDataBase();
 
-		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";
-		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";
-		// SetDBfromWordDoc.setVolume(fileName);
+//		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";
+		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3281.doc";
+		 SetDBfromWordDoc.setVolume(fileName);
 
-		// ReaderWordDoc.readMyDocument(fileName);
+//		 ReaderWordDoc.readMyDocument(fileName);
 
 		// StartMainWindow();
 
 		
-		double st1 = 29478;
-		double st2 = 5902;
-		System.out.println(formatter(st1));
-		// st2 = Double.valueOf("9.18E+5");
-
-		System.out.println(alignExpon(st1, st2));
+//		double st1 = 29478;
+//		double st2 = 5902;
+//		System.out.println(formatter(st1));
+//		// st2 = Double.valueOf("9.18E+5");
+//		System.out.println(alignExpon(st1, st2));
 
 	}
 

@@ -51,19 +51,19 @@ public class SetDBfromWordDoc {
 						 * is RECUEST_CODE in RECUEST Class -kod na zaqvkata-
 						 **/
 						String clear_cells = cellVolume.replaceAll(" ", "");
-						if (clear_cells.startsWith("¹")) {
+						if (clear_cells.startsWith("â„–")) {
 							recuest_code = clear_cells.substring(1, 5);
 						}
 
 						/** OBEKT_NA_IZPITVANE in SAMPLE Class **/
-						if (cellVolume.startsWith("Îáåêò, îò êîéòî")) {
+						if (cellVolume.startsWith("ÐžÐ±ÐµÐºÑ‚, Ð¾Ñ‚ ÐºÐ¾Ð¹Ñ‚Ð¾")) {
 							obekt_na_izpitvane = celsTranfer[tab][row][coll + 1];
 						}
 
 						/**
 						 * is ACCREDITATION in RECUEST Class -v akreditaciq-
 						 **/
-						if (cellVolume.startsWith("Ñåðòèôèêàò")) {
+						if (cellVolume.startsWith("Ð¡ÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚")) {
 							accreditation = true;
 						}
 
@@ -72,7 +72,7 @@ public class SetDBfromWordDoc {
 						 * probite-
 						 **/
 						/** DATE_REQUEST in RECUEST Class -data na zaqvkata- **/
-						if (cellVolume.startsWith("Äàòà íà ïîëó÷àâàíå")) {
+						if (cellVolume.startsWith("Ð”Ð°Ñ‚Ð° Ð½Ð° Ð¿Ð¾Ð»ÑƒÑ‡Ð°Ð²Ð°Ð½Ðµ")) {
 							date_time_reception = celsTranfer[tab][row][coll + 1].replaceAll(" ", "").substring(0, 10);
 							date_recuest = date_time_reception;
 						}
@@ -81,19 +81,19 @@ public class SetDBfromWordDoc {
 						 * DATE_TIME_REFERENCE in SAMPLE Class -referentna data
 						 * i chas-
 						 **/
-						if (cellVolume.startsWith("Ðåôåðåíòíà äàòà")) {
+						if (cellVolume.startsWith("Ð ÐµÑ„ÐµÑ€ÐµÐ½Ñ‚Ð½Ð° Ð´Ð°Ñ‚Ð°")) {
 							date_time_reference = celsTranfer[tab][row][coll + 1].replaceAll(" ", "").replaceAll("h",
 									"");
 						}
 
 						/** IZPITVAN_PRODUKT in RECUEST Class **/
-						if (cellVolume.startsWith("Èçïèòâàí ïðîäóêò")) {
+						if (cellVolume.startsWith("Ð˜Ð·Ð¿Ð¸Ñ‚Ð²Ð°Ð½ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚")) {
 							String produkt = celsTranfer[tab][row][coll + 1];
 							izpitvan_produkt = Izpitvan_produktDAO.getValueIzpitvan_produktByName(produkt);
 						}
 
 						/** DESCRIPTION_SAMPLE_GROUP in RECUEST Class **/
-						if (cellVolume.contains("Îïèñàíèå íà ïðîáèòå")) {
+						if (cellVolume.contains("ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð½Ð° Ð¿Ñ€Ð¾Ð±Ð¸Ñ‚Ðµ")) {
 							description_sample_group = celsTranfer[tab][row][coll + 1];
 						}
 
@@ -235,23 +235,30 @@ public class SetDBfromWordDoc {
 				int i = row;
 				do {
 					cellVolume = newTab[i][2];
-					if (cellVolume.startsWith("Ñúäúðæàíèå íà")) {
+					if (cellVolume.startsWith("Ð¡ÑŠÐ´ÑŠÑ€Ð¶Ð°Ð½Ð¸Ðµ Ð½Ð°")) {
 						flag_pokazatel = true;
-
 					} else {
 						i--;
 					}
-
 				} while (!flag_pokazatel & i >= 0);
+				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
+				
 				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
-				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
+				
 				if (i == row) {
+					System.out.println("i "+i+" num_pokazatel "+num_pokazatel);
 					flag2 = true;
-					row_pokazatel_start[num_samples][num_pokazatel] = row;
+					String str_cell_p = cellVolume.substring((cellVolume.indexOf("Ð½Ð° ") + 3), cellVolume.length());
+					if ((str_cell_p.substring(0, 2)).equals("3H")
+							|| Integer.parseInt(str_cell_p.substring(0, 2)) >= 10) {
+						row_pokazatel_start[num_samples][num_pokazatel] = row;
+					}
+//					
 					num_pokazatel++;
 				}
 			}
+			System.out.println("2 - sample_N " + num_samples + " start " + row_pokazatel_start[num_samples][num_pokazatel]);
 		}
 		System.out.println("**********************num_pokazatel: " + num_pokazatel);
 		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[number_samples][max_num_pokazatel[number_samples
@@ -306,9 +313,9 @@ public class SetDBfromWordDoc {
 					// System.out.println("1-sample_N " + number_sample + "
 					// start " + row_sample_start[number_sample]);
 					String str_cell = null;
-					if (cellVolume.startsWith("Ñúäúðæàíèå íà ")) {
+					if (cellVolume.startsWith("Ð¡ÑŠÐ´ÑŠÑ€Ð¶Ð°Ð½Ð¸Ðµ Ð½Ð° ")) {
 						num_results = 0;
-						str_cell = cellVolume.substring((cellVolume.indexOf("íà ") + 3), cellVolume.length());
+						str_cell = cellVolume.substring((cellVolume.indexOf("Ð½Ð° ") + 3), cellVolume.length());
 					} else
 						str_cell = cellVolume;
 					try {
@@ -319,12 +326,9 @@ public class SetDBfromWordDoc {
 
 							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results + " - "
 									+ str_cell + " row " + row + "  " + str_cell);
-							
-							
-							results_value_str = newTab[row][4].trim();
-							
 
-							
+							results_value_str = newTab[row][4].trim();
+
 							results_nuklide[i][j][num_results] = str_cell;
 							results_value[i][j][num_results] = newTab[row][4].trim();
 							max_num_results[i][j] = num_results;
@@ -343,27 +347,32 @@ public class SetDBfromWordDoc {
 		}
 
 		for (int i = 0; i < number_samples; i++) {
-			System.out.println("-" + i);
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 
-				System.out.println(i + "/" + j + "-" + max_num_results[i][j]);
 				for (int k = 0; k <= max_num_results[i][j]; k++) {
-					results_value_str = results_value[i][j][k];
+					if(results_value[i][j][k]!=null){
+					results_value_str = results_value[i][j][k].replace("Ð•", "E");
 					if (results_value_str.startsWith("<")) {
-						
-					results_MDA[i][j][num_results] = Double.valueOf(results_value_str.substring(results_value_str.indexOf("<")+1));
-					System.out.println("MDA "+results_MDA[i][j][num_results]+"  "+formatter(results_MDA[i][j][num_results]));
-					
-									}else{
-					results_value_result[i][j][num_results] = Double.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
-					System.out.println("Values "+results_value_result[i][j][num_results]+"  "+formatter(results_value_result[i][j][num_results]));	
-					results_uncertainty[i][j][num_results] = Double.valueOf(results_value_str.substring(results_value_str.indexOf("±")+1).trim());
-					System.out.println("Uncertainty "+results_uncertainty[i][j][num_results]+" "+formatter(results_uncertainty[i][j][num_results]));	
-									}
-					
+
+						results_MDA[i][j][num_results] = Double
+								.valueOf(results_value_str.substring(results_value_str.indexOf("<") + 1));
+						System.out.println("MDA " + results_MDA[i][j][num_results] + "  "
+								+ formatter(results_MDA[i][j][num_results]));
+
+					} else {
+						results_value_result[i][j][num_results] = Double
+								.valueOf(results_value_str.substring(0, results_value_str.indexOf("Â±")).trim());
+						System.out.println("Values " + results_value_result[i][j][num_results] + "  "
+								+ formatter(results_value_result[i][j][num_results]));
+						results_uncertainty[i][j][num_results] = Double
+								.valueOf(results_value_str.substring(results_value_str.indexOf("Â±") + 1).replace("*", "").trim());
+						System.out.println("Uncertainty " + results_uncertainty[i][j][num_results] + " "
+								+ alignExpon(results_value_result[i][j][num_results], results_uncertainty[i][j][num_results]));
+					}
+
 					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
 							+ " results " + results_value[i][j][k]);
-
+				}
 				}
 
 			}
@@ -376,7 +385,7 @@ public class SetDBfromWordDoc {
 		// System.out.println("DATE_REQUEST " + date_recuest);
 		// System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
 		// System.out.println("IZPITVAN_PRODUKT " +
-		// izpitvan_produkt.getName_zpitvan_produkt() + " ¹ "
+		// izpitvan_produkt.getName_zpitvan_produkt() + " Â¹ "
 		// + izpitvan_produkt.getId_zpitvan_produkt());
 		// System.out.println("DESCRIPTION_SAMPLE_GROUP " +
 		// description_sample_group);
@@ -405,14 +414,30 @@ public class SetDBfromWordDoc {
 		/** --------------------------------------------------------------- **/
 
 	}
-	 private static String formatter(double number){
-		    DecimalFormat formatter = new DecimalFormat("0.00E00");
-		    String fnumber = formatter.format(number);
-		    if (!fnumber.contains("E-")) { //don't blast a negative sign
-		        fnumber = fnumber.replace("E", "E+");
-		    }
-		    fnumber = fnumber.replace(",", ".");
-		    return fnumber;
-		}
 
+	private static String formatter(double number) {
+		DecimalFormat formatter = new DecimalFormat("0.00E00");
+		String fnumber = formatter.format(number);
+		if (!fnumber.contains("E-")) { // don't blast a negative sign
+			fnumber = fnumber.replace("E", "E+");
+		}
+		fnumber = fnumber.replace(",", ".");
+		return fnumber;
+	}
+
+
+	public static String alignExpon(double basic, double foll) {
+		NumberFormat frm = new DecimalFormat("0.00E00");
+		NumberFormat frm_foll = new DecimalFormat("0.00");
+		String str_bas = frm.format(basic);
+		double expon = Double.valueOf("1.0" + str_bas.substring(str_bas.indexOf("E")));
+		foll = foll / expon;
+		String str_foll = frm_foll.format(foll) + str_bas.substring(str_bas.indexOf("E"));
+		if (!str_foll.contains("E-")) { //don't blast a negative sign
+			str_foll = str_foll.replace("E", "E+");
+	    }
+		str_foll = str_foll.replace(",", ".");
+		return str_foll;
+	}
+	
 }

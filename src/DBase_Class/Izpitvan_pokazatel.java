@@ -24,12 +24,16 @@ public class Izpitvan_pokazatel implements Serializable {
 
 	@ManyToOne
 	private Sample sample;
+	
+	@ManyToOne
+	private Metody metody;
 
-	public Izpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample) {
+	public Izpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample, Metody metody) {
 		super();
 
 		this.pokazatel = pokazatel;
 		this.sample = sample;
+		this.metody = metody;
 	}
 
 	public Izpitvan_pokazatel() {
@@ -44,7 +48,14 @@ public class Izpitvan_pokazatel implements Serializable {
 		Id_pokazatel = id_pokazatel;
 	}
 
-	
+
+	public Metody getMetody() {
+		return metody;
+	}
+
+	public void setMetody(Metody metody) {
+		this.metody = metody;
+	}
 
 	public List_izpitvan_pokazatel getPokazatel() {
 		return pokazatel;

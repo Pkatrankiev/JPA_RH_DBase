@@ -17,6 +17,7 @@ public class PostDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setBasikValuePost() {
+		setValuePost("--");
 		setValuePost("Œ»–");
 		setValuePost("Œ–’Œ");
 		setValuePost("ŒÃŒ");

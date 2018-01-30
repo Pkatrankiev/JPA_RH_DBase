@@ -373,7 +373,7 @@ public class ReaderWordDoc {
 
 						
 			System.out.println("tab1 "+tab1);
-//			TablePrintDemo.createAndShowGUI(columnNames, data);
+			TablePrintDemo.createAndShowGUI(columnNames, data);
 
 		}
 
@@ -395,7 +395,7 @@ public class ReaderWordDoc {
 
 		}
 		System.out.println("numtab+1 "+(numtab+1));
-//		TablePrintDemo.createAndShowGUI(columnNames, data);
+		TablePrintDemo.createAndShowGUI(columnNames, data);
 
 	return celsTranfer;
 

@@ -23,10 +23,10 @@ public class UsersDAO {
 		entitymanager.getTransaction().begin();
 		
 		
-		
-	setValueUsers("Михаил", "Балачев", "mbalachev", "123", false, PostDAO.getValuePostById(1));
+		setValueUsers("Непознат", "Непознат", "123", "123", false, PostDAO.getValuePostById(1));	
+	setValueUsers("Михаил", "Балачев", "mbalachev", "123", false, PostDAO.getValuePostById(2));
 	setValueUsers("Петър", "Катранкиев","pkatrankiev", "123", false, PostDAO.getValuePostById(2));
-	setValueUsers("Мартин", "Илиев", "miliev", "123", true, PostDAO.getValuePostById(3));
+	setValueUsers("Мартин", "Илиев", "miliev", "123", true, PostDAO.getValuePostById(4));
 }
 //	Users
 	public static void setValueUsers(String name, String family, String nikName, String pass, Boolean isAdmin, Post post) {

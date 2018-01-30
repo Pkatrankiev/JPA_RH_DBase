@@ -91,7 +91,7 @@ public class SampleDAO {
 					Request request = RequestDAO.getValueRequestById(reqNum);
 					
 		
-		for (int i = 1; i <= request.getNumber_samples(); i++) {
+		for (int i = 1; i <= request.getCounts_samples(); i++) {
 			
 
 			

@@ -2,6 +2,9 @@ package WindowView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JTable;
 
@@ -9,6 +12,8 @@ import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
+import DBase_Class.External_applicant;
+import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -19,9 +24,9 @@ public class SetDBfromWordDoc {
 	public static void setVolume(String fileName) {
 
 		String celsTranfer[][][] = ReaderWordDoc.readMyDocument(fileName);
-		System.out.println("broy tab " + celsTranfer.length);
-		System.out.println("Broy Raw " + celsTranfer[0].length);
-		System.out.println("Broy coll " + celsTranfer[0][0].length);
+		// System.out.println("broy tab " + celsTranfer.length);
+		// System.out.println("Broy Raw " + celsTranfer[0].length);
+		// System.out.println("Broy coll " + celsTranfer[0][0].length);
 		String cellVolume;
 
 		String[] columnNames = null;
@@ -32,9 +37,20 @@ public class SetDBfromWordDoc {
 		String obekt_na_izpitvane = null;
 		String date_recuest = null;
 		String date_time_reference = null;
+		String date_redac = null;
+		String date_measur = null;
+		String aplicant_name = null;
+		String aplicant_family = null;
+		String date_execution = null;
+		String date_chim = null;
 		Boolean accreditation = false;
+		Boolean section = false;
+		Boolean flag_note = false;
 		Izpitvan_produkt izpitvan_produkt = null;
 		String description_sample_group = null;
+
+		External_applicant external_aplicant = null;
+		Internal_applicant internal_aplicant = null;
 		int num_sample = 0;
 
 		for (int tab = 0; tab < 2; tab++) {
@@ -66,6 +82,22 @@ public class SetDBfromWordDoc {
 						if (cellVolume.startsWith("Сертификат")) {
 							accreditation = true;
 						}
+						
+						/** DESCRIPTION_SAMPLE_GROUP in RECUEST Class **/
+						if (cellVolume.contains("Описание на пробите")) {
+							description_sample_group = celsTranfer[tab][row][coll + 1];
+						}
+
+						/** SECTION in SAMPLE Class **/
+						if (cellVolume.startsWith("Заявител на изпитването")) {
+
+							if (celsTranfer[tab][row][coll + 1]
+									.replace("Държавно предприятие “Радиоактивни отпадъци”", "").trim().length() == 0) {
+
+								section = true;
+							}
+							
+						}
 
 						/**
 						 * DATE_TIME_RECEPTION in RECUEST Class -poluchavane na
@@ -89,17 +121,43 @@ public class SetDBfromWordDoc {
 						/** IZPITVAN_PRODUKT in RECUEST Class **/
 						if (cellVolume.startsWith("Изпитван продукт")) {
 							String produkt = celsTranfer[tab][row][coll + 1];
-							izpitvan_produkt = Izpitvan_produktDAO.getValueIzpitvan_produktByName(produkt);
-						}
-
-						/** DESCRIPTION_SAMPLE_GROUP in RECUEST Class **/
-						if (cellVolume.contains("Описание на пробите")) {
-							description_sample_group = celsTranfer[tab][row][coll + 1];
+							// izpitvan_produkt =
+							// Izpitvan_produktDAO.getValueIzpitvan_produktByName(produkt);
 						}
 
 						/**
-						 * DATE_EXECUTION in RECUEST Class -srok za izpalnenie-
+						 * DATE_REDAC in RESULTS Class -data na
+						 * protokola/redakciata-
 						 **/
+						if (cellVolume.startsWith("Протокол от изпитване")) {
+							String str_tran = celsTranfer[tab][row][coll];
+							date_redac = str_tran.substring(str_tran.indexOf("/") + 1).replace("г.", "")
+									.replace("г", "").trim();
+							System.out.println("дата редакция/протокол " + date_redac);
+
+							/**
+							 * DATE_EXECUTION in RESULTS Class -srok za
+							 * izpalnenie -> data na protokola + 14 dni-
+							 **/
+							date_execution = addDate(date_redac, 14);
+
+						}
+
+						/**
+						 * DATE_CHIM in RESULTS Class -data na chim-obrabotka-
+						 **/
+						if (cellVolume.contains("извършване на изпитването")) {
+							String str_tran = celsTranfer[tab][row][coll + 1];
+							if (str_tran.contains("÷")) {
+								date_chim = str_tran.substring(0, str_tran.indexOf("÷")).trim();
+								date_measur = str_tran.substring(str_tran.indexOf("÷") + 1).trim();
+							} else {
+								date_chim = str_tran.trim();
+								date_measur = str_tran.trim();
+							}
+
+							System.out.println("date_chim -" + date_chim + "date_measur -" + date_measur);
+						}
 
 					}
 				}
@@ -113,10 +171,14 @@ public class SetDBfromWordDoc {
 		int num_start = 0;
 		int num_end = 0;
 		String str;
-		int number_samples = description_sample_group.replaceAll("[^" + recuest_code + "]", "").length()
+		int counts_samples = description_sample_group.replaceAll("[^" + recuest_code + "]", "").length()
 				/ recuest_code.length();
 
-		String[] ob_na_izpit = new String[number_samples];
+		System.out.println(counts_samples + "+------1- "
+				+ description_sample_group.replaceAll("[^" + recuest_code + "]", "").length() + " --------2 "
+				+ recuest_code.length());
+
+		String[] ob_na_izpit = new String[counts_samples];
 		for (int i = 0; i < ob_na_izpit.length; i++) {
 			num_end = obekt_na_izpitvane.indexOf("\r", num_start + 1);
 			if (num_end < 0) {
@@ -130,16 +192,17 @@ public class SetDBfromWordDoc {
 
 		num_start = 0;
 		num_end = 0;
-		String[] sample = new String[number_samples];
+		String[] sample_description = new String[counts_samples];
 
-		for (int i = 0; i < sample.length; i++) {
+		for (int i = 0; i < sample_description.length; i++) {
 			num_end = description_sample_group.indexOf(recuest_code, num_start + 1);
 			if (num_end < 0) {
 				num_end = description_sample_group.length();
 			}
 			str = description_sample_group.substring(num_start, num_end);
 			num_start = num_end;
-			sample[i] = str.substring((str.indexOf("/", 0) + 1), str.length()).trim();
+			sample_description[i] = str.substring((str.indexOf("/", 0) + 1), str.length()).trim();
+			System.out.println("sample[" + i + "]= " + sample_description[i]);
 
 		}
 
@@ -189,11 +252,11 @@ public class SetDBfromWordDoc {
 		}
 
 		TablePrintDemo.createAndShowGUI(columnNames2, newTab);
-
+		System.out.println("counts_samples " + counts_samples);
 		/** SET interval SAMPLES **/
 		int sample_N = 0;
-
-		int[] row_sample_start = new int[number_samples];
+		int[] sample_code = new int[counts_samples];
+		int[] row_sample_start = new int[counts_samples];
 		String qurent_sample = null;
 		for (int row = 0; row < newTab.length; row++) {
 			cellVolume = newTab[row][0];
@@ -201,25 +264,30 @@ public class SetDBfromWordDoc {
 
 			if (cellVolume.startsWith(recuest_code) & !cellVolume.equals(qurent_sample)) {
 				qurent_sample = cellVolume;
-				sample_N = (Integer.parseInt(cellVolume.substring((cellVolume.indexOf("-") + 1), cellVolume.length())))
-						- 1;
+				sample_code[sample_N] = (Integer
+						.parseInt(cellVolume.substring((cellVolume.indexOf("-") + 1), cellVolume.length())));
+
 				row_sample_start[sample_N] = row;
+
 				System.out.println("sample_N " + sample_N + " start " + row_sample_start[sample_N]);
+				sample_N++;
 			}
 		}
-		number_samples = sample_N + 1;
+		counts_samples = sample_N;
 
 		/** POKAZATEL in METODY Class **/
-
-		int[][] row_pokazatel_start = new int[number_samples][20];
+		System.out.println("22counts_samples " + counts_samples);
+		int[][] row_pokazatel_start = new int[counts_samples][20];
+		String [] metodi = new String [counts_samples];
 		int end_num = 0;
 		int num_pokazatel = 0;
-		int[] max_num_pokazatel = new int[number_samples];
-		String[][] str_pokazatel_sample = new String[number_samples][20];
+		String cellMetody = null;
+		int[] max_num_pokazatel = new int[counts_samples];
+		String[][] str_pokazatel_sample = new String[counts_samples][20];
 
-		for (int num_samples = 0; num_samples < number_samples; num_samples++) {
+		for (int num_samples = 0; num_samples < counts_samples; num_samples++) {
 
-			if (num_samples == number_samples - 1) {
+			if (num_samples == counts_samples - 1) {
 				end_num = newTab.length;
 			} else {
 				end_num = row_sample_start[num_samples + 1];
@@ -229,8 +297,12 @@ public class SetDBfromWordDoc {
 			Boolean flag2 = false;
 			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
 				cellVolume = newTab[row][2];
-
 				cellVolume = cellVolume.replaceAll("\r", " ").trim();
+				cellMetody = newTab[row][1];
+				cellMetody = cellVolume.replaceAll("\r", " ").trim();
+				if (cellMetody.startsWith("М.ЛИ-РХ")){
+					metodi[num_samples] = cellMetody;
+				}
 				boolean flag_pokazatel = false;
 				int i = row;
 				do {
@@ -242,28 +314,32 @@ public class SetDBfromWordDoc {
 					}
 				} while (!flag_pokazatel & i >= 0);
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
-				
+
 				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
-				
-				if (i == row) {
-					System.out.println("i "+i+" num_pokazatel "+num_pokazatel);
-					flag2 = true;
-					String str_cell_p = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
-					if ((str_cell_p.substring(0, 2)).equals("3H")
-							|| Integer.parseInt(str_cell_p.substring(0, 2)) >= 10) {
-						row_pokazatel_start[num_samples][num_pokazatel] = row;
+				try {
+					if (i == row) {
+						System.out.println("i " + i + " num_pokazatel " + num_pokazatel);
+						flag2 = true;
+						String str_cell_p = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
+						if ((str_cell_p.substring(0, 2)).equals("3H")
+								|| Integer.parseInt(str_cell_p.substring(0, 2)) >= 10) {
+							row_pokazatel_start[num_samples][num_pokazatel] = row;
+						}
+						//
+						num_pokazatel++;
 					}
-//					
-					num_pokazatel++;
+				} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+
 				}
 			}
-			System.out.println("2 - sample_N " + num_samples + " start " + row_pokazatel_start[num_samples][num_pokazatel]);
+			System.out.println(
+					"2 - sample_N " + num_samples + " start " + row_pokazatel_start[num_samples][num_pokazatel]);
 		}
 		System.out.println("**********************num_pokazatel: " + num_pokazatel);
-		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[number_samples][max_num_pokazatel[number_samples
+		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[counts_samples][max_num_pokazatel[counts_samples
 				- 1]];
-		for (int i = 0; i < number_samples; i++) {
+		for (int i = 0; i < counts_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 				System.out.println("str_pokazatel_sample[" + i + "][" + j + "]= " + str_pokazatel_sample[i][j]
 						+ " Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j]);
@@ -279,24 +355,24 @@ public class SetDBfromWordDoc {
 		if (num_pokazatel == 0) {
 			num_pokazatel++;
 		}
-		System.out.println("*************** sample: " + number_samples + " num_pokazatel: " + num_pokazatel);
-		String[][][] results_nuklide = new String[number_samples][num_pokazatel][50];
-		String[][][] results_value = new String[number_samples][num_pokazatel][50];
-		double[][][] results_MDA = new double[number_samples][num_pokazatel][50];
-		double[][][] results_uncertainty = new double[number_samples][num_pokazatel][50];
-		double[][][] results_value_result = new double[number_samples][num_pokazatel][50];
-		int[][] max_num_results = new int[number_samples][num_pokazatel];
-		String[] razmernost = new String[number_samples];
+		System.out.println("*************** sample: " + counts_samples + " num_pokazatel: " + num_pokazatel);
+		String[][][] results_nuklide = new String[counts_samples][num_pokazatel][50];
+		String[][][] results_value = new String[counts_samples][num_pokazatel][50];
+		double[][][] results_MDA = new double[counts_samples][num_pokazatel][50];
+		double[][][] results_uncertainty = new double[counts_samples][num_pokazatel][50];
+		double[][][] results_value_result = new double[counts_samples][num_pokazatel][50];
+		int[][] max_num_results = new int[counts_samples][num_pokazatel];
+		String[] razmernost = new String[counts_samples];
 		String results_value_str = null;
 		int num_results = 0;
 		int number_sample = 0;
-		for (int i = 0; i < number_samples; i++) {
+		for (int i = 0; i < counts_samples; i++) {
 			num_results = 0;
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 				if ((j < max_num_pokazatel[i])) {
 					end_num = row_pokazatel_start[i][j + 1];
 				} else {
-					if ((i < number_samples - 1)) {
+					if ((i < counts_samples - 1)) {
 						end_num = row_pokazatel_start[i + 1][0];
 					} else
 						end_num = newTab.length;
@@ -346,51 +422,59 @@ public class SetDBfromWordDoc {
 			System.out.println("razmernost " + i + "-" + razmernost[i]);
 		}
 
-		for (int i = 0; i < number_samples; i++) {
+		for (int i = 0; i < counts_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 
 				for (int k = 0; k <= max_num_results[i][j]; k++) {
-					if(results_value[i][j][k]!=null){
-					results_value_str = results_value[i][j][k].replace("Е", "E");
-					if (results_value_str.startsWith("<")) {
+					if (results_value[i][j][k] != null) {
+						if (results_value[i][j][k].contains("*")) {
+							flag_note = true;
+						}
+						results_value_str = results_value[i][j][k].replace("Е", "E");
+						if (results_value_str.startsWith("<")) {
 
-						results_MDA[i][j][num_results] = Double
-								.valueOf(results_value_str.substring(results_value_str.indexOf("<") + 1));
-						System.out.println("MDA " + results_MDA[i][j][num_results] + "  "
-								+ formatter(results_MDA[i][j][num_results]));
+							results_MDA[i][j][num_results] = Double
+									.valueOf(results_value_str.substring(results_value_str.indexOf("<") + 1));
+							System.out.println("MDA " + results_MDA[i][j][num_results] + "  "
+									+ formatter(results_MDA[i][j][num_results]));
 
-					} else {
-						results_value_result[i][j][num_results] = Double
-								.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
-						System.out.println("Values " + results_value_result[i][j][num_results] + "  "
-								+ formatter(results_value_result[i][j][num_results]));
-						results_uncertainty[i][j][num_results] = Double
-								.valueOf(results_value_str.substring(results_value_str.indexOf("±") + 1).replace("*", "").trim());
-						System.out.println("Uncertainty " + results_uncertainty[i][j][num_results] + " "
-								+ alignExpon(results_value_result[i][j][num_results], results_uncertainty[i][j][num_results]));
+						} else {
+							results_value_result[i][j][num_results] = Double
+									.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
+							System.out.println("Values " + results_value_result[i][j][num_results] + "  "
+									+ formatter(results_value_result[i][j][num_results]));
+							results_uncertainty[i][j][num_results] = Double.valueOf(results_value_str
+									.substring(results_value_str.indexOf("±") + 1).replace("*", "").trim());
+							System.out.println("Uncertainty " + results_uncertainty[i][j][num_results] + " "
+									+ alignExpon(results_value_result[i][j][num_results],
+											results_uncertainty[i][j][num_results]));
+						}
+
+						System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
+								+ " results " + results_value[i][j][k]);
 					}
-
-					System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
-							+ " results " + results_value[i][j][k]);
-				}
 				}
 
 			}
+
 		}
-		//
-		//
-		// System.out.println("RECUEST_CODE " + recuest_code);
-		// System.out.println("ACCREDITATION " + accreditation);
-		// System.out.println("DATE_TIME_RECEPTION " + date_time_reception);
-		// System.out.println("DATE_REQUEST " + date_recuest);
-		// System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
-		// System.out.println("IZPITVAN_PRODUKT " +
-		// izpitvan_produkt.getName_zpitvan_produkt() + " ¹ "
-		// + izpitvan_produkt.getId_zpitvan_produkt());
-		// System.out.println("DESCRIPTION_SAMPLE_GROUP " +
-		// description_sample_group);
-		// System.out.println("NUMBER_SAMPLES " + number_samples);
-		//
+		
+		
+		
+		
+		
+		System.out.println("ACCREDITATION " + accreditation);
+		System.out.println("APLICANT_FAMILY " + aplicant_family);
+		System.out.println("APLICANT_NAME " + aplicant_name);
+		System.out.println("DATE_EXECUTION " + date_execution);
+		System.out.println("DATE_REQUEST " + date_recuest);
+		System.out.println("DATE_TIME_RECEPTION " + date_time_reception);
+		System.out.println("COUNTS_SAMPLES " + counts_samples);
+		System.out.println("RECUEST_CODE " + recuest_code);
+		System.out.println("SECTION " + section);
+		
+		
+		
 		// for (int j = 0; j < number_samples; j++) {
 		// System.out.println();
 		// System.out.println("DESCRIPTION_SAMPLE " + (j + 1) + " - " +
@@ -425,7 +509,6 @@ public class SetDBfromWordDoc {
 		return fnumber;
 	}
 
-
 	public static String alignExpon(double basic, double foll) {
 		NumberFormat frm = new DecimalFormat("0.00E00");
 		NumberFormat frm_foll = new DecimalFormat("0.00");
@@ -433,11 +516,24 @@ public class SetDBfromWordDoc {
 		double expon = Double.valueOf("1.0" + str_bas.substring(str_bas.indexOf("E")));
 		foll = foll / expon;
 		String str_foll = frm_foll.format(foll) + str_bas.substring(str_bas.indexOf("E"));
-		if (!str_foll.contains("E-")) { //don't blast a negative sign
+		if (!str_foll.contains("E-")) { // don't blast a negative sign
 			str_foll = str_foll.replace("E", "E+");
-	    }
+		}
 		str_foll = str_foll.replace(",", ".");
 		return str_foll;
 	}
-	
+
+	public static String addDate(String dt, int date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(dt));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.add(Calendar.DATE, date); // number of days to add
+		dt = sdf.format(c.getTime()); // dt is now the new date
+		return dt;
+	}
 }

@@ -23,7 +23,7 @@ static String name_DBase = "JPA_RH_DBase";
 
 
 //	Pokazatel
-	public static void setValueIzpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample) {
+	public static void setValueIzpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample, Metody metody) {
 		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -32,6 +32,7 @@ static String name_DBase = "JPA_RH_DBase";
 		
 		pokazatal.setPokazatel(pokazatel);
 		pokazatal.setSample(sample);
+		pokazatal.setMetody(metody);
 		
 		entitymanager.persist(pokazatal);
 		entitymanager.getTransaction().commit();
@@ -141,7 +142,16 @@ static String name_DBase = "JPA_RH_DBase";
 		List_izpitvan_pokazatel izpitvan_pokazatel = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
 		System.out.println("Name Izpitvan_pokazatel:" + izpitvan_pokazatel.getId_pokazatel());
 		
-		setValueIzpitvan_pokazatel(izpitvan_pokazatel, sample);
+		// Get random Metody object
+				List<Metody> listMetody = entitymanager.createQuery("SELECT e FROM Metody e")
+						.getResultList();
+				System.out.println("Num Metody:" + listMetody.size());
+				max = listMetody.size();
+				ran = min + (int) (Math.random() * ((max - min) + 1));
+				Metody metody = MetodyDAO.getValueMetodyById(ran);
+				System.out.println("Code Metody:" + metody.getId_metody());
+		
+		setValueIzpitvan_pokazatel(izpitvan_pokazatel, sample, metody);
 		
 		
 					}

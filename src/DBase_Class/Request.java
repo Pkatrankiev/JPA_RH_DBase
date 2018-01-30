@@ -23,13 +23,13 @@ public class Request implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_recuest;
-	private int recuest_code;
+	private String recuest_code;
 	private String date_request;
 	private Boolean accreditation;
 	private Boolean section;
 	private String applicant_name;
 	private String applicant_family;
-	private int number_samples;
+	private int counts_samples;
 	private String description_sample_group;
 	private String date_time_reception;
 	private String date_execution;
@@ -50,7 +50,7 @@ public class Request implements Serializable {
 	private Users users;
 
 	public Request( 
-			int recuest_code, 
+			String recuest_code, 
 			String date_request, 
 			Boolean accreditation,
 			Boolean section,
@@ -58,7 +58,7 @@ public class Request implements Serializable {
 			Internal_applicant internal_applicant,
 			String applicant_name,
 			String applicant_family,
-			int number_samples, 
+			int counts_samples, 
 			String description_sample_group, 
 			String date_time_reception,
 			String date_execution,
@@ -78,7 +78,7 @@ public class Request implements Serializable {
 		this.internal_applicant = internal_applicant;
 		this.applicant_name = applicant_name;
 		this.applicant_family = applicant_family;
-		this.number_samples = number_samples;
+		this.counts_samples = counts_samples;
 		this.description_sample_group = description_sample_group;
 		this.date_time_reception = date_time_reception;
 		this.date_execution = date_execution;
@@ -112,11 +112,11 @@ public class Request implements Serializable {
 	}
 
 	
-	public int getRecuest_code() {
+	public String getRecuest_code() {
 		return recuest_code;
 	}
 
-	public void setRecuest_code(int recuest_code) {
+	public void setRecuest_code(String recuest_code) {
 		this.recuest_code = recuest_code;
 	}
 
@@ -163,12 +163,12 @@ public class Request implements Serializable {
 		this.applicant_name = applicant_name;
 	}
 
-	public int getNumber_samples() {
-		return number_samples;
+	public int getCounts_samples() {
+		return counts_samples;
 	}
 
-	public void setNumber_samples(int number_samples) {
-		this.number_samples = number_samples;
+	public void setCounts_samples(int number_samples) {
+		this.counts_samples = number_samples;
 	}
 
 	public String getDescription_sample_group() {

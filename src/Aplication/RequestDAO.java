@@ -24,9 +24,9 @@ public class RequestDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 
-	public static void setValueRequest(int recuest_code, String date_request, Boolean accreditation, Boolean section,
+	public static void setValueRequest(String recuest_code, String date_request, Boolean accreditation, Boolean section,
 			External_applicant external_applicant, Internal_applicant internal_applicant, String applicant_name,
-			String applicant_family, int number_samples, String description_sample_group, String date_time_reception,
+			String applicant_family, int counts_samples, String description_sample_group, String date_time_reception,
 			String date_execution, Ind_num_doc ind_num_doc, Izpitvan_produkt izpitvan_produkt,
 			 Razmernosti razmernosti, Zabelejki zabelejki, Users users) {
 
@@ -45,7 +45,7 @@ public class RequestDAO {
 		valueEnt.setApplicant_name(applicant_name);
 		
 		valueEnt.setApplicant_family(applicant_family);
-		valueEnt.setNumber_samples(number_samples);
+		valueEnt.setCounts_samples(counts_samples);
 		valueEnt.setDescription_sample_group(description_sample_group);
 		valueEnt.setDate_time_reception(date_time_reception);
 
@@ -88,7 +88,7 @@ public class RequestDAO {
 					+ "  internal_applicant_address :"+ ((Request) e).getInternal_applicant().getInternal_applicant_address()
 					+ "  internal_applicant_telephone :"+ ((Request) e).getInternal_applicant().getInternal_applicant_telephone() 
 					+"  applicant_name :" + ((Request) e).getApplicant_name() 
-					+ "  number_samples :"+ ((Request) e).getNumber_samples() 
+					+ "  number_samples :"+ ((Request) e).getCounts_samples() 
 					+ "  description_sample_group :"+ ((Request) e).getDescription_sample_group() 
 					+ "  date_time_reception :"+ ((Request) e).getDate_time_reception() 
 					+ "  date_execution :" + ((Request) e).getDate_execution()
@@ -183,7 +183,7 @@ for (int i = 1; i < 9; i++) {
 
 		
 		 setValueRequest(
-		 2255+i,
+		 (2255+i)+"",
 		 "12.12.2017",
 		 true, //accreditation
 		 true, //section

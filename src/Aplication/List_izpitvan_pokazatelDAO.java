@@ -18,7 +18,7 @@ static String name_DBase = "JPA_RH_DBase";
 	
 public static void setBasikValuePokazatel(){
 	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди",MetodyDAO.getValueMetodyById(10));
-	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди",MetodyDAO.getValueMetodyById(8));
+	setValueList_pokazatel("Съдържание на алфа-излъчващи радионуклиди",MetodyDAO.getValueMetodyById(8));
 	setValueList_pokazatel("Съдържание на 55Fe", MetodyDAO.getValueMetodyById(16));
 	setValueList_pokazatel("Съдържание на 63Ni", MetodyDAO.getValueMetodyById(16));
 	setValueList_pokazatel("Съдържание на 90Sr", MetodyDAO.getValueMetodyById(16));

@@ -29,7 +29,7 @@ public class Sample implements Serializable {
 	@ManyToOne
 	private Request request;
 	@ManyToOne
-	private Obekt_na_izpitvane obekt_na_izpitvane;
+	private Obekt_na_izpitvane_sample obekt_na_izpitvane;
 	
 	
 
@@ -38,7 +38,7 @@ public class Sample implements Serializable {
 			String description_sample, 
 			String date_time_reference,
 			Request request,
-			Obekt_na_izpitvane obekt_na_izpitvane
+			Obekt_na_izpitvane_sample obekt_na_izpitvane
 			) {
 		
 		super();
@@ -97,11 +97,11 @@ public class Sample implements Serializable {
 		this.request = request;
 	}
 
-	public Obekt_na_izpitvane getObekt_na_izpitvane() {
+	public Obekt_na_izpitvane_sample getObekt_na_izpitvane() {
 		return obekt_na_izpitvane;
 	}
 
-	public void setObekt_na_izpitvane(Obekt_na_izpitvane obekt_na_izpitvane) {
+	public void setObekt_na_izpitvane(Obekt_na_izpitvane_sample obekt_na_izpitvane) {
 		this.obekt_na_izpitvane = obekt_na_izpitvane;
 	}
 

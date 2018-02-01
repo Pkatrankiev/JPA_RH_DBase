@@ -63,16 +63,18 @@ public class Main_Aplication {
 		MetodyDAO.setBasikValueMetody();
 		List_izpitvan_pokazatelDAO.setBasikValuePokazatel();
 		NuclideDAO.setBasicValueNuclide();
-		Obekt_na_izpitvaneDAO.setBasicValueObekt_na_izpitvane();
+		Obekt_na_izpitvane_requestDAO.setBasicValueObekt_na_izpitvane();
+		Obekt_na_izpitvane_sampleDAO.setBasicValueObekt_na_izpitvane_sample();
+		Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
 		RazmernostiDAO.setBasicValueRazmernosti();
 		PostDAO.setBasikValuePost();
 		UsersDAO.setBasicValueUsers();
 		ZabelejkiDAO.setBasicValueZabelejki();
 		Internal_applicantDAO.setBasikValueInternal_applicant();
-		RequestDAO.setBasicValueRequest();
-		SampleDAO.setBasicValueSample();
-		Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
-		ResultsDAO.setBasicValueResults();
+//		RequestDAO.setBasicValueRequest();
+//		SampleDAO.setBasicValueSample();
+//		
+//		ResultsDAO.setBasicValueResults();
 	}
 
 	public static String alignExpon(double basic, double foll) {

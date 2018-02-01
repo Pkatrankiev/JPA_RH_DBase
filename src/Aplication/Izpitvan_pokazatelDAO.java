@@ -12,7 +12,7 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
-import DBase_Class.Obekt_na_izpitvane;
+import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Sample;
 
 public class Izpitvan_pokazatelDAO {

@@ -48,6 +48,9 @@ public class Request implements Serializable {
 	private Zabelejki zabelejki;
 	@ManyToOne
 	private Users users;
+	
+	@ManyToOne
+	private Obekt_na_izpitvane_request obekt_na_izpitvane_request;
 
 	public Request( 
 			String recuest_code, 
@@ -66,7 +69,8 @@ public class Request implements Serializable {
 			Izpitvan_produkt izpitvan_produkt, 
 			Razmernosti razmernosti, 
 			Zabelejki zabelejki, 
-			Users users) {
+			Users users,
+			Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 		
 		super();
 		
@@ -87,15 +91,14 @@ public class Request implements Serializable {
 		this.razmernosti = razmernosti;
 		this.zabelejki = zabelejki;
 		this.users = users;
+		this.obekt_na_izpitvane_request = obekt_na_izpitvane_request;
 	}
 
 	 public Request(){
 		 super( );
 		 }
 	 
-	
-
-		
+			
 		public String getApplicant_family() {
 			return applicant_family;
 		}
@@ -107,6 +110,18 @@ public class Request implements Serializable {
 
 		
 	 
+	public Obekt_na_izpitvane_request getObekt_na_izpitvane_request() {
+			return obekt_na_izpitvane_request;
+		}
+
+		public void setObekt_na_izpitvane_request(Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
+			this.obekt_na_izpitvane_request = obekt_na_izpitvane_request;
+		}
+
+		public void setId_recuest(int id_recuest) {
+			Id_recuest = id_recuest;
+		}
+
 	public int getId_recuest() {
 		return Id_recuest;
 	}

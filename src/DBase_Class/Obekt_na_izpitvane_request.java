@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Obekt_na_izpitvane implements Serializable {
+public class Obekt_na_izpitvane_request implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -20,13 +20,13 @@ public class Obekt_na_izpitvane implements Serializable {
 
 		 private String name;
 		
-		 public Obekt_na_izpitvane(Integer id, String name) {
+		 public Obekt_na_izpitvane_request(Integer id, String name) {
 		     super( );
 		     		     
 		     this.name = name;
 		    		  }
 		 
-		 public Obekt_na_izpitvane(){
+		 public Obekt_na_izpitvane_request(){
 		 super( );
 		 }
 		 

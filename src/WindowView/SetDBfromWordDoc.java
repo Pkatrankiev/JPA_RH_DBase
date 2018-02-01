@@ -14,8 +14,11 @@ import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
+import Aplication.Obekt_na_izpitvane_requestDAO;
+import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
+import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.External_applicant;
@@ -25,7 +28,11 @@ import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Razmernosti;
+import DBase_Class.Request;
+import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 
@@ -44,7 +51,7 @@ public class SetDBfromWordDoc {
 		NumberFormat frm = new DecimalFormat("#0.00000");
 		String recuest_code = "";
 		String date_time_reception = null;
-		String obekt_na_izpitvane = null;
+		String obekt_na_izpitvane_request = null;
 		String date_recuest = null;
 		String date_time_reference = null;
 		String date_redac = null;
@@ -107,7 +114,7 @@ public class SetDBfromWordDoc {
 
 						/** OBEKT_NA_IZPITVANE in SAMPLE Class **/
 						if (cellVolume.startsWith("Обект, от който")) {
-							obekt_na_izpitvane = celsTranfer[tab][row][coll + 1];
+							obekt_na_izpitvane_request = celsTranfer[tab][row][coll + 1];
 						}
 
 						/**
@@ -216,11 +223,11 @@ public class SetDBfromWordDoc {
 
 		String[] ob_na_izpit = new String[counts_samples];
 		for (int i = 0; i < ob_na_izpit.length; i++) {
-			num_end = obekt_na_izpitvane.indexOf("\r", num_start + 1);
+			num_end = obekt_na_izpitvane_request.indexOf("\r", num_start + 1);
 			if (num_end < 0) {
-				num_end = obekt_na_izpitvane.length();
+				num_end = obekt_na_izpitvane_request.length();
 			}
-			str = obekt_na_izpitvane.substring(num_start, num_end);
+			str = obekt_na_izpitvane_request.substring(num_start, num_end);
 			num_start = num_end;
 			ob_na_izpit[i] = str.trim();
 
@@ -355,14 +362,13 @@ public class SetDBfromWordDoc {
 			}
 		}
 		System.out.println("**********************num_pokazatel: " + num_pokazatel);
-		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[counts_samples][max_num_pokazatel[counts_samples
-				- 1]];
+		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[counts_samples][num_pokazatel+1];
 		for (int i = 0; i < counts_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 				System.out.println("str_pokazatel_sample[" + i + "][" + j + "]= " + str_pokazatel_sample[i][j]
 						+ " Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j]);
-				// pokazatel_sample[i][j] =
-				// List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
+				 pokazatel_sample[i][j] =
+				 List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
 
 			}
 
@@ -532,6 +538,8 @@ public class SetDBfromWordDoc {
 		for (int i = 0; i < counts_samples; i++) {
 			description_sample_group = description_sample_group + recuest_code+"-"+(i+1)+"/"+sample_description [i]+";\r";
 		}
+		Obekt_na_izpitvane_request ob_izpitvane_request = 
+		Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvane_requestByName(obekt_na_izpitvane_request);
 		
 
 		System.out.println("ACCREDITATION " + accreditation);
@@ -546,14 +554,16 @@ public class SetDBfromWordDoc {
 		System.out.println("SECTION " + section);
 		
 		System.out.println("EXTERNAL_APLICANT " + external_aplicant);
-		System.out.println("IND_NUM_DOC " + ind_num_doc.getName());
-		System.out.println("INTERNAL_APLICANT " + internal_aplicant.getInternal_applicant_organization());
+		System.out.println("IND_NUM_DOC " + ((ind_num_doc==null) ? ind_num_doc : ind_num_doc.getName()));
+		System.out.println("INTERNAL_APLICANT " + ((internal_aplicant==null) ? internal_aplicant : internal_aplicant.getInternal_applicant_organization()));
 		System.out.println("IZPITVAN_PRODUKT " + izpitvan_produkt.getName_zpitvan_produkt());
 		System.out.println("RAZMERNOST " + razmernost_recuest.getName_razmernosti());
 		System.out.println("USERS " + user_recues.getName_users());
-		System.out.println("ZABELEJKI " + ((note==null) ? note:note.getName_zabelejki()));
+		System.out.println("ZABELEJKI " + ((note==null) ? note : note.getName_zabelejki()));
+		System.out.println("OBEKT_NA_IZPITVANE_REQUEST " +ob_izpitvane_request.getName_obekt_na_izpitvane() );
+		
 
-		RequestDAO.setValueRequest(
+		Request request = new Request(
 				 recuest_code,
 				 date_recuest,
 				 accreditation, //accreditation
@@ -570,11 +580,33 @@ public class SetDBfromWordDoc {
 				 izpitvan_produkt, //izpitvan_produkt
 				 razmernost_recuest, //razmernosti
 				 note, //zabelejki
-				 user_recues); //users
+				 user_recues,//users
+				 ob_izpitvane_request); 
+		RequestDAO.setValueRequest(request);
 		
 		/** --------------------------------------------------------------- **/
 		
-		
+		for (int i = 0; i < counts_samples; i++) {
+			System.out.println("REQUEST " + request.getRecuest_code());
+			System.out.println("SAMPLE_CODE " + sample_code[i]);
+			System.out.println("SAMPLE_DESCRIPTION " + sample_description [i]);
+			System.out.println("DATE_TIME_REFERENCE " +  date_time_reference);
+			System.out.println("OBECT_NA_IZPITVANE_SAMPLE " + ob_na_izpit[i]);
+			Sample samp = new Sample (sample_code[i], sample_description [i], date_time_reference, request, Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]));
+			SampleDAO.setValueSample(samp);
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+				Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[i][j]);
+				System.out.println("IZPITVAN_POKAZATEL " + pokazatel_sample[i][j].getName_pokazatel());
+				System.out.println("SAMPLE " +samp.getSample_code());
+				System.out.println("METOD_NA_IZPITVANE " +metody_sample.getName_metody());
+				Izpitvan_pokazatel izpitvan_pokazatel = 
+						new Izpitvan_pokazatel(pokazatel_sample[i][j], samp, metody_sample );
+				for (int k = 0; k < max_num_results[i][j]; k++) {
+					
+				}
+			
+			}
+		}
 
 	}
 

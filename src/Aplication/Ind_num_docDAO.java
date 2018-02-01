@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
+import DBase_Class.Izpitvan_produkt;
 
 public class Ind_num_docDAO {
 	
@@ -70,5 +71,28 @@ public class Ind_num_docDAO {
 
 		return ind_num_doc;
 	}
+
+
+	@GET
+	public static Ind_num_doc getValueIzpitvan_produktByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Ind_num_doc e WHERE e.name = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueInd_num_doc(name, " ");	
+		}
+		Ind_num_doc list = (Ind_num_doc) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
 }
 

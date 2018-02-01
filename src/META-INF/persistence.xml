@@ -11,7 +11,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Izpitvan_produkt</class>
 		<class>DBase_Class.Izpitvan_pokazatel</class>
 		<class>DBase_Class.List_izpitvan_pokazatel</class>
-		<class>DBase_Class.Obekt_na_izpitvane</class>
+		<class>DBase_Class.Obekt_na_izpitvane_request</class>
 		<class>DBase_Class.Zabelejki</class>
 		<class>DBase_Class.Razmernosti</class>
 		<class>DBase_Class.Users</class>
@@ -23,6 +23,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Sample</class>
 		<class>DBase_Class.Results</class>
 		<class>DBase_Class.Post</class>
+		<class>DBase_Class.Obekt_na_izpitvane_sample</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

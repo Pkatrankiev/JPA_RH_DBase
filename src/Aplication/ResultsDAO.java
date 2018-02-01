@@ -26,7 +26,7 @@ import DBase_Class.Results;
 import DBase_Class.Users;
 import DBase_Class.Nuclide;
 import DBase_Class.Zabelejki;
-import DBase_Class.Obekt_na_izpitvane;
+import DBase_Class.Obekt_na_izpitvane_request;
 
 public class ResultsDAO {
 

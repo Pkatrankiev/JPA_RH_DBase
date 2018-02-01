@@ -17,7 +17,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
-import DBase_Class.Obekt_na_izpitvane;
+import DBase_Class.Obekt_na_izpitvane_request;
 
 public class RequestDAO {
 
@@ -28,7 +28,7 @@ public class RequestDAO {
 			External_applicant external_applicant, Internal_applicant internal_applicant, String applicant_name,
 			String applicant_family, int counts_samples, String description_sample_group, String date_time_reception,
 			String date_execution, Ind_num_doc ind_num_doc, Izpitvan_produkt izpitvan_produkt,
-			 Razmernosti razmernosti, Zabelejki zabelejki, Users users) {
+			 Razmernosti razmernosti, Zabelejki zabelejki, Users users,Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -58,12 +58,26 @@ public class RequestDAO {
 		
 		valueEnt.setZabelejki(zabelejki);
 		valueEnt.setUsers(users);
+		valueEnt.setObekt_na_izpitvane_request(obekt_na_izpitvane_request);
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
 	}
+	
+	public static void setValueRequest(Request valueEnt) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+
 
 	public static List<Request> getInListAllValueRequest() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -148,12 +162,12 @@ for (int i = 1; i < 9; i++) {
 		System.out.println("Name Izpitvan_produkt:" + izpitvan_produkt.getName_zpitvan_produkt());
 
 		// Get random Obekt_na_izpitvane object
-		List<Obekt_na_izpitvane> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane e")
+		List<Obekt_na_izpitvane_request> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane e")
 				.getResultList();
 		System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
 		max = listOi.size();
 		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Obekt_na_izpitvane obekt_na_izpitvane = Obekt_na_izpitvaneDAO.getValueObekt_na_izpitvaneById(ran);
+		Obekt_na_izpitvane_request obekt_na_izpitvane = Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvaneById(ran);
 		System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
 
 		
@@ -199,31 +213,13 @@ for (int i = 1; i < 9; i++) {
 		 izpitvan_produkt, //izpitvan_produkt
 		 razmernosti, //razmernosti
 		 zabelejki, //zabelejki
-		 users); //users
+		 users,
+		 Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvaneById(1)); //users
 }
 		 entitymanager.close();
 			emfactory.close();
 
-		// setValueRequest(
-		// 26855,
-		// "55.12.2007",
-		// true,
-		// true,
-		// null,
-		// null,
-		// "Petar",
-		// "Иванов",
-		// 3,
-		// "про221",
-		// "26.12.2017 /18:00",
-		// " 25.12.2007g",
-		// null,
-		// null,
-		// null,
-		// null,
-		// null,
-		// null,
-		// null);
+		
 
 	}
 

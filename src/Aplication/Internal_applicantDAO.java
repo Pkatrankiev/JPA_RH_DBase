@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.External_applicant;
 import DBase_Class.Internal_applicant;
+import DBase_Class.Izpitvan_produkt;
 
 public class Internal_applicantDAO {
 	
@@ -82,4 +83,29 @@ public class Internal_applicantDAO {
 
 		return internal_applicant;
 	}
+
+	public static Internal_applicant getValueInternal_applicantByName(String internal_applicant_organization) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Internal_applicant e WHERE e.internal_applicant_organization = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", internal_applicant_organization);
+		if (query.getResultList().isEmpty()){
+			
+			/**    value not in Base        **/
+			
+			}
+		Internal_applicant list = (Internal_applicant) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+
+
 }

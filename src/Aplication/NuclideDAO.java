@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Nuclide;
 import DBase_Class.Sample;
 
@@ -124,6 +125,27 @@ public static Nuclide getValueSNuclideById(@QueryParam("id") int id) {
 
 	return nuclide;
 }
+	
+	@GET
+	public static Nuclide getValueNuclideBySymbol(String symbol) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Nuclide e WHERE e.symbol = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", symbol);
+		if (query.getResultList().isEmpty()){
+			setValueNuclide("-", "-", symbol, 0.0, '-', true);	
+		}
+		Nuclide list = (Nuclide) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
 
 }
 

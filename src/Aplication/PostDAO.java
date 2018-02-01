@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Izpitvan_pokazatel;
+import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
 
 public class PostDAO {
@@ -67,4 +68,24 @@ public class PostDAO {
 		return post;
 	}
 
+	@GET
+	public static Post getValuePostByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Post e WHERE e.name = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValuePost(name);	
+		}
+		Post list = (Post) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
 }

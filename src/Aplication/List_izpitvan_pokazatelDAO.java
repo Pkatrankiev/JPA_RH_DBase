@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Users;
 
 public class List_izpitvan_pokazatelDAO {
 	
@@ -83,13 +84,18 @@ public static void setBasikValuePokazatel(){
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Izpitvan_pokazatel e WHERE e.name = :text";
+		String hql = "SELECT e FROM List_izpitvan_pokazatel e WHERE e.name = :text";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueList_pokazatel(name);	
+		}
 		List_izpitvan_pokazatel list = (List_izpitvan_pokazatel) query.getSingleResult();
 		entitymanager.close();
-		emfactory.close();
+		emfactory.close();	
+				
+		
 
 		return list;
 	}	

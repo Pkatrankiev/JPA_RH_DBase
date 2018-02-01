@@ -10,7 +10,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Izpitvan_pokazatel;
-import DBase_Class.Obekt_na_izpitvane;
+import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 
@@ -19,7 +20,7 @@ public class SampleDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setValueSample(int sample_code, String description_sample, String date_time_reference,
-			Request request, Obekt_na_izpitvane obekt_na_izpitvane) {
+			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -39,6 +40,17 @@ public class SampleDAO {
 		emfactory.close();
 	}
 
+	public static void setValueSample(Sample valueEnt) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+	
 	public static List<Sample> getInListAllValueSample() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -96,12 +108,12 @@ public class SampleDAO {
 
 			
 			// Get random Obekt_na_izpitvane object
-			List<Obekt_na_izpitvane> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane e")
+			List<Obekt_na_izpitvane_request> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane e")
 					.getResultList();
 			System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
 			max = listOi.size();
 			ran = min + (int) (Math.random() * ((max - min) + 1));
-			Obekt_na_izpitvane obekt_na_izpitvane = Obekt_na_izpitvaneDAO.getValueObekt_na_izpitvaneById(ran);
+			Obekt_na_izpitvane_sample obekt_na_izpitvane = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleById(ran);
 			System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
 
 		

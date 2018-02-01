@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
@@ -74,7 +75,6 @@ public class UsersDAO {
 		return list;
 	}
 
-
 	@GET
 	@QueryParam("{id}")
 	public static Users getValueUsersById(@QueryParam("id") int id) {
@@ -90,4 +90,25 @@ public class UsersDAO {
 		return users;
 	}
 
+	@GET
+	public static Users getValueUsersByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Users e WHERE e.name = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueUsers(name,"","","",false,PostDAO.getValuePostById(1));	
+		}
+		Users list = (Users) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
 }

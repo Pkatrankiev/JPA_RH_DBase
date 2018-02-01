@@ -72,4 +72,27 @@ public class ZabelejkiDAO {
 		return zabelejki;
 	}
 
+	
+	@GET
+	public static Zabelejki getValueZabelejkiByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Zabelejki e WHERE e.name = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueZabelejki(name);	
+		}
+		Zabelejki list = (Zabelejki) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+	
 }

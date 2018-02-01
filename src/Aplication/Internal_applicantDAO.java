@@ -18,6 +18,7 @@ public class Internal_applicantDAO {
 
 	public static void setBasikValueInternal_applicant(){
 		
+		setValueInternal_applicant("Държавно предприятие “Радиоактивни отпадъци", "гр.Колодуй", "67-90");
 		setValueInternal_applicant("ДП РАО, с-р ОРДК", "гр.Колодуй", "67-90");
 		setValueInternal_applicant("ДП РАО, с-р РХ1", "гр.Колодуй", "20-24");
 		

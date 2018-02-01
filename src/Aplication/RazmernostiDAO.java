@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.External_applicant;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Razmernosti;
 
 public class RazmernostiDAO {
@@ -71,4 +72,29 @@ public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
 
 	return razmernosti;
 }
+
+
+	@GET
+	public static Razmernosti getValueRazmernostiByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Razmernosti e WHERE e.name = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()){
+			setValueRazmernosti(name);	
+		}
+		Razmernosti list = (Razmernosti) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+
+
 }

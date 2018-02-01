@@ -17,19 +17,19 @@ public class List_izpitvan_pokazatelDAO {
 static String name_DBase = "JPA_RH_DBase";
 	
 public static void setBasikValuePokazatel(){
-	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди",MetodyDAO.getValueMetodyById(10));
-	setValueList_pokazatel("Съдържание на алфа-излъчващи радионуклиди",MetodyDAO.getValueMetodyById(8));
-	setValueList_pokazatel("Съдържание на 55Fe", MetodyDAO.getValueMetodyById(16));
-	setValueList_pokazatel("Съдържание на 63Ni", MetodyDAO.getValueMetodyById(16));
-	setValueList_pokazatel("Съдържание на 90Sr", MetodyDAO.getValueMetodyById(16));
-	setValueList_pokazatel("Съдържание на 241Pu", MetodyDAO.getValueMetodyById(16));
+	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди");
+	setValueList_pokazatel("Съдържание на алфа-излъчващи радионуклиди");
+	setValueList_pokazatel("Съдържание на 55Fe");
+	setValueList_pokazatel("Съдържание на 63Ni");
+	setValueList_pokazatel("Съдържание на 90Sr");
+	setValueList_pokazatel("Съдържание на 241Pu");
 	
 	
 }
 
 
 //	Pokazatel
-	public static void setValueList_pokazatel(String name,  Metody metody) {
+	public static void setValueList_pokazatel(String name) {
 		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -37,7 +37,6 @@ public static void setBasikValuePokazatel(){
 		List_izpitvan_pokazatel pokazatal = new List_izpitvan_pokazatel();
 		
 		pokazatal.setName_pokazatel(name);
-		pokazatal.setMetody(metody);
 		
 		entitymanager.persist(pokazatal);
 		entitymanager.getTransaction().commit();
@@ -57,7 +56,7 @@ public static void setBasikValuePokazatel(){
 		for (List_izpitvan_pokazatel e : list) {
 			System.out.println(
 					"Num:" + ((List_izpitvan_pokazatel) e).getId_pokazatel() + "  NAME :" + ((List_izpitvan_pokazatel) e).getName_pokazatel()
-					+"  NAME metod :" + ((List_izpitvan_pokazatel) e).getMetody().getName_metody());
+					);
 		}
 		return list;
 	}
@@ -95,22 +94,5 @@ public static void setBasikValuePokazatel(){
 		return list;
 	}	
 	
-	@GET
-	public static List< List_izpitvan_pokazatel> getValueIzpitvan_pokazatelByMetody(Metody metody) {
-
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		String hql = "SELECT e FROM Izpitvan_pokazatel e WHERE e.metody = :text";
-
-		Query query = entitymanager.createQuery(hql);
-		query.setParameter("text", metody);
-		List<List_izpitvan_pokazatel> list =  query.getResultList();
-		entitymanager.close();
-		emfactory.close();
-
-		return list;
-	}	
-	
+		
 }

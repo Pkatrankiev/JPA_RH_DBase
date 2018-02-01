@@ -20,14 +20,13 @@ public class List_izpitvan_pokazatel implements Serializable {
 		 private int Id_pokazatel;
 
 		 private String name;
-		 @ManyToOne
-			private Metody metody;
 		
-		 public List_izpitvan_pokazatel(Integer id, String name,  Metody metody) {
+		
+		 public List_izpitvan_pokazatel(Integer id, String name) {
 		     super( );
 		     		     
 		     this.name = name;
-		     this.metody = metody;
+		     
 		    		  }
 		 
 		 public List_izpitvan_pokazatel(){
@@ -49,14 +48,7 @@ public class List_izpitvan_pokazatel implements Serializable {
 		 this.name = name;
 		 }
 
-		public Metody getMetody() {
-			return metody;
-		}
-
-		public void setMetody(Metody metody) {
-			this.metody = metody;
-		}
-
+	
 		public static long getSerialversionuid() {
 			return serialVersionUID;
 		}

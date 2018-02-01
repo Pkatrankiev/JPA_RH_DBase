@@ -8,16 +8,26 @@ import java.util.Calendar;
 
 import javax.swing.JTable;
 
+import Aplication.Ind_num_docDAO;
+import Aplication.Internal_applicantDAO;
 import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
+import Aplication.RazmernostiDAO;
+import Aplication.RequestDAO;
+import Aplication.UsersDAO;
+import Aplication.ZabelejkiDAO;
 import DBase_Class.External_applicant;
+import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Razmernosti;
+import DBase_Class.Users;
+import DBase_Class.Zabelejki;
 
 public class SetDBfromWordDoc {
 
@@ -43,6 +53,7 @@ public class SetDBfromWordDoc {
 		String aplicant_family = null;
 		String date_execution = null;
 		String date_chim = null;
+		String zabelejka_recuest = null;
 		Boolean accreditation = false;
 		Boolean section = false;
 		Boolean flag_note = false;
@@ -51,8 +62,10 @@ public class SetDBfromWordDoc {
 
 		External_applicant external_aplicant = null;
 		Internal_applicant internal_aplicant = null;
+		Ind_num_doc ind_num_doc = null;
+		Zabelejki note = null;
 		int num_sample = 0;
-
+		int z= 0;
 		for (int tab = 0; tab < 2; tab++) {
 
 			for (int row = 0; row < celsTranfer[0].length; row++) {
@@ -70,6 +83,27 @@ public class SetDBfromWordDoc {
 						if (clear_cells.startsWith("№")) {
 							recuest_code = clear_cells.substring(1, 5);
 						}
+						
+						/** MDA in RESULT Class **/
+						String [] mda = new String [20] ;
+						
+						if (cellVolume.contains("MDA") & cellVolume.contains(recuest_code)) {
+							cellVolume = cellVolume.replaceAll("Е", "E");
+							int start = cellVolume.indexOf("E")-5;
+							int end = cellVolume.indexOf("E")+4;
+							mda[z] = cellVolume.substring(start, end).trim();
+							System.out.println("MDA ["+z+"] = "+mda[z]);
+							z++;
+													}
+						
+						/**
+						 * ZABELEJKA in RECUEST Class -	 **/
+						if (clear_cells.startsWith("*")) {
+							zabelejka_recuest = clear_cells.substring(1).trim();
+						}
+						
+						
+						
 
 						/** OBEKT_NA_IZPITVANE in SAMPLE Class **/
 						if (cellVolume.startsWith("Обект, от който")) {
@@ -82,7 +116,7 @@ public class SetDBfromWordDoc {
 						if (cellVolume.startsWith("Сертификат")) {
 							accreditation = true;
 						}
-						
+
 						/** DESCRIPTION_SAMPLE_GROUP in RECUEST Class **/
 						if (cellVolume.contains("Описание на пробите")) {
 							description_sample_group = celsTranfer[tab][row][coll + 1];
@@ -96,7 +130,7 @@ public class SetDBfromWordDoc {
 
 								section = true;
 							}
-							
+
 						}
 
 						/**
@@ -118,11 +152,13 @@ public class SetDBfromWordDoc {
 									"");
 						}
 
+											
+						
 						/** IZPITVAN_PRODUKT in RECUEST Class **/
 						if (cellVolume.startsWith("Изпитван продукт")) {
 							String produkt = celsTranfer[tab][row][coll + 1];
-							// izpitvan_produkt =
-							// Izpitvan_produktDAO.getValueIzpitvan_produktByName(produkt);
+							 izpitvan_produkt =
+							 Izpitvan_produktDAO.getValueIzpitvan_produktByName(produkt);
 						}
 
 						/**
@@ -291,7 +327,7 @@ public class SetDBfromWordDoc {
 			}
 
 			num_pokazatel = 0;
-			Boolean flag2=false;
+			Boolean flag2 = false;
 			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
 				cellVolume = newTab[row][2];
 
@@ -302,16 +338,17 @@ public class SetDBfromWordDoc {
 					cellVolume = newTab[i][2];
 					if (cellVolume.startsWith("Съдържание на ")) {
 						flag_pokazatel = true;
-						
-					} else{
-						i--;}
-					
+
+					} else {
+						i--;
+					}
+
 				} while (!flag_pokazatel & i >= 0);
-			row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
+				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
 				if (i == row) {
-					flag2=true;
+					flag2 = true;
 					row_pokazatel_start[num_samples][num_pokazatel] = row;
 					num_pokazatel++;
 				}
@@ -330,81 +367,48 @@ public class SetDBfromWordDoc {
 			}
 
 		}
-		
-		
-		/** METODY RESULYS Class **/
 
-//		System.out.println("*************** metody: " );
-//		String[][] metody = new String[counts_samples][num_pokazatel];
-//		
-//		int num_results = 0;
-//		int number_sample = 0;
-//		for (int i = 0; i < counts_samples; i++) {
-//			num_results = 0;
-//			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-//				if ((j < max_num_pokazatel[i])) {
-//					end_num = row_pokazatel_start[i][j + 1];
-//				} else {
-//					if ((i < counts_samples - 1)) {
-//						end_num = row_pokazatel_start[i + 1][0];
-//					} else
-//						end_num = newTab.length;
-//				}
-//				System.out.println("start " + row_pokazatel_start[i][j] + " end " + (end_num - 1));
-//				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
-//					cellVolume = newTab[row][1];
-//					cellVolume = cellVolume.trim();
-//					boolean flag_pokazatel = false;
-//					int i = row;
-//					do {
-//						cellVolume = newTab[i][2];
-//						if (cellVolume.startsWith("M.ЛИ-РХ")) {
-//							flag_pokazatel = true;
-//							
-//						} else{
-//							i--;}
-//						
-//					} while (!flag_pokazatel & i >= 0);
-//					// System.out.println("1-sample_N " + number_sample + "
-//					// start " + row_sample_start[number_sample]);
-//					String str_cell = null;
-//					if (cellVolume.startsWith("M.ЛИ-РХ")) {
-//						num_results = 0;
-//						str_cell = cellVolume.substring((cellVolume.indexOf("на ") + 3), cellVolume.length());
-//					} else
-//						str_cell = cellVolume;
-//					try {
-//						System.out.println("nuklid " + str_cell.substring(0, 2));
-//
-//						if ((str_cell.substring(0, 2)).equals("3H")
-//								|| Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
-//
-//							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results + " - "
-//									+ str_cell + " row " + row + "  " + str_cell);
-//
-//							results_value_str = newTab[row][4].trim();
-//
-//							results_nuklide[i][j][num_results] = str_cell;
-//							results_value[i][j][num_results] = newTab[row][4].trim();
-//							max_num_results[i][j] = num_results;
-//							num_results++;
-//
-//						}
-//					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-//
-//					}
-//				}
-//			}
-//			if (razmernost[i] == null) {
-//				razmernost[i] = razmernost[i - 1];
-//			}
-//			System.out.println("razmernost " + i + "-" + razmernost[i]);
-//		}
-		
-		
-		
-		
-		
+		/** METODY RESULYS Class **/
+		if (num_pokazatel == 0) {
+			num_pokazatel++;
+		}
+		System.out.println("*************** metody: ");
+		String[][] metody = new String[counts_samples][num_pokazatel];
+
+		for (int i = 0; i < counts_samples; i++) {
+			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
+				boolean flag_pokazatel = false;
+				if ((j < max_num_pokazatel[i])) {
+					end_num = row_pokazatel_start[i][j + 1];
+				} else {
+					if ((i < counts_samples - 1)) {
+						end_num = row_pokazatel_start[i + 1][0];
+					} else
+						end_num = newTab.length;
+				}
+				System.out.println( " Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j]+" end = "+end_num);
+				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
+				flag_pokazatel = false;
+					int k = row;
+					do {
+						cellVolume = newTab[k][1];
+						cellVolume = cellVolume.replaceAll("\r", " ").trim();
+						if (cellVolume.startsWith("М.ЛИ-РХ")||cellVolume.startsWith("M.ЛИ-РХ")||cellVolume.startsWith("M.ЛИ-РХ")) {
+							flag_pokazatel = true;
+
+						} else {
+							k--;
+						}
+
+					} while (!flag_pokazatel & k >= 0);
+					metody[i][j] = cellVolume;
+
+				}
+				
+				System.out.println(" metody: ["+i+"]["+j+"]= "+metody[i][j]);
+			}
+			
+		}
 
 		/** RESULYS Class **/
 
@@ -514,44 +518,63 @@ public class SetDBfromWordDoc {
 			}
 
 		}
+		if (section){
+			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(3);	
+			internal_aplicant = Internal_applicantDAO.getValueInternal_applicantById(1);
+		}
+		Razmernosti razmernost_recuest = RazmernostiDAO.getValueRazmernostiByName(razmernost[0]);
+		Users user_recues = UsersDAO.getValueUsersById(1);
+		if(zabelejka_recuest!=null){
+		note = ZabelejkiDAO.getValueZabelejkiByName(zabelejka_recuest);
+		}
 		
+		description_sample_group = "";
+		for (int i = 0; i < counts_samples; i++) {
+			description_sample_group = description_sample_group + recuest_code+"-"+(i+1)+"/"+sample_description [i]+";\r";
+		}
 		
-		
-		
-		
+
 		System.out.println("ACCREDITATION " + accreditation);
 		System.out.println("APLICANT_FAMILY " + aplicant_family);
 		System.out.println("APLICANT_NAME " + aplicant_name);
 		System.out.println("DATE_EXECUTION " + date_execution);
 		System.out.println("DATE_REQUEST " + date_recuest);
 		System.out.println("DATE_TIME_RECEPTION " + date_time_reception);
+		System.out.println("DESCRIPTION_SAMPLE_GROUP " + description_sample_group);
 		System.out.println("COUNTS_SAMPLES " + counts_samples);
 		System.out.println("RECUEST_CODE " + recuest_code);
 		System.out.println("SECTION " + section);
 		
-		
-		
-		// for (int j = 0; j < number_samples; j++) {
-		// System.out.println();
-		// System.out.println("DESCRIPTION_SAMPLE " + (j + 1) + " - " +
-		// sample[j] + ".");
-		// System.out.println("OBEKT_NA_IZPITVANE " + (j + 1) + " - " +
-		// ob_na_izpit[j] + ".");
-		//
-		// for (int i = 0; i < max_num_metody[j]; i++) {
-		// System.out.println("LIST_METODY " + (j + 1) + " - " +
-		// metodi_sample[j][i].getCode_metody() + " / "
-		// + metodi_sample[j][i].getName_metody());
-		//
-		// for (int k = 0; k < max_num_pokazatel_metody[j][i]; k++) {
-		// System.out.println(" POKAZATEL " + (j + 1) + " / " + (i + 1) + " - "
-		// + pokazatel_metodi_sample[j][i][k].getName_pokazatel());
-		//
-		// }
-		// }
-		// }
+		System.out.println("EXTERNAL_APLICANT " + external_aplicant);
+		System.out.println("IND_NUM_DOC " + ind_num_doc.getName());
+		System.out.println("INTERNAL_APLICANT " + internal_aplicant.getInternal_applicant_organization());
+		System.out.println("IZPITVAN_PRODUKT " + izpitvan_produkt.getName_zpitvan_produkt());
+		System.out.println("RAZMERNOST " + razmernost_recuest.getName_razmernosti());
+		System.out.println("USERS " + user_recues.getName_users());
+		System.out.println("ZABELEJKI " + ((note==null) ? note:note.getName_zabelejki()));
 
+		RequestDAO.setValueRequest(
+				 recuest_code,
+				 date_recuest,
+				 accreditation, //accreditation
+				 section, //section
+				 external_aplicant, //external_applicant
+				 internal_aplicant, //intrnal_applicant
+				 aplicant_name, //applicant_name
+				 aplicant_family, //applicant_family
+				 counts_samples, //counts_samples
+				 description_sample_group, //description_sample_group
+				 date_time_reception, //date_time_reception
+				 date_execution, //date_execution
+				 ind_num_doc, //ind_num_doc
+				 izpitvan_produkt, //izpitvan_produkt
+				 razmernost_recuest, //razmernosti
+				 note, //zabelejki
+				 user_recues); //users
+		
 		/** --------------------------------------------------------------- **/
+		
+		
 
 	}
 

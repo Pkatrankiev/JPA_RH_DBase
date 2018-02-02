@@ -50,7 +50,6 @@ public class Results implements Serializable {
 
 	public Results( 
 			Nuclide nuclide, 
-			Sample sample, 
 			Izpitvan_pokazatel pokazatel,
 			Razmernosti rtazmernosti,
 			String basic_value,

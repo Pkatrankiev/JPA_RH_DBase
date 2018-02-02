@@ -6,6 +6,10 @@ import java.text.NumberFormat;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,6 +31,11 @@ import DBase_Class.Izpitvan_pokazatel;
 public class Main_Aplication {
 
 	public static void main(String[] args) {
+		
+		
+		
+		
+		
 
 //		 SetBasikValueInDataBase();
 

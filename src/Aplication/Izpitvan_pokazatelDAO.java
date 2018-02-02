@@ -40,6 +40,20 @@ static String name_DBase = "JPA_RH_DBase";
 		emfactory.close();
 	}
 
+	public static void setValueIzpitvan_pokazatel(Izpitvan_pokazatel pokazatal) {
+		
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+			
+		entitymanager.persist(pokazatal);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+
+
+	
 	public static List<Izpitvan_pokazatel> getInListAllValueIzpitvan_pokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

@@ -5,6 +5,10 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.JTable;
 
@@ -14,10 +18,12 @@ import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
+import Aplication.NuclideDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
+import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
@@ -28,10 +34,12 @@ import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Nuclide;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
+import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
@@ -39,6 +47,8 @@ import DBase_Class.Zabelejki;
 public class SetDBfromWordDoc {
 
 	public static void setVolume(String fileName) {
+		
+		
 
 		String celsTranfer[][][] = ReaderWordDoc.readMyDocument(fileName);
 		// System.out.println("broy tab " + celsTranfer.length);
@@ -499,21 +509,21 @@ public class SetDBfromWordDoc {
 						results_value_str = results_value[i][j][k].replace("Е", "E");
 						if (results_value_str.startsWith("<")) {
 
-							results_MDA[i][j][num_results] = Double
+							results_MDA[i][j][k] = Double
 									.valueOf(results_value_str.substring(results_value_str.indexOf("<") + 1));
-							System.out.println("MDA " + results_MDA[i][j][num_results] + "  "
-									+ formatter(results_MDA[i][j][num_results]));
+							System.out.println("MDA " + results_MDA[i][j][k] + "  "
+									+ formatter(results_MDA[i][j][k]));
 
 						} else {
-							results_value_result[i][j][num_results] = Double
+							results_value_result[i][j][k] = Double
 									.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
-							System.out.println("Values " + results_value_result[i][j][num_results] + "  "
-									+ formatter(results_value_result[i][j][num_results]));
-							results_uncertainty[i][j][num_results] = Double.valueOf(results_value_str
+							System.out.println("Values " + results_value_result[i][j][k] + "  "
+									+ formatter(results_value_result[i][j][k]));
+							results_uncertainty[i][j][k] = Double.valueOf(results_value_str
 									.substring(results_value_str.indexOf("±") + 1).replace("*", "").trim());
-							System.out.println("Uncertainty " + results_uncertainty[i][j][num_results] + " "
-									+ alignExpon(results_value_result[i][j][num_results],
-											results_uncertainty[i][j][num_results]));
+							System.out.println("Uncertainty " + results_uncertainty[i][j][k] + " "
+									+ alignExpon(results_value_result[i][j][k],
+											results_uncertainty[i][j][k]));
 						}
 
 						System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
@@ -524,12 +534,19 @@ public class SetDBfromWordDoc {
 			}
 
 		}
+		String basic_value ="";
+		Boolean inProtokol = true;
+		
+		int sigma = 2;
 		if (section){
 			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(3);	
 			internal_aplicant = Internal_applicantDAO.getValueInternal_applicantById(1);
 		}
 		Razmernosti razmernost_recuest = RazmernostiDAO.getValueRazmernostiByName(razmernost[0]);
 		Users user_recues = UsersDAO.getValueUsersById(1);
+		Users user_chim_oper = UsersDAO.getValueUsersById(1);
+		Users user_measur = UsersDAO.getValueUsersById(1);
+		Users user_redac = UsersDAO.getValueUsersById(1);
 		if(zabelejka_recuest!=null){
 		note = ZabelejkiDAO.getValueZabelejkiByName(zabelejka_recuest);
 		}
@@ -587,6 +604,7 @@ public class SetDBfromWordDoc {
 		/** --------------------------------------------------------------- **/
 		
 		for (int i = 0; i < counts_samples; i++) {
+			Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
 			System.out.println("REQUEST " + request.getRecuest_code());
 			System.out.println("SAMPLE_CODE " + sample_code[i]);
 			System.out.println("SAMPLE_DESCRIPTION " + sample_description [i]);
@@ -601,8 +619,44 @@ public class SetDBfromWordDoc {
 				System.out.println("METOD_NA_IZPITVANE " +metody_sample.getName_metody());
 				Izpitvan_pokazatel izpitvan_pokazatel = 
 						new Izpitvan_pokazatel(pokazatel_sample[i][j], samp, metody_sample );
-				for (int k = 0; k < max_num_results[i][j]; k++) {
-					
+				Izpitvan_pokazatelDAO.setValueIzpitvan_pokazatel(izpitvan_pokazatel );
+				for (int k = 0; k <= max_num_results[i][j]; k++) {
+					Nuclide nuklide = NuclideDAO.getValueNuclideBySymbol(results_nuklide[i][j][k]);
+					System.out.println("BASIC_VALUE " + basic_value);
+					System.out.println("DATE_CHIM_OPER " + date_chim);
+					System.out.println("DATE_MEASUR " + date_measur);
+					System.out.println("DATE_REDAC " + date_redac);
+					System.out.println("IN_PROTOKOL " + inProtokol);
+					System.out.println("MDA " + results_MDA[i][j][k]);
+					System.out.println("SIGMA " +sigma);
+					System.out.println("UNCERTAINTY " + results_uncertainty[i][j][k]);
+					System.out.println("VALUE_RESULT " + results_value_result[i][j][k]);
+					System.out.println("NUCLIDE " + nuklide.getSymbol_nuclide());
+					System.out.println("IZPITVAN_POKAZATEL " + izpitvan_pokazatel.getId_pokazatel());
+					System.out.println("RAZMERNOSTY " + razmernost_recuest.getName_razmernosti());
+					System.out.println("USER_CHIM " +user_chim_oper.getName_users());
+					System.out.println("USER_MEASUR " +user_measur.getName_users());
+					System.out.println("USER_REDAC " +user_redac.getName_users());
+					System.out.println("ZABELEJKI " + ((note==null) ? note : note.getName_zabelejki()));
+					Results resul = new Results (
+							nuklide,
+							izpitvan_pokazatel,
+							razmernost_recuest,
+							basic_value,
+							results_value_result[i][j][k],
+							sigma,
+							results_uncertainty[i][j][k],
+							results_MDA[i][j][k],
+							note,
+							user_chim_oper,
+							date_chim,
+							user_measur,
+							date_measur,
+							user_redac,
+							date_redac,
+							inProtokol
+							); 
+				ResultsDAO.setValueResults(resul);
 				}
 			
 			}

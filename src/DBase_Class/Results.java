@@ -27,6 +27,7 @@ public class Results implements Serializable {
 	private int sigma;
 	private Double uncertainty;
 	private Double mda;
+	private Double quantity;
 	private String date_chim_oper;
 	private String date_measur;
 	private String date_redac;
@@ -47,6 +48,8 @@ public class Results implements Serializable {
 	private Users user_measur;
 	@ManyToOne
 	private Users user_redac;
+	@ManyToOne
+	private Dimension dimension;
 
 	public Results( 
 			Nuclide nuclide, 
@@ -64,7 +67,9 @@ public class Results implements Serializable {
 			String date_measur,
 			Users user_redac,
 			String date_redac,
-			Boolean inProtokol
+			Boolean inProtokol,
+			Double quantity,
+			Dimension dimension
 			) {
 		
 		super();
@@ -85,6 +90,9 @@ public class Results implements Serializable {
 		this.user_redac = user_redac;
 		this.date_redac = date_redac;
 		this.inProtokol = inProtokol;
+		this.dimension = dimension;
+		this.quantity = quantity;
+		
 		
 	}
 
@@ -229,6 +237,22 @@ public class Results implements Serializable {
 
 	public void setUser_redac(Users user_redac) {
 		this.user_redac = user_redac;
+	}
+	
+	public Double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+
+	public Dimension getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(Dimension dimension) {
+		this.dimension = dimension;
 	}
 
 	public static long getSerialversionuid() {

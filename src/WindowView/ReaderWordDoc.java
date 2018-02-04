@@ -86,7 +86,7 @@ public class ReaderWordDoc {
 
 		String[] paragraphs = we.getParagraphText();
 
-		System.out.println("Total Paragraphs: " + paragraphs.length);
+//		System.out.println("Total Paragraphs: " + paragraphs.length);
 
 
 
@@ -94,9 +94,9 @@ public class ReaderWordDoc {
 
 
 
-			System.out.println("Length of paragraph " + (i + 1) + ": " + paragraphs[i].length());
+//			System.out.println("Length of paragraph " + (i + 1) + ": " + paragraphs[i].length());
 
-			System.out.println(paragraphs[i].toString());
+//			System.out.println(paragraphs[i].toString());
 
 
 
@@ -112,7 +112,7 @@ public class ReaderWordDoc {
 
 		String header = headerStore.getHeader(pageNumber);
 
-		System.out.println("Header Is: " + header);
+//		System.out.println("Header Is: " + header);
 
 
 
@@ -124,7 +124,7 @@ public class ReaderWordDoc {
 
 		String footer = headerStore.getFooter(pageNumber);
 
-		System.out.println("Footer Is: " + footer);
+//		System.out.println("Footer Is: " + footer);
 
 
 
@@ -372,8 +372,8 @@ public class ReaderWordDoc {
 
 
 						
-			System.out.println("tab1 "+tab1);
-			TablePrintDemo.createAndShowGUI(columnNames, data);
+//			System.out.println("tab1 "+tab1);
+//			TablePrintDemo.createAndShowGUI(columnNames, data);
 
 		}
 
@@ -394,8 +394,8 @@ public class ReaderWordDoc {
 			k++;
 
 		}
-		System.out.println("numtab+1 "+(numtab+1));
-		TablePrintDemo.createAndShowGUI(columnNames, data);
+//		System.out.println("numtab+1 "+(numtab+1));
+//		TablePrintDemo.createAndShowGUI(columnNames, data);
 
 	return celsTranfer;
 

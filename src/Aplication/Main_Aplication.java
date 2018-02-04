@@ -39,13 +39,18 @@ public class Main_Aplication {
 
 //		 SetBasikValueInDataBase();
 
-//		String fileName = "c:\\Users\\Acer\\Desktop\\3281.doc";
+		String [] name =  {"3123","3344","3484","3492","3281","3498","3491","3150"};
+		for (String string : name) {
+			String fileName = "c:\\Users\\Acer\\Desktop\\"+string+".doc";
+			SetDBfromWordDoc.setVolume(fileName);
+		}
 		
-//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3492.doc";
+//		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";		
+//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";
 //		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3484.doc";
-		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3281.doc";
+//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3281.doc";
 //		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3344.doc";
-		 SetDBfromWordDoc.setVolume(fileName);
+//		 SetDBfromWordDoc.setVolume(fileName);
 
 //		 ReaderWordDoc.readMyDocument(fileName);
 
@@ -76,6 +81,7 @@ public class Main_Aplication {
 		Obekt_na_izpitvane_sampleDAO.setBasicValueObekt_na_izpitvane_sample();
 		Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
 		RazmernostiDAO.setBasicValueRazmernosti();
+		DimensionDAO.setBasicValueDimension();
 		PostDAO.setBasikValuePost();
 		UsersDAO.setBasicValueUsers();
 		ZabelejkiDAO.setBasicValueZabelejki();

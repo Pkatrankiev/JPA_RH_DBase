@@ -19,7 +19,7 @@ public class SampleDAO {
 
 	static String name_DBase = "JPA_RH_DBase";
 
-	public static void setValueSample(int sample_code, String description_sample, String date_time_reference,
+	public static void setValueSample(String sample_code, String description_sample, String date_time_reference,
 			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -118,7 +118,7 @@ public class SampleDAO {
 
 		
 
-			setValueSample(i, // sample_code
+			setValueSample(i+"", // sample_code
 					"проби1", // description_sample
 					"22.12.2017 /12:00", // date_time_reference
 					request, // request object

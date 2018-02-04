@@ -22,7 +22,7 @@ public class Sample implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_sample;
-	private int sample_code;
+	private String sample_code;
 	private String description_sample;
 	private String date_time_reference;
 	
@@ -34,7 +34,7 @@ public class Sample implements Serializable {
 	
 
 	public Sample( 
-			int sample_code,
+			String sample_code,
 			String description_sample, 
 			String date_time_reference,
 			Request request,
@@ -65,11 +65,11 @@ public class Sample implements Serializable {
 		Id_sample = id_sample;
 	}
 
-	public int getSample_code() {
+	public String getSample_code() {
 		return sample_code;
 	}
 
-	public void setSample_code(int sample_code) {
+	public void setSample_code(String sample_code) {
 		this.sample_code = sample_code;
 	}
 

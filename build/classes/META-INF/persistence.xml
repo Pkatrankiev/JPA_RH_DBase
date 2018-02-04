@@ -24,6 +24,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Results</class>
 		<class>DBase_Class.Post</class>
 		<class>DBase_Class.Obekt_na_izpitvane_sample</class>
+		<class>DBase_Class.Dimension</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

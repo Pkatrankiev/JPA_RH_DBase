@@ -18,8 +18,8 @@ public class List_izpitvan_pokazatelDAO {
 static String name_DBase = "JPA_RH_DBase";
 	
 public static void setBasikValuePokazatel(){
-	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди");
-	setValueList_pokazatel("Съдържание на алфа-излъчващи радионуклиди");
+	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди:");
+	setValueList_pokazatel("Съдържание на алфа-излъчващи радионуклиди:");
 	setValueList_pokazatel("Съдържание на 55Fe");
 	setValueList_pokazatel("Съдържание на 63Ni");
 	setValueList_pokazatel("Съдържание на 90Sr");

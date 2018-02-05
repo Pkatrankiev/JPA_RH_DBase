@@ -21,7 +21,7 @@ public class External_applicantDAO {
 
 	
 	public static void setBasikValueExternal_applicant(){
-	
+		setValueExternal_applicant("няма информация", "няма информация","" , "няма информация");
 		setValueExternal_applicant("ДП РАО", "гр.Колодуй","" , "2345");
 		setValueExternal_applicant("ДП РАО1", "гр.Колодуй2", "0888123456", "ном:2345");
 		

@@ -37,11 +37,11 @@ public class Main_Aplication {
 		
 		
 
-//		 SetBasikValueInDataBase();
+		 SetBasikValueInDataBase();
 
-		String [] name =  {"3123","3344","3484","3492","3281","3498","3491","3150"};
+		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
 		for (String string : name) {
-			String fileName = "c:\\Users\\Acer\\Desktop\\"+string+".doc";
+			String fileName = "c:\\Users\\ALPHA\\Desktop\\"+string+".doc";
 			SetDBfromWordDoc.setVolume(fileName);
 		}
 		
@@ -56,7 +56,7 @@ public class Main_Aplication {
 
 		// StartMainWindow();
 
-		
+//		PeriodDAO.setBasicValuePeriod();
 //		double st1 = 29478;
 //		double st2 = 5902;
 //		System.out.println(formatter(st1));
@@ -86,6 +86,7 @@ public class Main_Aplication {
 		UsersDAO.setBasicValueUsers();
 		ZabelejkiDAO.setBasicValueZabelejki();
 		Internal_applicantDAO.setBasikValueInternal_applicant();
+		PeriodDAO.setBasicValuePeriod();
 //		RequestDAO.setBasicValueRequest();
 //		SampleDAO.setBasicValueSample();
 //		

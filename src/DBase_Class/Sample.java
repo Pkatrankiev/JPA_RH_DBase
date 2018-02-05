@@ -30,6 +30,8 @@ public class Sample implements Serializable {
 	private Request request;
 	@ManyToOne
 	private Obekt_na_izpitvane_sample obekt_na_izpitvane;
+	@ManyToOne
+	private Period period;
 	
 	
 
@@ -38,7 +40,8 @@ public class Sample implements Serializable {
 			String description_sample, 
 			String date_time_reference,
 			Request request,
-			Obekt_na_izpitvane_sample obekt_na_izpitvane
+			Obekt_na_izpitvane_sample obekt_na_izpitvane,
+			Period period
 			) {
 		
 		super();
@@ -48,7 +51,7 @@ public class Sample implements Serializable {
 		this.date_time_reference = date_time_reference;
 		this.request = request;
 		this.obekt_na_izpitvane = obekt_na_izpitvane;
-		
+		this.period = period;
 		
 	}
 
@@ -108,6 +111,14 @@ public class Sample implements Serializable {
 		
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Period getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Period period) {
+		this.period = period;
 	}
 
 	

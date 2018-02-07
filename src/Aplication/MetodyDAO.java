@@ -18,6 +18,7 @@ public class MetodyDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setBasikValueMetody() {
+		
 		setValueMetody(
 				"нопедекъме мю яздзпфюмхерн мю юктю-хгкзвбюых пюдхнмсйкхдх х 89/90Sr бзб бндх х цнпхлх люрепхюкх",
 				"M.кх-пу-03 пЕДЮЙЖХЪ 02/2014");

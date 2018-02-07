@@ -77,7 +77,7 @@ public class SetDBfromWordDoc {
 		Internal_applicant internal_aplicant = null;
 		Ind_num_doc ind_num_doc = null;
 		Zabelejki note = null;
-		
+
 		int z = 0;
 		for (int tab = 0; tab < 2; tab++) {
 
@@ -376,8 +376,8 @@ public class SetDBfromWordDoc {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 				System.out.println("str_pokazatel_sample[" + i + "][" + j + "]= " + str_pokazatel_sample[i][j]
 						+ " Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j]);
-				pokazatel_sample[i][j] = List_izpitvan_pokazatelDAO
-						.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
+				 pokazatel_sample[i][j] = List_izpitvan_pokazatelDAO
+				 .getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
 
 			}
 
@@ -442,7 +442,7 @@ public class SetDBfromWordDoc {
 		String[] razmernost = new String[counts_samples];
 		String results_value_str = null;
 		int num_results = 0;
-		
+
 		for (int i = 0; i < counts_samples; i++) {
 			num_results = 0;
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
@@ -458,9 +458,10 @@ public class SetDBfromWordDoc {
 				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
 					cellVolume = newTab[row][2];
 					cellVolume = cellVolume.trim();
-
-					if (newTab[row][3].contains("Bq")) {
+					System.out.println("000 razmernost " + row + "-" + newTab[row][3]);
+					if (newTab[row][3].contains("Bq") || newTab[row][3].contains("Bq")) {
 						razmernost[i] = newTab[row][3];
+
 					}
 
 					// System.out.println("1-sample_N " + number_sample + "
@@ -493,6 +494,7 @@ public class SetDBfromWordDoc {
 					}
 				}
 			}
+			System.out.println("razmernost " + i + "-" + razmernost[i]);
 			if (razmernost[i] == null) {
 				razmernost[i] = razmernost[i - 1];
 			}
@@ -536,7 +538,7 @@ public class SetDBfromWordDoc {
 		}
 		String basic_value = "";
 		Boolean inProtokol = true;
-		Period period = PeriodDAO.getPeriodById(1);	
+		Period period = PeriodDAO.getPeriodById(1);
 		int sigma = 2;
 		if (section) {
 			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(3);
@@ -617,7 +619,7 @@ public class SetDBfromWordDoc {
 			System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
 			System.out.println("OBECT_NA_IZPITVANE_SAMPLE " + ob_na_izpit[i]);
 			Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
-					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]),period);
+					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period);
 			SampleDAO.setValueSample(samp);
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 				Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[i][j]);
@@ -646,7 +648,8 @@ public class SetDBfromWordDoc {
 					System.out.println("USER_REDAC " + user_redac.getName_users());
 					System.out.println("ZABELEJKI " + ((note == null) ? note : note.getName_zabelejki()));
 					System.out.println("QUANTITY " + quantity);
-					System.out.println("DIMENSION " + dimension.getName_dimension());
+					System.out
+							.println("DIMENSION " + ((dimension == null) ? dimension : dimension.getName_dimension()));
 					Results resul = new Results(nuclide_sample[i][j][k], izpitvan_pokazatel, razmernost_recuest,
 							basic_value, results_value_result[i][j][k], sigma, results_uncertainty[i][j][k],
 							results_MDA[i][j][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,

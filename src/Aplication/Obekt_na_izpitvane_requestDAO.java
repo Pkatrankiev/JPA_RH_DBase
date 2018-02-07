@@ -21,8 +21,8 @@ public static void setBasicValueObekt_na_izpitvane(){
 	setValueObekt_na_izpitvane("Вентилационна тръба-1 и Вентилационна тръба-2");
 	setValueObekt_na_izpitvane("Спец корпус-1 и Спец корпус-2");
 	setValueObekt_na_izpitvane("БАК 1и2");
-	setValueObekt_na_izpitvane("БНС-1");
-	setValueObekt_na_izpitvane("БНС-2");
+	setValueObekt_na_izpitvane("БНС-1, СК-1");
+	setValueObekt_na_izpitvane("БНС-2, СК-1");
 	setValueObekt_na_izpitvane("БВС-1");
 	setValueObekt_na_izpitvane("БВС-2");
 

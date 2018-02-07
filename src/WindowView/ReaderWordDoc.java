@@ -146,17 +146,17 @@ public class ReaderWordDoc {
 
 
 
-		System.out.println("---------------------------");
-
-		System.out.println("Category: " + category);
-
-		System.out.println("Company: " + company);
-
-		System.out.println("Line Count: " + lineCount);
-
-		System.out.println("Section Count: " + sectionCount);
-
-		System.out.println("Slide Count: " + slideCount);
+//		System.out.println("---------------------------");
+//
+//		System.out.println("Category: " + category);
+//
+//		System.out.println("Company: " + company);
+//
+//		System.out.println("Line Count: " + lineCount);
+//
+//		System.out.println("Section Count: " + sectionCount);
+//
+//		System.out.println("Slide Count: " + slideCount);
 
 
 
@@ -373,7 +373,7 @@ public class ReaderWordDoc {
 
 						
 //			System.out.println("tab1 "+tab1);
-			TablePrintDemo.createAndShowGUI(columnNames, data);
+//			TablePrintDemo.createAndShowGUI(columnNames, data);
 
 		}
 
@@ -395,7 +395,7 @@ public class ReaderWordDoc {
 
 		}
 //		System.out.println("numtab+1 "+(numtab+1));
-		TablePrintDemo.createAndShowGUI(columnNames, data);
+//		TablePrintDemo.createAndShowGUI(columnNames, data);
 
 	return celsTranfer;
 

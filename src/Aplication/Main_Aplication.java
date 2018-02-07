@@ -37,13 +37,19 @@ public class Main_Aplication {
 		
 		
 
-		 SetBasikValueInDataBase();
+//		 SetBasikValueInDataBase();
 
-		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
-		for (String string : name) {
-			String fileName = "c:\\Users\\ALPHA\\Desktop\\"+string+".doc";
-			SetDBfromWordDoc.setVolume(fileName);
-		}
+//		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
+//		for (int i = 266; i < 269; i++) {
+//		
+//			String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
+//			SetDBfromWordDoc.setVolume(fileName);
+//		}
+		
+		
+		int i=144;
+		String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
+		SetDBfromWordDoc.setVolume(fileName);
 		
 //		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";		
 //		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";

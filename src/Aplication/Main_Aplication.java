@@ -20,12 +20,13 @@ import javax.xml.ws.*;
 
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Nuclide;
-
+import DBase_Class.Results;
 import WindowView.Login;
 import WindowView.MainWindows;
 import WindowView.ReaderWordDoc;
 import WindowView.SetDBfromWordDoc;
 import WindowView.TablePrintDemo;
+import DBase_Class.Dimension;
 import DBase_Class.Izpitvan_pokazatel;
 
 public class Main_Aplication {
@@ -40,16 +41,25 @@ public class Main_Aplication {
 //		 SetBasikValueInDataBase();
 
 //		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
-//		for (int i = 266; i < 269; i++) {
+//		for (int i = 1; i < 269; i++) {
 //		
 //			String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
 //			SetDBfromWordDoc.setVolume(fileName);
 //		}
 		
+		Dimension dimension = DimensionDAO.getValueDimensionById(6);
+		List<Results> list_results = ResultsDAO.getListResultsFromColumnByVolume("dimension", dimension);
+		System.out.println("Count Results: "+list_results.size());
+		for (Results results : list_results) {
+			ResultsDAO.setDimensionInResults(results, DimensionDAO.getValueDimensionById(4));
+			System.out.println("Dimension "+results.getId_results());
+			System.out.println();
+		}
 		
-		int i=144;
-		String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
-		SetDBfromWordDoc.setVolume(fileName);
+		
+//		int i=144;
+//		String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
+//		SetDBfromWordDoc.setVolume(fileName);
 		
 //		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";		
 //		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";

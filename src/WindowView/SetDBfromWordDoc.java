@@ -302,7 +302,7 @@ public class SetDBfromWordDoc {
 			columnNames2[j] = j + "";
 		}
 
-		TablePrintDemo.createAndShowGUI(columnNames2, newTab);
+//		TablePrintDemo.createAndShowGUI(columnNames2, newTab);
 		System.out.println("counts_samples " + counts_samples);
 		/** SET interval SAMPLES **/
 		int sample_N = 0;

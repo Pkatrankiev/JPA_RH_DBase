@@ -23,7 +23,8 @@ public class Request implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_recuest;
-	private String recuest_code;
+	 @Column(name = "recuest_code", unique=true)
+	 private String recuest_code;
 	private String date_request;
 	private Boolean accreditation;
 	private Boolean section;

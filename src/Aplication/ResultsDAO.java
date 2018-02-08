@@ -12,11 +12,12 @@ import javax.ws.rs.QueryParam;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 
+import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
-
+import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
@@ -96,6 +97,19 @@ public class ResultsDAO {
 		emfactory.close();
 	}
 
+	public static void setDimensionInResults(Results valueEnt, Dimension dimension) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		valueEnt.setDimension(dimension);
+//		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+
+	
 	
 	public static List<Results> getInListAllValueResults() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -273,4 +287,24 @@ public class ResultsDAO {
 		return request;
 	}
 
+	public static List<Results> getListResultsFromColumnByVolume(String column_name, Object volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", volume_check);
+		
+		List<Results>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+
+	
 }

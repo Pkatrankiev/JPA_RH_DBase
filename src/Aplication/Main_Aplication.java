@@ -47,13 +47,19 @@ public class Main_Aplication {
 //			SetDBfromWordDoc.setVolume(fileName);
 //		}
 		
-		Dimension dimension = DimensionDAO.getValueDimensionById(6);
-		List<Results> list_results = ResultsDAO.getListResultsFromColumnByVolume("dimension", dimension);
+		Dimension dimension6 = DimensionDAO.getValueDimensionById(6);
+		Dimension dimension4 = DimensionDAO.getValueDimensionById(4);
+		List<Results> list_results = ResultsDAO.getListResultsFromColumnByVolume("dimension", dimension6);
+		
 		System.out.println("Count Results: "+list_results.size());
 		for (Results results : list_results) {
-			ResultsDAO.setDimensionInResults(results, DimensionDAO.getValueDimensionById(4));
-			System.out.println("Dimension "+results.getId_results());
-			System.out.println();
+			System.out.println("Id Results:"+results.getId_results());
+			ResultsDAO.setDimensionInResultsById(results.getId_results(), dimension4);
+		
+//			System.out.println("----------------------Res Dim "+res.getDimension().getId_dimension()+" DimensiomId: "+DimensionDAO.getValueDimensionById(4).getId_dimension());
+			System.out.println("------------------Dim "+dimension4.getId_dimension());
+//			System.out.println("---------------------Result "+results.getId_results()+" Result Dim "+results.getDimension().getId_dimension()+" DimensiomId: "+DimensionDAO.getValueDimensionById(4).getId_dimension());
+//			System.out.println();
 		}
 		
 		

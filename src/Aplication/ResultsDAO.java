@@ -5,9 +5,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.ws.rs.GET;
+import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
 
 import com.mysql.fabric.xmlrpc.base.Data;
@@ -96,20 +97,31 @@ public class ResultsDAO {
 		entitymanager.close();
 		emfactory.close();
 	}
-
-	public static void setDimensionInResults(Results valueEnt, Dimension dimension) {
-
+	
+//	@Modifying
+//    @Query("UPDATE Company c SET c.address = :address WHERE c.id = :companyId")
+	public static void setDimensionInResultsById(int id, Dimension dimension) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		valueEnt.setDimension(dimension);
-//		entitymanager.persist(valueEnt);
-		entitymanager.getTransaction().commit();
+		
+		
+//	    int updateAddress(@Param("companyId") int companyId, @Param("address") String address);
+		
+//		Query query = entityManager.createQuery("UPDATE Student student SET student.level = 'L' WHERE student.id= :id");
+		Query query = entitymanager.createQuery("UPDATE Results e SET c.dimension = 4 WHERE e.Id_results = 364");
+//		                             String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text";
+		query.setParameter("dim", dimension).setParameter("id", id);
+        query.executeUpdate();
+//		String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text";
+		
+//		
+		
 		entitymanager.close();
 		emfactory.close();
-	}
-
+		}
 	
+			
 	
 	public static List<Results> getInListAllValueResults() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

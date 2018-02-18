@@ -98,25 +98,17 @@ public class ResultsDAO {
 		emfactory.close();
 	}
 	
-//	@Modifying
-//    @Query("UPDATE Company c SET c.address = :address WHERE c.id = :companyId")
 	public static void setDimensionInResultsById(int id, Dimension dimension) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-		
-		
-//	    int updateAddress(@Param("companyId") int companyId, @Param("address") String address);
-		
-//		Query query = entityManager.createQuery("UPDATE Student student SET student.level = 'L' WHERE student.id= :id");
-		Query query = entitymanager.createQuery("UPDATE Results e SET c.dimension = 4 WHERE e.Id_results = 364");
-//		                             String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text";
+		EntityTransaction updateTranzaction = entitymanager.getTransaction();
+		updateTranzaction.begin();
+		Query query = entitymanager.createQuery("UPDATE Results e SET e.dimension= :dim WHERE e.Id_results= :id");
 		query.setParameter("dim", dimension).setParameter("id", id);
+		
         query.executeUpdate();
-//		String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text";
-		
-//		
-		
+        updateTranzaction.commit();
+				
 		entitymanager.close();
 		emfactory.close();
 		}

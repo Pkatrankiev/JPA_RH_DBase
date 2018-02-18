@@ -39,28 +39,25 @@ public class Main_Aplication {
 		
 
 //		 SetBasikValueInDataBase();
-
-//		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
-//		for (int i = 1; i < 269; i++) {
+//
+////		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
+//		for (int i = 1; i < 10; i++) {
 //		
-//			String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
+//			String fileName = "d:\\1234\\"+i+".doc";
 //			SetDBfromWordDoc.setVolume(fileName);
 //		}
 		
-		Dimension dimension6 = DimensionDAO.getValueDimensionById(6);
-		Dimension dimension4 = DimensionDAO.getValueDimensionById(4);
-		List<Results> list_results = ResultsDAO.getListResultsFromColumnByVolume("dimension", dimension6);
-		
-		System.out.println("Count Results: "+list_results.size());
-		for (Results results : list_results) {
-			System.out.println("Id Results:"+results.getId_results());
-			ResultsDAO.setDimensionInResultsById(results.getId_results(), dimension4);
-		
-//			System.out.println("----------------------Res Dim "+res.getDimension().getId_dimension()+" DimensiomId: "+DimensionDAO.getValueDimensionById(4).getId_dimension());
-			System.out.println("------------------Dim "+dimension4.getId_dimension());
-//			System.out.println("---------------------Result "+results.getId_results()+" Result Dim "+results.getDimension().getId_dimension()+" DimensiomId: "+DimensionDAO.getValueDimensionById(4).getId_dimension());
+//		Dimension dimension1 = DimensionDAO.getValueDimensionById(2);
+//		Dimension dimension4 = DimensionDAO.getValueDimensionById(4);
+//		List<Results> list_results = ResultsDAO.getListResultsFromColumnByVolume("dimension", dimension1);
+//		
+//		System.out.println("Count Results: "+list_results.size());
+//		for (Results results : list_results) {
+//			System.out.println("Id Results:"+results.getId_results());
+//			ResultsDAO.setDimensionInResultsById(results.getId_results(), dimension4);
+//		
 //			System.out.println();
-		}
+//		}
 		
 		
 //		int i=144;
@@ -76,7 +73,7 @@ public class Main_Aplication {
 
 //		 ReaderWordDoc.readMyDocument(fileName);
 
-		// StartMainWindow();
+		 StartMainWindow();
 
 //		PeriodDAO.setBasicValuePeriod();
 //		double st1 = 29478;

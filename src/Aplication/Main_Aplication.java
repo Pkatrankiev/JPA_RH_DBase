@@ -19,7 +19,11 @@ import javax.swing.JFrame;
 import javax.xml.ws.*;
 
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Nuclide;
+import DBase_Class.Razmernosti;
+import DBase_Class.Request;
 import DBase_Class.Results;
 import WindowView.Login;
 import WindowView.MainWindows;
@@ -32,56 +36,60 @@ import DBase_Class.Izpitvan_pokazatel;
 public class Main_Aplication {
 
 	public static void main(String[] args) {
-		
-		
-		
-		
-		
 
-//		 SetBasikValueInDataBase();
-//
-////		String [] name =  {"3293","3344","3484","3492","3281","3498","3491","3150"};
-//		for (int i = 1; i < 10; i++) {
-//		
-//			String fileName = "d:\\1234\\"+i+".doc";
-//			SetDBfromWordDoc.setVolume(fileName);
-//		}
-		
-//		Dimension dimension1 = DimensionDAO.getValueDimensionById(2);
-//		Dimension dimension4 = DimensionDAO.getValueDimensionById(4);
-//		List<Results> list_results = ResultsDAO.getListResultsFromColumnByVolume("dimension", dimension1);
-//		
-//		System.out.println("Count Results: "+list_results.size());
-//		for (Results results : list_results) {
-//			System.out.println("Id Results:"+results.getId_results());
-//			ResultsDAO.setDimensionInResultsById(results.getId_results(), dimension4);
-//		
-//			System.out.println();
-//		}
-		
-		
-//		int i=144;
-//		String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
-//		SetDBfromWordDoc.setVolume(fileName);
-		
-//		String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";		
-//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";
-//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3484.doc";
-//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3281.doc";
-//		 String fileName = "c:\\Users\\ALPHA\\Desktop\\3344.doc";
-//		 SetDBfromWordDoc.setVolume(fileName);
+		// SetBasikValueInDataBase();
+		//
+		//// String [] name =
+		// {"3293","3344","3484","3492","3281","3498","3491","3150"};
+		// for (int i = 1; i < 10; i++) {
+		//
+		// String fileName = "d:\\1234\\"+i+".doc";
+		// SetDBfromWordDoc.setVolume(fileName);
+		// }
 
-//		 ReaderWordDoc.readMyDocument(fileName);
+		ChangeObjectsInClassIzpitvan_pokazatel();
 
-		 StartMainWindow();
+		// int i=144;
+		// String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
+		// SetDBfromWordDoc.setVolume(fileName);
 
-//		PeriodDAO.setBasicValuePeriod();
-//		double st1 = 29478;
-//		double st2 = 5902;
-//		System.out.println(formatter(st1));
-//		// st2 = Double.valueOf("9.18E+5");
-//		System.out.println(alignExpon(st1, st2));
+		// String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";
+		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";
+		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3484.doc";
+		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3281.doc";
+		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3344.doc";
+		// SetDBfromWordDoc.setVolume(fileName);
 
+		// ReaderWordDoc.readMyDocument(fileName);
+
+		// StartMainWindow();
+
+		// PeriodDAO.setBasicValuePeriod();
+		// double st1 = 29478;
+		// double st2 = 5902;
+		// System.out.println(formatter(st1));
+		// // st2 = Double.valueOf("9.18E+5");
+		// System.out.println(alignExpon(st1, st2));
+
+	}
+
+	private static void ChangeObjectsInClassIzpitvan_pokazatel() {
+		Razmernosti nuclide_old = RazmernostiDAO.getValueRazmernostiById(7);
+		Razmernosti nuclide_new = RazmernostiDAO.getValueRazmernostiById(5);
+		List<Results> results_list = ResultsDAO.getListResultsFromColumnByVolume("rtazmernosti", nuclide_old);
+		for (Results results : results_list) {
+			ResultsDAO.setVolumeInColumInResultsById(results.getId_results(), nuclide_new, "rtazmernosti");
+					}
+	}
+
+	private static void ChangeObjectsInClass() {
+		Izpitvan_produkt izpitvan_produkt_old = Izpitvan_produktDAO.getValueIzpitvan_produktById(9);
+		Izpitvan_produkt izpitvan_produkt_new = Izpitvan_produktDAO.getValueIzpitvan_produktById(4);
+		List<Request> list_request = RequestDAO.getListRequestFromColumnByVolume("izpitvan_produkt",
+				izpitvan_produkt_old);
+		for (Request request : list_request) {
+			RequestDAO.setIzpitvan_produktInRequestById(request.getId_recuest(), izpitvan_produkt_new);
+		}
 	}
 
 	private static void StartMainWindow() {
@@ -106,10 +114,10 @@ public class Main_Aplication {
 		ZabelejkiDAO.setBasicValueZabelejki();
 		Internal_applicantDAO.setBasikValueInternal_applicant();
 		PeriodDAO.setBasicValuePeriod();
-//		RequestDAO.setBasicValueRequest();
-//		SampleDAO.setBasicValueSample();
-//		
-//		ResultsDAO.setBasicValueResults();
+		// RequestDAO.setBasicValueRequest();
+		// SampleDAO.setBasicValueSample();
+		//
+		// ResultsDAO.setBasicValueResults();
 	}
 
 	public static String alignExpon(double basic, double foll) {
@@ -119,20 +127,20 @@ public class Main_Aplication {
 		double expon = Double.valueOf("1.0" + str_bas.substring(str_bas.indexOf("E")));
 		foll = foll / expon;
 		String str_foll = frm_foll.format(foll) + str_bas.substring(str_bas.indexOf("E"));
-		if (!str_foll.contains("E-")) { //don't blast a negative sign
+		if (!str_foll.contains("E-")) { // don't blast a negative sign
 			str_foll = str_foll.replace("E", "E+");
-	    }
+		}
 		str_foll = str_foll.replace(",", ".");
 		return str_foll;
 	}
-	
-	private static String formatter(double number){
-	    DecimalFormat formatter = new DecimalFormat("0.00E00");
-	    String fnumber = formatter.format(number);
-	    if (!fnumber.contains("E-")) { //don't blast a negative sign
-	        fnumber = fnumber.replace("E", "E+");
-	    }
-	    fnumber = fnumber.replace(",", ".");
-	    return fnumber;
+
+	private static String formatter(double number) {
+		DecimalFormat formatter = new DecimalFormat("0.00E00");
+		String fnumber = formatter.format(number);
+		if (!fnumber.contains("E-")) { // don't blast a negative sign
+			fnumber = fnumber.replace("E", "E+");
+		}
+		fnumber = fnumber.replace(",", ".");
+		return fnumber;
 	}
 }

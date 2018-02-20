@@ -98,13 +98,13 @@ public class ResultsDAO {
 		emfactory.close();
 	}
 	
-	public static void setDimensionInResultsById(int id, Dimension dimension) {
+	public static void setVolumeInColumInResultsById(int id, Object ob_volume,String colum_name) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		EntityTransaction updateTranzaction = entitymanager.getTransaction();
 		updateTranzaction.begin();
-		Query query = entitymanager.createQuery("UPDATE Results e SET e.dimension= :dim WHERE e.Id_results= :id");
-		query.setParameter("dim", dimension).setParameter("id", id);
+		Query query = entitymanager.createQuery("UPDATE Results e SET e."+colum_name+"= :coll WHERE e.Id_results= :id");
+		query.setParameter("coll", ob_volume).setParameter("id", id);
 		
         query.executeUpdate();
         updateTranzaction.commit();
@@ -309,6 +309,6 @@ public class ResultsDAO {
 		return list;
 	}
 
-
+	
 	
 }

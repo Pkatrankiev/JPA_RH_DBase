@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
+
+import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
@@ -15,6 +18,7 @@ import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
+import DBase_Class.Results;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import DBase_Class.Obekt_na_izpitvane_request;
@@ -237,5 +241,40 @@ public static Request getValueRequestById(@QueryParam("id") int id) {
 	return request;
 }
 
+
+	public static void setIzpitvan_produktInRequestById(int id, Izpitvan_produkt izpitvan_produkt) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityTransaction updateTranzaction = entitymanager.getTransaction();
+		updateTranzaction.begin();
+		Query query = entitymanager.createQuery("UPDATE Request e SET e.izpitvan_produkt= :izpProd WHERE e.Id_recuest= :id");
+		query.setParameter("izpProd", izpitvan_produkt).setParameter("id", id);
+		
+        query.executeUpdate();
+        updateTranzaction.commit();
+				
+		entitymanager.close();
+		emfactory.close();
+		}
+	
+	public static List<Request> getListRequestFromColumnByVolume(String column_name, Object volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Request e WHERE e."+column_name+" = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", volume_check);
+		
+		List<Request>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+	
 	
 }

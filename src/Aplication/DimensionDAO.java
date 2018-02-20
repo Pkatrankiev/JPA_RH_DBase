@@ -16,15 +16,14 @@ public class DimensionDAO {
 
 	static String name_DBase = "JPA_RH_DBase";
 
-	public static void setBasicValueDimension(){
-		
+	public static void setBasicValueDimension() {
+
 		setValueDimension("g");
 		setValueDimension("mL");
 		setValueDimension("L");
 		setValueDimension("m3");
-		
+
 	}
-	
 
 	public static void setValueDimension(String value) {
 
@@ -50,28 +49,26 @@ public class DimensionDAO {
 		emfactory.close();
 
 		for (Dimension e : list) {
-			System.out.println("Num:" + ((Dimension) e).getId_dimension() + "  NAME :"
-					+ ((Dimension) e).getName_dimension());
+			System.out.println(
+					"Num:" + ((Dimension) e).getId_dimension() + "  NAME :" + ((Dimension) e).getName_dimension());
 		}
 		return list;
 	}
 
-	
 	@GET
 	@QueryParam("{id}")
-public static Dimension getValueDimensionById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-	EntityManager entitymanager = emfactory.createEntityManager();
-	entitymanager.getTransaction().begin();
-	
-	Dimension  razmernosti = (Dimension) entitymanager.find(Dimension.class, id);
-	
-	entitymanager.close();
-	emfactory.close();
+	public static Dimension getValueDimensionById(@QueryParam("id") int id) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-	return razmernosti;
-}
+		Dimension razmernosti = (Dimension) entitymanager.find(Dimension.class, id);
 
+		entitymanager.close();
+		emfactory.close();
+
+		return razmernosti;
+	}
 
 	@GET
 	public static Dimension getValueDimensionByName(String name) {
@@ -84,8 +81,8 @@ public static Dimension getValueDimensionById(@QueryParam("id") int id) {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
-			setValueDimension(name);	
+		if (query.getResultList().isEmpty()) {
+			setValueDimension(name);
 		}
 		Dimension list = (Dimension) query.getSingleResult();
 		entitymanager.close();
@@ -94,7 +91,4 @@ public static Dimension getValueDimensionById(@QueryParam("id") int id) {
 		return list;
 	}
 
-
-
 }
-

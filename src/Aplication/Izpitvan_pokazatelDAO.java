@@ -4,15 +4,18 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Izpitvan_pokazatel;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Results;
 import DBase_Class.Sample;
 
 public class Izpitvan_pokazatelDAO {
@@ -174,5 +177,40 @@ static String name_DBase = "JPA_RH_DBase";
 				entitymanager.close();
 				emfactory.close();
 	}
+	
+	public static List<Izpitvan_pokazatel> getListIzpitvan_pokazatelFromColumnByVolume(String column_name, Object volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Izpitvan_pokazatel e WHERE e."+column_name+" = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", volume_check);
+		
+		List<Izpitvan_pokazatel>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+	public static void setList_Izpitvan_pokazatelInIzpitvan_pokazatelById(int id, Object izpitvan_pokazatel, String colum) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityTransaction updateTranzaction = entitymanager.getTransaction();
+		updateTranzaction.begin();
+		Query query = entitymanager.createQuery("UPDATE Izpitvan_pokazatel e SET e."+colum+"= :coll WHERE e.Id_pokazatel= :id");
+		query.setParameter("coll", izpitvan_pokazatel).setParameter("id", id);
+		
+        query.executeUpdate();
+        updateTranzaction.commit();
+				
+		entitymanager.close();
+		emfactory.close();
+		}
+	
+
 	
 }

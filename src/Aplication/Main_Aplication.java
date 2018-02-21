@@ -38,38 +38,17 @@ public class Main_Aplication {
 	public static void main(String[] args) {
 
 		// SetBasikValueInDataBase();
-		//
-		//// String [] name =
-		// {"3293","3344","3484","3492","3281","3498","3491","3150"};
-		// for (int i = 1; i < 10; i++) {
-		//
-		// String fileName = "d:\\1234\\"+i+".doc";
-		// SetDBfromWordDoc.setVolume(fileName);
-		// }
+		
 
-		ChangeObjectsInClassIzpitvan_pokazatel();
+//		ChangeObjectsInClassIzpitvan_pokazatel();
 
-		// int i=144;
-		// String fileName = "c:\\Soft\\Protokoli 2017\\rename\\"+i+".doc";
-		// SetDBfromWordDoc.setVolume(fileName);
-
-		// String fileName = "c:\\Users\\Acer\\Desktop\\3344.doc";
-		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3150.doc";
-		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3484.doc";
-		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3281.doc";
-		// String fileName = "c:\\Users\\ALPHA\\Desktop\\3344.doc";
-		// SetDBfromWordDoc.setVolume(fileName);
-
+		
+		
 		// ReaderWordDoc.readMyDocument(fileName);
 
-		// StartMainWindow();
+		
+		 StartMainWindow();
 
-		// PeriodDAO.setBasicValuePeriod();
-		// double st1 = 29478;
-		// double st2 = 5902;
-		// System.out.println(formatter(st1));
-		// // st2 = Double.valueOf("9.18E+5");
-		// System.out.println(alignExpon(st1, st2));
 
 	}
 

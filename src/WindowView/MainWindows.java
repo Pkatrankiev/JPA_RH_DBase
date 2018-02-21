@@ -141,7 +141,8 @@ public class MainWindows {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				panel_2.setBackground(Color.BLACK);
+				RequestView reqView = new RequestView();
+				reqView.setVisible(true);
 			}
 		});
 

@@ -25,6 +25,7 @@ public class Sample implements Serializable {
 	private String sample_code;
 	private String description_sample;
 	private String date_time_reference;
+	private int godina_period;
 	
 	@ManyToOne
 	private Request request;
@@ -41,7 +42,8 @@ public class Sample implements Serializable {
 			String date_time_reference,
 			Request request,
 			Obekt_na_izpitvane_sample obekt_na_izpitvane,
-			Period period
+			Period period,
+			int godina_period
 			) {
 		
 		super();
@@ -52,6 +54,7 @@ public class Sample implements Serializable {
 		this.request = request;
 		this.obekt_na_izpitvane = obekt_na_izpitvane;
 		this.period = period;
+		this.godina_period = godina_period;
 		
 	}
 
@@ -119,6 +122,14 @@ public class Sample implements Serializable {
 
 	public void setPeriod(Period period) {
 		this.period = period;
+	}
+
+	public int getGodina_period() {
+		return godina_period;
+	}
+
+	public void setGodina_period(int godina_period) {
+		this.godina_period = godina_period;
 	}
 
 	

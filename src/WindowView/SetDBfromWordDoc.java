@@ -619,7 +619,7 @@ public class SetDBfromWordDoc {
 			System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
 			System.out.println("OBECT_NA_IZPITVANE_SAMPLE " + ob_na_izpit[i]);
 			Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
-					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period);
+					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,2017);
 			SampleDAO.setValueSample(samp);
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
 				Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[i][j]);

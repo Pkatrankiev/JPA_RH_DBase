@@ -21,7 +21,7 @@ public class SampleDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setValueSample(String sample_code, String description_sample, String date_time_reference,
-			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period) {
+			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period, int godina_period) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -34,6 +34,7 @@ public class SampleDAO {
 		valueEnt.setRequest(request);
 		valueEnt.setObekt_na_izpitvane(obekt_na_izpitvane);
 		valueEnt.setPeriod(period);
+		valueEnt.setGodina_period(godina_period);
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
@@ -124,7 +125,8 @@ public class SampleDAO {
 					"22.12.2017 /12:00", // date_time_reference
 					request, // request object
 					obekt_na_izpitvane,
-					period);
+					period,
+					2017);
 		}
 					}
 		entitymanager.close();

@@ -18,14 +18,14 @@ public class PeriodDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 //	Nuclide
-	public static void setValuePeriod(String period, String value) {
+	public static void setValuePeriod(int period, String value) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
 		Period valueEnt = new Period();
-		valueEnt.setPeriod(period);
+		valueEnt.setId_period(period);
 		valueEnt.setValue(value);
 		
 		entitymanager.persist(valueEnt);
@@ -47,27 +47,26 @@ public class PeriodDAO {
 	}
 
 	public static void setBasicValuePeriod() {
-		setValuePeriod("няма информация", "няма информация");
-		setValuePeriod("тримесечие", "1 - 2017");
-		setValuePeriod("тримесечие", "2 - 2017");
-		setValuePeriod("тримесечие", "3 - 2017");
-		setValuePeriod("тримесечие", "4 - 2017");
-		setValuePeriod("месец", "Януари - 2017");
-		setValuePeriod("месец", "Февруари - 2017");
-		setValuePeriod("месец", "Март - 2017");
-		setValuePeriod("месец", "Април - 2017");
-		setValuePeriod("месец", "Май - 2017");
-		setValuePeriod("месец", "Юни - 2017");
-		setValuePeriod("месец", "Юли - 2017");
-		setValuePeriod("месец", "Август - 2017");
-		setValuePeriod("месец", "Септември - 2017");
-		setValuePeriod("месец", "Октомври - 2017");
-		setValuePeriod("месец", "Ноември - 2017");
-		setValuePeriod("месец", "Декември - 2017");
-		setValuePeriod("седмица", "1- Януари - 2017");
-		setValuePeriod("седмица", "2- Януари - 2017");
-		setValuePeriod("седмица", "3- Януари - 2017");
-		setValuePeriod("седмица", "4- Януари - 2017");
+		
+		setValuePeriod(1, "Януари");
+		setValuePeriod(2, "Февруари");
+		setValuePeriod(3, "Март");
+		setValuePeriod(4, "Април");
+		setValuePeriod(5, "Май");
+		setValuePeriod(6, "Юни");
+		setValuePeriod(7, "Юли");
+		setValuePeriod(8, "Август");
+		setValuePeriod(9, "Септември");
+		setValuePeriod(10, "Октомври");
+		setValuePeriod(11, "Ноември");
+		setValuePeriod(12, "Декември");
+		setValuePeriod(31, "1-во тримесечие");
+		setValuePeriod(32, "2-ро тримесечие");
+		setValuePeriod(33, "3-то тримесечие");
+		setValuePeriod(34, "4-то тримесечие");
+		setValuePeriod(61, "1-во полугодие");
+		setValuePeriod(62, "2-ро полугодие");
+		setValuePeriod(99, "годишен");
 		
 		
 		}

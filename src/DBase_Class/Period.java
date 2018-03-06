@@ -16,15 +16,13 @@ public class Period implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_period;
-
-	private String period;
 	private String value;
 
 
 
-	public Period (String period, String value) {
+	public Period (int Id_period, String value) {
 		super();
-		this.period = period;
+		this.Id_period = Id_period;
 		this.value = value;
 		
 	}
@@ -41,13 +39,7 @@ public class Period implements Serializable {
 		Id_period = id_period;
 	}
 
-	public String getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(String period) {
-		this.period = period;
-	}
+	
 
 	public String getValue() {
 		return value;

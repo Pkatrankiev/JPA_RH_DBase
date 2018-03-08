@@ -28,7 +28,7 @@ public class DatePicker {
 	                //set modal true
 	                d.setModal(true);
 	                //define string
-	                String[] header = { "Íä", "Ïí", "Âò", "Ñğ", "×ò", "Ïò", "Ñá" };
+	                String[] header = {  "Ïí", "Âò", "Ñğ", "×ò", "Ïò", "Ñá", "Íä" };
 	                //create JPanel object and set layout
 	                JPanel p1 = new JPanel(new GridLayout(7, 7));
 	                //set size
@@ -126,8 +126,8 @@ public class DatePicker {
 	         //condition
 	         if(dayOfWeek==1){
 	        	 dayOfWeek = 7;
-	         }
-	         for (int x = 5 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
+	         }else dayOfWeek = dayOfWeek -1;
+	         for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
 	         //set text
 	         button[x].setText("" + day);
 	         l.setText(sdf.format(cal.getTime()));

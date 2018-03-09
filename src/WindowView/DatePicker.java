@@ -12,6 +12,9 @@ public class DatePicker {
 	 //define variables
 	        int month = Calendar.getInstance().get(Calendar.MONTH);
 	        int year = Calendar.getInstance().get(Calendar.YEAR);
+	        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+            int minute = Calendar.getInstance().get(Calendar.MINUTE);
+	        
 	        //create object of JLabel with alignment
 	        JLabel l = new JLabel("", JLabel.CENTER);
 	        //define variable
@@ -96,9 +99,34 @@ public class DatePicker {
 	                        }
 	                });
 	                p2.add(next);// add next button
+	                
+	                JPanel panel = new JPanel();
+	                d.getContentPane().add(panel, BorderLayout.NORTH);
+	                panel.setLayout(new GridLayout(0, 3, 0, 0));
+	                
+	                JButton previous_times = new JButton("<< Назад");
+	                previous_times.addActionListener(new ActionListener() 
+	                {
+	                        public void actionPerformed(ActionEvent ae) 
+	                        {
+	                            //decrement month by 1
+	                            month--;
+	                            //call method
+//	                            displayDate();
+	                        }
+	                });
+	                panel.add(previous_times);
+	                
+	               DataTime 
+	                String time = hour+":00";
+	                JLabel label = new JLabel(time, SwingConstants.CENTER);
+	                panel.add(label);
+	                
+	                JButton button_2 = new JButton("Напред >>");
+	                panel.add(button_2);
 	                //set border alignment
-	                d.add(p1, BorderLayout.CENTER);
-	                d.add(p2, BorderLayout.SOUTH);
+	                d.getContentPane().add(p1, BorderLayout.CENTER);
+	                d.getContentPane().add(p2, BorderLayout.SOUTH);
 	                d.pack();
 	                //set location
 	                d.setLocationRelativeTo(parent);

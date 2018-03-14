@@ -27,6 +27,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import WindowView.Login;
 import WindowView.MainWindows;
+import WindowView.ReadFile;
 import WindowView.ReaderWordDoc;
 import WindowView.SetDBfromWordDoc;
 import WindowView.TablePrintDemo;
@@ -47,7 +48,11 @@ public class Main_Aplication {
 		// ReaderWordDoc.readMyDocument(fileName);
 
 		
-		 StartMainWindow();
+//		 StartMainWindow();
+		
+		String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
+		
+		ReadFile.ReadFile(FILENAME);
 
 
 	}

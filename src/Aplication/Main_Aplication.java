@@ -48,11 +48,11 @@ public class Main_Aplication {
 		// ReaderWordDoc.readMyDocument(fileName);
 
 		
-//		 StartMainWindow();
+		 StartMainWindow();
 		
-		String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
-		
-		ReadFile.ReadFile(FILENAME);
+//		String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
+//		
+//		ReadFile.ReadFile(FILENAME);
 
 
 	}

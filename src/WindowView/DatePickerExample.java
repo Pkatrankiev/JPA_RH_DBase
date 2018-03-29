@@ -80,7 +80,7 @@ import javax.swing.border.EmptyBorder;
 	 //create frame new object  f
 	 final JFrame f = new JFrame();
 	 //set text which is collected by date picker i.e. set date 
-	 txtDate.setText(new DatePicker(f).setPickedDate());
+	 txtDate.setText(new DatePicker(f,true).setPickedDate(true));
 	 }
 	 });
 	 //set button bound

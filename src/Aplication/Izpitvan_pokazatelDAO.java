@@ -26,18 +26,18 @@ static String name_DBase = "JPA_RH_DBase";
 
 
 //	Pokazatel
-	public static void setValueIzpitvan_pokazatel(List_izpitvan_pokazatel pokazatel, Sample sample, Metody metody) {
+	public static void setValueIzpitvan_pokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Sample sample, Metody metody) {
 		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Izpitvan_pokazatel pokazatal = new Izpitvan_pokazatel();
+		Izpitvan_pokazatel izpitvan_pokazatel = new Izpitvan_pokazatel();
 		
-		pokazatal.setPokazatel(pokazatel);
-		pokazatal.setSample(sample);
-		pokazatal.setMetody(metody);
+		izpitvan_pokazatel.setPokazatel(list_izpitvan_pokazatel);
+		izpitvan_pokazatel.setSample(sample);
+		izpitvan_pokazatel.setMetody(metody);
 		
-		entitymanager.persist(pokazatal);
+		entitymanager.persist(izpitvan_pokazatel);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();

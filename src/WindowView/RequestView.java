@@ -57,6 +57,7 @@ import javax.swing.JTextArea;
 import java.awt.Dimension;
 import java.awt.Choice;
 import javax.swing.JButton;
+import javax.swing.ScrollPaneConstants;
 
 public class RequestView extends JFrame {
 
@@ -64,7 +65,6 @@ public class RequestView extends JFrame {
 	private JTextField txtFld_recuest_code;
 	private JTextField txtFld_date_request;
 	private JTextField textField_7;
-	private JTextField textField_8;
 	private JTextField txtStartDate;
 	private JTextField txtEndDate;
 	private GridBagConstraints gbc_txtEndDate;
@@ -73,7 +73,7 @@ public class RequestView extends JFrame {
 
 	public RequestView() {
 		super("JScrollPane Demonstration");
-		setSize(760, 980);
+		setSize(850, 980);
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		init();
@@ -83,28 +83,18 @@ public class RequestView extends JFrame {
 	public void init() {
 
 		JPanel p = new JPanel();
-		p.setSize(700, 900);
+		p.setBorder(null);
+		p.setSize(750, 900);
 
 		scrollpane = new JScrollPane(p);
+		scrollpane.setName("");
+		scrollpane.setBorder(null);
 		GridBagLayout gbl_p = new GridBagLayout();
-		gbl_p.columnWidths = new int[] { 15, 155, 120, 120, 10, 120, 155, 15, 0 };
-		// gbl_p.rowHeights = new int[] { 181, 33, 27, 34, 0, 25, 0, 0, 0, 0,
-		// 26, 0, 0, 0, 0, 23, 21, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		// 0, 0, 0 };
-		int[] row_heigh = new int[30];
-		row_heigh[0] = 181;
-		row_heigh[1] = 33;
-		for (int i = 2; i < 30; i++) {
-			row_heigh[i] = 21;
-		}
-		gbl_p.rowHeights = row_heigh;
-
-		// gbl_p.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-		// 0.0, 0.0, Double.MIN_VALUE };
-		// gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-		// 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-		// 0.0, 0.0, 0.0, Double.MIN_VALUE };
-
+		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p.columnWidths = new int[] { 15, 155, 120, 120, 4, 120, 155, 15 };
+		gbl_p.rowHeights = new int[] { 181, 33, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		p.setLayout(gbl_p);
 
 		String text1 = "<html>ƒ⁄–∆¿¬ÕŒ œ–≈ƒœ–»ﬂ“»≈ ì–¿ƒ»Œ¿ “»¬Õ» Œ“œ¿ƒ⁄÷»ì<br> À¿¡Œ–¿“Œ–»ﬂ «¿ »«œ»“¬¿Õ≈<br><br><br>"
@@ -137,7 +127,7 @@ public class RequestView extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.gridwidth = 7;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 2;
 		p.add(lblNewLabel_2, gbc_lblNewLabel_2);
@@ -162,15 +152,15 @@ public class RequestView extends JFrame {
 		JLabel label = new JLabel("/");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.anchor = GridBagConstraints.EAST;
+		gbc_label.anchor = GridBagConstraints.WEST;
 		gbc_label.gridx = 4;
 		gbc_label.gridy = 3;
 		p.add(label, gbc_label);
 
 		txtFld_date_request = new JTextField();
 		GridBagConstraints gbc_txtFld_date_request = new GridBagConstraints();
+		gbc_txtFld_date_request.anchor = GridBagConstraints.WEST;
 		gbc_txtFld_date_request.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFld_date_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_request.gridx = 5;
 		gbc_txtFld_date_request.gridy = 3;
 		p.add(txtFld_date_request, gbc_txtFld_date_request);
@@ -203,7 +193,7 @@ public class RequestView extends JFrame {
 
 		Choice choice_ind_num_doc = new Choice();
 		GridBagConstraints gbc_choice_ind_num_doc = new GridBagConstraints();
-		gbc_choice_ind_num_doc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_choice_ind_num_doc.anchor = GridBagConstraints.WEST;
 		gbc_choice_ind_num_doc.gridwidth = 3;
 		gbc_choice_ind_num_doc.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_ind_num_doc.gridx = 4;
@@ -269,30 +259,30 @@ public class RequestView extends JFrame {
 		gbc_lbl_list_izpitvan_pokazatel.gridy = 9;
 		p.add(lbl_list_izpitvan_pokazatel, gbc_lbl_list_izpitvan_pokazatel);
 
-		Choice choice_list_izpitvan_pokazatel = new Choice();
-		GridBagConstraints gbc_choice_list_izpitvan_pokazatel = new GridBagConstraints();
-		gbc_choice_list_izpitvan_pokazatel.gridwidth = 2;
-		gbc_choice_list_izpitvan_pokazatel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_choice_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
-		gbc_choice_list_izpitvan_pokazatel.gridx = 2;
-		gbc_choice_list_izpitvan_pokazatel.gridy = 9;
-		p.add(choice_list_izpitvan_pokazatel, gbc_choice_list_izpitvan_pokazatel);
-
-		JLabel lbl_plus_choice_list_izpitvan_pokazatel = new JLabel("+");
-		lbl_plus_choice_list_izpitvan_pokazatel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-             
-            				
+		JTextArea textArea = new JTextArea();
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridwidth = 2;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 2;
+		gbc_textArea.gridy = 9;
+		p.add(textArea, gbc_textArea);
+		
+		JButton btn_list_izpitvan_pokazatel = new JButton("»Á·Ó Ì‡ ÔÓÍ‡Á‡ÚÂÎ");
+		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ChoiceListPokazatel choiceLP = new ChoiceListPokazatel();
+				
+				choiceLP.setVisible(true);
 			}
-			
 		});
-		GridBagConstraints gbc_lbl_plus_choice_list_izpitvan_pokazatel = new GridBagConstraints();
-		gbc_lbl_plus_choice_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
-		gbc_lbl_plus_choice_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_plus_choice_list_izpitvan_pokazatel.gridx = 4;
-		gbc_lbl_plus_choice_list_izpitvan_pokazatel.gridy = 9;
-		p.add(lbl_plus_choice_list_izpitvan_pokazatel, gbc_lbl_plus_choice_list_izpitvan_pokazatel);
+		GridBagConstraints gbc_btn_list_izpitvan_pokazatel = new GridBagConstraints();
+		gbc_btn_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
+		gbc_btn_list_izpitvan_pokazatel.gridwidth = 2;
+		gbc_btn_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_list_izpitvan_pokazatel.gridx = 4;
+		gbc_btn_list_izpitvan_pokazatel.gridy = 9;
+		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 
 		JLabel lblNewLabel_8 = new JLabel("¡ÓÈ Ì‡ ÔÓ·ËÚÂ ");
 		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
@@ -318,7 +308,6 @@ public class RequestView extends JFrame {
 
 		JLabel lblNewLabel_9 = new JLabel("ŒÔËÒ‡ÌËÂ Ì‡ ÔÓ·ËÚÂ ");
 		GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
-		gbc_lblNewLabel_9.gridwidth = 2;
 		gbc_lblNewLabel_9.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_9.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_9.gridx = 1;
@@ -326,30 +315,22 @@ public class RequestView extends JFrame {
 		p.add(lblNewLabel_9, gbc_lblNewLabel_9);
 
 		String text_i = "333-1";
-		JLabel lblNewLabel_10 = new JLabel("3233-1");
-		GridBagConstraints gbc_lblNewLabel_10 = new GridBagConstraints();
-		gbc_lblNewLabel_10.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_10.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_10.gridx = 1;
-		gbc_lblNewLabel_10.gridy = 12;
-		p.add(lblNewLabel_10, gbc_lblNewLabel_10);
 
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.gridwidth = 5;
-		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_8.gridx = 2;
-		gbc_textField_8.gridy = 12;
-		p.add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
+		JTextArea textArea_1 = new JTextArea();
+		GridBagConstraints gbc_textArea_1 = new GridBagConstraints();
+		gbc_textArea_1.gridwidth = 5;
+		gbc_textArea_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea_1.fill = GridBagConstraints.BOTH;
+		gbc_textArea_1.gridx = 2;
+		gbc_textArea_1.gridy = 11;
+		p.add(textArea_1, gbc_textArea_1);
 
 		JLabel label_1 = new JLabel("œÂËÓ‰Ë˜ÌÓÒÚ");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.anchor = GridBagConstraints.EAST;
 		gbc_label_1.insets = new Insets(0, 0, 5, 5);
 		gbc_label_1.gridx = 1;
-		gbc_label_1.gridy = 14;
+		gbc_label_1.gridy = 13;
 		p.add(label_1, gbc_label_1);
 
 		Choice choice_5 = new Choice();
@@ -357,7 +338,7 @@ public class RequestView extends JFrame {
 		gbc_choice_5.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_5.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_5.gridx = 2;
-		gbc_choice_5.gridy = 14;
+		gbc_choice_5.gridy = 13;
 		p.add(choice_5, gbc_choice_5);
 
 		// date_time_reception
@@ -367,7 +348,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_time_reception.anchor = GridBagConstraints.EAST;
 		gbc_lbl_date_time_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_time_reception.gridx = 1;
-		gbc_lbl_date_time_reception.gridy = 16;
+		gbc_lbl_date_time_reception.gridy = 15;
 		p.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
 
 		final JTextField txt_fid_date_time_reception = new JTextField("");
@@ -406,7 +387,7 @@ public class RequestView extends JFrame {
 		gbc_date_time_reception.gridwidth = 2;
 		gbc_date_time_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_date_time_reception.gridx = 3;
-		gbc_date_time_reception.gridy = 16;
+		gbc_date_time_reception.gridy = 15;
 		p.add(txt_fid_date_time_reception, gbc_date_time_reception);
 
 		// StartDate of date_time_reception
@@ -415,7 +396,7 @@ public class RequestView extends JFrame {
 		gbc_txtStartDate.insets = new Insets(0, 0, 5, 5);
 		gbc_txtStartDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtStartDate.gridx = 2;
-		gbc_txtStartDate.gridy = 15;
+		gbc_txtStartDate.gridy = 14;
 		p.add(txtStartDate, gbc_txtStartDate);
 		txtStartDate.setColumns(10);
 
@@ -442,7 +423,7 @@ public class RequestView extends JFrame {
 		gbc_btnStartData.anchor = GridBagConstraints.WEST;
 		gbc_btnStartData.insets = new Insets(0, 0, 5, 5);
 		gbc_btnStartData.gridx = 3;
-		gbc_btnStartData.gridy = 15;
+		gbc_btnStartData.gridy = 14;
 		p.add(btnStartData, gbc_btnStartData);
 
 		// EndDate of date_time_reception
@@ -450,10 +431,10 @@ public class RequestView extends JFrame {
 		txtEndDate.setColumns(10);
 		GridBagConstraints gbc_textField_a;
 		gbc_txtEndDate = new GridBagConstraints();
+		gbc_txtEndDate.anchor = GridBagConstraints.WEST;
 		gbc_txtEndDate.insets = new Insets(0, 0, 5, 5);
-		gbc_txtEndDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtEndDate.gridx = 5;
-		gbc_txtEndDate.gridy = 15;
+		gbc_txtEndDate.gridy = 14;
 		p.add(txtEndDate, gbc_txtEndDate);
 
 		JButton btnEndData = new JButton(" ‡ÈÌ‡ ‰‡Ú‡");
@@ -477,7 +458,7 @@ public class RequestView extends JFrame {
 		gbc_btnEndData.anchor = GridBagConstraints.WEST;
 		gbc_btnEndData.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEndData.gridx = 6;
-		gbc_btnEndData.gridy = 15;
+		gbc_btnEndData.gridy = 14;
 		p.add(btnEndData, gbc_btnEndData);
 
 		// date_execution
@@ -488,7 +469,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_execution.gridwidth = 2;
 		gbc_lbl_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_execution.gridx = 1;
-		gbc_lbl_date_execution.gridy = 17;
+		gbc_lbl_date_execution.gridy = 16;
 		p.add(lbl_date_execution, gbc_lbl_date_execution);
 
 		txtFld_date_execution = new JTextField("");
@@ -527,7 +508,7 @@ public class RequestView extends JFrame {
 		gbc_txtFld_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_execution.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_execution.gridx = 3;
-		gbc_txtFld_date_execution.gridy = 17;
+		gbc_txtFld_date_execution.gridy = 16;
 		p.add(txtFld_date_execution, gbc_txtFld_date_execution);
 
 		JButton btn_date_execution = new JButton("»Á·Ó Ì‡ ‰‡Ú‡");
@@ -552,7 +533,7 @@ public class RequestView extends JFrame {
 		gbc_btn_date_execution.gridwidth = 2;
 		gbc_btn_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_execution.gridx = 5;
-		gbc_btn_date_execution.gridy = 17;
+		gbc_btn_date_execution.gridy = 16;
 		p.add(btn_date_execution, gbc_btn_date_execution);
 
 		// date_time_request
@@ -563,7 +544,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_time_request.gridwidth = 2;
 		gbc_lbl_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_time_request.gridx = 1;
-		gbc_lbl_date_time_request.gridy = 18;
+		gbc_lbl_date_time_request.gridy = 17;
 		p.add(lbl_date_time_request, gbc_lbl_date_time_request);
 
 		txtFld_date_time_request = new JTextField("");
@@ -601,7 +582,7 @@ public class RequestView extends JFrame {
 		gbc_txtFld_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_time_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_time_request.gridx = 3;
-		gbc_txtFld_date_time_request.gridy = 18;
+		gbc_txtFld_date_time_request.gridy = 17;
 		p.add(txtFld_date_time_request, gbc_txtFld_date_time_request);
 
 		JButton btn_date_time_request = new JButton("»Á·Ó Ì‡ ‰‡Ú‡");
@@ -626,7 +607,7 @@ public class RequestView extends JFrame {
 		gbc_btn_date_time_request.gridwidth = 2;
 		gbc_btn_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_time_request.gridx = 5;
-		gbc_btn_date_time_request.gridy = 18;
+		gbc_btn_date_time_request.gridy = 17;
 		p.add(btn_date_time_request, gbc_btn_date_time_request);
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);

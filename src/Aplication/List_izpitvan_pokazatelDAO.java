@@ -49,7 +49,7 @@ public static void setBasikValuePokazatel(){
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Pokazatel e");
+		Query query = entitymanager.createQuery("SELECT e FROM List_izpitvan_pokazatel e");
 		List<List_izpitvan_pokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

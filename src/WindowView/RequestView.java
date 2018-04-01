@@ -70,6 +70,7 @@ public class RequestView extends JFrame {
 	private GridBagConstraints gbc_txtEndDate;
 	private JTextField txtFld_date_execution;
 	private JTextField txtFld_date_time_request;
+	String s = "";
 
 	public RequestView() {
 		super("JScrollPane Demonstration");
@@ -82,7 +83,7 @@ public class RequestView extends JFrame {
 
 	public void init() {
 
-		JPanel p = new JPanel();
+		final JPanel p = new JPanel();
 		p.setBorder(null);
 		p.setSize(750, 900);
 
@@ -259,7 +260,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_list_izpitvan_pokazatel.gridy = 9;
 		p.add(lbl_list_izpitvan_pokazatel, gbc_lbl_list_izpitvan_pokazatel);
 
-		JTextArea textArea = new JTextArea();
+		final JTextArea textArea = new JTextArea();
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.gridwidth = 2;
 		gbc_textArea.insets = new Insets(0, 0, 5, 5);
@@ -267,13 +268,22 @@ public class RequestView extends JFrame {
 		gbc_textArea.gridx = 2;
 		gbc_textArea.gridy = 9;
 		p.add(textArea, gbc_textArea);
-		
+
 		JButton btn_list_izpitvan_pokazatel = new JButton("Избор на показател");
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ChoiceListPokazatel choiceLP = new ChoiceListPokazatel();
+
+				final JFrame f = new JFrame();
+				ChoiceListIzpPokazatel choiceLP = new ChoiceListIzpPokazatel(f);
 				
-				choiceLP.setVisible(true);
+				String str = "";
+				String[] sss = new String[choiceLP.getChoiceListPokazatel1().length];
+				sss = choiceLP.getChoiceListPokazatel1();
+				for (String string : choiceLP.getChoiceListPokazatel1()) {
+					str = str + string + "\n";
+				}
+				textArea.setText(str);
+
 			}
 		});
 		GridBagConstraints gbc_btn_list_izpitvan_pokazatel = new GridBagConstraints();

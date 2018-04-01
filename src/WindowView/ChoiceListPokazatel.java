@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,45 +12,56 @@ import javax.swing.JScrollPane;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
 import java.awt.Choice;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import org.apache.poi.hdgf.streams.Stream;
+
+import Aplication.List_izpitvan_pokazatelDAO;
+import DBase_Class.List_izpitvan_pokazatel;
+import WindowViewAplication.ChoiceListPokazatelAplication;
+
 import javax.swing.SwingConstants;
 
 public class ChoiceListPokazatel extends JFrame {
 
 	private JScrollPane scrollPane;
 
+	private JDialog d;
 	private JButton btnPlus;
-	private Choice[] choice = new Choice[7];
-	private int countCoice = 0;
+	private static Choice[] choice = new Choice[7];
+	private static int countCoice = 0;
 
-	public ChoiceListPokazatel() {
-//		super("Избор на показател");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public ChoiceListPokazatel(JFrame p) {
+		
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		setLocationRelativeTo(null);
-		init();
-		setVisible(true);
-	}
-
-	public void init() {
+		
+	
+	
 		final JPanel panel = new JPanel();
-
-		panel.setBorder(null);
-		panel.setSize(400, 280);
+		d = new JDialog();
+		// set modal true
+		d.setModal(true);
+		
 
 		scrollPane = new JScrollPane(panel);
 		scrollPane.setName("");
 		scrollPane.setBorder(null);
+		panel.setBorder(null);
+		panel.setSize(400, 280);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 12, 299, 20, 20 };
-		gbl_panel.rowHeights = new int[] { 25, 25, 25, 25, 25, 25, 25, 25};
+		gbl_panel.rowHeights = new int[] { 25, 25, 25, 25, 25, 25, 25, 25 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		panel.setLayout(gbl_panel);
@@ -63,6 +75,11 @@ public class ChoiceListPokazatel extends JFrame {
 		panel.add(lblFirst, gbc_lblFirst);
 
 		choice[0] = new Choice();
+		String[] arr = ChoiceListPokazatelAplication.getStringMassiveLIP();
+		for (String string : arr) {
+			choice[0].add(string);
+		}
+
 		GridBagConstraints gbc_choice = new GridBagConstraints();
 		gbc_choice.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice.insets = new Insets(0, 0, 5, 5);
@@ -108,6 +125,10 @@ public class ChoiceListPokazatel extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				countCoice++;
 				choice[countCoice] = new Choice();
+				String[] arr = ChoiceListPokazatelAplication.getStringMassiveLIP();
+				for (String string : arr) {
+					choice[countCoice].add(string);
+				}
 				GridBagConstraints gbc_choice_1 = new GridBagConstraints();
 				gbc_choice_1.fill = GridBagConstraints.HORIZONTAL;
 				gbc_choice_1.insets = new Insets(0, 0, 5, 5);
@@ -141,6 +162,15 @@ public class ChoiceListPokazatel extends JFrame {
 		panel.add(btnPlus, gbc_btnPlus);
 
 		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				getChoiceListPokazatel();
+				dispose();
+
+			}
+
+		});
+
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.anchor = GridBagConstraints.BASELINE_LEADING;
 		gbc_btnNewButton.gridwidth = 2;
@@ -148,8 +178,22 @@ public class ChoiceListPokazatel extends JFrame {
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 7;
 		panel.add(btnNewButton, gbc_btnNewButton);
+
+		
+		
+		
+		
 		
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		setLocationRelativeTo(p);
+		setVisible(true);
 	}
 
+	public static String[] getChoiceListPokazatel() {
+		String[] arrListIzsledvanPokazatel = new String[countCoice];
+		for (int i = 0; i < countCoice; i++) {
+			arrListIzsledvanPokazatel[i] = choice[i].getSelectedItem();
+		}
+		return arrListIzsledvanPokazatel;
+	}
 }

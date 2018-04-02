@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import WindowViewAplication.ChoiceListPokazatelAplication;
+import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -69,7 +69,7 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				panel.add(lblFirst, gbc_lblFirst);
 
 				choice[0] = new Choice();
-				String[] arr = ChoiceListPokazatelAplication.getStringMassiveLIP();
+				String[] arr = RequestViewAplication.getStringMassiveLIP();
 				for (String string : arr) {
 					choice[0].add(string);
 				}
@@ -119,7 +119,7 @@ public class ChoiceListIzpPokazatel extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						countCoice++;
 						choice[countCoice] = new Choice();
-						String[] arr = ChoiceListPokazatelAplication.getStringMassiveLIP();
+						String[] arr = RequestViewAplication.getStringMassiveLIP();
 						for (String string : arr) {
 							choice[countCoice].add(string);
 						}

@@ -47,7 +47,7 @@ public static void setBasicValueObekt_na_izpitvane(){
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane e");
+		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e");
 		List<Obekt_na_izpitvane_request> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

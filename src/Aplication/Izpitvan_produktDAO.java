@@ -68,7 +68,7 @@ public class Izpitvan_produktDAO {
 		return Response.status(200).entity(nominees).build();
 	}
 
-	public List<Izpitvan_produkt> getInListAllValueIzpitvan_produkt() {
+	public static List<Izpitvan_produkt> getInListAllValueIzpitvan_produkt() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();

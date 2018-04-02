@@ -27,7 +27,7 @@ import org.apache.poi.hdgf.streams.Stream;
 
 import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
-import WindowViewAplication.ChoiceListPokazatelAplication;
+import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.SwingConstants;
 
@@ -75,7 +75,7 @@ public class ChoiceListPokazatel extends JFrame {
 		panel.add(lblFirst, gbc_lblFirst);
 
 		choice[0] = new Choice();
-		String[] arr = ChoiceListPokazatelAplication.getStringMassiveLIP();
+		String[] arr = RequestViewAplication.getStringMassiveLIP();
 		for (String string : arr) {
 			choice[0].add(string);
 		}
@@ -125,7 +125,7 @@ public class ChoiceListPokazatel extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				countCoice++;
 				choice[countCoice] = new Choice();
-				String[] arr = ChoiceListPokazatelAplication.getStringMassiveLIP();
+				String[] arr = RequestViewAplication.getStringMassiveLIP();
 				for (String string : arr) {
 					choice[countCoice].add(string);
 				}

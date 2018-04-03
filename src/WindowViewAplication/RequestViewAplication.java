@@ -5,15 +5,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.PlainDocument;
+
 import Aplication.Ind_num_docDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
+import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 
 public class RequestViewAplication {
@@ -37,6 +47,7 @@ public class RequestViewAplication {
 			arr1[i] = ((Ind_num_doc) e).getName();
 			i++;
 		}
+		arr1[0] = "";
 		return arr1;
 	}
 	
@@ -72,15 +83,42 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
+	
+	public static String[] getStringMassivePeriod() {
+		List<Period> list = PeriodDAO.getInListAllValuePeriod();
+		String[] arr = new String[list.size()+1];
+		arr[0] = "";
+		int i = 1;
+		for (Period e : list) {
+			arr[i] = ((Period) e).getValue();
+			i++;
+		}
+		return arr;
+	}
 
-	public static String DateNaw(){
+	public static String DateNaw(Boolean whiteTime){
 		String dateNaw = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		Calendar cal = Calendar.getInstance();
-		sdf.format(cal.getTime());
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		if(whiteTime) sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		
+		dateNaw  = sdf.format(Calendar.getInstance().getTime());
 		
 		return dateNaw;
 	}
 
 
+	public static MaskFormatter createFormatter(String s) {
+        MaskFormatter formatter = null;
+        try {
+            formatter = new MaskFormatter(s);
+        } catch (java.text.ParseException exc) {
+            System.err.println("formatter is bad: " + exc.getMessage());
+            System.exit(-1);
+        }
+        return formatter;
+    }
+
+
+	
+	
 }

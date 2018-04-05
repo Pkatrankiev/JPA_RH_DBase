@@ -423,7 +423,11 @@ public class RequestView extends JFrame {
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 						try {
-					int k = Integer.valueOf(txtFld_Count_Sample.getText());
+							System.out.println(" countSimple "+txtFld_Count_Sample.getText());
+					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+					final JFrame f = new JFrame();
+					SampleAddView sampleDescript = new SampleAddView(f,count_Sample);
+					sampleDescript.setVisible(true);
 					
 				} catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(RequestView.this,

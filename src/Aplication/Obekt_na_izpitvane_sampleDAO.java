@@ -16,19 +16,18 @@ import DBase_Class.Obekt_na_izpitvane_sample;
 
 public class Obekt_na_izpitvane_sampleDAO {
 
-static String name_DBase = "JPA_RH_DBase";
-	
-public static void setBasicValueObekt_na_izpitvane_sample(){
-	setValueObekt_na_izpitvane_sample("Вентилационна тръба-1");
-	setValueObekt_na_izpitvane_sample("Вентилационна тръба-2");
-	setValueObekt_na_izpitvane_sample("Спец корпус-1");
-	setValueObekt_na_izpitvane_sample("Спец корпус-2");
-	setValueObekt_na_izpitvane_sample("БАК 1и2");
-	
+	static String name_DBase = "JPA_RH_DBase";
 
-}
+	public static void setBasicValueObekt_na_izpitvane_sample() {
+		setValueObekt_na_izpitvane_sample("Вентилационна тръба-1");
+		setValueObekt_na_izpitvane_sample("Вентилационна тръба-2");
+		setValueObekt_na_izpitvane_sample("Спец корпус-1");
+		setValueObekt_na_izpitvane_sample("Спец корпус-2");
+		setValueObekt_na_izpitvane_sample("БАК 1и2");
 
-//	Obekt_na_izpitvane
+	}
+
+	// Obekt_na_izpitvane
 	public static void setValueObekt_na_izpitvane_sample(String value) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -51,30 +50,24 @@ public static void setBasicValueObekt_na_izpitvane_sample(){
 		List<Obekt_na_izpitvane_sample> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-
-		for (Obekt_na_izpitvane_sample e : list) {
-			System.out.println("Num:" + ((Obekt_na_izpitvane_sample) e).getId_obekt_na_izpitvane() + "  NAME :"
-					+ ((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane());
-		}
-		return list;
+			return list;
 	}
 
-	
 	@GET
 	@QueryParam("{id}")
-public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-	EntityManager entitymanager = emfactory.createEntityManager();
-	entitymanager.getTransaction().begin();
-	Obekt_na_izpitvane_sample  obekt_na_izpitvane = (Obekt_na_izpitvane_sample) entitymanager.find(Obekt_na_izpitvane_sample.class, id);
-	
-	entitymanager.close();
-	emfactory.close();
+	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleById(@QueryParam("id") int id) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Obekt_na_izpitvane_sample obekt_na_izpitvane = (Obekt_na_izpitvane_sample) entitymanager
+				.find(Obekt_na_izpitvane_sample.class, id);
 
-	return obekt_na_izpitvane;
-}
-	
-	
+		entitymanager.close();
+		emfactory.close();
+
+		return obekt_na_izpitvane;
+	}
+
 	@GET
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleByName(String name) {
 
@@ -86,8 +79,8 @@ public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleById(@Q
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
-			setValueObekt_na_izpitvane_sample(name);	
+		if (query.getResultList().isEmpty()) {
+			setValueObekt_na_izpitvane_sample(name);
 		}
 		Obekt_na_izpitvane_sample list = (Obekt_na_izpitvane_sample) query.getSingleResult();
 		entitymanager.close();
@@ -96,4 +89,3 @@ public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleById(@Q
 		return list;
 	}
 }
-

@@ -17,12 +17,14 @@ import Aplication.Ind_num_docDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
+import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 
@@ -84,6 +86,17 @@ public class RequestViewAplication {
 		return arr;
 	}
 	
+	public static String[] getStringMassiveO_I_S() {
+		int i = 0;
+		List<Obekt_na_izpitvane_sample> list = Obekt_na_izpitvane_sampleDAO.getInListAllValueObekt_na_izpitvane_sample();
+		String[] arr = new String[list.size()];
+		for (Obekt_na_izpitvane_sample e : list) {
+			arr[i] = ((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
+			i++;
+		}
+		return arr;
+	}
+	
 	public static String[] getStringMassivePeriod() {
 		List<Period> list = PeriodDAO.getInListAllValuePeriod();
 		String[] arr = new String[list.size()+1];
@@ -95,6 +108,8 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
+	
+	
 
 	public static String DateNaw(Boolean whiteTime){
 		String dateNaw = null;

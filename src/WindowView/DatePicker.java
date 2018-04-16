@@ -298,7 +298,15 @@ public class DatePicker {
 		String origDate = date;
 		if (inTime) {
 			sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		try{	
 			origDate = date.substring(0, 10);
+		}catch (StringIndexOutOfBoundsException e) {
+
+			JOptionPane.showMessageDialog( null, "Грешна дата!",
+					"Грешни данни", JOptionPane.ERROR_MESSAGE);
+
+		}
+		
 		}
 		DateTimeFormatter sdf1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 

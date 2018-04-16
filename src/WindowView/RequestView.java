@@ -20,6 +20,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.awt.Panel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -72,9 +75,6 @@ public class RequestView extends JFrame {
 
 	JScrollPane scrollpane;
 	private JTextField txtFld_Count_Sample;
-	private JTextField txtStartDate;
-	private JTextField txtEndDate;
-	private GridBagConstraints gbc_txtEndDate;
 	private JTextField txtFld_date_execution;
 	private JTextField txtFld_date_time_request;
 	String s = "";
@@ -102,10 +102,10 @@ public class RequestView extends JFrame {
 		scrollpane.setBorder(null);
 		GridBagLayout gbl_p = new GridBagLayout();
 		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p.columnWidths = new int[] { 15, 160, 110, 110, 110, 160, 15 };
-		gbl_p.rowHeights = new int[] { 181, 33, 27, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_p.rowHeights = new int[] { 181, 33, 27, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		p.setLayout(gbl_p);
 
 		String text1 = "<html>ДЪРЖАВНО ПРЕДПРИЯТИЕ “РАДИОАКТИВНИ ОТПАДЪЦИ“<br> ЛАБОРАТОРИЯ ЗА ИЗПИТВАНЕ<br><br><br>"
@@ -346,13 +346,93 @@ public class RequestView extends JFrame {
 		gbc_btn_list_izpitvan_pokazatel.gridy = 9;
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 
+		// date_time_reception
+		JLabel lbl_date_time_reception = new JLabel("Референтна дата (средата на периода)");
+		GridBagConstraints gbc_lbl_date_time_reception = new GridBagConstraints();
+		gbc_lbl_date_time_reception.gridwidth = 2;
+		gbc_lbl_date_time_reception.anchor = GridBagConstraints.EAST;
+		gbc_lbl_date_time_reception.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_date_time_reception.gridx = 1;
+		gbc_lbl_date_time_reception.gridy = 10;
+		p.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
+
+		final JTextField txt_fid_date_time_reception = new JTextField("");
+		txt_fid_date_time_reception.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent event) {
+
+				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
+					txt_fid_date_time_reception.setForeground(Color.RED);
+				else
+					txt_fid_date_time_reception.setForeground(Color.BLACK);
+			}
+
+			@Override
+			public void keyReleased(KeyEvent event) {
+
+				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
+					txt_fid_date_time_reception.setForeground(Color.RED);
+				else
+					txt_fid_date_time_reception.setForeground(Color.BLACK);
+			}
+
+			@Override
+			public void keyPressed(KeyEvent event) {
+
+				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
+					txt_fid_date_time_reception.setForeground(Color.RED);
+				else
+					txt_fid_date_time_reception.setForeground(Color.BLACK);
+			}
+		});
+
+		GridBagConstraints gbc_date_time_reception = new GridBagConstraints();
+		gbc_date_time_reception.fill = GridBagConstraints.HORIZONTAL;
+		gbc_date_time_reception.insets = new Insets(0, 0, 5, 5);
+		gbc_date_time_reception.gridx = 3;
+		gbc_date_time_reception.gridy = 10;
+		p.add(txt_fid_date_time_reception, gbc_date_time_reception);
+
+		JButton btn_date_time_reception = new JButton("Избор");
+		btn_date_time_reception.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+
+					final JFrame f = new JFrame();
+					DateChoice date_time_reception = new DateChoice(f);
+					date_time_reception.setVisible(true);
+
+					String textRefDate = "";
+					textRefDate = DateChoice.get_date_time_reception();
+					System.out.print("  -- " + textRefDate);
+					if (DatePicker.incorrectDate(textRefDate, true))
+						txt_fid_date_time_reception.setForeground(Color.RED);
+					else
+						txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+					txt_fid_date_time_reception.setText(textRefDate);
+
+				} catch (NumberFormatException e) {
+
+				}
+			}
+		});
+		GridBagConstraints gbc_btn_date_time_reception = new GridBagConstraints();
+		gbc_btn_date_time_reception.anchor = GridBagConstraints.WEST;
+		gbc_btn_date_time_reception.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_date_time_reception.gridx = 4;
+		gbc_btn_date_time_reception.gridy = 10;
+		p.add(btn_date_time_reception, gbc_btn_date_time_reception);
+		GridBagConstraints gbc_textField_a;
+
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
 		GridBagConstraints gbc_lbl_Count_Sample = new GridBagConstraints();
 		gbc_lbl_Count_Sample.anchor = GridBagConstraints.EAST;
 		gbc_lbl_Count_Sample.gridwidth = 2;
 		gbc_lbl_Count_Sample.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_Count_Sample.gridx = 2;
-		gbc_lbl_Count_Sample.gridy = 13;
+		gbc_lbl_Count_Sample.gridy = 11;
 		p.add(lbl_Count_Sample, gbc_lbl_Count_Sample);
 
 		txtFld_Count_Sample = new JTextField();
@@ -415,33 +495,46 @@ public class RequestView extends JFrame {
 		gbc_txtFld_Count_Sample.anchor = GridBagConstraints.WEST;
 		gbc_txtFld_Count_Sample.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_Count_Sample.gridx = 4;
-		gbc_txtFld_Count_Sample.gridy = 13;
+		gbc_txtFld_Count_Sample.gridy = 11;
 		p.add(txtFld_Count_Sample, gbc_txtFld_Count_Sample);
 		txtFld_Count_Sample.setColumns(3);
 
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
+					try {
+						DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+						String ref_Date_Time = txt_fid_date_time_reception.getText();
+						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
 						try {
-							System.out.println(" countSimple "+txtFld_Count_Sample.getText());
-					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-					final JFrame f = new JFrame();
-					SampleAddView sampleDescript = new SampleAddView(f,count_Sample);
-					sampleDescript.setVisible(true);
-					
+							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
+							String ref_Date = (txtField_RequestCode.getText());
+							final JFrame f = new JFrame();
+							SampleAddView sampleDescript = new SampleAddView(f, count_Sample, requestCode, ref_Date_Time);
+							sampleDescript.setVisible(true);
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
+									"Грешни данни", JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (DateTimeParseException e) {
+						JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели референтна дата и време!",
+								"Грешни данни", JOptionPane.ERROR_MESSAGE);
+					}
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(RequestView.this,
-		                    "Не сте въвели брой на пробите!",
-		                    "Грешни данни",
-		                    JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели код на пробата!", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
 				}
+
 			}
+
 		});
 		GridBagConstraints gbc_btn_SampleDescription = new GridBagConstraints();
 		gbc_btn_SampleDescription.anchor = GridBagConstraints.WEST;
 		gbc_btn_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_SampleDescription.gridx = 5;
-		gbc_btn_SampleDescription.gridy = 13;
+		gbc_btn_SampleDescription.gridy = 11;
 		p.add(btn_SampleDescription, gbc_btn_SampleDescription);
 
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
@@ -449,7 +542,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_SampleDescription.anchor = GridBagConstraints.WEST;
 		gbc_lbl_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_SampleDescription.gridx = 1;
-		gbc_lbl_SampleDescription.gridy = 14;
+		gbc_lbl_SampleDescription.gridy = 12;
 		p.add(lbl_SampleDescription, gbc_lbl_SampleDescription);
 
 		JTextArea txtArea_SampleDescription = new JTextArea();
@@ -458,7 +551,7 @@ public class RequestView extends JFrame {
 		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
 		gbc_txtArea_SampleDescription.gridx = 2;
-		gbc_txtArea_SampleDescription.gridy = 14;
+		gbc_txtArea_SampleDescription.gridy = 12;
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 
 		JLabel lbl_Period = new JLabel("Периодичност");
@@ -466,7 +559,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
 		gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_Period.gridx = 1;
-		gbc_lbl_Period.gridy = 16;
+		gbc_lbl_Period.gridy = 14;
 		p.add(lbl_Period, gbc_lbl_Period);
 
 		Choice choice_Period = new Choice();
@@ -479,126 +572,8 @@ public class RequestView extends JFrame {
 		gbc_choice_Period.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_Period.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_Period.gridx = 2;
-		gbc_choice_Period.gridy = 16;
+		gbc_choice_Period.gridy = 14;
 		p.add(choice_Period, gbc_choice_Period);
-
-		// date_time_reception
-		JLabel lbl_date_time_reception = new JLabel("Референтна дата (средата на периода)");
-		GridBagConstraints gbc_lbl_date_time_reception = new GridBagConstraints();
-		gbc_lbl_date_time_reception.gridwidth = 2;
-		gbc_lbl_date_time_reception.anchor = GridBagConstraints.EAST;
-		gbc_lbl_date_time_reception.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_date_time_reception.gridx = 1;
-		gbc_lbl_date_time_reception.gridy = 12;
-		p.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
-
-		final JTextField txt_fid_date_time_reception = new JTextField("");
-		txt_fid_date_time_reception.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent event) {
-
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
-			}
-
-			@Override
-			public void keyReleased(KeyEvent event) {
-
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
-			}
-
-			@Override
-			public void keyPressed(KeyEvent event) {
-
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
-			}
-		});
-
-		GridBagConstraints gbc_date_time_reception = new GridBagConstraints();
-		gbc_date_time_reception.fill = GridBagConstraints.HORIZONTAL;
-		gbc_date_time_reception.insets = new Insets(0, 0, 5, 5);
-		gbc_date_time_reception.gridx = 3;
-		gbc_date_time_reception.gridy = 12;
-		p.add(txt_fid_date_time_reception, gbc_date_time_reception);
-
-		// StartDate of date_time_reception
-		txtStartDate = new JTextField();
-		GridBagConstraints gbc_txtStartDate = new GridBagConstraints();
-		gbc_txtStartDate.insets = new Insets(0, 0, 5, 5);
-		gbc_txtStartDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtStartDate.gridx = 2;
-		gbc_txtStartDate.gridy = 11;
-		p.add(txtStartDate, gbc_txtStartDate);
-		txtStartDate.setColumns(10);
-
-		JButton btnStartData = new JButton("Начална дата");
-		btnStartData.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				final JFrame f = new JFrame();
-				DatePicker dPicer = new DatePicker(f, true);
-				txtStartDate.setText(dPicer.setPickedDate(true));
-
-				String textRefDate = "";
-				textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
-				if (DatePicker.incorrectDate(textRefDate, true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
-
-				txt_fid_date_time_reception.setText(textRefDate);
-			}
-		});
-
-		GridBagConstraints gbc_btnStartData = new GridBagConstraints();
-		gbc_btnStartData.anchor = GridBagConstraints.WEST;
-		gbc_btnStartData.insets = new Insets(0, 0, 5, 5);
-		gbc_btnStartData.gridx = 3;
-		gbc_btnStartData.gridy = 11;
-		p.add(btnStartData, gbc_btnStartData);
-
-		// EndDate of date_time_reception
-		txtEndDate = new JTextField();
-		txtEndDate.setColumns(10);
-		GridBagConstraints gbc_textField_a;
-		gbc_txtEndDate = new GridBagConstraints();
-		gbc_txtEndDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEndDate.insets = new Insets(0, 0, 5, 5);
-		gbc_txtEndDate.gridx = 4;
-		gbc_txtEndDate.gridy = 11;
-		p.add(txtEndDate, gbc_txtEndDate);
-
-		JButton btnEndData = new JButton("Крайна дата");
-		btnEndData.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				final JFrame f = new JFrame();
-				DatePicker dPicer = new DatePicker(f, true);
-				txtEndDate.setText(dPicer.setPickedDate(true));
-				String textRefDate = "";
-
-				textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
-				if (DatePicker.incorrectDate(textRefDate, true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
-				txt_fid_date_time_reception.setText(textRefDate);
-
-			}
-		});
-		GridBagConstraints gbc_btnEndData = new GridBagConstraints();
-		gbc_btnEndData.anchor = GridBagConstraints.WEST;
-		gbc_btnEndData.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEndData.gridx = 5;
-		gbc_btnEndData.gridy = 11;
-		p.add(btnEndData, gbc_btnEndData);
 
 		// date_execution
 		// ************************************************************************
@@ -608,7 +583,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_execution.gridwidth = 2;
 		gbc_lbl_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_execution.gridx = 1;
-		gbc_lbl_date_execution.gridy = 17;
+		gbc_lbl_date_execution.gridy = 15;
 		p.add(lbl_date_execution, gbc_lbl_date_execution);
 
 		txtFld_date_execution = new JTextField("");
@@ -646,7 +621,7 @@ public class RequestView extends JFrame {
 		gbc_txtFld_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_execution.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_execution.gridx = 3;
-		gbc_txtFld_date_execution.gridy = 17;
+		gbc_txtFld_date_execution.gridy = 15;
 		p.add(txtFld_date_execution, gbc_txtFld_date_execution);
 
 		JButton btn_date_execution = new JButton("Избор на дата");
@@ -671,7 +646,7 @@ public class RequestView extends JFrame {
 		gbc_btn_date_execution.gridwidth = 2;
 		gbc_btn_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_execution.gridx = 4;
-		gbc_btn_date_execution.gridy = 17;
+		gbc_btn_date_execution.gridy = 15;
 		p.add(btn_date_execution, gbc_btn_date_execution);
 
 		// date_time_request
@@ -682,7 +657,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_time_request.gridwidth = 2;
 		gbc_lbl_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_time_request.gridx = 1;
-		gbc_lbl_date_time_request.gridy = 18;
+		gbc_lbl_date_time_request.gridy = 16;
 		p.add(lbl_date_time_request, gbc_lbl_date_time_request);
 
 		txtFld_date_time_request = new JTextField(RequestViewAplication.DateNaw(true));
@@ -719,7 +694,7 @@ public class RequestView extends JFrame {
 		gbc_txtFld_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_time_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_time_request.gridx = 3;
-		gbc_txtFld_date_time_request.gridy = 18;
+		gbc_txtFld_date_time_request.gridy = 16;
 		p.add(txtFld_date_time_request, gbc_txtFld_date_time_request);
 
 		JButton btn_date_time_request = new JButton("Избор на дата");
@@ -744,7 +719,7 @@ public class RequestView extends JFrame {
 		gbc_btn_date_time_request.gridwidth = 2;
 		gbc_btn_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_time_request.gridx = 4;
-		gbc_btn_date_time_request.gridy = 18;
+		gbc_btn_date_time_request.gridy = 16;
 		p.add(btn_date_time_request, gbc_btn_date_time_request);
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);

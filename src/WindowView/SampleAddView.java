@@ -1,6 +1,7 @@
 package WindowView;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -34,6 +35,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.EventObject;
 import java.awt.event.ActionEvent;
@@ -45,12 +47,12 @@ public class SampleAddView extends JDialog {
 	private final JScrollPane scrollPane;
 	private boolean DEBUG = true;
 	private JTable table;
-	private String [] str=new String[10];
+	private String[] str = new String[10];
 
 	/**
 	 * Create the dialog.
 	 */
-	public SampleAddView(Frame parent, int countSample) {
+	public SampleAddView(Frame parent, int countSample, int requestCode, String ref_Date_Time) {
 		super(parent, "Информация за пробите", true);
 		setBounds(100, 100, 850, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -62,37 +64,28 @@ public class SampleAddView extends JDialog {
 
 			}
 		}
-		String[] columnSize = { "012345", "0123456789", "01234567890123456789012345678901234567890123456789", "0123456789", "0123456789",
-		"012345" };
-		
-		String[] columnNames = { "Код", "Обект на изпитване", "Описание", "Референтна дата", "Период",
-		"Година" };
-		Object[][] data = setMasiveData(countSample);
-		
+		String[] columnSize = { "012345", "0123456789", "01234567890123456789012345678901234567890123456789",
+				"0123456789", "0123456789", "012345" };
+
+		String[] columnNames = { "Код", "Обект на изпитване", "Описание", "Референтна дата", "Период", "Година" };
+		Object[][] data = setMasiveData(countSample, requestCode, ref_Date_Time);
+
 		table = new JTable(new MyTableModel(columnNames, data));
 
 		// Set up column sizes.
 		initColumnSizes(table, columnSize);
 
 		table.setPreferredScrollableViewportSize(new Dimension(850, 70));
-		
-		
-		
-		
-		
-		
- 
+
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
-		
-		
+
 		// Fiddle with the Sport column's cell editors/renderers.
 		setUp_O_I_S_Column(table, table.getColumnModel().getColumn(1), RequestViewAplication.getStringMassiveO_I_S());
 		setUp_Period_Column(table, table.getColumnModel().getColumn(4), RequestViewAplication.getStringMassivePeriod());
-		setUp_SampleDescription(table, table.getColumnModel().getColumn(2)," ");
+		setUp_SampleDescription(table, table.getColumnModel().getColumn(2), " ");
+		setUp_Ref_Date_Column(table, table.getColumnModel().getColumn(3), " ");
 
-		
-		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -107,8 +100,8 @@ public class SampleAddView extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						for (String  ss : str) {
-							System.out.println(ss);	
+						for (String ss : str) {
+							System.out.println(ss);
 						}
 					}
 				});
@@ -118,18 +111,18 @@ public class SampleAddView extends JDialog {
 		}
 	}
 
-	private Object[][] setMasiveData(int countSample) {
+	private Object[][] setMasiveData(int countSample, int requestCode, String ref_Date_Time) {
 		Object[][] kkk = new Object[countSample][6];
-		
+		String year = ref_Date_Time.substring(6, 10);
 		for (int i = 0; i < countSample; i++) {
-			kkk[i][0] ="1234-"+i;
-			kkk[i][1] =" ";
-			kkk[i][2] ="1";
-			kkk[i][3] ="02.04.2018 10:25";
-			kkk[i][4] =" ";
-			kkk[i][5] = "2018";
-					}
-		
+			kkk[i][0] = requestCode + "-" + i;
+			kkk[i][1] = "";
+			kkk[i][2] = "";
+			kkk[i][3] = ref_Date_Time;
+			kkk[i][4] = "";
+			kkk[i][5] = year;
+		}
+
 		return kkk;
 	}
 
@@ -144,7 +137,7 @@ public class SampleAddView extends JDialog {
 			this.columnNames = columnNames;
 
 			this.data = data;
-			
+
 		}
 
 		public int getColumnCount() {
@@ -207,7 +200,7 @@ public class SampleAddView extends JDialog {
 		private void printDebugData() {
 			int numRows = getRowCount();
 			int numCols = getColumnCount();
-			
+
 			for (int i = 0; i < numRows; i++) {
 				System.out.print("    row " + i + ":");
 				for (int j = 0; j < numCols; j++) {
@@ -218,57 +211,53 @@ public class SampleAddView extends JDialog {
 			System.out.println("--------------------------");
 		}
 	}
-	
-	
 
 	private void initColumnSizes(JTable table, String[] columnNames) {
-		
-		 table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		 table.getColumnModel().getColumn(1).setPreferredWidth(300);
-		 table.getColumnModel().getColumn(2).setPreferredWidth(500);
-		 table.getColumnModel().getColumn(3).setPreferredWidth(200);
-		 table.getColumnModel().getColumn(4).setPreferredWidth(200);
-		 table.getColumnModel().getColumn(5).setPreferredWidth(100);
-		 table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-           
-		
-		
-		
-		
-//		MyTableModel model = (MyTableModel) table.getModel();
-//		TableColumn column = null;
-//		
-//		int f=0;
-//		
-//		Component comp = null;
-//		int headerWidth = 0;
-//		int cellWidth = 0;
-//		Object[] longValues = model.columnNames;
-//		TableCellRenderer headerRenderer = 
-//				table.getTableHeader().getDefaultRenderer();
-//
-//		for (int i = 0; i < longValues.length; i++) {
-//			column = table.getColumnModel().getColumn(i);
-//
-//			comp = headerRenderer.getTableCellRendererComponent(
-//					null, column.getHeaderValue(), false, false, 0, 0);
-//			headerWidth = comp.getPreferredSize().width;
-//
-//			comp = table.getDefaultRenderer(model.getColumnClass(i)).
-//					getTableCellRendererComponent(table, longValues[i],
-//					false, false, 0, i);
-//			cellWidth = comp.getPreferredSize().width;
-//
-//			if (DEBUG) {
-//				str[f]="Initializing width of column " + i + ". " + "headerWidth = " + headerWidth
-//						+ "; cellWidth = " + cellWidth;
-//				f++;
-//				System.out.println("Initializing width of column " + i + ". " + "headerWidth = " + headerWidth
-//						+ "; cellWidth = " + cellWidth);
-//			}
-//
-//			column.setPreferredWidth(Math.max(headerWidth, cellWidth));
-//		}
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(300);
+		table.getColumnModel().getColumn(2).setPreferredWidth(500);
+		table.getColumnModel().getColumn(3).setPreferredWidth(200);
+		table.getColumnModel().getColumn(4).setPreferredWidth(200);
+		table.getColumnModel().getColumn(5).setPreferredWidth(100);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+		// MyTableModel model = (MyTableModel) table.getModel();
+		// TableColumn column = null;
+		//
+		// int f=0;
+		//
+		// Component comp = null;
+		// int headerWidth = 0;
+		// int cellWidth = 0;
+		// Object[] longValues = model.columnNames;
+		// TableCellRenderer headerRenderer =
+		// table.getTableHeader().getDefaultRenderer();
+		//
+		// for (int i = 0; i < longValues.length; i++) {
+		// column = table.getColumnModel().getColumn(i);
+		//
+		// comp = headerRenderer.getTableCellRendererComponent(
+		// null, column.getHeaderValue(), false, false, 0, 0);
+		// headerWidth = comp.getPreferredSize().width;
+		//
+		// comp = table.getDefaultRenderer(model.getColumnClass(i)).
+		// getTableCellRendererComponent(table, longValues[i],
+		// false, false, 0, i);
+		// cellWidth = comp.getPreferredSize().width;
+		//
+		// if (DEBUG) {
+		// str[f]="Initializing width of column " + i + ". " + "headerWidth = "
+		// + headerWidth
+		// + "; cellWidth = " + cellWidth;
+		// f++;
+		// System.out.println("Initializing width of column " + i + ". " +
+		// "headerWidth = " + headerWidth
+		// + "; cellWidth = " + cellWidth);
+		// }
+		//
+		// column.setPreferredWidth(Math.max(headerWidth, cellWidth));
+		// }
 	}
 
 	public void setUp_O_I_S_Column(JTable table, TableColumn obektIzpitvaneColumn, String[] comboBoxItem) {
@@ -285,6 +274,7 @@ public class SampleAddView extends JDialog {
 		renderer.setToolTipText("Изберете обекта на изпитване");
 		obektIzpitvaneColumn.setCellRenderer(renderer);
 	}
+
 	public void setUp_Period_Column(JTable table, TableColumn periodColumn, String[] comboBoxItem) {
 		// Set up the editor for the sport cells.
 		JComboBox comboBox = new JComboBox();
@@ -299,20 +289,103 @@ public class SampleAddView extends JDialog {
 		renderer.setToolTipText("Изберете периодичността");
 		periodColumn.setCellRenderer(renderer);
 	}
-	
+
 	public void setUp_SampleDescription(JTable table, TableColumn sampleDescription, String txtAreaItem) {
 		// Set up the editor for the sport cells.
-		
-		sampleDescription.setCellRenderer(new TextAreaCellRenderer()); 
-		sampleDescription.setCellEditor(new TextAreaCellEditor(){
-		
-		
-		    });
-	
+
+		sampleDescription.setCellRenderer(new TextAreaCellRenderer());
+		sampleDescription.setCellEditor(new TextAreaCellEditor() {
+
+		});
+
 	}
-	
+
+	public void setUp_Ref_Date_Column(JTable table, TableColumn ref_Date_Column, String txtAreaItem) {
+		ref_Date_Column.setCellRenderer(new TextAreaCellRenderer());
+		ref_Date_Column.setCellEditor( new TableCellEditor() {
+			
+			@Override
+			public boolean stopCellEditing() {
+				// TODO Auto-generated method stub
+				System.out.print("----11111-----");
+				return false;
+			}
+			
+			@Override
+			public boolean shouldSelectCell(EventObject arg0) {
+				// TODO Auto-generated method stub
+				System.out.print("----222222222-----");
+				return false;
+			}
+			
+			@Override
+			public void removeCellEditorListener(CellEditorListener arg0) {
+				// TODO Auto-generated method stub
+				System.out.print("----3333333333-----");
+			}
+			
+			@Override
+			public boolean isCellEditable(EventObject arg0) {
+				// TODO Auto-generated method stub
+				System.out.print("----44444444444-----");
+				return true;
+			}
+			
+			@Override
+			public Object getCellEditorValue() {
+				// TODO Auto-generated method stub
+				System.out.print("----55555555555-----");
+				return null;
+			}
+			
+			@Override
+			public void cancelCellEditing() {
+				// TODO Auto-generated method stub
+				System.out.print("----66666666666-----");
+				
+			}
+			
+			@Override
+			public void addCellEditorListener(CellEditorListener arg0) {
+				// TODO Auto-generated method stub
+				System.out.print("---77777777777----");
+				
+			}
+			
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+				// TODO Auto-generated method stub
+				System.out.print("----8888888888-----");
+				return null;
+			}
+//		}; {
+//
+//			@Override
+//			public void keyTyped(KeyEvent event) {
+//
+//				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false))
+//					txtFld_date_execution.setForeground(Color.RED);
+//				else
+//					txtFld_date_execution.setForeground(Color.BLACK);
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent event) {
+//
+//				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false))
+//					txtFld_date_execution.setForeground(Color.RED);
+//				else
+//					txtFld_date_execution.setForeground(Color.BLACK);
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent event) {
+//
+//				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false))
+//					txtFld_date_execution.setForeground(Color.RED);
+//				else
+//					txtFld_date_execution.setForeground(Color.BLACK);
+//			}
+		});
+	}
 }
-
-
-
-

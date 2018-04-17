@@ -512,7 +512,7 @@ public class RequestView extends JFrame {
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
-							SampleAddView sampleDescript = new SampleAddView(f, count_Sample, requestCode, ref_Date_Time);
+							SampleViewAdd sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time);
 							sampleDescript.setVisible(true);
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",

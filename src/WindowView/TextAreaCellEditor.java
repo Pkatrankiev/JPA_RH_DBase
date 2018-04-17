@@ -40,6 +40,7 @@ abstract class TextAreaCellEditor implements TableCellEditor {
             	        stopCellEditing();
             }
             
+                       
         });
     }
 
@@ -83,23 +84,24 @@ abstract class TextAreaCellEditor implements TableCellEditor {
 
 	@Override
     public boolean isCellEditable(final EventObject e) {
-        if (e instanceof MouseEvent) {
-            return ((MouseEvent) e).getClickCount() >= 2;
-        }
+//        if (e instanceof MouseEvent) {
+//            return ((MouseEvent) e).getClickCount() >= 2;
+//        }
         System.out.println("1. isCellEditable");
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (e instanceof KeyEvent) {
-                    KeyEvent ke = (KeyEvent) e;
-                    char kc = ke.getKeyChar();
-                    if (Character.isUnicodeIdentifierStart(kc)) {
-                        textArea.setText(textArea.getText() + kc);
-                        System.out.println("3. invokeLater: isCellEditable");
-                    }
-                }
-            }
-        });
+        
+//        EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (e instanceof KeyEvent) {
+//                    KeyEvent ke = (KeyEvent) e;
+//                    char kc = ke.getKeyChar();
+//                    if (Character.isUnicodeIdentifierStart(kc)) {
+//                        textArea.setText(textArea.getText() + kc);
+//                        System.out.println("3. invokeLater: isCellEditable");
+//                    }
+//                }
+//            }
+//        });
         return true;
     }
 

@@ -299,65 +299,102 @@ public class SampleAddView extends JDialog {
 		});
 
 	}
+	
+	public void updateRowHeights(int column, int width, JTable table){
+        for (int row = 0; row < table.getRowCount(); row++) {
+            int rowHeight = table.getRowHeight();
+            Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+            Dimension d = comp.getPreferredSize();
+            comp.setSize(new Dimension(width, d.height));
+            d = comp.getPreferredSize();
+            rowHeight = Math.max(rowHeight, d.height);
+            table.setRowHeight(row, rowHeight);
+            System.out.println("  rowHeight= "+rowHeight);
+        }
+    }
+	
+
 
 	public void setUp_Ref_Date_Column(JTable table, TableColumn ref_Date_Column, String txtAreaItem) {
-		ref_Date_Column.setCellRenderer(new TextAreaCellRenderer());
-		ref_Date_Column.setCellEditor( new TableCellEditor() {
-			
-			@Override
-			public boolean stopCellEditing() {
-				// TODO Auto-generated method stub
-				System.out.print("----11111-----");
-				return false;
-			}
-			
-			@Override
-			public boolean shouldSelectCell(EventObject arg0) {
-				// TODO Auto-generated method stub
-				System.out.print("----222222222-----");
-				return false;
-			}
-			
-			@Override
-			public void removeCellEditorListener(CellEditorListener arg0) {
-				// TODO Auto-generated method stub
-				System.out.print("----3333333333-----");
-			}
-			
-			@Override
-			public boolean isCellEditable(EventObject arg0) {
-				// TODO Auto-generated method stub
-				System.out.print("----44444444444-----");
-				return true;
-			}
-			
-			@Override
-			public Object getCellEditorValue() {
-				// TODO Auto-generated method stub
-				System.out.print("----55555555555-----");
-				return null;
-			}
-			
-			@Override
-			public void cancelCellEditing() {
-				// TODO Auto-generated method stub
-				System.out.print("----66666666666-----");
-				
-			}
-			
-			@Override
-			public void addCellEditorListener(CellEditorListener arg0) {
-				// TODO Auto-generated method stub
-				System.out.print("---77777777777----");
-				
-			}
-			
-			@Override
-			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-				// TODO Auto-generated method stub
-				System.out.print("----8888888888-----");
-				return null;
-			}
+	
+//		((Component) ref_Date_Column).addKeyListener(new KeyListener() {
+//
+//			@Override
+//			public void keyTyped(KeyEvent event) {
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
+//		
+//		ref_Date_Column.setCellEditor( new TableCellEditor() {
+//			
+//			@Override
+//			public boolean stopCellEditing() {
+//				// TODO Auto-generated method stub
+//				System.out.print("----11111-----");
+//				return false;
+//			}
+//			
+//			@Override
+//			public boolean shouldSelectCell(EventObject arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.print("----222222222-----");
+//				return true;
+//			}
+//			
+//			@Override
+//			public void removeCellEditorListener(CellEditorListener arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.print("----3333333333-----");
+//			}
+//			
+//			@Override
+//			public boolean isCellEditable(EventObject arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.print("----44444444444-----");
+//				return true;
+//			}
+//			
+//			@Override
+//			public Object getCellEditorValue() {
+//				// TODO Auto-generated method stub
+//				System.out.print("----55555555555-----");
+//				return null;
+//			}
+//			
+//			@Override
+//			public void cancelCellEditing() {
+//				// TODO Auto-generated method stub
+//				System.out.print("----66666666666-----");
+//				
+//			}
+//			
+//			@Override
+//			public void addCellEditorListener(CellEditorListener arg0) {
+//				// TODO Auto-generated method stub
+//				System.out.print("---77777777777----");
+//				
+//			}
+//			
+//			@Override
+//			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+//				// TODO Auto-generated method stub
+//				System.out.print("----8888888888-----");
+//				return null;
+//			}
+//		});
+//		
+		
 //		}; {
 //
 //			@Override
@@ -386,6 +423,6 @@ public class SampleAddView extends JDialog {
 //				else
 //					txtFld_date_execution.setForeground(Color.BLACK);
 //			}
-		});
+		
 	}
 }

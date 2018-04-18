@@ -104,7 +104,7 @@ public class RequestView extends JFrame {
 		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-		gbl_p.columnWidths = new int[] { 15, 160, 110, 110, 110, 160, 15 };
+		gbl_p.columnWidths = new int[] { 15, 160, 110, 100, 110, 160, 15 };
 		gbl_p.rowHeights = new int[] { 181, 33, 27, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		p.setLayout(gbl_p);
 
@@ -329,8 +329,8 @@ public class RequestView extends JFrame {
 				ChoiceListIzpPokazatel choiceLP = new ChoiceListIzpPokazatel(f);
 
 				String str = "";
-				String[] sss = new String[choiceLP.getChoiceListPokazatel1().length];
-				sss = choiceLP.getChoiceListPokazatel1();
+//				String[] sss = new String[choiceLP.getChoiceListPokazatel1().length];
+//				sss = choiceLP.getChoiceListPokazatel1();
 				for (String string : choiceLP.getChoiceListPokazatel1()) {
 					str = str + string + "\n";
 				}
@@ -425,13 +425,35 @@ public class RequestView extends JFrame {
 		gbc_btn_date_time_reception.gridy = 10;
 		p.add(btn_date_time_reception, gbc_btn_date_time_reception);
 		GridBagConstraints gbc_textField_a;
+		
+		
+				JLabel lbl_Period = new JLabel("Периодичност");
+				GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
+				gbc_lbl_Period.anchor = GridBagConstraints.EAST;
+				gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
+				gbc_lbl_Period.gridx = 1;
+				gbc_lbl_Period.gridy = 11;
+				p.add(lbl_Period, gbc_lbl_Period);
+		
+				final Choice choice_Period = new Choice();
+				choice_Period.setPreferredSize(new Dimension(100, 20));
+				GridBagConstraints gbc_choice_Period = new GridBagConstraints();
+				gbc_choice_Period.anchor = GridBagConstraints.WEST;
+				gbc_choice_Period.insets = new Insets(0, 0, 5, 5);
+				gbc_choice_Period.gridx = 2;
+				gbc_choice_Period.gridy = 11;
+				p.add(choice_Period, gbc_choice_Period);
+				
+				String[] arr4 = RequestViewAplication.getStringMassivePeriod();
+				for (String string : arr4) {
+					choice_Period.add(string);
+				}
 
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
 		GridBagConstraints gbc_lbl_Count_Sample = new GridBagConstraints();
 		gbc_lbl_Count_Sample.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Count_Sample.gridwidth = 2;
 		gbc_lbl_Count_Sample.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Count_Sample.gridx = 2;
+		gbc_lbl_Count_Sample.gridx = 3;
 		gbc_lbl_Count_Sample.gridy = 11;
 		p.add(lbl_Count_Sample, gbc_lbl_Count_Sample);
 
@@ -498,6 +520,15 @@ public class RequestView extends JFrame {
 		gbc_txtFld_Count_Sample.gridy = 11;
 		p.add(txtFld_Count_Sample, gbc_txtFld_Count_Sample);
 		txtFld_Count_Sample.setColumns(3);
+		
+		final JTextArea txtArea_SampleDescription = new JTextArea();
+		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
+		gbc_txtArea_SampleDescription.gridwidth = 4;
+		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
+		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
+		gbc_txtArea_SampleDescription.gridx = 2;
+		gbc_txtArea_SampleDescription.gridy = 12;
+		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
@@ -508,12 +539,20 @@ public class RequestView extends JFrame {
 						DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 						String ref_Date_Time = txt_fid_date_time_reception.getText();
 						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+						String period = choice_Period.getSelectedItem();
 						try {
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
-							SampleViewAdd sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time);
+							SampleViewAdd sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period);
 							sampleDescript.setVisible(true);
+							String[][] string = SampleViewAdd.getVolumeSampleView(count_Sample);
+							txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
+							for (int i = 0; i < string.length; i++) {
+								
+							}  {
+								
+							}
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
@@ -545,35 +584,9 @@ public class RequestView extends JFrame {
 		gbc_lbl_SampleDescription.gridy = 12;
 		p.add(lbl_SampleDescription, gbc_lbl_SampleDescription);
 
-		JTextArea txtArea_SampleDescription = new JTextArea();
-		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
-		gbc_txtArea_SampleDescription.gridwidth = 4;
-		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
-		gbc_txtArea_SampleDescription.gridx = 2;
-		gbc_txtArea_SampleDescription.gridy = 12;
-		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
+		
 
-		JLabel lbl_Period = new JLabel("Периодичност");
-		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
-		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Period.gridx = 1;
-		gbc_lbl_Period.gridy = 14;
-		p.add(lbl_Period, gbc_lbl_Period);
-
-		Choice choice_Period = new Choice();
-		GridBagConstraints gbc_choice_Period = new GridBagConstraints();
-
-		String[] arr4 = RequestViewAplication.getStringMassivePeriod();
-		for (String string : arr4) {
-			choice_Period.add(string);
-		}
-		gbc_choice_Period.fill = GridBagConstraints.HORIZONTAL;
-		gbc_choice_Period.insets = new Insets(0, 0, 5, 5);
-		gbc_choice_Period.gridx = 2;
-		gbc_choice_Period.gridy = 14;
-		p.add(choice_Period, gbc_choice_Period);
+		
 
 		// date_execution
 		// ************************************************************************

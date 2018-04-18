@@ -16,113 +16,225 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import WindowView.SampleAddView.MyTableModel;
+import WindowViewAplication.RequestViewAplication;
+
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SampleViewAdd extends JDialog {
 
 	private final JScrollPane scrollPane;
+	private JPanel panel_Label;
 	private JPanel[] panel;
-	private JLabel [] lbl_sample_code;
-	private JComboBox [] comboBox_OI;
-	private JTextArea[] txtArea_Sample_Descr; 
-	private JTextField[] txtFld_Ref_date;
-	private JComboBox[] comboBox_Period;
-	private JTextField[] txtFld_Year;
-	
+	private static JLabel[] lbl_sample_code;
+	private static JComboBox[] comboBox_OI;
+	private static JTextArea[] txtArea_Sample_Descr;
+	private static JTextField[] txtFld_Ref_date;
+	private static JComboBox[] comboBox_Period;
+	private static JTextField[] txtFld_Year;
 
 	/**
 	 * Create the dialog.
 	 */
-	public SampleViewAdd(Frame parent, int countSample, int requestCode, String ref_Date_Time) {
+	public SampleViewAdd(Frame parent, final int countSample, int requestCode, String ref_Date_Time, String period) {
 		super(parent, "Информация за пробите", true);
-		setBounds(100, 100, 850, 300);
+		
+		setBounds(100, 100, 850, (countSample*29)+120);
 		getContentPane().setLayout(new BorderLayout());
 		{
-			
+
 			scrollPane = new JScrollPane();
 			getContentPane().add(scrollPane, BorderLayout.CENTER);
-							JPanel panel_1 = new JPanel();
-				scrollPane.setViewportView(panel_1);
-				panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
-				
-			
+			JPanel panel_1 = new JPanel();
+			scrollPane.setViewportView(panel_1);
+			panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+
+			panel_Label = new JPanel();
+			panel_Label.setAlignmentY(Component.TOP_ALIGNMENT);
+			panel_Label.setMaximumSize(new Dimension(850, 30));
+			panel_Label.setAutoscrolls(true);
+
+			JLabel lbl_sam_code = new JLabel("Код");
+			lbl_sam_code.setPreferredSize(new Dimension(50, 20));
+			lbl_sam_code.setHorizontalAlignment(JLabel.CENTER);
+			lbl_sam_code.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label.add(lbl_sam_code);
+			JLabel lbl_OI = new JLabel("Обект на изпитване");
+			lbl_OI.setPreferredSize(new Dimension(200, 20));
+			lbl_OI.setHorizontalAlignment(JLabel.CENTER);
+			lbl_OI.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label.add(lbl_OI);
+			JLabel lbl_Samp_Descr = new JLabel("Описание на пробата");
+			lbl_Samp_Descr.setPreferredSize(new Dimension(300, 20));
+			lbl_Samp_Descr.setHorizontalAlignment(JLabel.CENTER);
+			lbl_Samp_Descr.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label.add(lbl_Samp_Descr);
+			JLabel lbl_Ref_date = new JLabel("Референтна дата");
+			lbl_Ref_date.setPreferredSize(new Dimension(100, 20));
+			lbl_Ref_date.setHorizontalAlignment(JLabel.CENTER);
+			lbl_Ref_date.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label.add(lbl_Ref_date);
+			JLabel lbl_Preiod = new JLabel("Периодичност");
+			lbl_Preiod.setPreferredSize(new Dimension(142, 20));
+			lbl_Preiod.setHorizontalAlignment(JLabel.CENTER);
+			lbl_Preiod.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label.add(lbl_Preiod);
+			panel_1.add(panel_Label);
+
+			String[] comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
+			String[] comBox_Period = RequestViewAplication.getStringMassivePeriod();
 			String year = ref_Date_Time.substring(6, 10);
-			
-			panel = new JPanel [countSample];
-			
-			
-			lbl_sample_code = new JLabel [countSample];
-			comboBox_OI = new JComboBox [countSample];
+
+			panel = new JPanel[countSample];
+			lbl_sample_code = new JLabel[countSample];
+			comboBox_OI = new JComboBox[countSample];
 			txtArea_Sample_Descr = new JTextArea[countSample];
 			txtFld_Ref_date = new JTextField[countSample];
-			comboBox_Period = new JComboBox [countSample];
+			comboBox_Period = new JComboBox[countSample];
 			txtFld_Year = new JTextField[countSample];
-			
+
 			for (int i = 0; i < countSample; i++) {
-//			int i=1;
-			{
-				panel[i] = new JPanel();
-				panel[i].setAlignmentY(Component.TOP_ALIGNMENT);
-				panel[i].setMaximumSize(new Dimension(850, 25));
-				panel[i].setAutoscrolls(true);
-				
+				// int i=1;
+				final int selection = i;
 				{
-					lbl_sample_code[i] = new JLabel(requestCode + "-" + (i+1));
-					lbl_sample_code[i].setPreferredSize(new Dimension(50, 14));
-//					lbl_sample_code[i].setMinimumSize(new Dimension(50, 14));
-//					lbl_sample_code[i].setMaximumSize(new Dimension(50, 14));
-					lbl_sample_code[i].setBorder(new LineBorder(new Color(0, 0, 0)));
-					panel[i].add(lbl_sample_code[i]);
+					panel[i] = new JPanel();
+					panel[i].setAlignmentY(Component.TOP_ALIGNMENT);
+					panel[i].setMaximumSize(new Dimension(850, 25));
+					panel[i].setAutoscrolls(true);
+
+					{
+						lbl_sample_code[i] = new JLabel(requestCode + "-" + (i + 1));
+						lbl_sample_code[i].setPreferredSize(new Dimension(50, 20));
+						// lbl_sample_code[i].setMinimumSize(new Dimension(50,
+						// 14));
+						// lbl_sample_code[i].setMaximumSize(new Dimension(50,
+						// 14));
+						lbl_sample_code[i].setBorder(new LineBorder(new Color(0, 0, 0)));
+						panel[i].add(lbl_sample_code[i]);
+					}
+					{
+						comboBox_OI[i] = new JComboBox();
+						comboBox_OI[i].setPreferredSize(new Dimension(200, 20));
+						for (String string : comBox_O_I_S) {
+							comboBox_OI[i].addItem(string);
+						}
+						panel[i].add(comboBox_OI[i]);
+					}
+					{
+						txtArea_Sample_Descr[i] = new JTextArea("123456789");
+						txtArea_Sample_Descr[i].setPreferredSize(new Dimension(300, 20));
+						// txtArea_Sample_Descr[i].setMinimumSize(new
+						// Dimension(400, 20));
+						txtArea_Sample_Descr[i].setBorder(new LineBorder(new Color(0, 0, 0)));
+						txtArea_Sample_Descr[i].addKeyListener(new KeyListener() {
+
+							@Override
+							public void keyTyped(KeyEvent event) {
+
+								Dimension d = txtArea_Sample_Descr[selection].getMinimumSize();
+								txtArea_Sample_Descr[selection].setPreferredSize(new Dimension(300, (d.height + 2)));
+								panel[selection].setMaximumSize(new Dimension(850, (d.height + 8)));
+							}
+
+							@Override
+							public void keyReleased(KeyEvent event) {
+
+								Dimension d = txtArea_Sample_Descr[selection].getMinimumSize();
+								txtArea_Sample_Descr[selection].setPreferredSize(new Dimension(300, (d.height + 2)));
+								panel[selection].setMaximumSize(new Dimension(850, (d.height + 8)));
+							}
+
+							@Override
+							public void keyPressed(KeyEvent event) {
+
+								Dimension d = txtArea_Sample_Descr[selection].getMinimumSize();
+								txtArea_Sample_Descr[selection].setPreferredSize(new Dimension(300, (d.height + 2)));
+								panel[selection].setMaximumSize(new Dimension(850, (d.height + 8)));
+							}
+						});
+
+						panel[i].add(txtArea_Sample_Descr[i]);
+					}
+
+					{
+						txtFld_Ref_date[i] = new JTextField(ref_Date_Time);
+						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
+
+							@Override
+							public void keyTyped(KeyEvent event) {
+
+								if (DatePicker.incorrectDate(txtFld_Ref_date[selection].getText(), true))
+									txtFld_Ref_date[selection].setForeground(Color.RED);
+								else
+									txtFld_Ref_date[selection].setForeground(Color.BLACK);
+							}
+
+							@Override
+							public void keyReleased(KeyEvent event) {
+
+								if (DatePicker.incorrectDate(txtFld_Ref_date[selection].getText(), true))
+									txtFld_Ref_date[selection].setForeground(Color.RED);
+								else
+									txtFld_Ref_date[selection].setForeground(Color.BLACK);
+							}
+
+							@Override
+							public void keyPressed(KeyEvent event) {
+
+								if (DatePicker.incorrectDate(txtFld_Ref_date[selection].getText(), true))
+									txtFld_Ref_date[selection].setForeground(Color.RED);
+								else
+									txtFld_Ref_date[selection].setForeground(Color.BLACK);
+							}
+						});
+						panel[i].add(txtFld_Ref_date[i]);
+						txtFld_Ref_date[i].setColumns(9);
+					}
+
+					{
+						comboBox_Period[i] = new JComboBox();
+
+						comboBox_Period[i].setPreferredSize(new Dimension(100, 20));
+						for (String string : comBox_Period) {
+							comboBox_Period[i].addItem(string);
+						}
+						comboBox_Period[i].setSelectedItem(period);
+						panel[i].add(comboBox_Period[i]);
+					}
+
+					{
+						txtFld_Year[i] = new JTextField(year);
+
+						panel[i].add(txtFld_Year[i]);
+						txtFld_Year[i].setColumns(3);
+					}
 				}
-				{
-					comboBox_OI[i] = new JComboBox();
-					comboBox_OI[i].setPreferredSize(new Dimension(200, 20));
-//					comboBox_OI[i].setMinimumSize(new Dimension(200, 20));
-					panel[i].add(comboBox_OI[i]);
-				}
-				{
-					txtArea_Sample_Descr[i] = new JTextArea("123456789");
-					txtArea_Sample_Descr[i].setPreferredSize(new Dimension(300, 20));
-//					txtArea_Sample_Descr[i].setMinimumSize(new Dimension(400, 20));
-					txtArea_Sample_Descr[i].setBorder(new LineBorder(new Color(0, 0, 0)));
-					panel[i].add(txtArea_Sample_Descr[i]);
-				}
-				{
-					txtFld_Ref_date[i] = new JTextField(ref_Date_Time);
-//					txtFld_Ref_date[i].setMinimumSize(new Dimension(60, 20));
-//					txtFld_Ref_date[i].setPreferredSize(new Dimension(60, 20));
-					panel[i].add(txtFld_Ref_date[i]);
-					txtFld_Ref_date[i].setColumns(9);
-				}
-				{
-					comboBox_Period[i] = new JComboBox();
-					comboBox_Period[i].setPreferredSize(new Dimension(100, 20));
-					comboBox_Period[i].setMinimumSize(new Dimension(100, 20));
-					panel[i].add(comboBox_Period[i]);
-				}
-				{
-					txtFld_Year[i] = new JTextField(year);
-//					txtFld_Year[i].setMinimumSize(new Dimension(50, 20));
-//					txtFld_Year[i].setPreferredSize(new Dimension(50, 20));
-					panel[i].add(txtFld_Year[i]);
-					txtFld_Year[i].setColumns(3);
-				}
-			}
-			panel_1.add(panel[i]);
+				panel_1.add(panel[i]);
 			}
 		}
-		
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						getVolumeSampleView(countSample);
+						removeAll();
+						dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -133,6 +245,20 @@ public class SampleViewAdd extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		
 	}
 
+	public static String [][] getVolumeSampleView(int countSample){
+		String[][] volSampleView = new String [countSample][6];
+		for (int i = 0; i < countSample; i++) {
+			volSampleView[i][0]= lbl_sample_code[i].getText();
+			volSampleView[i][1]= comboBox_OI[i].getSelectedItem().toString();
+			volSampleView[i][2]= txtArea_Sample_Descr[i].getText();
+			volSampleView[i][3]= txtFld_Ref_date[i].getText();
+			volSampleView[i][4]= comboBox_Period[i].getSelectedItem().toString();
+			volSampleView[i][5]= txtFld_Year[i].getText();
+		}
+		return volSampleView;
+	}
 }

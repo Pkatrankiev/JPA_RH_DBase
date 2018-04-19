@@ -520,16 +520,17 @@ public class RequestView extends JFrame {
 		gbc_txtFld_Count_Sample.gridy = 11;
 		p.add(txtFld_Count_Sample, gbc_txtFld_Count_Sample);
 		txtFld_Count_Sample.setColumns(3);
-		
+
 		final JTextArea txtArea_SampleDescription = new JTextArea();
 		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
-		gbc_txtArea_SampleDescription.gridwidth = 4;
+		gbc_txtArea_SampleDescription.gridwidth = 5;
 		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
-		gbc_txtArea_SampleDescription.gridx = 2;
-		gbc_txtArea_SampleDescription.gridy = 12;
+		gbc_txtArea_SampleDescription.gridx = 1;
+		gbc_txtArea_SampleDescription.gridy = 13;
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
-
+		txtArea_SampleDescription.setEditable(false);
+		
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -544,15 +545,19 @@ public class RequestView extends JFrame {
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
-							SampleViewAdd sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period);
+							SampleViewAdd sampleDescript = null;
+							String[][] string = null;
+							
+							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period, string);
+								
+							
 							sampleDescript.setVisible(true);
-							String[][] string = SampleViewAdd.getVolumeSampleView(count_Sample);
+							string = SampleViewAdd.getVolumeSampleView(count_Sample);
 							txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-							for (int i = 0; i < string.length; i++) {
-								
-							}  {
-								
-							}
+							
+							
+							txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(string));
+							
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
@@ -583,6 +588,8 @@ public class RequestView extends JFrame {
 		gbc_lbl_SampleDescription.gridx = 1;
 		gbc_lbl_SampleDescription.gridy = 12;
 		p.add(lbl_SampleDescription, gbc_lbl_SampleDescription);
+		
+		
 
 		
 

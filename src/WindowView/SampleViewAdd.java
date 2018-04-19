@@ -9,6 +9,7 @@ import java.awt.Frame;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,7 +46,7 @@ public class SampleViewAdd extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public SampleViewAdd(Frame parent, final int countSample, int requestCode, String ref_Date_Time, String period) {
+	public SampleViewAdd(Frame parent, final int countSample, int requestCode, String ref_Date_Time, String period, String[][] stringVol) {
 		super(parent, "Информация за пробите", true);
 		
 		setBounds(100, 100, 850, (countSample*29)+120);
@@ -101,7 +102,12 @@ public class SampleViewAdd extends JDialog {
 			txtFld_Ref_date = new JTextField[countSample];
 			comboBox_Period = new JComboBox[countSample];
 			txtFld_Year = new JTextField[countSample];
-
+			Boolean notEmpryString=false;
+			if(stringVol!=null){
+			System.out.println(stringVol.length+"  "+countSample);
+			if(stringVol.length==countSample)
+				notEmpryString=true;
+			}
 			for (int i = 0; i < countSample; i++) {
 				// int i=1;
 				final int selection = i;
@@ -114,10 +120,7 @@ public class SampleViewAdd extends JDialog {
 					{
 						lbl_sample_code[i] = new JLabel(requestCode + "-" + (i + 1));
 						lbl_sample_code[i].setPreferredSize(new Dimension(50, 20));
-						// lbl_sample_code[i].setMinimumSize(new Dimension(50,
-						// 14));
-						// lbl_sample_code[i].setMaximumSize(new Dimension(50,
-						// 14));
+						
 						lbl_sample_code[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 						panel[i].add(lbl_sample_code[i]);
 					}
@@ -127,10 +130,12 @@ public class SampleViewAdd extends JDialog {
 						for (String string : comBox_O_I_S) {
 							comboBox_OI[i].addItem(string);
 						}
+						if(notEmpryString)comboBox_OI[i].setSelectedItem(stringVol[i][1]);
 						panel[i].add(comboBox_OI[i]);
 					}
 					{
-						txtArea_Sample_Descr[i] = new JTextArea("123456789");
+						txtArea_Sample_Descr[i] = new JTextArea();
+						if(notEmpryString)txtArea_Sample_Descr[i].setText(stringVol[i][2]);
 						txtArea_Sample_Descr[i].setPreferredSize(new Dimension(300, 20));
 						// txtArea_Sample_Descr[i].setMinimumSize(new
 						// Dimension(400, 20));
@@ -167,6 +172,7 @@ public class SampleViewAdd extends JDialog {
 
 					{
 						txtFld_Ref_date[i] = new JTextField(ref_Date_Time);
+						if(notEmpryString)txtFld_Ref_date[i].setText(stringVol[i][3]);
 						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
 
 							@Override
@@ -208,12 +214,13 @@ public class SampleViewAdd extends JDialog {
 							comboBox_Period[i].addItem(string);
 						}
 						comboBox_Period[i].setSelectedItem(period);
+						if(notEmpryString)comboBox_Period[i].setSelectedItem(stringVol[i][4]);
 						panel[i].add(comboBox_Period[i]);
 					}
 
 					{
 						txtFld_Year[i] = new JTextField(year);
-
+						if(notEmpryString)txtFld_Year[i].setText(stringVol[i][5]);
 						panel[i].add(txtFld_Year[i]);
 						txtFld_Year[i].setColumns(3);
 					}
@@ -248,6 +255,8 @@ public class SampleViewAdd extends JDialog {
 		
 		
 	}
+
+	
 
 	public static String [][] getVolumeSampleView(int countSample){
 		String[][] volSampleView = new String [countSample][6];

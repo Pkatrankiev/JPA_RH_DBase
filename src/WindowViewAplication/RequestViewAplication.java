@@ -40,7 +40,7 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
-			
+
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;
 		List<Ind_num_doc> list = Ind_num_docDAO.getInListAllValueInd_num_doc();
@@ -52,7 +52,7 @@ public class RequestViewAplication {
 		arr1[0] = "";
 		return arr1;
 	}
-	
+
 	public static String[] getStringMassiveIzpitvanProdukt() {
 		int i = 0;
 		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
@@ -63,7 +63,7 @@ public class RequestViewAplication {
 		}
 		return arr2;
 	}
-	
+
 	public static String[] getStringMassiveRazmernost() {
 		int i = 0;
 		List<Razmernosti> list = RazmernostiDAO.getInListAllValueRazmernosti();
@@ -74,10 +74,10 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
-	
+
 	public static String[] getStringMassiveO_I_R() {
 		int i = 0;
-		 List<Obekt_na_izpitvane_request> list = Obekt_na_izpitvane_requestDAO.getInListAllValueObekt_na_izpitvane();
+		List<Obekt_na_izpitvane_request> list = Obekt_na_izpitvane_requestDAO.getInListAllValueObekt_na_izpitvane();
 		String[] arr = new String[list.size()];
 		for (Obekt_na_izpitvane_request e : list) {
 			arr[i] = ((Obekt_na_izpitvane_request) e).getName_obekt_na_izpitvane();
@@ -85,10 +85,11 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
-	
+
 	public static String[] getStringMassiveO_I_S() {
 		int i = 0;
-		List<Obekt_na_izpitvane_sample> list = Obekt_na_izpitvane_sampleDAO.getInListAllValueObekt_na_izpitvane_sample();
+		List<Obekt_na_izpitvane_sample> list = Obekt_na_izpitvane_sampleDAO
+				.getInListAllValueObekt_na_izpitvane_sample();
 		String[] arr = new String[list.size()];
 		for (Obekt_na_izpitvane_sample e : list) {
 			arr[i] = ((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
@@ -96,10 +97,10 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
-	
+
 	public static String[] getStringMassivePeriod() {
 		List<Period> list = PeriodDAO.getInListAllValuePeriod();
-		String[] arr = new String[list.size()+1];
+		String[] arr = new String[list.size() + 1];
 		arr[0] = "";
 		int i = 1;
 		for (Period e : list) {
@@ -108,32 +109,77 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
-	
-	
 
-	public static String DateNaw(Boolean whiteTime){
+	public static String DateNaw(Boolean whiteTime) {
 		String dateNaw = null;
-	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		if(whiteTime) sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-		
-		dateNaw  = sdf.format(Calendar.getInstance().getTime());
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		if (whiteTime)
+			sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+		dateNaw = sdf.format(Calendar.getInstance().getTime());
+
 		return dateNaw;
 	}
 
-
 	public static MaskFormatter createFormatter(String s) {
-        MaskFormatter formatter = null;
-        try {
-            formatter = new MaskFormatter(s);
-        } catch (java.text.ParseException exc) {
-            System.err.println("formatter is bad: " + exc.getMessage());
-            System.exit(-1);
-        }
-        return formatter;
-    }
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter(s);
+		} catch (java.text.ParseException exc) {
+			System.err.println("formatter is bad: " + exc.getMessage());
+			System.exit(-1);
+		}
+		return formatter;
+	}
 
+	public static String writeSampleDescript( String[][] str1) {
 
-	
-	
+		int[] numPoz = { 8, 20, 50, 17, 10, 6 };
+		String someLine = "  Код  "+" Обект на изпитване "+"                Описание на пробата               "+" Референтна дата "+
+		"  Периодичност  "+"\n";
+		String str_som = "";
+		String[] str_desc = new String[10];
+		int k = 0;
+		for (int i = 0; i < str1.length; i++) {
+
+			for (int j = 0; j <str1[0].length; j++) {
+				if (j == 2) {
+					k = 0;
+					str_desc[k] = str1[i][j];
+					String ssss = str_desc[k];
+					while (ssss.indexOf("\n") > 0) {
+						str_desc[k] = ssss.substring(0, ssss.indexOf("\n"));
+						ssss = ssss.substring(ssss.indexOf("\n") + 1);
+						k++;
+						str_desc[k] = ssss;
+					}
+
+					str_som = str_desc[0];
+				} else
+					str_som = str1[i][j];
+				someLine = someLine + padString(str_som, numPoz[j]);
+
+			}
+
+			someLine = someLine + "\n";
+			if (k > 0) {
+				for (int l = 1; l <= k; l++) {
+					someLine = someLine + "                           " + padString(str_desc[l], 50) + "\n";
+				}
+			}
+		}
+		return someLine;
+	}
+
+	private static String padString(String str, int n) {
+		if (str.length() <= n) {
+			for (int j = str.length(); j < n; j++) {
+				str += " ";
+			} // end for
+		} else {
+			str = str.substring(0, n - 1) + " ";
+		}
+		return str;
+	}
+
 }

@@ -80,6 +80,7 @@ public class RequestView extends JFrame {
 	String s = "";
 	private JFormattedTextField txtField_RequestCode;
 	private JTextField txtFld_Date_Request;
+	private String[][] string = null;
 
 	public RequestView() {
 		super("JScrollPane Demonstration");
@@ -530,7 +531,7 @@ public class RequestView extends JFrame {
 		gbc_txtArea_SampleDescription.gridy = 13;
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 		txtArea_SampleDescription.setEditable(false);
-		
+	
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -546,7 +547,7 @@ public class RequestView extends JFrame {
 							String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
-							String[][] string = null;
+							
 							
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period, string);
 								

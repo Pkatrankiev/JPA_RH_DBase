@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -46,10 +47,11 @@ public class SampleViewAdd extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public SampleViewAdd(Frame parent, final int countSample, int requestCode, String ref_Date_Time, String period, String[][] stringVol) {
+	public SampleViewAdd(Frame parent, final int countSample, int requestCode, String ref_Date_Time, String period,
+			String[][] stringVol) {
 		super(parent, "Информация за пробите", true);
-		
-		setBounds(100, 100, 850, (countSample*29)+120);
+
+		setBounds(100, 100, 850, (countSample * 29) + 120);
 		getContentPane().setLayout(new BorderLayout());
 		{
 
@@ -102,11 +104,14 @@ public class SampleViewAdd extends JDialog {
 			txtFld_Ref_date = new JTextField[countSample];
 			comboBox_Period = new JComboBox[countSample];
 			txtFld_Year = new JTextField[countSample];
-			Boolean notEmpryString=false;
-			if(stringVol!=null){
-			System.out.println(stringVol.length+"  "+countSample);
-			if(stringVol.length==countSample)
-				notEmpryString=true;
+
+			Boolean notEmptryString = false;
+			try {
+				int ss = stringVol.length;
+				if (ss == countSample)
+					notEmptryString = true;
+			} catch (NullPointerException e) {
+				notEmptryString = false;
 			}
 			for (int i = 0; i < countSample; i++) {
 				// int i=1;
@@ -120,7 +125,7 @@ public class SampleViewAdd extends JDialog {
 					{
 						lbl_sample_code[i] = new JLabel(requestCode + "-" + (i + 1));
 						lbl_sample_code[i].setPreferredSize(new Dimension(50, 20));
-						
+
 						lbl_sample_code[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 						panel[i].add(lbl_sample_code[i]);
 					}
@@ -130,12 +135,14 @@ public class SampleViewAdd extends JDialog {
 						for (String string : comBox_O_I_S) {
 							comboBox_OI[i].addItem(string);
 						}
-						if(notEmpryString)comboBox_OI[i].setSelectedItem(stringVol[i][1]);
+						if (notEmptryString)
+							comboBox_OI[i].setSelectedItem(stringVol[i][1]);
 						panel[i].add(comboBox_OI[i]);
 					}
 					{
 						txtArea_Sample_Descr[i] = new JTextArea();
-						if(notEmpryString)txtArea_Sample_Descr[i].setText(stringVol[i][2]);
+						if (notEmptryString)
+							txtArea_Sample_Descr[i].setText(stringVol[i][2]);
 						txtArea_Sample_Descr[i].setPreferredSize(new Dimension(300, 20));
 						// txtArea_Sample_Descr[i].setMinimumSize(new
 						// Dimension(400, 20));
@@ -172,7 +179,8 @@ public class SampleViewAdd extends JDialog {
 
 					{
 						txtFld_Ref_date[i] = new JTextField(ref_Date_Time);
-						if(notEmpryString)txtFld_Ref_date[i].setText(stringVol[i][3]);
+						if (notEmptryString)
+							txtFld_Ref_date[i].setText(stringVol[i][3]);
 						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
 
 							@Override
@@ -214,19 +222,29 @@ public class SampleViewAdd extends JDialog {
 							comboBox_Period[i].addItem(string);
 						}
 						comboBox_Period[i].setSelectedItem(period);
-						if(notEmpryString)comboBox_Period[i].setSelectedItem(stringVol[i][4]);
+						if (notEmptryString)
+							comboBox_Period[i].setSelectedItem(stringVol[i][4]);
 						panel[i].add(comboBox_Period[i]);
 					}
 
 					{
 						txtFld_Year[i] = new JTextField(year);
-						if(notEmpryString)txtFld_Year[i].setText(stringVol[i][5]);
+						if (notEmptryString)
+							txtFld_Year[i].setText(stringVol[i][5]);
 						panel[i].add(txtFld_Year[i]);
 						txtFld_Year[i].setColumns(3);
 					}
 				}
 				panel_1.add(panel[i]);
 			}
+			System.out.println(notEmptryString);
+			if (notEmptryString)
+				for (int j = 0; j < stringVol.length; j++) {
+					for (int j2 = 0; j2 < stringVol[0].length; j2++) {
+						System.out.println(stringVol[j][j2] + " ");
+					}
+					System.out.println();
+				}
 		}
 
 		{
@@ -252,21 +270,18 @@ public class SampleViewAdd extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
-		
+
 	}
 
-	
-
-	public static String [][] getVolumeSampleView(int countSample){
-		String[][] volSampleView = new String [countSample][6];
+	public static String[][] getVolumeSampleView(int countSample) {
+		String[][] volSampleView = new String[countSample][6];
 		for (int i = 0; i < countSample; i++) {
-			volSampleView[i][0]= lbl_sample_code[i].getText();
-			volSampleView[i][1]= comboBox_OI[i].getSelectedItem().toString();
-			volSampleView[i][2]= txtArea_Sample_Descr[i].getText();
-			volSampleView[i][3]= txtFld_Ref_date[i].getText();
-			volSampleView[i][4]= comboBox_Period[i].getSelectedItem().toString();
-			volSampleView[i][5]= txtFld_Year[i].getText();
+			volSampleView[i][0] = lbl_sample_code[i].getText();
+			volSampleView[i][1] = comboBox_OI[i].getSelectedItem().toString();
+			volSampleView[i][2] = txtArea_Sample_Descr[i].getText();
+			volSampleView[i][3] = txtFld_Ref_date[i].getText();
+			volSampleView[i][4] = comboBox_Period[i].getSelectedItem().toString();
+			volSampleView[i][5] = txtFld_Year[i].getText();
 		}
 		return volSampleView;
 	}

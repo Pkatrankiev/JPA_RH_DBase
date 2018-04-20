@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -20,6 +21,8 @@ import javax.swing.*;
 
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
+import WindowViewAplication.RequestViewAplication;
+
 public class DatePicker {
 
 	// define variables
@@ -27,6 +30,7 @@ public class DatePicker {
 	int year = Calendar.getInstance().get(Calendar.YEAR);
 	int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	int minute = Calendar.getInstance().get(Calendar.MINUTE);
+	int day1 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 	final Calendar cal_time = Calendar.getInstance();
 	// create object of JLabel with alignment
 	JLabel l = new JLabel("", JLabel.CENTER);
@@ -61,7 +65,7 @@ public class DatePicker {
 			button[x].setBackground(Color.white);
 			// if loop condition
 			if (x > 6) {
-
+			
 				// add action listener
 				button[x].addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent ae) {
@@ -207,11 +211,13 @@ public class DatePicker {
 
 	public void displayDate() {
 
-		for (int x = 7; x < button.length; x++)// for loop
+		for (int x = 7; x < button.length; x++){// for loop
 			button[x].setText("");// set text
+		button[x].setBackground(Color.white);}
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM-yyyy");
 		// create object of SimpleDateFormat
 		Calendar cal = Calendar.getInstance();
+		Calendar calDay = Calendar.getInstance();
 		// create object of java.util.Calendar
 		cal.set(year, month, 1); // set year, month and date
 		// define variables
@@ -222,9 +228,20 @@ public class DatePicker {
 			dayOfWeek = 7;
 		} else
 			dayOfWeek = dayOfWeek - 1;
+		SimpleDateFormat sdfDay = new SimpleDateFormat("dd-MM-yyyy");
 		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
-			// set text
+		{	// set text
 			button[x].setText("" + day);
+			calDay.set(year, month,day);
+			if(calDay.get(Calendar.DAY_OF_WEEK)==7 || calDay.get(Calendar.DAY_OF_WEEK)==1)
+				button[x].setForeground(Color.red);
+			
+			if (RequestViewAplication.DateNaw(false).equals(sdfDay.format(calDay.getTime())))
+			{
+				System.out.println(RequestViewAplication.DateNaw(false)+" "+sdfDay.format(calDay.getTime()));
+				button[x].setBackground(Color.CYAN);
+			}
+	}
 		l.setText(sdf.format(cal.getTime()));
 		// set title
 		d.setTitle("Дата");
@@ -298,15 +315,14 @@ public class DatePicker {
 		String origDate = date;
 		if (inTime) {
 			sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		try{	
-			origDate = date.substring(0, 10);
-		}catch (StringIndexOutOfBoundsException e) {
+			try {
+				origDate = date.substring(0, 10);
+			} catch (StringIndexOutOfBoundsException e) {
 
-			JOptionPane.showMessageDialog( null, "Грешна дата!",
-					"Грешни данни", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 
-		}
-		
+			}
+
 		}
 		DateTimeFormatter sdf1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 

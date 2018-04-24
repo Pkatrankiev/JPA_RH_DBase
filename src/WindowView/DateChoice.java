@@ -112,6 +112,63 @@ public class DateChoice extends JDialog {
 		{
 			
 			txtStartDate = new JTextField();
+			txtStartDate.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyTyped(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txtStartDate.getText(), true))
+						txtStartDate.setForeground(Color.RED);
+					else{
+						txtStartDate.setForeground(Color.BLACK);
+						String textRefDate = "";
+						textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+						if (DatePicker.incorrectDate(textRefDate, true))
+							txt_fid_date_time_reception.setForeground(Color.RED);
+						else
+							txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+						txt_fid_date_time_reception.setText(textRefDate);
+					}
+				}
+
+				@Override
+				public void keyReleased(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txtStartDate.getText(), true))
+						txtStartDate.setForeground(Color.RED);
+					else{
+						txtStartDate.setForeground(Color.BLACK);
+						String textRefDate = "";
+						textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+						if (DatePicker.incorrectDate(textRefDate, true))
+							txt_fid_date_time_reception.setForeground(Color.RED);
+						else
+							txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+						txt_fid_date_time_reception.setText(textRefDate);
+					}
+				}
+
+				@Override
+				public void keyPressed(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txtStartDate.getText(), true))
+						txtStartDate.setForeground(Color.RED);
+					else{
+						txtStartDate.setForeground(Color.BLACK);
+						String textRefDate = "";
+						textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+						if (DatePicker.incorrectDate(textRefDate, true))
+							txt_fid_date_time_reception.setForeground(Color.RED);
+						else
+							txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+						txt_fid_date_time_reception.setText(textRefDate);
+					}
+				}
+			});
+			
 			GridBagConstraints gbc_txtStartDate = new GridBagConstraints();
 			gbc_txtStartDate.insets = new Insets(0, 0, 5, 5);
 			gbc_txtStartDate.fill = GridBagConstraints.HORIZONTAL;
@@ -163,6 +220,63 @@ public class DateChoice extends JDialog {
 			
 
 			txtEndDate = new JTextField();
+			txtEndDate.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyTyped(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txtEndDate.getText(), true))
+						txtEndDate.setForeground(Color.RED);
+					else{
+						txtEndDate.setForeground(Color.BLACK);
+						String textRefDate = "";
+						textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+						if (DatePicker.incorrectDate(textRefDate, true))
+							txt_fid_date_time_reception.setForeground(Color.RED);
+						else
+							txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+						txt_fid_date_time_reception.setText(textRefDate);
+					}
+				}
+
+				@Override
+				public void keyReleased(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txtEndDate.getText(), true))
+						txtEndDate.setForeground(Color.RED);
+					else{
+						txtEndDate.setForeground(Color.BLACK);
+						String textRefDate = "";
+						textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+						if (DatePicker.incorrectDate(textRefDate, true))
+							txt_fid_date_time_reception.setForeground(Color.RED);
+						else
+							txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+						txt_fid_date_time_reception.setText(textRefDate);
+					}
+				}
+
+				@Override
+				public void keyPressed(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txtEndDate.getText(), true))
+						txtEndDate.setForeground(Color.RED);
+					else{
+						txtEndDate.setForeground(Color.BLACK);
+						String textRefDate = "";
+						textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+						if (DatePicker.incorrectDate(textRefDate, true))
+							txt_fid_date_time_reception.setForeground(Color.RED);
+						else
+							txt_fid_date_time_reception.setForeground(Color.BLACK);
+
+						txt_fid_date_time_reception.setText(textRefDate);
+					}
+				}
+			});
+			
 			GridBagConstraints gbc_txtEndDate = new GridBagConstraints();
 			gbc_txtEndDate.insets = new Insets(0, 0, 5, 5);
 			gbc_txtEndDate.fill = GridBagConstraints.HORIZONTAL;

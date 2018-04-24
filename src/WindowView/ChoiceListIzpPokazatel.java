@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,6 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import Aplication.Izpitvan_produktDAO;
+import DBase_Class.Izpitvan_produkt;
 import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.JScrollPane;
@@ -69,7 +74,8 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				panel.add(lblFirst, gbc_lblFirst);
 
 				choice[0] = new Choice();
-				String[] arr = RequestViewAplication.getStringMassiveLIP();
+				final List<String> list = RequestViewAplication.getStringListLIP();
+				String[] arr = RequestViewAplication.setMasiveFromList(list);
 				for (String string : arr) {
 					choice[0].add(string);
 				}
@@ -119,8 +125,12 @@ public class ChoiceListIzpPokazatel extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						countCoice++;
 						choice[countCoice] = new Choice();
-						String[] arr = RequestViewAplication.getStringMassiveLIP();
-						for (String string : arr) {
+
+						list.remove(choice[countCoice-1].getSelectedItem());
+					
+						String[] arr2 = RequestViewAplication.setMasiveFromList(list);
+						for (String string : arr2) {
+						
 							choice[countCoice].add(string);
 						}
 						GridBagConstraints gbc_choice_1 = new GridBagConstraints();

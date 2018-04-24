@@ -1,6 +1,7 @@
 package WindowViewAplication;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,16 +31,6 @@ import DBase_Class.Razmernosti;
 
 public class RequestViewAplication {
 
-	public static String[] getStringMassiveLIP() {
-		int i = 0;
-		List<List_izpitvan_pokazatel> list = List_izpitvan_pokazatelDAO.getInListAllValuePokazatel();
-		String[] arr = new String[list.size()];
-		for (List_izpitvan_pokazatel e : list) {
-			arr[i] = ((List_izpitvan_pokazatel) e).getName_pokazatel();
-			i++;
-		}
-		return arr;
-	}
 
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;
@@ -63,6 +54,30 @@ public class RequestViewAplication {
 		}
 		return arr2;
 	}
+	
+	public static List<String> getStringListLIP() {
+		String str="";
+		List<List_izpitvan_pokazatel> list = List_izpitvan_pokazatelDAO.getInListAllValuePokazatel();
+		ArrayList<String> arr2 =new ArrayList<String>();
+		for (List_izpitvan_pokazatel e : list) {
+			str = e.getName_pokazatel();
+			arr2.add(str);
+			
+		}
+		return arr2;
+	}
+	
+	public static String[] setMasiveFromList(List<String> list){
+		String[] str = new String [list.size()];
+		int i=0;
+		for (String e : list) {
+			str[i] = e;
+			i++;
+		}
+		
+		return str;
+	}
+	
 
 	public static String[] getStringMassiveRazmernost() {
 		int i = 0;

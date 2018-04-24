@@ -111,4 +111,24 @@ public class UsersDAO {
 		return list;
 	}
 	
+	@GET
+	public static Users getValueUsersByNicName(String nic_name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Users e WHERE e.nikName = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", nic_name);
+		if (query.getResultList().isEmpty()){
+			
+		}
+		Users list = (Users) query.getSingleResult();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
 }

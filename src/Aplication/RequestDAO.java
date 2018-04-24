@@ -1,5 +1,6 @@
 package Aplication;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -82,6 +83,19 @@ public class RequestDAO {
 		emfactory.close();
 	}
 
+	public static Boolean checkRequestCode(String check_code){
+		Boolean available =false;
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Query query = entitymanager.createQuery("SELECT e FROM Request e WHERE e.recuest_code= :code");
+		query.setParameter("code", check_code);
+		List<Request> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		if(list.size()!=0) available =true;
+		return available;
+	}
 
 	public static List<Request> getInListAllValueRequest() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -93,29 +107,29 @@ public class RequestDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		for (Request e : list) {
-			System.out.println("Num:" + ((Request) e).getId_recuest() 
-					+ "  recuest_code :"+ ((Request) e).getRecuest_code() 
-					+ "  date_request :" + ((Request) e).getDate_request()
-					+ "  accreditation :" + ((Request) e).getAccreditation() 
-					+"  external_applicant_name :" + ((Request) e).getExternal_applicant().getExternal_applicant_name()
-					+ "  external_applicant_address :"+ ((Request) e).getExternal_applicant().getExternal_applicant_address()
-					+ "  external_applicant_telephone :"+ ((Request) e).getExternal_applicant().getExternal_applicant_telephone()
-					+ "  external_applicant_contract_number :"+ ((Request) e).getExternal_applicant().getExternal_applicant_contract_number() 
-					+"  internal_applicant_organization :"+ ((Request) e).getInternal_applicant().getInternal_applicant_organization()
-					+ "  internal_applicant_address :"+ ((Request) e).getInternal_applicant().getInternal_applicant_address()
-					+ "  internal_applicant_telephone :"+ ((Request) e).getInternal_applicant().getInternal_applicant_telephone() 
-					+"  applicant_name :" + ((Request) e).getApplicant_name() 
-					+ "  number_samples :"+ ((Request) e).getCounts_samples() 
-					+ "  description_sample_group :"+ ((Request) e).getDescription_sample_group() 
-					+ "  date_time_reception :"+ ((Request) e).getDate_time_reception() 
-					+ "  date_execution :" + ((Request) e).getDate_execution()
-					+ "  ind_num_doc :" + ((Request) e).getInd_num_doc().getName() 
-					+ "  izpitvan_produkt :"+ ((Request) e).getIzpitvan_produkt().getName_zpitvan_produkt() 
-					+ "  razmernosti :"+ ((Request) e).getRazmernosti().getName_razmernosti() 
-					+ "  zabelejki :"+ ((Request) e).getZabelejki().getName_zabelejki() 
-					+ "  users :"+ ((Request) e).getUsers().getName_users() + " " + ((Request) e).getUsers().getFamily_users());
-		}
+//		for (Request e : list) {
+//			System.out.println("Num:" + ((Request) e).getId_recuest() 
+//					+ "  recuest_code :"+ ((Request) e).getRecuest_code() 
+//					+ "  date_request :" + ((Request) e).getDate_request()
+//					+ "  accreditation :" + ((Request) e).getAccreditation() 
+//					+"  external_applicant_name :" + ((Request) e).getExternal_applicant().getExternal_applicant_name()
+//					+ "  external_applicant_address :"+ ((Request) e).getExternal_applicant().getExternal_applicant_address()
+//					+ "  external_applicant_telephone :"+ ((Request) e).getExternal_applicant().getExternal_applicant_telephone()
+//					+ "  external_applicant_contract_number :"+ ((Request) e).getExternal_applicant().getExternal_applicant_contract_number() 
+//					+"  internal_applicant_organization :"+ ((Request) e).getInternal_applicant().getInternal_applicant_organization()
+//					+ "  internal_applicant_address :"+ ((Request) e).getInternal_applicant().getInternal_applicant_address()
+//					+ "  internal_applicant_telephone :"+ ((Request) e).getInternal_applicant().getInternal_applicant_telephone() 
+//					+"  applicant_name :" + ((Request) e).getApplicant_name() 
+//					+ "  number_samples :"+ ((Request) e).getCounts_samples() 
+//					+ "  description_sample_group :"+ ((Request) e).getDescription_sample_group() 
+//					+ "  date_time_reception :"+ ((Request) e).getDate_time_reception() 
+//					+ "  date_execution :" + ((Request) e).getDate_execution()
+//					+ "  ind_num_doc :" + ((Request) e).getInd_num_doc().getName() 
+//					+ "  izpitvan_produkt :"+ ((Request) e).getIzpitvan_produkt().getName_zpitvan_produkt() 
+//					+ "  razmernosti :"+ ((Request) e).getRazmernosti().getName_razmernosti() 
+//					+ "  zabelejki :"+ ((Request) e).getZabelejki().getName_zabelejki() 
+//					+ "  users :"+ ((Request) e).getUsers().getName_users() + " " + ((Request) e).getUsers().getFamily_users());
+//		}
 		return list;
 	}
 
@@ -241,7 +255,24 @@ public static Request getValueRequestById(@QueryParam("id") int id) {
 	return request;
 }
 
+	
+public static int getMaxRequestCode() {
+	int[] request_code = new int[ getInListAllValueRequest().size()];
+	int i=0;
+	int Max_request_code;
+	for (Request request : getInListAllValueRequest()) {
+		try {
+			request_code[i] = Integer.parseInt(request.getRecuest_code());
+		i++;
+		}catch(StringIndexOutOfBoundsException e){
+			
+		}
+	}
+	Max_request_code = Arrays.stream(request_code).max().getAsInt();
 
+	return Max_request_code;
+}
+	
 	public static void setIzpitvan_produktInRequestById(int id, Izpitvan_produkt izpitvan_produkt) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

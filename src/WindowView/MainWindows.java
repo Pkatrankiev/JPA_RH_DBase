@@ -37,7 +37,13 @@ import java.awt.Cursor;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import Aplication.UsersDAO;
+import DBase_Class.Users;
+
 import java.awt.SystemColor;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -98,6 +104,7 @@ public class MainWindows {
 		final JLabel label11 = new JLabel();
 		final JLabel label12 = new JLabel();
 		final JButton bnt1 = new JButton();
+		final Login loginDlg = new Login(win);
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(Color.green);
 		panel2.setSize(300, 400);
@@ -141,8 +148,13 @@ public class MainWindows {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				RequestView reqView = new RequestView();
+				if(loginDlg.getUsername().equals("")){
+					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
+				}else{
+				Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+				RequestView reqView = new RequestView(user);
 				reqView.setVisible(true);
+				}
 			}
 		});
 
@@ -178,7 +190,7 @@ public class MainWindows {
 					btnLogin.setText("LogIn");
 					win.setTitle("my RHA");
 				} else {
-					Login loginDlg = new Login(win);
+					
 					loginDlg.setVisible(true);
 					// if logon successfully
 					if (loginDlg.isSucceeded()) {

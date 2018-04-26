@@ -14,6 +14,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import Aplication.UsersDAO;
+import DBase_Class.Users;
+
 import java.awt.Component;
 import java.awt.Container;
 
@@ -21,6 +25,7 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -36,14 +41,14 @@ public class Login extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
 	private JButton cancelButton;
-	private JTextField textField;
+	private JTextField txt_nik_name;
 	private JPasswordField passwordField;
-	private JLabel lbUsername;
-    private JLabel lbPassword;
-	private boolean succeeded;
+	private JLabel lbl_Username;
+	private JLabel lbl_Password;
+	private boolean succeeded = false;
 
 	public Login(Frame parent) {
-        super(parent, "Login2", true);
+		super(parent, "Логване", true);
 		int idUser = 0;
 
 		setBounds(100, 100, 254, 145);
@@ -53,26 +58,33 @@ public class Login extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+
+		lbl_Username = new JLabel("прякор");
+		lbl_Username.setBounds(10, 15, 46, 14);
+		contentPanel.add(lbl_Username);
 		{
-			textField = new JTextField();
-			textField.setHorizontalAlignment(SwingConstants.LEFT);
-			textField.setToolTipText("nik-name");
-			textField.setBounds(56, 12, 115, 20);
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			txt_nik_name = new JTextField();
+			txt_nik_name.setHorizontalAlignment(SwingConstants.LEFT);
+			txt_nik_name.setToolTipText("nik-name");
+			txt_nik_name.setBounds(78, 12, 115, 20);
+			contentPanel.add(txt_nik_name);
+			txt_nik_name.setColumns(10);
 		}
 		{
 			passwordField = new JPasswordField();
-			passwordField.setBounds(56, 43, 115, 20);
+			passwordField.setBounds(78, 43, 115, 20);
 			contentPanel.add(passwordField);
 		}
-		
-	
-		
+
+		lbl_Password = new JLabel("парола");
+		lbl_Password.setBounds(10, 46, 46, 14);
+		contentPanel.add(lbl_Password);
+
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			buttonPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { okButton, cancelButton }));
+			// buttonPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new
+			// Component[] { okButton, cancelButton }));
 
 			{
 				okButton = new JButton("OK");
@@ -96,7 +108,7 @@ public class Login extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						passwordField.setText("");
-						textField.setText("");
+						txt_nik_name.setText("");
 					}
 				});
 
@@ -105,21 +117,30 @@ public class Login extends JDialog {
 			buttonPane.add(okButton);
 			buttonPane.add(cancelButton);
 		}
+		this.setDefaultCloseOperation(Login.DO_NOTHING_ON_CLOSE);
+	    this.addWindowListener(new java.awt.event.WindowAdapter() {
+	        @Override
+	        public void windowClosing(java.awt.event.WindowEvent e) {
+	        	passwordField.setText("");
+				txt_nik_name.setText("");
+				succeeded = false;
+	            e.getWindow().dispose();
+	           
+	        }
+	    });
 	}
-	
 
 	public boolean isSucceeded() {
-	        return succeeded;
-	    }
-	
-	
-	 public String getUsername() {
-	        return textField.getText().trim();
-	    }
-	
-	 
+		return succeeded;
+	}
+
+	public String getUsername() {
+		return txt_nik_name.getText().trim();
+	}
+
 	private void okButton() {
-		String name = textField.getText();
+
+		List<Users> users_list = UsersDAO.getInListAllValueUsers();
 
 		char[] pass = passwordField.getPassword();
 
@@ -127,37 +148,28 @@ public class Login extends JDialog {
 		for (char x : pass) {
 			enter_pass += x;
 		}
-		String originPass = "123";
+				
 		// String md5_encrypted_pass_userInput =
 		// encrypt(final_pass); //kriptirane na string v MD5
 		// format
-
-		if (enter_pass
-				.equals(originPass)) { /*
-									 * pass1 = the password from the database
-									 */
-			// Correct password
-			JOptionPane.showMessageDialog(Login.this,
-                    "Hi " + getUsername() + "! You have successfully logged in.",
-                    "Login",
-                    JOptionPane.INFORMATION_MESSAGE);
-			succeeded = true;
-			System.out.println("corect pass = " + enter_pass);
-			 dispose();
-		}else {
-            JOptionPane.showMessageDialog(Login.this,
-                    "Invalid username or password",
-                    "Login",
-                    JOptionPane.ERROR_MESSAGE);
-            // reset username and password
-            passwordField.setText("");
-			textField.setText("");
-            succeeded = false;
-
-        }
+		for (Users user : users_list) {
+			System.out .println(enter_pass +" - "+ user.getPass_users()+" - "+getUsername()+" - "+user.getNikName_users());
+			if (enter_pass.equals(user.getPass_users()) && getUsername().equals(user.getNikName_users()))
+				succeeded = true;
+			
+		}
+		if (succeeded) {
+			dispose();
+		} else {
+			JOptionPane.showMessageDialog(Login.this, "Invalid username or password", "Login",
+					JOptionPane.ERROR_MESSAGE);
+			// reset username and password
+			passwordField.setText("");
+			txt_nik_name.setText("");
+			
+		}
 	}
 
-	
 	public static final String encrypt(String md5) { // kriptirane na string v
 														// MD5 format
 		try {

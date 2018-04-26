@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/mysql-connector-java-5.1.44-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/poi-3.9.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/poi-scratchpad-3.9.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/commons-lang3-3.7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

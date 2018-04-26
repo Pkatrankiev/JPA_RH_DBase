@@ -39,8 +39,6 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
 import Aplication.UsersDAO;
 import DBase_Class.Users;
 
@@ -105,6 +103,7 @@ public class MainWindows {
 		final JLabel label12 = new JLabel();
 		final JButton bnt1 = new JButton();
 		final Login loginDlg = new Login(win);
+		
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(Color.green);
 		panel2.setSize(300, 400);
@@ -196,7 +195,7 @@ public class MainWindows {
 					if (loginDlg.isSucceeded()) {
 						win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
 						btnLogin.setText("LogOut");
-						System.out.println("Hi " + loginDlg.getUsername() + "!");
+						
 					} else {
 						System.out.println("Hi NOT " + loginDlg.getUsername() + "!");
 					}

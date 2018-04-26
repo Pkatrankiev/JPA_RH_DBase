@@ -72,6 +72,7 @@ import java.awt.Choice;
 import javax.swing.JButton;
 import javax.swing.ScrollPaneConstants;
 import java.awt.SystemColor;
+import javax.swing.JComboBox;
 
 public class RequestView extends JFrame {
 
@@ -108,7 +109,7 @@ public class RequestView extends JFrame {
 		GridBagLayout gbl_p = new GridBagLayout();
 		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-		gbl_p.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p.columnWidths = new int[] { 15, 160, 110, 100, 110, 160, 15 };
 		gbl_p.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		p.setLayout(gbl_p);
@@ -156,7 +157,7 @@ public class RequestView extends JFrame {
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
 		gbc_lblError.gridwidth = 5;
 		gbc_lblError.anchor = GridBagConstraints.ABOVE_BASELINE;
-		gbc_lblError.insets = new Insets(0, 0, 0, 5);
+		gbc_lblError.insets = new Insets(0, 0, 5, 5);
 		gbc_lblError.gridx = 1;
 		gbc_lblError.gridy = 4;
 		p.add(lblError, gbc_lblError);
@@ -169,7 +170,7 @@ public class RequestView extends JFrame {
 		panel_1.setBackground(SystemColor.controlHighlight);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 5;
-		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 3;

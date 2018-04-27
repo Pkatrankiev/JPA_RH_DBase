@@ -26,6 +26,8 @@ import javax.swing.JMenu;
 import javax.swing.JTextPane;
 import java.awt.Panel;
 import java.awt.Font;
+import java.awt.Frame;
+
 import javax.swing.Box;
 import java.awt.Label;
 import javax.swing.ImageIcon;
@@ -53,7 +55,7 @@ public class MainWindows {
 	 * @wbp.parser.entryPoint
 	 */
 	public void Window() {
-		final JFrame win = new JFrame("JDialog Demo");
+		final JFrame win = new JFrame();
 		win.setTitle("my RHA");
 
 		win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,6 +106,8 @@ public class MainWindows {
 		final JButton bnt1 = new JButton();
 		final Login loginDlg = new Login(win);
 		
+		
+		
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(Color.green);
 		panel2.setSize(300, 400);
@@ -123,7 +127,7 @@ public class MainWindows {
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 20));
 
 		menuBar_1.add(mnNewMenu, BorderLayout.WEST);
-
+		
 		final Panel panel_2 = new Panel();
 		mnNewMenu.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 1, 15, 15));
@@ -145,8 +149,9 @@ public class MainWindows {
 			public void mouseExited(MouseEvent e) {
 				panel_2.setBackground(Color.WHITE);
 			}
-
+			
 			public void mousePressed(MouseEvent e) {
+				
 				if(loginDlg.getUsername().equals("")){
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
 				}else{
@@ -183,7 +188,9 @@ public class MainWindows {
 		final JButton btnLogin = new JButton("Login");
 		menuBar_1.add(btnLogin, BorderLayout.EAST);
 		btnLogin.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+			
 				String textBtnLogin = btnLogin.getText();
 				if (textBtnLogin.equals("LogOut")) {
 					btnLogin.setText("LogIn");
@@ -212,6 +219,8 @@ public class MainWindows {
 		return corectUser;
 	}
 
+	
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

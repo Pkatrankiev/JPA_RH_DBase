@@ -85,6 +85,8 @@ public class RequestView extends JFrame {
 	private JTextField txtFld_Date_Request;
 	private String[][] string = null;
 
+	private Boolean corectRequestCode=true;
+	
 	public RequestView(Users user) {
 		super("JScrollPane Demonstration");
 		setSize(800, 980);
@@ -181,7 +183,7 @@ public class RequestView extends JFrame {
 
 		
 		
-		txtField_RequestCode = new JFormattedTextField(RequestViewAplication.createFormatter("####"));
+		txtField_RequestCode = new JFormattedTextField(RequestViewAplication.createFormatter("d#"));
 		txtField_RequestCode.setText((RequestDAO.getMaxRequestCode()+1)+"");
 		txtField_RequestCode.setForeground(Color.GRAY);
 		txtField_RequestCode.addKeyListener(new KeyListener() {
@@ -192,9 +194,12 @@ public class RequestView extends JFrame {
 				if(RequestDAO.checkRequestCode(txtField_RequestCode.getText())){
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
+					corectRequestCode=false;
 				}
 				else {txtField_RequestCode.setForeground(Color.BLACK);
+				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
 				lblError.setText(" ");
+				corectRequestCode=true;
 				}
 			}
 
@@ -203,9 +208,13 @@ public class RequestView extends JFrame {
 				if(RequestDAO.checkRequestCode(txtField_RequestCode.getText())){
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
+					corectRequestCode=false;
 				}
 				else {txtField_RequestCode.setForeground(Color.BLACK);
+				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
 				lblError.setText(" ");
+				lblError.setText(" ");
+				corectRequestCode=true;
 				}
 			}
 
@@ -215,9 +224,13 @@ public class RequestView extends JFrame {
 				if(RequestDAO.checkRequestCode(txtField_RequestCode.getText())){
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
+					corectRequestCode=false;
 				}
 				else {txtField_RequestCode.setForeground(Color.BLACK);
+				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
 				lblError.setText(" ");
+				lblError.setText(" ");
+				corectRequestCode=true;
 				}
 			}
 		});
@@ -851,6 +864,15 @@ public class RequestView extends JFrame {
 		
 		
 		JButton btn_save = new JButton("Запис");
+		btn_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("+++++++++++++++++++++++++++++  "+txtField_RequestCode.getText());
+				if(!corectRequestCode){
+					txtField_RequestCode.setBorder(new LineBorder(Color.RED));
+					System.out.println("+++++++++++++++++++++++++++++");
+				}
+			}
+		});
 		btn_save.setPreferredSize(new Dimension(100, 23));
 		GridBagConstraints gbc_btn_save = new GridBagConstraints();
 		gbc_btn_save.anchor = GridBagConstraints.WEST;

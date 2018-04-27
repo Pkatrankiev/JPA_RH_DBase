@@ -17,6 +17,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Aplication.UsersDAO;
 import DBase_Class.Users;
+import WindowViewAplication.AutoSuggestor;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -25,6 +26,7 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -46,7 +48,7 @@ public class Login extends JDialog {
 	private JLabel lbl_Username;
 	private JLabel lbl_Password;
 	private boolean succeeded = false;
-
+	private List<Users> users_list = UsersDAO.getInListAllValueUsers();
 	public Login(Frame parent) {
 		super(parent, "Логване", true);
 		int idUser = 0;
@@ -69,7 +71,13 @@ public class Login extends JDialog {
 			txt_nik_name.setBounds(78, 12, 115, 20);
 			contentPanel.add(txt_nik_name);
 			txt_nik_name.setColumns(10);
-		}
+			 ArrayList<String> words = new ArrayList<>();
+			 for (Users user : users_list) {
+				 words.add(user.getNikName_users());
+			}
+            
+			AutoSuggestor autoSuggestor = new AutoSuggestor(txt_nik_name, this, words, Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.99f);
+				
 		{
 			passwordField = new JPasswordField();
 			passwordField.setBounds(78, 43, 115, 20);
@@ -129,6 +137,7 @@ public class Login extends JDialog {
 	        }
 	    });
 	}
+	}
 
 	public boolean isSucceeded() {
 		return succeeded;
@@ -140,7 +149,7 @@ public class Login extends JDialog {
 
 	private void okButton() {
 
-		List<Users> users_list = UsersDAO.getInListAllValueUsers();
+		
 
 		char[] pass = passwordField.getPassword();
 

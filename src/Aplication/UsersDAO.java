@@ -62,16 +62,12 @@ public class UsersDAO {
 		
 		for (Users e : list) {
 			
-			System.out.println("setValueUsers(\"" + ((Users) e).getId_users() + "\", \"" + ((Users) e).getName_users()
+			System.out.println("11setValueUsers(\"" + ((Users) e).getId_users() + "\", \"" + ((Users) e).getName_users()
 					+ "\", \"" + ((Users) e).getFamily_users() +"\", \"" + ((Users) e).getNikName_users()+"\", \"" + ((Users) e).getPass_users()
 					+ "\", " + ((Users) e).getIsAdmin()+");");
 		}
 
-//		for (Users e : list) {
-//			System.out.println("Num:" + ((Users) e).getId_users() + "  NAME :" + ((Users) e).getName_users()
-//					+ "  Family :" + ((Users) e).getFamily_users() + "  Pass :" + ((Users) e).getPass_users()
-//					+ "  Prior :" + ((Users) e).getPriority_users());
-//		}
+
 		return list;
 	}
 

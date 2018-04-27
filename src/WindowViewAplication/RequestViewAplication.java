@@ -197,4 +197,19 @@ public class RequestViewAplication {
 		return str;
 	}
 
+	
+	static String checkFormatRequestCode(String code){
+		
+		String newCode = code;
+		int k;
+		System.out.println(code);
+//		for (int i = 0; i < code.length(); i++) {
+//			try {
+//			k=Integer.parseInt(code.substring(i, i+1));
+//			}catch (NumberFormatException e) {
+//				newCode=code.replace(code.substring(i, i+1),"");
+//			}
+//		}
+		return newCode;
+	}
 }

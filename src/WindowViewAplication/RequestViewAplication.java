@@ -21,6 +21,7 @@ import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
+import Aplication.ZabelejkiDAO;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -28,6 +29,7 @@ import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
+import DBase_Class.Zabelejki;
 
 public class RequestViewAplication {
 
@@ -44,6 +46,11 @@ public class RequestViewAplication {
 		return arr1;
 	}
 
+	public static String getIND_DescriptByName(String name){
+		String descript = Ind_num_docDAO.getValueIByName(name).getContent();
+		return descript;
+	}
+	
 	public static String[] getStringMassiveIzpitvanProdukt() {
 		int i = 0;
 		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
@@ -52,6 +59,7 @@ public class RequestViewAplication {
 			arr2[i] = ((Izpitvan_produkt) e).getName_zpitvan_produkt();
 			i++;
 		}
+		arr2[0] = "";
 		return arr2;
 	}
 	
@@ -64,6 +72,7 @@ public class RequestViewAplication {
 			arr2.add(str);
 			
 		}
+		
 		return arr2;
 	}
 	
@@ -96,8 +105,10 @@ public class RequestViewAplication {
 		String[] arr = new String[list.size()];
 		for (Obekt_na_izpitvane_request e : list) {
 			arr[i] = ((Obekt_na_izpitvane_request) e).getName_obekt_na_izpitvane();
+			
 			i++;
 		}
+		arr[0] = "";
 		return arr;
 	}
 
@@ -110,6 +121,7 @@ public class RequestViewAplication {
 			arr[i] = ((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
 			i++;
 		}
+		arr[0] = "";
 		return arr;
 	}
 
@@ -125,6 +137,18 @@ public class RequestViewAplication {
 		return arr;
 	}
 
+	public static String[] getStringZabelejki() {
+		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
+		String[] arr = new String[list.size() + 1];
+		arr[0] = "";
+		int i = 1;
+		for (Zabelejki e : list) {
+			arr[i] = ((Zabelejki) e).getName_zabelejki();
+			i++;
+		}
+		return arr;
+	}	
+	
 	public static String DateNaw(Boolean whiteTime) {
 		String dateNaw = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -198,18 +222,30 @@ public class RequestViewAplication {
 	}
 
 	
-	static String checkFormatRequestCode(String code){
+	public static String checkFormatString(String code){
 		
 		String newCode = code;
 		int k;
 		System.out.println(code);
-//		for (int i = 0; i < code.length(); i++) {
-//			try {
-//			k=Integer.parseInt(code.substring(i, i+1));
-//			}catch (NumberFormatException e) {
-//				newCode=code.replace(code.substring(i, i+1),"");
-//			}
-//		}
+		for (int i = 0; i < code.length(); i++) {
+			try {
+			k=Integer.parseInt(code.substring(i, i+1));
+			
+			}catch (NumberFormatException e) {
+				newCode=code.replace(code.substring(i, i+1),"");
+			}
+		}
+	
 		return newCode;
+	}
+	
+	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume){
+		Boolean underMaximum =true;
+		try {
+		if(Integer.parseInt(code)>=minVolume && Integer.parseInt(code)<=maxVolume) underMaximum =false;
+		}catch (NumberFormatException e) {
+			
+		}
+		return underMaximum;
 	}
 }

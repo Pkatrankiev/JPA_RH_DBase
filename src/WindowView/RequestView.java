@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -61,6 +64,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import java.util.Calendar;
 
+import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextPane;
@@ -80,13 +84,16 @@ public class RequestView extends JFrame {
 	private JTextField txtFld_Count_Sample;
 	private JTextField txtFld_date_execution;
 	private JTextField txtFld_date_time_request;
-	String s = "";
-	private JFormattedTextField txtField_RequestCode;
+	private JTextField txtField_RequestCode;
 	private JTextField txtFld_Date_Request;
 	private String[][] string = null;
 
-	private Boolean corectRequestCode=true;
-	
+	private Boolean corectRequestCode = true;
+	private Boolean corectDateRequest = true;
+	private Boolean corectRefDate = true;
+	private Boolean corectDateExecution = true;
+	private Boolean corectDateTimeRequest = true;
+
 	public RequestView(Users user) {
 		super("JScrollPane Demonstration");
 		setSize(800, 980);
@@ -109,11 +116,11 @@ public class RequestView extends JFrame {
 		scrollpane.setName("");
 		scrollpane.setBorder(null);
 		GridBagLayout gbl_p = new GridBagLayout();
-		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-		gbl_p.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p.columnWidths = new int[] { 15, 160, 110, 100, 110, 160, 15 };
-		gbl_p.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_p.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		p.setLayout(gbl_p);
 
 		String text1 = "<html>ДЪРЖАВНО ПРЕДПРИЯТИЕ “РАДИОАКТИВНИ ОТПАДЪЦИ“<br> ЛАБОРАТОРИЯ ЗА ИЗПИТВАНЕ<br><br><br>"
@@ -153,8 +160,7 @@ public class RequestView extends JFrame {
 
 		String text2 = "<html>Попълва се от ЛИ-РХ за изпитвания, извършвани по програми и документи, вътрешни за<br>"
 				+ "ДП „Радиоактивни отпадъци”</html>";
-		
-		
+
 		final JLabel lblError = new JLabel(" ");
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
 		gbc_lblError.gridwidth = 5;
@@ -165,8 +171,6 @@ public class RequestView extends JFrame {
 		p.add(lblError, gbc_lblError);
 		lblError.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblError.setForeground(Color.red);
-	
-		
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.controlHighlight);
@@ -180,104 +184,93 @@ public class RequestView extends JFrame {
 
 		JLabel label = new JLabel("№");
 		panel_1.add(label);
-
-		
-		
-		txtField_RequestCode = new JFormattedTextField(RequestViewAplication.createFormatter("d#"));
-		txtField_RequestCode.setText((RequestDAO.getMaxRequestCode()+1)+"");
+		// TODO txtField_RequestCode (код на заявката)
+		txtField_RequestCode = new JTextField();
+		txtField_RequestCode.setText((RequestDAO.getMaxRequestCode() + 1) + "");
 		txtField_RequestCode.setForeground(Color.GRAY);
 		txtField_RequestCode.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
 
-				if(RequestDAO.checkRequestCode(txtField_RequestCode.getText())){
-					txtField_RequestCode.setForeground(Color.red);
-					lblError.setText("Заявка с този номер вече съществува");
-					corectRequestCode=false;
-				}
-				else {txtField_RequestCode.setForeground(Color.BLACK);
-				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-				lblError.setText(" ");
-				corectRequestCode=true;
-				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-				if(RequestDAO.checkRequestCode(txtField_RequestCode.getText())){
+
+				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
+				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
-					corectRequestCode=false;
-				}
-				else {txtField_RequestCode.setForeground(Color.BLACK);
-				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-				lblError.setText(" ");
-				lblError.setText(" ");
-				corectRequestCode=true;
+					corectRequestCode = false;
+				} else {
+
+					if (RequestViewAplication.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
+						txtField_RequestCode.setForeground(Color.red);
+						lblError.setText("Некоректен номер");
+						corectRequestCode = false;
+					} else {
+						txtField_RequestCode.setForeground(Color.BLACK);
+
+						txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
+						lblError.setText(" ");
+						corectRequestCode = true;
+					}
 				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent event) {
 
-				if(RequestDAO.checkRequestCode(txtField_RequestCode.getText())){
-					txtField_RequestCode.setForeground(Color.red);
-					lblError.setText("Заявка с този номер вече съществува");
-					corectRequestCode=false;
-				}
-				else {txtField_RequestCode.setForeground(Color.BLACK);
-				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-				lblError.setText(" ");
-				lblError.setText(" ");
-				corectRequestCode=true;
-				}
 			}
 		});
-				txtField_RequestCode.setColumns(4);
+		txtField_RequestCode.setColumns(4);
 		panel_1.add(txtField_RequestCode);
 
 		JLabel label_2 = new JLabel("/");
 		panel_1.add(label_2);
 
+		// TODO txtFld_Date_Request (дата на заявката)
 		txtFld_Date_Request = new JTextField();
 		txtFld_Date_Request.setColumns(8);
+		Border border = txtFld_Date_Request.getBorder();
 		txtFld_Date_Request.setText(RequestViewAplication.DateNaw(false));
 		txtFld_Date_Request.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
-
-				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false))
-					txtFld_Date_Request.setForeground(Color.RED);
-				else
-					txtFld_Date_Request.setForeground(Color.BLACK);
+				//
+				// if (DatePicker.incorrectDate(txtFld_Date_Request.getText(),
+				// false))
+				// txtFld_Date_Request.setForeground(Color.RED);
+				// else
+				// txtFld_Date_Request.setForeground(Color.BLACK);
 			}
 
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false))
+				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
 					txtFld_Date_Request.setForeground(Color.RED);
-				else
+					corectDateRequest = false;
+				} else {
 					txtFld_Date_Request.setForeground(Color.BLACK);
+					txtFld_Date_Request.setBorder(border);
+					corectDateRequest = true;
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false))
-					txtFld_Date_Request.setForeground(Color.RED);
-				else
-					txtFld_Date_Request.setForeground(Color.BLACK);
+				// if (DatePicker.incorrectDate(txtFld_Date_Request.getText(),
+				// false))
+				// txtFld_Date_Request.setForeground(Color.RED);
+				// else
+				// txtFld_Date_Request.setForeground(Color.BLACK);
 			}
 		});
 		panel_1.add(txtFld_Date_Request);
-		
-		
-		
-	
-		
 
 		JLabel lblNewLabel_4 = new JLabel(text2);
 		lblNewLabel_4.setAlignmentY(0.0f);
@@ -305,6 +298,7 @@ public class RequestView extends JFrame {
 		gbc_lbl_ind_num_doc.gridy = 6;
 		p.add(lbl_ind_num_doc, gbc_lbl_ind_num_doc);
 
+		// TODO choice_ind_num_doc (Ид. номер на документа)
 		Choice choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
 		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
@@ -319,14 +313,33 @@ public class RequestView extends JFrame {
 		gbc_choice_ind_num_doc.gridy = 6;
 		p.add(choice_ind_num_doc, gbc_choice_ind_num_doc);
 
+		JLabel lbl2_ind_num_doc = new JLabel(" ");
+		GridBagConstraints gbc_lbl2_ind_num_doc = new GridBagConstraints();
+		gbc_lbl2_ind_num_doc.gridwidth = 4;
+		gbc_lbl2_ind_num_doc.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl2_ind_num_doc.gridx = 2;
+		gbc_lbl2_ind_num_doc.gridy = 7;
+		p.add(lbl2_ind_num_doc, gbc_lbl2_ind_num_doc);
+
+		choice_ind_num_doc.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				lbl2_ind_num_doc
+						.setText(RequestViewAplication.getIND_DescriptByName(choice_ind_num_doc.getSelectedItem()));
+			}
+
+		});
+
 		JLabel lbl_izpitvan_produkt = new JLabel("Изпитван продукт");
 		GridBagConstraints gbc_lbl_izpitvan_produkt = new GridBagConstraints();
 		gbc_lbl_izpitvan_produkt.anchor = GridBagConstraints.WEST;
 		gbc_lbl_izpitvan_produkt.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_izpitvan_produkt.gridx = 1;
-		gbc_lbl_izpitvan_produkt.gridy = 7;
+		gbc_lbl_izpitvan_produkt.gridy = 8;
 		p.add(lbl_izpitvan_produkt, gbc_lbl_izpitvan_produkt);
 
+		// TODO choice_izpitvan_produkt (изпитван продукт)
 		Choice choice_izpitvan_produkt = new Choice();
 		String[] arr1 = RequestViewAplication.getStringMassiveIzpitvanProdukt();
 		for (String string : arr1) {
@@ -337,8 +350,30 @@ public class RequestView extends JFrame {
 		gbc_izpitvan_produkt.fill = GridBagConstraints.HORIZONTAL;
 		gbc_izpitvan_produkt.insets = new Insets(0, 0, 5, 5);
 		gbc_izpitvan_produkt.gridx = 2;
-		gbc_izpitvan_produkt.gridy = 7;
+		gbc_izpitvan_produkt.gridy = 8;
 		p.add(choice_izpitvan_produkt, gbc_izpitvan_produkt);
+
+		choice_izpitvan_produkt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				choice_izpitvan_produkt.setBackground(Color.WHITE);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				choice_izpitvan_produkt.setBackground(Color.WHITE);
+
+			}
+		});
+
+		choice_izpitvan_produkt.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				choice_izpitvan_produkt.setBackground(Color.WHITE);
+			}
+
+		});
 
 		JLabel lbl_obekt_na_izpitvane_request = new JLabel("Обект, от който са взети пробите:");
 		GridBagConstraints gbc_lbl_obekt_na_izpitvane_request = new GridBagConstraints();
@@ -346,13 +381,15 @@ public class RequestView extends JFrame {
 		gbc_lbl_obekt_na_izpitvane_request.gridwidth = 2;
 		gbc_lbl_obekt_na_izpitvane_request.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_obekt_na_izpitvane_request.gridx = 1;
-		gbc_lbl_obekt_na_izpitvane_request.gridy = 8;
+		gbc_lbl_obekt_na_izpitvane_request.gridy = 9;
 		p.add(lbl_obekt_na_izpitvane_request, gbc_lbl_obekt_na_izpitvane_request);
 
+		// TODO choice_obekt_na_izpitvane_request (обект на изпитване)
 		Choice choice_obekt_na_izpitvane_request = new Choice();
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(405, 20));
 		String[] arr2 = RequestViewAplication.getStringMassiveO_I_R();
 		for (String string : arr2) {
+			System.out.println(string);
 			choice_obekt_na_izpitvane_request.add(string);
 		}
 		GridBagConstraints gbc_choice_obekt_na_izpitvane_request = new GridBagConstraints();
@@ -360,17 +397,41 @@ public class RequestView extends JFrame {
 		gbc_choice_obekt_na_izpitvane_request.gridwidth = 3;
 		gbc_choice_obekt_na_izpitvane_request.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_obekt_na_izpitvane_request.gridx = 3;
-		gbc_choice_obekt_na_izpitvane_request.gridy = 8;
+		gbc_choice_obekt_na_izpitvane_request.gridy = 9;
 		p.add(choice_obekt_na_izpitvane_request, gbc_choice_obekt_na_izpitvane_request);
+
+		choice_obekt_na_izpitvane_request.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				choice_obekt_na_izpitvane_request.setBackground(Color.WHITE);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				choice_obekt_na_izpitvane_request.setBackground(Color.WHITE);
+
+			}
+		});
+
+		choice_obekt_na_izpitvane_request.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
+				choice_obekt_na_izpitvane_request.setBackground(Color.WHITE);
+			}
+
+		});
 
 		JLabel lbl_Razmernost = new JLabel("Размерност");
 		GridBagConstraints gbc_lbl_Razmernost = new GridBagConstraints();
 		gbc_lbl_Razmernost.anchor = GridBagConstraints.WEST;
 		gbc_lbl_Razmernost.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_Razmernost.gridx = 1;
-		gbc_lbl_Razmernost.gridy = 9;
+		gbc_lbl_Razmernost.gridy = 10;
 		p.add(lbl_Razmernost, gbc_lbl_Razmernost);
 
+		// TODO choice_Razmernost (размерност)
 		Choice choice_Razmernost = new Choice();
 		choice_Razmernost.setPreferredSize(new Dimension(60, 20));
 		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
@@ -381,7 +442,7 @@ public class RequestView extends JFrame {
 		gbc_choice_Razmernost.anchor = GridBagConstraints.WEST;
 		gbc_choice_Razmernost.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_Razmernost.gridx = 2;
-		gbc_choice_Razmernost.gridy = 9;
+		gbc_choice_Razmernost.gridy = 10;
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 
 		JLabel lbl_list_izpitvan_pokazatel = new JLabel("Изпитван показател:");
@@ -389,18 +450,19 @@ public class RequestView extends JFrame {
 		gbc_lbl_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
 		gbc_lbl_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_list_izpitvan_pokazatel.gridx = 1;
-		gbc_lbl_list_izpitvan_pokazatel.gridy = 10;
+		gbc_lbl_list_izpitvan_pokazatel.gridy = 11;
 		p.add(lbl_list_izpitvan_pokazatel, gbc_lbl_list_izpitvan_pokazatel);
 
-		final JTextArea textArea = new JTextArea();
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 2;
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 2;
-		gbc_textArea.gridy = 10;
-		textArea.setEditable(false);
-		p.add(textArea, gbc_textArea);
+		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
+		final JTextArea txtArea_list_izpitvan_pokazatel = new JTextArea();
+		GridBagConstraints gbc_txtArea_list_izpitvan_pokazatel = new GridBagConstraints();
+		gbc_txtArea_list_izpitvan_pokazatel.gridwidth = 2;
+		gbc_txtArea_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
+		gbc_txtArea_list_izpitvan_pokazatel.fill = GridBagConstraints.BOTH;
+		gbc_txtArea_list_izpitvan_pokazatel.gridx = 2;
+		gbc_txtArea_list_izpitvan_pokazatel.gridy = 11;
+		txtArea_list_izpitvan_pokazatel.setEditable(false);
+		p.add(txtArea_list_izpitvan_pokazatel, gbc_txtArea_list_izpitvan_pokazatel);
 
 		JButton btn_list_izpitvan_pokazatel = new JButton("Избор на показател");
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
@@ -414,7 +476,8 @@ public class RequestView extends JFrame {
 				for (String string : choiceLP.getChoiceListPokazatel1()) {
 					str = str + string + "\n";
 				}
-				textArea.setText(str);
+				txtArea_list_izpitvan_pokazatel.setBorder(border);
+				txtArea_list_izpitvan_pokazatel.setText(str);
 
 			}
 		});
@@ -423,7 +486,7 @@ public class RequestView extends JFrame {
 		gbc_btn_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
 		gbc_btn_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_list_izpitvan_pokazatel.gridx = 4;
-		gbc_btn_list_izpitvan_pokazatel.gridy = 10;
+		gbc_btn_list_izpitvan_pokazatel.gridy = 11;
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 
 		// date_time_reception
@@ -433,37 +496,46 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_time_reception.anchor = GridBagConstraints.EAST;
 		gbc_lbl_date_time_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_time_reception.gridx = 1;
-		gbc_lbl_date_time_reception.gridy = 11;
+		gbc_lbl_date_time_reception.gridy = 12;
 		p.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
 
+		// TODO txt_fid_date_time_reception (референтна дата час)
 		final JTextField txt_fid_date_time_reception = new JTextField("");
 		txt_fid_date_time_reception.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
+				// if
+				// (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(),
+				// true))
+				// txt_fid_date_time_reception.setForeground(Color.RED);
+				// else
+				// txt_fid_date_time_reception.setForeground(Color.BLACK);
 			}
 
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
+				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true)) {
 					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
+					corectRefDate = false;
+				} else {
 					txt_fid_date_time_reception.setForeground(Color.BLACK);
+					txt_fid_date_time_reception.setBorder(border);
+					corectRefDate = true;
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true))
-					txt_fid_date_time_reception.setForeground(Color.RED);
-				else
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
+				// if
+				// (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(),
+				// true))
+				// txt_fid_date_time_reception.setForeground(Color.RED);
+				// else
+				// txt_fid_date_time_reception.setForeground(Color.BLACK);
 			}
 		});
 
@@ -471,7 +543,7 @@ public class RequestView extends JFrame {
 		gbc_date_time_reception.fill = GridBagConstraints.HORIZONTAL;
 		gbc_date_time_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_date_time_reception.gridx = 3;
-		gbc_date_time_reception.gridy = 11;
+		gbc_date_time_reception.gridy = 12;
 		p.add(txt_fid_date_time_reception, gbc_date_time_reception);
 
 		JButton btn_date_time_reception = new JButton("Избор");
@@ -488,9 +560,10 @@ public class RequestView extends JFrame {
 					System.out.print("  -- " + textRefDate);
 					if (DatePicker.incorrectDate(textRefDate, true))
 						txt_fid_date_time_reception.setForeground(Color.RED);
-					else
+					else {
 						txt_fid_date_time_reception.setForeground(Color.BLACK);
-
+						txt_fid_date_time_reception.setBorder(border);
+					}
 					txt_fid_date_time_reception.setText(textRefDate);
 
 				} catch (NumberFormatException e) {
@@ -502,94 +575,119 @@ public class RequestView extends JFrame {
 		gbc_btn_date_time_reception.anchor = GridBagConstraints.WEST;
 		gbc_btn_date_time_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_time_reception.gridx = 4;
-		gbc_btn_date_time_reception.gridy = 11;
+		gbc_btn_date_time_reception.gridy = 12;
 		p.add(btn_date_time_reception, gbc_btn_date_time_reception);
 		GridBagConstraints gbc_textField_a;
-		
-		
-				JLabel lbl_Period = new JLabel("Периодичност");
-				GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
-				gbc_lbl_Period.anchor = GridBagConstraints.EAST;
-				gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
-				gbc_lbl_Period.gridx = 1;
-				gbc_lbl_Period.gridy = 12;
-				p.add(lbl_Period, gbc_lbl_Period);
-		
-				final Choice choice_Period = new Choice();
-				choice_Period.setPreferredSize(new Dimension(100, 20));
-				GridBagConstraints gbc_choice_Period = new GridBagConstraints();
-				gbc_choice_Period.anchor = GridBagConstraints.WEST;
-				gbc_choice_Period.insets = new Insets(0, 0, 5, 5);
-				gbc_choice_Period.gridx = 2;
-				gbc_choice_Period.gridy = 12;
-				p.add(choice_Period, gbc_choice_Period);
-				
-				String[] arr4 = RequestViewAplication.getStringMassivePeriod();
-				for (String string : arr4) {
-					choice_Period.add(string);
-				}
+
+		JLabel lbl_Period = new JLabel("Периодичност");
+		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
+		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
+		gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_Period.gridx = 1;
+		gbc_lbl_Period.gridy = 13;
+		p.add(lbl_Period, gbc_lbl_Period);
+
+		// TODO choice_Period (период)
+		final Choice choice_Period = new Choice();
+		choice_Period.setPreferredSize(new Dimension(100, 20));
+		GridBagConstraints gbc_choice_Period = new GridBagConstraints();
+		gbc_choice_Period.anchor = GridBagConstraints.WEST;
+		gbc_choice_Period.insets = new Insets(0, 0, 5, 5);
+		gbc_choice_Period.gridx = 2;
+		gbc_choice_Period.gridy = 13;
+		p.add(choice_Period, gbc_choice_Period);
+
+		String[] arr4 = RequestViewAplication.getStringMassivePeriod();
+		for (String string : arr4) {
+			choice_Period.add(string);
+		}
 
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
 		GridBagConstraints gbc_lbl_Count_Sample = new GridBagConstraints();
 		gbc_lbl_Count_Sample.anchor = GridBagConstraints.EAST;
 		gbc_lbl_Count_Sample.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_Count_Sample.gridx = 3;
-		gbc_lbl_Count_Sample.gridy = 12;
+		gbc_lbl_Count_Sample.gridy = 13;
 		p.add(lbl_Count_Sample, gbc_lbl_Count_Sample);
 
+		JLabel lblError_Count_Sample = new JLabel(" ");
+		GridBagConstraints gbc_lblError_Count_Sample = new GridBagConstraints();
+		gbc_lblError_Count_Sample.anchor = GridBagConstraints.WEST;
+		gbc_lblError_Count_Sample.insets = new Insets(0, 0, 5, 5);
+		gbc_lblError_Count_Sample.gridx = 4;
+		gbc_lblError_Count_Sample.gridy = 14;
+		p.add(lblError_Count_Sample, gbc_lblError_Count_Sample);
+
+		// TODO txtFld_Count_Sample (брой на пробите)
 		txtFld_Count_Sample = new JTextField();
 		txtFld_Count_Sample.setText("1");
 		txtFld_Count_Sample.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
-				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				String str = txtFld_Count_Sample.getText();
-				try {
-					int k = Integer.valueOf(str);
-					if (k > 20) {
-						txtFld_Count_Sample.setForeground(Color.red);
-					} else {
-						txtFld_Count_Sample.setForeground(Color.BLACK);
-					}
-					txtFld_Count_Sample.setText(str);
-				} catch (NumberFormatException e) {
-					txtFld_Count_Sample.setText("");
-				}
+				// System.out.println("Data = " +
+				// txtFld_Count_Sample.getText());
+				// String str = txtFld_Count_Sample.getText();
+				// try {
+				// int k = Integer.valueOf(str);
+				// if (k > 20) {
+				// txtFld_Count_Sample.setForeground(Color.red);
+				// } else {
+				// txtFld_Count_Sample.setForeground(Color.BLACK);
+				// }
+				// txtFld_Count_Sample.setText(str);
+				// } catch (NumberFormatException e) {
+				// txtFld_Count_Sample.setText("");
+				// }
 			}
 
 			@Override
 			public void keyReleased(KeyEvent event) {
 				System.out.println("Data = " + txtFld_Count_Sample.getText());
+				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
 				String str = txtFld_Count_Sample.getText();
-				try {
-					int k = Integer.valueOf(str);
-					if (k > 20) {
-						txtFld_Count_Sample.setForeground(Color.red);
-					} else {
-						txtFld_Count_Sample.setForeground(Color.BLACK);
-					}
-					txtFld_Count_Sample.setText(str);
-				} catch (NumberFormatException e) {
-					txtFld_Count_Sample.setText("");
+
+				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 0, 20)) {
+					txtFld_Count_Sample.setForeground(Color.red);
+					lblError_Count_Sample.setText("Некоректен номер");
+
+				} else {
+					txtFld_Count_Sample.setForeground(Color.BLACK);
+
+					txtFld_Count_Sample.setBorder(border);
+					lblError_Count_Sample.setText(" ");
+
 				}
+
+				// try {
+				// int k = Integer.valueOf(str);
+				// if (k > 20) {
+				// txtFld_Count_Sample.setForeground(Color.red);
+				// } else {
+				// txtFld_Count_Sample.setForeground(Color.BLACK);
+				// }
+				// txtFld_Count_Sample.setText(str);
+				// } catch (NumberFormatException e) {
+				// txtFld_Count_Sample.setText("");
+				// }
 			}
 
 			@Override
 			public void keyPressed(KeyEvent event) {
-				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				String str = txtFld_Count_Sample.getText();
-				try {
-					int k = Integer.valueOf(str);
-					if (k > 20) {
-						txtFld_Count_Sample.setForeground(Color.red);
-					} else {
-						txtFld_Count_Sample.setForeground(Color.BLACK);
-					}
-					txtFld_Count_Sample.setText(str);
-				} catch (NumberFormatException e) {
-					txtFld_Count_Sample.setText("");
-				}
+				// System.out.println("Data = " +
+				// txtFld_Count_Sample.getText());
+				// String str = txtFld_Count_Sample.getText();
+				// try {
+				// int k = Integer.valueOf(str);
+				// if (k > 20) {
+				// txtFld_Count_Sample.setForeground(Color.red);
+				// } else {
+				// txtFld_Count_Sample.setForeground(Color.BLACK);
+				// }
+				// txtFld_Count_Sample.setText(str);
+				// } catch (NumberFormatException e) {
+				// txtFld_Count_Sample.setText("");
+				// }
 			}
 		});
 		txtFld_Count_Sample.setPreferredSize(new Dimension(5, 20));
@@ -597,20 +695,21 @@ public class RequestView extends JFrame {
 		gbc_txtFld_Count_Sample.anchor = GridBagConstraints.WEST;
 		gbc_txtFld_Count_Sample.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_Count_Sample.gridx = 4;
-		gbc_txtFld_Count_Sample.gridy = 12;
+		gbc_txtFld_Count_Sample.gridy = 13;
 		p.add(txtFld_Count_Sample, gbc_txtFld_Count_Sample);
 		txtFld_Count_Sample.setColumns(3);
 
+		// TODO txtArea_SampleDescription (описание на пробите)
 		final JTextArea txtArea_SampleDescription = new JTextArea();
 		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
 		gbc_txtArea_SampleDescription.gridwidth = 5;
 		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
 		gbc_txtArea_SampleDescription.gridx = 1;
-		gbc_txtArea_SampleDescription.gridy = 14;
+		gbc_txtArea_SampleDescription.gridy = 15;
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 		txtArea_SampleDescription.setEditable(false);
-	
+
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -626,18 +725,17 @@ public class RequestView extends JFrame {
 							String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
-							
-							
-							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period, string);
-								
-							
+
+							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period,
+									string);
+
 							sampleDescript.setVisible(true);
 							string = SampleViewAdd.getVolumeSampleView(count_Sample);
 							txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-							
-							
+
 							txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(string));
-							
+							txtArea_SampleDescription.setBorder(border);
+
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
@@ -658,7 +756,7 @@ public class RequestView extends JFrame {
 		gbc_btn_SampleDescription.anchor = GridBagConstraints.WEST;
 		gbc_btn_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_SampleDescription.gridx = 5;
-		gbc_btn_SampleDescription.gridy = 12;
+		gbc_btn_SampleDescription.gridy = 13;
 		p.add(btn_SampleDescription, gbc_btn_SampleDescription);
 
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
@@ -666,14 +764,8 @@ public class RequestView extends JFrame {
 		gbc_lbl_SampleDescription.anchor = GridBagConstraints.WEST;
 		gbc_lbl_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_SampleDescription.gridx = 1;
-		gbc_lbl_SampleDescription.gridy = 13;
+		gbc_lbl_SampleDescription.gridy = 14;
 		p.add(lbl_SampleDescription, gbc_lbl_SampleDescription);
-		
-		
-
-		
-
-		
 
 		// date_execution
 		// ************************************************************************
@@ -683,37 +775,44 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_execution.gridwidth = 2;
 		gbc_lbl_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_execution.gridx = 1;
-		gbc_lbl_date_execution.gridy = 16;
+		gbc_lbl_date_execution.gridy = 17;
 		p.add(lbl_date_execution, gbc_lbl_date_execution);
 
+		// TODO txtFld_date_execution (срок за изпълнение)
 		txtFld_date_execution = new JTextField("");
 		txtFld_date_execution.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false))
-					txtFld_date_execution.setForeground(Color.RED);
-				else
-					txtFld_date_execution.setForeground(Color.BLACK);
+				// if (DatePicker.incorrectDate(txtFld_date_execution.getText(),
+				// false))
+				// txtFld_date_execution.setForeground(Color.RED);
+				// else
+				// txtFld_date_execution.setForeground(Color.BLACK);
 			}
 
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false))
+				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
 					txtFld_date_execution.setForeground(Color.RED);
-				else
+					corectDateExecution = false;
+				} else {
 					txtFld_date_execution.setForeground(Color.BLACK);
+					txtFld_date_execution.setBorder(border);
+					corectDateExecution = true;
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false))
-					txtFld_date_execution.setForeground(Color.RED);
-				else
-					txtFld_date_execution.setForeground(Color.BLACK);
+				// if (DatePicker.incorrectDate(txtFld_date_execution.getText(),
+				// false))
+				// txtFld_date_execution.setForeground(Color.RED);
+				// else
+				// txtFld_date_execution.setForeground(Color.BLACK);
 			}
 		});
 
@@ -721,7 +820,7 @@ public class RequestView extends JFrame {
 		gbc_txtFld_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_execution.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_execution.gridx = 3;
-		gbc_txtFld_date_execution.gridy = 16;
+		gbc_txtFld_date_execution.gridy = 17;
 		p.add(txtFld_date_execution, gbc_txtFld_date_execution);
 
 		JButton btn_date_execution = new JButton("Избор на дата");
@@ -735,8 +834,10 @@ public class RequestView extends JFrame {
 				text_date_execution = txtFld_date_execution.getText();
 				if (DatePicker.incorrectDate(text_date_execution, false))
 					txtFld_date_execution.setForeground(Color.RED);
-				else
+				else {
 					txtFld_date_execution.setForeground(Color.BLACK);
+					txtFld_date_execution.setBorder(border);
+				}
 				txtFld_date_execution.setText(text_date_execution);
 
 			}
@@ -746,7 +847,7 @@ public class RequestView extends JFrame {
 		gbc_btn_date_execution.gridwidth = 2;
 		gbc_btn_date_execution.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_execution.gridx = 4;
-		gbc_btn_date_execution.gridy = 16;
+		gbc_btn_date_execution.gridy = 17;
 		p.add(btn_date_execution, gbc_btn_date_execution);
 
 		// date_time_request
@@ -757,44 +858,54 @@ public class RequestView extends JFrame {
 		gbc_lbl_date_time_request.gridwidth = 2;
 		gbc_lbl_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_time_request.gridx = 1;
-		gbc_lbl_date_time_request.gridy = 17;
+		gbc_lbl_date_time_request.gridy = 18;
 		p.add(lbl_date_time_request, gbc_lbl_date_time_request);
 
+		// TODO txtFld_date_time_request (дата час на приемане)
 		txtFld_date_time_request = new JTextField(RequestViewAplication.DateNaw(true));
 		txtFld_date_time_request.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true))
-					txtFld_date_time_request.setForeground(Color.RED);
-				else
-					txtFld_date_time_request.setForeground(Color.BLACK);
+				// if (DatePicker.incorrectDate(txtFld_date_execution.getText(),
+				// true))
+				// txtFld_date_execution.setForeground(Color.RED);
+				// else
+				// txtFld_date_execution.setForeground(Color.BLACK);
+
 			}
 
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true))
+				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
 					txtFld_date_time_request.setForeground(Color.RED);
-				else
+					corectDateTimeRequest = false;
+
+				} else {
 					txtFld_date_time_request.setForeground(Color.BLACK);
+					corectDateTimeRequest = true;
+					txtFld_date_time_request.setBorder(border);
+				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true))
-					txtFld_date_time_request.setForeground(Color.RED);
-				else
-					txtFld_date_time_request.setForeground(Color.BLACK);
+				// if
+				// (DatePicker.incorrectDate(txtFld_date_time_request.getText(),
+				// true))
+				// txtFld_date_time_request.setForeground(Color.RED);
+				// else
+				// txtFld_date_time_request.setForeground(Color.BLACK);
 			}
 		});
 		GridBagConstraints gbc_txtFld_date_time_request = new GridBagConstraints();
 		gbc_txtFld_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_time_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_time_request.gridx = 3;
-		gbc_txtFld_date_time_request.gridy = 17;
+		gbc_txtFld_date_time_request.gridy = 18;
 		p.add(txtFld_date_time_request, gbc_txtFld_date_time_request);
 
 		JButton btn_date_time_request = new JButton("Избор на дата");
@@ -807,8 +918,10 @@ public class RequestView extends JFrame {
 				textRefDate = txtFld_date_time_request.getText();
 				if (DatePicker.incorrectDate(textRefDate, true))
 					txtFld_date_time_request.setForeground(Color.RED);
-				else
+				else{
 					txtFld_date_time_request.setForeground(Color.BLACK);
+				txtFld_date_time_request.setBorder(border);
+			}
 
 				txtFld_date_time_request.setText(textRefDate);
 				System.out.println("Data11 = " + txtField_RequestCode.getText().trim());
@@ -819,66 +932,132 @@ public class RequestView extends JFrame {
 		gbc_btn_date_time_request.gridwidth = 2;
 		gbc_btn_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_time_request.gridx = 4;
-		gbc_btn_date_time_request.gridy = 17;
+		gbc_btn_date_time_request.gridy = 18;
 		p.add(btn_date_time_request, gbc_btn_date_time_request);
-		
-		
-		
-		
+
 		JLabel lblNewLabel_3 = new JLabel("Приел:");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 18;
+		gbc_lblNewLabel_3.gridy = 19;
 		p.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		JLabel lbl_User = new JLabel(user.getName_users()+" "+user.getFamily_users());
+
+		JLabel lbl_User = new JLabel(user.getName_users() + " " + user.getFamily_users());
 		GridBagConstraints gbc_lbl_User = new GridBagConstraints();
 		gbc_lbl_User.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_User.gridx = 2;
-		gbc_lbl_User.gridy = 18;
+		gbc_lbl_User.gridy = 19;
 		p.add(lbl_User, gbc_lbl_User);
-		
-		
-		
-		
+
 		JLabel lbl_note = new JLabel("Забележка:");
 		GridBagConstraints gbc_lbl_note = new GridBagConstraints();
 		gbc_lbl_note.anchor = GridBagConstraints.WEST;
 		gbc_lbl_note.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_note.gridx = 1;
-		gbc_lbl_note.gridy = 19;
+		gbc_lbl_note.gridy = 20;
 		p.add(lbl_note, gbc_lbl_note);
 		
-		JTextArea txtArea_note = new JTextArea();
-		GridBagConstraints gbc_txtArea_note = new GridBagConstraints();
-		gbc_txtArea_note.gridwidth = 5;
-		gbc_txtArea_note.insets = new Insets(0, 0, 5, 5);
-		gbc_txtArea_note.fill = GridBagConstraints.BOTH;
-		gbc_txtArea_note.gridx = 1;
-		gbc_txtArea_note.gridy = 20;
-		p.add(txtArea_note, gbc_txtArea_note);
+		
+		
+		String[] arrZab = RequestViewAplication.getStringZabelejki();
+		JComboBox<String> comboBox = new JComboBox(arrZab);
+		Dimension d = comboBox.getMinimumSize();
+		comboBox.setMaximumSize(new Dimension(5,2));
+		comboBox.setEditable(true);
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		
+		gbc_comboBox.gridwidth = 5;
+		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridy = 21;
+		p.add(comboBox, gbc_comboBox);
 		
 		
 		
-		
+
 		JButton btn_save = new JButton("Запис");
+
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("+++++++++++++++++++++++++++++  "+txtField_RequestCode.getText());
-				if(!corectRequestCode){
+				Boolean saveCheck = true;
+				String str_RequestCode = "";
+				if (!corectRequestCode) {
 					txtField_RequestCode.setBorder(new LineBorder(Color.RED));
-					System.out.println("+++++++++++++++++++++++++++++");
+					str_RequestCode = "код на заявката"+"\n";
+					saveCheck = false;
 				}
+				String str_RequestDate = "";
+				if (!corectDateRequest || txtFld_Date_Request.getText().equals("")) {
+					txtFld_Date_Request.setBorder(new LineBorder(Color.RED));
+					str_RequestDate = "дата на заявката"+"\n";
+					saveCheck = false;
+				}
+				String str_Izpit_Prod = "";
+				if (choice_izpitvan_produkt.getSelectedItem().equals("")) {
+					choice_izpitvan_produkt.setBackground(Color.RED);
+					str_Izpit_Prod = "изпитван продукт"+"\n";
+					saveCheck = false;
+				}
+				String str_Obekt_Izpit = "";
+				if (choice_obekt_na_izpitvane_request.getSelectedItem().equals("")) {
+					choice_obekt_na_izpitvane_request.setBackground(Color.RED);
+					str_Obekt_Izpit = "обект на изпитване"+"\n";
+					saveCheck = false;
+				}
+				String str_L_I_P = "";
+				if (txtArea_list_izpitvan_pokazatel.getText().equals("")) {
+					txtArea_list_izpitvan_pokazatel.setBorder(new LineBorder(Color.RED));
+					str_L_I_P = "изпитван показател"+"\n";
+					saveCheck = false;
+				}
+				String str_corectRefDate = "";
+				if (!corectRefDate || txt_fid_date_time_reception.getText().equals("")) {
+					txt_fid_date_time_reception.setBorder(new LineBorder(Color.RED));
+					str_corectRefDate = "референтна дата"+"\n";
+					saveCheck = false;
+				}
+				String str_SampleDescription = "";
+				if (txtArea_SampleDescription.getText().equals("")) {
+					txtArea_SampleDescription.setBorder(new LineBorder(Color.RED));
+					str_SampleDescription = "описание на пробите"+"\n";
+					saveCheck = false;
+				}
+				String str_DateExecution = "";
+				if (!corectDateExecution || txtFld_date_execution.getText().equals("")) {
+					txtFld_date_execution.setBorder(new LineBorder(Color.RED));
+					str_DateExecution = "срок за изпълнение"+"\n";
+					saveCheck = false;
+				}
+
+				String str_DateTimeRequest = "";
+				if (!corectDateTimeRequest || txtFld_date_time_request.getText().equals("")) {
+					txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
+					str_DateTimeRequest = "дата на приемане"+"\n";
+					saveCheck = false;
+				}
+				
+				if(!saveCheck){
+				String str = str_RequestCode+str_RequestDate+str_Izpit_Prod+str_Obekt_Izpit+str_L_I_P+str_corectRefDate+str_SampleDescription+str_DateExecution+str_DateTimeRequest;
+					System.out.println(str);
+					JOptionPane.showMessageDialog(RequestView.this, str,
+							"Грешни данни за следните полета:", JOptionPane.ERROR_MESSAGE);
+				}else{
+					
+				}
+
 			}
 		});
+		
+				
+		
+		
 		btn_save.setPreferredSize(new Dimension(100, 23));
 		GridBagConstraints gbc_btn_save = new GridBagConstraints();
 		gbc_btn_save.anchor = GridBagConstraints.WEST;
 		gbc_btn_save.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_save.gridx = 5;
-		gbc_btn_save.gridy = 22;
+		gbc_btn_save.gridy = 23;
 		p.add(btn_save, gbc_btn_save);
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);

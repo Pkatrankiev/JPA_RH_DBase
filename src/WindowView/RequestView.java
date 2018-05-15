@@ -388,7 +388,21 @@ public class RequestView extends JFrame {
 		JButton btn_add__obekt_na_izpitvane_request = new JButton("Добавяне");
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Boolean fl = false;
+				final JFrame f = new JFrame();
 				
+				AddInChoice choiceO_I_R = new AddInChoice(f, arr2, choice_obekt_na_izpitvane_request.getSelectedItem() );
+
+				String str = AddInChoice.getChoiceO_I_R();
+
+				for (String string : arr2) {
+					if(str.equals(string))
+					fl=true;
+				}
+				if(!fl){
+					choice_obekt_na_izpitvane_request.add(str);
+					
+				} choice_obekt_na_izpitvane_request.select(str);
 			}
 		});
 		GridBagConstraints gbc_btn_add__obekt_na_izpitvane_request = new GridBagConstraints();
@@ -434,7 +448,7 @@ public class RequestView extends JFrame {
 		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
 		final JTextArea txtArea_list_izpitvan_pokazatel = new JTextArea();
 		GridBagConstraints gbc_txtArea_list_izpitvan_pokazatel = new GridBagConstraints();
-		gbc_txtArea_list_izpitvan_pokazatel.gridwidth = 2;
+		gbc_txtArea_list_izpitvan_pokazatel.gridwidth = 3;
 		gbc_txtArea_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
 		gbc_txtArea_list_izpitvan_pokazatel.fill = GridBagConstraints.BOTH;
 		gbc_txtArea_list_izpitvan_pokazatel.gridx = 2;
@@ -460,10 +474,9 @@ public class RequestView extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_btn_list_izpitvan_pokazatel = new GridBagConstraints();
-		gbc_btn_list_izpitvan_pokazatel.gridwidth = 2;
 		gbc_btn_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
 		gbc_btn_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
-		gbc_btn_list_izpitvan_pokazatel.gridx = 4;
+		gbc_btn_list_izpitvan_pokazatel.gridx = 5;
 		gbc_btn_list_izpitvan_pokazatel.gridy = 11;
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 
@@ -934,6 +947,25 @@ public class RequestView extends JFrame {
 		p.add(choice_Zab, gbc_choice_Zab);
 		
 		JButton btn_add_Zab = new JButton("Добавяне");
+		btn_add_Zab.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Boolean fl = false;
+				final JFrame f = new JFrame();
+				
+				AddInChoice choiceO_I_R = new AddInChoice(f, arrZab, choice_Zab.getSelectedItem() );
+
+				String str = AddInChoice.getChoiceO_I_R();
+
+				for (String string : arrZab) {
+					if(str.equals(string))
+					fl=true;
+				}
+				if(!fl){
+					choice_Zab.add(str);
+					
+				} choice_Zab.select(str);
+			}
+		});
 		GridBagConstraints gbc_btn_add_Zab = new GridBagConstraints();
 		gbc_btn_add_Zab.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btn_add_Zab.gridheight = 2;

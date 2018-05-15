@@ -1,12 +1,14 @@
 package WindowView;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import WindowViewAplication.RequestViewAplication;
 
 public class Dialogtest extends JDialog {
@@ -23,6 +24,7 @@ public class Dialogtest extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JPanel panel;
+
 
 
 
@@ -43,8 +45,10 @@ public class Dialogtest extends JDialog {
 	 * Create the dialog.
 	 */
 	public Dialogtest() {
-		 String[] massiveO_I_R = RequestViewAplication.getStringMassiveO_I_R();
-		 
+		//--------------------------------
+		
+		String[] massiveO_I_R = RequestViewAplication.getStringMassiveO_I_R();
+			
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,10 +58,14 @@ public class Dialogtest extends JDialog {
 			JScrollPane scrollPane = new JScrollPane();
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
-				JPanel panel = new JPanel();
+				panel = new JPanel();
 				scrollPane.setViewportView(panel);
 			
 				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+				{
+					JLabel lblNewLabel = new JLabel("New label");
+					panel.add(lblNewLabel);
+				}
 				
 			}
 		}
@@ -76,14 +84,47 @@ public class Dialogtest extends JDialog {
 
 				@Override
 				public void keyReleased(KeyEvent event) {
-					
+					panel.removeAll();
 					if(textField.getText().length()>3){
 					 ArrayList<String> list =  getStrMas( textField.getText(),  massiveO_I_R);
-						for (String string : list) {
-							JLabel lblNewLabel = new JLabel(string);
-							panel.add(lblNewLabel);
+					 System.out.println("---"+list.size());
+					 JLabel[] lblNewLabel2 = new JLabel[list.size()];
+					int i=0;
+					for (String string : list) {
+						final int selection = i;
+							lblNewLabel2[i] =  new JLabel(string);
+							Color col = lblNewLabel2[i].getForeground();
+							lblNewLabel2[i].addMouseListener(new MouseAdapter() {
+								
+								@Override
+								public void mouseEntered(MouseEvent e) {
+									lblNewLabel2[selection].setForeground(Color.RED);
+								}
+
+								@Override
+								public void mouseExited(MouseEvent e) {
+									lblNewLabel2[selection].setForeground(col);
+								}
+								
+								public void mousePressed(MouseEvent e) {
+									textField.setText(lblNewLabel2[selection].getText());
+									
+								}
+									
+								
+							});
+							
+							
+							
+							
+							panel.add(lblNewLabel2[i]);
+							i++;
 						}
+					
 					}
+					panel.repaint();
+					panel.revalidate();
+					
 				}
 
 				@Override
@@ -115,9 +156,15 @@ public class Dialogtest extends JDialog {
 	public ArrayList<String> getStrMas(String str, String[] massiveO_I_R){
 		
 		ArrayList<String> masStr = new ArrayList<String>() ;
+		System.out.println(massiveO_I_R.length+" 55555555 "+str);
 		for (String string : massiveO_I_R) {
-			if(string.contentEquals(str))
+		
+			int strLength = string.length();
+//			if(string.replaceFirst(str, "").length()!=strLength)
+//			if(string.contentEquals(str))
+			if(string.indexOf(str)>=0)
 			{
+				System.out.println(string+" - "+str);
 				masStr.add(string);
 			}
 			

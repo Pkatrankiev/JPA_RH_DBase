@@ -33,7 +33,7 @@ public class DateChoice extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DateChoice(Frame parent) {
+	public DateChoice(Frame parent, String date_time_reception) {
 		super(parent, "Избор на референтна дата и време", true);
 		setBounds(100, 100, 550, 200);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,7 +58,7 @@ public class DateChoice extends JDialog {
 			contentPanel.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
 		}
 		{
-			txt_fid_date_time_reception = new JTextField("");
+			txt_fid_date_time_reception = new JTextField(date_time_reception);
 			txt_fid_date_time_reception.addKeyListener(new KeyListener() {
 
 				@Override
@@ -325,7 +325,6 @@ public class DateChoice extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						System.out.print("  ++ "+get_date_time_reception());
 						removeAll();
 						dispose();	
 					}
@@ -340,11 +339,8 @@ public class DateChoice extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						txt_fid_date_time_reception.setText("");
-						txtEndDate.setText("");
-						txtStartDate.setText("");
-						revalidate();
-						repaint();
+					txt_fid_date_time_reception.setText(date_time_reception);
+						dispose();	
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

@@ -43,11 +43,11 @@ public class Login extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
 	private JButton cancelButton;
-	private JTextField txt_nik_name;
-	private JPasswordField passwordField;
+	private static JTextField txt_nik_name;
+	private static JPasswordField passwordField;
 	private JLabel lbl_Username;
 	private JLabel lbl_Password;
-	private boolean succeeded = false;
+	private static boolean succeeded = false;
 	private List<Users> users_list = UsersDAO.getInListAllValueUsers();
 	public Login(Frame parent) {
 		super(parent, "Логване", true);
@@ -129,9 +129,7 @@ public class Login extends JDialog {
 	    this.addWindowListener(new java.awt.event.WindowAdapter() {
 	        @Override
 	        public void windowClosing(java.awt.event.WindowEvent e) {
-	        	passwordField.setText("");
-				txt_nik_name.setText("");
-				succeeded = false;
+	        	logOut();
 	            e.getWindow().dispose();
 	           
 	        }
@@ -177,6 +175,13 @@ public class Login extends JDialog {
 			txt_nik_name.setText("");
 			
 		}
+	}
+	
+	public static void logOut(){
+		passwordField.setText("");
+		txt_nik_name.setText("");
+		succeeded = false;
+		
 	}
 
 	public static final String encrypt(String md5) { // kriptirane na string v

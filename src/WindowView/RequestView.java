@@ -19,6 +19,8 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -460,12 +462,20 @@ public class RequestView extends JFrame {
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+//				String [] list_I_P = null;
+				ArrayList<String> list_I_P = new ArrayList<String>();
+				if(!txtArea_list_izpitvan_pokazatel.getText().equals("")){
+				list_I_P = ChoiceL_I_P.getChoiceL_P();
+				System.out.println(list_I_P.size());
+				}
 				final JFrame f = new JFrame();
-				ChoiceListIzpPokazatel choiceLP = new ChoiceListIzpPokazatel(f);
+				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P);
 
 				String str = "";
 
-				for (String string : choiceLP.getChoiceListPokazatel1()) {
+				
+				txtArea_list_izpitvan_pokazatel.setText("");
+				for (String string : choiceLP.getChoiceL_P()) {
 					str = str + string + "\n";
 				}
 				txtArea_list_izpitvan_pokazatel.setBorder(border);
@@ -543,7 +553,7 @@ public class RequestView extends JFrame {
 				try {
 
 					final JFrame f = new JFrame();
-					DateChoice date_time_reception = new DateChoice(f);
+					DateChoice date_time_reception = new DateChoice(f, txt_fid_date_time_reception.getText());
 					date_time_reception.setVisible(true);
 
 					String textRefDate = "";

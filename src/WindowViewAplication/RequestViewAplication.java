@@ -63,7 +63,7 @@ public class RequestViewAplication {
 		return arr2;
 	}
 	
-	public static List<String> getStringListLIP() {
+	public static ArrayList<String> getStringListLIP() {
 		String str="";
 		List<List_izpitvan_pokazatel> list = List_izpitvan_pokazatelDAO.getInListAllValuePokazatel();
 		ArrayList<String> arr2 =new ArrayList<String>();

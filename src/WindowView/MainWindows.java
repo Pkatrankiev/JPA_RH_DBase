@@ -193,6 +193,7 @@ public class MainWindows {
 			
 				String textBtnLogin = btnLogin.getText();
 				if (textBtnLogin.equals("LogOut")) {
+					Login.logOut();
 					btnLogin.setText("LogIn");
 					win.setTitle("my RHA");
 				} else {

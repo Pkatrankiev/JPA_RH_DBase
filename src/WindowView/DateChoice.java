@@ -24,8 +24,8 @@ import java.awt.Dimension;
 public class DateChoice extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtStartDate;
-	private JTextField txtEndDate;
+	private static JTextField txtStartDate;
+	private static JTextField txtEndDate;
 	private static JTextField txt_fid_date_time_reception;
 
 
@@ -348,6 +348,14 @@ public class DateChoice extends JDialog {
 			}
 		}
 	}
+	public static String get_str_period() {
+		// TODO Auto-generated method stub
+		String str="";
+		if(txtEndDate.getText().equals(""));
+		str = "Период за вземане на пробите: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.\n";
+		return str;
+	}
+	
 	public static String get_date_time_reception() {
 		// TODO Auto-generated method stub
 		String str="";

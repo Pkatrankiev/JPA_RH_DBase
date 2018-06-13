@@ -351,8 +351,9 @@ public class DateChoice extends JDialog {
 	public static String get_str_period() {
 		// TODO Auto-generated method stub
 		String str="";
-		if(txtEndDate.getText().equals(""));
-		str = "Период за вземане на пробите: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.\n";
+		System.out.println("*"+txtEndDate.getText()+"*");
+		if(!txtEndDate.getText().equals(""))
+		str = "Период за вземане на пробите: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.";
 		return str;
 	}
 	

@@ -16,10 +16,12 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Aplication.RequestDAO;
 import WindowView.SampleAddView.MyTableModel;
 import WindowViewAplication.RequestViewAplication;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -29,8 +31,11 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Panel;
 
 public class SampleViewAdd extends JDialog {
 
@@ -41,8 +46,10 @@ public class SampleViewAdd extends JDialog {
 	private static JComboBox[] comboBox_OI;
 	private static JTextArea[] txtArea_Sample_Descr;
 	private static JTextField[] txtFld_Ref_date;
+	private static JPanel[] edit_Ref_date;
 	private static JComboBox[] comboBox_Period;
 	private static JTextField[] txtFld_Year;
+	private static Boolean[] corectYear;
 
 	/**
 	 * Create the dialog.
@@ -51,7 +58,7 @@ public class SampleViewAdd extends JDialog {
 			String[][] stringVol) {
 		super(parent, "Информация за пробите", true);
 
-		setBounds(100, 100, 850, (countSample * 29) + 120);
+		setBounds(100, 100, 880, (countSample * 29) + 120);
 		getContentPane().setLayout(new BorderLayout());
 		{
 
@@ -82,7 +89,7 @@ public class SampleViewAdd extends JDialog {
 			lbl_Samp_Descr.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Samp_Descr);
 			JLabel lbl_Ref_date = new JLabel("Референтна дата");
-			lbl_Ref_date.setPreferredSize(new Dimension(100, 20));
+			lbl_Ref_date.setPreferredSize(new Dimension(130, 20));
 			lbl_Ref_date.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Ref_date.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Ref_date);
@@ -102,8 +109,10 @@ public class SampleViewAdd extends JDialog {
 			comboBox_OI = new JComboBox[countSample];
 			txtArea_Sample_Descr = new JTextArea[countSample];
 			txtFld_Ref_date = new JTextField[countSample];
+			edit_Ref_date = new JPanel[countSample];
 			comboBox_Period = new JComboBox[countSample];
 			txtFld_Year = new JTextField[countSample];
+			corectYear = new Boolean[countSample];
 
 			Boolean notEmptryString = false;
 			try {
@@ -213,6 +222,13 @@ public class SampleViewAdd extends JDialog {
 						panel[i].add(txtFld_Ref_date[i]);
 						txtFld_Ref_date[i].setColumns(9);
 					}
+					edit_Ref_date[i] = new JPanel();
+					
+					edit_Ref_date[i].setPreferredSize(new Dimension(21, 20));
+					ImageIcon pic = new ImageIcon("Modify.gif");
+					edit_Ref_date[i].add(new JLabel(pic), BorderLayout.CENTER);
+					edit_Ref_date[i].setBackground(Color.gray);
+					panel[i].add(edit_Ref_date[i]);
 
 					{
 						comboBox_Period[i] = new JComboBox();
@@ -233,6 +249,43 @@ public class SampleViewAdd extends JDialog {
 							txtFld_Year[i].setText(stringVol[i][5]);
 						panel[i].add(txtFld_Year[i]);
 						txtFld_Year[i].setColumns(3);
+
+						int k = i;
+						corectYear[k] = true;
+						txtFld_Year[i].addKeyListener(new KeyListener() {
+
+							@Override
+							public void keyTyped(KeyEvent event) {
+
+							}
+
+							@Override
+							public void keyReleased(KeyEvent event) {
+
+								txtFld_Year[k]
+										.setText(RequestViewAplication.checkFormatString(txtFld_Year[k].getText()));
+								if (RequestDAO.checkRequestCode(txtFld_Year[k].getText())) {
+									txtFld_Year[k].setForeground(Color.red);
+									corectYear[k] = false;
+								} else {
+									if (RequestViewAplication.checkMaxVolume(txtFld_Year[k].getText(), 2000, 2050)) {
+										txtFld_Year[k].setForeground(Color.red);
+										corectYear[k] = false;
+									} else {
+										txtFld_Year[k].setForeground(Color.BLACK);
+										txtFld_Year[k].setBorder(new LineBorder(Color.BLACK));
+										corectYear[k] = true;
+
+									}
+								}
+							}
+
+							@Override
+							public void keyPressed(KeyEvent event) {
+
+							}
+						});
+
 					}
 				}
 				panel_1.add(panel[i]);
@@ -255,11 +308,73 @@ public class SampleViewAdd extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						getVolumeSampleView(countSample);
-						removeAll();
-						dispose();
+						Boolean saveCheck = true;
+						String str_Year = "";
+						for (int i = 0; i < countSample; i++) {
+
+							if (!corectYear[i]) {
+								str_Year = "godina" + "\n";
+								saveCheck = false;
+							}
+							// String str_RequestDate = "";
+							// if (!corectDateRequest ||
+							// txtFld_Date_Request.getText().equals("")) {
+							// str_RequestDate = "godina" + "\n";
+							// saveCheck = false;
+							// }
+							// String str_Izpit_Prod = "";
+							// if
+							// (choice_izpitvan_produkt.getSelectedItem().equals(""))
+							// {
+							// choice_izpitvan_produkt.setBackground(Color.RED);
+							// str_Izpit_Prod = "изпитван продукт" + "\n";
+							// saveCheck = false;
+							// }
+							// String str_Obekt_Izpit = "";
+							// if
+							// (choice_obekt_na_izpitvane_request.getSelectedItem().equals(""))
+							// {
+							// choice_obekt_na_izpitvane_request.setBackground(Color.RED);
+							// str_Obekt_Izpit = "обект на изпитване" + "\n";
+							// saveCheck = false;
+							// }
+							// String str_L_I_P = "";
+							// if
+							// (txtArea_list_izpitvan_pokazatel.getText().equals(""))
+							// {
+							// txtArea_list_izpitvan_pokazatel.setBorder(new
+							// LineBorder(Color.RED));
+							// str_L_I_P = "изпитван показател" + "\n";
+							// saveCheck = false;
+							// }
+							// String str_corectRefDate = "";
+							// if (!corectRefDate ||
+							// txt_fid_date_time_reception.getText().equals(""))
+							// {
+							// txt_fid_date_time_reception.setBorder(new
+							// LineBorder(Color.RED));
+							// str_corectRefDate = "референтна дата" + "\n";
+							// saveCheck = false;
+							// }
+						}
+						if (!saveCheck) {
+							String str = str_Year;
+							// + str_RequestDate + str_Izpit_Prod +
+							// str_Obekt_Izpit + str_L_I_P
+							// + str_corectRefDate + str_SampleDescription +
+							// str_DateExecution + str_DateTimeRequest;
+							System.out.println(str);
+							JOptionPane.showMessageDialog(SampleViewAdd.this, str, "Грешни данни за следните полета:",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							getVolumeSampleView(countSample);
+							removeAll();
+							dispose();
+						}
+
 					}
 				});
+
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

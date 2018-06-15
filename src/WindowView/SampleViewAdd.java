@@ -465,6 +465,7 @@ public class SampleViewAdd extends JDialog {
 									JOptionPane.ERROR_MESSAGE);
 						} else {
 							getVolumeSampleView(countSample);
+							cancelEntered = false;
 							comBox_O_I_S_dinam = comBox_O_I_S;
 							removeAll();
 							dispose();

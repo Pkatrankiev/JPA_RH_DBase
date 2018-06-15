@@ -28,7 +28,7 @@ public class AddInChoice extends JDialog {
 	private static JTextField textField;
 	private JPanel panel;
 
-	public AddInChoice(JFrame parent, String[] massiveO_I_R, String selectItem) {
+	public AddInChoice(JFrame parent, ArrayList<String> massiveO_I_R, String selectItem) {
 		super(parent, "", true);
 		
 		final JDialog dialog = new JDialog();
@@ -52,6 +52,7 @@ public class AddInChoice extends JDialog {
 			textField.setAlignmentX(Component.LEFT_ALIGNMENT);
 			contentPanel.add(textField, BorderLayout.NORTH);
 			textField.setColumns(10);
+			textField.setText(selectItem);
 			textField.addKeyListener(new KeyListener() {
 				@Override
 				public void keyTyped(KeyEvent event) {
@@ -130,7 +131,7 @@ public class AddInChoice extends JDialog {
 		setVisible(true);
 	}
 
-	public ArrayList<String> getStrMas(String str, String[] massiveO_I_R) {
+	public ArrayList<String> getStrMas(String str, ArrayList<String> massiveO_I_R) {
 
 		ArrayList<String> masStr = new ArrayList<String>();
 		for (String string : massiveO_I_R) {

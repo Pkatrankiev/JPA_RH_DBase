@@ -75,6 +75,7 @@ public class RequestView extends JFrame {
 	private JTextField txtFld_Date_Request;
 	private String[][] string = null;
 	private String str_Descript_grup_Sample = "";
+	private static ArrayList<String> comBox_O_I_S;
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -86,7 +87,7 @@ public class RequestView extends JFrame {
 
 	public RequestView(Users user) {
 		super("JScrollPane Demonstration");
-		setSize(800, 980);
+		setSize(850, 980);
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		init(user);
@@ -100,7 +101,7 @@ public class RequestView extends JFrame {
 		p.setAlignmentX(0.0f);
 		p.setBackground(SystemColor.controlHighlight);
 		p.setBorder(null);
-		p.setSize(750, 900);
+		p.setSize(800, 900);
 
 		scrollpane = new JScrollPane(p);
 		scrollpane.setName("");
@@ -377,8 +378,8 @@ public class RequestView extends JFrame {
 		// TODO choice_obekt_na_izpitvane_request (обект на изпитване)
 		Choice choice_obekt_na_izpitvane_request = new Choice();
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(205, 20));
-		String[] arr2 = RequestViewAplication.getStringMassiveO_I_R();
-		for (String string : arr2) {
+		ArrayList<String> array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
+		for (String string : array_O_I_R) {
 			System.out.println(string);
 			choice_obekt_na_izpitvane_request.add(string);
 		}
@@ -414,15 +415,16 @@ public class RequestView extends JFrame {
 				Boolean fl = false;
 				final JFrame f = new JFrame();
 
-				AddInChoice choiceO_I_R = new AddInChoice(f, arr2, choice_obekt_na_izpitvane_request.getSelectedItem());
+				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R, choice_obekt_na_izpitvane_request.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
-
-				for (String string : arr2) {
+System.out.println("5555555 "+str);
+				for (String string : array_O_I_R) {
 					if (str.equals(string))
 						fl = true;
 				}
 				if (!fl) {
+					array_O_I_R.add(str);
 					choice_obekt_na_izpitvane_request.add(str);
 
 				}
@@ -505,7 +507,8 @@ public class RequestView extends JFrame {
 					str = str + string + "\n";
 				}
 				txtArea_list_izpitvan_pokazatel.setBorder(border);
-				txtArea_list_izpitvan_pokazatel.setText(str);
+				int cout_str = str.length();
+				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str-1));
 
 			}
 		});
@@ -559,13 +562,7 @@ public class RequestView extends JFrame {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
-
-				// if
-				// (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(),
-				// true))
-				// txt_fid_date_time_reception.setForeground(Color.RED);
-				// else
-				// txt_fid_date_time_reception.setForeground(Color.BLACK);
+			
 			}
 
 			@Override
@@ -583,13 +580,7 @@ public class RequestView extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent event) {
-
-				// if
-				// (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(),
-				// true))
-				// txt_fid_date_time_reception.setForeground(Color.RED);
-				// else
-				// txt_fid_date_time_reception.setForeground(Color.BLACK);
+			
 			}
 		});
 
@@ -749,6 +740,7 @@ public class RequestView extends JFrame {
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 		txtArea_SampleDescription.setEditable(false);
 
+		comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -765,16 +757,16 @@ public class RequestView extends JFrame {
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
-							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, ref_Date_Time, period,
+							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S, ref_Date_Time, period,
 									string);
-
+							
 							sampleDescript.setVisible(true);
+							if(!SampleViewAdd.cancelEntered()){
 							string = SampleViewAdd.getVolumeSampleView(count_Sample);
 							txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-
 							txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(string));
 							txtArea_SampleDescription.setBorder(border);
-
+							}
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
@@ -977,9 +969,9 @@ public class RequestView extends JFrame {
 
 		// TODO choice_Zab (забележка)
 
-		String[] arrZab = RequestViewAplication.getStringZabelejki();
+		ArrayList<String> arrayZab = RequestViewAplication.getStringZabelejki();
 		final Choice choice_Zab = new Choice();
-		for (String string : arrZab) {
+		for (String string : arrayZab) {
 			choice_Zab.add(string);
 		}
 		choice_Zab.setPreferredSize(new Dimension(4, 18));
@@ -998,15 +990,16 @@ public class RequestView extends JFrame {
 				Boolean fl = false;
 				final JFrame f = new JFrame();
 
-				AddInChoice choiceO_I_R = new AddInChoice(f, arrZab, choice_Zab.getSelectedItem());
+				AddInChoice choiceZab = new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
 
-				for (String string : arrZab) {
+				for (String string : arrayZab) {
 					if (str.equals(string))
 						fl = true;
 				}
 				if (!fl) {
+					arrayZab.add(str);
 					choice_Zab.add(str);
 
 				}
@@ -1033,7 +1026,7 @@ public class RequestView extends JFrame {
 					saveCheck = false;
 				}
 				String str_RequestDate = "";
-				if (!corectDateRequest || txtFld_Date_Request.getText().equals("")) {
+				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
 					txtFld_Date_Request.setBorder(new LineBorder(Color.RED));
 					str_RequestDate = "дата на заявката" + "\n";
 					saveCheck = false;
@@ -1057,7 +1050,7 @@ public class RequestView extends JFrame {
 					saveCheck = false;
 				}
 				String str_corectRefDate = "";
-				if (!corectRefDate || txt_fid_date_time_reception.getText().equals("")) {
+				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true)){
 					txt_fid_date_time_reception.setBorder(new LineBorder(Color.RED));
 					str_corectRefDate = "референтна дата" + "\n";
 					saveCheck = false;
@@ -1069,14 +1062,14 @@ public class RequestView extends JFrame {
 					saveCheck = false;
 				}
 				String str_DateExecution = "";
-				if (!corectDateExecution || txtFld_date_execution.getText().equals("")) {
+				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
 					txtFld_date_execution.setBorder(new LineBorder(Color.RED));
 					str_DateExecution = "срок за изпълнение" + "\n";
 					saveCheck = false;
 				}
 
 				String str_DateTimeRequest = "";
-				if (!corectDateTimeRequest || txtFld_date_time_request.getText().equals("")) {
+				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
 					txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
 					str_DateTimeRequest = "дата на приемане" + "\n";
 					saveCheck = false;
@@ -1103,21 +1096,31 @@ public class RequestView extends JFrame {
 									choice_obekt_na_izpitvane_request.getSelectedItem());
 					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-					RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-							chckbx_accreditation.isSelected(), true, null, null, null, null,
-							count_Sample, txtArea_Descript_grup_Sample.getText(),
-							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
-							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
-					
-					Request recuest = (Request) RequestDAO.getListRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
-					
-					string = SampleViewAdd.getVolumeSampleView(count_Sample);
-					
-					for (int i = 0; i < count_Sample; i++) {
-						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
-						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
-					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
+					int countOld , coundNew ;
+					coundNew = array_O_I_R.size();
+					countOld = RequestViewAplication.getStringMassiveO_I_R().size();
+					System.out.println(coundNew+" "+countOld);
+					if(countOld!=coundNew){
+						for (int i = countOld; i < coundNew; i++) {
+							Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
+						}
 					}
+					
+//					RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
+//							chckbx_accreditation.isSelected(), true, null, null, null, null,
+//							count_Sample, txtArea_Descript_grup_Sample.getText(),
+//							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
+//							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
+//					
+//					Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
+//					
+//					string = SampleViewAdd.getVolumeSampleView(count_Sample);
+//					
+//					for (int i = 0; i < count_Sample; i++) {
+//						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
+//						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
+//					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
+//					}
 
 				}
 

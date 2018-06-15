@@ -99,29 +99,31 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static String[] getStringMassiveO_I_R() {
-		int i = 0;
+	public static ArrayList<String> getStringMassiveO_I_R() {
+	
 		List<Obekt_na_izpitvane_request> list = Obekt_na_izpitvane_requestDAO.getInListAllValueObekt_na_izpitvane();
-		String[] arr = new String[list.size()];
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("");
 		for (Obekt_na_izpitvane_request e : list) {
-			arr[i] = ((Obekt_na_izpitvane_request) e).getName_obekt_na_izpitvane();
-			
-			i++;
+			arr.add(e.getName_obekt_na_izpitvane());
+		
 		}
-		arr[0] = "";
+		
 		return arr;
 	}
 
-	public static String[] getStringMassiveO_I_S() {
-		int i = 0;
+	public static ArrayList<String> getStringMassiveO_I_S() {
+		
 		List<Obekt_na_izpitvane_sample> list = Obekt_na_izpitvane_sampleDAO
 				.getInListAllValueObekt_na_izpitvane_sample();
-		String[] arr = new String[list.size()];
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("");
 		for (Obekt_na_izpitvane_sample e : list) {
-			arr[i] = ((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
-			i++;
+			String strr =((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
+			arr.add(strr);
+			
 		}
-		arr[0] = "";
+		
 		return arr;
 	}
 
@@ -137,13 +139,13 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static String[] getStringZabelejki() {
+	public static ArrayList<String> getStringZabelejki() {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
-		String[] arr = new String[list.size() + 1];
-		arr[0] = "";
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("");
 		int i = 1;
 		for (Zabelejki e : list) {
-			arr[i] = ((Zabelejki) e).getName_zabelejki();
+			arr.add(e.getName_zabelejki());
 			i++;
 		}
 		return arr;
@@ -207,6 +209,8 @@ public class RequestViewAplication {
 				}
 			}
 		}
+		int cout_str = someLine.length();
+		someLine = someLine.substring(0, cout_str-1);
 		return someLine;
 	}
 

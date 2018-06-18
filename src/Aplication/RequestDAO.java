@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
+import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
@@ -29,8 +30,7 @@ public class RequestDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setValueRequest(String recuest_code, String date_request, Boolean accreditation, Boolean section,
-			External_applicant external_applicant, Internal_applicant internal_applicant, String applicant_name,
-			String applicant_family, int counts_samples, String description_sample_group, String date_time_reception,
+			Extra_module xtra_module,  int counts_samples, String description_sample_group, String date_time_reception,
 			String date_execution, Ind_num_doc ind_num_doc, Izpitvan_produkt izpitvan_produkt, Razmernosti razmernosti,
 			Zabelejki zabelejki, Users users, Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 
@@ -44,11 +44,8 @@ public class RequestDAO {
 		valueEnt.setAccreditation(accreditation);
 		valueEnt.setSection(section);
 
-		valueEnt.setExternal_applicant(external_applicant);
-		valueEnt.setInternal_applicant(internal_applicant);
-		valueEnt.setApplicant_name(applicant_name);
-
-		valueEnt.setApplicant_family(applicant_family);
+		valueEnt.setExtra_module(xtra_module);
+		
 		valueEnt.setCounts_samples(counts_samples);
 		valueEnt.setDescription_sample_group(description_sample_group);
 		valueEnt.setDate_time_reception(date_time_reception);
@@ -224,10 +221,7 @@ public class RequestDAO {
 
 			setValueRequest((2255 + i) + "", "12.12.2017", true, // accreditation
 					true, // section
-					external_applicant, // external_applicant
-					internal_applicant, // intrnal_applicant
-					"Иван", // applicant_name
-					"Иванов", // applicant_family
+					null, // xtra_module
 					1 + i, // number_samples
 					"проби1", // description_sample_group
 					"22.12.2017 /12:00", // date_time_reception

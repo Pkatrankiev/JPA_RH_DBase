@@ -48,7 +48,11 @@ public class Main_Aplication {
 		// ReaderWordDoc.readMyDocument(fileName);
 
 		
+		 
+		 
 		 StartMainWindow();
+		 
+		 
 		
 //		String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
 //		
@@ -97,11 +101,12 @@ public class Main_Aplication {
 //		UsersDAO.setBasicValueUsers();
 //		ZabelejkiDAO.setBasicValueZabelejki();
 //		Internal_applicantDAO.setBasikValueInternal_applicant();
-		PeriodDAO.setBasicValuePeriod();
+//		PeriodDAO.setBasicValuePeriod();
 		// RequestDAO.setBasicValueRequest();
 		// SampleDAO.setBasicValueSample();
 		//
 		// ResultsDAO.setBasicValueResults();
+		Extra_moduleDAO.setBasicValueRequest();
 	}
 
 	public static String alignExpon(double basic, double foll) {

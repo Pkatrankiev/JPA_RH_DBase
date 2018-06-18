@@ -593,10 +593,7 @@ public class SetDBfromWordDoc {
 
 		Request request = new Request(recuest_code, date_recuest, accreditation, // accreditation
 				section, // section
-				external_aplicant, // external_applicant
-				internal_aplicant, // intrnal_applicant
-				aplicant_name, // applicant_name
-				aplicant_family, // applicant_family
+				null, // xtra_module
 				counts_samples, // counts_samples
 				description_sample_group, // description_sample_group
 				date_time_reception, // date_time_reception

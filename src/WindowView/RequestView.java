@@ -1106,21 +1106,21 @@ System.out.println("5555555 "+str);
 						}
 					}
 					
-//					RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-//							chckbx_accreditation.isSelected(), true, null, null, null, null,
-//							count_Sample, txtArea_Descript_grup_Sample.getText(),
-//							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
-//							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
-//					
-//					Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
-//					
-//					string = SampleViewAdd.getVolumeSampleView(count_Sample);
-//					
-//					for (int i = 0; i < count_Sample; i++) {
-//						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
-//						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
-//					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
-//					}
+					RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
+							chckbx_accreditation.isSelected(), true, null,
+							count_Sample, txtArea_Descript_grup_Sample.getText(),
+							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
+							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
+					
+					Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
+					
+					string = SampleViewAdd.getVolumeSampleView(count_Sample);
+					
+					for (int i = 0; i < count_Sample; i++) {
+						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
+						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
+					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
+					}
 
 				}
 

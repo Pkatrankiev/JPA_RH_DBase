@@ -34,6 +34,7 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.External_applicant;
+import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
@@ -76,6 +77,8 @@ public class RequestView extends JFrame {
 	private String[][] string = null;
 	private String str_Descript_grup_Sample = "";
 	private static ArrayList<String> comBox_O_I_S;
+	private Boolean section = true;
+	private Extra_module xtra_module = null;
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -1020,6 +1023,18 @@ System.out.println("5555555 "+str);
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean saveCheck = true;
 				String str_RequestCode = "";
+				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
+					txtField_RequestCode.setForeground(Color.red);
+					lblError.setText("Заявка с този номер вече съществува");
+					corectRequestCode = false;
+				} else {{
+						txtField_RequestCode.setForeground(Color.BLACK);
+
+						txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
+						lblError.setText(" ");
+						corectRequestCode = true;
+					}
+				}
 				if (!corectRequestCode) {
 					txtField_RequestCode.setBorder(new LineBorder(Color.RED));
 					str_RequestCode = "код на заявката" + "\n";
@@ -1106,26 +1121,51 @@ System.out.println("5555555 "+str);
 						}
 					}
 					
-					RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-							chckbx_accreditation.isSelected(), true, null,
+			
+					
+				Request recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
+							chckbx_accreditation.isSelected(), section, xtra_module,
 							count_Sample, txtArea_Descript_grup_Sample.getText(),
 							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
 							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
+
+					RequestPreview рequest_пreview = new RequestPreview(recuest,txtArea_list_izpitvan_pokazatel.getText());	
 					
-					Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
-					
-					string = SampleViewAdd.getVolumeSampleView(count_Sample);
-					
-					for (int i = 0; i < count_Sample; i++) {
-						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
-						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
-					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
-					}
+//					RequestDAO.saveValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
+//							chckbx_accreditation.isSelected(), section, xtra_module,
+//							count_Sample, txtArea_Descript_grup_Sample.getText(),
+//							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
+//							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
+//					
+//					recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
+//					
+//					string = SampleViewAdd.getVolumeSampleView(count_Sample);
+//					
+//					for (int i = 0; i < count_Sample; i++) {
+//						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
+//						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
+//					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
+//					}
 
 				}
 
 			}
 		});
+		
+		JButton btnNewButton = new JButton("Превю");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				
+			}
+		});
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.gridy = 25;
+		p.add(btnNewButton, gbc_btnNewButton);
 
 		btn_save.setPreferredSize(new Dimension(100, 23));
 		GridBagConstraints gbc_btn_save = new GridBagConstraints();

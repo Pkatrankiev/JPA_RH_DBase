@@ -110,7 +110,7 @@ public class SampleDAO {
 
 			
 			// Get random Obekt_na_izpitvane object
-			List<Obekt_na_izpitvane_request> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane e")
+			List<Obekt_na_izpitvane_request> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e")
 					.getResultList();
 			System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
 			max = listOi.size();

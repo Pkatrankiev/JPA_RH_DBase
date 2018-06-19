@@ -41,7 +41,10 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import Aplication.Obekt_na_izpitvane_requestDAO;
+import Aplication.RequestDAO;
 import Aplication.UsersDAO;
+import DBase_Class.Request;
 import DBase_Class.Users;
 
 import java.awt.SystemColor;
@@ -132,7 +135,7 @@ public class MainWindows {
 		mnNewMenu.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 1, 15, 15));
 
-		JLabel lblNewLabel_1 = new JLabel("Отваряне на Заявка ");
+		JLabel lblNewLabel_1 = new JLabel("Генериране на Нова Заявка ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -166,7 +169,7 @@ public class MainWindows {
 		mnNewMenu.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 1, 15, 15));
 
-		JLabel lblNewLabel = new JLabel("Генериране на Нова Заявка ");
+		JLabel lblNewLabel = new JLabel("Отваряне на Заявка ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -182,6 +185,12 @@ public class MainWindows {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				panel_1.setBackground(Color.WHITE);
+			}
+			
+			public void mousePressed(MouseEvent e) {
+				Request recuest = RequestDAO.settBasicValueRequest();	
+				RequestPreview рequest_пreview = new RequestPreview(recuest,"1234567 454678 324565");
+				System.out.println("99999999999999999999999999");
 			}
 		});
 

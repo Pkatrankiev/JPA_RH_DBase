@@ -28,17 +28,15 @@ public class Request implements Serializable {
 	private String date_request;
 	private Boolean accreditation;
 	private Boolean section;
-	private String applicant_name;
-	private String applicant_family;
+	
 	private int counts_samples;
 	private String description_sample_group;
 	private String date_time_reception;
 	private String date_execution;
 
 	@ManyToOne
-	private External_applicant external_applicant;
-	@ManyToOne
-	private Internal_applicant internal_applicant;
+	private Extra_module extra_module;
+	
 	@ManyToOne
 	private Ind_num_doc ind_num_doc;
 	@ManyToOne
@@ -58,10 +56,8 @@ public class Request implements Serializable {
 			String date_request, 
 			Boolean accreditation,
 			Boolean section,
-			External_applicant external_applicant,
-			Internal_applicant internal_applicant,
-			String applicant_name,
-			String applicant_family,
+			Extra_module xtra_module,
+						
 			int counts_samples, 
 			String description_sample_group, 
 			String date_time_reception,
@@ -79,10 +75,8 @@ public class Request implements Serializable {
 		this.date_request = date_request;
 		this.accreditation = accreditation;
 		this.section = section;
-		this.external_applicant = external_applicant;
-		this.internal_applicant = internal_applicant;
-		this.applicant_name = applicant_name;
-		this.applicant_family = applicant_family;
+		this.extra_module = extra_module;
+			
 		this.counts_samples = counts_samples;
 		this.description_sample_group = description_sample_group;
 		this.date_time_reception = date_time_reception;
@@ -100,16 +94,7 @@ public class Request implements Serializable {
 		 }
 	 
 			
-		public String getApplicant_family() {
-			return applicant_family;
-		}
-
-		
-		public void setApplicant_family(String applicant_family) {
-			this.applicant_family = applicant_family;
-		}
-
-		
+			
 	 
 	public Obekt_na_izpitvane_request getObekt_na_izpitvane_request() {
 			return obekt_na_izpitvane_request;
@@ -160,25 +145,8 @@ public class Request implements Serializable {
 	public void setSection(Boolean section) {
 		this.section = section;
 	}
-
 	
-	public External_applicant getExternal_applicant() {
-		return external_applicant;
-	}
-
-	public void setExternal_applicant(External_applicant external_applicant) {
-		this.external_applicant = external_applicant;
-	}
-
 		
-	public String getApplicant_name() {
-		return applicant_name;
-	}
-
-	public void setApplicant_name(String applicant_name) {
-		this.applicant_name = applicant_name;
-	}
-
 	public int getCounts_samples() {
 		return counts_samples;
 	}
@@ -243,12 +211,13 @@ public class Request implements Serializable {
 		this.users = users;
 	}
 
-	public Internal_applicant getInternal_applicant() {
-		return internal_applicant;
+	
+	public Extra_module getXtra_module() {
+		return extra_module;
 	}
 
-	public void setInternal_applicant(Internal_applicant internal_applicant) {
-		this.internal_applicant = internal_applicant;
+	public void setExtra_module(Extra_module xtra_module) {
+		this.extra_module = extra_module;
 	}
 
 	public static long getSerialversionuid() {

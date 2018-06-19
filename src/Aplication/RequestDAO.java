@@ -178,53 +178,6 @@ public class RequestDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-<<<<<<< HEAD
-		// Get random External_applicant object
-		Query query = entitymanager.createQuery("SELECT e FROM External_applicant e");
-		List<External_applicant> listE = query.getResultList();
-		System.out.println("Num External_applicant:" + listE.size());
-		int min = 1;
-		int max = listE.size();
-		int ran = min + (int) (Math.random() * ((max - min) + 1));
-		External_applicant external_applicant = External_applicantDAO.getValueExternal_applicantById(ran);
-		System.out.println("Name External_applicant:" + external_applicant.getExternal_applicant_name());
-
-		// Get random Internal_applicant object
-		List<Internal_applicant> listI = entitymanager.createQuery("SELECT e FROM Internal_applicant e")
-				.getResultList();
-		System.out.println("Num Internal_applicant:" + listI.size());
-		max = listI.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Internal_applicant internal_applicant = Internal_applicantDAO.getValueInternal_applicantById(ran);
-		System.out
-				.println("Organization Internal_applicant:" + internal_applicant.getInternal_applicant_organization());
-
-		// Get random Ind_num_doc object
-		List<Ind_num_doc> listId = entitymanager.createQuery("SELECT e FROM Ind_num_doc e").getResultList();
-		System.out.println("Num Ind_num_doc:" + listId.size());
-		max = listId.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Ind_num_doc ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(ran);
-		System.out.println("Name Ind_num_doc:" + ind_num_doc.getName());
-
-		// Get random Izpitvan_produkt object
-		List<Izpitvan_produkt> listIprod = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e")
-				.getResultList();
-		System.out.println("Num Ind_num_doc:" + listIprod.size());
-		max = listIprod.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Izpitvan_produkt izpitvan_produkt = Izpitvan_produktDAO.getValueIzpitvan_produktById(ran);
-		System.out.println("Name Izpitvan_produkt:" + izpitvan_produkt.getName_zpitvan_produkt());
-
-		// Get random Obekt_na_izpitvane object
-		List<Obekt_na_izpitvane_request> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e")
-				.getResultList();
-		System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
-		max = listOi.size();
-		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Obekt_na_izpitvane_request obekt_na_izpitvane = Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvaneById(ran);
-		System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
-=======
 		for (int i = 1; i < 9; i++) {
 
 			// Get random External_applicant object
@@ -302,7 +255,7 @@ public class RequestDAO {
 					true, // section
 					null, // xtra_module
 					1 + i, // number_samples
-					"ïðîáè1", // description_sample_group
+					"Ã¯Ã°Ã®Ã¡Ã¨1", // description_sample_group
 					"22.12.2017 /12:00", // date_time_reception
 					"25.12.2017", // date_execution
 					ind_num_doc, // ind_num_doc
@@ -313,7 +266,6 @@ public class RequestDAO {
 		}
 		entitymanager.close();
 		emfactory.close();
->>>>>>> 20b071e0278055bedd63e904bdb0c655fd2dc94f
 
 	}
 
@@ -402,7 +354,7 @@ public class RequestDAO {
 					true, // section
 					null, // xtra_module
 					1 + i, // number_samples
-					"ïðîáè1", // description_sample_group
+					"Ã¯Ã°Ã®Ã¡Ã¨1", // description_sample_group
 					"22.12.2017 /12:00", // date_time_reception
 					"25.12.2017", // date_execution
 					ind_num_doc, // ind_num_doc

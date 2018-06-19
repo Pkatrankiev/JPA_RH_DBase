@@ -86,28 +86,6 @@ public class Main_Aplication {
 	}
 
 	private static void SetBasikValueInDataBase() {
-<<<<<<< HEAD
-		External_applicantDAO.setBasikValueExternal_applicant();
-		Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
-		Ind_num_docDAO.setBasikValueInd_num_doc();
-		MetodyDAO.setBasikValueMetody();
-		List_izpitvan_pokazatelDAO.setBasikValuePokazatel();
-		NuclideDAO.setBasicValueNuclide();
-		Obekt_na_izpitvane_requestDAO.setBasicValueObekt_na_izpitvane();
-		Obekt_na_izpitvane_sampleDAO.setBasicValueObekt_na_izpitvane_sample();
-		Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
-		RazmernostiDAO.setBasicValueRazmernosti();
-		DimensionDAO.setBasicValueDimension();
-		PostDAO.setBasikValuePost();
-		UsersDAO.setBasicValueUsers();
-		ZabelejkiDAO.setBasicValueZabelejki();
-		Internal_applicantDAO.setBasikValueInternal_applicant();
-		PeriodDAO.setBasicValuePeriod();
-		 RequestDAO.setBasicValueRequest();
-		 SampleDAO.setBasicValueSample();
-		
-		 ResultsDAO.setBasicValueResults();
-=======
 //		External_applicantDAO.setBasikValueExternal_applicant();
 //		Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
 //		Ind_num_docDAO.setBasikValueInd_num_doc();
@@ -129,7 +107,6 @@ public class Main_Aplication {
 		//
 		// ResultsDAO.setBasicValueResults();
 		Extra_moduleDAO.setBasicValueRequest();
->>>>>>> 20b071e0278055bedd63e904bdb0c655fd2dc94f
 	}
 
 	public static String alignExpon(double basic, double foll) {

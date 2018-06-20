@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Izpitvan_pokazatel;
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
@@ -134,6 +135,42 @@ public class SampleDAO {
 
 	}
 
+	public static List<Sample> getListSampleFromColumnByVolume(String column_name, Object volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Sample e WHERE e." + column_name + " = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", volume_check);
+
+		List<Sample> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	@GET
+	public static List <Sample> getListSampleByRequest(Request request) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Sample e WHERE e.request = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", request);
+				List<Sample> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}		
+	
 	@GET
 	@QueryParam("{id}")
 public static Sample getValueSampleById(@QueryParam("id") int id) {

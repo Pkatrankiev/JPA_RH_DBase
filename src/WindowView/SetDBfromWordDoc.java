@@ -604,7 +604,7 @@ public class SetDBfromWordDoc {
 				note, // zabelejki
 				user_recues, // users
 				ob_izpitvane_request);
-		RequestDAO.setValueRequest(request);
+		RequestDAO.saveRequestFromRequest(request);
 
 		/** --------------------------------------------------------------- **/
 

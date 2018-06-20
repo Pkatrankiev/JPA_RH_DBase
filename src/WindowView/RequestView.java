@@ -1017,7 +1017,7 @@ System.out.println("5555555 "+str);
 		gbc_btn_add_Zab.gridy = 23;
 		p.add(btn_add_Zab, gbc_btn_add_Zab);
 
-		JButton btn_save = new JButton("Çàïèñ");
+		JButton btn_save = new JButton("Ïðåãëåä");
 
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -1128,24 +1128,24 @@ System.out.println("5555555 "+str);
 							count_Sample, txtArea_Descript_grup_Sample.getText(),
 							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
 							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
-
-					RequestPreview ðequest_ïreview = new RequestPreview(recuest,txtArea_list_izpitvan_pokazatel.getText());	
+				
+			    	string = SampleViewAdd.getVolumeSampleView(count_Sample);
+			    	
+			    	
+			    	
+			    	
+					RequestPreview ðequest_ïreview = new RequestPreview(recuest,txtArea_list_izpitvan_pokazatel.getText(),string);	
 					
-//					RequestDAO.saveValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-//							chckbx_accreditation.isSelected(), section, xtra_module,
-//							count_Sample, txtArea_Descript_grup_Sample.getText(),
-//							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
-//							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
-//					
-//					recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", txtField_RequestCode.getText());
-//					
-//					string = SampleViewAdd.getVolumeSampleView(count_Sample);
-//					
-//					for (int i = 0; i < count_Sample; i++) {
-//						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
-//						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
-//					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
-//					}
+					
+					
+					RequestDAO.saveRequestFromRequest(recuest);
+					
+										
+					for (int i = 0; i < count_Sample; i++) {
+						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
+						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
+					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
+					}
 
 				}
 

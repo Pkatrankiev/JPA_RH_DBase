@@ -21,6 +21,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JTextPane;
@@ -43,8 +45,10 @@ import javax.swing.JOptionPane;
 
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
+import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import DBase_Class.Request;
+import DBase_Class.Sample;
 import DBase_Class.Users;
 
 import java.awt.SystemColor;
@@ -188,9 +192,22 @@ public class MainWindows {
 			}
 			
 			public void mousePressed(MouseEvent e) {
-				Request recuest = RequestDAO.settBasicValueRequest();	
-				RequestPreview рequest_пreview = new RequestPreview(recuest,"1234567 454678 324565");
-				System.out.println("99999999999999999999999999");
+				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
+				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3474");
+				List<Sample> smple_list = SampleDAO.getListSampleByRequest(recuest);
+				String [][] smple_vol = new String [smple_list.size()][6];
+				int i = 0;
+				for (Sample sample : smple_list) {
+					smple_vol[i][0] = sample.getSample_code();
+					smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+					smple_vol[i][2] = sample.getDescription_sample();
+					smple_vol[i][3] = sample.getDate_time_reference();
+					smple_vol[i][4] = sample.getPeriod().getValue();
+					smple_vol[i][5] = sample.getGodina_period()+"";
+					i++;
+				}
+				RequestPreview рequest_пreview = new RequestPreview(recuest,list_izpitvan_pokazatel,smple_vol);
+				
 			}
 		});
 

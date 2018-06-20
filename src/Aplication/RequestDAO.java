@@ -61,7 +61,7 @@ public class RequestDAO {
 	}
 
 
-	public static void saveValueRequest(String recuest_code, String date_request, Boolean accreditation, Boolean section,
+	public static void saveRequestFromValue(String recuest_code, String date_request, Boolean accreditation, Boolean section,
 			Extra_module xtra_module,  int counts_samples, String description_sample_group, String date_time_reception,
 			String date_execution, Ind_num_doc ind_num_doc, Izpitvan_produkt izpitvan_produkt, Razmernosti razmernosti,
 			Zabelejki zabelejki, Users users, Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
@@ -98,7 +98,7 @@ public class RequestDAO {
 		emfactory.close();
 	}
 
-	public static void setValueRequest(Request valueEnt) {
+	public static void saveRequestFromRequest(Request valueEnt) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -251,7 +251,7 @@ public class RequestDAO {
 			Users users = UsersDAO.getValueUsersById(ran);
 			System.out.println("Name Users:" + users.getName_users());
 
-			saveValueRequest((2255 + i) + "", "12.12.2017", true, // accreditation
+			saveRequestFromValue((2255 + i) + "", "12.12.2017", true, // accreditation
 					true, // section
 					null, // xtra_module
 					1 + i, // number_samples

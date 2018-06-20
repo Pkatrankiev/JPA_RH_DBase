@@ -78,13 +78,7 @@ public class SampleDAO {
 			System.out.println();
 			
 			
-//			System.out.println("Num:" + ((Sample) e).getId_sample() + "  request :"
-//					+ ((Sample) e).getRequest().getRecuest_code() + "  samle_code :" + ((Sample) e).getSample_code()
-//					+ "  description_sample :" + ((Sample) e).getDescription_sample() + "  date_time_reference :"
-//					+ ((Sample) e).getDate_time_reference() + "  obekt_na_izpitvane :"
-//					+ ((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane() + "  pokazatel :"
-//					+ ((Sample) e).getPokazatel().getName_pokazatel() );
-		}
+}
 		return list;
 	}
 
@@ -153,23 +147,7 @@ public class SampleDAO {
 		return list;
 	}
 	
-	@GET
-	public static List <Sample> getListSampleByRequest(Request request) {
-
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		String hql = "SELECT e FROM Sample e WHERE e.request = :text";
-
-		Query query = entitymanager.createQuery(hql);
-		query.setParameter("text", request);
-				List<Sample> list = query.getResultList();
-		entitymanager.close();
-		emfactory.close();
-
-		return list;
-	}		
+	
 	
 	@GET
 	@QueryParam("{id}")

@@ -193,7 +193,7 @@ public class MainWindows {
 			
 			public void mousePressed(MouseEvent e) {
 				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
-				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3472");
+				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3470");
 				
 				List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 				String [][] smple_vol = new String [smple_list.size()][6];

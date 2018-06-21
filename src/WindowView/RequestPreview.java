@@ -208,7 +208,7 @@ public class RequestPreview extends JFrame {
 		}
 		
 
-		max = 58;
+		max = 68;
 		String counts_sample_str = str1;
 		String[] desk_samp_str = new String[3];
 
@@ -352,7 +352,8 @@ public class RequestPreview extends JFrame {
 		lblNewLabel.setBounds(0, 0, 594, 840);
 		getContentPane().add(lblNewLabel);
 		ImageIcon pic = new ImageIcon("Zaqvka.png");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
+//		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
+		lblNewLabel.setIcon(pic);
 
 		setVisible(true);
 	}

@@ -395,7 +395,7 @@ public class RequestPreview2 extends JFrame {
 		// Project\\JPA_RH_DBase\\Zaqvka.png"));
 
 		Dimension d = getSize();
-		File source = new File("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png");
+		File source = new File("E:\\JAVA Project Petar\\JPA_RH_DBase\\Zaqvka.png");
 		ImageIcon pic1 = rescaleImage(source, d.height, d.width);
 
 		JLabel lblNewLabel = new JLabel("");
@@ -418,15 +418,15 @@ public class RequestPreview2 extends JFrame {
 				gbl_main_panel.rowHeights = new int[] { d_height };
 				panel.setSize(d_width, d_height);
 				lblNewLabel.setBounds(0, 0, d_width, d_height);
-				
+				lblNewLabel.setAlignmentY(TOP_ALIGNMENT);
 				ImageIcon pic1 = rescaleImage(source, new_d.height, new_d.width);
 				lblNewLabel.setIcon(pic1);
-					
+					int ww = pic1.getIconHeight();
 
 				System.out.println(d_width + " " + d_height);
 				int w = (d_width - 610) / 2;
-				int h = (d_height - 865) / 2;
-				request_code.setBounds(250 + w, 146 + h, 62, 20);
+				int h = (int) (w*1.4)/2;
+				request_code.setBounds(250*1,4 + w, 146 + h, 62, 20);
 
 			}
 		});

@@ -46,14 +46,14 @@ private int d_width=650, d_height=920;
 		super("Преглед на заявка");
 		getContentPane().setBackground(Color.ORANGE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, d_width, d_height);
+		setBounds(0, 0, d_width+20, d_height+50);
 		getContentPane().setLayout(null);
 	
 		Font font = new Font("Magnolia Script", Font.ITALIC, 12);
 		Color col = Color.BLUE;
 
 		JLabel request_code = new JLabel(request.getRecuest_code());
-		request_code.setBounds(250, 138, 62, 20);
+		request_code.setBounds(280, 155, 62, 20);
 		getContentPane().add(request_code);
 		request_code.setVerticalTextPosition(SwingConstants.BOTTOM);
 		request_code.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -63,7 +63,7 @@ private int d_width=650, d_height=920;
 		request_code.setForeground(col);
 
 		JLabel request_date = new JLabel(request.getDate_request());
-		request_date.setBounds(319, 138, 98, 20);
+		request_date.setBounds(349, 155, 98, 20);
 		getContentPane().add(request_date);
 		request_date.setVerticalTextPosition(SwingConstants.BOTTOM);
 		request_date.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -77,7 +77,7 @@ private int d_width=650, d_height=920;
 			str = request.getInd_num_doc().getName();
 
 		JLabel ind_num_doc = new JLabel(str);
-		ind_num_doc.setBounds(327, 215, 228, 20);
+		ind_num_doc.setBounds(357, 240, 245, 20);
 		getContentPane().add(ind_num_doc);
 		ind_num_doc.setVerticalTextPosition(SwingConstants.BOTTOM);
 		ind_num_doc.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -87,7 +87,7 @@ private int d_width=650, d_height=920;
 		ind_num_doc.setFont(font);
 
 		JLabel izpitvan_produkt = new JLabel(request.getIzpitvan_produkt().getName_zpitvan_produkt());
-		izpitvan_produkt.setBounds(171, 255, 384, 20);
+		izpitvan_produkt.setBounds(188, 282, 414, 20);
 		getContentPane().add(izpitvan_produkt);
 		izpitvan_produkt.setVerticalTextPosition(SwingConstants.BOTTOM);
 		izpitvan_produkt.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -113,7 +113,7 @@ private int d_width=650, d_height=920;
 		}
 
 		JLabel obekt_na_izpitvane_1 = new JLabel(str1);
-		obekt_na_izpitvane_1.setBounds(250, 284, 310, 20);
+		obekt_na_izpitvane_1.setBounds(280, 315, 322, 20);
 		getContentPane().add(obekt_na_izpitvane_1);
 		obekt_na_izpitvane_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		obekt_na_izpitvane_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -123,7 +123,7 @@ private int d_width=650, d_height=920;
 		obekt_na_izpitvane_1.setFont(font);
 
 		JLabel obekt_na_izpitvane_2 = new JLabel(str2);
-		obekt_na_izpitvane_2.setBounds(71, 298, 484, 20);
+		obekt_na_izpitvane_2.setBounds(83, 330, 519, 20);
 		getContentPane().add(obekt_na_izpitvane_2);
 		obekt_na_izpitvane_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		obekt_na_izpitvane_2.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -150,7 +150,7 @@ private int d_width=650, d_height=920;
 			}
 		}
 		JLabel pokazatel_razmernost_1 = new JLabel(str1);
-		pokazatel_razmernost_1.setBounds(247, 321, 310, 20);
+		pokazatel_razmernost_1.setBounds(280, 355, 322, 20);
 		getContentPane().add(pokazatel_razmernost_1);
 		pokazatel_razmernost_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		pokazatel_razmernost_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -160,7 +160,7 @@ private int d_width=650, d_height=920;
 		pokazatel_razmernost_1.setFont(font);
 
 		JLabel pokazatel_razmernost_2 = new JLabel(str2);
-		pokazatel_razmernost_2.setBounds(71, 341, 484, 20);
+		pokazatel_razmernost_2.setBounds(83, 375, 519, 20);
 		getContentPane().add(pokazatel_razmernost_2);
 		pokazatel_razmernost_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		pokazatel_razmernost_2.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -238,7 +238,7 @@ private int d_width=650, d_height=920;
 			}
 		}
 		JLabel counts_sample = new JLabel(counts_sample_str);
-		counts_sample.setBounds(282, 366, 274, 20);
+		counts_sample.setBounds(306, 403, 296, 20);
 		getContentPane().add(counts_sample);
 		counts_sample.setVerticalTextPosition(SwingConstants.BOTTOM);
 		counts_sample.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -248,7 +248,7 @@ private int d_width=650, d_height=920;
 		counts_sample.setFont(font);
 
 		JLabel description_sample_group = new JLabel(desk_samp_str[0]);
-		description_sample_group.setBounds(72, 387, 484, 20);
+		description_sample_group.setBounds(83, 427, 519, 20);
 		getContentPane().add(description_sample_group);
 		description_sample_group.setVerticalTextPosition(SwingConstants.BOTTOM);
 		description_sample_group.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -258,7 +258,7 @@ private int d_width=650, d_height=920;
 		description_sample_group.setFont(font);
 
 		JLabel description_sample_1 = new JLabel(desk_samp_str[1]);
-		description_sample_1.setBounds(71, 408, 484, 20);
+		description_sample_1.setBounds(83, 448, 519, 20);
 		getContentPane().add(description_sample_1);
 		description_sample_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		description_sample_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -268,7 +268,7 @@ private int d_width=650, d_height=920;
 		description_sample_1.setFont(font);
 
 		JLabel description_sample_2 = new JLabel(desk_samp_str[2]);
-		description_sample_2.setBounds(72, 428, 484, 20);
+		description_sample_2.setBounds(83, 472, 519, 20);
 		getContentPane().add(description_sample_2);
 		description_sample_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		description_sample_2.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -278,7 +278,7 @@ private int d_width=650, d_height=920;
 		description_sample_2.setFont(font);
 
 		JLabel date_time_reception = new JLabel(request.getDate_time_reception());
-		date_time_reception.setBounds(165, 459, 289, 20);
+		date_time_reception.setBounds(180, 505, 422, 20);
 		getContentPane().add(date_time_reception);
 		date_time_reception.setVerticalTextPosition(SwingConstants.BOTTOM);
 		date_time_reception.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -288,7 +288,7 @@ private int d_width=650, d_height=920;
 		date_time_reception.setFont(font);
 
 		JLabel date_execution = new JLabel(request.getDate_execution());
-		date_execution.setBounds(188, 490, 289, 20);
+		date_execution.setBounds(202, 540, 400, 20);
 		getContentPane().add(date_execution);
 		date_execution.setVerticalTextPosition(SwingConstants.BOTTOM);
 		date_execution.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -298,7 +298,7 @@ private int d_width=650, d_height=920;
 		date_execution.setFont(font);
 
 		JLabel date_time_request = new JLabel(request.getDate_request());
-		date_time_request.setBounds(202, 540, 274, 20);
+		date_time_request.setBounds(221, 595, 381, 20);
 		getContentPane().add(date_time_request);
 		date_time_request.setVerticalTextPosition(SwingConstants.BOTTOM);
 		date_time_request.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -308,7 +308,7 @@ private int d_width=650, d_height=920;
 		date_time_request.setFont(font);
 
 		JLabel user = new JLabel(request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
-		user.setBounds(113, 560, 228, 20);
+		user.setBounds(125, 618, 228, 20);
 		getContentPane().add(user);
 		user.setVerticalTextPosition(SwingConstants.BOTTOM);
 		user.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -335,7 +335,7 @@ private int d_width=650, d_height=920;
 		}
 
 		JLabel zabelejki_1 = new JLabel(str1);
-		zabelejki_1.setBounds(133, 611, 422, 20);
+		zabelejki_1.setBounds(147, 671, 455, 20);
 		getContentPane().add(zabelejki_1);
 		zabelejki_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		zabelejki_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -345,7 +345,7 @@ private int d_width=650, d_height=920;
 		zabelejki_1.setFont(font);
 
 		JLabel zabelejki_2 = new JLabel(str2);
-		zabelejki_2.setBounds(71, 631, 484, 20);
+		zabelejki_2.setBounds(83, 694, 519, 20);
 		getContentPane().add(zabelejki_2);
 		zabelejki_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		zabelejki_2.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -359,15 +359,11 @@ private int d_width=650, d_height=920;
 		lblNewLabel.setAlignmentY(TOP_ALIGNMENT);
 		getContentPane().add(lblNewLabel);
 		ImageIcon pic = new ImageIcon("Zaqvka.png");
-<<<<<<< HEAD
-//		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
-		lblNewLabel.setIcon(pic);
+		lblNewLabel.setIcon(new ImageIcon("E:\\JAVA Project Petar\\JPA_RH_DBase\\Zaqvka.png"));
 
-=======
-		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
+//		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
 		
-	
->>>>>>> 088121feb6e7233fa435f389132678330a966a6b
+
 		setVisible(true);
 	
 	}

@@ -207,7 +207,7 @@ public class MainWindows {
 					smple_vol[i][5] = sample.getGodina_period()+"";
 					i++;
 				}
-				RequestPreview ðequest_ïreview = new RequestPreview(recuest,list_izpitvan_pokazatel,smple_vol);
+				RequestPreview2 ðequest_ïreview = new RequestPreview2(recuest,list_izpitvan_pokazatel,smple_vol);
 				
 			}
 		});

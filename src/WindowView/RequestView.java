@@ -65,6 +65,7 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import javax.swing.ScrollPaneConstants;
 
 public class RequestView extends JFrame {
 
@@ -109,6 +110,7 @@ public class RequestView extends JFrame {
 		scrollpane = new JScrollPane(p);
 		scrollpane.setName("");
 		scrollpane.setBorder(null);
+		
 		GridBagLayout gbl_p = new GridBagLayout();
 		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };

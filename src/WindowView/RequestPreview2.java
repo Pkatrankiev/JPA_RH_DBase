@@ -38,33 +38,73 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.UIManager;
+import javax.swing.ScrollPaneConstants;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
-public class RequestPreview extends JFrame {
+public class RequestPreview2 extends JFrame {
 
-private int d_width=650, d_height=920;
-	public RequestPreview(Request request, String list_izpitvan_pokazatel, String[][] sample_description) {
+	private int d_width = 610, d_height = 865;
+
+	public RequestPreview2(Request request, String list_izpitvan_pokazatel, String[][] sample_description) {
 		super("Преглед на заявка");
-		getContentPane().setBackground(Color.ORANGE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, d_width, d_height);
-		getContentPane().setLayout(null);
-	
+
 		Font font = new Font("Magnolia Script", Font.ITALIC, 12);
 		Color col = Color.BLUE;
 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(630, 920);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+
+		JScrollPane scrollpane = new JScrollPane();
+		scrollpane.setBackground(Color.GREEN);
+		scrollpane.setName("");
+		scrollpane.setBorder(null);
+
+		// *****************************************
+
+		// *********************************************
+
+		getContentPane().add(scrollpane);
+
+		JPanel main_panel = new JPanel();
+		scrollpane.setViewportView(main_panel);
+		GridBagLayout gbl_main_panel = new GridBagLayout();
+		gbl_main_panel.columnWidths = new int[] { d_width };
+		gbl_main_panel.rowHeights = new int[] { d_height };
+		gbl_main_panel.columnWeights = new double[] { 1.0 };
+		gbl_main_panel.rowWeights = new double[] { 1.0 };
+		main_panel.setLayout(gbl_main_panel);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 0;
+		main_panel.add(panel, gbc_panel);
+
+		panel.setSize(d_width, d_height);
+		panel.setBackground(Color.MAGENTA);
+
 		JLabel request_code = new JLabel(request.getRecuest_code());
-		request_code.setBounds(250, 138, 62, 20);
-		getContentPane().add(request_code);
-		request_code.setVerticalTextPosition(SwingConstants.BOTTOM);
-		request_code.setHorizontalTextPosition(SwingConstants.CENTER);
+		request_code.setBounds(250, 146, 62, 20);
+		panel.add(request_code);
+		// request_code.setVerticalTextPosition(SwingConstants.BOTTOM);
+		// request_code.setHorizontalTextPosition(SwingConstants.CENTER);
 		request_code.setHorizontalAlignment(SwingConstants.RIGHT);
 		request_code.setFont(font);
 		request_code.setVerticalAlignment(SwingConstants.BOTTOM);
 		request_code.setForeground(col);
 
 		JLabel request_date = new JLabel(request.getDate_request());
-		request_date.setBounds(319, 138, 98, 20);
-		getContentPane().add(request_date);
+		request_date.setBounds(320, 146, 98, 20);
+		panel.add(request_date);
 		request_date.setVerticalTextPosition(SwingConstants.BOTTOM);
 		request_date.setVerticalAlignment(SwingConstants.BOTTOM);
 		request_date.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -78,7 +118,7 @@ private int d_width=650, d_height=920;
 
 		JLabel ind_num_doc = new JLabel(str);
 		ind_num_doc.setBounds(327, 215, 228, 20);
-		getContentPane().add(ind_num_doc);
+		panel.add(ind_num_doc);
 		ind_num_doc.setVerticalTextPosition(SwingConstants.BOTTOM);
 		ind_num_doc.setVerticalAlignment(SwingConstants.BOTTOM);
 		ind_num_doc.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -88,7 +128,7 @@ private int d_width=650, d_height=920;
 
 		JLabel izpitvan_produkt = new JLabel(request.getIzpitvan_produkt().getName_zpitvan_produkt());
 		izpitvan_produkt.setBounds(171, 255, 384, 20);
-		getContentPane().add(izpitvan_produkt);
+		panel.add(izpitvan_produkt);
 		izpitvan_produkt.setVerticalTextPosition(SwingConstants.BOTTOM);
 		izpitvan_produkt.setVerticalAlignment(SwingConstants.BOTTOM);
 		izpitvan_produkt.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -111,10 +151,9 @@ private int d_width=650, d_height=920;
 				i--;
 			}
 		}
-
 		JLabel obekt_na_izpitvane_1 = new JLabel(str1);
 		obekt_na_izpitvane_1.setBounds(250, 284, 310, 20);
-		getContentPane().add(obekt_na_izpitvane_1);
+		panel.add(obekt_na_izpitvane_1);
 		obekt_na_izpitvane_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		obekt_na_izpitvane_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		obekt_na_izpitvane_1.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -124,13 +163,22 @@ private int d_width=650, d_height=920;
 
 		JLabel obekt_na_izpitvane_2 = new JLabel(str2);
 		obekt_na_izpitvane_2.setBounds(71, 298, 484, 20);
-		getContentPane().add(obekt_na_izpitvane_2);
+		panel.add(obekt_na_izpitvane_2);
 		obekt_na_izpitvane_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		obekt_na_izpitvane_2.setVerticalAlignment(SwingConstants.BOTTOM);
 		obekt_na_izpitvane_2.setHorizontalTextPosition(SwingConstants.CENTER);
 		obekt_na_izpitvane_2.setHorizontalAlignment(SwingConstants.LEFT);
 		obekt_na_izpitvane_2.setForeground(col);
 		obekt_na_izpitvane_2.setFont(font);
+		JLabel pokazatel_razmernost_1 = new JLabel(str1);
+		pokazatel_razmernost_1.setBounds(247, 321, 310, 20);
+		panel.add(pokazatel_razmernost_1);
+		pokazatel_razmernost_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		pokazatel_razmernost_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		pokazatel_razmernost_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		pokazatel_razmernost_1.setHorizontalAlignment(SwingConstants.LEFT);
+		pokazatel_razmernost_1.setForeground(col);
+		pokazatel_razmernost_1.setFont(font);
 
 		str1 = "";
 		str2 = "";
@@ -149,19 +197,10 @@ private int d_width=650, d_height=920;
 				i--;
 			}
 		}
-		JLabel pokazatel_razmernost_1 = new JLabel(str1);
-		pokazatel_razmernost_1.setBounds(247, 321, 310, 20);
-		getContentPane().add(pokazatel_razmernost_1);
-		pokazatel_razmernost_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-		pokazatel_razmernost_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		pokazatel_razmernost_1.setHorizontalTextPosition(SwingConstants.CENTER);
-		pokazatel_razmernost_1.setHorizontalAlignment(SwingConstants.LEFT);
-		pokazatel_razmernost_1.setForeground(col);
-		pokazatel_razmernost_1.setFont(font);
 
 		JLabel pokazatel_razmernost_2 = new JLabel(str2);
 		pokazatel_razmernost_2.setBounds(71, 341, 484, 20);
-		getContentPane().add(pokazatel_razmernost_2);
+		panel.add(pokazatel_razmernost_2);
 		pokazatel_razmernost_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		pokazatel_razmernost_2.setVerticalAlignment(SwingConstants.BOTTOM);
 		pokazatel_razmernost_2.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -174,33 +213,31 @@ private int d_width=650, d_height=920;
 		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ");
 		descrip_sam_gr_str = count + getWordOFNumber(count) + "проби, " + descrip_sam_gr_str;
 
-		
-		Boolean ref_date_fl=false, period_fl =false;
+		Boolean ref_date_fl = false, period_fl = false;
 		for (int k = 0; k < count; k++) {
-		String checkref_date_str = sample_description[k][3];
-		String check_period_str = sample_description[k][4];
-    	for (int i = 0; i < count; i++) {
-    		if(!sample_description[i][3].equals(checkref_date_str))
-    			ref_date_fl=true;
-    		if(!sample_description[i][4].equals(check_period_str))
-    			period_fl=true;
-		}
+			String checkref_date_str = sample_description[k][3];
+			String check_period_str = sample_description[k][4];
+			for (int i = 0; i < count; i++) {
+				if (!sample_description[i][3].equals(checkref_date_str))
+					ref_date_fl = true;
+				if (!sample_description[i][4].equals(check_period_str))
+					period_fl = true;
+			}
 		}
 		String samp_str = "";
-				
+
 		for (int i = 0; i < count; i++) {
-			samp_str =samp_str+ sample_description[i][0]+" / ";
-			samp_str =samp_str+ sample_description[i][1]+", ";
-			samp_str =samp_str+ sample_description[i][2]+", ";
-			if(ref_date_fl)
-				samp_str =samp_str+ "реф. дата: "+sample_description[i][3]+", ";
-			if(period_fl)
-				samp_str =samp_str+ "за "+sample_description[i][4]+" на "+sample_description[i][5]+"г.";
+			samp_str = samp_str + sample_description[i][0] + " / ";
+			samp_str = samp_str + sample_description[i][1] + ", ";
+			samp_str = samp_str + sample_description[i][2] + ", ";
+			if (ref_date_fl)
+				samp_str = samp_str + "реф. дата: " + sample_description[i][3] + ", ";
+			if (period_fl)
+				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
 		}
-		
-		
+
 		max = 34;
-		txt = descrip_sam_gr_str+" "+ samp_str;
+		txt = descrip_sam_gr_str + " " + samp_str;
 		if (txt.length() >= max) {
 			int i = max;
 			while (i > 0) {
@@ -212,13 +249,12 @@ private int d_width=650, d_height=920;
 				i--;
 			}
 		}
-		
 
-		max = 68;
+		max = 58;
 		String counts_sample_str = str1;
 		String[] desk_samp_str = new String[3];
 
-		 desk_samp_str[0] = str2;
+		desk_samp_str[0] = str2;
 		desk_samp_str[1] = "";
 		desk_samp_str[2] = "";
 		for (int k = 0; k < 3; k++) {
@@ -239,7 +275,7 @@ private int d_width=650, d_height=920;
 		}
 		JLabel counts_sample = new JLabel(counts_sample_str);
 		counts_sample.setBounds(282, 366, 274, 20);
-		getContentPane().add(counts_sample);
+		panel.add(counts_sample);
 		counts_sample.setVerticalTextPosition(SwingConstants.BOTTOM);
 		counts_sample.setVerticalAlignment(SwingConstants.BOTTOM);
 		counts_sample.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -249,7 +285,7 @@ private int d_width=650, d_height=920;
 
 		JLabel description_sample_group = new JLabel(desk_samp_str[0]);
 		description_sample_group.setBounds(72, 387, 484, 20);
-		getContentPane().add(description_sample_group);
+		panel.add(description_sample_group);
 		description_sample_group.setVerticalTextPosition(SwingConstants.BOTTOM);
 		description_sample_group.setVerticalAlignment(SwingConstants.BOTTOM);
 		description_sample_group.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -259,7 +295,7 @@ private int d_width=650, d_height=920;
 
 		JLabel description_sample_1 = new JLabel(desk_samp_str[1]);
 		description_sample_1.setBounds(71, 408, 484, 20);
-		getContentPane().add(description_sample_1);
+		panel.add(description_sample_1);
 		description_sample_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		description_sample_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		description_sample_1.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -269,7 +305,7 @@ private int d_width=650, d_height=920;
 
 		JLabel description_sample_2 = new JLabel(desk_samp_str[2]);
 		description_sample_2.setBounds(72, 428, 484, 20);
-		getContentPane().add(description_sample_2);
+		panel.add(description_sample_2);
 		description_sample_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		description_sample_2.setVerticalAlignment(SwingConstants.BOTTOM);
 		description_sample_2.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -279,7 +315,7 @@ private int d_width=650, d_height=920;
 
 		JLabel date_time_reception = new JLabel(request.getDate_time_reception());
 		date_time_reception.setBounds(165, 459, 289, 20);
-		getContentPane().add(date_time_reception);
+		panel.add(date_time_reception);
 		date_time_reception.setVerticalTextPosition(SwingConstants.BOTTOM);
 		date_time_reception.setVerticalAlignment(SwingConstants.BOTTOM);
 		date_time_reception.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -289,7 +325,7 @@ private int d_width=650, d_height=920;
 
 		JLabel date_execution = new JLabel(request.getDate_execution());
 		date_execution.setBounds(188, 490, 289, 20);
-		getContentPane().add(date_execution);
+		panel.add(date_execution);
 		date_execution.setVerticalTextPosition(SwingConstants.BOTTOM);
 		date_execution.setVerticalAlignment(SwingConstants.BOTTOM);
 		date_execution.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -299,7 +335,7 @@ private int d_width=650, d_height=920;
 
 		JLabel date_time_request = new JLabel(request.getDate_request());
 		date_time_request.setBounds(202, 540, 274, 20);
-		getContentPane().add(date_time_request);
+		panel.add(date_time_request);
 		date_time_request.setVerticalTextPosition(SwingConstants.BOTTOM);
 		date_time_request.setVerticalAlignment(SwingConstants.BOTTOM);
 		date_time_request.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -309,7 +345,7 @@ private int d_width=650, d_height=920;
 
 		JLabel user = new JLabel(request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
 		user.setBounds(113, 560, 228, 20);
-		getContentPane().add(user);
+		panel.add(user);
 		user.setVerticalTextPosition(SwingConstants.BOTTOM);
 		user.setVerticalAlignment(SwingConstants.BOTTOM);
 		user.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -336,7 +372,7 @@ private int d_width=650, d_height=920;
 
 		JLabel zabelejki_1 = new JLabel(str1);
 		zabelejki_1.setBounds(133, 611, 422, 20);
-		getContentPane().add(zabelejki_1);
+		panel.add(zabelejki_1);
 		zabelejki_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		zabelejki_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		zabelejki_1.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -346,7 +382,7 @@ private int d_width=650, d_height=920;
 
 		JLabel zabelejki_2 = new JLabel(str2);
 		zabelejki_2.setBounds(71, 631, 484, 20);
-		getContentPane().add(zabelejki_2);
+		panel.add(zabelejki_2);
 		zabelejki_2.setVerticalTextPosition(SwingConstants.BOTTOM);
 		zabelejki_2.setVerticalAlignment(SwingConstants.BOTTOM);
 		zabelejki_2.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -354,27 +390,48 @@ private int d_width=650, d_height=920;
 		zabelejki_2.setForeground(col);
 		zabelejki_2.setFont(font);
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(0, 0, d_width, d_height);
-		lblNewLabel.setAlignmentY(TOP_ALIGNMENT);
-		getContentPane().add(lblNewLabel);
 		ImageIcon pic = new ImageIcon("Zaqvka.png");
-<<<<<<< HEAD
-//		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
-		lblNewLabel.setIcon(pic);
+		// lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA
+		// Project\\JPA_RH_DBase\\Zaqvka.png"));
 
-=======
+		Dimension d = getSize();
+		File source = new File("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png");
+		ImageIcon pic1 = rescaleImage(source, d.height, d.width);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel.setBounds(0, 0, d_width, d_height);
+		panel.add(lblNewLabel);
+		lblNewLabel.setAlignmentY(TOP_ALIGNMENT);
 		lblNewLabel.setIcon(new ImageIcon("C:\\Soft\\JAVA Project\\JPA_RH_DBase\\Zaqvka.png"));
-		
-	
->>>>>>> 088121feb6e7233fa435f389132678330a966a6b
+
 		setVisible(true);
-	
+
+		panel.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent event) {
+				Dimension dim_label = lblNewLabel.getSize();
+				Dimension new_d = getSize();
+				Dimension dim = rescaleComponent(new_d.height, new_d.width,  dim_label);
+				
+				d_height = (int) dim.getHeight();
+				d_width = (int) dim.getWidth();
+				gbl_main_panel.rowHeights = new int[] { d_height };
+				panel.setSize(d_width, d_height);
+				lblNewLabel.setBounds(0, 0, d_width, d_height);
+				
+				ImageIcon pic1 = rescaleImage(source, new_d.height, new_d.width);
+				lblNewLabel.setIcon(pic1);
+					
+
+				System.out.println(d_width + " " + d_height);
+				int w = (d_width - 610) / 2;
+				int h = (d_height - 865) / 2;
+				request_code.setBounds(250 + w, 146 + h, 62, 20);
+
+			}
+		});
+
 	}
-
-
-		
-
 
 	public String getWordOFNumber(int num) {
 		String str = "";
@@ -439,6 +496,71 @@ private int d_width=650, d_height=920;
 			return "(" + str + str2 + ") броя ";
 	}
 
-  
-    
+	public ImageIcon rescaleImage(File source, int maxHeight, int maxWidth) {
+		int newHeight = 0, newWidth = 0; // Variables for the new height and
+											// width
+		int priorHeight = 0, priorWidth = 0;
+		BufferedImage image = null;
+		ImageIcon sizeImage;
+
+		try {
+			image = ImageIO.read(source); // get the image
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			System.out.println("Picture upload attempted & failed");
+		}
+
+		sizeImage = new ImageIcon(image);
+
+		if (sizeImage != null) {
+			priorHeight = sizeImage.getIconHeight();
+			priorWidth = sizeImage.getIconWidth();
+		}
+
+		// Calculate the correct new height and width
+		// if((float)priorHeight/(float)priorWidth >
+		// (float)maxHeight/(float)maxWidth)
+		// {
+		// newHeight = maxHeight;
+		// newWidth =
+		// (int)(((float)priorWidth/(float)priorHeight)*(float)newHeight);
+		// }
+		// else
+		{
+			newWidth = maxWidth;
+			newHeight = (int) (((float) priorHeight / (float) priorWidth) * (float) newWidth);
+		}
+
+		// Resize the image
+
+		// 1. Create a new Buffered Image and Graphic2D object
+		BufferedImage resizedImg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = resizedImg.createGraphics();
+
+		// 2. Use the Graphic object to draw a new image to the image in the
+		// buffer
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(image, 0, 0, newWidth, newHeight, null);
+		g2.dispose();
+
+		// 3. Convert the buffered image into an ImageIcon for return
+		return (new ImageIcon(resizedImg));
+	}
+
+	public Dimension rescaleComponent(int maxHeight, int maxWidth, Dimension dim_label) {
+		int newHeight = 0, newWidth = 0; // Variables for the new height and
+		// width
+		int priorHeight = 0, priorWidth = 0;
+					
+			priorHeight = (int) dim_label.getHeight();
+			priorWidth = (int) dim_label.getWidth();
+				
+			newWidth = maxWidth;
+			newHeight = (int) (((float) priorHeight / (float) priorWidth) * (float) newWidth);
+		
+			Dimension d = new Dimension();
+		 d.setSize(newWidth, newHeight);
+		return d;
+	}
 }

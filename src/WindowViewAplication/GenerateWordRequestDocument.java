@@ -60,7 +60,7 @@ public class GenerateWordRequestDocument {
 			}
 		}
 		substitutionData.put("$$pokazatel_razmernost_1$$", str1);
-		substitutionData.put("$$pokazatel_razmernost_$$", str2);
+		substitutionData.put("$$pokazatel_razmernost_2$$", str2);
 
 		str2 = "";
 		int count = request.getCounts_samples();

@@ -50,6 +50,7 @@ import Aplication.UsersDAO;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import WindowViewAplication.GenerateWordRequestDocument;
 
 import java.awt.SystemColor;
 import javax.swing.border.EmptyBorder;
@@ -193,6 +194,7 @@ public class MainWindows {
 			
 			public void mousePressed(MouseEvent e) {
 				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
+				
 				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3470");
 				
 				List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
@@ -207,7 +209,8 @@ public class MainWindows {
 					smple_vol[i][5] = sample.getGodina_period()+"";
 					i++;
 				}
-				RequestPreview2 рequest_пreview = new RequestPreview2(recuest,list_izpitvan_pokazatel,smple_vol);
+				GenerateWordRequestDocument.GenerateWordDocument(recuest, list_izpitvan_pokazatel, smple_vol);
+//				RequestPreview2 рequest_пreview = new RequestPreview2(recuest,list_izpitvan_pokazatel,smple_vol);
 				
 			}
 		});

@@ -426,7 +426,7 @@ public class RequestPreview2 extends JFrame {
 				System.out.println(d_width + " " + d_height);
 				int w = (d_width - 610) / 2;
 				int h = (int) (w*1.4)/2;
-				request_code.setBounds(250*1,4 + w, 146 + h, 62, 20);
+				request_code.setBounds((int) (250*1.4 + w), 146 + h, 62, 20);
 
 			}
 		});

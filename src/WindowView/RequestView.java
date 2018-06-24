@@ -45,6 +45,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import WindowViewAplication.GenerateWordRequestDocument;
 import WindowViewAplication.RequestViewAplication;
 
 import java.awt.GridBagLayout;
@@ -89,6 +90,21 @@ public class RequestView extends JFrame {
 
 	private Dimension d;
 
+	private JLabel lblError;
+	private Choice choice_izpitvan_produkt;
+	private Choice choice_obekt_na_izpitvane_request;
+	private JTextArea txtArea_list_izpitvan_pokazatel;
+	private JTextField txt_fid_date_time_reception;
+	private JTextArea txtArea_SampleDescription;
+	private Choice choice_ind_num_doc;
+	private Choice choice_Razmernost;
+	private Choice choice_Zab;
+	private JCheckBox chckbx_accreditation;
+	private JTextArea txtArea_Descript_grup_Sample;
+	private Users curent_user;
+	private ArrayList<String> array_O_I_R;
+	private Request request = null;;
+
 	public RequestView(Users user) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
@@ -100,6 +116,8 @@ public class RequestView extends JFrame {
 
 	public void init(Users user) {
 
+		curent_user = user;
+
 		final JPanel p = new JPanel();
 		p.setAlignmentY(0.0f);
 		p.setAlignmentX(0.0f);
@@ -110,7 +128,7 @@ public class RequestView extends JFrame {
 		scrollpane = new JScrollPane(p);
 		scrollpane.setName("");
 		scrollpane.setBorder(null);
-		
+
 		GridBagLayout gbl_p = new GridBagLayout();
 		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
@@ -158,7 +176,7 @@ public class RequestView extends JFrame {
 		String text2 = "<html>Попълва се от ЛИ-РХ за изпитвания, извършвани по програми и документи, вътрешни за<br>"
 				+ "ДП „Радиоактивни отпадъци”</html>";
 
-		final JLabel lblError = new JLabel(" ");
+		lblError = new JLabel(" ");
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
 		gbc_lblError.gridwidth = 5;
 		gbc_lblError.anchor = GridBagConstraints.ABOVE_BASELINE;
@@ -296,7 +314,7 @@ public class RequestView extends JFrame {
 		p.add(lbl_ind_num_doc, gbc_lbl_ind_num_doc);
 
 		// TODO choice_ind_num_doc (Ид. номер на документа)
-		Choice choice_ind_num_doc = new Choice();
+		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
 		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
 		for (String string : arr) {
@@ -337,7 +355,7 @@ public class RequestView extends JFrame {
 		p.add(lbl_izpitvan_produkt, gbc_lbl_izpitvan_produkt);
 
 		// TODO choice_izpitvan_produkt (изпитван продукт)
-		Choice choice_izpitvan_produkt = new Choice();
+		choice_izpitvan_produkt = new Choice();
 		String[] arr1 = RequestViewAplication.getStringMassiveIzpitvanProdukt();
 		for (String string : arr1) {
 			choice_izpitvan_produkt.add(string);
@@ -381,9 +399,9 @@ public class RequestView extends JFrame {
 		p.add(lbl_obekt_na_izpitvane_request, gbc_lbl_obekt_na_izpitvane_request);
 
 		// TODO choice_obekt_na_izpitvane_request (обект на изпитване)
-		Choice choice_obekt_na_izpitvane_request = new Choice();
+		choice_obekt_na_izpitvane_request = new Choice();
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(205, 20));
-		ArrayList<String> array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
+		array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
 		for (String string : array_O_I_R) {
 			System.out.println(string);
 			choice_obekt_na_izpitvane_request.add(string);
@@ -420,10 +438,11 @@ public class RequestView extends JFrame {
 				Boolean fl = false;
 				final JFrame f = new JFrame();
 
-				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R, choice_obekt_na_izpitvane_request.getSelectedItem());
+				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
+						choice_obekt_na_izpitvane_request.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
-System.out.println("5555555 "+str);
+				System.out.println("5555555 " + str);
 				for (String string : array_O_I_R) {
 					if (str.equals(string))
 						fl = true;
@@ -452,7 +471,7 @@ System.out.println("5555555 "+str);
 		p.add(lbl_Razmernost, gbc_lbl_Razmernost);
 
 		// TODO choice_Razmernost (размерност)
-		Choice choice_Razmernost = new Choice();
+		choice_Razmernost = new Choice();
 		choice_Razmernost.setPreferredSize(new Dimension(60, 20));
 		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
 		for (String string : arr3) {
@@ -465,7 +484,7 @@ System.out.println("5555555 "+str);
 		gbc_choice_Razmernost.gridy = 10;
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 
-		JCheckBox chckbx_accreditation = new JCheckBox("Извън обхват");
+		chckbx_accreditation = new JCheckBox("Извън обхват");
 		GridBagConstraints gbc_chckbx_accreditation = new GridBagConstraints();
 		gbc_chckbx_accreditation.anchor = GridBagConstraints.EAST;
 		gbc_chckbx_accreditation.insets = new Insets(0, 0, 5, 5);
@@ -482,7 +501,7 @@ System.out.println("5555555 "+str);
 		p.add(lbl_list_izpitvan_pokazatel, gbc_lbl_list_izpitvan_pokazatel);
 
 		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
-		final JTextArea txtArea_list_izpitvan_pokazatel = new JTextArea();
+		txtArea_list_izpitvan_pokazatel = new JTextArea();
 		GridBagConstraints gbc_txtArea_list_izpitvan_pokazatel = new GridBagConstraints();
 		gbc_txtArea_list_izpitvan_pokazatel.gridwidth = 3;
 		gbc_txtArea_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
@@ -513,7 +532,7 @@ System.out.println("5555555 "+str);
 				}
 				txtArea_list_izpitvan_pokazatel.setBorder(border);
 				int cout_str = str.length();
-				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str-1));
+				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
 
 			}
 		});
@@ -535,7 +554,7 @@ System.out.println("5555555 "+str);
 		p.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
 
 		// TODO txtArea_Descript_grup_Sample (описание на групата проби)
-		JTextArea txtArea_Descript_grup_Sample = new JTextArea();
+		txtArea_Descript_grup_Sample = new JTextArea();
 
 		GridBagConstraints gbc_txtArea_Descript_grup_Sample = new GridBagConstraints();
 		gbc_txtArea_Descript_grup_Sample.gridwidth = 5;
@@ -562,12 +581,12 @@ System.out.println("5555555 "+str);
 		}
 
 		// TODO txt_fid_date_time_reception (референтна дата час)
-		final JTextField txt_fid_date_time_reception = new JTextField("");
+		txt_fid_date_time_reception = new JTextField("");
 		txt_fid_date_time_reception.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
-			
+
 			}
 
 			@Override
@@ -585,7 +604,7 @@ System.out.println("5555555 "+str);
 
 			@Override
 			public void keyPressed(KeyEvent event) {
-			
+
 			}
 		});
 
@@ -735,7 +754,7 @@ System.out.println("5555555 "+str);
 		txtFld_Count_Sample.setColumns(3);
 
 		// TODO txtArea_SampleDescription (описание на пробите)
-		final JTextArea txtArea_SampleDescription = new JTextArea();
+		txtArea_SampleDescription = new JTextArea();
 		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
 		gbc_txtArea_SampleDescription.gridwidth = 5;
 		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
@@ -762,15 +781,15 @@ System.out.println("5555555 "+str);
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
-							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S, ref_Date_Time, period,
-									string);
-							
+							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
+									ref_Date_Time, period, string);
+
 							sampleDescript.setVisible(true);
-							if(!SampleViewAdd.cancelEntered()){
-							string = SampleViewAdd.getVolumeSampleView(count_Sample);
-							txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-							txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(string));
-							txtArea_SampleDescription.setBorder(border);
+							if (!SampleViewAdd.cancelEntered()) {
+								string = SampleViewAdd.getVolumeSampleView(count_Sample);
+								txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
+								txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(string));
+								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
@@ -975,7 +994,7 @@ System.out.println("5555555 "+str);
 		// TODO choice_Zab (забележка)
 
 		ArrayList<String> arrayZab = RequestViewAplication.getStringZabelejki();
-		final Choice choice_Zab = new Choice();
+		choice_Zab = new Choice();
 		for (String string : arrayZab) {
 			choice_Zab.add(string);
 		}
@@ -1019,150 +1038,48 @@ System.out.println("5555555 "+str);
 		gbc_btn_add_Zab.gridy = 23;
 		p.add(btn_add_Zab, gbc_btn_add_Zab);
 
-		JButton btn_save = new JButton("Преглед");
+		JButton btn_save = new JButton("Запис");
 
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Boolean saveCheck = true;
-				String str_RequestCode = "";
-				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
-					txtField_RequestCode.setForeground(Color.red);
-					lblError.setText("Заявка с този номер вече съществува");
-					corectRequestCode = false;
-				} else {{
-						txtField_RequestCode.setForeground(Color.BLACK);
 
-						txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-						lblError.setText(" ");
-						corectRequestCode = true;
-					}
-				}
-				if (!corectRequestCode) {
-					txtField_RequestCode.setBorder(new LineBorder(Color.RED));
-					str_RequestCode = "код на заявката" + "\n";
-					saveCheck = false;
-				}
-				String str_RequestDate = "";
-				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
-					txtFld_Date_Request.setBorder(new LineBorder(Color.RED));
-					str_RequestDate = "дата на заявката" + "\n";
-					saveCheck = false;
-				}
-				String str_Izpit_Prod = "";
-				if (choice_izpitvan_produkt.getSelectedItem().equals("")) {
-					choice_izpitvan_produkt.setBackground(Color.RED);
-					str_Izpit_Prod = "изпитван продукт" + "\n";
-					saveCheck = false;
-				}
-				String str_Obekt_Izpit = "";
-				if (choice_obekt_na_izpitvane_request.getSelectedItem().equals("")) {
-					choice_obekt_na_izpitvane_request.setBackground(Color.RED);
-					str_Obekt_Izpit = "обект на изпитване" + "\n";
-					saveCheck = false;
-				}
-				String str_L_I_P = "";
-				if (txtArea_list_izpitvan_pokazatel.getText().equals("")) {
-					txtArea_list_izpitvan_pokazatel.setBorder(new LineBorder(Color.RED));
-					str_L_I_P = "изпитван показател" + "\n";
-					saveCheck = false;
-				}
-				String str_corectRefDate = "";
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true)){
-					txt_fid_date_time_reception.setBorder(new LineBorder(Color.RED));
-					str_corectRefDate = "референтна дата" + "\n";
-					saveCheck = false;
-				}
-				String str_SampleDescription = "";
-				if (txtArea_SampleDescription.getText().equals("")) {
-					txtArea_SampleDescription.setBorder(new LineBorder(Color.RED));
-					str_SampleDescription = "описание на пробите" + "\n";
-					saveCheck = false;
-				}
-				String str_DateExecution = "";
-				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
-					txtFld_date_execution.setBorder(new LineBorder(Color.RED));
-					str_DateExecution = "срок за изпълнение" + "\n";
-					saveCheck = false;
-				}
+				if (checkRequest()) {
+					request = createRequestObject();
 
-				String str_DateTimeRequest = "";
-				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
-					txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
-					str_DateTimeRequest = "дата на приемане" + "\n";
-					saveCheck = false;
-				}
-
-				if (!saveCheck) {
-					String str = str_RequestCode + str_RequestDate + str_Izpit_Prod + str_Obekt_Izpit + str_L_I_P
-							+ str_corectRefDate + str_SampleDescription + str_DateExecution + str_DateTimeRequest;
-					System.out.println(str);
-					JOptionPane.showMessageDialog(RequestView.this, str, "Грешни данни за следните полета:",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					Ind_num_doc ind_num_doc = null;
-					if (!choice_ind_num_doc.getSelectedItem().equals(" "))
-						ind_num_doc = Ind_num_docDAO.getValueIByName(choice_ind_num_doc.getSelectedItem());
-
-					Izpitvan_produkt izpitvan_produkt = Izpitvan_produktDAO
-							.getValueIzpitvan_produktByName(choice_izpitvan_produkt.getSelectedItem());
-					Razmernosti razmernosti = RazmernostiDAO
-							.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
-					Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiByName(choice_Zab.getSelectedItem());
-					Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
-							.getValueObekt_na_izpitvane_requestByName(
-									choice_obekt_na_izpitvane_request.getSelectedItem());
 					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+					string = SampleViewAdd.getVolumeSampleView(count_Sample);
 
-					int countOld , coundNew ;
-					coundNew = array_O_I_R.size();
-					countOld = RequestViewAplication.getStringMassiveO_I_R().size();
-					System.out.println(coundNew+" "+countOld);
-					if(countOld!=coundNew){
-						for (int i = countOld; i < coundNew; i++) {
-							Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
-						}
-					}
-					
-			
-					
-				Request recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-							chckbx_accreditation.isSelected(), section, xtra_module,
-							count_Sample, txtArea_Descript_grup_Sample.getText(),
-							txt_fid_date_time_reception.getText(), txtFld_date_execution.getText(), ind_num_doc,
-							izpitvan_produkt, razmernosti, zabelejki, user, obekt_na_izpitvane_request);
-				
-			    	string = SampleViewAdd.getVolumeSampleView(count_Sample);
-			    	
-			    	
-			    	
-			    	
-					RequestPreview рequest_пreview = new RequestPreview(recuest,txtArea_list_izpitvan_pokazatel.getText(),string);	
-					
-					
-					
-					RequestDAO.saveRequestFromRequest(recuest);
-					
-										
+					RequestDAO.saveRequestFromRequest(request);
+
 					for (int i = 0; i < count_Sample; i++) {
 						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
-						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(string[i][1]);	
-					SampleDAO.setValueSample(string[i][0],string[i][2],string[i][3],recuest,obectNaIzpitvaneSample,period,Integer.valueOf(string[i][5]));
+						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
+								.getValueObekt_na_izpitvane_sampleByName(string[i][1]);
+						SampleDAO.setValueSample(string[i][0], string[i][2], string[i][3], request,
+								obectNaIzpitvaneSample, period, Integer.valueOf(string[i][5]));
 					}
-
+					GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
+							string);
 				}
-
 			}
 		});
-		
+
 		JButton btnNewButton = new JButton("Превю");
 		btnNewButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				
-				
+				request = createRequestObject();
+
+				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+				string = SampleViewAdd.getVolumeSampleView(count_Sample);
+//				RequestPreview рequest_preview = new RequestPreview(request, txtArea_list_izpitvan_pokazatel.getText(),
+//						string);
+				GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
+						string);
+
 			}
 		});
+
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 4;
@@ -1178,6 +1095,118 @@ System.out.println("5555555 "+str);
 		p.add(btn_save, gbc_btn_save);
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
+
+	}
+
+	private Boolean checkRequest() {
+
+		Boolean saveCheck = true;
+		String str_RequestCode = "";
+		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
+			txtField_RequestCode.setForeground(Color.red);
+			lblError.setText("Заявка с този номер вече съществува");
+			corectRequestCode = false;
+		} else {
+			txtField_RequestCode.setForeground(Color.BLACK);
+
+			txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
+			lblError.setText(" ");
+			corectRequestCode = true;
+
+		}
+		if (!corectRequestCode) {
+			txtField_RequestCode.setBorder(new LineBorder(Color.RED));
+			str_RequestCode = "код на заявката" + "\n";
+			saveCheck = false;
+		}
+		String str_RequestDate = "";
+		if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
+			txtFld_Date_Request.setBorder(new LineBorder(Color.RED));
+			str_RequestDate = "дата на заявката" + "\n";
+			saveCheck = false;
+		}
+		String str_Izpit_Prod = "";
+		if (choice_izpitvan_produkt.getSelectedItem().equals("")) {
+			choice_izpitvan_produkt.setBackground(Color.RED);
+			str_Izpit_Prod = "изпитван продукт" + "\n";
+			saveCheck = false;
+		}
+		String str_Obekt_Izpit = "";
+		if (choice_obekt_na_izpitvane_request.getSelectedItem().equals("")) {
+			choice_obekt_na_izpitvane_request.setBackground(Color.RED);
+			str_Obekt_Izpit = "обект на изпитване" + "\n";
+			saveCheck = false;
+		}
+		String str_L_I_P = "";
+		if (txtArea_list_izpitvan_pokazatel.getText().equals("")) {
+			txtArea_list_izpitvan_pokazatel.setBorder(new LineBorder(Color.RED));
+			str_L_I_P = "изпитван показател" + "\n";
+			saveCheck = false;
+		}
+		String str_corectRefDate = "";
+		if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true)) {
+			txt_fid_date_time_reception.setBorder(new LineBorder(Color.RED));
+			str_corectRefDate = "референтна дата" + "\n";
+			saveCheck = false;
+		}
+		String str_SampleDescription = "";
+		if (txtArea_SampleDescription.getText().equals("")) {
+			txtArea_SampleDescription.setBorder(new LineBorder(Color.RED));
+			str_SampleDescription = "описание на пробите" + "\n";
+			saveCheck = false;
+		}
+		String str_DateExecution = "";
+		if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
+			txtFld_date_execution.setBorder(new LineBorder(Color.RED));
+			str_DateExecution = "срок за изпълнение" + "\n";
+			saveCheck = false;
+		}
+
+		String str_DateTimeRequest = "";
+		if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
+			txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
+			str_DateTimeRequest = "дата на приемане" + "\n";
+			saveCheck = false;
+		}
+		if (!saveCheck) {
+			String str = str_RequestCode + str_RequestDate + str_Izpit_Prod + str_Obekt_Izpit + str_L_I_P
+					+ str_corectRefDate + str_SampleDescription + str_DateExecution + str_DateTimeRequest;
+			System.out.println(str);
+			JOptionPane.showMessageDialog(RequestView.this, str, "Грешни данни за следните полета:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		return saveCheck;
+	}
+
+	private Request createRequestObject() {
+		Request recuest = null;
+		Ind_num_doc ind_num_doc = null;
+		if (!choice_ind_num_doc.getSelectedItem().equals(" "))
+			ind_num_doc = Ind_num_docDAO.getValueIByName(choice_ind_num_doc.getSelectedItem());
+
+		Izpitvan_produkt izpitvan_produkt = Izpitvan_produktDAO
+				.getValueIzpitvan_produktByName(choice_izpitvan_produkt.getSelectedItem());
+		Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
+		Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiByName(choice_Zab.getSelectedItem());
+		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
+				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
+		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+
+		int countOld, coundNew;
+		coundNew = array_O_I_R.size();
+		countOld = RequestViewAplication.getStringMassiveO_I_R().size();
+		System.out.println(coundNew + " " + countOld);
+		if (countOld != coundNew) {
+			for (int i = countOld; i < coundNew; i++) {
+				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
+			}
+		}
+		return recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
+				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
+				txtArea_Descript_grup_Sample.getText(), txt_fid_date_time_reception.getText(),
+				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
+				obekt_na_izpitvane_request);
 
 	}
 

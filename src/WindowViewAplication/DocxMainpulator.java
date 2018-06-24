@@ -24,28 +24,17 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-
 public class DocxMainpulator {
 
 	private static final String MAIN_DOCUMENT_PATH = "word/document.xml";
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
+	private static final String destinationDir = "TEMPLATES/";
 
-	/* PUBLIC METHODS */
-
-	/**
-	 * Generates .docx document from given template and the substitution data
-	 * 
-	 * @param templateName
-	 *            Template data
-	 * @param substitutionData
-	 *            Hash map with the set of key-value pairs that represent
-	 *            substitution data
-	 * @return
-	 */
-	public static Boolean generateAndSendDocx(String templateName, Map<String, String> substitutionData) {
+	// Generates .docx document from given template and the substitution data
+	public static Boolean generateAndSendDocx(String templateName, String destinationName,
+			Map<String, String> substitutionData) {
 
 		String templateLocation = TEMPLATE_DIRECTORY_ROOT + templateName;
-		String destinationDir = "TEMPLATES/";
 		String userTempDir = UUID.randomUUID().toString();
 		userTempDir = TEMPLATE_DIRECTORY_ROOT + userTempDir + "/";
 
@@ -60,20 +49,13 @@ public class DocxMainpulator {
 			// Rezip .docx file
 			zip(new File(userTempDir), new File(userTempDir + templateName));
 
-			File sourceFolder = new File(userTempDir + templateName);
-			File destinationFolder = new File(destinationDir);
-
-			moveFile(destinationFolder, sourceFolder);
-			
-
-			// Send HTTP response
-			// sendDOCXResponse(new File(userTempDir + templateName),
-			// templateName);
-
+			//Move .docx file to destinationDir with destinationName
+			moveFile(new File(destinationDir), destinationName, new File(userTempDir + templateName));
+		
 			// Clean temp data
 			deleteTempData(new File(userTempDir));
-			
-			openWordDoc(destinationDir+templateName);
+
+			openWordDoc(destinationDir + destinationName + ".docx");
 
 		} catch (IOException ioe) {
 			System.out.println(ioe.getMessage());
@@ -83,17 +65,7 @@ public class DocxMainpulator {
 		return true;
 	}
 
-	/* PRIVATE METHODS */
-
-	/**
-	 * Unzipps specified ZIP file to specified directory
-	 * 
-	 * @param zipfile
-	 *            Source ZIP file
-	 * @param directory
-	 *            Destination directory
-	 * @throws IOException
-	 */
+	// Unzipps specified ZIP file to specified directory
 	private static void unzip(File zipfile, File directory) throws IOException {
 
 		ZipFile zfile = new ZipFile(zipfile);
@@ -116,16 +88,7 @@ public class DocxMainpulator {
 		}
 	}
 
-	/**
-	 * Substitutes keys found in target file with corresponding data
-	 * 
-	 * @param targetFile
-	 *            Target file
-	 * @param substitutionData
-	 *            Map of key-value pairs of data
-	 * @throws IOException
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	// Substitutes keys found in target file with corresponding data
 	private static void changeData(File targetFile, Map<String, String> substitutionData) throws IOException {
 
 		BufferedReader br = null;
@@ -164,15 +127,7 @@ public class DocxMainpulator {
 		}
 	}
 
-	/**
-	 * Zipps specified directory and all its subdirectories
-	 * 
-	 * @param directory
-	 *            Specified directory
-	 * @param zipfile
-	 *            Output ZIP file name
-	 * @throws IOException
-	 */
+	// Zipps specified directory and all its subdirectories
 	private static void zip(File directory, File zipfile) throws IOException {
 
 		File dir = new File("TEMPLATES/");
@@ -208,18 +163,8 @@ public class DocxMainpulator {
 		}
 	}
 
-	/**
-	 * Sends HTTP Response containing .docx file to Client
-	 * 
-	 * @param generatedFile
-	 *            Path to generated .docx file
-	 * @param fileName
-	 *            File name of generated file that is being presented to user
-	 * @throws IOException
-	 */
-
-
-	private static void moveFile(File destinationFolder, File sourceFolder) {
+	// Move generate file from sourceFolder to destinationFolder
+	private static void moveFile(File destinationFolder, String destinationName, File sourceFolder) {
 
 		if (!destinationFolder.exists()) {
 			destinationFolder.mkdirs();
@@ -227,13 +172,20 @@ public class DocxMainpulator {
 
 		// Check weather source exists and it is folder.
 		if (sourceFolder.exists()) {
-			// Get list of the files and iterate over them
-			File file = sourceFolder.getAbsoluteFile();
 
-			{
-				// Move files to destination folder
-				file.renameTo(new File(destinationFolder + "\\" + file.getName()));
+			File sourceFile = sourceFolder.getAbsoluteFile();
+			File destFile = new File(destinationFolder + "\\" + destinationName + ".docx");
+			File delFile = new File(destinationFolder + "\\" + destinationName + ".docx");
+			File destOldFile = new File(destinationFolder + "\\" + destinationName + "-old.docx");
+
+			if (destFile.isFile() && destFile.canRead()){
+				destOldFile.delete();
+				destFile.renameTo(destOldFile);
+				
 			}
+				// Move files to destination folder
+				sourceFile.renameTo(destFile);
+//				destFile.enforceReadonlyProtection();
 
 			// Add if you want to delete the source folder
 			// sourceFolder.delete();
@@ -245,14 +197,8 @@ public class DocxMainpulator {
 
 	}
 
-	/**
-	 * Deletes directory and all its subdirectories
-	 * 
-	 * @param file
-	 *            Specified directory
-	 * @throws IOException
-	 */
-	public static void deleteTempData(File file) throws IOException {
+	// Deletes directory and all its subdirectories
+	private static void deleteTempData(File file) throws IOException {
 
 		if (file.isDirectory()) {
 
@@ -312,20 +258,21 @@ public class DocxMainpulator {
 	}
 
 	private static void openWordDoc(String destinationDir) throws IOException {
-//		Process p = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler"+destinationDir);
+		// Process p = Runtime.getRuntime().exec("rundll32
+		// url.dll,FileProtocolHandler"+destinationDir);
 		try {
 			if (Desktop.isDesktopSupported()) {
-			       Desktop.getDesktop().open(new File(destinationDir));
+				Desktop.getDesktop().open(new File(destinationDir));
 			}
-//			p.waitFor();
+			// p.waitFor();
 		} catch (IOException ioe) {
-		     ioe.printStackTrace();
-		  }
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("Donenot.");
-//		}
+			ioe.printStackTrace();
+		}
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// System.out.println("Donenot.");
+		// }
 		System.out.println(destinationDir);
 	}
 

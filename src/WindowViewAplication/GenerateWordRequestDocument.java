@@ -17,6 +17,7 @@ public class GenerateWordRequestDocument {
 		substitutionData.put("$$request_code$$", request.getRecuest_code());
 
 		substitutionData.put("$$request_date$$", request.getDate_request());
+//		substitutionData.put("$$request_date$$", RequestViewAplication.DateNaw(true));
 		String str = "";
 		if (request.getInd_num_doc() != null)
 			str = request.getInd_num_doc().getName();
@@ -46,6 +47,7 @@ public class GenerateWordRequestDocument {
 		str2 = "";
 		String izpit_pokaz = list_izpitvan_pokazatel.replaceAll("\n", " ");
 		izpit_pokaz = izpit_pokaz + " / " + request.getRazmernosti().getName_razmernosti();
+		str1 = izpit_pokaz;
 		max = 50;
 		String txt = izpit_pokaz;
 		if (txt.length() >= max) {
@@ -142,6 +144,7 @@ public class GenerateWordRequestDocument {
 		str2 = "";
 
 		max = 70;
+		str1 = zabel_str;
 		txt = zabel_str;
 		if (txt.length() >= max) {
 			int i = max;
@@ -159,7 +162,7 @@ public class GenerateWordRequestDocument {
 
 		// substitutionData.put("$$code2$$", "2222");
 
-		DocxMainpulator.generateAndSendDocx("temp.docx", substitutionData);
+		DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+request.getRecuest_code()+"_"+request.getDate_request(), substitutionData);
 	}
 
 	public static String getWordOFNumber(int num) {

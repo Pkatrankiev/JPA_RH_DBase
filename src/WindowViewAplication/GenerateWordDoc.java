@@ -27,6 +27,7 @@ public class GenerateWordDoc {
 //	zarejdame dokumenta
 	static WordprocessingMLPackage getTemplate(String name) throws Docx4JException, FileNotFoundException {
 		WordprocessingMLPackage template = WordprocessingMLPackage.load(new FileInputStream(new File(name)));
+		
 		return template;
 	}
 	
@@ -64,27 +65,11 @@ public class GenerateWordDoc {
 		template.save(f);
 	}
 	
-	private void MapTable(){
-	Map<String,String> repl1 = new HashMap<String, String>();
-	repl1.put("SJ_FUNCTION", "function1");
-	repl1.put("SJ_DESC", "desc1");
-	repl1.put("SJ_PERIOD", "period1");
-
-	Map<String,String> repl2 = new HashMap<String, String>();
-	repl2.put("SJ_FUNCTION", "function2");
-	repl2.put("SJ_DESC", "desc2");
-	repl2.put("SJ_PERIOD", "period2");
-
-	Map<String,String> repl3 = new HashMap<String, String>();
-	repl3.put("SJ_FUNCTION", "function3");
-	repl3.put("SJ_DESC", "desc3");
-	repl3.put("SJ_PERIOD", "period3");
-
-//	replaceTable(new String[]{"SJ_FUNCTION","SJ_DESC","SJ_PERIOD"}, Arrays.asList(repl1,repl2,repl3), template);
-	}
 	
-	private void replaceTable(String[] placeholders, List<Map<String, String>> textToAdd,
+	
+	static void replaceTable(String[] placeholders, List<Map<String, String>> textToAdd,
 			WordprocessingMLPackage template) throws Docx4JException, JAXBException {
+		
 		List<Object> tables = getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
  
 		// 1. find the table
@@ -119,7 +104,7 @@ public class GenerateWordDoc {
 		reviewtable.getContent().add(workingRow);
 	}
 	
-	private Tbl getTemplateTable(List<Object> tables, String templateKey) throws Docx4JException, JAXBException {
+	private static Tbl getTemplateTable(List<Object> tables, String templateKey) throws Docx4JException, JAXBException {
 		for (Iterator<Object> iterator = tables.iterator(); iterator.hasNext();) {
 			Object tbl = iterator.next();
 			List<?> textElements = getAllElementFromObject(tbl, Text.class);

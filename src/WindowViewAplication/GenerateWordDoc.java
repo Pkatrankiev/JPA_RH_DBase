@@ -25,7 +25,7 @@ import org.docx4j.wml.Tr;
 public class GenerateWordDoc {
 
 //	zarejdame dokumenta
-	public static WordprocessingMLPackage getTemplate(String name) throws Docx4JException, FileNotFoundException {
+	static WordprocessingMLPackage getTemplate(String name) throws Docx4JException, FileNotFoundException {
 		WordprocessingMLPackage template = WordprocessingMLPackage.load(new FileInputStream(new File(name)));
 		return template;
 	}

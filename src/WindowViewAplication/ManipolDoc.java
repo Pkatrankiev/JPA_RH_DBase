@@ -12,7 +12,7 @@ public class ManipolDoc {
 		// TODO Auto-generated method stub
 		WordprocessingMLPackage template = null;
 		try {
-			template = GenerateWordDoc.getTemplate("D:\\123.docx");
+			template = GenerateWordDoc.getTemplate("C:\\temp.docx");
 		} catch (FileNotFoundException | Docx4JException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

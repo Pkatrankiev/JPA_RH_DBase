@@ -77,9 +77,9 @@ public class GenerateWordDocTemplate {
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
  
 		// first row is header, second row is content
-		if (rows.size() == 2) {
+		if (rows.size() >= 3) {
 			// this is our template row
-			Tr templateRow = (Tr) rows.get(1);
+			Tr templateRow = (Tr) rows.get(3);
  
 			for (Map<String, String> replacements : textToAdd) {
 				// 2 and 3 are done in this method

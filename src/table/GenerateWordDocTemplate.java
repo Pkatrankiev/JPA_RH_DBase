@@ -1,12 +1,12 @@
-package WindowViewAplication;
+package table;
+
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,7 @@ import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
 
-public class GenerateWordDoc {
+public class GenerateWordDocTemplate {
 
 //	zarejdame dokumenta
 	static WordprocessingMLPackage getTemplate(String name) throws Docx4JException, FileNotFoundException {
@@ -119,3 +119,4 @@ public class GenerateWordDoc {
 
 
 }
+

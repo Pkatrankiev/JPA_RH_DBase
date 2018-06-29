@@ -22,7 +22,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JMenu;
 import javax.swing.JTextPane;
@@ -47,9 +49,11 @@ import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
+import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.GenerateWordRequestDocument;
 
 import java.awt.SystemColor;
@@ -209,9 +213,9 @@ public class MainWindows {
 					smple_vol[i][5] = sample.getGodina_period()+"";
 					i++;
 				}
-				GenerateWordRequestDocument.GenerateWordDocument(recuest, list_izpitvan_pokazatel, smple_vol);
-//				RequestPreview2 ðequest_ïreview = new RequestPreview2(recuest,list_izpitvan_pokazatel,smple_vol);
-				
+				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(recuest, list_izpitvan_pokazatel, smple_vol);
+//				DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+recuest.getRecuest_code()+"_"+recuest.getDate_request(), substitutionData);
+				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", "3470",substitutionData);
 			}
 		});
 

@@ -1,4 +1,4 @@
-package table;
+package CreateWordDocProtocol;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,12 +65,12 @@ public class GenerateWordDocTemplate {
 	}
 
 	// izvlichane na paragraph za nov red
-	public static P getTemplateParagraph(WordprocessingMLPackage template) {
+	public static P getTemplateParagraph(WordprocessingMLPackage template,String value) {
 		List<Object> paragraph = getAllElementFromObject(template.getMainDocumentPart(), P.class);
 		P tempParagraph = null;
 		for (Object parag : paragraph) {
 			String paragText = parag.toString();
-			if (paragText.startsWith("#$%")) {
+			if (paragText.startsWith(value)) {
 				tempParagraph = (P) parag;
 				// template.getContentType().
 			}
@@ -79,17 +79,32 @@ public class GenerateWordDocTemplate {
 
 	}
 
+
+	public static void replaceParagraph(P paragraph, Map<String, String> replacements) {
+		List<?> textElements = getAllElementFromObject(paragraph, Text.class);
+		for (Object object : textElements) {
+			
+			Text text = (Text) object;
+			String replacementValue = (String) replacements.get(text.getValue());
+			if (replacementValue != null)
+				text.setValue(replacementValue);
+				
+		}
+	}
+	
 	// zamestvame
-	public static void replacePlaceholder(WordprocessingMLPackage template, String name, String placeholder) {
-		List<Object> texts = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
+	public static void replacePlaceholder(WordprocessingMLPackage template, Map<String, String> replacements) {
+		List<?> texts = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
 
 		for (Object text : texts) {
 			Text textElement = (Text) text;
-			if (textElement.getValue().equals(placeholder)) {
-				textElement.setValue(name);
+			
+			String replacementValue = replacements.get(((Text) text).getValue());
+			if (replacementValue != null)
+				((Text) text).setValue(replacementValue);
 			}
 		}
-	}
+	
 
 	// zapisvane novia fail
 	public static void writeDocxToStream(WordprocessingMLPackage template, String target)
@@ -185,11 +200,12 @@ public class GenerateWordDocTemplate {
 		List<Tr> listTempRow = new ArrayList<Tr>();
 
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
+		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"+rows.size());
 		Tbl newTempTable = new Tbl();
 		listTempRow.add((Tr) rows.get(0));
 		listTempRow.add((Tr) rows.get(1));
 		listTempRow.add((Tr) rows.get(2));
-		listTempRow.add((Tr) rows.get(3));
+//		listTempRow.add((Tr) rows.get(3));
 		return listTempRow;
 	}
 

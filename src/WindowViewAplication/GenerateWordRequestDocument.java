@@ -10,7 +10,7 @@ import DBase_Class.Request;
 
 public class GenerateWordRequestDocument {
 
-	public static void GenerateWordDocument(Request request, String list_izpitvan_pokazatel,
+	public static Map<String, String> GenerateWordDocument(Request request, String list_izpitvan_pokazatel,
 			String[][] sample_description) {
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
@@ -111,6 +111,7 @@ public class GenerateWordRequestDocument {
 		String[] desk_samp_str = new String[3];
 
 		desk_samp_str[0] = str2;
+		
 		desk_samp_str[1] = "";
 		desk_samp_str[2] = "";
 		for (int k = 0; k < 3; k++) {
@@ -159,11 +160,10 @@ public class GenerateWordRequestDocument {
 		}
 		substitutionData.put("$$zabelejki_1$$", str1);
 		substitutionData.put("$$zabelejki_2$$", str2);
+		return substitutionData;
 
-		// substitutionData.put("$$code2$$", "2222");
-
-		DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+request.getRecuest_code()+"_"+request.getDate_request(), substitutionData);
-	}
+		
+		}
 
 	public static String getWordOFNumber(int num) {
 		String str = "";

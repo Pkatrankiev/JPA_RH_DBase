@@ -1,4 +1,4 @@
-package table;
+package rusDocZipCreator;
 import java.io.File;
 import java.io.FileOutputStream;
 

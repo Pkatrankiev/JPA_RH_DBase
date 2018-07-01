@@ -1,6 +1,7 @@
 package CreateWordDocProtocol;
 
 
+import java.awt.Cursor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,17 +48,18 @@ public class StartGenerateDocTemplate {
 			smple_vol[i][4] = sample.getPeriod().getValue();
 			smple_vol[i][5] = sample.getGodina_period()+"";
 			i++;
+			listValue.add(repl);
 		}
 		
-//		for (int i = 0; i < 40; i++) {
-//			repl1.put("SJ_FUNCTION", "function1");
-//			repl1.put("SJ_DESC", "desc1");
-//			repl1.put("SJ_PERIOD", "period1");
-//			repl1.put("SJ_PERIOD3", "gamma");
-//			listValue.add(repl1);
-//		}
+		for (int r = 0; r < 40; r++) {
+			repl.put("$$sample_code$$", "function1");
+			repl.put("SJ_DESC", "desc1");
+			repl.put("SJ_PERIOD", "period1");
+			repl.put("SJ_PERIOD3", "gamma");
+			listValue.add(repl);
+		}
 
-		String[] colummVariable = new String[] { "$$sample_code$$", "SJ_DESC", "SJ_PERIOD" };
+		String[] colummVariable = new String[] { "$$sample_code$$", "$$sample_metod$$", "SJ_PERIOD" };
 
 		WordprocessingMLPackage template = null;
 		try {
@@ -68,31 +70,42 @@ public class StartGenerateDocTemplate {
 
 		GenerateWordDocTemplate.replacePlaceholder(template, substitutionData);
 		
-		P pargraphTemplateD = GenerateWordDocTemplate.getTemplateParagraph(template, "Протокол от изпитване №");
-		Map<String, String> replickate = new HashMap<String, String>();
-		replickate.put("SJ_Date", "15.05.2015");	
-		replickate.put("SJ_code", "5555");
-		GenerateWordDocTemplate.replaceParagraph(pargraphTemplateD, replickate);
-		
-		Tbl tempTable = GenerateWordDocTemplate.MapTable(template, listValue, colummVariable);
-		
+		P pargraphTemplateD = GenerateWordDocTemplate.getTemplateParagraph(template, "Протокол от изпитване");
 		P pargraphTemplateZ = GenerateWordDocTemplate.getTemplateParagraph(template, "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО");
+		P pargraphTemplateT = GenerateWordDocTemplate.getTemplateParagraph(template, "#$%");
+		ArrayList<P> listParag = new ArrayList<P>();
+		listParag.add(pargraphTemplateD);
+		listParag.add(pargraphTemplateZ);
+		listParag.add(pargraphTemplateT);
+		GenerateWordDocTemplate.replaceParagraph(pargraphTemplateD, substitutionData);
+		
+		Tbl tempTable = GenerateWordDocTemplate.MapTable(template, listValue, colummVariable, listParag);
+		
+		
 		
 		java.util.List<Tr> listRow =null;
 		try {
-			listRow = GenerateWordDocTemplate.getTemplataRow(colummVariable, tempTable);
+			listRow = GenerateWordDocTemplate.getTemplataRow(colummVariable, tempTable, listParag);
 		} catch (Docx4JException | JAXBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		GenerateWordDocTemplate.addParagraph(template, GenerateWordDocTemplate.getTemplateParagraph(template, "#$%"));
+		P p = GenerateWordDocTemplate.getTemplateParagraph(template, "##$$%%");
 		
+		try {
+//			GenerateWordDocTemplate.insertParag(template, "##$$%%", pargraphTemplateT );
+			GenerateWordDocTemplate.insertTable(template, "##$$%%", tempTable );
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		GenerateWordDocTemplate.addParagraph(template, pargraphTemplateD);
 		GenerateWordDocTemplate.addParagraph(template, pargraphTemplateZ);
 		
 		
 		
 		try {
+			
 			GenerateWordDocTemplate.replaceInNewTable(template, tempTable, listRow, listValue	);
 		} catch (Docx4JException | JAXBException e1) {
 			// TODO Auto-generated catch block

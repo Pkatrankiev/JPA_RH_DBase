@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -45,6 +46,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.GenerateWordRequestDocument;
 import WindowViewAplication.RequestViewAplication;
 
@@ -94,7 +96,7 @@ public class RequestView extends JFrame {
 	private Choice choice_izpitvan_produkt;
 	private Choice choice_obekt_na_izpitvane_request;
 	private JTextArea txtArea_list_izpitvan_pokazatel;
-	private JTextField txt_fid_date_time_reception;
+	private JTextField txt_fid_date_time_reference;
 	private JTextArea txtArea_SampleDescription;
 	private Choice choice_ind_num_doc;
 	private Choice choice_Razmernost;
@@ -580,9 +582,9 @@ public class RequestView extends JFrame {
 			choice_Period.add(string);
 		}
 
-		// TODO txt_fid_date_time_reception (референтна дата час)
-		txt_fid_date_time_reception = new JTextField("");
-		txt_fid_date_time_reception.addKeyListener(new KeyListener() {
+		// TODO txt_fid_date_time_reference (референтна дата час)
+		txt_fid_date_time_reference = new JTextField("");
+		txt_fid_date_time_reference.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
@@ -592,12 +594,12 @@ public class RequestView extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true)) {
-					txt_fid_date_time_reception.setForeground(Color.RED);
+				if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), true)) {
+					txt_fid_date_time_reference.setForeground(Color.RED);
 					corectRefDate = false;
 				} else {
-					txt_fid_date_time_reception.setForeground(Color.BLACK);
-					txt_fid_date_time_reception.setBorder(border);
+					txt_fid_date_time_reference.setForeground(Color.BLACK);
+					txt_fid_date_time_reference.setBorder(border);
 					corectRefDate = true;
 				}
 			}
@@ -608,12 +610,12 @@ public class RequestView extends JFrame {
 			}
 		});
 
-		GridBagConstraints gbc_date_time_reception = new GridBagConstraints();
-		gbc_date_time_reception.fill = GridBagConstraints.HORIZONTAL;
-		gbc_date_time_reception.insets = new Insets(0, 0, 5, 5);
-		gbc_date_time_reception.gridx = 3;
-		gbc_date_time_reception.gridy = 12;
-		p.add(txt_fid_date_time_reception, gbc_date_time_reception);
+		GridBagConstraints gbc_date_time_reference = new GridBagConstraints();
+		gbc_date_time_reference.fill = GridBagConstraints.HORIZONTAL;
+		gbc_date_time_reference.insets = new Insets(0, 0, 5, 5);
+		gbc_date_time_reference.gridx = 3;
+		gbc_date_time_reference.gridy = 12;
+		p.add(txt_fid_date_time_reference, gbc_date_time_reference);
 
 		JButton btn_date_time_reception = new JButton("Избор");
 		btn_date_time_reception.addActionListener(new ActionListener() {
@@ -621,7 +623,7 @@ public class RequestView extends JFrame {
 				try {
 
 					final JFrame f = new JFrame();
-					DateChoice date_time_reception = new DateChoice(f, txt_fid_date_time_reception.getText());
+					DateChoice date_time_reception = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reception.setVisible(true);
 					if (choice_Period.getSelectedItem().equals("")) {
 						str_Descript_grup_Sample = "";
@@ -642,13 +644,13 @@ public class RequestView extends JFrame {
 					textRefDate = DateChoice.get_date_time_reception();
 
 					if (DatePicker.incorrectDate(textRefDate, true))
-						txt_fid_date_time_reception.setForeground(Color.RED);
+						txt_fid_date_time_reference.setForeground(Color.RED);
 					else {
-						txt_fid_date_time_reception.setForeground(Color.BLACK);
-						txt_fid_date_time_reception.setBorder(border);
+						txt_fid_date_time_reference.setForeground(Color.BLACK);
+						txt_fid_date_time_reference.setBorder(border);
 					}
 
-					txt_fid_date_time_reception.setText(textRefDate);
+					txt_fid_date_time_reference.setText(textRefDate);
 
 				} catch (NumberFormatException e) {
 
@@ -772,7 +774,7 @@ public class RequestView extends JFrame {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
 						DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-						String ref_Date_Time = txt_fid_date_time_reception.getText();
+						String ref_Date_Time = txt_fid_date_time_reference.getText();
 						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
 						String period = choice_Period.getSelectedItem();
 						try {
@@ -1050,18 +1052,34 @@ public class RequestView extends JFrame {
 					string = SampleViewAdd.getVolumeSampleView(count_Sample);
 
 					RequestDAO.saveRequestFromRequest(request);
-
+					String [] masiveRefDateTime = new String[count_Sample];
 					for (int i = 0; i < count_Sample; i++) {
-						Period period = PeriodDAO.getPeriodByValue(string[i][4]);
+						Period period = null;
+						if(!string[i][4].equals(""))
+						period = PeriodDAO.getPeriodByValue(string[i][4]);
 						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
 								.getValueObekt_na_izpitvane_sampleByName(string[i][1]);
 						SampleDAO.setValueSample(string[i][0], string[i][2], string[i][3], request,
 								obectNaIzpitvaneSample, period, Integer.valueOf(string[i][5]));
+						masiveRefDateTime[i] =  string[i][3];
 					}
-					GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
-							string);
+					
+					String date_time_reference = "";
+					if(!compaRefDateTime( masiveRefDateTime)){
+						for (int i = 0; i < masiveRefDateTime.length; i++) {
+							date_time_reference = string[i][0]+ " - "+masiveRefDateTime[i]+"; ";
+						}
+					}else{
+						date_time_reference = txt_fid_date_time_reference.getText();
+					}
+					
+					
+//					GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
+//							string);
 				}
 			}
+
+		
 		});
 
 		JButton btnNewButton = new JButton("Превю");
@@ -1074,9 +1092,12 @@ public class RequestView extends JFrame {
 				string = SampleViewAdd.getVolumeSampleView(count_Sample);
 //				RequestPreview рequest_preview = new RequestPreview(request, txtArea_list_izpitvan_pokazatel.getText(),
 //						string);
-				GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
+				
+				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
 						string);
-
+				DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+request.getRecuest_code()+"_"+request.getDate_request(), substitutionData);
+				
+				
 			}
 		});
 
@@ -1144,8 +1165,8 @@ public class RequestView extends JFrame {
 			saveCheck = false;
 		}
 		String str_corectRefDate = "";
-		if (DatePicker.incorrectDate(txt_fid_date_time_reception.getText(), true)) {
-			txt_fid_date_time_reception.setBorder(new LineBorder(Color.RED));
+		if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), true)) {
+			txt_fid_date_time_reference.setBorder(new LineBorder(Color.RED));
 			str_corectRefDate = "референтна дата" + "\n";
 			saveCheck = false;
 		}
@@ -1204,10 +1225,24 @@ public class RequestView extends JFrame {
 		}
 		return recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
-				txtArea_Descript_grup_Sample.getText(), txt_fid_date_time_reception.getText(),
+				txtArea_Descript_grup_Sample.getText(), txtFld_date_time_request.getText(),
 				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
 				obekt_na_izpitvane_request);
 
 	}
 
+	private Boolean compaRefDateTime( String[] masiveRefDateTime) {
+		int count_Sample = masiveRefDateTime.length;
+		Boolean comparedFlag = true;
+		for (int i = 0; i < count_Sample; i++) {
+			String compared = masiveRefDateTime[i];
+			for (int j = i; j < count_Sample; j++) {
+				if(!compared.equals(masiveRefDateTime[i])){
+					comparedFlag=false;
+					return comparedFlag;
+				}
+			}
+		}
+		return comparedFlag;
+	}
 }

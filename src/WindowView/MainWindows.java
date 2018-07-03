@@ -214,7 +214,7 @@ public class MainWindows {
 					i++;
 				}
 				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(recuest, list_izpitvan_pokazatel, smple_vol);
-//				DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+recuest.getRecuest_code()+"_"+recuest.getDate_request(), substitutionData);
+				DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+recuest.getRecuest_code()+"_"+recuest.getDate_request(), substitutionData);
 				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", "3470",substitutionData);
 			}
 		});

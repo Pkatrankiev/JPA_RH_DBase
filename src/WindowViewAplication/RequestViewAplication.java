@@ -89,7 +89,7 @@ public class RequestViewAplication {
 	
 	public static String GenerateStringRefDateTime(String[][] masiveSampleValue) {
 		String[] masiveRefDateTime = new String[masiveSampleValue.length];
-		System.out.println("55555555555555555555555555555 "+masiveSampleValue[0].length);
+		System.out.println("55555555555555555555555555555 "+masiveSampleValue.length);
 		for (int i = 0; i < masiveSampleValue.length; i++) {
 			masiveRefDateTime[i] = masiveSampleValue[i][3];
 		}

@@ -220,6 +220,7 @@ public class MainWindows {
 				}
 			
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
+				
 
 				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(recuest,
 						list_izpitvan_pokazatel, smple_vol, date_time_reference);
@@ -228,6 +229,7 @@ public class MainWindows {
 //						"Z-" + recuest.getRecuest_code() + "_" + recuest.getDate_request(), substitutionData);
 
 				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
+				System.out.println("2222222222222222222222222222 "+date_time_reference);
 			}
 		});
 

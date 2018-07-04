@@ -45,7 +45,11 @@ public class StartGenerateDocTemplate {
 			smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
 			smple_vol[i][2] = sample.getDescription_sample();
 			smple_vol[i][3] = sample.getDate_time_reference();
-			smple_vol[i][4] = sample.getPeriod().getValue();
+			if (sample.getPeriod() == null) {
+				smple_vol[i][4] = "";
+			} else {
+				smple_vol[i][4] = sample.getPeriod().getValue();
+			}
 			smple_vol[i][5] = sample.getGodina_period()+"";
 			i++;
 			listValue.add(repl);

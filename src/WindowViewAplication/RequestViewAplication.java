@@ -87,7 +87,41 @@ public class RequestViewAplication {
 		return str;
 	}
 	
+	public static String GenerateStringRefDateTime(String[][] masiveSampleValue) {
+		String[] masiveRefDateTime = new String[masiveSampleValue.length];
+		System.out.println("55555555555555555555555555555 "+masiveSampleValue[0].length);
+		for (int i = 0; i < masiveSampleValue.length; i++) {
+			masiveRefDateTime[i] = masiveSampleValue[i][3];
+		}
+		String date_time_reference = masiveRefDateTime[0];
+		if (!compaRefDateTime(masiveRefDateTime)) {
+			date_time_reference ="";
+			for (int i = 0; i < masiveRefDateTime.length; i++) {
+				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " - " + masiveRefDateTime[i]
+						+ "; ";
+			}
+		} 
+		return date_time_reference;
+		
+	}
+	
+	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
+		int count_Sample = masiveRefDateTime.length;
+		Boolean comparedFlag = true;
+		for (int i = 0; i < count_Sample; i++) {
+			String compared = masiveRefDateTime[i];
+			for (int j = i; j < count_Sample; j++) {
+				if (!compared.equals(masiveRefDateTime[i])) {
+					comparedFlag = false;
+					return comparedFlag;
+				}
+			}
+		}
+		return comparedFlag;
+	}
 
+
+	
 	public static String[] getStringMassiveRazmernost() {
 		int i = 0;
 		List<Razmernosti> list = RazmernostiDAO.getInListAllValueRazmernosti();

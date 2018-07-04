@@ -11,7 +11,7 @@ import DBase_Class.Request;
 public class GenerateWordRequestDocument {
 
 	public static Map<String, String> GenerateWordDocument(Request request, String list_izpitvan_pokazatel,
-			String[][] sample_description) {
+			String[][] sample_description, String date_time_reference) {
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		substitutionData.put("$$request_code$$", request.getRecuest_code());
@@ -137,7 +137,7 @@ public class GenerateWordRequestDocument {
 		substitutionData.put("$$description_sample_2$$", desk_samp_str[2]);
 		substitutionData.put("$$date_time_reception$$", request.getDate_time_reception());
 		substitutionData.put("$$date_execution$$", request.getDate_execution());
-		substitutionData.put("$$date_time_request$$", request.getDate_request());
+		substitutionData.put("$$date_time_request$$", date_time_reference);
 		substitutionData.put("$$user$$",
 				request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
 

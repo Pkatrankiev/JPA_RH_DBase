@@ -78,7 +78,7 @@ public class RequestView extends JFrame {
 	private JTextField txtFld_date_time_request;
 	private JTextField txtField_RequestCode;
 	private JTextField txtFld_Date_Request;
-	private String[][] string = null;
+	private String[][] masiveSampleValue = null;
 	private String str_Descript_grup_Sample = "";
 	private static ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
@@ -784,13 +784,14 @@ public class RequestView extends JFrame {
 							SampleViewAdd sampleDescript = null;
 
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, string);
+									ref_Date_Time, period, masiveSampleValue);
 
 							sampleDescript.setVisible(true);
 							if (!SampleViewAdd.cancelEntered()) {
-								string = SampleViewAdd.getVolumeSampleView(count_Sample);
+								masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
 								txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-								txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(string));
+								txtArea_SampleDescription
+										.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
 								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
@@ -1049,37 +1050,19 @@ public class RequestView extends JFrame {
 					request = createRequestObject();
 
 					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-					string = SampleViewAdd.getVolumeSampleView(count_Sample);
+					masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
 
 					RequestDAO.saveRequestFromRequest(request);
-					String [] masiveRefDateTime = new String[count_Sample];
-					for (int i = 0; i < count_Sample; i++) {
-						Period period = null;
-						if(!string[i][4].equals(""))
-						period = PeriodDAO.getPeriodByValue(string[i][4]);
-						Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
-								.getValueObekt_na_izpitvane_sampleByName(string[i][1]);
-						SampleDAO.setValueSample(string[i][0], string[i][2], string[i][3], request,
-								obectNaIzpitvaneSample, period, Integer.valueOf(string[i][5]));
-						masiveRefDateTime[i] =  string[i][3];
-					}
+
+					saveSample(masiveSampleValue);
+
+					// GenerateWordRequestDocument.GenerateWordDocument(request,
+					// txtArea_list_izpitvan_pokazatel.getText(),
+					// string);
 					
-					String date_time_reference = "";
-					if(!compaRefDateTime( masiveRefDateTime)){
-						for (int i = 0; i < masiveRefDateTime.length; i++) {
-							date_time_reference = string[i][0]+ " - "+masiveRefDateTime[i]+"; ";
-						}
-					}else{
-						date_time_reference = txt_fid_date_time_reference.getText();
-					}
-					
-					
-//					GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
-//							string);
 				}
 			}
 
-		
 		});
 
 		JButton btnNewButton = new JButton("Ïðåâþ");
@@ -1089,15 +1072,19 @@ public class RequestView extends JFrame {
 				request = createRequestObject();
 
 				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-				string = SampleViewAdd.getVolumeSampleView(count_Sample);
-//				RequestPreview ðequest_preview = new RequestPreview(request, txtArea_list_izpitvan_pokazatel.getText(),
-//						string);
+				masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+				// RequestPreview ðequest_preview = new RequestPreview(request,
+				// txtArea_list_izpitvan_pokazatel.getText(),
+				// string);
 				
-				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
-						string);
-				DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+request.getRecuest_code()+"_"+request.getDate_request(), substitutionData);
-				
-				
+			
+				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
+
+				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(request,
+						txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
+				DocxMainpulator.generateAndSendDocx("temp.docx",
+						"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
+
 			}
 		});
 
@@ -1231,18 +1218,22 @@ public class RequestView extends JFrame {
 
 	}
 
-	private Boolean compaRefDateTime( String[] masiveRefDateTime) {
-		int count_Sample = masiveRefDateTime.length;
-		Boolean comparedFlag = true;
-		for (int i = 0; i < count_Sample; i++) {
-			String compared = masiveRefDateTime[i];
-			for (int j = i; j < count_Sample; j++) {
-				if(!compared.equals(masiveRefDateTime[i])){
-					comparedFlag=false;
-					return comparedFlag;
-				}
-			}
+	
+
+	private void saveSample(String[][] masiveSampleValue) {
+
+		for (int i = 0; i <  masiveSampleValue.length; i++) {
+			Period period = null;
+			if (!masiveSampleValue[i][4].equals(""))
+				period = PeriodDAO.getPeriodByValue(masiveSampleValue[i][4]);
+			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
+					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
+
+			SampleDAO.setValueSample(masiveSampleValue[i][0], masiveSampleValue[i][2], masiveSampleValue[i][3], request,
+					obectNaIzpitvaneSample, period, Integer.valueOf(masiveSampleValue[i][5]));
+
 		}
-		return comparedFlag;
 	}
+
+	
 }

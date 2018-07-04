@@ -55,6 +55,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.GenerateWordRequestDocument;
+import WindowViewAplication.RequestViewAplication;
 
 import java.awt.SystemColor;
 import javax.swing.border.EmptyBorder;
@@ -117,9 +118,7 @@ public class MainWindows {
 		final JLabel label12 = new JLabel();
 		final JButton bnt1 = new JButton();
 		final Login loginDlg = new Login(win);
-		
-		
-		
+
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(Color.green);
 		panel2.setSize(300, 400);
@@ -139,7 +138,7 @@ public class MainWindows {
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 20));
 
 		menuBar_1.add(mnNewMenu, BorderLayout.WEST);
-		
+
 		final Panel panel_2 = new Panel();
 		mnNewMenu.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 1, 15, 15));
@@ -161,15 +160,15 @@ public class MainWindows {
 			public void mouseExited(MouseEvent e) {
 				panel_2.setBackground(Color.WHITE);
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
-				
-				if(loginDlg.getUsername().equals("")){
+
+				if (loginDlg.getUsername().equals("")) {
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
-				}else{
-				Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
-				RequestView reqView = new RequestView(user);
-				reqView.setVisible(true);
+				} else {
+					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+					RequestView reqView = new RequestView(user);
+					reqView.setVisible(true);
 				}
 			}
 		});
@@ -195,49 +194,62 @@ public class MainWindows {
 			public void mouseExited(MouseEvent e) {
 				panel_1.setBackground(Color.WHITE);
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
-				
-				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3470");
-				
+
+				String requestString = "3478";
+
+				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
+
 				List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
-				String [][] smple_vol = new String [smple_list.size()][6];
+				String[][] smple_vol = new String[smple_list.size()][6];
 				int i = 0;
 				for (Sample sample : smple_list) {
 					smple_vol[i][0] = sample.getSample_code();
 					smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
 					smple_vol[i][2] = sample.getDescription_sample();
 					smple_vol[i][3] = sample.getDate_time_reference();
-					smple_vol[i][4] = sample.getPeriod().getValue();
-					smple_vol[i][5] = sample.getGodina_period()+"";
+					if (sample.getPeriod() == null) {
+						smple_vol[i][4] = "";
+					} else {
+						smple_vol[i][4] = sample.getPeriod().getValue();
+					}
+					smple_vol[i][5] = sample.getGodina_period() + "";
 					i++;
 				}
-				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(recuest, list_izpitvan_pokazatel, smple_vol);
-				DocxMainpulator.generateAndSendDocx("temp.docx","Z-"+recuest.getRecuest_code()+"_"+recuest.getDate_request(), substitutionData);
-				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", "3470",substitutionData);
+			
+				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
+
+				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(recuest,
+						list_izpitvan_pokazatel, smple_vol, date_time_reference);
+
+//				DocxMainpulator.generateAndSendDocx("temp.docx",
+//						"Z-" + recuest.getRecuest_code() + "_" + recuest.getDate_request(), substitutionData);
+
+				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
 			}
 		});
 
 		final JButton btnLogin = new JButton("Login");
 		menuBar_1.add(btnLogin, BorderLayout.EAST);
 		btnLogin.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-			
+
 				String textBtnLogin = btnLogin.getText();
 				if (textBtnLogin.equals("LogOut")) {
 					Login.logOut();
 					btnLogin.setText("LogIn");
 					win.setTitle("my RHA");
 				} else {
-					
+
 					loginDlg.setVisible(true);
 					// if logon successfully
 					if (loginDlg.isSucceeded()) {
 						win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
 						btnLogin.setText("LogOut");
-						
+
 					} else {
 						System.out.println("Hi NOT " + loginDlg.getUsername() + "!");
 					}
@@ -254,8 +266,6 @@ public class MainWindows {
 		return corectUser;
 	}
 
-	
-	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

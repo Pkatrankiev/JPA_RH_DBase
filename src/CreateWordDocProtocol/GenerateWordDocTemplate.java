@@ -90,7 +90,8 @@ public class GenerateWordDocTemplate {
 			String paragText = parag.toString();
 			if (paragText.startsWith(value)) {
 				tempParagraph = (P) parag;
-				((ContentAccessor) template).getContent().remove(tempParagraph);
+				
+				 ((ContentAccessor)tempParagraph.getParent()).getContent().remove(tempParagraph);
 			}
 			
 		}

@@ -78,6 +78,7 @@ public class StartGenerateDocTemplate {
 		P pargraphTemplateD = GenerateWordDocTemplate.getTemplateParagraph(template, "Ïğîòîêîë îò èçïèòâàíå");
 		P pargraphTemplateZ = GenerateWordDocTemplate.getTemplateParagraph(template, "ĞÅÇÓËÒÀÒÈ ÎÒ ÈÇÏÈÒÂÀÍÅÒÎ");
 		P pargraphTemplateT = GenerateWordDocTemplate.getTemplateParagraph(template, "#$%");
+		GenerateWordDocTemplate.removeTemplateParagraph(template, "#$%");
 		ArrayList<P> listParag = new ArrayList<P>();
 		listParag.add(pargraphTemplateD);
 		listParag.add(pargraphTemplateZ);
@@ -102,6 +103,7 @@ public class StartGenerateDocTemplate {
 			GenerateWordDocTemplate.insertTable(template, "##$$%%", tempTable );
 			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateZ );
 			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateD );
+		
 			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateT );
 		
 		} catch (Exception e2) {

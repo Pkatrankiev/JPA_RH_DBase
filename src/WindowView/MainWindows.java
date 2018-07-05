@@ -198,7 +198,7 @@ public class MainWindows {
 			public void mousePressed(MouseEvent e) {
 				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
 
-				String requestString = "3479";
+				String requestString = "3473";
 
 				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
 

@@ -198,7 +198,7 @@ public class MainWindows {
 			public void mousePressed(MouseEvent e) {
 				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
 
-				String requestString = "3478";
+				String requestString = "3479";
 
 				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
 
@@ -229,7 +229,7 @@ public class MainWindows {
 //						"Z-" + recuest.getRecuest_code() + "_" + recuest.getDate_request(), substitutionData);
 
 				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
-				System.out.println("2222222222222222222222222222 "+date_time_reference);
+				
 			}
 		});
 

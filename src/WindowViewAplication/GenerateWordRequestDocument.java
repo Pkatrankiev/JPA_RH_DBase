@@ -67,27 +67,25 @@ public class GenerateWordRequestDocument {
 		str2 = "";
 		int count = request.getCounts_samples();
 		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ");
-		descrip_sam_gr_str = count + getWordOFNumber(count) + "проби, " + descrip_sam_gr_str;
+		
 
-		Boolean ref_date_fl = false, period_fl = false;
+		Boolean period_fl = false;
 		for (int k = 0; k < count; k++) {
-			String checkref_date_str = sample_description[k][3];
+			
 			String check_period_str = sample_description[k][4];
 			for (int i = 0; i < count; i++) {
-				if (!sample_description[i][3].equals(checkref_date_str))
-					ref_date_fl = true;
 				if (!sample_description[i][4].equals(check_period_str))
 					period_fl = true;
 			}
 		}
+		descrip_sam_gr_str = count + getWordOFNumber(count) + "проби, " + descrip_sam_gr_str+ " на "+sample_description[0][5]+ "г.  ";
 		String samp_str = "";
 
 		for (int i = 0; i < count; i++) {
 			samp_str = samp_str + sample_description[i][0] + " / ";
 			samp_str = samp_str + sample_description[i][1] + ", ";
 			samp_str = samp_str + sample_description[i][2] + ", ";
-			if (ref_date_fl)
-				samp_str = samp_str + "реф. дата: " + sample_description[i][3] + ", ";
+	
 			if (period_fl)
 				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
 		}

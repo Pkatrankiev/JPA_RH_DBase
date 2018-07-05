@@ -89,18 +89,20 @@ public class RequestViewAplication {
 	
 	public static String GenerateStringRefDateTime(String[][] masiveSampleValue) {
 		String[] masiveRefDateTime = new String[masiveSampleValue.length];
-		System.out.println("55555555555555555555555555555 "+masiveSampleValue.length);
+		
+		
 		for (int i = 0; i < masiveSampleValue.length; i++) {
 			masiveRefDateTime[i] = masiveSampleValue[i][3];
 		}
 		String date_time_reference = masiveRefDateTime[0];
-		if (!compaRefDateTime(masiveRefDateTime)) {
+		if (compaRefDateTime(masiveRefDateTime)) {
 			date_time_reference ="";
 			for (int i = 0; i < masiveRefDateTime.length; i++) {
-				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " - " + masiveRefDateTime[i]
+				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " / " + masiveRefDateTime[i]
 						+ "; ";
 			}
 		} 
+		
 		return date_time_reference;
 		
 	}

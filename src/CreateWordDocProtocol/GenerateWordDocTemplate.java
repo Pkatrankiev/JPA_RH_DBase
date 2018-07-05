@@ -77,11 +77,28 @@ public class GenerateWordDocTemplate {
 				tempParagraph = (P) parag;
 				// template.getContentType().
 			}
+			
 		}
 		return tempParagraph;
 
 	}
+	// iztrivane na paragraph 
+	public static P removeTemplateParagraph(WordprocessingMLPackage template, String value) {
+		List<Object> paragraph = getAllElementFromObject(template.getMainDocumentPart(), P.class);
+		P tempParagraph = null;
+		for (Object parag : paragraph) {
+			String paragText = parag.toString();
+			if (paragText.startsWith(value)) {
+				tempParagraph = (P) parag;
+				((ContentAccessor) template).getContent().remove(tempParagraph);
+			}
+			
+		}
+		return tempParagraph;
 
+	}
+	
+	
 	public static void replaceParagraph(P paragraph, Map<String, String> replacements) {
 		List<?> textElements = getAllElementFromObject(paragraph, Text.class);
 		for (Object text : textElements) {
@@ -122,6 +139,7 @@ public class GenerateWordDocTemplate {
 		}
 	}
 
+	
 	static Tbl MapTable(WordprocessingMLPackage template, ArrayList<Map<String, String>> listValue,
 			String[] colummVariable, List<P> listParag) {
 		Tbl tempTable = null;
@@ -136,10 +154,8 @@ public class GenerateWordDocTemplate {
 
 	public static Tbl replaceTable(String[] placeholders, List<Map<String, String>> textToAdd,
 		WordprocessingMLPackage template, List<P> listParag) throws Docx4JException, JAXBException {
-		String sss = "</w:t>";
-		Map<String, String> replEnd = new HashMap<String, String>();
-		replEnd.put("$$sample_code$$", sss);
-		replEnd.put("$$sample_metod$$", "aaaaaaaaaa");
+		
+		
 		List<Object> tables = getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
 		System.out.println("ddddddddddddddddddddd");
 		// 1. find the table
@@ -166,9 +182,10 @@ public class GenerateWordDocTemplate {
 				System.out.println("tttttttttttttttttttttttttttttttttttttttttttttt");
 			}
 			if (0 == (k % 5) && k != 0) {
-//				addRowToTable(tempTable, templateRow, replEnd);
+	
 				addRowToTable(tempTable, headerRow1, replacements);
 				addRowToTable(tempTable, headerRow2, replacements);
+			
 			}
 
 			addRowToTable(tempTable, templateRow, replacements);
@@ -222,7 +239,31 @@ public class GenerateWordDocTemplate {
 		        }
 		    }
 
-		   static String getElementText(Object jaxbElem) throws Exception {
+	@SuppressWarnings("deprecation")
+	static	void insertParagraph(WordprocessingMLPackage pkg, String afterText, P parag)
+		    throws Exception {
+		        Body b = pkg.getMainDocumentPart().getJaxbElement().getBody();
+		        int addPoint = -1, count = 0;
+		        for (Object o : b.getEGBlockLevelElts()) {
+		            if (o instanceof P && getElementText(o).startsWith(afterText)) {
+		                addPoint = count + 1;
+		                break;
+		            }
+		            count++;
+		        }
+		        if (addPoint != -1)
+		            b.getEGBlockLevelElts().add(addPoint, parag);
+		        else {
+//		             didn't find paragraph to insert after...
+		        }
+		        }
+		     
+	
+	
+	
+	
+	
+	static String getElementText(Object jaxbElem) throws Exception {
 		        StringWriter sw = new StringWriter();
 		        TextUtils.extractText(jaxbElem, sw);
 		        return sw.toString();
@@ -258,7 +299,6 @@ public class GenerateWordDocTemplate {
 		List<Tr> listTempRow = new ArrayList<Tr>();
 
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
-		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + rows.size());
 		Tbl newTempTable = new Tbl();
 		listTempRow.add((Tr) rows.get(0));
 		listTempRow.add((Tr) rows.get(1));

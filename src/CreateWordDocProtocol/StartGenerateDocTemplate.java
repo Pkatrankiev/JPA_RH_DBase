@@ -55,9 +55,10 @@ public class StartGenerateDocTemplate {
 			listValue.add(repl);
 		}
 		
-		for (int r = 0; r < 40; r++) {
-			repl.put("$$sample_code$$", "function1");
-			repl.put("SJ_DESC", "desc1");
+		
+		for (int r = 0; r < 20; r++) {
+			repl.put("$$sample_code$$", "function1"+r);
+			repl.put("$$sample_metod$$", "desc1");
 			repl.put("SJ_PERIOD", "period1");
 			repl.put("SJ_PERIOD3", "gamma");
 			listValue.add(repl);
@@ -99,22 +100,24 @@ public class StartGenerateDocTemplate {
 		try {
 //			GenerateWordDocTemplate.insertParag(template, "##$$%%", pargraphTemplateT );
 			GenerateWordDocTemplate.insertTable(template, "##$$%%", tempTable );
+			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateZ );
+			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateD );
+			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateT );
+		
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		GenerateWordDocTemplate.addParagraph(template, pargraphTemplateD);
-		GenerateWordDocTemplate.addParagraph(template, pargraphTemplateZ);
 		
 		
 		
-		try {
-			
-			GenerateWordDocTemplate.replaceInNewTable(template, tempTable, listRow, listValue	);
-		} catch (Docx4JException | JAXBException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			
+//			GenerateWordDocTemplate.replaceInNewTable(template, tempTable, listRow, listValue	);
+//		} catch (Docx4JException | JAXBException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		try {
 			GenerateWordDocTemplate.writeDocxToStream(template, "temp12.docx");

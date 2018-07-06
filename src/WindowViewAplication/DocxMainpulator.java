@@ -31,7 +31,7 @@ public class DocxMainpulator {
 	private static final String destinationDir = "TEMPLATES/";
 
 	// Generates .docx document from given template and the substitution data
-	public static Boolean generateAndSendDocx(String templateName, String destinationName,
+	public static Boolean generateAndSend_Request_Docx(String templateName, String destinationName,
 			Map<String, String> substitutionData) {
 
 		String templateLocation = TEMPLATE_DIRECTORY_ROOT + templateName;

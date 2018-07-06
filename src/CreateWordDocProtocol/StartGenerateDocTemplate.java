@@ -31,6 +31,7 @@ public class StartGenerateDocTemplate {
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, String requestCode, Map<String, String> substitutionData) {
 		BasicConfigurator.configure();
 
+		
 		ArrayList<Map<String, String>> listValue = new ArrayList<Map<String, String>>();
 		Map<String, String> repl = new HashMap<String, String>();
 		String tempDoc = nameTaplateProtokol;
@@ -68,43 +69,43 @@ public class StartGenerateDocTemplate {
 
 		WordprocessingMLPackage template = null;
 		try {
-			template = GenerateWordDocTemplate.getTemplate(tempDoc);
+			template = AplicationDocTemplate.getTemplate(tempDoc);
 		} catch (FileNotFoundException | Docx4JException e) {
 			e.printStackTrace();
 		}
 
-		GenerateWordDocTemplate.replacePlaceholder(template, substitutionData);
+		AplicationDocTemplate.replacePlaceholder(template, substitutionData);
 		
-		P pargraphTemplateD = GenerateWordDocTemplate.getTemplateParagraph(template, "œÓÚÓÍÓÎ ÓÚ ËÁÔËÚ‚‡ÌÂ");
-		P pargraphTemplateZ = GenerateWordDocTemplate.getTemplateParagraph(template, "–≈«”À“¿“» Œ“ »«œ»“¬¿Õ≈“Œ");
-		P pargraphTemplateT = GenerateWordDocTemplate.getTemplateParagraph(template, "#$%");
-		GenerateWordDocTemplate.removeTemplateParagraph(template, "#$%");
+		P pargraphTemplateD = AplicationDocTemplate.getTemplateParagraph(template, "œÓÚÓÍÓÎ ÓÚ ËÁÔËÚ‚‡ÌÂ");
+		P pargraphTemplateZ = AplicationDocTemplate.getTemplateParagraph(template, "–≈«”À“¿“» Œ“ »«œ»“¬¿Õ≈“Œ");
+		P pargraphTemplateT = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
+		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
 		ArrayList<P> listParag = new ArrayList<P>();
 		listParag.add(pargraphTemplateD);
 		listParag.add(pargraphTemplateZ);
 		listParag.add(pargraphTemplateT);
-		GenerateWordDocTemplate.replaceParagraph(pargraphTemplateD, substitutionData);
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateD, substitutionData);
 		
-		Tbl tempTable = GenerateWordDocTemplate.MapTable(template, listValue, colummVariable, listParag);
+		Tbl tempTable = AplicationDocTemplate.MapTable(template, listValue, colummVariable, listParag);
 		
 		
 		
 		java.util.List<Tr> listRow =null;
 		try {
-			listRow = GenerateWordDocTemplate.getTemplataRow(colummVariable, tempTable, listParag);
+			listRow = AplicationDocTemplate.getListRowFromTamplate(tempTable);
 		} catch (Docx4JException | JAXBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		P p = GenerateWordDocTemplate.getTemplateParagraph(template, "##$$%%");
+		P p = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
 		
 		try {
 //			GenerateWordDocTemplate.insertParag(template, "##$$%%", pargraphTemplateT );
-			GenerateWordDocTemplate.insertTable(template, "##$$%%", tempTable );
-			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateZ );
-			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateD );
+			AplicationDocTemplate.insertTable(template, "##$$%%", tempTable );
+			AplicationDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateZ );
+			AplicationDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateD );
 		
-			GenerateWordDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateT );
+			AplicationDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateT );
 		
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
@@ -122,7 +123,7 @@ public class StartGenerateDocTemplate {
 //		}
 		
 		try {
-			GenerateWordDocTemplate.writeDocxToStream(template, "temp12.docx");
+			AplicationDocTemplate.writeDocxToStream(template, "temp12.docx");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

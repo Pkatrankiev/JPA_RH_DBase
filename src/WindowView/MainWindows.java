@@ -49,12 +49,12 @@ import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
+import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import WindowViewAplication.DocxMainpulator;
-import WindowViewAplication.GenerateWordRequestDocument;
 import WindowViewAplication.RequestViewAplication;
 
 import java.awt.SystemColor;
@@ -198,7 +198,7 @@ public class MainWindows {
 			public void mousePressed(MouseEvent e) {
 				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
 
-				String requestString = "3473";
+				String requestString = "3467";
 
 				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
 
@@ -222,7 +222,7 @@ public class MainWindows {
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
 				
 
-				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(recuest,
+				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.Generate_Map_For_Request_Word_Document(recuest,
 						list_izpitvan_pokazatel, smple_vol, date_time_reference);
 
 //				DocxMainpulator.generateAndSendDocx("temp.docx",

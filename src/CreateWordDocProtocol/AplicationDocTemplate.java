@@ -28,12 +28,12 @@ import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
 
-public class GenerateWordDocTemplate {
+public class AplicationDocTemplate {
 	public static Map<String, String> getMap() {
 
 		Map<String, String> repl1 = new HashMap<String, String>();
 
-		repl1.put("gamma", "√‡Ï‡ ‡‰ËÓÌÛÍÎË‰Ë");
+		repl1.put("gamma", "√É√†√¨√† √∞√†√§√®√Æ√≠√≥√™√´√®√§√®");
 		return repl1;
 	}
 
@@ -77,12 +77,13 @@ public class GenerateWordDocTemplate {
 				tempParagraph = (P) parag;
 				// template.getContentType().
 			}
-			
+
 		}
 		return tempParagraph;
 
 	}
-	// iztrivane na paragraph 
+
+	// iztrivane na paragraph
 	public static P removeTemplateParagraph(WordprocessingMLPackage template, String value) {
 		List<Object> paragraph = getAllElementFromObject(template.getMainDocumentPart(), P.class);
 		P tempParagraph = null;
@@ -90,16 +91,16 @@ public class GenerateWordDocTemplate {
 			String paragText = parag.toString();
 			if (paragText.startsWith(value)) {
 				tempParagraph = (P) parag;
-				
-				 ((ContentAccessor)tempParagraph.getParent()).getContent().remove(tempParagraph);
+
+				((ContentAccessor) tempParagraph.getParent()).getContent().remove(tempParagraph);
 			}
-			
+
 		}
 		return tempParagraph;
 
 	}
-	
-	
+
+	// popalvane na paragraph
 	public static void replaceParagraph(P paragraph, Map<String, String> replacements) {
 		List<?> textElements = getAllElementFromObject(paragraph, Text.class);
 		for (Object text : textElements) {
@@ -140,7 +141,6 @@ public class GenerateWordDocTemplate {
 		}
 	}
 
-	
 	static Tbl MapTable(WordprocessingMLPackage template, ArrayList<Map<String, String>> listValue,
 			String[] colummVariable, List<P> listParag) {
 		Tbl tempTable = null;
@@ -153,10 +153,10 @@ public class GenerateWordDocTemplate {
 		return tempTable;
 	}
 
+	// popalvane na tablica
 	public static Tbl replaceTable(String[] placeholders, List<Map<String, String>> textToAdd,
-		WordprocessingMLPackage template, List<P> listParag) throws Docx4JException, JAXBException {
-		
-		
+			WordprocessingMLPackage template, List<P> listParag) throws Docx4JException, JAXBException {
+
 		List<Object> tables = getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
 		System.out.println("ddddddddddddddddddddd");
 		// 1. find the table
@@ -177,16 +177,14 @@ public class GenerateWordDocTemplate {
 		int k = 0;
 		for (Map<String, String> replacements : textToAdd) {
 			if (k == 10) {
-				
-				 
 
 				System.out.println("tttttttttttttttttttttttttttttttttttttttttttttt");
 			}
 			if (0 == (k % 5) && k != 0) {
-	
+
 				addRowToTable(tempTable, headerRow1, replacements);
 				addRowToTable(tempTable, headerRow2, replacements);
-			
+
 			}
 
 			addRowToTable(tempTable, templateRow, replacements);
@@ -221,81 +219,53 @@ public class GenerateWordDocTemplate {
 		}
 	}
 
+	// vmakvane na tablica sled opredelen text
 	@SuppressWarnings("deprecation")
-	static	void insertTable(WordprocessingMLPackage pkg, String afterText, Tbl table)
-		    throws Exception {
-		        Body b = pkg.getMainDocumentPart().getJaxbElement().getBody();
-		        int addPoint = -1, count = 0;
-		        for (Object o : b.getEGBlockLevelElts()) {
-		            if (o instanceof P && getElementText(o).startsWith(afterText)) {
-		                addPoint = count + 1;
-		                break;
-		            }
-		            count++;
-		        }
-		        if (addPoint != -1)
-		            b.getEGBlockLevelElts().add(addPoint, table);
-		        else {
-		            // didn't find paragraph to insert after...
-		        }
-		    }
+	static void insertTable(WordprocessingMLPackage pkg, String afterText, Tbl table) throws Exception {
+		Body b = pkg.getMainDocumentPart().getJaxbElement().getBody();
+		int addPoint = -1, count = 0;
+		for (Object o : b.getEGBlockLevelElts()) {
+			if (o instanceof P && getElementText(o).startsWith(afterText)) {
+				addPoint = count + 1;
+				break;
+			}
+			count++;
+		}
+		if (addPoint != -1)
+			b.getEGBlockLevelElts().add(addPoint, table);
+		else {
+			// didn't find paragraph to insert after...
+		}
+	}
 
+	// vmakvane na paragraph sled opredelen text
 	@SuppressWarnings("deprecation")
-	static	void insertParagraph(WordprocessingMLPackage pkg, String afterText, P parag)
-		    throws Exception {
-		        Body b = pkg.getMainDocumentPart().getJaxbElement().getBody();
-		        int addPoint = -1, count = 0;
-		        for (Object o : b.getEGBlockLevelElts()) {
-		            if (o instanceof P && getElementText(o).startsWith(afterText)) {
-		                addPoint = count + 1;
-		                break;
-		            }
-		            count++;
-		        }
-		        if (addPoint != -1)
-		            b.getEGBlockLevelElts().add(addPoint, parag);
-		        else {
-//		             didn't find paragraph to insert after...
-		        }
-		        }
-		     
-	
-	
-	
-	
-	
+	static void insertParagraph(WordprocessingMLPackage pkg, String afterText, P parag) throws Exception {
+		Body b = pkg.getMainDocumentPart().getJaxbElement().getBody();
+		int addPoint = -1, count = 0;
+		for (Object o : b.getEGBlockLevelElts()) {
+			if (o instanceof P && getElementText(o).startsWith(afterText)) {
+				addPoint = count + 1;
+				break;
+			}
+			count++;
+		}
+		if (addPoint != -1)
+			b.getEGBlockLevelElts().add(addPoint, parag);
+		else {
+			// didn't find paragraph to insert after...
+		}
+	}
+
 	static String getElementText(Object jaxbElem) throws Exception {
-		        StringWriter sw = new StringWriter();
-		        TextUtils.extractText(jaxbElem, sw);
-		        return sw.toString();
-		    }
-		   @SuppressWarnings("deprecation")
-			static	void insertParag(WordprocessingMLPackage pkg, String afterText, P table)
-				    throws Exception {
-				        Body b = pkg.getMainDocumentPart().getJaxbElement().getBody();
-				        int addPoint = -1, count = 0;
-				        for (Object o : b.getEGBlockLevelElts()) {
-				            if (o instanceof P && getElementText(o).startsWith(afterText)) {
-				                addPoint = count + 1;
-				                break;
-				            }
-				            count++;
-				        }
-				        if (addPoint != -1)
-				            b.getEGBlockLevelElts().add(addPoint, table);
-				        else {
-				            // didn't find paragraph to insert after...
-				        }
-				    }
+		StringWriter sw = new StringWriter();
+		TextUtils.extractText(jaxbElem, sw);
+		return sw.toString();
+	}
 
-//				   static String getElementText2(Object jaxbElem) throws Exception {
-//				        StringWriter sw = new StringWriter();
-//				        TextUtils.extractText(jaxbElem, sw);
-//				        return sw.toString();
-//				    }
-	
-	public static List<Tr> getTemplataRow(String[] placeholders, Tbl tempTable, List<P> listParag)
-			throws Docx4JException, JAXBException {
+	// izvlichane na osnovnite redove ot tablicate
+	@SuppressWarnings("deprecation")
+	public static List<Tr> getListRowFromTamplate(Tbl tempTable) throws Docx4JException, JAXBException {
 
 		List<Tr> listTempRow = new ArrayList<Tr>();
 
@@ -308,6 +278,7 @@ public class GenerateWordDocTemplate {
 		return listTempRow;
 	}
 
+	// dobavqne na nov red kym tablicata
 	private static void addRowToTable(Tbl reviewtable, Tr templateRow, Map<String, String> replacements) {
 		Tr workingRow = (Tr) XmlUtils.deepCopy(templateRow);
 		List<?> textElements = getAllElementFromObject(workingRow, Text.class);

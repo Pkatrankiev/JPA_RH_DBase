@@ -29,10 +29,10 @@ import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
+import DBase_Class.Request;
 import DBase_Class.Zabelejki;
 
 public class RequestViewAplication {
-
 
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;
@@ -46,11 +46,12 @@ public class RequestViewAplication {
 		return arr1;
 	}
 
-	public static String getIND_DescriptByName(String name){
+	
+	public static String getIND_DescriptByName(String name) {
 		String descript = Ind_num_docDAO.getValueIByName(name).getContent();
 		return descript;
 	}
-	
+
 	public static String[] getStringMassiveIzpitvanProdukt() {
 		int i = 0;
 		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
@@ -62,51 +63,50 @@ public class RequestViewAplication {
 		arr2[0] = "";
 		return arr2;
 	}
-	
+
 	public static ArrayList<String> getStringListLIP() {
-		String str="";
+		String str = "";
 		List<List_izpitvan_pokazatel> list = List_izpitvan_pokazatelDAO.getInListAllValuePokazatel();
-		ArrayList<String> arr2 =new ArrayList<String>();
+		ArrayList<String> arr2 = new ArrayList<String>();
 		for (List_izpitvan_pokazatel e : list) {
 			str = e.getName_pokazatel();
 			arr2.add(str);
-			
+
 		}
-		
+
 		return arr2;
 	}
-	
-	public static String[] setMasiveFromList(List<String> list){
-		String[] str = new String [list.size()];
-		int i=0;
+
+	public static String[] setMasiveFromList(List<String> list) {
+		String[] str = new String[list.size()];
+		int i = 0;
 		for (String e : list) {
 			str[i] = e;
 			i++;
 		}
-		
+
 		return str;
 	}
-	
+
 	public static String GenerateStringRefDateTime(String[][] masiveSampleValue) {
 		String[] masiveRefDateTime = new String[masiveSampleValue.length];
-		
-		
+
 		for (int i = 0; i < masiveSampleValue.length; i++) {
 			masiveRefDateTime[i] = masiveSampleValue[i][3];
 		}
 		String date_time_reference = masiveRefDateTime[0];
 		if (compaRefDateTime(masiveRefDateTime)) {
-			date_time_reference ="";
+			date_time_reference = "";
 			for (int i = 0; i < masiveRefDateTime.length; i++) {
 				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " / " + masiveRefDateTime[i]
 						+ "; ";
 			}
-		} 
-		
+		}
+
 		return date_time_reference;
-		
+
 	}
-	
+
 	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
 		int count_Sample = masiveRefDateTime.length;
 		Boolean comparedFlag = true;
@@ -122,8 +122,15 @@ public class RequestViewAplication {
 		return comparedFlag;
 	}
 
+	public static String get_String_Ind_Num_Doc_From_Request(Request request) {
+		String str_I_N_D = "";
+		if (request.getInd_num_doc() != null) {
+			str_I_N_D = request.getInd_num_doc().getName();
+		}
+		return str_I_N_D;
 
-	
+	}
+
 	public static String[] getStringMassiveRazmernost() {
 		int i = 0;
 		List<Razmernosti> list = RazmernostiDAO.getInListAllValueRazmernosti();
@@ -136,30 +143,30 @@ public class RequestViewAplication {
 	}
 
 	public static ArrayList<String> getStringMassiveO_I_R() {
-	
+
 		List<Obekt_na_izpitvane_request> list = Obekt_na_izpitvane_requestDAO.getInListAllValueObekt_na_izpitvane();
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add("");
 		for (Obekt_na_izpitvane_request e : list) {
 			arr.add(e.getName_obekt_na_izpitvane());
-		
+
 		}
-		
+
 		return arr;
 	}
 
 	public static ArrayList<String> getStringMassiveO_I_S() {
-		
+
 		List<Obekt_na_izpitvane_sample> list = Obekt_na_izpitvane_sampleDAO
 				.getInListAllValueObekt_na_izpitvane_sample();
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add("");
 		for (Obekt_na_izpitvane_sample e : list) {
-			String strr =((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
+			String strr = ((Obekt_na_izpitvane_sample) e).getName_obekt_na_izpitvane();
 			arr.add(strr);
-			
+
 		}
-		
+
 		return arr;
 	}
 
@@ -175,6 +182,15 @@ public class RequestViewAplication {
 		return arr;
 	}
 
+	public static String getStringZabelejkiFormRequest(Request request) {
+		String zabel_str = "";
+		if (request.getZabelejki() != null) {
+			zabel_str = request.getZabelejki().getName_zabelejki();
+		}
+		
+		return zabel_str;
+	}
+
 	public static ArrayList<String> getStringZabelejki() {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
 		ArrayList<String> arr = new ArrayList<String>();
@@ -185,8 +201,8 @@ public class RequestViewAplication {
 			i++;
 		}
 		return arr;
-	}	
-	
+	}
+
 	public static String DateNaw(Boolean whiteTime) {
 		String dateNaw = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -209,17 +225,17 @@ public class RequestViewAplication {
 		return formatter;
 	}
 
-	public static String writeSampleDescript( String[][] str1) {
+	public static String writeSampleDescript(String[][] str1) {
 
 		int[] numPoz = { 8, 20, 50, 17, 10, 6 };
-		String someLine = "  Код  "+" Обект на изпитване "+"                Описание на пробата               "+" Референтна дата "+
-		"  Периодичност  "+"\n";
+		String someLine = "  Код  " + " Обект на изпитване " + "                Описание на пробата               "
+				+ " Референтна дата " + "  Периодичност  " + "\n";
 		String str_som = "";
 		String[] str_desc = new String[10];
 		int k = 0;
 		for (int i = 0; i < str1.length; i++) {
 
-			for (int j = 0; j <str1[0].length; j++) {
+			for (int j = 0; j < str1[0].length; j++) {
 				if (j == 2) {
 					k = 0;
 					str_desc[k] = str1[i][j];
@@ -246,7 +262,7 @@ public class RequestViewAplication {
 			}
 		}
 		int cout_str = someLine.length();
-		someLine = someLine.substring(0, cout_str-1);
+		someLine = someLine.substring(0, cout_str - 1);
 		return someLine;
 	}
 
@@ -261,30 +277,30 @@ public class RequestViewAplication {
 		return str;
 	}
 
-	
-	public static String checkFormatString(String code){
-		
+	public static String checkFormatString(String code) {
+
 		String newCode = code;
 		int k;
 		System.out.println(code);
 		for (int i = 0; i < code.length(); i++) {
 			try {
-			k=Integer.parseInt(code.substring(i, i+1));
-			
-			}catch (NumberFormatException e) {
-				newCode=code.replace(code.substring(i, i+1),"");
+				k = Integer.parseInt(code.substring(i, i + 1));
+
+			} catch (NumberFormatException e) {
+				newCode = code.replace(code.substring(i, i + 1), "");
 			}
 		}
-	
+
 		return newCode;
 	}
-	
-	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume){
-		Boolean underMaximum =true;
+
+	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {
+		Boolean underMaximum = true;
 		try {
-		if(Integer.parseInt(code)>=minVolume && Integer.parseInt(code)<=maxVolume) underMaximum =false;
-		}catch (NumberFormatException e) {
-			
+			if (Integer.parseInt(code) >= minVolume && Integer.parseInt(code) <= maxVolume)
+				underMaximum = false;
+		} catch (NumberFormatException e) {
+
 		}
 		return underMaximum;
 	}

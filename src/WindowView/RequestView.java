@@ -34,6 +34,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -47,7 +48,6 @@ import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import WindowViewAplication.DocxMainpulator;
-import WindowViewAplication.GenerateWordRequestDocument;
 import WindowViewAplication.RequestViewAplication;
 
 import java.awt.GridBagLayout;
@@ -1080,9 +1080,9 @@ public class RequestView extends JFrame {
 			
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
 
-				Map<String, String> substitutionData = GenerateWordRequestDocument.GenerateWordDocument(request,
+				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.Generate_Map_For_Request_Word_Document(request,
 						txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
-				DocxMainpulator.generateAndSendDocx("temp.docx",
+				DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
 						"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
 
 			}

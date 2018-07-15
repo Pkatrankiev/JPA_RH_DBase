@@ -1,4 +1,4 @@
-package WindowViewAplication;
+package CreateWordDocProtocol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,10 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import DBase_Class.Request;
+import WindowViewAplication.RequestViewAplication;
 
-public class GenerateWordRequestDocument {
+public class Generate_Map_For_Request_Word_Document {
 
-	public static Map<String, String> GenerateWordDocument(Request request, String list_izpitvan_pokazatel,
+	public static Map<String, String> Generate_Map_For_Request_Word_Document(Request request, String list_izpitvan_pokazatel,
 			String[][] sample_description, String date_time_reference) {
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
@@ -139,7 +140,8 @@ public class GenerateWordRequestDocument {
 		substitutionData.put("$$user$$",
 				request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
 
-		String zabel_str = request.getZabelejki().getName_zabelejki();
+		
+		String zabel_str = RequestViewAplication.getStringZabelejkiFormRequest(request);
 		str2 = "";
 
 		max = 70;

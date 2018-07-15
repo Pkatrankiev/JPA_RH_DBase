@@ -59,7 +59,7 @@ public class UsersDAO {
 		entitymanager.close();
 		emfactory.close();
 		
-		
+		System.out.println("************************************** "+list.size());
 		for (Users e : list) {
 			
 			System.out.println("11setValueUsers(\"" + ((Users) e).getId_users() + "\", \"" + ((Users) e).getName_users()

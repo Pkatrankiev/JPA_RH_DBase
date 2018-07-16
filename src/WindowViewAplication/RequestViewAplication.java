@@ -3,17 +3,8 @@ package WindowViewAplication;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 import javax.swing.text.MaskFormatter;
-import javax.swing.text.PlainDocument;
-
 import Aplication.Ind_num_docDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -99,7 +90,7 @@ public class RequestViewAplication {
 			date_time_reference = "";
 			for (int i = 0; i < masiveRefDateTime.length; i++) {
 				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " / " + masiveRefDateTime[i]
-						+ "; ";
+						+ ";  ";
 			}
 		}
 
@@ -109,12 +100,12 @@ public class RequestViewAplication {
 
 	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
 		int count_Sample = masiveRefDateTime.length;
-		Boolean comparedFlag = true;
+		Boolean comparedFlag = false;
 		for (int i = 0; i < count_Sample; i++) {
 			String compared = masiveRefDateTime[i];
 			for (int j = i; j < count_Sample; j++) {
-				if (!compared.equals(masiveRefDateTime[i])) {
-					comparedFlag = false;
+				if (!compared.equals(masiveRefDateTime[j])) {
+					comparedFlag = true;
 					return comparedFlag;
 				}
 			}
@@ -195,10 +186,10 @@ public class RequestViewAplication {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add("");
-		int i = 1;
+		
 		for (Zabelejki e : list) {
 			arr.add(e.getName_zabelejki());
-			i++;
+			
 		}
 		return arr;
 	}
@@ -280,11 +271,11 @@ public class RequestViewAplication {
 	public static String checkFormatString(String code) {
 
 		String newCode = code;
-		int k;
+		
 		System.out.println(code);
 		for (int i = 0; i < code.length(); i++) {
 			try {
-				k = Integer.parseInt(code.substring(i, i + 1));
+				Integer.parseInt(code.substring(i, i + 1));
 
 			} catch (NumberFormatException e) {
 				newCode = code.replace(code.substring(i, i + 1), "");

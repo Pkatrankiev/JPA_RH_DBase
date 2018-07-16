@@ -11,13 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,10 +32,8 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
-import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
@@ -66,10 +61,9 @@ import java.awt.Dimension;
 import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.SystemColor;
-import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class RequestView extends JFrame {
 
 	JScrollPane scrollpane;
@@ -438,10 +432,10 @@ public class RequestView extends JFrame {
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
-				final JFrame f = new JFrame();
+//				final JFrame f = new JFrame();
 
-				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
-						choice_obekt_na_izpitvane_request.getSelectedItem());
+//				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
+//						choice_obekt_na_izpitvane_request.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
 				System.out.println("5555555 " + str);
@@ -773,13 +767,13 @@ public class RequestView extends JFrame {
 				try {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
-						DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//						DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+//						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
 						String period = choice_Period.getSelectedItem();
 						try {
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
-							String ref_Date = (txtField_RequestCode.getText());
+//							String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
@@ -1015,9 +1009,9 @@ public class RequestView extends JFrame {
 		btn_add_Zab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
-				final JFrame f = new JFrame();
+//				final JFrame f = new JFrame();
 
-				AddInChoice choiceZab = new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
+//				AddInChoice choiceZab1 = new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
 
@@ -1080,7 +1074,7 @@ public class RequestView extends JFrame {
 			
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
 
-				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.Generate_Map_For_Request_Word_Document(request,
+				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(request,
 						txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
 				DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
 						"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
@@ -1210,11 +1204,12 @@ public class RequestView extends JFrame {
 				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
 			}
 		}
-		return recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
+		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_time_request.getText(),
 				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
 				obekt_na_izpitvane_request);
+		return recuest;
 
 	}
 

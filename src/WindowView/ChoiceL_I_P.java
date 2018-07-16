@@ -152,7 +152,7 @@ public class ChoiceL_I_P extends JDialog {
 		setVisible(true);
 	}
 
-	public static ArrayList<String> getChoiceL_P() {
+	public static  ArrayList<String> getChoiceL_P() {
 		ArrayList<String> arr = new ArrayList<String>();
 		for (int i = 0; i < countL_I_P; i++) {
 			if (checkBox[i].isSelected())

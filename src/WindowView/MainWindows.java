@@ -222,7 +222,7 @@ public class MainWindows {
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
 				
 
-				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.Generate_Map_For_Request_Word_Document(recuest,
+				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(recuest,
 						list_izpitvan_pokazatel, smple_vol, date_time_reference);
 
 //				DocxMainpulator.generateAndSendDocx("temp.docx",

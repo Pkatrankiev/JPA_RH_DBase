@@ -173,6 +173,57 @@ public class MainWindows {
 			}
 		});
 
+		Panel panel_3 = new Panel();
+		mnNewMenu.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 1, 15, 15));
+
+		JLabel label = new JLabel("Генериране на Нова Заявка по шаблон ");
+		label.setHorizontalAlignment(SwingConstants.LEFT);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		panel_3.add(label);
+		panel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				panel_3.setBackground(Color.LIGHT_GRAY);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				panel_3.setBackground(Color.WHITE);
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+				if (loginDlg.getUsername().equals("")) {
+					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
+				} else {
+					List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByVolume("recuest_code",
+							"templ");
+					String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател"};
+					String[][] tabletamplateRequest = new String[listTamplateRequest.size()][4];
+					int i = 0;
+					for (Request tamplateRequest : listTamplateRequest) {
+						tabletamplateRequest[i][0] = tamplateRequest.getInd_num_doc().getName();
+						tabletamplateRequest[i][1] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
+						tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request()
+								.getName_obekt_na_izpitvane();
+						tabletamplateRequest[i][3] = tamplateRequest.getRazmernosti().getName_razmernosti();
+						i++;
+					}
+					TablePrintDemo.createAndShowGUI(tableHeader, tabletamplateRequest);
+
+					// **************************************************************************
+					// Users user =
+					// UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+					// RequestView reqView = new RequestView(user);
+					// reqView.setVisible(true);
+					//
+					// ******************************************************************************
+				}
+			}
+		});
+
 		final Panel panel_1 = new Panel();
 		mnNewMenu.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 1, 15, 15));
@@ -218,18 +269,19 @@ public class MainWindows {
 					smple_vol[i][5] = sample.getGodina_period() + "";
 					i++;
 				}
-			
+
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
-				
 
-				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(recuest,
-						list_izpitvan_pokazatel, smple_vol, date_time_reference);
+				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
+						.GenerateMapForRequestWordDocument(recuest, list_izpitvan_pokazatel, smple_vol,
+								date_time_reference);
 
-//				DocxMainpulator.generateAndSendDocx("temp.docx",
-//						"Z-" + recuest.getRecuest_code() + "_" + recuest.getDate_request(), substitutionData);
+				// DocxMainpulator.generateAndSendDocx("temp.docx",
+				// "Z-" + recuest.getRecuest_code() + "_" +
+				// recuest.getDate_request(), substitutionData);
 
 				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
-				
+
 			}
 		});
 

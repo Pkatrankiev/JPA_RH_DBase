@@ -56,7 +56,7 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 
 		JFrame frame = new JFrame("TablePrintDemo");
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
@@ -111,7 +111,7 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 
 		/** Fiddle with the Sport column's cell editors/renderers. **/
 
-		setUpSportColumn(table, table.getColumnModel().getColumn(0));
+//		setUpSportColumn(table, table.getColumnModel().getColumn(0));
 
 
 
@@ -123,43 +123,43 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 
 		/** Add a print button. **/
 
-		JButton printButton = new JButton("Print");
-
-		printButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		printButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(java.awt.event.ActionEvent ignore) 
-			
-			{	
-			MessageFormat header = new MessageFormat("Page {0,number,integer}");
-
-			try {
-
-				table.print(JTable.PrintMode.FIT_WIDTH, header, null);
-
-			} catch (java.awt.print.PrinterException e) {
-
-				System.err.format("Cannot print %s%n", e.getMessage());
-
-			}
-			}
-			
-			
-			
-			
-			
+//		JButton printButton = new JButton("Print");
 //
-//				
-////				printTableData(table);
+//		printButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 //
+//		printButton.addActionListener(new ActionListener() {
 //
+//			public void actionPerformed(java.awt.event.ActionEvent ignore) 
+//			
+//			{	
+//			MessageFormat header = new MessageFormat("Page {0,number,integer}");
+//
+//			try {
+//
+//				table.print(JTable.PrintMode.FIT_WIDTH, header, null);
+//
+//			} catch (java.awt.print.PrinterException e) {
+//
+//				System.err.format("Cannot print %s%n", e.getMessage());
 //
 //			}
-
-		});
-
-		add(printButton);
+//			}
+//			
+//			
+//			
+//			
+//			
+////
+////				
+//////				printTableData(table);
+////
+////
+////
+////			}
+//
+//		});
+//
+//		add(printButton);
 
 
 

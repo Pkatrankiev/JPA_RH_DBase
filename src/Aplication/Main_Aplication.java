@@ -38,26 +38,17 @@ public class Main_Aplication {
 
 	public static void main(String[] args) {
 
-//		 SetBasikValueInDataBase();
-		
+		// SetBasikValueInDataBase();
 
-//		ChangeObjectsInClassIzpitvan_pokazatel();
+		// ChangeObjectsInClassIzpitvan_pokazatel();
 
-		
-		
 		// ReaderWordDoc.readMyDocument(fileName);
 
-		
-		 
-		 
-		 StartMainWindow();
-		 
-		 
-		
-//		String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
-//		
-//		ReadFile.ReadFile(FILENAME);
+		StartMainWindow();
 
+		// String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
+		//
+		// ReadFile.ReadFile(FILENAME);
 
 	}
 
@@ -67,7 +58,7 @@ public class Main_Aplication {
 		List<Results> results_list = ResultsDAO.getListResultsFromColumnByVolume("rtazmernosti", nuclide_old);
 		for (Results results : results_list) {
 			ResultsDAO.setVolumeInColumInResultsById(results.getId_results(), nuclide_new, "rtazmernosti");
-					}
+		}
 	}
 
 	private static void ChangeObjectsInClass() {
@@ -86,27 +77,26 @@ public class Main_Aplication {
 	}
 
 	private static void SetBasikValueInDataBase() {
-//		External_applicantDAO.setBasikValueExternal_applicant();
-//		Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
-//		Ind_num_docDAO.setBasikValueInd_num_doc();
-//		MetodyDAO.setBasikValueMetody();
-//		List_izpitvan_pokazatelDAO.setBasikValuePokazatel();
-//		NuclideDAO.setBasicValueNuclide();
-//		Obekt_na_izpitvane_requestDAO.setBasicValueObekt_na_izpitvane();
-//		Obekt_na_izpitvane_sampleDAO.setBasicValueObekt_na_izpitvane_sample();
-//		Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
-//		RazmernostiDAO.setBasicValueRazmernosti();
-//		DimensionDAO.setBasicValueDimension();
-//		PostDAO.setBasikValuePost();
-//		UsersDAO.setBasicValueUsers();
-//		ZabelejkiDAO.setBasicValueZabelejki();
-//		Internal_applicantDAO.setBasikValueInternal_applicant();
-//		PeriodDAO.setBasicValuePeriod();
+		// External_applicantDAO.setBasikValueExternal_applicant();
+		// Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
+		// Ind_num_docDAO.setBasikValueInd_num_doc();
+		// MetodyDAO.setBasikValueMetody();
+		// List_izpitvan_pokazatelDAO.setBasikValuePokazatel();
+		// NuclideDAO.setBasicValueNuclide();
+		// Obekt_na_izpitvane_requestDAO.setBasicValueObekt_na_izpitvane();
+		// Obekt_na_izpitvane_sampleDAO.setBasicValueObekt_na_izpitvane_sample();
+		// Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
+		// RazmernostiDAO.setBasicValueRazmernosti();
+		// DimensionDAO.setBasicValueDimension();
+		// PostDAO.setBasikValuePost();
+		// UsersDAO.setBasicValueUsers();
+		// ZabelejkiDAO.setBasicValueZabelejki();
+		// Internal_applicantDAO.setBasikValueInternal_applicant();
+		// PeriodDAO.setBasicValuePeriod();
 		// RequestDAO.setBasicValueRequest();
 		// SampleDAO.setBasicValueSample();
-		//
 		// ResultsDAO.setBasicValueResults();
-		Extra_moduleDAO.setBasicValueRequest();
+		// Extra_moduleDAO.setBasicValueRequest();
 	}
 
 	public static String alignExpon(double basic, double foll) {

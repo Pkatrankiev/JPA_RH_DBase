@@ -51,6 +51,7 @@ import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.StartGenerateDocTemplate;
+import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Users;
@@ -198,30 +199,10 @@ public class MainWindows {
 				if (loginDlg.getUsername().equals("")) {
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
 				} else {
-					List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByVolume("recuest_code",
-							"templ");
-					String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател"};
-					String[][] tabletamplateRequest = new String[listTamplateRequest.size()][4];
-					int i = 0;
-					for (Request tamplateRequest : listTamplateRequest) {
-						tabletamplateRequest[i][0] = tamplateRequest.getInd_num_doc().getName();
-						tabletamplateRequest[i][1] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
-						tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request()
-								.getName_obekt_na_izpitvane();
-						tabletamplateRequest[i][3] = tamplateRequest.getRazmernosti().getName_razmernosti();
-						i++;
-					}
-					TablePrintDemo.createAndShowGUI(tableHeader, tabletamplateRequest);
-
-					// **************************************************************************
-					// Users user =
-					// UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
-					// RequestView reqView = new RequestView(user);
-					// reqView.setVisible(true);
-					//
-					// ******************************************************************************
+					RequestViewAplication.DrawTableWithRequestTamplate();
 				}
 			}
+
 		});
 
 		final Panel panel_1 = new Panel();
@@ -247,42 +228,14 @@ public class MainWindows {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
 
-				String requestString = "3467";
+//				String requestString = "3467";
+//				RequestViewAplication.OpenRequestInWordDokTamplate(requestString);
 
-				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
-
-				List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
-				String[][] smple_vol = new String[smple_list.size()][6];
-				int i = 0;
-				for (Sample sample : smple_list) {
-					smple_vol[i][0] = sample.getSample_code();
-					smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-					smple_vol[i][2] = sample.getDescription_sample();
-					smple_vol[i][3] = sample.getDate_time_reference();
-					if (sample.getPeriod() == null) {
-						smple_vol[i][4] = "";
-					} else {
-						smple_vol[i][4] = sample.getPeriod().getValue();
-					}
-					smple_vol[i][5] = sample.getGodina_period() + "";
-					i++;
-				}
-
-				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
-
-				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
-						.GenerateMapForRequestWordDocument(recuest, list_izpitvan_pokazatel, smple_vol,
-								date_time_reference);
-
-				// DocxMainpulator.generateAndSendDocx("temp.docx",
-				// "Z-" + recuest.getRecuest_code() + "_" +
-				// recuest.getDate_request(), substitutionData);
-
-				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
+				RequestViewAplication.DrawTableWithRequestList();
 
 			}
+
 		});
 
 		final JButton btnLogin = new JButton("Login");

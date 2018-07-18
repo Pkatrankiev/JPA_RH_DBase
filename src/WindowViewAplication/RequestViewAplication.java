@@ -3,17 +3,26 @@ package WindowViewAplication;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.swing.text.MaskFormatter;
 import Aplication.Ind_num_docDAO;
+import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
+import Aplication.RequestDAO;
+import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
+import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Ind_num_doc;
+import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
@@ -21,7 +30,9 @@ import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
+import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
+import WindowView.TablePrintDemo;
 
 public class RequestViewAplication {
 
@@ -37,7 +48,6 @@ public class RequestViewAplication {
 		return arr1;
 	}
 
-	
 	public static String getIND_DescriptByName(String name) {
 		String descript = Ind_num_docDAO.getValueIByName(name).getContent();
 		return descript;
@@ -96,6 +106,27 @@ public class RequestViewAplication {
 
 		return date_time_reference;
 
+	}
+
+	public static String[][] getMasiveSampleFromReques(Request request) {
+		int countSample = request.getCounts_samples();
+		String[][] volSampleView = new String[countSample][6];
+		List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		int i = 0;
+		for (Sample sample : listSample) {
+			volSampleView[i][0] = sample.getSample_code();
+			volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			volSampleView[i][2] = sample.getDescription_sample();
+			volSampleView[i][3] = sample.getDate_time_reference();
+			String period = "";
+			if (sample.getPeriod() != null)
+				period = sample.getPeriod().getValue();
+			volSampleView[i][4] = period;
+		
+			volSampleView[i][5] = sample.getGodina_period() + "";
+			i++;
+		}
+		return volSampleView;
 	}
 
 	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
@@ -178,7 +209,7 @@ public class RequestViewAplication {
 		if (request.getZabelejki() != null) {
 			zabel_str = request.getZabelejki().getName_zabelejki();
 		}
-		
+
 		return zabel_str;
 	}
 
@@ -186,10 +217,10 @@ public class RequestViewAplication {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add("");
-		
+
 		for (Zabelejki e : list) {
 			arr.add(e.getName_zabelejki());
-			
+
 		}
 		return arr;
 	}
@@ -271,7 +302,7 @@ public class RequestViewAplication {
 	public static String checkFormatString(String code) {
 
 		String newCode = code;
-		
+
 		System.out.println(code);
 		for (int i = 0; i < code.length(); i++) {
 			try {
@@ -283,6 +314,117 @@ public class RequestViewAplication {
 		}
 
 		return newCode;
+	}
+
+	public static void OpenRequestInWordDokTamplate(String requestString) {
+		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
+		String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request);
+
+		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		String[][] smple_vol = new String[smple_list.size()][6];
+		int i = 0;
+		for (Sample sample : smple_list) {
+			smple_vol[i][0] = sample.getSample_code();
+			smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			smple_vol[i][2] = sample.getDescription_sample();
+			smple_vol[i][3] = sample.getDate_time_reference();
+			if (sample.getPeriod() == null) {
+				smple_vol[i][4] = "";
+			} else {
+				smple_vol[i][4] = sample.getPeriod().getValue();
+			}
+			smple_vol[i][5] = sample.getGodina_period() + "";
+			i++;
+		}
+
+		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
+
+		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
+				.GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel, smple_vol, date_time_reference);
+
+		// DocxMainpulator.generateAndSendDocx("temp.docx",
+		// "Z-" + recuest.getRecuest_code() + "_" +
+		// recuest.getDate_request(), substitutionData);
+
+		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
+	}
+
+	private static String CreateStringListIzpPokaz(Request request) {
+		List<Izpitvan_pokazatel> list_izp_pok = RequestViewAplication.get_List_Izpitvan_pokazatel_From_Request(request);
+		String list_izpitvan_pokazatel = "";
+		for (Izpitvan_pokazatel izpitvan_pokazatel : list_izp_pok) {
+			if (!list_izpitvan_pokazatel.equals(""))
+				list_izpitvan_pokazatel = list_izpitvan_pokazatel + "\n";
+			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel.getPokazatel().getName_pokazatel();
+		}
+		return list_izpitvan_pokazatel;
+	}
+
+	public static void DrawTableWithRequestTamplate() {
+		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByVolume("recuest_code", "templ");
+		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател" };
+		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][4];
+		int i = 0;
+		for (Request tamplateRequest : listTamplateRequest) {
+			tabletamplateRequest[i][0] = tamplateRequest.getInd_num_doc().getName();
+			tabletamplateRequest[i][1] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
+			tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+			tabletamplateRequest[i][3] = tamplateRequest.getRazmernosti().getName_razmernosti();
+			i++;
+		}
+		TablePrintDemo.createAndShowGUI(tableHeader, tabletamplateRequest);
+	}
+
+	public static void DrawTableWithRequestList() {
+		List<Request> listRequest = RequestDAO.getInListAllValueRequest();
+		String[] tableHeader = { "№ на Заявката", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
+				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
+				"Време на приемане", "Приел заявката", "Забележка" };
+
+		String[][] tableRequest = new String[listRequest.size()][13];
+		int i = 0;
+		for (Request request : listRequest) {
+			k
+			try {
+				Integer.parseInt(request.getRecuest_code());
+				tableRequest[i][0] = request.getRecuest_code();
+				tableRequest[i][1] = request.getDate_request();
+				tableRequest[i][2] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
+				tableRequest[i][3] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+				tableRequest[i][4] = CreateStringListIzpPokaz(request);
+				tableRequest[i][5] = request.getRazmernosti().getName_razmernosti();
+				tableRequest[i][6] = request.getCounts_samples() + "";
+				tableRequest[i][7] = request.getDescription_sample_group();
+				String[][] masiveSample = getMasiveSampleFromReques(request);
+				tableRequest[i][8] = RequestViewAplication.GenerateStringRefDateTime(masiveSample);
+				tableRequest[i][9] = request.getDate_execution();
+				tableRequest[i][10] = request.getDate_time_reception();
+				tableRequest[i][11] = request.getUsers().getName_users() + " " + request.getUsers().getFamily_users();
+				String zab = "";
+				if (request.getZabelejki() != null)
+					zab = request.getZabelejki().getName_zabelejki();
+				tableRequest[i][12] = zab;
+				i++;
+
+			} catch (NumberFormatException e) {
+				listRequest.remove(request);
+			}
+		}
+
+		TablePrintDemo.createAndShowGUI(tableHeader, tableRequest);
+	}
+
+	public static List<Izpitvan_pokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
+		int count_samp = request.getCounts_samples();
+		List<Sample> list_sam = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		System.out.println(request.getRecuest_code() + "////////////////////////////////// " + list_sam.size());
+		Sample samp = list_sam.get(0);
+		List<Izpitvan_pokazatel> list_izp_pok = Izpitvan_pokazatelDAO
+				.getListIzpitvan_pokazatelFromColumnByVolume("sample", samp);
+
+		Izpitvan_pokazatel[][] masive_izp_pok = new Izpitvan_pokazatel[count_samp][];
+
+		return list_izp_pok;
 	}
 
 	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {

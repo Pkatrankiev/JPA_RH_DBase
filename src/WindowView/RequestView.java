@@ -1078,10 +1078,7 @@ public class RequestView extends JFrame {
 
 				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 				masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-				// RequestPreview ðequest_preview = new RequestPreview(request,
-				// txtArea_list_izpitvan_pokazatel.getText(),
-				// string);
-
+				
 				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
 
 				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document

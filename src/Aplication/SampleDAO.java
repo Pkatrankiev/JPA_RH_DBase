@@ -53,7 +53,7 @@ public class SampleDAO {
 		entitymanager.close();
 		emfactory.close();
 	}
-	
+
 	public static List<Sample> getInListAllValueSample() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -64,21 +64,17 @@ public class SampleDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		System.out.format("%4s%8s%4s%12s%20s%26s%30s",
-			    "Num", "заявка", "код", "описание", "референтна дата", "обект на изпитване", "показател");
+		System.out.format("%4s%8s%4s%12s%20s%26s%30s", "Num", "заявка", "код", "описание", "референтна дата",
+				"обект на изпитване", "показател");
 		System.out.println();
 		for (Sample e : list) {
-			System.out.format("%4s%8s%1s%-3s%12s%20s%26s%30s",
-					((Sample) e).getId_sample(),
-							((Sample) e).getRequest().getRecuest_code(),"-",
-							((Sample) e).getSample_code(),
-							((Sample) e).getDescription_sample(),
-							((Sample) e).getDate_time_reference(),
-							((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+			System.out.format("%4s%8s%1s%-3s%12s%20s%26s%30s", ((Sample) e).getId_sample(),
+					((Sample) e).getRequest().getRecuest_code(), "-", ((Sample) e).getSample_code(),
+					((Sample) e).getDescription_sample(), ((Sample) e).getDate_time_reference(),
+					((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
 			System.out.println();
-			
-			
-}
+
+		}
 		return list;
 	}
 
@@ -92,38 +88,33 @@ public class SampleDAO {
 		int max = 1;
 		int ran = 1;
 		// Get Request list
-					List<Request> listtrequest = entitymanager.createQuery("SELECT e FROM Request e").getResultList();
-					System.out.println("Num Request:" + listtrequest.size());
-					
-					for (int reqNum = 1; reqNum <= listtrequest.size(); reqNum++) {			
-										
-					Request request = RequestDAO.getValueRequestById(reqNum);
-			Period period = null;	
-		
-		for (int i = 1; i <= request.getCounts_samples(); i++) {
-			
+		List<Request> listtrequest = entitymanager.createQuery("SELECT e FROM Request e").getResultList();
+		System.out.println("Num Request:" + listtrequest.size());
 
-			
-			// Get random Obekt_na_izpitvane object
-			List<Obekt_na_izpitvane_request> listOi = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e")
-					.getResultList();
-			System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
-			max = listOi.size();
-			ran = min + (int) (Math.random() * ((max - min) + 1));
-			Obekt_na_izpitvane_sample obekt_na_izpitvane = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleById(ran);
-			System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
+		for (int reqNum = 1; reqNum <= listtrequest.size(); reqNum++) {
 
-		
+			Request request = RequestDAO.getValueRequestById(reqNum);
+			Period period = null;
 
-			setValueSample(i+"", // sample_code
-					"проби1", // description_sample
-					"22.12.2017 /12:00", // date_time_reference
-					request, // request object
-					obekt_na_izpitvane,
-					period,
-					2017);
+			for (int i = 1; i <= request.getCounts_samples(); i++) {
+
+				// Get random Obekt_na_izpitvane object
+				List<Obekt_na_izpitvane_request> listOi = entitymanager
+						.createQuery("SELECT e FROM Obekt_na_izpitvane_request e").getResultList();
+				System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
+				max = listOi.size();
+				ran = min + (int) (Math.random() * ((max - min) + 1));
+				Obekt_na_izpitvane_sample obekt_na_izpitvane = Obekt_na_izpitvane_sampleDAO
+						.getValueObekt_na_izpitvane_sampleById(ran);
+				System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
+
+				setValueSample(i + "", // sample_code
+						"проби1", // description_sample
+						"22.12.2017 /12:00", // date_time_reference
+						request, // request object
+						obekt_na_izpitvane, period, 2017);
+			}
 		}
-					}
 		entitymanager.close();
 		emfactory.close();
 
@@ -146,21 +137,19 @@ public class SampleDAO {
 
 		return list;
 	}
-	
-	
-	
+
 	@GET
 	@QueryParam("{id}")
-public static Sample getValueSampleById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-	EntityManager entitymanager = emfactory.createEntityManager();
-	entitymanager.getTransaction().begin();
-	Sample  sample = (Sample) entitymanager.find(Sample.class, id);
-	
-	entitymanager.close();
-	emfactory.close();
+	public static Sample getValueSampleById(@QueryParam("id") int id) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Sample sample = (Sample) entitymanager.find(Sample.class, id);
 
-	return sample;
-}
-	
+		entitymanager.close();
+		emfactory.close();
+
+		return sample;
+	}
+
 }

@@ -1,38 +1,13 @@
 package Aplication;
 
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.swing.JFrame;
-import javax.xml.ws.*;
-
 import DBase_Class.Izpitvan_produkt;
-import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
-import DBase_Class.Nuclide;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
-import WindowView.Login;
 import WindowView.MainWindows;
-//import WindowView.ReadFile;
-import WindowView.ReaderWordDoc;
-import WindowView.SetDBfromWordDoc;
-import WindowView.TablePrintDemo;
-import DBase_Class.Dimension;
-import DBase_Class.Izpitvan_pokazatel;
 
 public class Main_Aplication {
 
@@ -44,6 +19,8 @@ public class Main_Aplication {
 
 		// ReaderWordDoc.readMyDocument(fileName);
 
+//		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
+		
 		StartMainWindow();
 
 		// String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";

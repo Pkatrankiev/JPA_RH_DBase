@@ -8,21 +8,20 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
-import DBase_Class.Results;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import WindowView.RequestView;
 import DBase_Class.Obekt_na_izpitvane_request;
 
 public class RequestDAO {
@@ -93,7 +92,12 @@ public class RequestDAO {
 		valueEnt.setObekt_na_izpitvane_request(obekt_na_izpitvane_request);
 
 		entitymanager.persist(valueEnt);
-		entitymanager.getTransaction().commit();
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при записа", "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
 		entitymanager.close();
 		emfactory.close();
 	}
@@ -105,11 +109,18 @@ public class RequestDAO {
 		entitymanager.getTransaction().begin();
 
 		entitymanager.persist(valueEnt);
-		entitymanager.getTransaction().commit();
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при записа", "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
 		entitymanager.close();
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Boolean checkRequestCode(String check_code) {
 		Boolean available = false;
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -125,6 +136,7 @@ public class RequestDAO {
 		return available;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Request> getInListAllValueRequest() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -172,6 +184,7 @@ public class RequestDAO {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void saveBasicValueRequest() {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -269,6 +282,7 @@ public class RequestDAO {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Request settBasicValueRequest() {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -414,6 +428,7 @@ public class RequestDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Request> getListRequestFromColumnByVolume(String column_name, Object volume_check) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -431,7 +446,28 @@ public class RequestDAO {
 
 		return list;
 	}
+//	SELECT * FROM `request` WHERE `recuest_code` REGEXP 'tem' ORDER BY `recuest_code` ASC
 
+	@SuppressWarnings("unchecked")
+	public static List<Request> getListRequestFromColumnByContainsString(String column_name, String volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Request e WHERE e." + column_name + " REGEXP '"+volume_check+"";
+
+		Query query = entitymanager.createQuery(hql);
+//		query.setParameter("text", volume_check);
+
+		List<Request> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
 	public static Request getRequestFromColumnByVolume(String column_name, Object volume_check) {
 		Request list = new Request();
 		for (Request element : getListRequestFromColumnByVolume(column_name, volume_check)) {

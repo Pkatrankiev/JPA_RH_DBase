@@ -13,7 +13,7 @@
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/commons-lang3-3.7.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/docx4j-2.8.1.jar" sourcepath="C:/Users/ALPHA/.m2/repository/org/docx4j/docx4j/2.8.1/docx4j-2.8.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/docx-stamper-1.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/eclipselink.jar" sourcepath="C:/Users/ALPHA/.m2/repository/org/eclipse/persistence/eclipselink/2.7.0-RC3/eclipselink-2.7.0-RC3-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/google-collections-1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/javax.persistence-2.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/javax.ws.rs-api-2.0.jar"/>

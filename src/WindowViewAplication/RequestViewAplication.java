@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.text.MaskFormatter;
 import Aplication.Ind_num_docDAO;
+import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -22,6 +23,7 @@ import Aplication.ZabelejkiDAO;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Ind_num_doc;
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -350,9 +352,10 @@ public class RequestViewAplication {
 	}
 
 	private static String CreateStringListIzpPokaz(Request request) {
-		List<Izpitvan_pokazatel> list_izp_pok = RequestViewAplication.get_List_Izpitvan_pokazatel_From_Request(request);
+		List<IzpitvanPokazatel> list_izp_pok = get_List_Izpitvan_pokazatel_From_Request(request);
+		System.out.println(list_izp_pok.size()+" //////////////////////////////////");
 		String list_izpitvan_pokazatel = "";
-		for (Izpitvan_pokazatel izpitvan_pokazatel : list_izp_pok) {
+		for (IzpitvanPokazatel izpitvan_pokazatel : list_izp_pok) {
 			if (!list_izpitvan_pokazatel.equals(""))
 				list_izpitvan_pokazatel = list_izpitvan_pokazatel + "\n";
 			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel.getPokazatel().getName_pokazatel();
@@ -361,15 +364,18 @@ public class RequestViewAplication {
 	}
 
 	public static void DrawTableWithRequestTamplate() {
-		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByVolume("recuest_code", "templ");
-		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател" };
-		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][4];
+		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code", "templ");
+		
+		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател", "Размерност" };
+		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][5];
 		int i = 0;
 		for (Request tamplateRequest : listTamplateRequest) {
 			tabletamplateRequest[i][0] = tamplateRequest.getInd_num_doc().getName();
 			tabletamplateRequest[i][1] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
 			tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-			tabletamplateRequest[i][3] = tamplateRequest.getRazmernosti().getName_razmernosti();
+			tabletamplateRequest[i][3] = CreateStringListIzpPokaz(tamplateRequest);
+			tabletamplateRequest[i][4] = tamplateRequest.getRazmernosti().getName_razmernosti();
+			
 			i++;
 		}
 		TablePrintDemo.createAndShowGUI(tableHeader, tabletamplateRequest);
@@ -384,7 +390,6 @@ public class RequestViewAplication {
 		String[][] tableRequest = new String[listRequest.size()][13];
 		int i = 0;
 		for (Request request : listRequest) {
-			k
 			try {
 				Integer.parseInt(request.getRecuest_code());
 				tableRequest[i][0] = request.getRecuest_code();
@@ -405,25 +410,17 @@ public class RequestViewAplication {
 					zab = request.getZabelejki().getName_zabelejki();
 				tableRequest[i][12] = zab;
 				i++;
-
-			} catch (NumberFormatException e) {
-				listRequest.remove(request);
+				} catch (NumberFormatException e) {
+				//				listRequest.remove(request);
 			}
 		}
 
 		TablePrintDemo.createAndShowGUI(tableHeader, tableRequest);
 	}
 
-	public static List<Izpitvan_pokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
-		int count_samp = request.getCounts_samples();
-		List<Sample> list_sam = SampleDAO.getListSampleFromColumnByVolume("request", request);
-		System.out.println(request.getRecuest_code() + "////////////////////////////////// " + list_sam.size());
-		Sample samp = list_sam.get(0);
-		List<Izpitvan_pokazatel> list_izp_pok = Izpitvan_pokazatelDAO
-				.getListIzpitvan_pokazatelFromColumnByVolume("sample", samp);
-
-		Izpitvan_pokazatel[][] masive_izp_pok = new Izpitvan_pokazatel[count_samp][];
-
+	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
+		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
+	
 		return list_izp_pok;
 	}
 

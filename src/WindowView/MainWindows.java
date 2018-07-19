@@ -14,56 +14,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JMenu;
-import javax.swing.JTextPane;
 import java.awt.Panel;
 import java.awt.Font;
-import java.awt.Frame;
 
-import javax.swing.Box;
-import java.awt.Label;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import javax.swing.UIManager;
-import java.awt.Cursor;
 import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import Aplication.Obekt_na_izpitvane_requestDAO;
-import Aplication.RequestDAO;
-import Aplication.SampleDAO;
 import Aplication.UsersDAO;
-import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.StartGenerateDocTemplate;
-import DBase_Class.Izpitvan_pokazatel;
-import DBase_Class.Request;
-import DBase_Class.Sample;
 import DBase_Class.Users;
-import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.RequestViewAplication;
-
-import java.awt.SystemColor;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class MainWindows {
-	private final Action action = new SwingAction();
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -196,9 +167,10 @@ public class MainWindows {
 
 			public void mousePressed(MouseEvent e) {
 
-				if (loginDlg.getUsername().equals("")) {
-					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
-				} else {
+//				if (loginDlg.getUsername().equals("")) {
+//					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
+//				} else
+				{
 					RequestViewAplication.DrawTableWithRequestTamplate();
 				}
 			}

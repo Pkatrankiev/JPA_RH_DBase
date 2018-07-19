@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import Aplication.Ind_num_docDAO;
+import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
@@ -35,11 +36,14 @@ import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
+import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import WindowViewAplication.DocxMainpulator;
@@ -77,6 +81,7 @@ public class RequestView extends JFrame {
 	private static ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
 	private Extra_module xtra_module = null;
+	private ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = null;
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -526,6 +531,9 @@ public class RequestView extends JFrame {
 				for (String string : choiceLP.getChoiceL_P()) {
 					str = str + string + "\n";
 				}
+
+				list_izpitvan_pokazatel = choiceLP.getListI_PFormChoiceL_P();
+
 				txtArea_list_izpitvan_pokazatel.setBorder(border);
 				int cout_str = str.length();
 				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
@@ -1012,11 +1020,6 @@ public class RequestView extends JFrame {
 		btn_add_Zab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
-				// final JFrame f = new JFrame();
-
-				// AddInChoice choiceZab1 = new AddInChoice(f, arrayZab,
-				// choice_Zab.getSelectedItem());
-
 				String str = AddInChoice.getChoiceO_I_R();
 
 				for (String string : arrayZab) {
@@ -1039,28 +1042,15 @@ public class RequestView extends JFrame {
 		gbc_btn_add_Zab.gridy = 23;
 		p.add(btn_add_Zab, gbc_btn_add_Zab);
 
+		// TODO btn_save ( Запис )
 		JButton btn_save = new JButton("Запис");
-
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				if (checkRequest()) {
-					request = createRequestObject();
-
-					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-					masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-
-					RequestDAO.saveRequestFromRequest(request);
-
-					saveSample(masiveSampleValue);
-
-					// GenerateWordRequestDocument.GenerateWordDocument(request,
-					// txtArea_list_izpitvan_pokazatel.getText(),
-					// string);
-
+					saveRequestSamplePokazatelTable("RequestObject");
+					setVisible(false);
 				}
 			}
-
 		});
 		btn_save.setPreferredSize(new Dimension(100, 23));
 		GridBagConstraints gbc_btn_save = new GridBagConstraints();
@@ -1070,24 +1060,13 @@ public class RequestView extends JFrame {
 		gbc_btn_save.gridy = 25;
 		p.add(btn_save, gbc_btn_save);
 
+		// TODO btn_Preview ( Превю )
 		JButton btn_Preview = new JButton("Превю");
 		btn_Preview.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent arg0) {
-				request = createRequestObject();
-
-				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-				masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-				
-				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
-
-				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
-						.GenerateMapForRequestWordDocument(request, txtArea_list_izpitvan_pokazatel.getText(),
-								masiveSampleValue, date_time_reference);
-				DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-						"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
-
+				createPreviewRequestWordDoc();
 			}
+
 		});
 		GridBagConstraints gbc_btn_Preview = new GridBagConstraints();
 		gbc_btn_Preview.insets = new Insets(0, 0, 0, 5);
@@ -1095,30 +1074,18 @@ public class RequestView extends JFrame {
 		gbc_btn_Preview.gridy = 25;
 		p.add(btn_Preview, gbc_btn_Preview);
 
+		// TODO btn_Template ( Шаблон )
 		JButton btn_Template = new JButton("Шаблон");
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (user.getIsAdmin()){
+				if (user.getIsAdmin()) {
 					if (checkRequest()) {
-						request = createRequestTamplate();
-
-						int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-						masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-
-						RequestDAO.saveRequestFromRequest(request);
-
-						saveSample(masiveSampleValue);
-
-						// GenerateWordRequestDocument.GenerateWordDocument(request,
-						// txtArea_list_izpitvan_pokazatel.getText(),
-						// string);
-
+						saveRequestSamplePokazatelTable("RequestTamplate");
 					}
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(btn_Template, "Не сте администратор");
 				}
 			}
-
 		});
 		GridBagConstraints gbc_btn_Template = new GridBagConstraints();
 		gbc_btn_Template.insets = new Insets(0, 0, 0, 5);
@@ -1211,6 +1178,27 @@ public class RequestView extends JFrame {
 		return saveCheck;
 	}
 
+	private void saveRequestSamplePokazatelTable(String rec) {
+		
+		 switch (rec) {
+         case "RequestObject": request = createRequestObject();
+                  break;
+         case "RequestTamplate":  request = createRequestTamplate();
+                  break;
+                 
+     }
+		
+
+		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+
+		RequestDAO.saveRequestFromRequest(request);
+		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel)d {
+			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
+		}
+		saveSample(masiveSampleValue);
+	}
+
 	private Request createRequestObject() {
 		Request recuest = null;
 		Ind_num_doc ind_num_doc = null;
@@ -1242,6 +1230,18 @@ public class RequestView extends JFrame {
 		return recuest;
 
 	}
+
+	private void createPreviewRequestWordDoc() {
+		request = createRequestObject();
+		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
+		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
+				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
+		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
+	}
+
 	private Request createRequestTamplate() {
 		Request recuest = null;
 		Ind_num_doc ind_num_doc = null;
@@ -1265,14 +1265,14 @@ public class RequestView extends JFrame {
 				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
 			}
 		}
-		recuest = RequestDAO.setValueRequest("templ", "",
-				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
-				txtArea_Descript_grup_Sample.getText(), "",
-				"", ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, null,
-				obekt_na_izpitvane_request);
+		String str_templ = RequestViewAplication.DateNaw(true);
+		recuest = RequestDAO.setValueRequest("templ "+str_templ, "", chckbx_accreditation.isSelected(), section, xtra_module,
+				count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc, izpitvan_produkt,
+				razmernosti, zabelejki, null, obekt_na_izpitvane_request);
 		return recuest;
 
 	}
+
 	private void saveSample(String[][] masiveSampleValue) {
 
 		for (int i = 0; i < masiveSampleValue.length; i++) {

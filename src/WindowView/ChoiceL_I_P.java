@@ -10,11 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Aplication.List_izpitvan_pokazatelDAO;
+import DBase_Class.List_izpitvan_pokazatel;
 import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -157,6 +160,17 @@ public class ChoiceL_I_P extends JDialog {
 		for (int i = 0; i < countL_I_P; i++) {
 			if (checkBox[i].isSelected())
 				arr.add(label[i].getText());
+		}
+		return arr;
+	}
+	
+	public static  ArrayList<List_izpitvan_pokazatel> getListI_PFormChoiceL_P() {
+		ArrayList<List_izpitvan_pokazatel> arr = new ArrayList<List_izpitvan_pokazatel>();
+		List_izpitvan_pokazatel l_I_P = null;
+		for (int i = 0; i < countL_I_P; i++) {
+			if (checkBox[i].isSelected())
+				l_I_P =	List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(label[i].getText());
+				arr.add(l_I_P);
 		}
 		return arr;
 	}

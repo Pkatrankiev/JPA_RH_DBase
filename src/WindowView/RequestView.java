@@ -81,7 +81,7 @@ public class RequestView extends JFrame {
 	private static ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
 	private Extra_module xtra_module = null;
-	private ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = null;
+	
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -532,8 +532,7 @@ public class RequestView extends JFrame {
 					str = str + string + "\n";
 				}
 
-				list_izpitvan_pokazatel = choiceLP.getListI_PFormChoiceL_P();
-
+				
 				txtArea_list_izpitvan_pokazatel.setBorder(border);
 				int cout_str = str.length();
 				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
@@ -1191,9 +1190,10 @@ public class RequestView extends JFrame {
 
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 
 		RequestDAO.saveRequestFromRequest(request);
-		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel)d {
+		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
 			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
 		}
 		saveSample(masiveSampleValue);

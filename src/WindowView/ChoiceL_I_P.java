@@ -168,9 +168,10 @@ public class ChoiceL_I_P extends JDialog {
 		ArrayList<List_izpitvan_pokazatel> arr = new ArrayList<List_izpitvan_pokazatel>();
 		List_izpitvan_pokazatel l_I_P = null;
 		for (int i = 0; i < countL_I_P; i++) {
-			if (checkBox[i].isSelected())
+			if (checkBox[i].isSelected()){
 				l_I_P =	List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(label[i].getText());
-				arr.add(l_I_P);
+					arr.add(l_I_P);
+			}
 		}
 		return arr;
 	}

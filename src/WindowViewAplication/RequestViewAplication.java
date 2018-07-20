@@ -124,7 +124,7 @@ public class RequestViewAplication {
 			if (sample.getPeriod() != null)
 				period = sample.getPeriod().getValue();
 			volSampleView[i][4] = period;
-		
+
 			volSampleView[i][5] = sample.getGodina_period() + "";
 			i++;
 		}
@@ -353,20 +353,23 @@ public class RequestViewAplication {
 
 	private static String CreateStringListIzpPokaz(Request request) {
 		List<IzpitvanPokazatel> list_izp_pok = get_List_Izpitvan_pokazatel_From_Request(request);
-		System.out.println(list_izp_pok.size()+" //////////////////////////////////");
+		System.out.println(list_izp_pok.size() + " //////////////////////////////////");
 		String list_izpitvan_pokazatel = "";
 		for (IzpitvanPokazatel izpitvan_pokazatel : list_izp_pok) {
-			if (!list_izpitvan_pokazatel.equals(""))
-				list_izpitvan_pokazatel = list_izpitvan_pokazatel + "\n";
-			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel.getPokazatel().getName_pokazatel();
+//			if (!list_izpitvan_pokazatel.equals(" "))
+//				list_izpitvan_pokazatel = list_izpitvan_pokazatel + "\n";
+			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel.getPokazatel().getName_pokazatel() +"\n";
 		}
+		System.out.println(list_izpitvan_pokazatel + " ############################");
 		return list_izpitvan_pokazatel;
 	}
 
 	public static void DrawTableWithRequestTamplate() {
-		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code", "templ");
-		
-		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател", "Размерност" };
+		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code",
+				"templ");
+
+		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател",
+				"Размерност" };
 		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][5];
 		int i = 0;
 		for (Request tamplateRequest : listTamplateRequest) {
@@ -375,7 +378,7 @@ public class RequestViewAplication {
 			tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 			tabletamplateRequest[i][3] = CreateStringListIzpPokaz(tamplateRequest);
 			tabletamplateRequest[i][4] = tamplateRequest.getRazmernosti().getName_razmernosti();
-			
+
 			i++;
 		}
 		TablePrintDemo.createAndShowGUI(tableHeader, tabletamplateRequest);
@@ -410,8 +413,8 @@ public class RequestViewAplication {
 					zab = request.getZabelejki().getName_zabelejki();
 				tableRequest[i][12] = zab;
 				i++;
-				} catch (NumberFormatException e) {
-				//				listRequest.remove(request);
+			} catch (NumberFormatException e) {
+				// listRequest.remove(request);
 			}
 		}
 
@@ -419,8 +422,9 @@ public class RequestViewAplication {
 	}
 
 	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
-		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
-	
+		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO
+				.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
+
 		return list_izp_pok;
 	}
 

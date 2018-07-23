@@ -34,6 +34,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
+import WindowView.TableListRequestTamplate;
 import WindowView.TablePrintDemo;
 
 public class RequestViewAplication {
@@ -381,7 +382,8 @@ public class RequestViewAplication {
 
 			i++;
 		}
-		TablePrintDemo.createAndShowGUI(tableHeader, tabletamplateRequest);
+		
+		TableListRequestTamplate.createTable(tableHeader, tabletamplateRequest);
 	}
 
 	public static void DrawTableWithRequestList() {

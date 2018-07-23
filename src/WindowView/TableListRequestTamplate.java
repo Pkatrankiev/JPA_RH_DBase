@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import javax.swing.JTable;
-
+import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
 import javax.swing.JComboBox;
@@ -39,19 +39,19 @@ import javax.swing.DefaultCellEditor;
 
 import java.text.MessageFormat;
 
-public class TablePrintDemo extends JPanel implements java.awt.event.ActionListener {
+public class TableListRequestTamplate extends JPanel implements java.awt.event.ActionListener {
 	private boolean DEBUG = true;
-	private JTable table;
+	private JPanel panel_Main;
 	private int k = 0;
 
-	public static void createAndShowGUI(String[] columnNames, Object[][] data) {
+	public static void createTable(String[] columnNames, Object[][] data) {
 
 		/** Create and set up the window. **/
 		JFrame frame = new JFrame("TablePrintDemo");
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/** Create and set up the content pane. **/
-		TablePrintDemo newContentPane = new TablePrintDemo(columnNames, data);
+		TableListRequestTamplate newContentPane = new TableListRequestTamplate(columnNames, data);
 		newContentPane.setOpaque(true); // content panes must be opaque
 		frame.setContentPane(newContentPane);
 
@@ -61,25 +61,46 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 
 	}
 
-	public TablePrintDemo(String[] columnNames, Object[][] data) {
+	public TableListRequestTamplate(String[] columnNames, Object[][] data) {
 		super(new GridLayout(1, 0));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		MyTableModel MyTable = new MyTableModel(columnNames, data);
-		table = new JTable(MyTable);
-		table.setPreferredScrollableViewportSize(new Dimension(900, 170));
-		table.setFillsViewportHeight(true);
-
-		/** Create the scroll pane and add the table to it. **/
-		JScrollPane scrollPane = new JScrollPane(table);
-
-		/** Set up column sizes. **/
-		initColumnSizes(table, columnNames);
-
-		/** Fiddle with the Sport column's cell editors/renderers. **/
-		setLabelColumn(table, table.getColumnModel().getColumn(0));
-
-//		initListenerCells(data);
 		
+		int[] columnSizes = initColumnSizes(columnNames);
+		panel_Main = new JPanel();
+		panel_Main.setSize(new Dimension(900, 170));
+		panel_Main.setLayout(new BoxLayout(panel_Main, BoxLayout.Y_AXIS));
+		/** Create the scroll pane and add the table to it. **/
+		JScrollPane scrollPane = new JScrollPane(panel_Main);
+		JPanel[] panel_Label = new JPanel[data.length+1];
+		JLabel[][] lbl_collum = new JLabel[data.length+1][columnNames.length];
+		
+		panel_Label[0] = new JPanel();
+		panel_Main.add(panel_Label[0]);
+		for (int collum_index = 0; collum_index < columnNames.length; collum_index++) {
+			
+			lbl_collum[0][collum_index] = new JLabel(columnNames[collum_index].toString());
+			lbl_collum[0][collum_index].setPreferredSize(new Dimension(columnSizes[collum_index]*10+10, 20));
+			lbl_collum[0][collum_index].setHorizontalAlignment(JLabel.CENTER);
+			lbl_collum[0][collum_index].setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label[0].add(lbl_collum[0][collum_index]);
+		}
+		for (int row_index = 1; row_index <= data.length; row_index++) {
+			panel_Label[row_index] = new JPanel();
+			panel_Main.add(panel_Label[row_index]);
+			
+			for (int collum_index = 0; collum_index < columnNames.length; collum_index++) {
+	
+			lbl_collum[row_index][collum_index] = new JLabel(data[row_index-1][collum_index].toString());
+			lbl_collum[row_index][collum_index].setPreferredSize(new Dimension(columnSizes[collum_index]*10+10, 20));
+			lbl_collum[row_index][collum_index].setHorizontalAlignment(JLabel.CENTER);
+			lbl_collum[row_index][collum_index].setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label[row_index].add(lbl_collum[row_index][collum_index]);
+		}
+		}
+	
+
+		// initListenerCells(data);
+
 		/** Add the scroll pane to this panel. **/
 		add(scrollPane);
 
@@ -87,61 +108,13 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 		// addPrintButton();
 	}
 
-	private void addPrintButton() {
-		JButton printButton = new JButton("Print");
-		printButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		printButton.addActionListener(new ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent ignore) {
-				MessageFormat header = new MessageFormat("Page {0,number,integer}");
-				try {
-					table.print(JTable.PrintMode.FIT_WIDTH, header, null);
-				} catch (java.awt.print.PrinterException e) {
-					System.err.format("Cannot print %s%n", e.getMessage());
-				}
-
-				// printTableData(table);
-			}
-		});
-
-		add(printButton);
-	}
-
-	private void initListenerCells(Object[][] data) {
-
-		for (int i = 0; i < data.length; i++) {
-			k = i;
-			((AbstractButton) data[0][k]).addActionListener(new ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent ignore) {
-					System.out.println("**-----************-***" + data[0][k]);
-				}
-			});
+	private int[] initColumnSizes(String[] columnNames) {
+		int[] columWidth = new int[columnNames.length];
+		for (int i = 0; i < columnNames.length; i++) {
+			columWidth[i] = columnNames[i].length();
+			System.out.println(columWidth[i]);
 		}
-	}
-
-	private void initColumnSizes(JTable table, String[] columnNames) {
-		MyTableModel model = (MyTableModel) table.getModel();
-		TableColumn column = null;
-		Component comp = null;
-		int headerWidth = 0;
-		int cellWidth = 0;
-		Object[] longValuess = model.columnNames;
-		TableCellRenderer headerRenderer = table.getTableHeader().getDefaultRenderer();
-		for (int i = 0; i < longValuess.length; i++) {
-			column = table.getColumnModel().getColumn(i);
-			comp = headerRenderer.getTableCellRendererComponent(null, column.getHeaderValue(), false, false, 0, 0);
-			headerWidth = comp.getPreferredSize().width;
-			comp = table.getDefaultRenderer(model.getColumnClass(i)).getTableCellRendererComponent(table,
-					longValuess[i], false, false, 0, i);
-			cellWidth = comp.getPreferredSize().width;
-			if (DEBUG) {
-				System.out.println("Initializing width of column " + i + ". " + "headerWidth = " + headerWidth
-						+ "; cellWidth = " + cellWidth);
-			}
-		}
-		column.setPreferredWidth(Math.max(headerWidth, cellWidth));
-
-		// column.sizeWidthToFit(); //or simple
-
+		return columWidth;
 	}
 
 	public void setUpSportColumn(JTable table, TableColumn sportColumn) {
@@ -180,13 +153,12 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 
 		JLabel labelBox = new JLabel();
 
-
 		/** Set up tool tips for the sport cells. **/
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 
 		renderer.setToolTipText("Click for choice");
-//		renderer.addMouseWheelListener(l);
+		// renderer.addMouseWheelListener(l);
 		labelColumn.setCellRenderer(renderer);
 		renderer.addMouseWheelListener(new MouseAdapter() {
 			@Override
@@ -198,16 +170,17 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 			public void mouseExited(MouseEvent e) {
 				renderer.setBackground(Color.WHITE);
 			}
+
 			public void mousePressed(MouseEvent e) {
-				
+
 				System.out.print(" //////////////// " + renderer.getName());
-		
+
 			}
 
 		});
 
 	}
-	
+
 	private void printTableData(JTable table) {
 
 		int numRows = table.getRowCount();
@@ -348,19 +321,9 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 		}
 	}
 
-	public void actionPerformed(java.awt.event.ActionEvent ignore) {
-
-		MessageFormat header = new MessageFormat("Page {0,number,integer}");
-
-		try {
-
-			table.print(JTable.PrintMode.FIT_WIDTH, header, null);
-
-		} catch (java.awt.print.PrinterException e) {
-
-			System.err.format("Cannot print %s%n", e.getMessage());
-
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 
 	}
 

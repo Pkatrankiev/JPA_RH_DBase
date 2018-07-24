@@ -106,16 +106,16 @@ public class RequestView extends JFrame {
 	private ArrayList<String> array_O_I_R;
 	private Request request = null;;
 
-	public RequestView(Users user) {
+	public RequestView(Users user, Request tamplateRequest ) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		init(user);
+		init(user, tamplateRequest);
 		setVisible(true);
 	}
 
-	public void init(Users user) {
+	public void init(Users user, Request tamplateRequest ) {
 
 		curent_user = user;
 
@@ -315,11 +315,15 @@ public class RequestView extends JFrame {
 		p.add(lbl_ind_num_doc, gbc_lbl_ind_num_doc);
 
 		// TODO choice_ind_num_doc (Ид. номер на документа)
+		
 		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
 		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
 		for (String string : arr) {
 			choice_ind_num_doc.add(string);
+		}
+		if(tamplateRequest!=null){
+		choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
 		}
 		GridBagConstraints gbc_choice_ind_num_doc = new GridBagConstraints();
 		gbc_choice_ind_num_doc.anchor = GridBagConstraints.WEST;
@@ -361,6 +365,9 @@ public class RequestView extends JFrame {
 		for (String string : arr1) {
 			choice_izpitvan_produkt.add(string);
 		}
+		if(tamplateRequest!=null){
+			choice_izpitvan_produkt.select(tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt());
+			}
 		GridBagConstraints gbc_izpitvan_produkt = new GridBagConstraints();
 		gbc_izpitvan_produkt.gridwidth = 4;
 		gbc_izpitvan_produkt.fill = GridBagConstraints.HORIZONTAL;
@@ -407,6 +414,9 @@ public class RequestView extends JFrame {
 			System.out.println(string);
 			choice_obekt_na_izpitvane_request.add(string);
 		}
+		if(tamplateRequest!=null){
+			choice_obekt_na_izpitvane_request.select(tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane());
+			}
 		GridBagConstraints gbc_choice_obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_choice_obekt_na_izpitvane_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_obekt_na_izpitvane_request.gridwidth = 3;
@@ -478,6 +488,9 @@ public class RequestView extends JFrame {
 		for (String string : arr3) {
 			choice_Razmernost.add(string);
 		}
+		if(tamplateRequest!=null){
+			choice_Razmernost.select(tamplateRequest.getRazmernosti().getName_razmernosti());
+			}
 		GridBagConstraints gbc_choice_Razmernost = new GridBagConstraints();
 		gbc_choice_Razmernost.anchor = GridBagConstraints.WEST;
 		gbc_choice_Razmernost.insets = new Insets(0, 0, 5, 5);

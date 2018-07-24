@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.text.MaskFormatter;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -153,9 +154,9 @@ public class RequestViewAplication {
 			str_I_N_D = request.getInd_num_doc().getName();
 		}
 		return str_I_N_D;
-
 	}
-
+	
+	
 	public static String[] getStringMassiveRazmernost() {
 		int i = 0;
 		List<Razmernosti> list = RazmernostiDAO.getInListAllValueRazmernosti();
@@ -365,11 +366,11 @@ public class RequestViewAplication {
 		return list_izpitvan_pokazatel;
 	}
 
-	public static void DrawTableWithRequestTamplate() {
+	public static Request DrawTableWithRequestTamplate() {
 		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code",
 				"templ");
 
-		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "Показател",
+		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "     Показател     ",
 				"Размерност" };
 		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][5];
 		int i = 0;
@@ -382,8 +383,12 @@ public class RequestViewAplication {
 
 			i++;
 		}
-		
-		TableListRequestTamplate.createTable(tableHeader, tabletamplateRequest);
+		final JFrame f = new JFrame();
+		TableListRequestTamplate tableRequestTamp = new TableListRequestTamplate(f,tableHeader, tabletamplateRequest);
+		tableRequestTamp.setVisible(true);
+		System.out.println(tableRequestTamp.getChoiceTamplateRequest());
+		Request tamplateRequest = listTamplateRequest.get(tableRequestTamp.getChoiceTamplateRequest());
+		return tamplateRequest;
 	}
 
 	public static void DrawTableWithRequestList() {

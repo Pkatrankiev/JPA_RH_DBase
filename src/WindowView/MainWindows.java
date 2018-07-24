@@ -30,6 +30,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
 import Aplication.UsersDAO;
+import DBase_Class.Request;
 import DBase_Class.Users;
 import WindowViewAplication.RequestViewAplication;
 import javax.swing.border.LineBorder;
@@ -139,7 +140,7 @@ public class MainWindows {
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
 				} else {
 					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
-					RequestView reqView = new RequestView(user);
+					RequestView reqView = new RequestView(user,null);
 					reqView.setVisible(true);
 				}
 			}
@@ -167,11 +168,14 @@ public class MainWindows {
 
 			public void mousePressed(MouseEvent e) {
 
-//				if (loginDlg.getUsername().equals("")) {
-//					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
-//				} else
+				if (loginDlg.getUsername().equals("")) {
+					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
+				} else
 				{
-					RequestViewAplication.DrawTableWithRequestTamplate();
+					Request tamplateRequest = RequestViewAplication.DrawTableWithRequestTamplate();
+					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+					RequestView reqView = new RequestView(user,tamplateRequest);
+					reqView.setVisible(true);
 				}
 			}
 

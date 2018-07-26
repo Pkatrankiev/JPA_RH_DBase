@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JScrollPane;
@@ -35,6 +36,7 @@ import Aplication.ZabelejkiDAO;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
@@ -81,7 +83,6 @@ public class RequestView extends JFrame {
 	private static ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
 	private Extra_module xtra_module = null;
-	
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -106,7 +107,7 @@ public class RequestView extends JFrame {
 	private ArrayList<String> array_O_I_R;
 	private Request request = null;;
 
-	public RequestView(Users user, Request tamplateRequest ) {
+	public RequestView(Users user, Request tamplateRequest) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -115,10 +116,10 @@ public class RequestView extends JFrame {
 		setVisible(true);
 	}
 
-	public void init(Users user, Request tamplateRequest ) {
+	public void init(Users user, Request tamplateRequest) {
 
 		curent_user = user;
-
+		Boolean flTamplate = true;
 		final JPanel p = new JPanel();
 		p.setAlignmentY(0.0f);
 		p.setAlignmentX(0.0f);
@@ -315,15 +316,15 @@ public class RequestView extends JFrame {
 		p.add(lbl_ind_num_doc, gbc_lbl_ind_num_doc);
 
 		// TODO choice_ind_num_doc (Ид. номер на документа)
-		
+
 		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
 		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
 		for (String string : arr) {
 			choice_ind_num_doc.add(string);
 		}
-		if(tamplateRequest!=null){
-		choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
+		if (tamplateRequest != null) {
+			choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
 		}
 		GridBagConstraints gbc_choice_ind_num_doc = new GridBagConstraints();
 		gbc_choice_ind_num_doc.anchor = GridBagConstraints.WEST;
@@ -365,9 +366,9 @@ public class RequestView extends JFrame {
 		for (String string : arr1) {
 			choice_izpitvan_produkt.add(string);
 		}
-		if(tamplateRequest!=null){
+		if (tamplateRequest != null) {
 			choice_izpitvan_produkt.select(tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt());
-			}
+		}
 		GridBagConstraints gbc_izpitvan_produkt = new GridBagConstraints();
 		gbc_izpitvan_produkt.gridwidth = 4;
 		gbc_izpitvan_produkt.fill = GridBagConstraints.HORIZONTAL;
@@ -414,9 +415,10 @@ public class RequestView extends JFrame {
 			System.out.println(string);
 			choice_obekt_na_izpitvane_request.add(string);
 		}
-		if(tamplateRequest!=null){
-			choice_obekt_na_izpitvane_request.select(tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane());
-			}
+		if (tamplateRequest != null) {
+			choice_obekt_na_izpitvane_request
+					.select(tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane());
+		}
 		GridBagConstraints gbc_choice_obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_choice_obekt_na_izpitvane_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_obekt_na_izpitvane_request.gridwidth = 3;
@@ -488,9 +490,9 @@ public class RequestView extends JFrame {
 		for (String string : arr3) {
 			choice_Razmernost.add(string);
 		}
-		if(tamplateRequest!=null){
+		if (tamplateRequest != null) {
 			choice_Razmernost.select(tamplateRequest.getRazmernosti().getName_razmernosti());
-			}
+		}
 		GridBagConstraints gbc_choice_Razmernost = new GridBagConstraints();
 		gbc_choice_Razmernost.anchor = GridBagConstraints.WEST;
 		gbc_choice_Razmernost.insets = new Insets(0, 0, 5, 5);
@@ -525,27 +527,43 @@ public class RequestView extends JFrame {
 		txtArea_list_izpitvan_pokazatel.setEditable(false);
 		p.add(txtArea_list_izpitvan_pokazatel, gbc_txtArea_list_izpitvan_pokazatel);
 
+		if (tamplateRequest != null) {
+			List<String> list_String_I_P_Tamplate = new ArrayList<String>();
+			for (IzpitvanPokazatel izpitPokazatelFormTamplate : RequestViewAplication
+					.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest)) {
+				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
+			}
+			JFrame f = new JFrame();
+			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
+			String strTamplate = "";
+			txtArea_list_izpitvan_pokazatel.setText("");
+			for (String string : choiceLP.getChoiceL_P()) {
+				strTamplate = strTamplate + string + "\n";
+			}
+			int cout_str = strTamplate.length();
+			txtArea_list_izpitvan_pokazatel.setText(strTamplate.substring(0, cout_str - 1));
+		}
+
 		JButton btn_list_izpitvan_pokazatel = new JButton("Избор на показател");
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				// String [] list_I_P = null;
 				ArrayList<String> list_I_P = new ArrayList<String>();
+
 				if (!txtArea_list_izpitvan_pokazatel.getText().equals("")) {
 					list_I_P = ChoiceL_I_P.getChoiceL_P();
 					System.out.println(list_I_P.size());
 				}
 				final JFrame f = new JFrame();
-				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P);
+				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false);
 
 				String str = "";
-
 				txtArea_list_izpitvan_pokazatel.setText("");
 				for (String string : choiceLP.getChoiceL_P()) {
 					str = str + string + "\n";
 				}
 
-				
 				txtArea_list_izpitvan_pokazatel.setBorder(border);
 				int cout_str = str.length();
 				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
@@ -1191,15 +1209,16 @@ public class RequestView extends JFrame {
 	}
 
 	private void saveRequestSamplePokazatelTable(String rec) {
-		
-		 switch (rec) {
-         case "RequestObject": request = createRequestObject();
-                  break;
-         case "RequestTamplate":  request = createRequestTamplate();
-                  break;
-                 
-     }
-		
+
+		switch (rec) {
+		case "RequestObject":
+			request = createRequestObject();
+			break;
+		case "RequestTamplate":
+			request = createRequestTamplate();
+			break;
+
+		}
 
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
@@ -1279,9 +1298,9 @@ public class RequestView extends JFrame {
 			}
 		}
 		String str_templ = RequestViewAplication.DateNaw(true);
-		recuest = RequestDAO.setValueRequest("templ "+str_templ, "", chckbx_accreditation.isSelected(), section, xtra_module,
-				count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc, izpitvan_produkt,
-				razmernosti, zabelejki, null, obekt_na_izpitvane_request);
+		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
+				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
+				izpitvan_produkt, razmernosti, zabelejki, null, obekt_na_izpitvane_request);
 		return recuest;
 
 	}

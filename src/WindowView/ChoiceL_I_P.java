@@ -43,7 +43,7 @@ public class ChoiceL_I_P extends JDialog {
 	static JCheckBox[] checkBox = new JCheckBox[countL_I_P];
 	
 	
-	public ChoiceL_I_P(JFrame parent, ArrayList<String> list_izpitvan_pokazatel) {
+	public ChoiceL_I_P(JFrame parent, List<String> list_izpitvan_pokazatel, Boolean fromTamplate) {
 		super(parent, "", true);
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -151,8 +151,9 @@ public class ChoiceL_I_P extends JDialog {
 					}
 				});
 					
-		
-		setVisible(true);
+		if(fromTamplate){
+		setVisible(false);
+		}else setVisible(true);
 	}
 
 	public static  ArrayList<String> getChoiceL_P() {

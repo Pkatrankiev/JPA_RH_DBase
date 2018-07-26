@@ -7,7 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import javax.swing.JTable;
-
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JButton;
 
 import javax.swing.JComboBox;
@@ -19,6 +24,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 import WindowViewAplication.RequestViewAplication;
 
@@ -43,6 +49,8 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 	private boolean DEBUG = true;
 	private JTable table;
 	private int k = 0;
+	 private JTextField filterText;
+	 private TableRowSorter<MyTableModel> sorter;
 
 	public static void createAndShowGUI(String[] columnNames, Object[][] data) {
 
@@ -68,6 +76,9 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 		table = new JTable(MyTable);
 		table.setPreferredScrollableViewportSize(new Dimension(900, 170));
 		table.setFillsViewportHeight(true);
+		sorter = new TableRowSorter<MyTableModel>(MyTable);
+//		table.setAutoCreateRowSorter(true);
+		table.setRowSorter(sorter);
 
 		/** Create the scroll pane and add the table to it. **/
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -82,11 +93,49 @@ public class TablePrintDemo extends JPanel implements java.awt.event.ActionListe
 		
 		/** Add the scroll pane to this panel. **/
 		add(scrollPane);
+		
+	      //Create a separate form for filterText and statusText
+        JPanel form = new JPanel(new SpringLayout());
+        JLabel l1 = new JLabel("Filter Text:", SwingConstants.TRAILING);
+        form.add(l1);
+        filterText = new JTextField();
+        //Whenever filterText changes, invoke newFilter.
+        filterText.getDocument().addDocumentListener(
+                new DocumentListener() {
+                    public void changedUpdate(DocumentEvent e) {
+                        newFilter();
+                    }
+                    public void insertUpdate(DocumentEvent e) {
+                        newFilter();
+                    }
+                    public void removeUpdate(DocumentEvent e) {
+                        newFilter();
+                    }
+                });
+        l1.setLabelFor(filterText);
+        form.add(filterText);
+//        JLabel l2 = new JLabel("Status:", SwingConstants.TRAILING);
+//        form.add(l2);
+//        statusText = new JTextField();
+//        l2.setLabelFor(statusText);
+//        form.add(statusText);
+//        SpringUtilities.makeCompactGrid(form, 2, 2, 6, 6, 6, 6);
+        add(form);
+    
 
 		/** Add a print button. **/
 		// addPrintButton();
 	}
-
+private void newFilter() {
+    RowFilter<MyTableModel, Object> rf = null;
+    //If current expression doesn't parse, don't update.
+    try {
+        rf = RowFilter.regexFilter(filterText.getText(), 0);
+    } catch (java.util.regex.PatternSyntaxException e) {
+        return;
+    }
+    sorter.setRowFilter(rf);
+}
 	private void addPrintButton() {
 		JButton printButton = new JButton("Print");
 		printButton.setAlignmentX(Component.CENTER_ALIGNMENT);

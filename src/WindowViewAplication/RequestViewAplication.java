@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -424,7 +425,7 @@ public class RequestViewAplication {
 				// listRequest.remove(request);
 			}
 		}
-
+		          
 		TablePrintDemo.createAndShowGUI(tableHeader, tableRequest);
 	}
 

@@ -208,7 +208,8 @@ public class MainWindows {
 //				String requestString = "3467";
 //				RequestViewAplication.OpenRequestInWordDokTamplate(requestString);
 
-				RequestViewAplication.DrawTableWithRequestList();
+				TableRequestList.TableRequestList();
+//				RequestViewAplication.DrawTableWithRequestList();
 
 			}
 

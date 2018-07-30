@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/commons-io-2.6.jar"/>
@@ -30,5 +25,7 @@
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/xalan-2.4.0.jar"/>
 	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/tablefilter-swing-java5-4.4.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

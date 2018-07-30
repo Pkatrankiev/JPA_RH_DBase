@@ -17,7 +17,7 @@ public class TableRequestList {
 
 	        final JTable table = new JTable();//new DefaultTableModel(rowData, columnNames));
 
-	        TableFilterHeader cdr = new TableFilterHeader();
+	        new TableFilterHeader(table, AutoChoices.ENABLED);
 
 	        JScrollPane scrollPane = new JScrollPane(table);
 	        frame.add(scrollPane, BorderLayout.CENTER);

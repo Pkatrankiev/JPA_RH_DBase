@@ -14,55 +14,28 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JMenu;
-import javax.swing.JTextPane;
 import java.awt.Panel;
 import java.awt.Font;
-import java.awt.Frame;
 
-import javax.swing.Box;
-import java.awt.Label;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import javax.swing.UIManager;
-import java.awt.Cursor;
 import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import Aplication.Obekt_na_izpitvane_requestDAO;
-import Aplication.RequestDAO;
-import Aplication.SampleDAO;
 import Aplication.UsersDAO;
-import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Request;
-import DBase_Class.Sample;
 import DBase_Class.Users;
-import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.RequestViewAplication;
-
-import java.awt.SystemColor;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class MainWindows {
-	private final Action action = new SwingAction();
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -167,10 +140,45 @@ public class MainWindows {
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
 				} else {
 					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
-					RequestView reqView = new RequestView(user);
+					RequestView reqView = new RequestView(user,null);
 					reqView.setVisible(true);
 				}
 			}
+		});
+
+		Panel panel_3 = new Panel();
+		mnNewMenu.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 1, 15, 15));
+
+		JLabel label = new JLabel("Генериране на Нова Заявка по шаблон ");
+		label.setHorizontalAlignment(SwingConstants.LEFT);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		panel_3.add(label);
+		panel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				panel_3.setBackground(Color.LIGHT_GRAY);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				panel_3.setBackground(Color.WHITE);
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+				if (loginDlg.getUsername().equals("")) {
+					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
+				} else
+				{
+					Request tamplateRequest = RequestViewAplication.DrawTableWithRequestTamplate();
+					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+					RequestView reqView = new RequestView(user,tamplateRequest);
+					reqView.setVisible(true);
+				}
+			}
+
 		});
 
 		final Panel panel_1 = new Panel();
@@ -196,41 +204,15 @@ public class MainWindows {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				String list_izpitvan_pokazatel = "Съдържание на гама-излъчващи радионуклиди\nСъдържание на алфа-излъчващи радионуклиди";
 
-				String requestString = "3467";
+//				String requestString = "3467";
+//				RequestViewAplication.OpenRequestInWordDokTamplate(requestString);
 
-				Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
+				TableRequestList.TableRequestList();
+//				RequestViewAplication.DrawTableWithRequestList();
 
-				List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
-				String[][] smple_vol = new String[smple_list.size()][6];
-				int i = 0;
-				for (Sample sample : smple_list) {
-					smple_vol[i][0] = sample.getSample_code();
-					smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-					smple_vol[i][2] = sample.getDescription_sample();
-					smple_vol[i][3] = sample.getDate_time_reference();
-					if (sample.getPeriod() == null) {
-						smple_vol[i][4] = "";
-					} else {
-						smple_vol[i][4] = sample.getPeriod().getValue();
-					}
-					smple_vol[i][5] = sample.getGodina_period() + "";
-					i++;
-				}
-			
-				String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
-				
-
-				Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.Generate_Map_For_Request_Word_Document(recuest,
-						list_izpitvan_pokazatel, smple_vol, date_time_reference);
-
-//				DocxMainpulator.generateAndSendDocx("temp.docx",
-//						"Z-" + recuest.getRecuest_code() + "_" + recuest.getDate_request(), substitutionData);
-
-				StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", requestString, substitutionData);
-				
 			}
+
 		});
 
 		final JButton btnLogin = new JButton("Login");

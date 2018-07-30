@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
@@ -29,5 +30,33 @@
 	<classpathentry kind="lib" path="E:/JAVA Project Petar/JPA_RH_DBase/Lib/lib/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="lib" path="E:/JAVA Project Petar/JPA_RH_DBase/Lib/lib/xalan-2.4.0.jar"/>
 	<classpathentry kind="lib" path="E:/JAVA Project Petar/JPA_RH_DBase/Lib/lib/xmlbeans-2.3.0.jar"/>
+=======
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/commons-io-2.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/commons-lang3-3.7.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/docx4j-2.8.1.jar" sourcepath="C:/Users/ALPHA/.m2/repository/org/docx4j/docx4j/2.8.1/docx4j-2.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/docx-stamper-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/eclipselink.jar" sourcepath="C:/Users/ALPHA/.m2/repository/org/eclipse/persistence/eclipselink/2.7.0-RC3/eclipselink-2.7.0-RC3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/google-collections-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/javax.persistence-2.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/jdatepicker-1.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/mysql-connector-java-5.1.44-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/poi-examples-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/poi-excelant-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/poi-ooxml-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/poi-scratchpad-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/slf4j-simple-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/xalan-2.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Soft/JAVA Project/JPA_RH_DBase/Lib/lib/tablefilter-swing-java5-4.4.1.jar"/>
+>>>>>>> c3b1f849bdd71fcf7ab0119e3bcf84b89c99a57c
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

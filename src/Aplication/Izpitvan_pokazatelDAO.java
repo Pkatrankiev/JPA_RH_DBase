@@ -54,8 +54,6 @@ static String name_DBase = "JPA_RH_DBase";
 		entitymanager.close();
 		emfactory.close();
 	}
-
-
 	
 	public static List<Izpitvan_pokazatel> getInListAllValueIzpitvan_pokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

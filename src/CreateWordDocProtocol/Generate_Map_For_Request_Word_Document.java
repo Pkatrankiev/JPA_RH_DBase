@@ -2,16 +2,12 @@ package CreateWordDocProtocol;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import DBase_Class.Request;
 import WindowViewAplication.RequestViewAplication;
 
 public class Generate_Map_For_Request_Word_Document {
 
-	public static Map<String, String> Generate_Map_For_Request_Word_Document(Request request, String list_izpitvan_pokazatel,
+	public static Map<String, String> GenerateMapForRequestWordDocument(Request request, String list_izpitvan_pokazatel,
 			String[][] sample_description, String date_time_reference) {
 		Map<String, String> substitutionData = new HashMap<String, String>();
 

@@ -10,11 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Aplication.List_izpitvan_pokazatelDAO;
+import DBase_Class.List_izpitvan_pokazatel;
 import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -40,7 +43,7 @@ public class ChoiceL_I_P extends JDialog {
 	static JCheckBox[] checkBox = new JCheckBox[countL_I_P];
 	
 	
-	public ChoiceL_I_P(JFrame parent, ArrayList<String> list_izpitvan_pokazatel) {
+	public ChoiceL_I_P(JFrame parent, List<String> list_izpitvan_pokazatel, Boolean fromTamplate) {
 		super(parent, "", true);
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -148,15 +151,28 @@ public class ChoiceL_I_P extends JDialog {
 					}
 				});
 					
-		
-		setVisible(true);
+		if(fromTamplate){
+		setVisible(false);
+		}else setVisible(true);
 	}
 
-	public static ArrayList<String> getChoiceL_P() {
+	public static  ArrayList<String> getChoiceL_P() {
 		ArrayList<String> arr = new ArrayList<String>();
 		for (int i = 0; i < countL_I_P; i++) {
 			if (checkBox[i].isSelected())
 				arr.add(label[i].getText());
+		}
+		return arr;
+	}
+	
+	public static  ArrayList<List_izpitvan_pokazatel> getListI_PFormChoiceL_P() {
+		ArrayList<List_izpitvan_pokazatel> arr = new ArrayList<List_izpitvan_pokazatel>();
+		List_izpitvan_pokazatel l_I_P = null;
+		for (int i = 0; i < countL_I_P; i++) {
+			if (checkBox[i].isSelected()){
+				l_I_P =	List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(label[i].getText());
+					arr.add(l_I_P);
+			}
 		}
 		return arr;
 	}

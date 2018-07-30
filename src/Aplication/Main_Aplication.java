@@ -12,7 +12,8 @@ import WindowView.MainWindows;
 public class Main_Aplication {
 
 	public static void main(String[] args) {
-	// SetBasikValueInDataBase();
+
+		// SetBasikValueInDataBase();
 
 		// ChangeObjectsInClassIzpitvan_pokazatel();
 

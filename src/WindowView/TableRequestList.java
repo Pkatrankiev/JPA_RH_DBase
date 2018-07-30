@@ -16,9 +16,11 @@ public class TableRequestList {
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	        final JTable table = new JTable();//new DefaultTableModel(rowData, columnNames));
+	        
+	        TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
 
-	        new TableFilterHeader(table, AutoChoices.ENABLED);
-
+	      
+	      
 	        JScrollPane scrollPane = new JScrollPane(table);
 	        frame.add(scrollPane, BorderLayout.CENTER);
 	        frame.setSize(300, 150);

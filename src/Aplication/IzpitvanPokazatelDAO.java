@@ -61,7 +61,7 @@ static String name_DBase = "JPA_RH_DBase";
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e");
+		Query query = entitymanager.createQuery("SELECT e FROM IzpitvanPokazatel e");
 		List<IzpitvanPokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

@@ -64,17 +64,16 @@ public class SampleDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		System.out.format("%4s%8s%4s%12s%20s%26s%30s", "Num", "заявка", "код", "описание", "референтна дата",
-				"обект на изпитване", "показател");
-		System.out.println();
-		for (Sample e : list) {
-			System.out.format("%4s%8s%1s%-3s%12s%20s%26s%30s", ((Sample) e).getId_sample(),
-					((Sample) e).getRequest().getRecuest_code(), "-", ((Sample) e).getSample_code(),
-					((Sample) e).getDescription_sample(), ((Sample) e).getDate_time_reference(),
-					((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
-			System.out.println();
-
-		}
+//		System.out.format("55", "Num", "заявка", "код", "описание", "референтна дата",
+//				"обект на изпитване", "показател");
+//		System.out.println();
+//		for (Sample e : list) {
+//			System.out.format("22", ((Sample) e).getId_sample(),
+//					((Sample) e).getRequest().getRecuest_code(), "-", ((Sample) e).getSample_code(),
+//					((Sample) e).getDescription_sample(), ((Sample) e).getDate_time_reference(),
+//					((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+//			System.out.println();
+//		}
 		return list;
 	}
 

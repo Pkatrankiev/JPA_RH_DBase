@@ -21,18 +21,18 @@ public class TableRequestList {
 
 	        final JTable table = new JTable();//new DefaultTableModel(rowData, columnNames));
 	        table.setEnabled(false);
-	        MyTableModel model = (MyTableModel) table.getModel();
+//	        MyTableModel model = (MyTableModel) table.getModel();
 	        table.addMouseListener(new MouseAdapter() {
-	        	@Override
-				public void mouseEntered(MouseEvent e) {
-					panel_3.setBackground(Color.LIGHT_GRAY);
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					model.setRowColour(1, Color.YELLOW);
-					panel_3.setBackground(Color.WHITE);
-				}
+//	        	@Override
+//				public void mouseEntered(MouseEvent e) {
+//					panel_3.setBackground(Color.LIGHT_GRAY);
+//				}
+//
+//				@Override
+//				public void mouseExited(MouseEvent e) {
+//					model.setRowColour(1, Color.YELLOW);
+//					panel_3.setBackground(Color.WHITE);
+//				}
 	        	public void mousePressed(MouseEvent e) {
 	        		if (e.getClickCount() == 2&& table.getSelectedRow() != -1) {
 	        	          
@@ -61,14 +61,14 @@ public class TableRequestList {
 	        });
 	}
 
-	public void setRowColour(int row, Color c) {
-		List<Color> rowColours = Arrays.asList(
-		        Color.RED,
-		        Color.GREEN,
-		        Color.CYAN
-		    );
-        rowColours.set(row, c);
-        fireTableRowsUpdated(row, row);
-    }
+//	public void setRowColour(int row, Color c) {
+//		List<Color> rowColours = Arrays.asList(
+//		        Color.RED,
+//		        Color.GREEN,
+//		        Color.CYAN
+//		    );
+//        rowColours.set(row, c);
+//        fireTableRowsUpdated(row, row);
+//    }
 	  
 }

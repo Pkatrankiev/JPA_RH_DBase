@@ -1268,8 +1268,10 @@ public class RequestView extends JFrame {
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
 		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
+		
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
+		
 		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
 	}

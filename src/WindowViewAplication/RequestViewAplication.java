@@ -3,6 +3,7 @@ package WindowViewAplication;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -135,37 +136,7 @@ public class RequestViewAplication {
 		return volSampleView;
 	}
 
-	public static List<Sample> get_List_SamplelFromList_Sample(Request request, List<Sample> listAllSample) {
-		List<Sample> list_Sample = new ArrayList<Sample>();
-		for (Sample sample : listAllSample) {
-			if (sample.getRequest().getRecuest_code().equals(request.getRecuest_code())) {
-				list_Sample.add(sample);
-			}
-		}
-		return list_Sample;
-	}
-
-	public static String[][] getMasiveSampleFromListSampleFromRequest(Request request, List<Sample> listAllSample) {
-		int countSample = request.getCounts_samples();
-		String[][] volSampleView = new String[countSample][6];
-		int i = 0;
-		List<Sample> list_Sample_From_Request = get_List_SamplelFromList_Sample(request, listAllSample);
-		for (Sample sample : list_Sample_From_Request) {
-			volSampleView[i][0] = sample.getSample_code();
-			volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-			volSampleView[i][2] = sample.getDescription_sample();
-			volSampleView[i][3] = sample.getDate_time_reference();
-			String period = "";
-			if (sample.getPeriod() != null)
-				period = sample.getPeriod().getValue();
-			volSampleView[i][4] = period;
-
-			volSampleView[i][5] = sample.getGodina_period() + "";
-			i++;
-		}
-		return volSampleView;
-	}
-
+	
 	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
 		int count_Sample = masiveRefDateTime.length;
 		Boolean comparedFlag = false;
@@ -283,6 +254,7 @@ public class RequestViewAplication {
 		return formatter;
 	}
 
+	// Sample
 	public static String writeSampleDescript(String[][] str1) {
 
 		int[] numPoz = { 8, 20, 50, 17, 10, 6 };
@@ -324,6 +296,39 @@ public class RequestViewAplication {
 		return someLine;
 	}
 
+	public static List<Sample> get_List_SamplelFromList_Sample(Request request, List<Sample> listAllSample) {
+		List<Sample> list_Sample = new ArrayList<Sample>();
+		for (Sample sample : listAllSample) {
+			if (sample.getRequest().getRecuest_code().equals(request.getRecuest_code())) {
+				list_Sample.add(sample);
+			}
+		}
+		return list_Sample;
+	}
+
+	public static String[][] getMasiveSampleFromListSampleFromRequest(Request request, List<Sample> listAllSample) {
+		int countSample = request.getCounts_samples();
+		String[][] volSampleView = new String[countSample][6];
+		int i = 0;
+		List<Sample> list_Sample_From_Request = get_List_SamplelFromList_Sample(request, listAllSample);
+		for (Sample sample : list_Sample_From_Request) {
+			volSampleView[i][0] = sample.getSample_code();
+			volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			volSampleView[i][2] = sample.getDescription_sample();
+			volSampleView[i][3] = sample.getDate_time_reference();
+			String period = "";
+			if (sample.getPeriod() != null)
+				period = sample.getPeriod().getValue();
+			volSampleView[i][4] = period;
+
+			volSampleView[i][5] = sample.getGodina_period() + "";
+			i++;
+		}
+		return volSampleView;
+	}
+
+	
+	
 	private static String padString(String str, int n) {
 		if (str.length() <= n) {
 			for (int j = str.length(); j < n; j++) {
@@ -374,20 +379,23 @@ public class RequestViewAplication {
 		}
 
 		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
+		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
+		String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request, list_All_I_P);
+		
+		 Map<String, String> substitutionData =
+		 Generate_Map_For_Request_Word_Document
+		 .GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel,
+		 smple_vol, date_time_reference);
 
-		// Map<String, String> substitutionData =
-		// Generate_Map_For_Request_Word_Document
-		// .GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel,
-		// smple_vol, date_time_reference);
-
-		// DocxMainpulator.generateAndSendDocx("temp.docx",
-		// "Z-" + recuest.getRecuest_code() + "_" +
-		// recuest.getDate_request(), substitutionData);
+		 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+		 "Z-" + request.getRecuest_code() + "_" +
+				 request.getDate_request(), substitutionData);
 
 		// StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx",
 		// requestString, substitutionData);
 	}
 
+	// List_Izpitvan_Pokazatel
 	private static String CreateStringListIzpPokaz(Request request, List<IzpitvanPokazatel> list_All_I_P) {
 
 		List<IzpitvanPokazatel> list_izp_pok = get_List_Izpitvan_pokazatelFromList_I_P(request, list_All_I_P);
@@ -413,30 +421,46 @@ public class RequestViewAplication {
 		return list_izp_pok;
 	}
 
+	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
+		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO
+				.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
+
+		return list_izp_pok;
+	}
+
+	
+	
+	
 	public static Request DrawTableWithRequestTamplate() {
+		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code",
 				"templ");
 
 		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "     Показател     ",
 				"Размерност" };
+		Class[] types = { Integer.class,  String.class, String.class, String.class, String.class };
 		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][5];
 		int i = 0;
 		for (Request tamplateRequest : listTamplateRequest) {
 			tabletamplateRequest[i][0] = tamplateRequest.getInd_num_doc().getName();
 			tabletamplateRequest[i][1] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
 			tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-			// tabletamplateRequest[i][3] =
-			// CreateStringListIzpPokaz(tamplateRequest);
+			 tabletamplateRequest[i][3] = CreateStringListIzpPokaz(tamplateRequest, list_All_I_P);
 			tabletamplateRequest[i][4] = tamplateRequest.getRazmernosti().getName_razmernosti();
 
 			i++;
 		}
-		final JFrame f = new JFrame();
-		TableListRequestTamplate tableRequestTamp = new TableListRequestTamplate(f, tableHeader, tabletamplateRequest);
-		tableRequestTamp.setVisible(true);
-		System.out.println(tableRequestTamp.getChoiceTamplateRequest());
-		Request tamplateRequest = listTamplateRequest.get(tableRequestTamp.getChoiceTamplateRequest());
-		return tamplateRequest;
+		
+		TableRequestList.TableRequestList(tableHeader, tabletamplateRequest, types);
+		
+		
+//		final JFrame f = new JFrame();
+//		TableListRequestTamplate tableRequestTamp = new TableListRequestTamplate(f, tableHeader, tabletamplateRequest);
+//		tableRequestTamp.setVisible(true);
+//		System.out.println(tableRequestTamp.getChoiceTamplateRequest());
+//		Request tamplateRequest = listTamplateRequest.get(tableRequestTamp.getChoiceTamplateRequest());
+		
+		return TableRequestList.getChoiceRequest();
 	}
 
 	public static void DrawTableWithRequestList() {
@@ -444,8 +468,10 @@ public class RequestViewAplication {
 		String[] tableHeader = { "№ на Заявката", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
 				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
 				"Време на приемане", "Приел заявката", "Забележка" };
+		 Class[] types = { Integer.class, Calendar.class, String.class, String.class, String.class, String.class, Integer.class,
+				 String.class, Calendar.class, Calendar.class, Calendar.class, String.class, String.class };
 
-		String[][] tableRequest = new String[listRequest.size()][13];
+		 Object[][] tableRequest = new Object[listRequest.size()][13];
 		int i = 0;
 		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
@@ -459,7 +485,7 @@ public class RequestViewAplication {
 				tableRequest[i][3] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 				tableRequest[i][4] = CreateStringListIzpPokaz(request, list_All_I_P);
 				tableRequest[i][5] = request.getRazmernosti().getName_razmernosti();
-				tableRequest[i][6] = request.getCounts_samples() + "";
+				tableRequest[i][6] = request.getCounts_samples();
 				tableRequest[i][7] = request.getDescription_sample_group();
 				// String[][] masiveSample = getMasiveSampleFromReques(request);
 				String[][] masiveSample = getMasiveSampleFromListSampleFromRequest(request, listSample);
@@ -473,20 +499,14 @@ public class RequestViewAplication {
 				tableRequest[i][12] = zab;
 				i++;
 			} catch (NumberFormatException e) {
-				// listRequest.remove(request);
+				
 			}
 		}
-		TableRequestList.TableRequestList(tableHeader, tableRequest);
-		// TablePrintDemo.createAndShowGUI(tableHeader, tableRequest);
+		TableRequestList.TableRequestList(tableHeader, tableRequest, types);
+		
 	}
 
-	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
-		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO
-				.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
-
-		return list_izp_pok;
-	}
-
+	
 	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {
 		Boolean underMaximum = true;
 		try {

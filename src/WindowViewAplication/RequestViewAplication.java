@@ -37,9 +37,9 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
-import WindowView.TableListRequestTamplate;
 import WindowView.TablePrintDemo;
 import WindowView.TableRequestList;
+import rusDocZipCreator.TableListRequestTamplate;
 
 public class RequestViewAplication {
 
@@ -136,7 +136,6 @@ public class RequestViewAplication {
 		return volSampleView;
 	}
 
-	
 	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
 		int count_Sample = masiveRefDateTime.length;
 		Boolean comparedFlag = false;
@@ -327,8 +326,6 @@ public class RequestViewAplication {
 		return volSampleView;
 	}
 
-	
-	
 	private static String padString(String str, int n) {
 		if (str.length() <= n) {
 			for (int j = str.length(); j < n; j++) {
@@ -378,18 +375,18 @@ public class RequestViewAplication {
 			i++;
 		}
 
-		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
+		String date_time_reference = "";
+		if (!request.getRecuest_code().equals("templ")) {
+			date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
+		}
 		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request, list_All_I_P);
-		
-		 Map<String, String> substitutionData =
-		 Generate_Map_For_Request_Word_Document
-		 .GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel,
-		 smple_vol, date_time_reference);
 
-		 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-		 "Z-" + request.getRecuest_code() + "_" +
-				 request.getDate_request(), substitutionData);
+		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
+				.GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel, smple_vol, date_time_reference);
+
+		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
 
 		// StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx",
 		// requestString, substitutionData);
@@ -428,39 +425,29 @@ public class RequestViewAplication {
 		return list_izp_pok;
 	}
 
-	
-	
-	
-	public static Request DrawTableWithRequestTamplate() {
+	public static void DrawTableWithRequestTamplate() {
 		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code",
 				"templ");
 
-		String[] tableHeader = { "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване", "     Показател     ",
-				"Размерност" };
-		Class[] types = { Integer.class,  String.class, String.class, String.class, String.class };
-		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][5];
+		String[] tableHeader = { "№ на Заявката", "Ид.№ на документа", "Изпитван продукт", "Обект на изпитване",
+				"     Показател     ", "Размерност" };
+		Class[] types = { String.class, Integer.class, String.class, String.class, String.class, String.class };
+		String[][] tabletamplateRequest = new String[listTamplateRequest.size()][6];
 		int i = 0;
 		for (Request tamplateRequest : listTamplateRequest) {
-			tabletamplateRequest[i][0] = tamplateRequest.getInd_num_doc().getName();
-			tabletamplateRequest[i][1] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
-			tabletamplateRequest[i][2] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-			 tabletamplateRequest[i][3] = CreateStringListIzpPokaz(tamplateRequest, list_All_I_P);
-			tabletamplateRequest[i][4] = tamplateRequest.getRazmernosti().getName_razmernosti();
+			tabletamplateRequest[i][0] = tamplateRequest.getRecuest_code();
+			tabletamplateRequest[i][1] = tamplateRequest.getInd_num_doc().getName();
+			tabletamplateRequest[i][2] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
+			tabletamplateRequest[i][3] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+			tabletamplateRequest[i][4] = CreateStringListIzpPokaz(tamplateRequest, list_All_I_P);
+			tabletamplateRequest[i][5] = tamplateRequest.getRazmernosti().getName_razmernosti();
 
 			i++;
 		}
-		
+
 		TableRequestList.TableRequestList(tableHeader, tabletamplateRequest, types);
 		
-		
-//		final JFrame f = new JFrame();
-//		TableListRequestTamplate tableRequestTamp = new TableListRequestTamplate(f, tableHeader, tabletamplateRequest);
-//		tableRequestTamp.setVisible(true);
-//		System.out.println(tableRequestTamp.getChoiceTamplateRequest());
-//		Request tamplateRequest = listTamplateRequest.get(tableRequestTamp.getChoiceTamplateRequest());
-		
-		return TableRequestList.getChoiceRequest();
 	}
 
 	public static void DrawTableWithRequestList() {
@@ -468,10 +455,11 @@ public class RequestViewAplication {
 		String[] tableHeader = { "№ на Заявката", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
 				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
 				"Време на приемане", "Приел заявката", "Забележка" };
-		 Class[] types = { Integer.class, Calendar.class, String.class, String.class, String.class, String.class, Integer.class,
-				 String.class, Calendar.class, Calendar.class, Calendar.class, String.class, String.class };
+		Class[] types = { Integer.class, Calendar.class, String.class, String.class, String.class, String.class,
+				Integer.class, String.class, Calendar.class, Calendar.class, Calendar.class, String.class,
+				String.class };
 
-		 Object[][] tableRequest = new Object[listRequest.size()][13];
+		Object[][] tableRequest = new Object[listRequest.size()][13];
 		int i = 0;
 		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
@@ -499,14 +487,13 @@ public class RequestViewAplication {
 				tableRequest[i][12] = zab;
 				i++;
 			} catch (NumberFormatException e) {
-				
+
 			}
 		}
 		TableRequestList.TableRequestList(tableHeader, tableRequest, types);
-		
+
 	}
 
-	
 	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {
 		Boolean underMaximum = true;
 		try {

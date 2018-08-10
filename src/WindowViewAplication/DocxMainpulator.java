@@ -197,6 +197,17 @@ public class DocxMainpulator {
 
 	}
 
+	public static void deleteTempDataDir() {
+		String userTempDir = UUID.randomUUID().toString();
+		userTempDir = destinationDir + "/";
+		try {
+			deleteTempData(new File(userTempDir));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	// Deletes directory and all its subdirectories
 	private static void deleteTempData(File file) throws IOException {
 

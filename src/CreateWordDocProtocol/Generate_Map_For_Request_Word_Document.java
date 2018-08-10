@@ -133,9 +133,10 @@ public class Generate_Map_For_Request_Word_Document {
 		substitutionData.put("$$date_time_reception$$", request.getDate_time_reception());
 		substitutionData.put("$$date_execution$$", request.getDate_execution());
 		substitutionData.put("$$date_time_request$$", date_time_reference);
+		if(request.getUsers()!=null){
 		substitutionData.put("$$user$$",
 				request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
-
+		}
 		
 		String zabel_str = RequestViewAplication.getStringZabelejkiFormRequest(request);
 		str2 = "";

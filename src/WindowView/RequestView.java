@@ -1094,7 +1094,10 @@ public class RequestView extends JFrame {
 		JButton btn_Preview = new JButton("Превю");
 		btn_Preview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				createPreviewRequestWordDoc();
+				if (checkRequest()) {
+					createPreviewRequestWordDoc();
+				}
+				
 			}
 
 		});

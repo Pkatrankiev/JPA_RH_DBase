@@ -18,6 +18,8 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JMenu;
 import java.awt.Panel;
@@ -32,6 +34,7 @@ import javax.swing.JOptionPane;
 import Aplication.UsersDAO;
 import DBase_Class.Request;
 import DBase_Class.Users;
+import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.RequestViewAplication;
 import javax.swing.border.LineBorder;
 
@@ -44,13 +47,16 @@ public class MainWindows {
 		final JFrame win = new JFrame();
 		win.setTitle("my RHA");
 
-		win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		win.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		win.setSize(900, 600);
 		win.setLocationRelativeTo(null);
 		// win.setLayout(new FlowLayout(1));
 		// win.setLayout(new BorderLayout());
 		win.getContentPane().setLayout(new GridLayout(4, 4));
 
+		
+		
+		
 		JMenuBar menuBar_1 = new JMenuBar();
 		menuBar_1.setLayout(new BorderLayout());
 		menuBar_1.setBackground(Color.LIGHT_GRAY);
@@ -139,10 +145,15 @@ public class MainWindows {
 				if (loginDlg.getUsername().equals("")) {
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
 				} else {
-					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+					Users user = GetActivUser(loginDlg);
 					RequestView reqView = new RequestView(user,null);
 					reqView.setVisible(true);
 				}
+			}
+
+			private Users GetActivUser(final Login loginDlg) {
+				Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+				return user;
 			}
 		});
 
@@ -172,10 +183,11 @@ public class MainWindows {
 					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
 				} else
 				{
-					Request tamplateRequest = RequestViewAplication.DrawTableWithRequestTamplate();
-					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
-					RequestView reqView = new RequestView(user,tamplateRequest);
-					reqView.setVisible(true);
+					RequestViewAplication.DrawTableWithRequestTamplate();
+					
+//					Users user = UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
+//					
+//					reqView.setVisible(true);
 				}
 			}
 
@@ -240,7 +252,19 @@ public class MainWindows {
 				}
 			}
 		});
+		
+		
+		win.addWindowListener(new WindowAdapter() {
+            //I skipped unused callbacks for readability
 
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	DocxMainpulator.deleteTempDataDir();
+                	win.setVisible(false);
+                    win.dispose();
+                    System.exit(0);
+            }
+        });
 		win.setVisible(true);
 
 	}

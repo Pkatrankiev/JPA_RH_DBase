@@ -27,11 +27,7 @@ public class TableRequestList {
 //	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	        final JTable table = new JTable();//new DefaultTableModel(rowData, columnNames));
-//	        table.setEnabled(false);
-	        
-	        
-	        
-	        
+
 	        table.addMouseListener(new MouseAdapter() {
 
 	        	public void mousePressed(MouseEvent e) {
@@ -40,10 +36,16 @@ public class TableRequestList {
 	        	int row = table.getSelectedRow();
 	        	int col = table.getSelectedColumn();
 	        	System.out.println("selekt row:"+row+" col: "+col);
+	        	String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
 	        	
-//	        	System.out.println("Class colum:"+table.getSelectedColumn().);
-	        	RequestViewAplication.OpenRequestInWordDokTamplate(table.getValueAt(table.getSelectedRow(), 0).toString());
-	        	choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", table.getValueAt(table.getSelectedRow(), 0).toString());
+	        	if(reqCodeStr.startsWith("templ")){
+	        		choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+	        		RequestView reqView = new RequestView(Login.getCurentUser(), choiseRequest);
+	        		 frame.setVisible(false);
+					
+	        	}else{
+	        	RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
+	        	}
 	        		}
 	        	}
 	        	});

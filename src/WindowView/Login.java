@@ -32,7 +32,9 @@ public class Login extends JDialog {
 	private JLabel lbl_Username;
 	private JLabel lbl_Password;
 	private static boolean succeeded = false;
+	private static Users curentUser = null;
 	private List<Users> users_list = UsersDAO.getInListAllValueUsers();
+
 	public Login(Frame parent) {
 		super(parent, "Логване", true);
 		int idUser = 0;
@@ -55,70 +57,72 @@ public class Login extends JDialog {
 			txt_nik_name.setBounds(78, 12, 115, 20);
 			contentPanel.add(txt_nik_name);
 			txt_nik_name.setColumns(10);
-			 ArrayList<String> words = new ArrayList<>();
-			 for (Users user : users_list) {
-				 words.add(user.getNikName_users());
+			ArrayList<String> words = new ArrayList<>();
+			for (Users user : users_list) {
+				words.add(user.getNikName_users());
 			}
-            
-			AutoSuggestor autoSuggestor = new AutoSuggestor(txt_nik_name, this, words, Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.99f);
-				
-		{
-			passwordField = new JPasswordField();
-			passwordField.setBounds(78, 43, 115, 20);
-			contentPanel.add(passwordField);
-		}
 
-		lbl_Password = new JLabel("парола");
-		lbl_Password.setBounds(10, 46, 46, 14);
-		contentPanel.add(lbl_Password);
-
-		{
-			JPanel buttonPane = new JPanel();
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			// buttonPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new
-			// Component[] { okButton, cancelButton }));
+			AutoSuggestor autoSuggestor = new AutoSuggestor(txt_nik_name, this, words, Color.WHITE.brighter(),
+					Color.BLUE, Color.RED, 0.99f);
 
 			{
-				okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				getRootPane().setDefaultButton(okButton);
-
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						okButton();
-
-					}
-
-				});
-
+				passwordField = new JPasswordField();
+				passwordField.setBounds(78, 43, 115, 20);
+				contentPanel.add(passwordField);
 			}
+
+			lbl_Password = new JLabel("парола");
+			lbl_Password.setBounds(10, 46, 46, 14);
+			contentPanel.add(lbl_Password);
 
 			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
+				JPanel buttonPane = new JPanel();
+				getContentPane().add(buttonPane, BorderLayout.SOUTH);
+				// buttonPane.setFocusTraversalPolicy(new
+				// FocusTraversalOnArray(new
+				// Component[] { okButton, cancelButton }));
 
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						passwordField.setText("");
-						txt_nik_name.setText("");
-					}
-				});
+				{
+					okButton = new JButton("OK");
+					okButton.setActionCommand("OK");
+					getRootPane().setDefaultButton(okButton);
 
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							okButton();
+
+						}
+
+					});
+
+				}
+
+				{
+					cancelButton = new JButton("Cancel");
+					cancelButton.setActionCommand("Cancel");
+
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							passwordField.setText("");
+							txt_nik_name.setText("");
+						}
+					});
+
+				}
+				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				buttonPane.add(okButton);
+				buttonPane.add(cancelButton);
 			}
-			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			buttonPane.add(okButton);
-			buttonPane.add(cancelButton);
+			this.setDefaultCloseOperation(Login.DO_NOTHING_ON_CLOSE);
+			this.addWindowListener(new java.awt.event.WindowAdapter() {
+				@Override
+				public void windowClosing(java.awt.event.WindowEvent e) {
+					logOut();
+					e.getWindow().dispose();
+
+				}
+			});
 		}
-		this.setDefaultCloseOperation(Login.DO_NOTHING_ON_CLOSE);
-	    this.addWindowListener(new java.awt.event.WindowAdapter() {
-	        @Override
-	        public void windowClosing(java.awt.event.WindowEvent e) {
-	        	logOut();
-	            e.getWindow().dispose();
-	           
-	        }
-	    });
-	}
 	}
 
 	public boolean isSucceeded() {
@@ -129,9 +133,11 @@ public class Login extends JDialog {
 		return txt_nik_name.getText().trim();
 	}
 
-	private void okButton() {
+	public static Users getCurentUser() {
+		return curentUser;
+	}
 
-		
+	private void okButton() {
 
 		char[] pass = passwordField.getPassword();
 
@@ -139,15 +145,15 @@ public class Login extends JDialog {
 		for (char x : pass) {
 			enter_pass += x;
 		}
-				
+
 		// String md5_encrypted_pass_userInput =
 		// encrypt(final_pass); //kriptirane na string v MD5
 		// format
 		for (Users user : users_list) {
-			System.out .println(enter_pass +" - "+ user.getPass_users()+" - "+getUsername()+" - "+user.getNikName_users());
-			if (enter_pass.equals(user.getPass_users()) && getUsername().equals(user.getNikName_users()))
+			if (enter_pass.equals(user.getPass_users()) && getUsername().equals(user.getNikName_users())) {
 				succeeded = true;
-			
+				curentUser = user;
+			}
 		}
 		if (succeeded) {
 			dispose();
@@ -157,15 +163,15 @@ public class Login extends JDialog {
 			// reset username and password
 			passwordField.setText("");
 			txt_nik_name.setText("");
-			
+
 		}
 	}
-	
-	public static void logOut(){
+
+	public static void logOut() {
 		passwordField.setText("");
 		txt_nik_name.setText("");
 		succeeded = false;
-		
+
 	}
 
 	public static final String encrypt(String md5) { // kriptirane na string v

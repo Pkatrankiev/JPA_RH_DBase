@@ -37,7 +37,7 @@ public class Results implements Serializable {
 	@ManyToOne
 	private Nuclide nuclide;
 	@ManyToOne
-	private Izpitvan_pokazatel pokazatel;
+	private IzpitvanPokazatel pokazatel;
 	@ManyToOne
 	private Razmernosti rtazmernosti;
 	@ManyToOne
@@ -53,7 +53,7 @@ public class Results implements Serializable {
 
 	public Results( 
 			Nuclide nuclide, 
-			Izpitvan_pokazatel pokazatel,
+			IzpitvanPokazatel pokazatel,
 			Razmernosti rtazmernosti,
 			String basic_value,
 			Double value_result,
@@ -191,11 +191,11 @@ public class Results implements Serializable {
 	}
 
 
-	public Izpitvan_pokazatel getPokazatel() {
+	public IzpitvanPokazatel getPokazatel() {
 		return pokazatel;
 	}
 
-	public void setPokazatel(Izpitvan_pokazatel pokazatel) {
+	public void setPokazatel(IzpitvanPokazatel pokazatel) {
 		this.pokazatel = pokazatel;
 	}
 

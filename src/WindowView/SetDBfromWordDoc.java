@@ -9,6 +9,7 @@ import java.util.Calendar;
 import Aplication.DimensionDAO;
 import Aplication.Ind_num_docDAO;
 import Aplication.Internal_applicantDAO;
+import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -27,6 +28,7 @@ import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -113,7 +115,7 @@ public class SetDBfromWordDoc {
 						 * ZABELEJKA in RECUEST Class -
 						 **/
 						if (clear_cells.startsWith("*")) {
-							zabelejka_recuest = clear_cells.substring(1).trim();
+							zabelejka_recuest = cellVolume.substring(1).trim();
 						}
 
 						/** OBEKT_NA_IZPITVANE in SAMPLE Class **/
@@ -623,9 +625,9 @@ public class SetDBfromWordDoc {
 				System.out.println("IZPITVAN_POKAZATEL " + pokazatel_sample[i][j].getName_pokazatel());
 				System.out.println("SAMPLE " + samp.getSample_code());
 				System.out.println("METOD_NA_IZPITVANE " + metody_sample.getName_metody());
-				Izpitvan_pokazatel izpitvan_pokazatel = new Izpitvan_pokazatel(pokazatel_sample[i][j], samp,
+				IzpitvanPokazatel izpitvan_pokazatel = new IzpitvanPokazatel(pokazatel_sample[i][j], request,
 						metody_sample);
-				Izpitvan_pokazatelDAO.setValueIzpitvan_pokazatel(izpitvan_pokazatel);
+				IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(izpitvan_pokazatel);
 				for (int k = 0; k <= max_num_results[i][j]; k++) {
 
 					System.out.println("BASIC_VALUE " + basic_value);

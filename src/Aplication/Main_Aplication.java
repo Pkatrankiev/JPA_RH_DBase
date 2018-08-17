@@ -8,6 +8,8 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import WindowView.MainWindows;
+import WindowView.ReadFile;
+import WindowView.SetDBfromWordDoc;
 
 public class Main_Aplication {
 
@@ -22,11 +24,13 @@ public class Main_Aplication {
 //		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
 		
 		StartMainWindow();
+//
+//		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3471_02.01.2018.doc";
+//		
+//		 ReadFile.ReadFile(FILENAME);
 
-		// String FILENAME = "c:\\GENIE2K\\REPFILES\\3532-2.RPT";
-		//
-		// ReadFile.ReadFile(FILENAME);
-
+//		SetDBfromWordDoc.setVolume(FILENAME);
+		
 	}
 
 	private static void ChangeObjectsInClassIzpitvan_pokazatel() {

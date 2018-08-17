@@ -17,6 +17,7 @@ import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
@@ -37,7 +38,7 @@ public class ResultsDAO {
 
 	public static void setValueResults(
 			Nuclide nuclide, 
-			Izpitvan_pokazatel pokazatel, 
+			IzpitvanPokazatel pokazatel, 
 			Razmernosti rtazmernosti,
 			String basic_value, 
 			Double value_result, 
@@ -166,7 +167,7 @@ public class ResultsDAO {
 		for (int samNum = 1; samNum <= list_pokazatel.size(); samNum++) {
 			
 			int ranval = 1 + (int) (Math.random() * ((5 - 1) + 1));
-			Izpitvan_pokazatel pokazatel = Izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(samNum);
+			IzpitvanPokazatel pokazatel = IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelById(samNum);
 			
 			System.out.println();
 			System.out.println("***********************************************************");

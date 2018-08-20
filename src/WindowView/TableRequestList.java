@@ -3,10 +3,16 @@ package WindowView;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
+import Aplication.IzpitvanPokazatelDAO;
+import Aplication.Izpitvan_produktDAO;
 import Aplication.RequestDAO;
+import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Request;
 import WindowView.TablePrintDemo.MyTableModel;
 import WindowViewAplication.RequestViewAplication;
@@ -17,6 +23,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class TableRequestList {
@@ -25,7 +32,7 @@ public class TableRequestList {
 	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types){
 	       JFrame frame = new JFrame();
 //	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+final List<Izpitvan_produkt> list_All_I_P = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
 	        final JTable table = new JTable();//new DefaultTableModel(rowData, columnNames));
 
 	        table.addMouseListener(new MouseAdapter() {
@@ -84,6 +91,26 @@ public class TableRequestList {
 	        });
 	}
 
+    public void setComboBoxColumn(JTable table,
+            TableColumn comboBoxColumn) {
+//Set up the editor for the sport cells.
+JComboBox comboBox = new JComboBox();
+
+comboBox.addItem("Snowboarding");
+comboBox.addItem("Rowing");
+comboBox.addItem("Knitting");
+comboBox.addItem("Speed reading");
+comboBox.addItem("Pool");
+comboBox.addItem("None of the above");
+comboBoxColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
+//Set up tool tips for the sport cells.
+DefaultTableCellRenderer renderer =
+new DefaultTableCellRenderer();
+renderer.setToolTipText("Click for combo box");
+comboBoxColumn.setCellRenderer(renderer);
+}
+	
 	public static Request getChoiceRequest() {
 		return choiseRequest;
 }

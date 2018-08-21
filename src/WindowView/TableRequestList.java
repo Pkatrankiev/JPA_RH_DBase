@@ -31,16 +31,20 @@ public class TableRequestList {
 		JFrame frame = new JFrame();
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		List<Izpitvan_produkt> list_All_I_P = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
-		System.out.println(list_All_I_P.size()+" /*//////////////////////////////////");
+		String[] values = new String[list_All_I_P.size()];
+		int i = 0;
+		for (Izpitvan_produkt izpitvan_produkt : list_All_I_P) {
+			values[i] = izpitvan_produkt.getName_zpitvan_produkt();
+			i++;
+		}
+		System.out.println(list_All_I_P.size() + " /*//////////////////////////////////");
 		final JTable table = new JTable();// new DefaultTableModel(rowData,
 											// columnNames));
-
-	
 
 		table.addMouseListener(new MouseAdapter() {
 
 			public void mousePressed(MouseEvent e) {
-				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+				if (e.getClickCount() == 4 && table.getSelectedRow() != -1) {
 
 					int row = table.getSelectedRow();
 					int col = table.getSelectedColumn();
@@ -62,7 +66,6 @@ public class TableRequestList {
 		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
 
 		JScrollPane scrollPane = new JScrollPane(table);
-		setComboBoxColumn(table, table.getColumnModel().getColumn(0), list_All_I_P);
 		frame.add(scrollPane, BorderLayout.CENTER);
 		frame.setSize(1200, 800);
 		frame.setVisible(true);
@@ -74,6 +77,21 @@ public class TableRequestList {
 
 					private Class[] types2 = types;
 
+					public void setComboBoxColumn(JTable table, List<Izpitvan_produkt> list_All_I_P) {
+						// Set up the editor for the sport cells.
+						JComboBox comboBox = new JComboBox();
+						for (Izpitvan_produkt izpitvan_produkt : list_All_I_P) {
+							comboBox.addItem(izpitvan_produkt.getName_zpitvan_produkt());
+						}
+						TableColumn comboBoxColumn = table.getColumnModel().getColumn(2);
+						comboBoxColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
+						// Set up tool tips for the sport cells.
+						DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+						renderer.setToolTipText("Click for combo box");
+						comboBoxColumn.setCellRenderer(renderer);
+					}
+
 					@Override
 					public Class getColumnClass(int columnIndex) {
 						return this.types2[columnIndex];
@@ -81,7 +99,11 @@ public class TableRequestList {
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						return false;
+						if (column != 2) {
+			                return false;
+			            } else {
+			                return true;
+			            }
 					}
 
 				};
@@ -91,19 +113,30 @@ public class TableRequestList {
 		});
 	}
 
-	public static void setComboBoxColumn(JTable table, TableColumn comboBoxColumn,
-			List<Izpitvan_produkt> list_All_I_P) {
-		// Set up the editor for the sport cells.
-		JComboBox comboBox = new JComboBox();
-		for (Izpitvan_produkt izpitvan_produkt : list_All_I_P) {
-			comboBox.addItem(izpitvan_produkt.getName_zpitvan_produkt());
+	private class myComboBoxEditor extends DefaultCellEditor {
+		myComboBoxEditor(String[] items) {
+			super(new JComboBox(items));
 		}
-		comboBoxColumn.setCellEditor(new DefaultCellEditor(comboBox));
+	}
 
-		// Set up tool tips for the sport cells.
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Click for combo box");
-		comboBoxColumn.setCellRenderer(renderer);
+	private class MyComboBoxRenderer extends JComboBox implements TableCellRenderer {
+		public MyComboBoxRenderer(String[] items) {
+			super(items);
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			if (isSelected) {
+				setForeground(table.getSelectionForeground());
+				super.setBackground(table.getSelectionBackground());
+			} else {
+				setForeground(table.getForeground());
+				setBackground(table.getBackground());
+			}
+			setSelectedItem(value);
+			return this;
+		}
 	}
 
 	public static Request getChoiceRequest() {

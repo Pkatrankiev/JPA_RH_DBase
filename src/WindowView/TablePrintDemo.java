@@ -191,7 +191,7 @@ private void newFilter() {
 
 	}
 
-	public void setUpSportColumn(JTable table, TableColumn sportColumn) {
+	public void setUpSportColumn5(JTable table, TableColumn sportColumn) {
 JComboBox comboBox = new JComboBox();
 		comboBox.addItem("Snowboarding");
 		comboBox.addItem("Rowing");

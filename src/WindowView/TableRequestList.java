@@ -1,6 +1,5 @@
 package WindowView;
 
-
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,95 +24,90 @@ import java.awt.event.MouseEvent;
 import java.util.Calendar;
 import java.util.List;
 
-
 public class TableRequestList {
-	private static Request choiseRequest ;
+	private static Request choiseRequest;
 
-	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types){
-	       JFrame frame = new JFrame();
-//	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-final List<Izpitvan_produkt> list_All_I_P = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
-	        final JTable table = new JTable();//new DefaultTableModel(rowData, columnNames));
+	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types) {
+		JFrame frame = new JFrame();
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		List<Izpitvan_produkt> list_All_I_P = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
+		System.out.println(list_All_I_P.size()+" /*//////////////////////////////////");
+		final JTable table = new JTable();// new DefaultTableModel(rowData,
+											// columnNames));
 
-	        table.addMouseListener(new MouseAdapter() {
+	
 
-	        	public void mousePressed(MouseEvent e) {
-	        		if (e.getClickCount() == 2&& table.getSelectedRow() != -1) {
-	        	          
-	        	int row = table.getSelectedRow();
-	        	int col = table.getSelectedColumn();
-	        	System.out.println("selekt row:"+row+" col: "+col);
-	        	String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
-	        	
-	        	if(reqCodeStr.startsWith("templ")){
-	        		choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-	        		RequestView reqView = new RequestView(Login.getCurentUser(), choiseRequest);
-	        		 frame.setVisible(false);
-					
-	        	}else{
-	        	RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
-	        	}
-	        		}
-	        	}
-	        	});
-	        
-	        TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
-	      	    
-	     
-	        
-	        JScrollPane scrollPane = new JScrollPane(table);
-	        frame.add(scrollPane, BorderLayout.CENTER);
-	        frame.setSize(1200, 800);
-	        frame.setVisible(true);
+		table.addMouseListener(new MouseAdapter() {
 
-	        SwingUtilities.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	             DefaultTableModel dtm = new DefaultTableModel(data, columnNames){
-	            	
-	            	    private  Class[] types2 = types;
+			public void mousePressed(MouseEvent e) {
+				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
 
+					int row = table.getSelectedRow();
+					int col = table.getSelectedColumn();
+					System.out.println("selekt row:" + row + " col: " + col);
+					String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
 
-						@Override
-	            	    public Class getColumnClass(int columnIndex) {
-	            	        return this.types2[columnIndex];
-	            	    } 
-	            	 
-	            	 @Override
-	            	    public boolean isCellEditable(int row, int column) {
-	            	        return false;
-	            	    }
-	            	    
-	            	};
-	                table.setModel(dtm);
+					if (reqCodeStr.startsWith("templ")) {
+						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+						RequestView reqView = new RequestView(Login.getCurentUser(), choiseRequest);
+						frame.setVisible(false);
 
-	            }
-	        });
+					} else {
+						RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
+					}
+				}
+			}
+		});
+
+		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		setComboBoxColumn(table, table.getColumnModel().getColumn(0), list_All_I_P);
+		frame.add(scrollPane, BorderLayout.CENTER);
+		frame.setSize(1200, 800);
+		frame.setVisible(true);
+
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				DefaultTableModel dtm = new DefaultTableModel(data, columnNames) {
+
+					private Class[] types2 = types;
+
+					@Override
+					public Class getColumnClass(int columnIndex) {
+						return this.types2[columnIndex];
+					}
+
+					@Override
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+
+				};
+				table.setModel(dtm);
+
+			}
+		});
 	}
 
-    public void setComboBoxColumn(JTable table,
-            TableColumn comboBoxColumn) {
-//Set up the editor for the sport cells.
-JComboBox comboBox = new JComboBox();
+	public static void setComboBoxColumn(JTable table, TableColumn comboBoxColumn,
+			List<Izpitvan_produkt> list_All_I_P) {
+		// Set up the editor for the sport cells.
+		JComboBox comboBox = new JComboBox();
+		for (Izpitvan_produkt izpitvan_produkt : list_All_I_P) {
+			comboBox.addItem(izpitvan_produkt.getName_zpitvan_produkt());
+		}
+		comboBoxColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
-comboBox.addItem("Snowboarding");
-comboBox.addItem("Rowing");
-comboBox.addItem("Knitting");
-comboBox.addItem("Speed reading");
-comboBox.addItem("Pool");
-comboBox.addItem("None of the above");
-comboBoxColumn.setCellEditor(new DefaultCellEditor(comboBox));
+		// Set up tool tips for the sport cells.
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setToolTipText("Click for combo box");
+		comboBoxColumn.setCellRenderer(renderer);
+	}
 
-//Set up tool tips for the sport cells.
-DefaultTableCellRenderer renderer =
-new DefaultTableCellRenderer();
-renderer.setToolTipText("Click for combo box");
-comboBoxColumn.setCellRenderer(renderer);
-}
-	
 	public static Request getChoiceRequest() {
 		return choiseRequest;
-}
-	 
-	  
+	}
+
 }

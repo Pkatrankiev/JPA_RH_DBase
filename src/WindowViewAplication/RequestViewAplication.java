@@ -39,7 +39,7 @@ import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
 import WindowView.TablePrintDemo;
 import WindowView.TableRequestList;
-import rusDocZipCreator.TableListRequestTamplate;
+//import rusDocZipCreator.TableListRequestTamplate;
 
 public class RequestViewAplication {
 

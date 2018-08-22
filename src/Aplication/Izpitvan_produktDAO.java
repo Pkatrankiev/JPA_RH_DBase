@@ -68,6 +68,23 @@ public class Izpitvan_produktDAO {
 		return Response.status(200).entity(nominees).build();
 	}
 
+	public static String[] getMasiveStringAllValueIzpitvan_produkt() {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e");
+		List<Izpitvan_produkt> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Izpitvan_produkt izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getName_zpitvan_produkt();
+			i++;
+		}
+		return values;
+	}
+	
 	public static List<Izpitvan_produkt> getInListAllValueIzpitvan_produkt() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

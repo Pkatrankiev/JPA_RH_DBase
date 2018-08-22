@@ -41,6 +41,7 @@ import DBase_Class.Zabelejki;
 import WindowView.TablePrintDemo;
 import WindowView.TableRequestList;
 //import rusDocZipCreator.TableListRequestTamplate;
+import WindowView.TableRequestListNew;
 
 public class RequestViewAplication {
 
@@ -491,7 +492,8 @@ public class RequestViewAplication {
 
 			}
 		}
-		TableRequestList.TableRequestList(tableHeader, tableRequest, types);
+//		TableRequestList.TableRequestList(tableHeader, tableRequest, types);
+		TableRequestListNew.TableRequestList(tableHeader, tableRequest, types);
 
 	}
 

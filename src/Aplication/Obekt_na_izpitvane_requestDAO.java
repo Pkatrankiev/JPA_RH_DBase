@@ -58,6 +58,23 @@ public static void setBasicValueObekt_na_izpitvane(){
 		}
 		return list;
 	}
+	
+	public static String [] getMasiveStringAllValueObekt_na_izpitvane() {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e");
+		List<Obekt_na_izpitvane_request> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Obekt_na_izpitvane_request e : list) { 
+			values[i] = e.getName_obekt_na_izpitvane();
+			i++;
+			}
+		return values;
+	}
 
 	
 	@GET

@@ -32,6 +32,8 @@ public class DatePicker {
 	int minute = Calendar.getInstance().get(Calendar.MINUTE);
 	int day1 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 	final Calendar cal_time = Calendar.getInstance();
+	private Font font = new Font("Tahoma", Font.PLAIN, 14);
+
 	// create object of JLabel with alignment
 	JLabel l = new JLabel("", JLabel.CENTER);
 	// define variable
@@ -40,6 +42,8 @@ public class DatePicker {
 	JDialog d;
 	// create object of JButton
 	JButton[] button = new JButton[49];
+
+	JLabel lab = new JLabel();
 
 	public DatePicker(JFrame parent, Boolean inTime)// create constructor
 	{
@@ -59,13 +63,14 @@ public class DatePicker {
 			final int selection = x;
 			// create object of JButton
 			button[x] = new JButton();
+			button[x].setFont(font);
 			// set focus painted false
 			button[x].setFocusPainted(false);
 			// set background colour
 			button[x].setBackground(Color.white);
 			// if loop condition
 			if (x > 6) {
-			
+
 				// add action listener
 				button[x].addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent ae) {
@@ -84,13 +89,16 @@ public class DatePicker {
 				// set fore ground colour
 				button[x].setForeground(Color.red);
 			}
+
 			p1.add(button[x]);// add button
+
 		}
 		// create JPanel object with grid layout
 		JPanel p2 = new JPanel(new GridLayout(1, 3));
 
 		// create object of button for previous month
 		JButton data_previous = new JButton("<< Назад");
+		data_previous.setFont(font);
 		// add action command
 		data_previous.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -104,6 +112,7 @@ public class DatePicker {
 		p2.add(l);// add label
 		// create object of button for next month
 		JButton data_next = new JButton("Напред >>");
+		data_next.setFont(font);
 		// add action command
 		data_next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -150,6 +159,7 @@ public class DatePicker {
 		cal_time.setTime(data_time);
 
 		JButton previous_time_btn = new JButton("<< T Назад");
+		previous_time_btn.setFont(font);
 		previous_time_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				// decrement time by 10
@@ -167,6 +177,7 @@ public class DatePicker {
 		panel.add(label);
 
 		JButton next_time_btn = new JButton("Напред T >>");
+		next_time_btn.setFont(font);
 		next_time_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				// increment time by 10
@@ -211,9 +222,10 @@ public class DatePicker {
 
 	public void displayDate() {
 
-		for (int x = 7; x < button.length; x++){// for loop
+		for (int x = 7; x < button.length; x++) {// for loop
 			button[x].setText("");// set text
-		button[x].setBackground(Color.white);}
+			button[x].setBackground(Color.white);
+		}
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM-yyyy");
 		// create object of SimpleDateFormat
 		Calendar cal = Calendar.getInstance();
@@ -229,22 +241,30 @@ public class DatePicker {
 		} else
 			dayOfWeek = dayOfWeek - 1;
 		SimpleDateFormat sdfDay = new SimpleDateFormat("dd-MM-yyyy");
-		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
-		{	// set text
+		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) { // set
+																				// text
 			button[x].setText("" + day);
-			calDay.set(year, month,day);
-			if(calDay.get(Calendar.DAY_OF_WEEK)==7 || calDay.get(Calendar.DAY_OF_WEEK)==1)
+			calDay.set(year, month, day);
+			if (calDay.get(Calendar.DAY_OF_WEEK) == 7 || calDay.get(Calendar.DAY_OF_WEEK) == 1)
 				button[x].setForeground(Color.red);
-			
-			if (RequestViewAplication.DateNaw(false).equals(sdfDay.format(calDay.getTime())))
-			{
-				System.out.println(RequestViewAplication.DateNaw(false)+" "+sdfDay.format(calDay.getTime()));
+
+			if (RequestViewAplication.DateNaw(false).equals(sdfDay.format(calDay.getTime()))) {
+				System.out.println(RequestViewAplication.DateNaw(false) + " " + sdfDay.format(calDay.getTime()));
 				button[x].setBackground(Color.CYAN);
 			}
-	}
+		}
+		for (int x = 0; x < button.length; x++) {
+			if (button[x].getText().equals("")) {
+				button[x].setEnabled(false);
+//				button[x].setBorder(null);
+			} else {
+				button[x].setEnabled(true);
+			}
+		}
 		l.setText(sdf.format(cal.getTime()));
 		// set title
 		d.setTitle("Дата");
+
 	}
 
 	public String setPickedDate(Boolean inTime) {

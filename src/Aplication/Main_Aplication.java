@@ -11,9 +11,11 @@ import WindowView.MainWindows;
 import WindowView.ReadFile;
 import WindowView.SetDBfromWordDoc;
 
+
 public class Main_Aplication {
 
 	public static void main(String[] args) {
+		
 
 		// SetBasikValueInDataBase();
 

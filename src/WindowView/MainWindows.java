@@ -10,6 +10,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -20,6 +21,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JMenu;
 import java.awt.Panel;
@@ -27,16 +30,19 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import java.awt.ComponentOrientation;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
 import Aplication.UsersDAO;
-import DBase_Class.Request;
 import DBase_Class.Users;
 import WindowViewAplication.DocxMainpulator;
 import WindowViewAplication.RequestViewAplication;
 import javax.swing.border.LineBorder;
+
 
 public class MainWindows {
 
@@ -45,6 +51,14 @@ public class MainWindows {
 	 */
 	public void Window() {
 		final JFrame win = new JFrame();
+		 try {
+		        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		        SwingUtilities.updateComponentTreeUI(win);
+		        this.pack();
+		    } catch (Exception ex) {
+		        Logger.getLogger(JFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+		    }
+		
 		win.setTitle("my RHA");
 
 		win.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -54,7 +68,6 @@ public class MainWindows {
 		// win.setLayout(new BorderLayout());
 		win.getContentPane().setLayout(new GridLayout(4, 4));
 
-		
 		
 		
 		JMenuBar menuBar_1 = new JMenuBar();
@@ -180,7 +193,7 @@ public class MainWindows {
 			public void mousePressed(MouseEvent e) {
 
 				if (loginDlg.getUsername().equals("")) {
-					JOptionPane.showMessageDialog(lblNewLabel_1, "Логнете се");
+					JOptionPane.showMessageDialog(win, "Логнете се");
 				} else
 				{
 					RequestViewAplication.DrawTableWithRequestTamplate();
@@ -273,34 +286,40 @@ public class MainWindows {
 		boolean corectUser = false;
 		return corectUser;
 	}
-
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+	
+	private void pack() {
+	    try{
+	    }catch(UnsupportedOperationException eu){
+	    };
 	}
-
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+	
+//	private static void addPopup(Component component, final JPopupMenu popup) {
+//		component.addMouseListener(new MouseAdapter() {
+//			public void mousePressed(MouseEvent e) {
+//				if (e.isPopupTrigger()) {
+//					showMenu(e);
+//				}
+//			}
+//
+//			public void mouseReleased(MouseEvent e) {
+//				if (e.isPopupTrigger()) {
+//					showMenu(e);
+//				}
+//			}
+//
+//			private void showMenu(MouseEvent e) {
+//				popup.show(e.getComponent(), e.getX(), e.getY());
+//			}
+//		});
+//	}
+//
+//	private class SwingAction extends AbstractAction {
+//		public SwingAction() {
+//			putValue(NAME, "SwingAction");
+//			putValue(SHORT_DESCRIPTION, "Some short description");
+//		}
+//
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
 }

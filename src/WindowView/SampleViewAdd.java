@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Frame;
 
 import javax.swing.JButton;
@@ -53,10 +54,12 @@ public class SampleViewAdd extends JDialog {
 	private static ArrayList<String> comBox_O_I_S_dinam;
 	private Boolean notEmptryString;
 	private static Boolean cancelEntered = false;
+	private Font font = new  Font("Tahoma", Font.PLAIN, 12);
 
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings("unchecked")
 	public SampleViewAdd(Frame parent, final int countSample, int requestCode,  ArrayList<String> comBox_O_I_S, String ref_Date_Time, String period,
 			String[][] stringVol) {
 		super(parent, "Информация за пробите", true);
@@ -138,6 +141,7 @@ public class SampleViewAdd extends JDialog {
 
 					{
 						lbl_sample_code[i] = new JLabel(requestCode + "-" + (i + 1));
+						lbl_sample_code[i] .setFont(font);
 						lbl_sample_code[i].setPreferredSize(new Dimension(50, 20));
 
 						lbl_sample_code[i].setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -145,6 +149,7 @@ public class SampleViewAdd extends JDialog {
 					}
 					{
 						comboBox_OI[i] = new JComboBox();
+						comboBox_OI[i] .setFont(font);
 						comboBox_OI[i].setPreferredSize(new Dimension(200, 20));
 
 						for (String string : comBox_O_I_S) {
@@ -155,6 +160,7 @@ public class SampleViewAdd extends JDialog {
 						panel[i].add(comboBox_OI[i]);
 
 						edit_comboBox_OI[i] = new JPanel();
+						edit_comboBox_OI[i] .setFont(font);
 						edit_comboBox_OI[i].setPreferredSize(new Dimension(21, 20));
 						ImageIcon pic = new ImageIcon("add-icon.gif");
 						edit_comboBox_OI[i].add(new JLabel(pic), BorderLayout.CENTER);
@@ -211,6 +217,7 @@ public class SampleViewAdd extends JDialog {
 					}
 					{
 						txtArea_Sample_Descr[i] = new JTextArea();
+						txtArea_Sample_Descr[i] .setFont(font);
 						if (notEmptryString)
 							txtArea_Sample_Descr[i].setText(stringVol[i][2]);
 						txtArea_Sample_Descr[i].setPreferredSize(new Dimension(300, 20));
@@ -249,6 +256,8 @@ public class SampleViewAdd extends JDialog {
 
 					{
 						txtFld_Ref_date[i] = new JTextField(ref_Date_Time);
+						txtFld_Ref_date[i] .setFont(font);
+						txtFld_Ref_date[i].setPreferredSize(new Dimension(120, 20));
 						if (notEmptryString)
 							txtFld_Ref_date[i].setText(stringVol[i][3]);
 						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
@@ -281,10 +290,11 @@ public class SampleViewAdd extends JDialog {
 							}
 						});
 						panel[i].add(txtFld_Ref_date[i]);
-						txtFld_Ref_date[i].setColumns(9);
+						txtFld_Ref_date[i].setColumns(10);
 					}
 
 					edit_Ref_date[i] = new JPanel();
+					edit_Ref_date[i] .setFont(font);
 					edit_Ref_date[i].setPreferredSize(new Dimension(21, 20));
 					ImageIcon pic = new ImageIcon("Modify.gif");
 					edit_Ref_date[i].add(new JLabel(pic), BorderLayout.CENTER);
@@ -332,12 +342,13 @@ public class SampleViewAdd extends JDialog {
 					});
 
 					{
-						comboBox_Period[i] = new JComboBox();
-
+						comboBox_Period[i] = new JComboBox(comBox_Period);
+						comboBox_Period[i] .setFont(font);
 						comboBox_Period[i].setPreferredSize(new Dimension(100, 20));
-						for (String string : comBox_Period) {
-							comboBox_Period[i].addItem(string);
-						}
+
+//						for (String string : comBox_Period) {
+//							comboBox_Period[i].addItem(string);
+//						}
 						comboBox_Period[i].setSelectedItem(period);
 						if (notEmptryString)
 							comboBox_Period[i].setSelectedItem(stringVol[i][4]);
@@ -346,6 +357,8 @@ public class SampleViewAdd extends JDialog {
 
 					{
 						txtFld_Year[i] = new JTextField(year);
+						txtFld_Year[i] .setFont(font);
+						txtFld_Year[i].setPreferredSize(new Dimension(37, 20));
 						if (notEmptryString)
 							txtFld_Year[i].setText(stringVol[i][5]);
 						panel[i].add(txtFld_Year[i]);

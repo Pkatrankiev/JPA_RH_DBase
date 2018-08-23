@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +108,8 @@ public class RequestView extends JFrame {
 	private Users curent_user;
 	private ArrayList<String> array_O_I_R;
 	private Request request = null;;
-
+	private Font font = new  Font("Tahoma", Font.PLAIN, 11);
+	
 	public RequestView(Users user, Request tamplateRequest) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
@@ -306,7 +309,7 @@ public class RequestView extends JFrame {
 
 		JLabel lbl_ind_num_doc = new JLabel("Ид. номер на документа, изискващ изпитването: ");
 		lbl_ind_num_doc.setBorder(null);
-		lbl_ind_num_doc.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbl_ind_num_doc.setFont(font);
 		GridBagConstraints gbc_lbl_ind_num_doc = new GridBagConstraints();
 		gbc_lbl_ind_num_doc.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_ind_num_doc.anchor = GridBagConstraints.WEST;
@@ -318,6 +321,7 @@ public class RequestView extends JFrame {
 		// TODO choice_ind_num_doc (Ид. номер на документа)
 
 		choice_ind_num_doc = new Choice();
+		choice_ind_num_doc.setFont(font);
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
 		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
 		for (String string : arr) {
@@ -335,6 +339,7 @@ public class RequestView extends JFrame {
 		p.add(choice_ind_num_doc, gbc_choice_ind_num_doc);
 
 		JLabel lbl2_ind_num_doc = new JLabel(" ");
+		lbl2_ind_num_doc.setFont(font);
 		GridBagConstraints gbc_lbl2_ind_num_doc = new GridBagConstraints();
 		gbc_lbl2_ind_num_doc.gridwidth = 4;
 		gbc_lbl2_ind_num_doc.insets = new Insets(0, 0, 5, 5);
@@ -362,6 +367,7 @@ public class RequestView extends JFrame {
 
 		// TODO choice_izpitvan_produkt (изпитван продукт)
 		choice_izpitvan_produkt = new Choice();
+		choice_izpitvan_produkt.setFont(font);
 		String[] arr1 = RequestViewAplication.getStringMassiveIzpitvanProdukt();
 		for (String string : arr1) {
 			choice_izpitvan_produkt.add(string);
@@ -409,6 +415,7 @@ public class RequestView extends JFrame {
 
 		// TODO choice_obekt_na_izpitvane_request (обект на изпитване)
 		choice_obekt_na_izpitvane_request = new Choice();
+		choice_obekt_na_izpitvane_request.setFont(font);
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(205, 20));
 		array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
 		for (String string : array_O_I_R) {
@@ -449,13 +456,12 @@ public class RequestView extends JFrame {
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
-				// final JFrame f = new JFrame();
+				 final JFrame f = new JFrame();
 
-				// AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
-				// choice_obekt_na_izpitvane_request.getSelectedItem());
+				 AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
+				 choice_obekt_na_izpitvane_request.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
-				System.out.println("5555555 " + str);
 				for (String string : array_O_I_R) {
 					if (str.equals(string))
 						fl = true;
@@ -485,6 +491,7 @@ public class RequestView extends JFrame {
 
 		// TODO choice_Razmernost (размерност)
 		choice_Razmernost = new Choice();
+		choice_Razmernost.setFont(font);
 		choice_Razmernost.setPreferredSize(new Dimension(60, 20));
 		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
 		for (String string : arr3) {
@@ -518,6 +525,8 @@ public class RequestView extends JFrame {
 
 		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
 		txtArea_list_izpitvan_pokazatel = new JTextArea();
+		txtArea_list_izpitvan_pokazatel.setFont(font);
+//		txtArea_list_izpitvan_pokazatel.setFont(arg0);
 		GridBagConstraints gbc_txtArea_list_izpitvan_pokazatel = new GridBagConstraints();
 		gbc_txtArea_list_izpitvan_pokazatel.gridwidth = 3;
 		gbc_txtArea_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
@@ -589,6 +598,7 @@ public class RequestView extends JFrame {
 
 		// TODO txtArea_Descript_grup_Sample (описание на групата проби)
 		txtArea_Descript_grup_Sample = new JTextArea();
+		txtArea_Descript_grup_Sample.setFont(font);
 
 		GridBagConstraints gbc_txtArea_Descript_grup_Sample = new GridBagConstraints();
 		gbc_txtArea_Descript_grup_Sample.gridwidth = 5;
@@ -601,6 +611,7 @@ public class RequestView extends JFrame {
 		// TODO choice_Period (период)
 
 		final Choice choice_Period = new Choice();
+		choice_Period.setFont(font);
 		choice_Period.setPreferredSize(new Dimension(100, 20));
 		GridBagConstraints gbc_choice_Period = new GridBagConstraints();
 		gbc_choice_Period.anchor = GridBagConstraints.WEST;
@@ -789,6 +800,7 @@ public class RequestView extends JFrame {
 
 		// TODO txtArea_SampleDescription (описание на пробите)
 		txtArea_SampleDescription = new JTextArea();
+		txtArea_SampleDescription.setFont(font);
 		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
 		gbc_txtArea_SampleDescription.gridwidth = 5;
 		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
@@ -805,16 +817,15 @@ public class RequestView extends JFrame {
 				try {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
-						// DateTimeFormatter sdf =
-						// DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+						 DateTimeFormatter sdf =
+						 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						// LocalDate data_time = LocalDate.parse(ref_Date_Time,
-						// sdf); // ref
+						 LocalDate data_time = LocalDate.parse(ref_Date_Time,
+						 sdf); // ref
 						String period = choice_Period.getSelectedItem();
 						try {
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
-							// String ref_Date =
-							// (txtField_RequestCode.getText());
+//							 String ref_Date = (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
@@ -1033,6 +1044,7 @@ public class RequestView extends JFrame {
 
 		ArrayList<String> arrayZab = RequestViewAplication.getStringZabelejki();
 		choice_Zab = new Choice();
+		choice_Zab.setFont(font);
 		for (String string : arrayZab) {
 			choice_Zab.add(string);
 		}
@@ -1049,9 +1061,18 @@ public class RequestView extends JFrame {
 		JButton btn_add_Zab = new JButton("Добавяне");
 		btn_add_Zab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
+//				-------------------------------------------------------
 				Boolean fl = false;
-				String str = AddInChoice.getChoiceO_I_R();
+				 final JFrame f = new JFrame();
 
+				new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
+
+				String str = AddInChoice.getChoiceO_I_R();
+								
+//				---------------------------------------------------------
+								
 				for (String string : arrayZab) {
 					if (str.equals(string))
 						fl = true;

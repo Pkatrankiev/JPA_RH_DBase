@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-	public class DatePickerExample extends JFrame
+	public class _Proba_DatePickerExample extends JFrame
 	{ 
 	 //add JPanel to the contentPane
 	 private JPanel contentPane;
@@ -28,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 	 try // try block 
 	 {
 	      //create frame object
-	      DatePickerExample frame = new DatePickerExample();
+	      _Proba_DatePickerExample frame = new _Proba_DatePickerExample();
 	      frame.setVisible(true);//set visible true
 	         }
 	         catch (Exception e) //catch the exception
@@ -43,7 +43,7 @@ import javax.swing.border.EmptyBorder;
 	 * Create the frame.
 	 */
 	 //create constructor of class
-	 public DatePickerExample() 
+	 public _Proba_DatePickerExample() 
 	 {
 	 //set title
 	 setTitle("Date Picker ");
@@ -80,7 +80,7 @@ import javax.swing.border.EmptyBorder;
 	 //create frame new object  f
 	 final JFrame f = new JFrame();
 	 //set text which is collected by date picker i.e. set date 
-	 txtDate.setText(new DatePicker(f,true).setPickedDate(true));
+	 txtDate.setText(new DatePicker(f,true,txtDate.getText()).setPickedDate(true));
 	 }
 	 });
 	 //set button bound

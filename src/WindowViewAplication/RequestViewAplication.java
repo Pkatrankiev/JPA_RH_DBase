@@ -12,6 +12,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+
+import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_pokazatelDAO;
@@ -45,6 +47,9 @@ import WindowView.TableRequestListNew;
 
 public class RequestViewAplication {
 
+	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
+	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME(); 
+	
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;
 		List<Ind_num_doc> list = Ind_num_docDAO.getInListAllValueInd_num_doc();
@@ -235,9 +240,9 @@ public class RequestViewAplication {
 
 	public static String DateNaw(Boolean whiteTime) {
 		String dateNaw = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
 		if (whiteTime)
-			sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 
 		dateNaw = sdf.format(Calendar.getInstance().getTime());
 

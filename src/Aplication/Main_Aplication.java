@@ -8,6 +8,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import WindowView.MainWindows;
+import WindowView.MainWindowsNew;
 import WindowView.ReadFile;
 import WindowView.SetDBfromWordDoc;
 
@@ -55,8 +56,8 @@ public class Main_Aplication {
 	}
 
 	private static void StartMainWindow() {
-		MainWindows win = new MainWindows();
-		win.Window();
+		MainWindowsNew win = new MainWindowsNew();
+		win.WindowNew();
 	}
 
 	private static void SetBasikValueInDataBase() {

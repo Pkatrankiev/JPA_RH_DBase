@@ -35,6 +35,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import Aplication.GlobalVariable;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -109,6 +110,8 @@ public class RequestView extends JFrame {
 	private ArrayList<String> array_O_I_R;
 	private Request request = null;;
 	private Font font = new  Font("Tahoma", Font.PLAIN, 11);
+	
+	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 	
 	public RequestView(Users user, Request tamplateRequest) {
 		super("JScrollPane Demonstration");
@@ -818,7 +821,7 @@ public class RequestView extends JFrame {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
 						 DateTimeFormatter sdf =
-						 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+						 DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
 						 LocalDate data_time = LocalDate.parse(ref_Date_Time,
 						 sdf); // ref
@@ -921,7 +924,7 @@ public class RequestView extends JFrame {
 		btn_date_execution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final JFrame f = new JFrame();
-				DatePicker dPicer = new DatePicker(f, false);
+				DatePicker dPicer = new DatePicker(f, false, txtFld_date_execution.getText());
 				txtFld_date_execution.setText(dPicer.setPickedDate(false));
 				String text_date_execution = "";
 
@@ -994,7 +997,7 @@ public class RequestView extends JFrame {
 		btn_date_time_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final JFrame f = new JFrame();
-				DatePicker dPicer = new DatePicker(f, true);
+				DatePicker dPicer = new DatePicker(f, true, txtFld_date_time_request.getText() );
 				txtFld_date_time_request.setText(dPicer.setPickedDate(true));
 				String textRefDate = "";
 				textRefDate = txtFld_date_time_request.getText();

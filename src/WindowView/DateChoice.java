@@ -185,7 +185,7 @@ public class DateChoice extends JDialog {
 			btnStartData.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					final JFrame d = new JFrame();
-					DatePicker dPicer = new DatePicker(d, true);
+					DatePicker dPicer = new DatePicker(d, true, txtStartDate.getText());
 					txtStartDate.setText(dPicer.setPickedDate(true));
 					String textRefDate = "";
 					textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
@@ -293,7 +293,7 @@ public class DateChoice extends JDialog {
 			btnEndData.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					final JFrame k = new JFrame();
-					DatePicker dPicer = new DatePicker(k, true);
+					DatePicker dPicer = new DatePicker(k, true, txtEndDate.getText());
 					txtEndDate.setText(dPicer.setPickedDate(true));
 					String textRefDate = "";
 					textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());

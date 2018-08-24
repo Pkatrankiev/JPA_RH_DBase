@@ -18,9 +18,11 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
+import Aplication.GlobalVariable;
 import WindowViewAplication.RequestViewAplication;
 
 public class DatePicker {
@@ -34,6 +36,11 @@ public class DatePicker {
 	final Calendar cal_time = Calendar.getInstance();
 	private Font font = new Font("Tahoma", Font.PLAIN, 14);
 
+	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
+	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+	
+	private String oldDate;
+	
 	// create object of JLabel with alignment
 	JLabel l = new JLabel("", JLabel.CENTER);
 	// define variable
@@ -45,10 +52,21 @@ public class DatePicker {
 
 	JLabel lab = new JLabel();
 
-	public DatePicker(JFrame parent, Boolean inTime)// create constructor
+	public DatePicker(JFrame parent, Boolean inTime, String date)// create constructor
 	{
+		oldDate = date;
 		// create object
 		d = new JDialog();
+		
+		 d.addWindowListener(new WindowAdapter() {
+	    	   public void windowClosing(WindowEvent evt) {
+	    	     onExit();
+	    	   }
+
+			
+	    	  });
+		
+		
 		// set modal true
 		d.setModal(true);
 		// define string
@@ -86,8 +104,14 @@ public class DatePicker {
 			if (x < 7)// if loop condition
 			{
 				button[x].setText(header[x]);
-				// set fore ground colour
+				button[x].setFont(new Font("Tahoma", Font.BOLD, 12));
 				button[x].setForeground(Color.red);
+				if (x < 5)button[x].setForeground(Color.black);
+				button[x].setContentAreaFilled(false);
+				button[x].setBackground(SystemColor.controlShadow);
+				button[x].setEnabled(false);
+				button[x].setBorder(UIManager.getBorder("CheckBox.border"));
+				button[x].setOpaque(true);
 			}
 
 			p1.add(button[x]);// add button
@@ -142,6 +166,11 @@ public class DatePicker {
 		// set visible true
 		d.setVisible(true);
 	}
+
+	public void onExit() {
+		day = oldDate;
+		    	  
+    	}
 
 	private void getTimeModule(JPanel panel) {
 		Date data_time = null;
@@ -240,7 +269,7 @@ public class DatePicker {
 			dayOfWeek = 7;
 		} else
 			dayOfWeek = dayOfWeek - 1;
-		SimpleDateFormat sdfDay = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdfDay = new SimpleDateFormat(FORMAT_DATE);
 		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) { // set
 																				// text
 			button[x].setText("" + day);
@@ -253,12 +282,17 @@ public class DatePicker {
 				button[x].setBackground(Color.CYAN);
 			}
 		}
-		for (int x = 0; x < button.length; x++) {
+		for (int x = 7; x < button.length; x++) {
 			if (button[x].getText().equals("")) {
 				button[x].setEnabled(false);
-//				button[x].setBorder(null);
+				button[x].setOpaque(false);
+				button[x].setContentAreaFilled(false);
+				button[x].setBorderPainted(false);
 			} else {
 				button[x].setEnabled(true);
+				button[x].setOpaque(true);
+				button[x].setContentAreaFilled(true);
+				button[x].setBorderPainted(true);
 			}
 		}
 		l.setText(sdf.format(cal.getTime()));
@@ -271,13 +305,13 @@ public class DatePicker {
 		// if condition
 		if (day.equals(""))
 			return day;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 		Calendar cal = Calendar.getInstance();
 		if (inTime) {
 			cal.set(year, month, Integer.parseInt(day), cal_time.get(Calendar.HOUR_OF_DAY),
 					cal_time.get(Calendar.MINUTE));
 		} else {
-			sdf = new SimpleDateFormat("dd-MM-yyyy");
+			sdf = new SimpleDateFormat(FORMAT_DATE);
 			cal.set(year, month, Integer.parseInt(day));
 		}
 		return sdf.format(cal.getTime());
@@ -292,7 +326,7 @@ public class DatePicker {
 
 	public static String getReferenceDate(String startStrDate, String endStrDate) {
 		String meanStrPeriod = "";
-		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 
 		if (!startStrDate.equals("")) {
 			if (endStrDate.equals("")) {
@@ -331,10 +365,10 @@ public class DatePicker {
 
 	public static Boolean incorrectDate(String date, Boolean inTime) {
 		Boolean corDate = false;
-		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);
 		String origDate = date;
 		if (inTime) {
-			sdf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+			sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 			try {
 				origDate = date.substring(0, 10);
 			} catch (StringIndexOutOfBoundsException e) {
@@ -344,7 +378,7 @@ public class DatePicker {
 			}
 
 		}
-		DateTimeFormatter sdf1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		DateTimeFormatter sdf1 = DateTimeFormatter.ofPattern(FORMAT_DATE);
 
 		try {
 

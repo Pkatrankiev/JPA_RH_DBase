@@ -7,8 +7,8 @@ import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
+import OldClases.MainWindowsOld;
 import WindowView.MainWindows;
-import WindowView.MainWindowsNew;
 import WindowView.ReadFile;
 import WindowView.SetDBfromWordDoc;
 
@@ -56,7 +56,7 @@ public class Main_Aplication {
 	}
 
 	private static void StartMainWindow() {
-		MainWindowsNew win = new MainWindowsNew();
+		MainWindows win = new MainWindows();
 		win.WindowNew();
 	}
 

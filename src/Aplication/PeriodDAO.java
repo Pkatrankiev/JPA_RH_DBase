@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Nuclide;
+import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 
 public class PeriodDAO {
@@ -46,6 +47,17 @@ public class PeriodDAO {
 		return list;
 	}
 
+	public static String [] getMasiveStringAllValuePeriod() {
+		List<Period> list = getInListAllValuePeriod();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Period e : list) { 
+			values[i] = e.getValue();
+			i++;
+			}
+		return values;
+	}
+	
 	public static void setBasicValuePeriod() {
 		
 		setValuePeriod(1, "Януари");

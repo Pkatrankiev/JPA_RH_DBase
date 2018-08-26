@@ -27,7 +27,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import Aplication.Izpitvan_produktDAO;
 import DBase_Class.Izpitvan_produkt;
-import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;

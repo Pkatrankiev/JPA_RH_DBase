@@ -52,7 +52,6 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import WindowViewAplication.DocxMainpulator;
-import WindowViewAplication.RequestViewAplication;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -1009,7 +1008,7 @@ public class RequestView extends JFrame {
 				}
 
 				txtFld_date_time_request.setText(textRefDate);
-				System.out.println("Data11 = " + txtField_RequestCode.getText().trim());
+				System.out.println("Data in requestViewFild = " + txtFld_date_time_request.getText().trim());
 			}
 		});
 		GridBagConstraints gbc_btn_date_time_request = new GridBagConstraints();

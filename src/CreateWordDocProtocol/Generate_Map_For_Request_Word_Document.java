@@ -3,7 +3,7 @@ package CreateWordDocProtocol;
 import java.util.HashMap;
 import java.util.Map;
 import DBase_Class.Request;
-import WindowViewAplication.RequestViewAplication;
+import WindowView.RequestViewAplication;
 
 public class Generate_Map_For_Request_Word_Document {
 

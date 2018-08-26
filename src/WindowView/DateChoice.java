@@ -356,7 +356,14 @@ public class DateChoice extends JDialog {
 		str = "ѕериод за вземане на пробите: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.";
 		return str;
 	}
-	
+	public static String get_str_period_sample() {
+		// TODO Auto-generated method stub
+		String str="";
+		System.out.println("*"+txtEndDate.getText()+"*");
+		if(!txtEndDate.getText().equals(""))
+		str = "за период: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.";
+		return str;
+	}
 	public static String get_date_time_reception() {
 		// TODO Auto-generated method stub
 		String str="";

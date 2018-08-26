@@ -21,7 +21,7 @@ import javax.swing.table.TableCellRenderer;
 
 import javax.swing.table.TableColumn;
 
-import WindowViewAplication.RequestViewAplication;
+import WindowView.RequestViewAplication;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

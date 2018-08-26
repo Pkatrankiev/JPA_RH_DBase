@@ -23,7 +23,6 @@ import javax.swing.border.LineBorder;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import Aplication.GlobalVariable;
-import WindowViewAplication.RequestViewAplication;
 
 public class DatePicker {
 
@@ -52,15 +51,15 @@ public class DatePicker {
 
 	JLabel lab = new JLabel();
 
-	public DatePicker(JFrame parent, Boolean inTime, String date)// create constructor
+	public DatePicker(JFrame parent, Boolean inTime, String dateOld)// create constructor
 	{
-		oldDate = date;
+	
 		// create object
 		d = new JDialog();
 		
 		 d.addWindowListener(new WindowAdapter() {
 	    	   public void windowClosing(WindowEvent evt) {
-	    	     onExit();
+	    	     onExit(dateOld,inTime);
 	    	   }
 
 			
@@ -167,9 +166,47 @@ public class DatePicker {
 		d.setVisible(true);
 	}
 
-	public void onExit() {
-		day = oldDate;
-		    	  
+	public void onExit(String date, boolean inTime) {
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
+		
+		Date data_int = null;
+		Calendar cal_int = Calendar.getInstance();
+		if (inTime) {
+			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+			try {
+				date.substring(0, 10);
+			} catch (StringIndexOutOfBoundsException e) {
+
+				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+
+			}
+
+		}
+		
+		try {
+			data_int = sdf.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		cal_int.setTime(data_int);
+		try {
+
+		
+			month = cal_int.get(Calendar.MONTH);
+			year = cal_int.get(Calendar.YEAR);
+			hour = cal_int.get(Calendar.HOUR_OF_DAY);
+			minute = cal_int.get(Calendar.MINUTE);
+			day = cal_int.get(Calendar.DAY_OF_MONTH)+"";
+			
+			System.out.println(" originData = " + date+" data day= "+day);
+
+		} catch (DateTimeParseException e) {
+			System.out.println(" Eror Catch in Exit Data = " + date);
+			
+		}
+			    	  
     	}
 
 	private void getTimeModule(JPanel panel) {
@@ -193,6 +230,8 @@ public class DatePicker {
 			public void actionPerformed(ActionEvent ae) {
 				// decrement time by 10
 				cal_time.add(Calendar.MINUTE, -10);
+				hour = cal_time.get(Calendar.HOUR_OF_DAY);
+				minute = cal_time.get(Calendar.MINUTE);
 				String new_time = sdf_time.format(cal_time.getTime());
 				label.setText(new_time);
 
@@ -211,6 +250,8 @@ public class DatePicker {
 			public void actionPerformed(ActionEvent ae) {
 				// increment time by 10
 				cal_time.add(Calendar.MINUTE, 10);
+				hour = cal_time.get(Calendar.HOUR_OF_DAY);
+				minute = cal_time.get(Calendar.MINUTE);
 				String new_time = sdf_time.format(cal_time.getTime());
 				label.setText(new_time);
 
@@ -308,8 +349,7 @@ public class DatePicker {
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 		Calendar cal = Calendar.getInstance();
 		if (inTime) {
-			cal.set(year, month, Integer.parseInt(day), cal_time.get(Calendar.HOUR_OF_DAY),
-					cal_time.get(Calendar.MINUTE));
+			cal.set(year, month, Integer.parseInt(day), hour, minute);
 		} else {
 			sdf = new SimpleDateFormat(FORMAT_DATE);
 			cal.set(year, month, Integer.parseInt(day));
@@ -388,7 +428,7 @@ public class DatePicker {
 			System.out.println("Data = " + data_time.format(sdf1) + " originData = " + origDate);
 
 		} catch (DateTimeParseException e) {
-			System.out.println(" EroriginData = " + origDate);
+			System.out.println(" ErorInCatch incorectData = " + origDate);
 			return corDate = true;
 		}
 		return corDate;

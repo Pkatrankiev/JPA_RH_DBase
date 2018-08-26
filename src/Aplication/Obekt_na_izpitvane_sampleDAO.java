@@ -53,6 +53,17 @@ public class Obekt_na_izpitvane_sampleDAO {
 			return list;
 	}
 
+	public static String [] getMasiveStringAllValueObekt_na_izpitvane_sample() {
+		List<Obekt_na_izpitvane_sample> list = getInListAllValueObekt_na_izpitvane_sample();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Obekt_na_izpitvane_sample e : list) { 
+			values[i] = e.getName_obekt_na_izpitvane();
+			i++;
+			}
+		return values;
+	}
+	
 	@GET
 	@QueryParam("{id}")
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleById(@QueryParam("id") int id) {

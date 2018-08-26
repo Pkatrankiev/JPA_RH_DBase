@@ -12,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 
 import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
-import WindowViewAplication.RequestViewAplication;
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;

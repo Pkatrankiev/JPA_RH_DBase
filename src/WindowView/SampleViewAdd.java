@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import Aplication.RequestDAO;
-import WindowViewAplication.RequestViewAplication;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -334,6 +333,9 @@ public class SampleViewAdd extends JDialog {
 								}
 
 								txtFld_Ref_date[l].setText(textRefDate);
+								String sstr = txtArea_Sample_Descr[l].getText();
+								sstr = sstr + DateChoice.get_str_period_sample();
+								txtArea_Sample_Descr[l].setText(sstr);
 
 							} catch (NumberFormatException e1) {
 

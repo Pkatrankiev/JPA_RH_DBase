@@ -27,6 +27,9 @@ import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import WindowView.Login;
+import WindowView.RequestMiniFrame;
+import WindowView.RequestMiniFrame4;
+import WindowView.RequestMiniFrame3;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
 import net.coderazzi.filters.gui.AutoChoices;
@@ -34,7 +37,6 @@ import net.coderazzi.filters.gui.TableFilterHeader;
 
 public class TableSampleList {
 
-	private static Request choiseRequest;
 	private static String[] values_Period;
 	private static String[] values_O_I_S;
 
@@ -85,8 +87,24 @@ public class TableSampleList {
 											// columnNames));
 
 		table.addMouseListener(new MouseAdapter() {
-
+			
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+				
+			}
 			public void mousePressed(MouseEvent e) {
+				if (table.getSelectedColumn()== 0) {
+					int row = table.rowAtPoint(e.getPoint());
+					int col = table.columnAtPoint(e.getPoint());
+					String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
+					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+					System.out.println(row+" "+ choiseRequest.getRecuest_code());
+					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
+					
+				
+				}
 //				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
 //
 //					int row = table.getSelectedRow();
@@ -133,7 +151,7 @@ public class TableSampleList {
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (column == 2 || column == 5) {
+						if (column == 0 || column == 2 || column == 6) {
 							return true;
 						} else {
 							return false;
@@ -144,7 +162,7 @@ public class TableSampleList {
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
 				setUp_O_I_S_Column(table, table.getColumnModel().getColumn(2));
-				setUp_values_Period_Column(table, table.getColumnModel().getColumn(5));
+				setUp_values_Period_Column(table, table.getColumnModel().getColumn(6));
 
 			}
 		});

@@ -472,8 +472,7 @@ public class RequestDAO {
 		Request list = new Request();
 		for (Request element : getListRequestFromColumnByVolume(column_name, volume_check)) {
 			list = element;
-			System.out.println("5555555555555");
-		}
+					}
 
 		return list;
 	}

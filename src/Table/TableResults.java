@@ -73,6 +73,15 @@ public class TableResults {
 											// columnNames));
 
 		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (table.getSelectedColumn()== 0) {
+					int row = table.getSelectedRow();
+					int col = table.getSelectedColumn();
+					System.out.println(row+" "+col);
+				}
+				super.mouseReleased(e);
+			}
 
 			public void mousePressed(MouseEvent e) {
 //				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
@@ -121,7 +130,7 @@ public class TableResults {
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (column == 2 || column == 5) {
+						if (column == 0 || column == 2 || column == 6) {
 							return true;
 						} else {
 							return false;

@@ -40,6 +40,7 @@ public class MainWindows {
 	 */
 	public void WindowNew() {
 		final JFrame win = new JFrame();
+		
 		GetVisibleLAF(win);
 
 		win.setTitle("my RHA");
@@ -140,89 +141,3 @@ public class MainWindows {
 
 }
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// JMenu mnNewMenu = new JMenu("Меню");
-// mnNewMenu.setInheritsPopupMenu(true);
-// mnNewMenu.setSelected(true);
-// mnNewMenu.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-// mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 20));
-//
-// menuBar_1.add(mnNewMenu, BorderLayout.WEST);
-//
-// final Panel panel_2 = new Panel();
-// mnNewMenu.add(panel_2);
-// panel_2.setLayout(new GridLayout(0, 1, 15, 15));
-//
-//
-// Panel panel_3 = new Panel();
-// mnNewMenu.add(panel_3);
-// panel_3.setLayout(new GridLayout(0, 1, 15, 15));
-//
-// JLabel label = new JLabel("Генериране на Нова Заявка по шаблон ");
-// label.setHorizontalAlignment(SwingConstants.LEFT);
-// label.setFont(new Font("Tahoma", Font.PLAIN, 18));
-// label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-// panel_3.add(label);
-// panel_3.addMouseListener(new MouseAdapter() {
-// @Override
-// public void mouseEntered(MouseEvent e) {
-// panel_3.setBackground(Color.LIGHT_GRAY);
-// }
-//
-// @Override
-// public void mouseExited(MouseEvent e) {
-// panel_3.setBackground(Color.WHITE);
-// }
-//
-// public void mousePressed(MouseEvent e) {
-//
-// if (loginDlg.getUsername().equals("")) {
-// JOptionPane.showMessageDialog(win, "Логнете се");
-// } else
-// {
-// RequestViewAplication.DrawTableWithRequestTamplate();
-//
-//// Users user =
-// UsersDAO.getValueUsersByNicName(loginDlg.getUsername());
-////
-//// reqView.setVisible(true);
-// }
-// }
-//
-// });
-//
-// final Panel panel_1 = new Panel();
-// mnNewMenu.add(panel_1);
-// panel_1.setLayout(new GridLayout(0, 1, 15, 15));
-//
-// JLabel lblNewLabel = new JLabel("Отваряне на Заявка ");
-// lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-// lblNewLabel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-// lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-// lblNewLabel.setIcon(new ImageIcon(
-// MainWindows.class.getResource("/org/apache/log4j/lf5/viewer/images/channelexplorer_new.gif")));
-// panel_1.add(lblNewLabel);
-// panel_1.addMouseListener(new MouseAdapter() {
-// @Override
-// public void mouseEntered(MouseEvent e) {
-// panel_1.setBackground(Color.LIGHT_GRAY);
-// }
-//
-// @Override
-// public void mouseExited(MouseEvent e) {
-// panel_1.setBackground(Color.WHITE);
-// }
-//
-// public void mousePressed(MouseEvent e) {
-//
-//// String requestString = "3467";
-//// RequestViewAplication.OpenRequestInWordDokTamplate(requestString);
-//
-//
-// RequestViewAplication.DrawTableWithRequestList();
-//
-// }
-//
-// });
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

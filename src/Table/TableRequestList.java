@@ -219,7 +219,7 @@ public class TableRequestList {
 				Integer.parseInt(request.getRecuest_code());
 				String[][] masiveSample = RequestViewAplication.getMasiveSampleFromListSampleFromRequest(request, listSample);
 				tableRequest[i][0] = request.getRecuest_code();
-				tableRequest[i][1] = getCalDate(request.getDate_request(),true);
+				tableRequest[i][1] = formatToTabDate(request.getDate_request(),false);
 //				tableRequest[i][1] = request.getDate_request();
 				tableRequest[i][2] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
 				tableRequest[i][3] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
@@ -238,7 +238,8 @@ public class TableRequestList {
 				i++;
 			} catch (NumberFormatException e) {
 
-			} catch (ParseException e) {
+			}
+				catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -247,21 +248,42 @@ public class TableRequestList {
 		TableRequestListEditable(tableHeader, tableRequest, types);
 	}
 
-	private static String getCalDate(String origin_date,Boolean inTime) throws ParseException {
-		String TAB_FORMAT_DATE = "yyyy-MM-dd";
-		String TAB_FORMAT_DATE_TIME ="yyyy-MM-dd HH:mm";
-		
+	private static String formatToTabDate(String origin_date,Boolean inTime) throws ParseException {
+		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
+		String TAB_FORMAT_DATE_TIME =GlobalVariable.getTAB_FORMAT_DATE_TIME();
 		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-		  SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
+		String FORMAT_DATE_TIME =GlobalVariable.getFORMAT_DATE_TIME();
+		String globalSeparator =GlobalVariable.getSeparator();
+		SimpleDateFormat sdf ;
+		String sss = "";
+		SimpleDateFormat table_sdf ;
+		 String separator=".";
+		  if(origin_date.contains("-")){
+			  separator="-"; 
+		  }
+		  if(!separator.equals(globalSeparator)){
+			  FORMAT_DATE_TIME = FORMAT_DATE_TIME.replaceAll(globalSeparator, separator);  
+			  FORMAT_DATE = FORMAT_DATE.replaceAll(globalSeparator, separator); 
+		  }
 		  
-		  SimpleDateFormat table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE);			
-			Date date = new Date();
-			if(origin_date.contains("-")){
-				 sdf = new SimpleDateFormat("dd-MM-yyyy");
+		   if(inTime){
+			   sss = FORMAT_DATE_TIME;
+			   sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+				 table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
+				
+			}else{
+				sss = FORMAT_DATE;
+				sdf = new SimpleDateFormat(FORMAT_DATE);
+			  table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
 			}
+		 			
+			Date date = new Date();
+										
 			try {
+				System.out.println(origin_date+"     "+sss);
 				date = sdf.parse(origin_date);
 			} catch (ParseException e) {
+				
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

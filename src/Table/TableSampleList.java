@@ -41,12 +41,12 @@ public class TableSampleList {
 	private static String[] values_O_I_S;
 
 	public static void DrawTableWithEnableSampleList() {
-//		List<Request> listRequest = RequestDAO.getInListAllValueRequest();
+		// List<Request> listRequest = RequestDAO.getInListAllValueRequest();
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване", "Обект на пробата", "Описание на пробата",
-				"Референтна дата", "Приод", "Година" };
-		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, Calendar.class, String.class,
-				String.class };
+		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване", "Обект на пробата",
+				"Описание на пробата", "Референтна дата", "Приод", "Година" };
+		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, Calendar.class,
+				String.class, String.class };
 
 		Object[][] tableSample = new Object[listSample.size()][8];
 		int i = 0;
@@ -62,9 +62,9 @@ public class TableSampleList {
 				tableSample[i][4] = sample.getDescription_sample();
 				tableSample[i][5] = sample.getDate_time_reference();
 				if (sample.getPeriod() == null) {
-					tableSample[i][6] ="";
-				}else{
-				tableSample[i][6] = sample.getPeriod().getValue();
+					tableSample[i][6] = "";
+				} else {
+					tableSample[i][6] = sample.getPeriod().getValue();
 				}
 				tableSample[i][7] = sample.getGodina_period();
 
@@ -79,7 +79,7 @@ public class TableSampleList {
 
 	public static void TableSampleListEditable(String[] columnNames, Object[][] data, Class[] types) {
 		JFrame frame = new JFrame();
-		
+
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		values_O_I_S = Obekt_na_izpitvane_sampleDAO.getMasiveStringAllValueObekt_na_izpitvane_sample();
 		values_Period = PeriodDAO.getMasiveStringAllValuePeriod();
@@ -87,39 +87,41 @@ public class TableSampleList {
 											// columnNames));
 
 		table.addMouseListener(new MouseAdapter() {
-			
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
-				
+
 			}
+
 			public void mousePressed(MouseEvent e) {
-				if (table.getSelectedColumn()== 0) {
+				if (table.getSelectedColumn() == 0) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-					System.out.println(row+" "+ choiseRequest.getRecuest_code());
+					System.out.println(row + " " + choiseRequest.getRecuest_code());
 					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
-					
-				
+
 				}
-//				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-//
-//					int row = table.getSelectedRow();
-//					int col = table.getSelectedColumn();
-//					String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
-//
-//					if (reqCodeStr.startsWith("templ")) {
-//						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-//						RequestView reqView = new RequestView(Login.getCurentUser(), choiseRequest);
-//						frame.setVisible(false);
-//
-//					} else {
-//						RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
-//					}
-//				}
+				// if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+				//
+				// int row = table.getSelectedRow();
+				// int col = table.getSelectedColumn();
+				// String reqCodeStr = table.getValueAt(table.getSelectedRow(),
+				// 0).toString();
+				//
+				// if (reqCodeStr.startsWith("templ")) {
+				// choiseRequest =
+				// RequestDAO.getRequestFromColumnByVolume("recuest_code",
+				// reqCodeStr);
+				// RequestView reqView = new RequestView(Login.getCurentUser(),
+				// choiseRequest);
+				// frame.setVisible(false);
+				//
+				// } else {
+				// RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
+				// }
+				// }
 			}
 		});
 
@@ -151,8 +153,12 @@ public class TableSampleList {
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (column == 0 || column == 2 || column == 6) {
-							return true;
+						if (Login.getCurentUser() != null) {
+							if (Login.getCurentUser().getIsAdmin()) {
+								return true;
+							} else {
+								return false;
+							}
 						} else {
 							return false;
 						}

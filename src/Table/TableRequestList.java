@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -39,9 +40,10 @@ public class TableRequestList {
 	private static Request choiseRequest;
 	private static String[] values_I_P;
 	private static String[] values_O_I_R;
+	private static JFrame frame;
 
 	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types) {
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		final JTable table = new JTable();// new DefaultTableModel(rowData,
@@ -228,8 +230,8 @@ public class TableRequestList {
 				tableRequest[i][6] = request.getCounts_samples();
 				tableRequest[i][7] = request.getDescription_sample_group();
 				tableRequest[i][8] = RequestViewAplication.GenerateStringRefDateTime(masiveSample);
-				tableRequest[i][9] = request.getDate_execution();
-				tableRequest[i][10] = request.getDate_time_reception();
+				tableRequest[i][9] = formatToTabDate(request.getDate_execution(),false);;
+				tableRequest[i][10] = formatToTabDate(request.getDate_time_reception(),true);;
 				tableRequest[i][11] = request.getUsers().getName_users() + " " + request.getUsers().getFamily_users();
 				String zab = "";
 				if (request.getZabelejki() != null)
@@ -257,14 +259,16 @@ public class TableRequestList {
 		SimpleDateFormat sdf ;
 		String sss = "";
 		SimpleDateFormat table_sdf ;
-		 String separator=".";
+		 char separator='.';
+		 char separ = globalSeparator.charAt(0);
 		  if(origin_date.contains("-")){
-			  separator="-"; 
+			  separator='-'; 
 		  }
-		  if(!separator.equals(globalSeparator)){
-			  FORMAT_DATE_TIME = FORMAT_DATE_TIME.replaceAll(globalSeparator, separator);  
-			  FORMAT_DATE = FORMAT_DATE.replaceAll(globalSeparator, separator); 
-		  }
+		  if(separator!=separ){
+			  sss = FORMAT_DATE_TIME;
+			  FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);  
+			  FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
+		 }
 		  
 		   if(inTime){
 			   sss = FORMAT_DATE_TIME;
@@ -283,8 +287,8 @@ public class TableRequestList {
 				System.out.println(origin_date+"     "+sss);
 				date = sdf.parse(origin_date);
 			} catch (ParseException e) {
-				
-				// TODO Auto-generated catch block
+				 JOptionPane.showMessageDialog(frame, "Преформатиране на Датата",
+							"Грешка в данните", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 			date = sdf.parse(origin_date);

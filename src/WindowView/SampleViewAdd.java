@@ -166,6 +166,7 @@ public class SampleViewAdd extends JDialog {
 						edit_comboBox_OI[i].setBackground(Color.WHITE);
 						panel[i].add(edit_comboBox_OI[i]);
 
+						
 						int l = i;
 						edit_comboBox_OI[l].addMouseListener(new MouseAdapter() {
 							@Override

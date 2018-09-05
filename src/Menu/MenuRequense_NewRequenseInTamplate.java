@@ -11,11 +11,11 @@ import WindowView.Login;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
 
-public class MenuSequense_NewSequenseInTamplate extends AbstractMenuAction{
+public class MenuRequense_NewRequenseInTamplate extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
 
-	public MenuSequense_NewSequenseInTamplate() {
+	public MenuRequense_NewRequenseInTamplate() {
 		super("Нова Заявка от шаблон");
 		// TODO Auto-generated constructor stub
 	}

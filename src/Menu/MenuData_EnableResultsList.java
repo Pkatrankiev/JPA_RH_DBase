@@ -3,21 +3,20 @@ package Menu;
 import java.awt.event.ActionEvent;
 
 import Table.TableRequestList;
+import Table.TableResultsList;
 
-
-public class MenuSequense_SequenseList extends AbstractMenuAction{
+public class MenuData_EnableResultsList extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
 
-	public MenuSequense_SequenseList() {
-		super("Списък на Заявките ");
+	public MenuData_EnableResultsList() {
+		super("Редактиране на Резултатите");
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TableRequestList.DrawTableWithRequestList();
+		TableResultsList.DrawTableWithEnableResultsList();
 	}
 
-	
 }

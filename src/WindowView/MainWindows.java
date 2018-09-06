@@ -24,11 +24,12 @@ import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_EnableSequenseList;
-import Menu.MenuSequense_NewSequense;
-import Menu.MenuSequense_NewSequenseInTamplate;
-import Menu.MenuSequense_SequenseList;
+import Menu.MenuRequense_NewRequense;
+import Menu.MenuRequense_NewRequenseInTamplate;
+import Menu.MenuRequense_RequenseList;
 import WindowViewAplication.DocxMainpulator;
 
 public class MainWindows {
@@ -83,21 +84,21 @@ public class MainWindows {
 	private JMenuBar createMenu(Frame win) {
 		JMenuBar menu = new JMenuBar();
 		// menu.setLayout(new BorderLayout());
-		menu.add(createSequenseMenu());
+		menu.add(createRequenseMenu());
 		menu.add(createDataMenu());
 		menu.add(createLoginMenu(win), BorderLayout.EAST);
 
 		return menu;
 	}
 
-	private JMenu createSequenseMenu() {
+	private JMenu createRequenseMenu() {
 		JMenu sequenseMenu = new JMenu("Заявки");
 		sequenseMenu.setMnemonic(KeyEvent.VK_Z);
 		
-		sequenseMenu.add(new MenuSequense_NewSequense());
-		sequenseMenu.add(new MenuSequense_NewSequenseInTamplate());
+		sequenseMenu.add(new MenuRequense_NewRequense());
+		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
 		sequenseMenu.addSeparator();
-		sequenseMenu.add(new MenuSequense_SequenseList());
+		sequenseMenu.add(new MenuRequense_RequenseList());
 		return sequenseMenu;
 	}
 
@@ -106,6 +107,7 @@ public class MainWindows {
 		dataMenu.setMnemonic(KeyEvent.VK_D);
 		dataMenu.add(new MenuData_EnableSequenseList());
 		dataMenu.add(new MenuData_EnableSampleList());
+		dataMenu.add(new MenuData_EnableResultsList());
 
 		return dataMenu;
 	}

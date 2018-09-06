@@ -9,11 +9,11 @@ import WindowView.RequestView;
 
 
 
-public class MenuSequense_NewSequense extends AbstractMenuAction{
+public class MenuRequense_NewRequense extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
 
-	public MenuSequense_NewSequense() {
+	public MenuRequense_NewRequense() {
 		super("Генериране на Нова Заявка ");
 		// TODO Auto-generated constructor stub
 	}

@@ -12,32 +12,39 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
+import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
+import DBase_Class.Results;
 import DBase_Class.Sample;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class TableResults {
+public class TableResultsList {
 	private static Request choiseRequest;
 	private static String[] values_Period;
 	private static String[] values_O_I_S;
 
-	public static void DrawTableWithEnableSampleList() {
+	public static void DrawTableWithEnableResultsList() {
 		List<Request> listRequest = RequestDAO.getInListAllValueRequest();
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване", "Обект на пробата", "Описание на пробата",
-				"Референтна дата", "Приод", "Година" };
-		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, Calendar.class, String.class,
-				String.class };
+		List<IzpitvanPokazatel> listIzpPokaz = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
+		List<Results> listResults = ResultsDAO.getInListAllValueResults();
+		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата","Метод на изпитване", "Изпитван показател",
+				 "Нуклид", "Активност","Неопределеност","Сигма", "МДА", "Размерност", "Количество","Мярка", "В протокол" };
+		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, 
+				String.class, Double.class, Double.class,Integer.class,Double.class,String.class,Double.class,String.class,Boolean.class
+				};
 
-		Object[][] tableSample = new Object[listSample.size()][8];
+		Object[][] tableSample = new Object[listSample.size()][14];
 		int i = 0;
 
-		for (Sample sample : listSample) {
+		for (Results sample : listResults) {
 
 			try {
 				Integer.parseInt(sample.getRequest().getRecuest_code());

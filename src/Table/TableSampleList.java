@@ -41,14 +41,14 @@ public class TableSampleList {
 	private static String[] values_O_I_S;
 
 	public static void DrawTableWithEnableSampleList() {
-		 List<Request> listRequest = RequestDAO.getInListAllValueRequest();
+		// List<Request> listRequest = RequestDAO.getInListAllValueRequest();
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
 		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване", "Обект на пробата",
-				"Описание на групата проби","Описание на пробата", "Референтна дата", "Приод", "Година" };
-		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class, Calendar.class,
+				"Описание на пробата", "Референтна дата", "Приод", "Година" };
+		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, Calendar.class,
 				String.class, String.class };
 
-		Object[][] tableSample = new Object[listSample.size()][9];
+		Object[][] tableSample = new Object[listSample.size()][8];
 		int i = 0;
 
 		for (Sample sample : listSample) {
@@ -59,15 +59,14 @@ public class TableSampleList {
 				tableSample[i][1] = sample.getSample_code();
 				tableSample[i][2] = sample.getRequest().getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 				tableSample[i][3] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-				tableSample[i][4] = sample.getRequest().getDescription_sample_group();			
-				tableSample[i][5] = sample.getDescription_sample();
-				tableSample[i][6] = sample.getDate_time_reference();
+				tableSample[i][4] = sample.getDescription_sample();
+				tableSample[i][5] = sample.getDate_time_reference();
 				if (sample.getPeriod() == null) {
-					tableSample[i][7] = "";
+					tableSample[i][6] = "";
 				} else {
-					tableSample[i][7] = sample.getPeriod().getValue();
+					tableSample[i][6] = sample.getPeriod().getValue();
 				}
-				tableSample[i][8] = sample.getGodina_period();
+				tableSample[i][7] = sample.getGodina_period();
 
 				i++;
 			} catch (NumberFormatException e) {

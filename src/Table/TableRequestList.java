@@ -30,7 +30,6 @@ import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import WindowView.Login;
-import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
 import net.coderazzi.filters.gui.AutoChoices;
@@ -93,14 +92,10 @@ public class TableRequestList {
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (Login.getCurentUser() != null) {
-							if (Login.getCurentUser().getIsAdmin()) {
-								return true;
-							} else {
-								return false;
-							}
-						} else {
+						if (column >= 20) {
 							return false;
+						} else {
+							return true;
 						}
 					}
 
@@ -120,23 +115,8 @@ public class TableRequestList {
 											// columnNames));
 
 		table.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
 
-			}
-			
 			public void mousePressed(MouseEvent e) {
-				if (table.getSelectedColumn() == 0) {
-					int row = table.rowAtPoint(e.getPoint());
-					int col = table.columnAtPoint(e.getPoint());
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
-					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-					System.out.println(row + " " + choiseRequest.getRecuest_code());
-					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
-
-				}
-
 				if (e.getClickCount() == 4 && table.getSelectedRow() != -1) {
 
 					int row = table.getSelectedRow();
@@ -179,12 +159,8 @@ public class TableRequestList {
 			
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (Login.getCurentUser() != null) {
-							if (Login.getCurentUser().getIsAdmin()) {
-								return true;
-							} else {
-								return false;
-							}
+						if (column == 2 || column == 3) {
+							return true;
 						} else {
 							return false;
 						}
@@ -255,7 +231,7 @@ public class TableRequestList {
 				tableRequest[i][7] = request.getDescription_sample_group();
 				tableRequest[i][8] = RequestViewAplication.GenerateStringRefDateTime(masiveSample);
 				tableRequest[i][9] = formatToTabDate(request.getDate_execution(),false);;
-				tableRequest[i][10] = formatToTabDate(request.getDate_time_reception(),false);;
+				tableRequest[i][10] = formatToTabDate(request.getDate_time_reception(),true);;
 				tableRequest[i][11] = request.getUsers().getName_users() + " " + request.getUsers().getFamily_users();
 				String zab = "";
 				if (request.getZabelejki() != null)

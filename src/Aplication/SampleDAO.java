@@ -82,38 +82,38 @@ public class SampleDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-
-		int min = 1;
-		int max = 1;
-		int ran = 1;
-		// Get Request list
-		List<Request> listtrequest = entitymanager.createQuery("SELECT e FROM Request e").getResultList();
-		System.out.println("Num Request:" + listtrequest.size());
-
-		for (int reqNum = 1; reqNum <= listtrequest.size(); reqNum++) {
-
-			Request request = RequestDAO.getValueRequestById(reqNum);
-			Period period = null;
-
-			for (int i = 1; i <= request.getCounts_samples(); i++) {
-
-				// Get random Obekt_na_izpitvane object
-				List<Obekt_na_izpitvane_request> listOi = entitymanager
-						.createQuery("SELECT e FROM Obekt_na_izpitvane_request e").getResultList();
-				System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
-				max = listOi.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Obekt_na_izpitvane_sample obekt_na_izpitvane = Obekt_na_izpitvane_sampleDAO
-						.getValueObekt_na_izpitvane_sampleById(ran);
-				System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
-
-				setValueSample(i + "", // sample_code
-						"проби1", // description_sample
-						"22.12.2017 /12:00", // date_time_reference
-						request, // request object
-						obekt_na_izpitvane, period, 2017);
-			}
-		}
+//
+//		int min = 1;
+//		int max = 1;
+//		int ran = 1;
+//		// Get Request list
+//		List<Request> listtrequest = entitymanager.createQuery("SELECT e FROM Request e").getResultList();
+//		System.out.println("Num Request:" + listtrequest.size());
+//
+//		for (int reqNum = 1; reqNum <= listtrequest.size(); reqNum++) {
+//
+//			Request request = RequestDAO.getValueRequestById(reqNum);
+//			Period period = null;
+//
+//			for (int i = 1; i <= request.getCounts_samples(); i++) {
+//
+//				// Get random Obekt_na_izpitvane object
+//				List<Obekt_na_izpitvane_request> listOi = entitymanager
+//						.createQuery("SELECT e FROM Obekt_na_izpitvane_request e").getResultList();
+//				System.out.println("Num Obekt_na_izpitvane:" + listOi.size());
+//				max = listOi.size();
+//				ran = min + (int) (Math.random() * ((max - min) + 1));
+//				Obekt_na_izpitvane_sample obekt_na_izpitvane = Obekt_na_izpitvane_sampleDAO
+//						.getValueObekt_na_izpitvane_sampleById(ran);
+////				System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
+//
+//				setValueSample(i + "", // sample_code
+//						"проби1", // description_sample
+//						"22.12.2017 /12:00", // date_time_reference
+//						request, // request object
+//						obekt_na_izpitvane, period, 2017);
+//			}
+//		}
 		entitymanager.close();
 		emfactory.close();
 

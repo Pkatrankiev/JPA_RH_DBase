@@ -18,6 +18,7 @@ import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Results;
+import DBase_Class.Sample;
 
 
 public class IzpitvanPokazatelDAO {
@@ -125,57 +126,57 @@ static String name_DBase = "JPA_RH_DBase";
 	}	
 	
 	public static void setBasikValueIzpitvan_pokazatel() {
-//
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-//		EntityManager entitymanager = emfactory.createEntityManager();
-//		entitymanager.getTransaction().begin();
-//
-//		int min = 1;
-//		int max = 1;
-//		int ran = 1;
-//		
-//		// Get Sample list
-//				List<Sample> listSample = entitymanager.createQuery("SELECT e FROM Request e").getResultList();
-//				System.out.println("Num Sample:" + listSample.size());
-//
-//				for (int samNum = 1; samNum <= listSample.size(); samNum++) {
-//
-//		Sample sample = SampleDAO.getValueSampleById(samNum);
-//		int ranval = 1 + (int) (Math.random() * 2);
-//		System.out.println();
-//		System.out.println("***********************************************************");
-//		System.out.println("Num Results:" + ranval);
-//		for (int i = 1; i <= ranval; i++) {
-//				
-//		
-//	
-//		
-//		// Get random List_izpitvan_pokazatel object
-//		List<List_izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM List_izpitvan_pokazatel e")
-//				.getResultList();
-//		System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
-//		max = listIp.size();
-//		ran = min + (int) (Math.random() * ((max - min) + 1));
-//		List_izpitvan_pokazatel pokazatel = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
-//		System.out.println("Name IzpitvanPokazatel:" + pokazatel.getId_pokazatel());
-//		
-//		// Get random Metody object
-//				List<Metody> listMetody = entitymanager.createQuery("SELECT e FROM Metody e")
-//						.getResultList();
-//				System.out.println("Num Metody:" + listMetody.size());
-//				max = listMetody.size();
-//				ran = min + (int) (Math.random() * ((max - min) + 1));
-//				Metody metody = MetodyDAO.getValueMetodyById(ran);
-//				System.out.println("Code Metody:" + metody.getId_metody());
-//		
-//		setValueIzpitvanPokazatel(pokazatel, sample, metody);
-//		
-//		
-//					}
-//				}
-//				
-//				entitymanager.close();
-//				emfactory.close();
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		int min = 1;
+		int max = 1;
+		int ran = 1;
+		
+		// Get Sample list
+				List<Sample> listSample = entitymanager.createQuery("SELECT e FROM Request e").getResultList();
+				System.out.println("Num Sample:" + listSample.size());
+
+				for (int samNum = 1; samNum <= listSample.size(); samNum++) {
+
+		Sample sample = SampleDAO.getValueSampleById(samNum);
+		int ranval = 1 + (int) (Math.random() * 2);
+		System.out.println();
+		System.out.println("***********************************************************");
+		System.out.println("Num Results:" + ranval);
+		for (int i = 1; i <= ranval; i++) {
+				
+		
+	
+		
+		// Get random List_izpitvan_pokazatel object
+		List<List_izpitvan_pokazatel> listIp = entitymanager.createQuery("SELECT e FROM List_izpitvan_pokazatel e")
+				.getResultList();
+		System.out.println("Num Izpitvan_pokazatel:" + listIp.size());
+		max = listIp.size();
+		ran = min + (int) (Math.random() * ((max - min) + 1));
+		List_izpitvan_pokazatel pokazatel = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(ran);
+		System.out.println("Name IzpitvanPokazatel:" + pokazatel.getId_pokazatel());
+		
+		// Get random Metody object
+				List<Metody> listMetody = entitymanager.createQuery("SELECT e FROM Metody e")
+						.getResultList();
+				System.out.println("Num Metody:" + listMetody.size());
+				max = listMetody.size();
+				ran = min + (int) (Math.random() * ((max - min) + 1));
+				Metody metody = MetodyDAO.getValueMetodyById(ran);
+				System.out.println("Code Metody:" + metody.getId_metody());
+		
+		setValueIzpitvanPokazatel(pokazatel, null, metody);
+		
+		
+					}
+				}
+				
+				entitymanager.close();
+				emfactory.close();
 	}
 	
 	public static List<IzpitvanPokazatel> getListIzpitvan_pokazatelFromColumnByVolume(String column_name, Object volume_check) {
@@ -211,6 +212,6 @@ static String name_DBase = "JPA_RH_DBase";
 		emfactory.close();
 		}
 	
-
+	
 	
 }

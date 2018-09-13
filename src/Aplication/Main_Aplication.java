@@ -3,6 +3,8 @@ package Aplication;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
+
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
@@ -11,22 +13,25 @@ import OldClases.MainWindowsOld;
 import WindowView.MainWindows;
 import WindowView.ReadFile;
 import WindowView.SetDBfromWordDoc;
+import WindowViewAplication.CreateNewTableIzpitvanPokazatel;
 
 
 public class Main_Aplication {
 
 	public static void main(String[] args) {
 		
+		
+//		TestIzpitvanPokazatelClass();
 
-		// SetBasikValueInDataBase();
+//		 SetBasikValueInDataBase();
 
-		// ChangeObjectsInClassIzpitvan_pokazatel();
+//		 ChangeObjectsInClassIzpitvan_pokazatel();
 
 		// ReaderWordDoc.readMyDocument(fileName);
 
-//		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
+		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
 		
-		StartMainWindow();
+//		StartMainWindow();
 //
 //		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3471_02.01.2018.doc";
 //		
@@ -35,8 +40,14 @@ public class Main_Aplication {
 //		SetDBfromWordDoc.setVolume(FILENAME);
 		
 	}
+	private static void TestIzpitvanPokazatelClass() {
+		List<IzpitvanPokazatel> list =  IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
+		for (IzpitvanPokazatel izpitvanPokazatel : list) {
+			System.out.println(izpitvanPokazatel.getMetody().getName_metody()+" / "+izpitvanPokazatel.getPokazatel().getName_pokazatel());
+		}
+	}
 
-	private static void ChangeObjectsInClassIzpitvan_pokazatel() {
+ static void ChangeObjectsInClassIzpitvan_pokazatel() {
 		Razmernosti nuclide_old = RazmernostiDAO.getValueRazmernostiById(7);
 		Razmernosti nuclide_new = RazmernostiDAO.getValueRazmernostiById(5);
 		List<Results> results_list = ResultsDAO.getListResultsFromColumnByVolume("rtazmernosti", nuclide_old);
@@ -73,14 +84,15 @@ public class Main_Aplication {
 		// RazmernostiDAO.setBasicValueRazmernosti();
 		// DimensionDAO.setBasicValueDimension();
 		// PostDAO.setBasikValuePost();
-		// UsersDAO.setBasicValueUsers();
+//		 UsersDAO.setBasicValueUsers();
 		// ZabelejkiDAO.setBasicValueZabelejki();
 		// Internal_applicantDAO.setBasikValueInternal_applicant();
 		// PeriodDAO.setBasicValuePeriod();
-		// RequestDAO.setBasicValueRequest();
-		// SampleDAO.setBasicValueSample();
+//		 RequestDAO.setBasicValueRequest();
+//		 SampleDAO.setBasicValueSample();
 		// ResultsDAO.setBasicValueResults();
 		// Extra_moduleDAO.setBasicValueRequest();
+//		IzpitvanPokazatelDAO.setBasikValueIzpitvan_pokazatel();
 	}
 
 	public static String alignExpon(double basic, double foll) {

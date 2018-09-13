@@ -8,7 +8,7 @@ import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 
-class CreateNewTableIzpitvanPokazatel {
+public class CreateNewTableIzpitvanPokazatel {
 
 	public static void CreateNewTableIzpitvanPokazatel() {
 		List<Izpitvan_pokazatel> list_izpit_pokazat = Izpitvan_pokazatelDAO.getInListAllValueIzpitvan_pokazatel();

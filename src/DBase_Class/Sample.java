@@ -1,10 +1,14 @@
 package DBase_Class;
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -13,12 +17,14 @@ import com.mysql.fabric.xmlrpc.base.Data;
 @Entity
 @Table
 @NamedQuery(name="sampleList", query="SELECT r FROM Sample r")
-public class Sample implements Serializable {
-
-
+public class Sample  {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinColumn(name="REQUEST_ID")
+	private Request request;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_sample;
@@ -27,8 +33,9 @@ public class Sample implements Serializable {
 	private String date_time_reference;
 	private int godina_period;
 	
-	@ManyToOne
-	private Request request;
+	
+	
+	
 	@ManyToOne
 	private Obekt_na_izpitvane_sample obekt_na_izpitvane;
 	@ManyToOne

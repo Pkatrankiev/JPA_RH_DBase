@@ -22,6 +22,7 @@ import javax.swing.table.TableColumn;
 
 import Aplication.GlobalVariable;
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
@@ -273,7 +274,7 @@ public class TableRequestList {
 		
 		TableRequestListEditable(tableHeader, tableRequest, types);
 	}
-
+ 
 	private static String formatToTabDate(String origin_date,Boolean inTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME =GlobalVariable.getTAB_FORMAT_DATE_TIME();

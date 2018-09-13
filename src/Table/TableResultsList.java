@@ -46,25 +46,25 @@ public class TableResultsList {
 
 		for (Results sample : listResults) {
 
-			try {
-				Integer.parseInt(sample.getRequest().getRecuest_code());
-				tableSample[i][0] = sample.getRequest().getRecuest_code();
-				tableSample[i][1] = sample.getSample_code();
-				tableSample[i][2] = sample.getRequest().getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-				tableSample[i][3] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-				tableSample[i][4] = sample.getDescription_sample();
-				tableSample[i][5] = sample.getDate_time_reference();
-				if (sample.getPeriod() == null) {
-					tableSample[i][6] ="";
-				}else{
-				tableSample[i][6] = sample.getPeriod().getValue();
-				}
-				tableSample[i][7] = sample.getGodina_period();
-
-				i++;
-			} catch (NumberFormatException e) {
-
-			}
+//			try {
+//				Integer.parseInt(sample.getRequest().getRecuest_code());
+//				tableSample[i][0] = sample.getRequest().getRecuest_code();
+//				tableSample[i][1] = sample.getSample_code();
+//				tableSample[i][2] = sample.getRequest().getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+//				tableSample[i][3] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+//				tableSample[i][4] = sample.getDescription_sample();
+//				tableSample[i][5] = sample.getDate_time_reference();
+//				if (sample.getPeriod() == null) {
+//					tableSample[i][6] ="";
+//				}else{
+//				tableSample[i][6] = sample.getPeriod().getValue();
+//				}
+//				tableSample[i][7] = sample.getGodina_period();
+//
+//				i++;
+//			} catch (NumberFormatException e) {
+//
+//			}
 		}
 
 		TableSampleListEditable(tableHeader, tableSample, types);

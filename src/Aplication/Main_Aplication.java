@@ -29,15 +29,15 @@ public class Main_Aplication {
 
 		// ReaderWordDoc.readMyDocument(fileName);
 
-		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
+//		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
 		
 //		StartMainWindow();
 //
-//		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3471_02.01.2018.doc";
-//		
+		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3702_21.09.2018.doc";
+		
 //		 ReadFile.ReadFile(FILENAME);
 
-//		SetDBfromWordDoc.setVolume(FILENAME);
+		SetDBfromWordDoc.setVolume(FILENAME);
 		
 	}
 	private static void TestIzpitvanPokazatelClass() {

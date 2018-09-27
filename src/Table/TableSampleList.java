@@ -79,7 +79,7 @@ public class TableSampleList {
 	}
 
 	public static void TableSampleListEditable(String[] columnNames, Object[][] data, Class[] types) {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Списък на Пробите");
 
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		values_O_I_S = Obekt_na_izpitvane_sampleDAO.getMasiveStringAllValueObekt_na_izpitvane_sample();

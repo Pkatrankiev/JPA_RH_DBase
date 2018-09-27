@@ -113,7 +113,7 @@ public class TableRequestList {
 	}
 
 	public static void TableRequestListEditable(String[] columnNames, Object[][] data, Class[] types) {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Списък на Заявките");
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		values_I_P = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();
 		values_O_I_R = Obekt_na_izpitvane_requestDAO.getMasiveStringAllValueObekt_na_izpitvane();

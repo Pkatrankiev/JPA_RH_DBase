@@ -21,8 +21,7 @@ public class Sample  {
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
-	@JoinColumn(name="REQUEST_ID")
+	@ManyToOne
 	private Request request;
 	
 	@Id

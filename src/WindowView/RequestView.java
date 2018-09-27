@@ -330,7 +330,11 @@ public class RequestView extends JFrame {
 			choice_ind_num_doc.add(string);
 		}
 		if (tamplateRequest != null) {
+			if (tamplateRequest.getInd_num_doc()!=null){
 			choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
+			}else {
+				choice_ind_num_doc.select("");
+			}
 		}
 		GridBagConstraints gbc_choice_ind_num_doc = new GridBagConstraints();
 		gbc_choice_ind_num_doc.anchor = GridBagConstraints.WEST;

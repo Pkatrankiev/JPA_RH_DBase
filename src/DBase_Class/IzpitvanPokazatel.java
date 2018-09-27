@@ -25,7 +25,6 @@ public class IzpitvanPokazatel implements Serializable {
 	private List_izpitvan_pokazatel pokazatel;
 
 	@ManyToOne
-	@JoinColumn(name="REQUEST_ID")
 	private Request request;
 	
 	@ManyToOne

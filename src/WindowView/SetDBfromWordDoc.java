@@ -606,6 +606,10 @@ public class SetDBfromWordDoc {
 				note, // zabelejki
 				user_recues, // users
 				ob_izpitvane_request);
+		
+//		RequestView reqView = new RequestView(Login.getCurentUser(), request);
+		
+
 		RequestDAO.saveRequestFromRequest(request);
 
 		/** --------------------------------------------------------------- **/
@@ -658,6 +662,7 @@ public class SetDBfromWordDoc {
 
 			}
 		}
+		RequestView reqView = new RequestView(user_recues, request);
 
 	}
 

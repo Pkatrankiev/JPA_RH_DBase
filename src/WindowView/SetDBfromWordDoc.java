@@ -593,7 +593,8 @@ public class SetDBfromWordDoc {
 		System.out.println("ZABELEJKI " + ((note == null) ? note : note.getName_zabelejki()));
 		System.out.println("OBEKT_NA_IZPITVANE_REQUEST " + ob_izpitvane_request.getName_obekt_na_izpitvane());
 
-		Request request = new Request(recuest_code, date_recuest, accreditation, // accreditation
+		Request request = new Request(recuest_code, date_recuest,
+				accreditation, // accreditation
 				section, // section
 				null, // xtra_module
 				counts_samples, // counts_samples
@@ -613,10 +614,18 @@ public class SetDBfromWordDoc {
 		RequestDAO.saveRequestFromRequest(request);
 
 		/** --------------------------------------------------------------- **/
-
+		for (int p = 0; p <= max_num_pokazatel[0]; p++) {
+			Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[0][p]);
+			System.out.println("IZPITVAN_POKAZATEL " + pokazatel_sample[0][p].getName_pokazatel());
+			System.out.println("REQUEST " + request.getRecuest_code());
+			System.out.println("METOD_NA_IZPITVANE " + metody_sample.getName_metody());
+			IzpitvanPokazatel izpitvan_pokazatel = new IzpitvanPokazatel(pokazatel_sample[0][p], request,
+					metody_sample);
+			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(izpitvan_pokazatel);
+			
 		for (int i = 0; i < counts_samples; i++) {
 			Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
-			System.out.println("REQUEST " + request.getRecuest_code());
+			
 			System.out.println("SAMPLE_CODE " + sample_code[i]);
 			System.out.println("SAMPLE_DESCRIPTION " + sample_description[i]);
 			System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
@@ -624,25 +633,18 @@ public class SetDBfromWordDoc {
 			Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
 					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,2017);
 			SampleDAO.setValueSample(samp);
-			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[i][j]);
-				System.out.println("IZPITVAN_POKAZATEL " + pokazatel_sample[i][j].getName_pokazatel());
-				System.out.println("SAMPLE " + samp.getSample_code());
-				System.out.println("METOD_NA_IZPITVANE " + metody_sample.getName_metody());
-				IzpitvanPokazatel izpitvan_pokazatel = new IzpitvanPokazatel(pokazatel_sample[i][j], request,
-						metody_sample);
-				IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(izpitvan_pokazatel);
-				for (int k = 0; k <= max_num_results[i][j]; k++) {
+		
+				for (int k = 0; k <= max_num_results[i][p]; k++) {
 
 					System.out.println("BASIC_VALUE " + basic_value);
 					System.out.println("DATE_CHIM_OPER " + date_chim);
 					System.out.println("DATE_MEASUR " + date_measur);
 					System.out.println("DATE_REDAC " + date_redac);
 					System.out.println("IN_PROTOKOL " + inProtokol);
-					System.out.println("MDA " + results_MDA[i][j][k]);
+					System.out.println("MDA " + results_MDA[i][p][k]);
 					System.out.println("SIGMA " + sigma);
-					System.out.println("UNCERTAINTY " + results_uncertainty[i][j][k]);
-					System.out.println("VALUE_RESULT " + results_value_result[i][j][k]);
+					System.out.println("UNCERTAINTY " + results_uncertainty[i][p][k]);
+					System.out.println("VALUE_RESULT " + results_value_result[i][p][k]);
 
 					System.out.println("IZPITVAN_POKAZATEL " + izpitvan_pokazatel.getId_pokazatel());
 					System.out.println("RAZMERNOSTY " + razmernost_recuest.getName_razmernosti());
@@ -653,16 +655,16 @@ public class SetDBfromWordDoc {
 					System.out.println("QUANTITY " + quantity);
 					System.out
 							.println("DIMENSION " + ((dimension == null) ? dimension : dimension.getName_dimension()));
-					Results resul = new Results(nuclide_sample[i][j][k], izpitvan_pokazatel, razmernost_recuest,
-							basic_value, results_value_result[i][j][k], sigma, results_uncertainty[i][j][k],
-							results_MDA[i][j][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,
+					Results resul = new Results(nuclide_sample[i][p][k], izpitvan_pokazatel, razmernost_recuest,
+							basic_value, results_value_result[i][p][k], sigma, results_uncertainty[i][p][k],
+							results_MDA[i][p][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,
 							date_redac, inProtokol, quantity, dimension);
 					ResultsDAO.setValueResults(resul);
 				}
 
 			}
 		}
-		RequestView reqView = new RequestView(user_recues, request);
+		RequestViewForReadDoc reqView = new RequestViewForReadDoc(request);
 
 	}
 

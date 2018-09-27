@@ -255,8 +255,8 @@ public class TableRequestList {
 				tableRequest[i][6] = request.getCounts_samples();
 				tableRequest[i][7] = request.getDescription_sample_group();
 				tableRequest[i][8] = RequestViewAplication.GenerateStringRefDateTime(masiveSample);
-				tableRequest[i][9] = formatToTabDate(request.getDate_execution(),false);;
-				tableRequest[i][10] = formatToTabDate(request.getDate_time_reception(),false);;
+				tableRequest[i][9] = formatToTabDate(request.getDate_execution(),false);
+				tableRequest[i][10] = formatToTabDate(request.getDate_time_reception(),false);
 				tableRequest[i][11] = request.getUsers().getName_users() + " " + request.getUsers().getFamily_users();
 				String zab = "";
 				if (request.getZabelejki() != null)

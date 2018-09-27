@@ -33,7 +33,7 @@ public class Main_Aplication {
 		
 //		StartMainWindow();
 //
-		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3702_21.09.2018.doc";
+		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3705_27.09.2018.doc";
 		
 //		 ReadFile.ReadFile(FILENAME);
 

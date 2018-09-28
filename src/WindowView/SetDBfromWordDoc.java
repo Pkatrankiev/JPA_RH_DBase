@@ -43,6 +43,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import ReadAndSaveDocFailInDBase.RequestViewForReadDoc;
 
 public class SetDBfromWordDoc {
 

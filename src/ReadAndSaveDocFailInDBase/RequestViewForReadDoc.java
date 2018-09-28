@@ -1,4 +1,4 @@
-package WindowView;
+package ReadAndSaveDocFailInDBase;
 
 import java.awt.BorderLayout;
 
@@ -51,6 +51,12 @@ import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import WindowView.AddInChoice;
+import WindowView.ChoiceL_I_P;
+import WindowView.DateChoice;
+import WindowView.DatePicker;
+import WindowView.RequestViewAplication;
+import WindowView.SampleViewAdd;
 import WindowViewAplication.DocxMainpulator;
 
 import java.awt.GridBagLayout;
@@ -820,46 +826,9 @@ public class RequestViewForReadDoc extends JFrame {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
-					try {
-						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
-						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
-						String period = choice_Period.getSelectedItem();
-						try {
-							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
-							// String ref_Date =
-							// (txtField_RequestCode.getText());
-							final JFrame f = new JFrame();
-							SampleViewAdd sampleDescript = null;
-
-							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, masiveSampleValue);
-
-							sampleDescript.setVisible(true);
-							if (!SampleViewAdd.cancelEntered()) {
-								masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-								txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-								txtArea_SampleDescription
-										.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
-								txtArea_SampleDescription.setBorder(border);
-							}
-						} catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(RequestViewForReadDoc.this, "Не сте въвели брой на пробите!",
-									"Грешни данни", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (DateTimeParseException e) {
-						JOptionPane.showMessageDialog(RequestViewForReadDoc.this,
-								"Не сте въвели референтна дата и време!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
-					}
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(RequestViewForReadDoc.this, "Не сте въвели код на пробата!",
-							"Грешни данни", JOptionPane.ERROR_MESSAGE);
-				}
-
+				
+				sampleView(tamplateRequest);
 			}
-
 		});
 		GridBagConstraints gbc_btn_SampleDescription = new GridBagConstraints();
 		gbc_btn_SampleDescription.anchor = GridBagConstraints.WEST;
@@ -1364,14 +1333,14 @@ public class RequestViewForReadDoc extends JFrame {
 			ref_Date_Time = ref_Date_Time.replaceAll("/", " ").trim();
 			System.out.println("refer data " + ref_Date_Time);
 			LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
-			int requestCode = Integer.valueOf(tamplateRequest.getRecuest_code()); // kod
+			
 			try {
 				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 				// String ref_Date = (txtField_RequestCode.getText());
 				final JFrame f = new JFrame();
-				SampleViewAdd sampleDescript = null;
+				SampleViewFromReadDocFile sampleDescript = null;
 
-				sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S, ref_Date_Time, null,
+				sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest, comBox_O_I_S, ref_Date_Time, null,
 						masiveSampleValue);
 
 				sampleDescript.setVisible(true);

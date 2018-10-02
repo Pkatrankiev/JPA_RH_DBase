@@ -140,8 +140,9 @@ public class SampleViewFromReadDocFile extends JDialog {
 			
 		String requestCode = tamplateRequest.getRecuest_code();
 		List<Sample> listSample =  SampleDAO.getListSampleFromColumnByVolume("request", tamplateRequest);
+		int i = 0;
 		for (Sample sample : listSample) {
-			int i = 0;
+			
 		
 				final int selection = i;
 				{
@@ -181,10 +182,11 @@ public class SampleViewFromReadDocFile extends JDialog {
 
 						
 						int l = i;
-						edit_comboBox_OI[l].addMouseListener(new MouseAdapter() {
+						edit_comboBox_OI[i].addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseEntered(MouseEvent e) {
 								edit_comboBox_OI[l].setBackground(Color.LIGHT_GRAY);
+								System.out.println("+++++++++++++++++++++ "+l);
 							}
 
 							@Override
@@ -424,6 +426,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 				}
 				panel_1.add(panel[i]);
 				i++;
+				System.out.println("------------------------- "+i);
 			}
 			
 			

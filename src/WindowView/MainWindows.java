@@ -27,6 +27,7 @@ import javax.swing.UIManager;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_EnableSequenseList;
+import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
@@ -108,6 +109,7 @@ public class MainWindows {
 		dataMenu.add(new MenuData_EnableSequenseList());
 		dataMenu.add(new MenuData_EnableSampleList());
 		dataMenu.add(new MenuData_EnableResultsList());
+		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
 
 		return dataMenu;
 	}

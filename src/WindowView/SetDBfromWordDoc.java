@@ -665,7 +665,7 @@ public class SetDBfromWordDoc {
 
 			}
 		}
-		RequestViewForReadDoc reqView = new RequestViewForReadDoc(request);
+		RequestViewForReadDoc reqView = new RequestViewForReadDoc(request,date_time_reference);
 
 	}
 

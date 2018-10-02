@@ -119,16 +119,16 @@ public class RequestViewForReadDoc extends JFrame {
 	private Border border;
 	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 
-	public RequestViewForReadDoc(Request tamplateRequest) {
+	public RequestViewForReadDoc(Request tamplateRequest, String date_time_reference) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		init(tamplateRequest);
+		init(tamplateRequest, date_time_reference);
 		setVisible(true);
 	}
 
-	public void init(Request tamplateRequest) {
+	public void init(Request tamplateRequest, String date_time_reference) {
 
 		Boolean flTamplate = true;
 		final JPanel p = new JPanel();
@@ -638,7 +638,8 @@ public class RequestViewForReadDoc extends JFrame {
 		}
 
 		// TODO txt_fid_date_time_reference (референтна дата час)
-		txt_fid_date_time_reference = new JTextField("");
+		date_time_reference = date_time_reference.replaceAll("/", " ");
+		txt_fid_date_time_reference = new JTextField(date_time_reference);
 		txt_fid_date_time_reference.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1127,7 +1128,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 
-		sampleView(tamplateRequest);
+//		sampleView(tamplateRequest);
 	}
 
 	private Boolean checkRequest() {
@@ -1345,7 +1346,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 				sampleDescript.setVisible(true);
 				if (!SampleViewAdd.cancelEntered()) {
-					masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+					masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
 					txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
 					txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
 					txtArea_SampleDescription.setBorder(border);

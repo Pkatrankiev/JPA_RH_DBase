@@ -31,13 +31,13 @@ public class Main_Aplication {
 
 //		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
 		
-//		StartMainWindow();
+		StartMainWindow();
 //
-		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3705_27.09.2018.doc";
+//		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3700_20.09.2018.doc";
 		
 //		 ReadFile.ReadFile(FILENAME);
 
-		SetDBfromWordDoc.setVolume(FILENAME);
+//		SetDBfromWordDoc.setVolume(FILENAME);
 		
 	}
 	private static void TestIzpitvanPokazatelClass() {

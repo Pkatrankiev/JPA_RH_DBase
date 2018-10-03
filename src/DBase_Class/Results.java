@@ -39,6 +39,8 @@ public class Results implements Serializable {
 	@ManyToOne
 	private IzpitvanPokazatel pokazatel;
 	@ManyToOne
+	private Sample sample;
+	@ManyToOne
 	private Razmernosti rtazmernosti;
 	@ManyToOne
 	private Zabelejki zabelejki;
@@ -54,6 +56,7 @@ public class Results implements Serializable {
 	public Results( 
 			Nuclide nuclide, 
 			IzpitvanPokazatel pokazatel,
+			Sample sample,
 			Razmernosti rtazmernosti,
 			String basic_value,
 			Double value_result,
@@ -76,6 +79,7 @@ public class Results implements Serializable {
 		
 		this.nuclide = nuclide;
 		this.pokazatel = pokazatel;
+		this.sample = sample;
 		this.rtazmernosti = rtazmernosti;
 		this.basic_value = basic_value;
 		this.value_result = value_result;
@@ -257,6 +261,14 @@ public class Results implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Sample getSample() {
+		return sample;
+	}
+
+	public void setSample(Sample sample) {
+		this.sample = sample;
 	}
 
 }

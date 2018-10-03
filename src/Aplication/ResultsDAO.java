@@ -25,7 +25,7 @@ import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
-
+import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Nuclide;
 import DBase_Class.Zabelejki;
@@ -39,6 +39,7 @@ public class ResultsDAO {
 	public static void setValueResults(
 			Nuclide nuclide, 
 			IzpitvanPokazatel pokazatel, 
+			Sample sample,
 			Razmernosti rtazmernosti,
 			String basic_value, 
 			Double value_result, 
@@ -62,6 +63,7 @@ public class ResultsDAO {
 
 		valueEnt.setNuclide(nuclide);
 		valueEnt.setPokazatel(pokazatel); 
+		valueEnt.setSample(sample);
 		valueEnt.setRtazmernosti(rtazmernosti);
 
 		valueEnt.setBasic_value(basic_value);
@@ -257,6 +259,7 @@ public class ResultsDAO {
 				setValueResults(
 						nuclide, 
 						pokazatel, 
+						null,
 						razmernosti, 
 						"undefinition", 
 						value_result, 

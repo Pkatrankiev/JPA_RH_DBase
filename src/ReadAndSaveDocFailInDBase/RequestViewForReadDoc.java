@@ -1108,16 +1108,10 @@ public class RequestViewForReadDoc extends JFrame {
 		p.add(btn_Preview, gbc_btn_Preview);
 
 		// TODO btn_Template ( Шаблон )
-		JButton btn_Template = new JButton("Шаблон");
+		JButton btn_Template = new JButton("Резултати");
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (true) {
-					if (checkRequest()) {
-						saveRequestSamplePokazatelTable("RequestTamplate");
-					}
-				} else {
-					JOptionPane.showMessageDialog(btn_Template, "Не сте администратор");
-				}
+				ResultsListInTableForReadDoc.DrawTableWithEnableResultsList(tamplateRequest);
 			}
 		});
 		GridBagConstraints gbc_btn_Template = new GridBagConstraints();
@@ -1128,7 +1122,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 
-//		sampleView(tamplateRequest);
+
 	}
 
 	private Boolean checkRequest() {

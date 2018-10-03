@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
+
 import Aplication.DimensionDAO;
 import Aplication.Ind_num_docDAO;
 import Aplication.Internal_applicantDAO;
@@ -47,6 +49,7 @@ import ReadAndSaveDocFailInDBase.RequestViewForReadDoc;
 
 public class SetDBfromWordDoc {
 
+	@SuppressWarnings("deprecation")
 	public static void setVolume(String fileName) {
 
 		String celsTranfer[][][] = ReaderWordDoc.readMyDocument(fileName);
@@ -163,7 +166,7 @@ public class SetDBfromWordDoc {
 						 **/
 						if (cellVolume.startsWith("Референтна дата")) {
 							date_time_reference = celsTranfer[tab][row][coll + 1].replaceAll(" ", "").replaceAll("h",
-									"");
+									"").replaceAll("/", " ");
 						}
 
 						/** IZPITVAN_PRODUKT in RECUEST Class **/
@@ -542,6 +545,21 @@ public class SetDBfromWordDoc {
 		String basic_value = "";
 		Boolean inProtokol = true;
 		Period period = PeriodDAO.getPeriodById(1);
+		int year = 2017;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(date_time_reference));
+			period = PeriodDAO.getPeriodById(c.getTime().getMonth()+1);
+			year = c.getTime().getYear()+1900;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showInputDialog( "Грешна дата: "+date_time_reference,
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
 		int sigma = 2;
 		if (section) {
 			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(3);
@@ -631,8 +649,10 @@ public class SetDBfromWordDoc {
 			System.out.println("SAMPLE_DESCRIPTION " + sample_description[i]);
 			System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
 			System.out.println("OBECT_NA_IZPITVANE_SAMPLE " + ob_na_izpit[i]);
+			
+			
 			Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
-					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,2017);
+					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,year);
 			SampleDAO.setValueSample(samp);
 		
 				for (int k = 0; k <= max_num_results[i][p]; k++) {
@@ -656,7 +676,7 @@ public class SetDBfromWordDoc {
 					System.out.println("QUANTITY " + quantity);
 					System.out
 							.println("DIMENSION " + ((dimension == null) ? dimension : dimension.getName_dimension()));
-					Results resul = new Results(nuclide_sample[i][p][k], izpitvan_pokazatel, razmernost_recuest,
+					Results resul = new Results(nuclide_sample[i][p][k], izpitvan_pokazatel,  samp, razmernost_recuest,
 							basic_value, results_value_result[i][p][k], sigma, results_uncertainty[i][p][k],
 							results_MDA[i][p][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,
 							date_redac, inProtokol, quantity, dimension);

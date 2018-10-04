@@ -42,15 +42,16 @@ public class ResultsListInTableForReadDoc {
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
 				BigDecimal.class, BigDecimal.class, Integer.class, BigDecimal.class, String.class, String.class, String.class,
 				Boolean.class };
+		
 		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
 		Object[][] tableSample = new Object[listAllResults.size()][14];
-		int i = 0;
+		
 
-		List<IzpitvanPokazatel> listIzpPokaz = IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelByRequest(request);
 		List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		int i = 0;
 		for (Sample sample : listSample) {
-			for (IzpitvanPokazatel izpitvanPokazatel : listIzpPokaz) {
-				List<Results> listResults = ResultsDAO.getListResultsFromColumnByVolume("pokazatel", izpitvanPokazatel);
+			
+				List<Results> listResults = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 				for (Results results : listResults) {
 
 			
@@ -59,8 +60,8 @@ public class ResultsListInTableForReadDoc {
 		 tableSample[i][0] = results.getPokazatel().getRequest().getRecuest_code();
 		 tableSample[i][1] = sample.getSample_code();
 		 tableSample[i][2] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-		 tableSample[i][3] = izpitvanPokazatel.getMetody().getCode_metody();
-		 tableSample[i][4] = izpitvanPokazatel.getPokazatel().getName_pokazatel();
+		 tableSample[i][3] = results.getPokazatel().getMetody().getCode_metody();
+		 tableSample[i][4] = results.getPokazatel().getPokazatel().getName_pokazatel();
 		 tableSample[i][5] = results.getNuclide().getSymbol_nuclide();
 		 tableSample[i][6] = results.getValue_result();
 		 tableSample[i][7] = results.getUncertainty();
@@ -83,7 +84,7 @@ public class ResultsListInTableForReadDoc {
 		
 		
 				}
-			}
+			
 		}
 		
 		Object[][] tableSampleNew = new Object[i][14];

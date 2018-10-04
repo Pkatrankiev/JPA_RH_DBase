@@ -827,7 +827,7 @@ public class RequestViewForReadDoc extends JFrame {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				sampleView(tamplateRequest);
 			}
 		});
@@ -1077,8 +1077,8 @@ public class RequestViewForReadDoc extends JFrame {
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					saveRequestSamplePokazatelTable("RequestObject");
-					setVisible(false);
+					saveRequestSamplePokazatelTable();
+//					setVisible(false);
 				}
 			}
 		});
@@ -1122,25 +1122,16 @@ public class RequestViewForReadDoc extends JFrame {
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 
-
 	}
 
 	private Boolean checkRequest() {
 
 		Boolean saveCheck = true;
 		String str_RequestCode = "";
-		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
-			txtField_RequestCode.setForeground(Color.red);
-			lblError.setText("Заявка с този номер вече съществува");
-			corectRequestCode = false;
-		} else {
-			txtField_RequestCode.setForeground(Color.BLACK);
-
-			txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-			lblError.setText(" ");
+	
 			corectRequestCode = true;
 
-		}
+		
 		if (!corectRequestCode) {
 			txtField_RequestCode.setBorder(new LineBorder(Color.RED));
 			str_RequestCode = "код на заявката" + "\n";
@@ -1206,27 +1197,21 @@ public class RequestViewForReadDoc extends JFrame {
 		return saveCheck;
 	}
 
-	private void saveRequestSamplePokazatelTable(String rec) {
+	private void saveRequestSamplePokazatelTable() {
 
-		switch (rec) {
-		case "RequestObject":
+		
 			request = createRequestObject();
-			break;
-		case "RequestTamplate":
-			request = createRequestTamplate();
-			break;
+		
 
-		}
+//		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+//		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+//		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 
-		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
-
-		RequestDAO.saveRequestFromRequest(request);
-		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
-			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
-		}
-		saveSample(masiveSampleValue);
+		RequestDAO.updateRequest(request);
+//		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
+//			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
+//		}
+//		saveSample(masiveSampleValue);
 	}
 
 	private Request createRequestObject() {
@@ -1324,18 +1309,15 @@ public class RequestViewForReadDoc extends JFrame {
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
 		try {
 			DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
-			String ref_Date_Time = GenerateStringRefDateTime(tamplateRequest);
-			ref_Date_Time = ref_Date_Time.replaceAll("/", " ").trim();
-			System.out.println("refer data " + ref_Date_Time);
+			String ref_Date_Time = txt_fid_date_time_reference.getText();
 			LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
-			
+
 			try {
 				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 				// String ref_Date = (txtField_RequestCode.getText());
 				final JFrame f = new JFrame();
-				SampleViewFromReadDocFile sampleDescript = null;
-
-				sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest, comBox_O_I_S, ref_Date_Time, null,
+				
+				 SampleViewFromReadDocFile	sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest, comBox_O_I_S, ref_Date_Time, null,
 						masiveSampleValue);
 
 				sampleDescript.setVisible(true);

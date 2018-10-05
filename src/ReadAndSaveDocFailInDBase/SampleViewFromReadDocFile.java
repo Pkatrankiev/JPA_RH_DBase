@@ -69,7 +69,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 	@SuppressWarnings("unchecked")
 	public SampleViewFromReadDocFile(Frame parent,  Request tamplateRequest,  ArrayList<String> comBox_O_I_S, String ref_Date_Time, String period,
 			String[][] stringVol) {
-		super(parent, "Информация за пробите", true);
+		super(parent, "Редакция на пробите", true);
 		int countSample= tamplateRequest.getCounts_samples();
 		setBounds(100, 100, 910, (countSample * 29) + 120);
 		getContentPane().setLayout(new BorderLayout());

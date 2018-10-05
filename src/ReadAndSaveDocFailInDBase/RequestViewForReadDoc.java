@@ -1078,7 +1078,7 @@ public class RequestViewForReadDoc extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
 					saveRequestSamplePokazatelTable();
-//					setVisible(false);
+					// setVisible(false);
 				}
 			}
 		});
@@ -1128,10 +1128,9 @@ public class RequestViewForReadDoc extends JFrame {
 
 		Boolean saveCheck = true;
 		String str_RequestCode = "";
-	
-			corectRequestCode = true;
 
-		
+		corectRequestCode = true;
+
 		if (!corectRequestCode) {
 			txtField_RequestCode.setBorder(new LineBorder(Color.RED));
 			str_RequestCode = "код на заявката" + "\n";
@@ -1199,19 +1198,23 @@ public class RequestViewForReadDoc extends JFrame {
 
 	private void saveRequestSamplePokazatelTable() {
 
-		
-			request = createRequestObject();
-		
+		// TODO Update Request ( презапис на заявка )
 
-//		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-//		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-//		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
-
+		request = createRequestObject();
 		RequestDAO.updateRequest(request);
+
+		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
+
+//		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 //		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
 //			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
 //		}
-//		saveSample(masiveSampleValue);
+
+		// TODO Update Sample ( презапис на проби )
+
+		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+		masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
+		saveSample(masiveSampleValue);
 	}
 
 	private Request createRequestObject() {
@@ -1291,17 +1294,28 @@ public class RequestViewForReadDoc extends JFrame {
 	}
 
 	private void saveSample(String[][] masiveSampleValue) {
-
+		
+		List<Sample> listSampl = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		Sample sample;
+		System.out.println(listSampl.size());
+		System.out.println(masiveSampleValue.length);
 		for (int i = 0; i < masiveSampleValue.length; i++) {
-			Period period = null;
-			if (!masiveSampleValue[i][4].equals(""))
-				period = PeriodDAO.getPeriodByValue(masiveSampleValue[i][4]);
-			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
-					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
-
-			SampleDAO.setValueSample(masiveSampleValue[i][0], masiveSampleValue[i][2], masiveSampleValue[i][3], request,
-					obectNaIzpitvaneSample, period, Integer.valueOf(masiveSampleValue[i][5]));
-
+			
+			for (Sample sampleFromBdata : listSampl) {
+				System.out.println(masiveSampleValue[i][0].substring(4,masiveSampleValue[i][0].length()));
+				if (sampleFromBdata.getSample_code().equals(masiveSampleValue[i][0].substring(4,masiveSampleValue[i][0].length()))) {
+					
+					Period period = null;
+					if (!masiveSampleValue[i][4].equals("")){
+						period = PeriodDAO.getPeriodByValue(masiveSampleValue[i][4]);
+					Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
+					sample = SampleDAO.creatSampleFromValue(masiveSampleValue[i][0], masiveSampleValue[i][2],
+							masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,
+							Integer.valueOf(masiveSampleValue[i][5]));
+					SampleDAO.updateSample(sample, sampleFromBdata.getId_sample());
+				}
+			}
+			}
 		}
 	}
 
@@ -1316,9 +1330,9 @@ public class RequestViewForReadDoc extends JFrame {
 				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 				// String ref_Date = (txtField_RequestCode.getText());
 				final JFrame f = new JFrame();
-				
-				 SampleViewFromReadDocFile	sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest, comBox_O_I_S, ref_Date_Time, null,
-						masiveSampleValue);
+
+				SampleViewFromReadDocFile sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest,
+						comBox_O_I_S, ref_Date_Time, null, masiveSampleValue);
 
 				sampleDescript.setVisible(true);
 				if (!SampleViewAdd.cancelEntered()) {

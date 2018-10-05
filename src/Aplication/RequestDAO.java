@@ -108,14 +108,22 @@ public class RequestDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Request requestOld = getRequestFromColumnByVolume("recuest_code", request.getRecuest_code());
-		Query query = entitymanager.createQuery("UPDATE Request e SET" + " e.recuest_code  = :recuest_code,"
-				+ " e.date_request = :date_request," + " e.accreditation = :accreditation,"
-				+ " e.extra_module = :extra_module," + " e.counts_samples = :counts_samples,"
+		Query query = entitymanager.createQuery("UPDATE Request e SET" 
+				+ " e.recuest_code  = :recuest_code,"
+				+ " e.date_request = :date_request," 
+				+ " e.accreditation = :accreditation,"
+				+ " e.extra_module = :extra_module," 
+				+ " e.counts_samples = :counts_samples,"
 				+ " e.description_sample_group = :description_sample_group,"
-				+ " e.date_time_reception = :date_time_reception," + " e.date_execution = :date_execution,"
-				+ " e.ind_num_doc = :ind_num_doc," + " e.izpitvan_produkt = :izpitvan_produkt,"
-				+ " e.razmernosti = :razmernosti," + " e.zabelejki = :zabelejki," + " e.users = :users,"
-				+ " e.obekt_na_izpitvane_request = :obekt_na_izpitvane_request" + " WHERE e.Id_recuest = :id");
+				+ " e.date_time_reception = :date_time_reception," 
+				+ " e.date_execution = :date_execution,"
+				+ " e.ind_num_doc = :ind_num_doc," 
+				+ " e.izpitvan_produkt = :izpitvan_produkt,"
+				+ " e.razmernosti = :razmernosti," 
+				+ " e.zabelejki = :zabelejki," 
+				+ " e.users = :users,"
+				+ " e.obekt_na_izpitvane_request = :obekt_na_izpitvane_request" 
+				+ " WHERE e.Id_recuest = :id");
 
 		query.setParameter("recuest_code", request.getRecuest_code())
 				.setParameter("date_request", request.getDate_request())
@@ -135,7 +143,7 @@ public class RequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
-			JOptionPane.showMessageDialog(null, "Прблем при записа", "Проблем с база данни:",
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на заявка: "+request.getRecuest_code(), "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

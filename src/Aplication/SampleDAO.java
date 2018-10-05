@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
@@ -43,6 +44,21 @@ public class SampleDAO {
 		emfactory.close();
 	}
 
+	public static Sample creatSampleFromValue(String sample_code, String description_sample, String date_time_reference,
+			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period, int godina_period) {
+
+		Sample valueEnt = new Sample();
+		valueEnt.setSample_code(sample_code);
+		valueEnt.setDescription_sample(description_sample);
+		valueEnt.setDate_time_reference(date_time_reference);
+		valueEnt.setRequest(request);
+		valueEnt.setObekt_na_izpitvane(obekt_na_izpitvane);
+		valueEnt.setPeriod(period);
+		valueEnt.setGodina_period(godina_period);
+		
+		return valueEnt;
+	}
+	
 	public static void setValueSample(Sample valueEnt) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -151,4 +167,41 @@ public class SampleDAO {
 		return sample;
 	}
 
+	public static void updateSample(Sample sample, int id) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		Query query = entitymanager.createQuery("UPDATE Sample e SET" 
+				+ " e.sample_code  = :sample_code,"
+				+ " e.description_sample = :description_sample," 
+				+ " e.date_time_reference = :date_time_reference,"
+				+ " e.request = :request," 
+				+ " e.obekt_na_izpitvane = :obekt_na_izpitvane,"
+				+ " e.period = :period,"
+				+ " e.godina_period = :godina_period," 
+				
+				+ " WHERE e.Id_sample = :id");
+
+		query.setParameter("sample_code", sample.getSample_code())
+				.setParameter("description_sample", sample.getDescription_sample())
+				.setParameter("date_time_reference", sample.getDate_time_reference())
+				.setParameter("request", sample.getRequest())
+				.setParameter("obekt_na_izpitvane", sample.getObekt_na_izpitvane())
+				.setParameter("period", sample.getPeriod())
+				.setParameter("godina_period", sample.getGodina_period())
+				.setParameter("id", id).executeUpdate();
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на проба: "+sample.getRequest().getRecuest_code()+"-"+sample.getSample_code(), "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
+	
 }

@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
 
@@ -116,8 +117,6 @@ public class ResultsDAO {
 		emfactory.close();
 		}
 	
-			
-	
 	public static List<Results> getInListAllValueResults() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -127,27 +126,7 @@ public class ResultsDAO {
 		List<Results> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-
-		for (Results e : list) {
-			System.out.println("Num:" + ((Results) e).getId_results() 
-					+ "  Nuclide :" + ((Results) e).getNuclide()
-					+ "  Pokazatel :" + ((Results) e).getPokazatel()
-					+ "  Rtazmernosti :" + ((Results) e).getRtazmernosti() 
-					+ "  Basic_value :" + ((Results) e).getBasic_value() 
-					+ "  Value_result :" + ((Results) e).getValue_result()
-					+ "  Sigma :" + ((Results) e).getSigma() 
-					+ "  Uncertainty :" + ((Results) e).getUncertainty()
-					+ "  Mda :" + ((Results) e).getMda() 
-					+ "  Zabelejki :" + ((Results) e).getZabelejki()
-					+ "  chim_oper_family :" + ((Results) e).getUser_chim_oper().getFamily_users()
-					+ "  Date_chim_oper :" + ((Results) e).getDate_chim_oper() 
-					+ "  User_measur_family :"
-					+ ((Results) e).getUser_measur().getFamily_users() 
-					+ "  Date_measur :" + ((Results) e).getDate_measur() 
-					+ "  User_redac_family :" + ((Results) e).getUser_redac().getFamily_users() 
-					+ "  Date_redac :" + ((Results) e).getDate_redac()
-					+ "In Protokol :"  + ((Results) e).getInProtokol());
-		}
+		
 		return list;
 	}
 
@@ -313,6 +292,61 @@ public class ResultsDAO {
 		return list;
 	}
 
+	public static void updateResults(Results results, int id) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 	
+		
+		Query query = entitymanager.createQuery("UPDATE Results e SET" 
+				+ " e.nuclide  = :nuclide,"
+				+ " e.pokazatel = :pokazatel," 
+				+ " e.sample = :sample,"
+				+ " e.razmernosti = :razmernosti," 
+				+ " e.basic_value = :basic_value,"
+				+ " e.value_result = :value_result,"
+				+ " e.sigma = :sigma," 
+				+ " e.uncertainty = :uncertainty,"
+				+ " e.mda = :mda," 
+				+ " e.zabelejki = :zabelejki,"
+				+ " e.user_chim_oper = :user_chim_oper," 
+				+ " e.date_chim_oper = :date_chim_oper," 
+				+ " e.user_measur = :user_measur,"
+				+ " e.date_measur = :date_measur,"
+				+ " e.user_redac = :user_redac" 
+				+ " e.date_redac = :date_redac" 
+				+ " e.inProtokol = :inProtokol" 
+				+ " WHERE e.Id_recuest = :id");
+
+		query.setParameter("nuclide", results.getNuclide())
+				.setParameter("pokazatel", results.getPokazatel())
+				.setParameter("sample", results.getSample())
+				.setParameter("razmernosti", results.getRtazmernosti())
+				.setParameter("basic_value", results.getBasic_value())
+				.setParameter("value_result", results.getValue_result())
+				.setParameter("sigma", results.getSigma())
+				.setParameter("uncertainty", results.getUncertainty())
+				.setParameter("mda", results.getMda())
+				.setParameter("zabelejki", results.getZabelejki())
+				.setParameter("user_chim_oper", results.getUser_chim_oper())
+				.setParameter("date_chim_oper", results.getDate_chim_oper())
+				.setParameter("user_measur", results.getUser_measur())
+				.setParameter("date_measur", results.getDate_measur())
+				.setParameter("user_redac", results.getUser_redac())
+				.setParameter("date_redac", results.getDate_redac())
+				.setParameter("inProtokol", results.getInProtokol())
+				.setParameter("id", id).executeUpdate();
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на резултат: "+results.getSample().getRequest().getRecuest_code()+"-"+results.getSample().getSample_code()+" "+results.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
 	
 }

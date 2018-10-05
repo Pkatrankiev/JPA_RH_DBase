@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
@@ -213,6 +214,33 @@ static String name_DBase = "JPA_RH_DBase";
 		emfactory.close();
 		}
 	
-	
+	public static void updateIzpitvanPokazatel(IzpitvanPokazatel pokazatel, int id) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		
+		Query query = entitymanager.createQuery("UPDATE IzpitvanPokazatel e SET" 
+				+ " e.list_izpitvan_pokazatel  = :list_izpitvan_pokazatel,"
+				+ " e.request = :request," 
+				+ " e.metody = :metody,"
+				+ " WHERE e.Id_sample = :id");
+
+		query.setParameter("list_izpitvan_pokazatel", pokazatel.getPokazatel())
+				.setParameter("request", pokazatel.getRequest())
+				.setParameter("metody", pokazatel.getMetody())
+				.setParameter("id", id).executeUpdate();
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на показател: "+pokazatel.getPokazatel().getName_pokazatel(), "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
 	
 }

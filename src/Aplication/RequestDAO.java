@@ -102,49 +102,24 @@ public class RequestDAO {
 		emfactory.close();
 	}
 
-	public static void updateRequest(Request request) {
+	
+	public static void updateObjectRequest(Request request) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Request requestOld = getRequestFromColumnByVolume("recuest_code", request.getRecuest_code());
-		Query query = entitymanager.createQuery("UPDATE Request e SET" 
-				+ " e.recuest_code  = :recuest_code,"
-				+ " e.date_request = :date_request," 
-				+ " e.accreditation = :accreditation,"
-				+ " e.extra_module = :extra_module," 
-				+ " e.counts_samples = :counts_samples,"
-				+ " e.description_sample_group = :description_sample_group,"
-				+ " e.date_time_reception = :date_time_reception," 
-				+ " e.date_execution = :date_execution,"
-				+ " e.ind_num_doc = :ind_num_doc," 
-				+ " e.izpitvan_produkt = :izpitvan_produkt,"
-				+ " e.razmernosti = :razmernosti," 
-				+ " e.zabelejki = :zabelejki," 
-				+ " e.users = :users,"
-				+ " e.obekt_na_izpitvane_request = :obekt_na_izpitvane_request" 
-				+ " WHERE e.Id_recuest = :id");
 
-		query.setParameter("recuest_code", request.getRecuest_code())
-				.setParameter("date_request", request.getDate_request())
-				.setParameter("accreditation", request.getAccreditation())
-				.setParameter("extra_module", request.getXtra_module())
-				.setParameter("counts_samples", request.getCounts_samples())
-				.setParameter("description_sample_group", request.getDescription_sample_group())
-				.setParameter("date_time_reception", request.getDate_time_reception())
-				.setParameter("date_execution", request.getDate_execution())
-				.setParameter("ind_num_doc", request.getInd_num_doc())
-				.setParameter("izpitvan_produkt", request.getIzpitvan_produkt())
-				.setParameter("razmernosti", request.getRazmernosti()).setParameter("zabelejki", request.getZabelejki())
-				.setParameter("users", request.getUsers())
-				.setParameter("obekt_na_izpitvane_request", request.getObekt_na_izpitvane_request())
-				.setParameter("id", requestOld.getId_recuest()).executeUpdate();
+		int id = getRequestFromColumnByVolume("recuest_code", request.getRecuest_code()).getId_recuest();
+		Request requestFromDB = entitymanager.find(Request.class, id);
+		request.setId_recuest(requestFromDB.getId_recuest());
+	
+		entitymanager.merge(request);
 
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на заявка: "+request.getRecuest_code(), "Проблем с база данни:",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на заявка: " + request.getRecuest_code(),
+					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

@@ -18,6 +18,7 @@ import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 
 public class ChoiceDocFileFrame extends JFrame {
 
@@ -55,14 +56,16 @@ public class ChoiceDocFileFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
+		panel.setPreferredSize(new Dimension(10, 50));
+		panel.setMinimumSize(new Dimension(10, 50));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel_1 = new JLabel("Път към Файла:");
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
+		textField = new JTextField("e:\\1111111\\");
 		textField.setHorizontalAlignment(SwingConstants.LEFT);
-		textField.setMinimumSize(new Dimension(56, 20));
+		textField.setMinimumSize(new Dimension(56, 100));
 		panel.add(textField);
 		textField.setColumns(35);
 		

@@ -1201,7 +1201,7 @@ public class RequestViewForReadDoc extends JFrame {
 		// TODO Update Request ( презапис на заявка )
 
 		request = createRequestObject();
-		RequestDAO.updateRequest(request);
+		RequestDAO.updateObjectRequest(request);
 
 		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
 
@@ -1214,7 +1214,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
-		saveSample(masiveSampleValue);
+		updateSample(masiveSampleValue, request);
 	}
 
 	private Request createRequestObject() {
@@ -1293,17 +1293,18 @@ public class RequestViewForReadDoc extends JFrame {
 
 	}
 
-	private void saveSample(String[][] masiveSampleValue) {
-		
+	private void updateSample(String[][] masiveSampleValue, Request requestNew) {
+		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestNew.getRecuest_code());
 		List<Sample> listSampl = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		Sample sample;
-		System.out.println(listSampl.size());
-		System.out.println(masiveSampleValue.length);
+		System.out.println("--------------"+listSampl.size());
+		System.out.println("++++++++++++++"+masiveSampleValue.length);
 		for (int i = 0; i < masiveSampleValue.length; i++) {
 			
-			for (Sample sampleFromBdata : listSampl) {
-				System.out.println(masiveSampleValue[i][0].substring(4,masiveSampleValue[i][0].length()));
-				if (sampleFromBdata.getSample_code().equals(masiveSampleValue[i][0].substring(4,masiveSampleValue[i][0].length()))) {
+			for (Sample sampleFromBdata : 
+) {
+				System.out.println("/////////////////////////"+masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()));
+				if (sampleFromBdata.getSample_code().equals(masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()))) {
 					
 					Period period = null;
 					if (!masiveSampleValue[i][4].equals("")){

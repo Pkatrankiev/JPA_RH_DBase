@@ -173,26 +173,13 @@ public class SampleDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
-		Query query = entitymanager.createQuery("UPDATE Sample e SET" 
-				+ " e.sample_code  = :sample_code,"
-				+ " e.description_sample = :description_sample," 
-				+ " e.date_time_reference = :date_time_reference,"
-				+ " e.request = :request," 
-				+ " e.obekt_na_izpitvane = :obekt_na_izpitvane,"
-				+ " e.period = :period,"
-				+ " e.godina_period = :godina_period," 
-				
-				+ " WHERE e.Id_sample = :id");
 
-		query.setParameter("sample_code", sample.getSample_code())
-				.setParameter("description_sample", sample.getDescription_sample())
-				.setParameter("date_time_reference", sample.getDate_time_reference())
-				.setParameter("request", sample.getRequest())
-				.setParameter("obekt_na_izpitvane", sample.getObekt_na_izpitvane())
-				.setParameter("period", sample.getPeriod())
-				.setParameter("godina_period", sample.getGodina_period())
-				.setParameter("id", id).executeUpdate();
-
+		int id = getRequestFromColumnByVolume("recuest_code", request.getRecuest_code()).getId_recuest();
+		Request requestFromDB = entitymanager.find(Request.class, id);
+		request.setId_recuest(requestFromDB.getId_recuest());
+	
+		entitymanager.merge(request);
+		
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {

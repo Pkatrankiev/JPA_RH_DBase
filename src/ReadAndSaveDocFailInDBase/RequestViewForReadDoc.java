@@ -1077,7 +1077,7 @@ public class RequestViewForReadDoc extends JFrame {
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					saveRequestSamplePokazatelTable();
+					saveRequestSamplePokazatelTable(tamplateRequest);
 					// setVisible(false);
 				}
 			}
@@ -1095,7 +1095,7 @@ public class RequestViewForReadDoc extends JFrame {
 		btn_Preview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					createPreviewRequestWordDoc();
+					createPreviewRequestWordDoc(tamplateRequest);
 				}
 
 			}
@@ -1196,12 +1196,11 @@ public class RequestViewForReadDoc extends JFrame {
 		return saveCheck;
 	}
 
-	private void saveRequestSamplePokazatelTable() {
+	private void saveRequestSamplePokazatelTable(Request request) {
 
 		// TODO Update Request ( презапис на заявка )
 
-		request = createRequestObject();
-		RequestDAO.updateObjectRequest(request);
+		RequestDAO.updateObjectRequest(createRequestObject(request));
 
 		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
 
@@ -1217,8 +1216,8 @@ public class RequestViewForReadDoc extends JFrame {
 		updateSample(masiveSampleValue, request);
 	}
 
-	private Request createRequestObject() {
-		Request recuest = null;
+	private Request createRequestObject(Request tamplateRequest) {
+		
 		Ind_num_doc ind_num_doc = null;
 		if (!choice_ind_num_doc.getSelectedItem().equals(" "))
 			ind_num_doc = Ind_num_docDAO.getValueIByName(choice_ind_num_doc.getSelectedItem());
@@ -1240,17 +1239,26 @@ public class RequestViewForReadDoc extends JFrame {
 				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
 			}
 		}
-		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
-				txtArea_Descript_grup_Sample.getText(), txtFld_date_time_request.getText(),
-				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
-				obekt_na_izpitvane_request);
-		return recuest;
+		tamplateRequest.setDate_request(txtFld_Date_Request.getText());
+		tamplateRequest.setAccreditation(chckbx_accreditation.isSelected());
+		tamplateRequest.setSection(section);
+		tamplateRequest.setExtra_module(xtra_module);
+		tamplateRequest.setCounts_samples(Integer.valueOf(count_Sample));
+		tamplateRequest.setDescription_sample_group(txtArea_Descript_grup_Sample.getText());
+		tamplateRequest.setDate_time_reception(txtFld_date_time_request.getText());
+		tamplateRequest.setDate_execution(txtFld_date_execution.getText());
+		tamplateRequest.setInd_num_doc(ind_num_doc);
+		tamplateRequest.setIzpitvan_produkt( izpitvan_produkt);
+		tamplateRequest.setRazmernosti(razmernosti);
+		tamplateRequest.setZabelejki(zabelejki);
+		tamplateRequest.setUsers(curent_user);
+		tamplateRequest.setObekt_na_izpitvane_request(obekt_na_izpitvane_request);
+		return tamplateRequest;
 
 	}
 
-	private void createPreviewRequestWordDoc() {
-		request = createRequestObject();
+	private void createPreviewRequestWordDoc(Request basicRequest) {
+		request = createRequestObject(basicRequest);
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
 		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
@@ -1295,25 +1303,25 @@ public class RequestViewForReadDoc extends JFrame {
 
 	private void updateSample(String[][] masiveSampleValue, Request requestNew) {
 		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestNew.getRecuest_code());
-		List<Sample> listSampl = SampleDAO.getListSampleFromColumnByVolume("request", request);
-		Sample sample;
-		System.out.println("--------------"+listSampl.size());
-		System.out.println("++++++++++++++"+masiveSampleValue.length);
+		List<Sample> listSampelFromDBase = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		for (int i = 0; i < masiveSampleValue.length; i++) {
-			
-			for (Sample sampleFromBdata : 
-) {
-				System.out.println("/////////////////////////"+masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()));
-				if (sampleFromBdata.getSample_code().equals(masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()))) {
+			for (Sample sampleDBAse : listSampelFromDBase) {
+						
+				System.out.println(sampleDBAse.getSample_code()+" //////////// "+masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()));
+				if (sampleDBAse.getSample_code().equals(masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()))) {
 					
 					Period period = null;
 					if (!masiveSampleValue[i][4].equals("")){
 						period = PeriodDAO.getPeriodByValue(masiveSampleValue[i][4]);
 					Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
-					sample = SampleDAO.creatSampleFromValue(masiveSampleValue[i][0], masiveSampleValue[i][2],
-							masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,
-							Integer.valueOf(masiveSampleValue[i][5]));
-					SampleDAO.updateSample(sample, sampleFromBdata.getId_sample());
+					
+					sampleDBAse.setObekt_na_izpitvane(obectNaIzpitvaneSample);
+					sampleDBAse.setDescription_sample(masiveSampleValue[i][2]);
+					sampleDBAse.setDate_time_reference(masiveSampleValue[i][3]);
+					sampleDBAse.setPeriod(period);
+					sampleDBAse.setGodina_period(Integer.valueOf(masiveSampleValue[i][5]));;
+
+					SampleDAO.updateSample( sampleDBAse);
 				}
 			}
 			}

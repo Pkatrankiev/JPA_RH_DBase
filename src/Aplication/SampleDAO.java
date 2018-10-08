@@ -167,18 +167,15 @@ public class SampleDAO {
 		return sample;
 	}
 
-	public static void updateSample(Sample sample, int id) {
+	public static void updateSample(Sample sample) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
 
-		int id = getRequestFromColumnByVolume("recuest_code", request.getRecuest_code()).getId_recuest();
-		Request requestFromDB = entitymanager.find(Request.class, id);
-		request.setId_recuest(requestFromDB.getId_recuest());
-	
-		entitymanager.merge(request);
+		entitymanager.find(Request.class, sample.getId_sample());
+		entitymanager.merge(sample);
 		
 		try {
 			entitymanager.getTransaction().commit();

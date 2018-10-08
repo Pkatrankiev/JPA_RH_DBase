@@ -109,10 +109,7 @@ public class RequestDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		int id = getRequestFromColumnByVolume("recuest_code", request.getRecuest_code()).getId_recuest();
-		Request requestFromDB = entitymanager.find(Request.class, id);
-		request.setId_recuest(requestFromDB.getId_recuest());
-	
+		entitymanager.find(Request.class, request.getId_recuest());
 		entitymanager.merge(request);
 
 		try {

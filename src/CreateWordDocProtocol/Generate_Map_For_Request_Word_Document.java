@@ -130,7 +130,7 @@ public class Generate_Map_For_Request_Word_Document {
 		substitutionData.put("$$description_sample_group$$", desk_samp_str[0]);
 		substitutionData.put("$$description_sample_1$$", desk_samp_str[1]);
 		substitutionData.put("$$description_sample_2$$", desk_samp_str[2]);
-		substitutionData.put("$$date_time_reception$$", request.getDate_time_reception());
+		substitutionData.put("$$date_time_reception$$", request.getDate_reception());
 		substitutionData.put("$$date_execution$$", request.getDate_execution());
 		substitutionData.put("$$date_time_request$$", date_time_reference);
 		if(request.getUsers()!=null){

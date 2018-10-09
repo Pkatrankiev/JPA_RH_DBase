@@ -277,15 +277,15 @@ private int d_width=650, d_height=920;
 		description_sample_2.setForeground(col);
 		description_sample_2.setFont(font);
 
-		JLabel date_time_reception = new JLabel(request.getDate_time_reception());
-		date_time_reception.setBounds(180, 505, 422, 20);
-		getContentPane().add(date_time_reception);
-		date_time_reception.setVerticalTextPosition(SwingConstants.BOTTOM);
-		date_time_reception.setVerticalAlignment(SwingConstants.BOTTOM);
-		date_time_reception.setHorizontalTextPosition(SwingConstants.CENTER);
-		date_time_reception.setHorizontalAlignment(SwingConstants.LEFT);
-		date_time_reception.setForeground(col);
-		date_time_reception.setFont(font);
+		JLabel date_reception = new JLabel(request.getDate_reception());
+		date_reception.setBounds(180, 505, 422, 20);
+		getContentPane().add(date_reception);
+		date_reception.setVerticalTextPosition(SwingConstants.BOTTOM);
+		date_reception.setVerticalAlignment(SwingConstants.BOTTOM);
+		date_reception.setHorizontalTextPosition(SwingConstants.CENTER);
+		date_reception.setHorizontalAlignment(SwingConstants.LEFT);
+		date_reception.setForeground(col);
+		date_reception.setFont(font);
 
 		JLabel date_execution = new JLabel(request.getDate_execution());
 		date_execution.setBounds(202, 540, 400, 20);

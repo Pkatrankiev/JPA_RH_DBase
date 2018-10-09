@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Sample;
 
@@ -145,6 +146,16 @@ public static Nuclide getValueSNuclideById(@QueryParam("id") int id) {
 		return list;
 	}
 
+	public static String[] getMasiveStringAllValueNuclide(){
+		 List<Nuclide> list = getInListAllValueNuclide();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Nuclide izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getSymbol_nuclide();
+			i++;
+		}
+		return values;
+	}
 }
 
 	

@@ -91,4 +91,14 @@ public class DimensionDAO {
 		return list;
 	}
 
+	public static String[] getMasiveStringAllValueDimension(){
+		 List<Dimension> list = getInListAllValueDimension();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Dimension izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getName_dimension();
+			i++;
+		}
+		return values;
+	}
 }

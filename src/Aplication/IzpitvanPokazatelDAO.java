@@ -16,6 +16,7 @@ import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Nuclide;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -46,7 +47,25 @@ static String name_DBase = "JPA_RH_DBase";
 		entitymanager.close();
 		emfactory.close();
 	}
-
+	
+public static void updateIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Request request) {
+		
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		IzpitvanPokazatel izpitvanPokazatel = new IzpitvanPokazatel();
+		
+		izpitvanPokazatel.setPokazatel(list_izpitvan_pokazatel);
+		izpitvanPokazatel.setRequest(request);
+//		izpitvanPokazatel.setMetody(metody);
+		
+		entitymanager.persist(izpitvanPokazatel);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+	
+	
 	public static void setValueIzpitvanPokazatel(IzpitvanPokazatel pokazatal) {
 		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -242,5 +261,6 @@ static String name_DBase = "JPA_RH_DBase";
 		entitymanager.close();
 		emfactory.close();
 	}
+	
 	
 }

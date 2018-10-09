@@ -30,7 +30,7 @@ public class RequestDAO {
 
 	public static Request setValueRequest(String recuest_code, String date_request, Boolean accreditation,
 			Boolean section, Extra_module xtra_module, int counts_samples, String description_sample_group,
-			String date_time_reception, String date_execution, Ind_num_doc ind_num_doc,
+			String date_reception, String date_execution, Ind_num_doc ind_num_doc,
 			Izpitvan_produkt izpitvan_produkt, Razmernosti razmernosti, Zabelejki zabelejki, Users users,
 			Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 
@@ -44,7 +44,7 @@ public class RequestDAO {
 
 		valueEnt.setCounts_samples(counts_samples);
 		valueEnt.setDescription_sample_group(description_sample_group);
-		valueEnt.setDate_time_reception(date_time_reception);
+		valueEnt.setDate_reception(date_reception);
 
 		valueEnt.setDate_execution(date_execution);
 		valueEnt.setInd_num_doc(ind_num_doc);
@@ -61,7 +61,7 @@ public class RequestDAO {
 
 	public static void saveRequestFromValue(String recuest_code, String date_request, Boolean accreditation,
 			Boolean section, Extra_module xtra_module, int counts_samples, String description_sample_group,
-			String date_time_reception, String date_execution, Ind_num_doc ind_num_doc,
+			String date_reception, String date_execution, Ind_num_doc ind_num_doc,
 			Izpitvan_produkt izpitvan_produkt, Razmernosti razmernosti, Zabelejki zabelejki, Users users,
 			Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 
@@ -79,7 +79,7 @@ public class RequestDAO {
 
 		valueEnt.setCounts_samples(counts_samples);
 		valueEnt.setDescription_sample_group(description_sample_group);
-		valueEnt.setDate_time_reception(date_time_reception);
+		valueEnt.setDate_reception(date_reception);
 
 		valueEnt.setDate_execution(date_execution);
 		valueEnt.setInd_num_doc(ind_num_doc);
@@ -168,40 +168,6 @@ public class RequestDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		// for (Request e : list) {
-		// System.out.println("Num:" + ((Request) e).getId_recuest()
-		// + " recuest_code :"+ ((Request) e).getRecuest_code()
-		// + " date_request :" + ((Request) e).getDate_request()
-		// + " accreditation :" + ((Request) e).getAccreditation()
-		// +" external_applicant_name :" + ((Request)
-		// e).getExternal_applicant().getExternal_applicant_name()
-		// + " external_applicant_address :"+ ((Request)
-		// e).getExternal_applicant().getExternal_applicant_address()
-		// + " external_applicant_telephone :"+ ((Request)
-		// e).getExternal_applicant().getExternal_applicant_telephone()
-		// + " external_applicant_contract_number :"+ ((Request)
-		// e).getExternal_applicant().getExternal_applicant_contract_number()
-		// +" internal_applicant_organization :"+ ((Request)
-		// e).getInternal_applicant().getInternal_applicant_organization()
-		// + " internal_applicant_address :"+ ((Request)
-		// e).getInternal_applicant().getInternal_applicant_address()
-		// + " internal_applicant_telephone :"+ ((Request)
-		// e).getInternal_applicant().getInternal_applicant_telephone()
-		// +" applicant_name :" + ((Request) e).getApplicant_name()
-		// + " number_samples :"+ ((Request) e).getCounts_samples()
-		// + " description_sample_group :"+ ((Request)
-		// e).getDescription_sample_group()
-		// + " date_time_reception :"+ ((Request) e).getDate_time_reception()
-		// + " date_execution :" + ((Request) e).getDate_execution()
-		// + " ind_num_doc :" + ((Request) e).getInd_num_doc().getName()
-		// + " izpitvan_produkt :"+ ((Request)
-		// e).getIzpitvan_produkt().getName_zpitvan_produkt()
-		// + " razmernosti :"+ ((Request)
-		// e).getRazmernosti().getName_razmernosti()
-		// + " zabelejki :"+ ((Request) e).getZabelejki().getName_zabelejki()
-		// + " users :"+ ((Request) e).getUsers().getName_users() + " " +
-		// ((Request) e).getUsers().getFamily_users());
-		// }
 		return list;
 	}
 

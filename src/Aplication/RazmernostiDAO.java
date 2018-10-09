@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.External_applicant;
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.Nuclide;
 import DBase_Class.Razmernosti;
 
 public class RazmernostiDAO {
@@ -95,6 +96,16 @@ public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
 		return list;
 	}
 
+	public static String[] getMasiveStringAllValueRazmernosti(){
+		 List<Razmernosti> list = getInListAllValueRazmernosti();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Razmernosti izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getName_razmernosti();
+			i++;
+		}
+		return values;
+	}
 
 
 }

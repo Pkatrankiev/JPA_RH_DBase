@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Users;
@@ -100,5 +101,15 @@ public static void setBasikValuePokazatel(){
 		return list;
 	}	
 	
+	public static String[] getMasiveStringAllValueList_Izpitvan_Pokazatel(){
+		 List<List_izpitvan_pokazatel> list = getInListAllValuePokazatel();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (List_izpitvan_pokazatel pokazatel : list) {
+			values[i] = pokazatel.getName_pokazatel();
+			i++;
+		}
+		return values;
+	}
 		
 }

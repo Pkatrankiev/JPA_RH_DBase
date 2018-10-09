@@ -31,7 +31,7 @@ public class Request implements Serializable {
 	
 	private int counts_samples;
 	private String description_sample_group;
-	private String date_time_reception;
+	private String date_reception;
 	private String date_execution;
 
 	@ManyToOne
@@ -60,7 +60,7 @@ public class Request implements Serializable {
 						
 			int counts_samples, 
 			String description_sample_group, 
-			String date_time_reception,
+			String date_reception,
 			String date_execution,
 			Ind_num_doc ind_num_doc,
 			Izpitvan_produkt izpitvan_produkt, 
@@ -79,7 +79,7 @@ public class Request implements Serializable {
 			
 		this.counts_samples = counts_samples;
 		this.description_sample_group = description_sample_group;
-		this.date_time_reception = date_time_reception;
+		this.date_reception = date_reception;
 		this.date_execution = date_execution;
 		this.ind_num_doc = ind_num_doc;
 		this.izpitvan_produkt = izpitvan_produkt;
@@ -163,12 +163,12 @@ public class Request implements Serializable {
 		this.description_sample_group = description_sample_group;
 	}
 
-	public String getDate_time_reception() {
-		return date_time_reception;
+	public String getDate_reception() {
+		return date_reception;
 	}
 
-	public void setDate_time_reception(String date_time_reception) {
-		this.date_time_reception = date_time_reception;
+	public void setDate_reception(String date_time_reception) {
+		this.date_reception = date_time_reception;
 	}
 
 	public Ind_num_doc getInd_num_doc() {

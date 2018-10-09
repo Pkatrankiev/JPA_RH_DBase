@@ -83,7 +83,7 @@ public class RequestViewForReadDoc extends JFrame {
 	JScrollPane scrollpane;
 	private JTextField txtFld_Count_Sample;
 	private JTextField txtFld_date_execution;
-	private JTextField txtFld_date_time_request;
+	private JTextField txtFld_date_reception;
 	private JTextField txtField_RequestCode;
 	private JTextField txtFld_Date_Request;
 	private String[][] masiveSampleValue = null;
@@ -550,9 +550,15 @@ public class RequestViewForReadDoc extends JFrame {
 
 		if (tamplateRequest != null) {
 			List<String> list_String_I_P_Tamplate = new ArrayList<String>();
-			for (IzpitvanPokazatel izpitPokazatelFormTamplate : RequestViewAplication
-					.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest)) {
-				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
+			List<IzpitvanPokazatel> listIzpitvanPokazatel = RequestViewAplication.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest);
+			String[][] masiveStrIzpitPokazatel = new String [listIzpitvanPokazatel.size()][2];
+			
+			int s = 0;
+			for (IzpitvanPokazatel izpitPokazatelFormDBase : listIzpitvanPokazatel) {
+				masiveStrIzpitPokazatel[s][0] = izpitPokazatelFormDBase.getId_pokazatel()+"";
+				masiveStrIzpitPokazatel[s][1] = izpitPokazatelFormDBase.getPokazatel().getName_pokazatel();
+				list_String_I_P_Tamplate.add(izpitPokazatelFormDBase.getPokazatel().getName_pokazatel());
+			s++;
 			}
 			JFrame f = new JFrame();
 			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
@@ -930,9 +936,9 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_date_time_request.gridy = 20;
 		p.add(lbl_date_time_request, gbc_lbl_date_time_request);
 
-		// TODO txtFld_date_time_request (дата час на приемане)
-		txtFld_date_time_request = new JTextField(tamplateRequest.getDate_time_reception());
-		txtFld_date_time_request.addKeyListener(new KeyListener() {
+		// TODO txtFld_date_time_request (дата на приемане)
+		txtFld_date_reception = new JTextField(tamplateRequest.getDate_reception());
+		txtFld_date_reception.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
@@ -942,14 +948,14 @@ public class RequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
-					txtFld_date_time_request.setForeground(Color.RED);
+				if (DatePicker.incorrectDate(txtFld_date_reception.getText(), true)) {
+					txtFld_date_reception.setForeground(Color.RED);
 					corectDateTimeRequest = false;
 
 				} else {
-					txtFld_date_time_request.setForeground(Color.BLACK);
+					txtFld_date_reception.setForeground(Color.BLACK);
 					corectDateTimeRequest = true;
-					txtFld_date_time_request.setBorder(border);
+					txtFld_date_reception.setBorder(border);
 				}
 			}
 
@@ -963,25 +969,25 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_txtFld_date_time_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_time_request.gridx = 3;
 		gbc_txtFld_date_time_request.gridy = 20;
-		p.add(txtFld_date_time_request, gbc_txtFld_date_time_request);
+		p.add(txtFld_date_reception, gbc_txtFld_date_time_request);
 
 		JButton btn_date_time_request = new JButton("Избор на дата");
 		btn_date_time_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final JFrame f = new JFrame();
-				DatePicker dPicer = new DatePicker(f, true, txtFld_date_time_request.getText());
-				txtFld_date_time_request.setText(dPicer.setPickedDate(true));
+				DatePicker dPicer = new DatePicker(f, true, txtFld_date_reception.getText());
+				txtFld_date_reception.setText(dPicer.setPickedDate(true));
 				String textRefDate = "";
-				textRefDate = txtFld_date_time_request.getText();
+				textRefDate = txtFld_date_reception.getText();
 				if (DatePicker.incorrectDate(textRefDate, true))
-					txtFld_date_time_request.setForeground(Color.RED);
+					txtFld_date_reception.setForeground(Color.RED);
 				else {
-					txtFld_date_time_request.setForeground(Color.BLACK);
-					txtFld_date_time_request.setBorder(border);
+					txtFld_date_reception.setForeground(Color.BLACK);
+					txtFld_date_reception.setBorder(border);
 				}
 
-				txtFld_date_time_request.setText(textRefDate);
-				System.out.println("Data in requestViewFild = " + txtFld_date_time_request.getText().trim());
+				txtFld_date_reception.setText(textRefDate);
+				System.out.println("Data in requestViewFild = " + txtFld_date_reception.getText().trim());
 			}
 		});
 		GridBagConstraints gbc_btn_date_time_request = new GridBagConstraints();
@@ -1180,8 +1186,8 @@ public class RequestViewForReadDoc extends JFrame {
 		}
 
 		String str_DateTimeRequest = "";
-		if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
-			txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
+		if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
+			txtFld_date_reception.setBorder(new LineBorder(Color.RED));
 			str_DateTimeRequest = "дата на приемане" + "\n";
 			saveCheck = false;
 		}
@@ -1202,11 +1208,12 @@ public class RequestViewForReadDoc extends JFrame {
 
 		RequestDAO.updateObjectRequest(createRequestObject(request));
 
-		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
-
+//		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
+//
 //		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 //		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
-//			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
+//			
+//			IzpitvanPokazatelDAO.updateIzpitvanPokazatel(l_I_P, request);
 //		}
 
 		// TODO Update Sample ( презапис на проби )
@@ -1245,7 +1252,7 @@ public class RequestViewForReadDoc extends JFrame {
 		tamplateRequest.setExtra_module(xtra_module);
 		tamplateRequest.setCounts_samples(Integer.valueOf(count_Sample));
 		tamplateRequest.setDescription_sample_group(txtArea_Descript_grup_Sample.getText());
-		tamplateRequest.setDate_time_reception(txtFld_date_time_request.getText());
+		tamplateRequest.setDate_reception(txtFld_date_reception.getText());
 		tamplateRequest.setDate_execution(txtFld_date_execution.getText());
 		tamplateRequest.setInd_num_doc(ind_num_doc);
 		tamplateRequest.setIzpitvan_produkt( izpitvan_produkt);
@@ -1260,7 +1267,7 @@ public class RequestViewForReadDoc extends JFrame {
 	private void createPreviewRequestWordDoc(Request basicRequest) {
 		request = createRequestObject(basicRequest);
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+		masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
 		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
 
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(

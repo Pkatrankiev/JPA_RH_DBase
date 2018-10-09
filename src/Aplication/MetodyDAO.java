@@ -109,5 +109,15 @@ public class MetodyDAO {
 		return list;
 	}
 
+	public static String[] getMasiveStringAllValueMetody(){
+		 List<Metody> list = getInListAllValueMetody();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Metody izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getCode_metody();
+			i++;
+		}
+		return values;
+	}
 
 }

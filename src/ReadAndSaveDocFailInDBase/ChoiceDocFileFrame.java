@@ -63,7 +63,7 @@ public class ChoiceDocFileFrame extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Път към Файла:");
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField("l:\\ЛИ-РХ\\Протоколи\\");
+		textField = new JTextField("c:\\Soft\\Protokoli 2017\\");
 		textField.setHorizontalAlignment(SwingConstants.LEFT);
 		textField.setMinimumSize(new Dimension(56, 100));
 		panel.add(textField);

@@ -292,51 +292,15 @@ public class ResultsDAO {
 		return list;
 	}
 
-	public static void updateResults(Results results, int id) {
+	public static void updateResults(Results results) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 	
-		
-		Query query = entitymanager.createQuery("UPDATE Results e SET" 
-				+ " e.nuclide  = :nuclide,"
-				+ " e.pokazatel = :pokazatel," 
-				+ " e.sample = :sample,"
-				+ " e.razmernosti = :razmernosti," 
-				+ " e.basic_value = :basic_value,"
-				+ " e.value_result = :value_result,"
-				+ " e.sigma = :sigma," 
-				+ " e.uncertainty = :uncertainty,"
-				+ " e.mda = :mda," 
-				+ " e.zabelejki = :zabelejki,"
-				+ " e.user_chim_oper = :user_chim_oper," 
-				+ " e.date_chim_oper = :date_chim_oper," 
-				+ " e.user_measur = :user_measur,"
-				+ " e.date_measur = :date_measur,"
-				+ " e.user_redac = :user_redac" 
-				+ " e.date_redac = :date_redac" 
-				+ " e.inProtokol = :inProtokol" 
-				+ " WHERE e.Id_recuest = :id");
+		entitymanager.find(Request.class, results.getId_results());
+		entitymanager.merge(results);
 
-		query.setParameter("nuclide", results.getNuclide())
-				.setParameter("pokazatel", results.getPokazatel())
-				.setParameter("sample", results.getSample())
-				.setParameter("razmernosti", results.getRtazmernosti())
-				.setParameter("basic_value", results.getBasic_value())
-				.setParameter("value_result", results.getValue_result())
-				.setParameter("sigma", results.getSigma())
-				.setParameter("uncertainty", results.getUncertainty())
-				.setParameter("mda", results.getMda())
-				.setParameter("zabelejki", results.getZabelejki())
-				.setParameter("user_chim_oper", results.getUser_chim_oper())
-				.setParameter("date_chim_oper", results.getDate_chim_oper())
-				.setParameter("user_measur", results.getUser_measur())
-				.setParameter("date_measur", results.getDate_measur())
-				.setParameter("user_redac", results.getUser_redac())
-				.setParameter("date_redac", results.getDate_redac())
-				.setParameter("inProtokol", results.getInProtokol())
-				.setParameter("id", id).executeUpdate();
 
 		try {
 			entitymanager.getTransaction().commit();

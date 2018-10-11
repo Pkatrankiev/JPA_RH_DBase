@@ -133,7 +133,8 @@ public class RequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
-			JOptionPane.showMessageDialog(null, "Прблем при записа", "Проблем с база данни:",
+			;
+			JOptionPane.showMessageDialog(null, "e.getMessage()", "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

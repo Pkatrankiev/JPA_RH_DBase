@@ -1,6 +1,9 @@
 package Aplication;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -90,7 +93,7 @@ public static void updateIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan
 
 		for (IzpitvanPokazatel e : list) {
 			System.out.println(
-					"Num:" + ((IzpitvanPokazatel) e).getId_pokazatel() + "  NAME :" + ((IzpitvanPokazatel) e).getId_pokazatel());
+					"Num:" + ((IzpitvanPokazatel) e).getId_pokazatel() + "  id :" + ((IzpitvanPokazatel) e).getId_pokazatel());
 		}
 		return list;
 	}
@@ -262,5 +265,19 @@ public static void updateIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan
 		emfactory.close();
 	}
 	
-	
+	public static void test(){
+		 List<IzpitvanPokazatel> list = getInListAllValueIzpitvan_pokazatel();
+		 List<List_izpitvan_pokazatel> ress = new  ArrayList<List_izpitvan_pokazatel>();
+		 System.out.println(list.size());
+		 int i =0;
+		 for (IzpitvanPokazatel izpitvanPokazatel : list) {
+			 System.out.println(izpitvanPokazatel.getPokazatel().getName_pokazatel());
+			ress.add(izpitvanPokazatel.getPokazatel());
+			System.out.println(" ---- "+i);
+			i++;
+		}
+		 Set<List_izpitvan_pokazatel> unique = new HashSet<List_izpitvan_pokazatel>(ress);
+		 System.out.println(unique.size()+" "+i);
+			
+	}
 }

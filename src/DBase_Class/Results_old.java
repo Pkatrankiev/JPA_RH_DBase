@@ -13,8 +13,8 @@ import com.mysql.fabric.xmlrpc.base.Data;
 
 @Entity
 @Table
-@NamedQuery(name="resultsList", query="SELECT r FROM Results r")
-public class Results implements Serializable {
+@NamedQuery(name="results_oldList", query="SELECT r FROM Results r")
+public class Results_old implements Serializable {
 
 
 
@@ -37,9 +37,7 @@ public class Results implements Serializable {
 	@ManyToOne
 	private Nuclide nuclide;
 	@ManyToOne
-	private List_izpitvan_pokazatel pokazatel;
-	@ManyToOne
-	private Metody metody;
+	private IzpitvanPokazatel pokazatel;
 	@ManyToOne
 	private Sample sample;
 	@ManyToOne
@@ -55,10 +53,9 @@ public class Results implements Serializable {
 	@ManyToOne
 	private Dimension dimension;
 
-	public Results( 
+	public Results_old( 
 			Nuclide nuclide, 
-			List_izpitvan_pokazatel pokazatel,
-			Metody metody,
+			IzpitvanPokazatel pokazatel,
 			Sample sample,
 			Razmernosti rtazmernosti,
 			String basic_value,
@@ -82,7 +79,6 @@ public class Results implements Serializable {
 		
 		this.nuclide = nuclide;
 		this.pokazatel = pokazatel;
-		this.metody = metody;
 		this.sample = sample;
 		this.rtazmernosti = rtazmernosti;
 		this.basic_value = basic_value;
@@ -104,7 +100,7 @@ public class Results implements Serializable {
 		
 	}
 
-	 public Results(){
+	 public Results_old(){
 		 super( );
 		 }
 	 
@@ -199,11 +195,11 @@ public class Results implements Serializable {
 	}
 
 
-	public List_izpitvan_pokazatel getPokazatel() {
+	public IzpitvanPokazatel getPokazatel() {
 		return pokazatel;
 	}
 
-	public void setPokazatel(List_izpitvan_pokazatel pokazatel) {
+	public void setPokazatel(IzpitvanPokazatel pokazatel) {
 		this.pokazatel = pokazatel;
 	}
 
@@ -275,13 +271,6 @@ public class Results implements Serializable {
 		this.sample = sample;
 	}
 
-	public Metody getMetody() {
-		return metody;
-	}
-
-	public void setMetody(Metody metody) {
-		this.metody = metody;
-	}
-
 }
+
 

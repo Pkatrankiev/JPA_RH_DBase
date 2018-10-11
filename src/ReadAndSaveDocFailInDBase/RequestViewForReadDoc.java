@@ -1006,8 +1006,9 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lblNewLabel_3.gridy = 21;
 		p.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
+		curent_user = tamplateRequest.getUsers();
 		JLabel lbl_User = new JLabel(
-				tamplateRequest.getUsers().getName_users() + " " + tamplateRequest.getUsers().getFamily_users());
+				curent_user.getName_users() + " " + curent_user.getFamily_users());
 		GridBagConstraints gbc_lbl_User = new GridBagConstraints();
 		gbc_lbl_User.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_User.gridx = 2;
@@ -1208,13 +1209,13 @@ public class RequestViewForReadDoc extends JFrame {
 
 		RequestDAO.updateObjectRequest(createRequestObject(request));
 
-//		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
-//
-//		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
-//		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
-//			
-//			IzpitvanPokazatelDAO.updateIzpitvanPokazatel(l_I_P, request);
-//		}
+		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
+
+		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
+		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
+			
+			IzpitvanPokazatelDAO.updateIzpitvanPokazatel(l_I_P, request);
+		}
 
 		// TODO Update Sample ( презапис на проби )
 
@@ -1303,7 +1304,7 @@ public class RequestViewForReadDoc extends JFrame {
 		String str_templ = RequestViewAplication.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
-				izpitvan_produkt, razmernosti, zabelejki, null, obekt_na_izpitvane_request);
+				izpitvan_produkt, razmernosti, zabelejki, curent_user, obekt_na_izpitvane_request);
 		return recuest;
 
 	}

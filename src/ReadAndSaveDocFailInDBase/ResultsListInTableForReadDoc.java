@@ -5,8 +5,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,6 +33,7 @@ import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -55,15 +59,15 @@ public class ResultsListInTableForReadDoc {
 	private static String[] values_Nuclide;
 	private static String[] values_Razmernosti;
 	private static String[] values_Dimension;
-
+	private static Request request_basic;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	public static void DrawTableWithEnableResultsList(Request request) {
-
+		request_basic = request;
 		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
 				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
-				"Количество", "Мярка", "В протокол" , "Id" };
+				"Количество", "Мярка", "В протокол", "Id" };
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
 				Double.class, Double.class, Integer.class, Double.class, String.class, Double.class, String.class,
 				Boolean.class, Integer.class };
@@ -78,12 +82,12 @@ public class ResultsListInTableForReadDoc {
 			for (Results results : listResults) {
 
 				try {
-					Integer.parseInt(results.getPokazatel().getRequest().getRecuest_code());
-					tableSample[i][0] = results.getPokazatel().getRequest().getRecuest_code();
+					int request_code = Integer.parseInt(results.getSample().getRequest().getRecuest_code());
+					tableSample[i][0] = request_code;
 					tableSample[i][1] = sample.getSample_code();
 					tableSample[i][2] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-					tableSample[i][3] = results.getPokazatel().getMetody().getCode_metody();
-					tableSample[i][4] = results.getPokazatel().getPokazatel().getName_pokazatel();
+					tableSample[i][3] = results.getMetody().getCode_metody();
+					tableSample[i][4] = results.getPokazatel().getName_pokazatel();
 					tableSample[i][5] = results.getNuclide().getSymbol_nuclide();
 					// tableSample[i][6] =
 					// BigDecimal.valueOf(results.getValue_result()).setScale(2,
@@ -193,12 +197,7 @@ public class ResultsListInTableForReadDoc {
 						return data.length;
 					}
 
-			
-
 				};
-				// table.getColumnModel().getColumn(14).setWidth(0);
-				// table.getColumnModel().getColumn(14).setMinWidth(0);
-				// table.getColumnModel().getColumn(14).setMaxWidth(0);
 
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
@@ -211,6 +210,11 @@ public class ResultsListInTableForReadDoc {
 				setUp_Nuclide(table, table.getColumnModel().getColumn(5));
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(10));
 				setUp_Dimension(table, table.getColumnModel().getColumn(12));
+
+				table.getColumnModel().getColumn(14).setWidth(0);
+				table.getColumnModel().getColumn(14).setMinWidth(0);
+				table.getColumnModel().getColumn(14).setMaxWidth(0);
+				table.getColumnModel().getColumn(14).setPreferredWidth(0);
 
 				JPanel panel_Btn = new JPanel();
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -282,29 +286,48 @@ public class ResultsListInTableForReadDoc {
 		renderer.setToolTipText("Натисни за избор");
 		Dimension_Column.setCellRenderer(renderer);
 	}
+
 	private static void updateData(JTable table) {
 		int numRows = table.getRowCount();
+		List<List_izpitvan_pokazatel> listIzpitPokazatel = new ArrayList<List_izpitvan_pokazatel>();
 		for (int i = 0; i < numRows; i++) {
-			Results result = ResultsDAO
-					.getValueResultsById((int) table.getValueAt(i, 14));
+			Results result = ResultsDAO.getValueResultsById((int) table.getValueAt(i, 14));
 			result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) table.getValueAt(i, 5)));
 			result.setValue_result((Double) table.getValueAt(i, 6));
 			result.setUncertainty((Double) table.getValueAt(i, 7));
 			result.setSigma((Integer) table.getValueAt(i, 8));
 			result.setMda((Double) table.getValueAt(i, 9));
-			result.setRtazmernosti(
-					RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(i, 10)));
+			result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(i, 10)));
 			result.setQuantity((Double) table.getValueAt(i, 11));
 
 			if ((table.getValueAt(i, 12).equals(""))) {
 				result.setDimension(null);
 			} else {
-				result.setDimension(
-						DimensionDAO.getValueDimensionByName((String) table.getValueAt(i, 12)));
+				result.setDimension(DimensionDAO.getValueDimensionByName((String) table.getValueAt(i, 12)));
 			}
 			result.setInProtokol((Boolean) table.getValueAt(i, 13));
 			ResultsDAO.updateResults(result);
+			listIzpitPokazatel.add(result.getPokazatel());
+			
 		}
+		updateDataIzpitwanPokazatel(request_basic, listIzpitPokazatel);
+	}
 
+	private static void updateDataIzpitwanPokazatel(Request request, List<List_izpitvan_pokazatel> listIzpitPokazatel) {
+		// TODO Auto-generated method stub
+		Set<List_izpitvan_pokazatel> unique = new HashSet<List_izpitvan_pokazatel>(listIzpitPokazatel);
+		List<IzpitvanPokazatel> listIzpPokazatFormRequest = IzpitvanPokazatelDAO.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
+		System.out.println(unique.size()+" "+listIzpPokazatFormRequest.size());
+		
+		if(unique.size() == listIzpPokazatFormRequest.size()){
+			int i =0;
+			for (List_izpitvan_pokazatel izpitvanPokazatel : unique) {
+				listIzpPokazatFormRequest.get(i).setPokazatel(izpitvanPokazatel);
+				
+				i++;
+				
+			}
+		}
+	
 	}
 }

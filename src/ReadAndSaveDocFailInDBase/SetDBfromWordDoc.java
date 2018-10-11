@@ -1,4 +1,4 @@
-package WindowView;
+package ReadAndSaveDocFailInDBase;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -45,7 +45,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
-import ReadAndSaveDocFailInDBase.RequestViewForReadDoc;
+import WindowView.ReaderWordDoc;
 
 public class SetDBfromWordDoc {
 
@@ -562,7 +562,7 @@ public class SetDBfromWordDoc {
 		
 		int sigma = 2;
 		if (section) {
-			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(3);
+			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(4);
 			internal_aplicant = Internal_applicantDAO.getValueInternal_applicantById(1);
 		}
 		Razmernosti razmernost_recuest = RazmernostiDAO.getValueRazmernostiByName(razmernost[0]);
@@ -676,7 +676,7 @@ public class SetDBfromWordDoc {
 					System.out.println("QUANTITY " + quantity);
 					System.out
 							.println("DIMENSION " + ((dimension == null) ? dimension : dimension.getName_dimension()));
-					Results resul = new Results(nuclide_sample[i][p][k], izpitvan_pokazatel,  samp, razmernost_recuest,
+					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp, razmernost_recuest,
 							basic_value, results_value_result[i][p][k], sigma, results_uncertainty[i][p][k],
 							results_MDA[i][p][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,
 							date_redac, inProtokol, quantity, dimension);

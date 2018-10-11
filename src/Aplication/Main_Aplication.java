@@ -10,9 +10,9 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import OldClases.MainWindowsOld;
+import ReadAndSaveDocFailInDBase.SetDBfromWordDoc;
 import WindowView.MainWindows;
 import WindowView.ReadFile;
-import WindowView.SetDBfromWordDoc;
 import WindowViewAplication.CreateNewTableIzpitvanPokazatel;
 
 
@@ -30,6 +30,7 @@ public class Main_Aplication {
 		// ReaderWordDoc.readMyDocument(fileName);
 
 //		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
+//		Results_oldDAO.chanchceRsultsClass();
 		
 		StartMainWindow();
 //

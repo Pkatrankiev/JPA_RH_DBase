@@ -9,6 +9,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Izpitvan_produkt</class>
 		<class>DBase_Class.Izpitvan_pokazatel</class>
 		<class>DBase_Class.IzpitvanPokazatel</class>
+		<class>DBase_Class.Results_old</class>
 		<class>DBase_Class.List_izpitvan_pokazatel</class>
 		<class>DBase_Class.Obekt_na_izpitvane_request</class>
 		<class>DBase_Class.Zabelejki</class>

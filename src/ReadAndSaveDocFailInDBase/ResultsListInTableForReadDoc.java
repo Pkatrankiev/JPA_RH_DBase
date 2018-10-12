@@ -34,6 +34,7 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -60,6 +61,7 @@ public class ResultsListInTableForReadDoc {
 	private static String[] values_Razmernosti;
 	private static String[] values_Dimension;
 	private static Request request_basic;
+
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -232,6 +234,11 @@ public class ResultsListInTableForReadDoc {
 				panel_Btn.add(btnSave);
 
 				JButton btnCancel = new JButton("Изход");
+				btnCancel.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						frame.setVisible(false);
+					}
+				});
 				panel_Btn.add(btnCancel);
 
 			}
@@ -289,9 +296,13 @@ public class ResultsListInTableForReadDoc {
 
 	private static void updateData(JTable table) {
 		int numRows = table.getRowCount();
+		String[][] masiveIzpitPokazatel = new String[numRows][2];
 		List<List_izpitvan_pokazatel> listIzpitPokazatel = new ArrayList<List_izpitvan_pokazatel>();
 		for (int i = 0; i < numRows; i++) {
 			Results result = ResultsDAO.getValueResultsById((int) table.getValueAt(i, 14));
+			result.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(table.getValueAt(i, 3) + ""));
+			result.setPokazatel((List_izpitvan_pokazatel) List_izpitvan_pokazatelDAO
+					.getValueIzpitvan_pokazatelByName(table.getValueAt(i, 4) + ""));
 			result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) table.getValueAt(i, 5)));
 			result.setValue_result((Double) table.getValueAt(i, 6));
 			result.setUncertainty((Double) table.getValueAt(i, 7));
@@ -308,26 +319,29 @@ public class ResultsListInTableForReadDoc {
 			result.setInProtokol((Boolean) table.getValueAt(i, 13));
 			ResultsDAO.updateResults(result);
 			listIzpitPokazatel.add(result.getPokazatel());
-			
+			masiveIzpitPokazatel[i][0] = result.getPokazatel().getName_pokazatel();
+			masiveIzpitPokazatel[i][1] = result.getMetody().getCode_metody();
 		}
-		updateDataIzpitwanPokazatel(request_basic, listIzpitPokazatel);
+		updateDataIzpitwanPokazatel(request_basic, masiveIzpitPokazatel);
 	}
 
-	private static void updateDataIzpitwanPokazatel(Request request, List<List_izpitvan_pokazatel> listIzpitPokazatel) {
-		// TODO Auto-generated method stub
-		Set<List_izpitvan_pokazatel> unique = new HashSet<List_izpitvan_pokazatel>(listIzpitPokazatel);
-		List<IzpitvanPokazatel> listIzpPokazatFormRequest = IzpitvanPokazatelDAO.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
-		System.out.println(unique.size()+" "+listIzpPokazatFormRequest.size());
-		
-		if(unique.size() == listIzpPokazatFormRequest.size()){
-			int i =0;
-			for (List_izpitvan_pokazatel izpitvanPokazatel : unique) {
-				listIzpPokazatFormRequest.get(i).setPokazatel(izpitvanPokazatel);
-				
-				i++;
-				
-			}
+	private static void updateDataIzpitwanPokazatel(Request request, String[][] masiveIzpitPokazatel) {
+		List<String> listPokazatel = new ArrayList<String>();
+
+		for (int i = 0; i < masiveIzpitPokazatel.length; i++) {
+			listPokazatel.add(masiveIzpitPokazatel[i][0]);
 		}
-	
+		Set<String> unique = new HashSet<String>(listPokazatel);
+
+		IzpitvanPokazatelDAO.deleteIzpitvanPokazatelByRequest(request);
+
+		int i = 0;
+		for (String izpitvanPokazatel : unique) {
+			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(
+					List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(masiveIzpitPokazatel[i][0]), request,
+					MetodyDAO.getValueList_MetodyByName(masiveIzpitPokazatel[i][1]));
+			i++;
+		}
+
 	}
 }

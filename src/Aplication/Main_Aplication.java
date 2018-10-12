@@ -31,7 +31,7 @@ public class Main_Aplication {
 
 //		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
 //		Results_oldDAO.chanchceRsultsClass();
-		
+
 		StartMainWindow();
 //
 //		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3700_20.09.2018.doc";

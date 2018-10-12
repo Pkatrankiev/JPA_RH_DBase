@@ -53,9 +53,6 @@ public class SetDBfromWordDoc {
 	public static void setVolume(String fileName) {
 
 		String celsTranfer[][][] = ReaderWordDoc.readMyDocument(fileName);
-		// System.out.println("broy tab " + celsTranfer.length);
-		// System.out.println("Broy Raw " + celsTranfer[0].length);
-		// System.out.println("Broy coll " + celsTranfer[0][0].length);
 		String cellVolume;
 
 		String[] columnNames = null;
@@ -93,8 +90,7 @@ public class SetDBfromWordDoc {
 
 					cellVolume = celsTranfer[tab][row][coll];
 					if (cellVolume != null) {
-						System.out.println("cellVolume " + cellVolume);
-
+						
 						/**
 						 * is RECUEST_CODE in RECUEST Class -kod na zaqvkata-
 						 **/
@@ -111,7 +107,6 @@ public class SetDBfromWordDoc {
 							int start = cellVolume.indexOf("E") - 5;
 							int end = cellVolume.indexOf("E") + 4;
 							mda[z] = cellVolume.substring(start, end).trim();
-							System.out.println("MDA [" + z + "] = " + mda[z]);
 							z++;
 						}
 
@@ -183,8 +178,6 @@ public class SetDBfromWordDoc {
 							String str_tran = celsTranfer[tab][row][coll];
 							date_redac = str_tran.substring(str_tran.indexOf("/") + 1).replace("г.", "")
 									.replace("г", "").trim();
-							System.out.println("дата редакция/протокол " + date_redac);
-
 							/**
 							 * DATE_EXECUTION in RESULTS Class -srok za
 							 * izpalnenie -> data na protokola + 14 dni-
@@ -206,8 +199,7 @@ public class SetDBfromWordDoc {
 								date_measur = str_tran.trim();
 							}
 
-							System.out.println("date_chim -" + date_chim + "date_measur -" + date_measur);
-						}
+								}
 
 					}
 				}
@@ -224,9 +216,6 @@ public class SetDBfromWordDoc {
 		int counts_samples = description_sample_group.replaceAll("[^" + recuest_code + "]", "").length()
 				/ recuest_code.length();
 
-		System.out.println(counts_samples + "+------1- "
-				+ description_sample_group.replaceAll("[^" + recuest_code + "]", "").length() + " --------2 "
-				+ recuest_code.length());
 
 		String[] ob_na_izpit = new String[counts_samples];
 		for (int i = 0; i < ob_na_izpit.length; i++) {
@@ -252,8 +241,7 @@ public class SetDBfromWordDoc {
 			str = description_sample_group.substring(num_start, num_end);
 			num_start = num_end;
 			sample_description[i] = str.substring((str.indexOf("/", 0) + 1), str.length()).trim();
-			System.out.println("sample[" + i + "]= " + sample_description[i]);
-
+		
 		}
 
 		/** split tabs in one tab **/
@@ -276,7 +264,6 @@ public class SetDBfromWordDoc {
 			}
 		}
 
-		System.out.println("row :" + new_tab_row + " cell :" + celsTranfer[0][0].length);
 		int new_row = 0;
 		int new_cell = celsTranfer[0][0].length;
 		start_row = 0;
@@ -309,8 +296,7 @@ public class SetDBfromWordDoc {
 		}
 
 //		TablePrintDemo.createAndShowGUI(columnNames2, newTab);
-		System.out.println("counts_samples " + counts_samples);
-		/** SET interval SAMPLES **/
+	/** SET interval SAMPLES **/
 		int sample_N = 0;
 		String[] sample_code = new String[counts_samples];
 		int[] row_sample_start = new int[counts_samples];
@@ -326,7 +312,6 @@ public class SetDBfromWordDoc {
 
 					row_sample_start[sample_N] = row;
 
-					System.out.println("sample_N " + sample_N + " start " + row_sample_start[sample_N]);
 					sample_N++;
 				}
 			}
@@ -368,6 +353,7 @@ public class SetDBfromWordDoc {
 				} while (!flag_pokazatel & i >= 0);
 				row_pokazatel_start[num_samples][num_pokazatel] = row_sample_start[num_samples];
 				max_num_pokazatel[num_samples] = num_pokazatel;
+				cellVolume = cellVolume.replaceAll(":", "").trim();
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
 				if (i == row) {
 					flag2 = true;
@@ -376,12 +362,10 @@ public class SetDBfromWordDoc {
 				}
 			}
 		}
-		System.out.println("**********************num_pokazatel: " + num_pokazatel);
 		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[counts_samples][num_pokazatel + 1];
 		for (int i = 0; i < counts_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				System.out.println("str_pokazatel_sample[" + i + "][" + j + "]= " + str_pokazatel_sample[i][j]
-						+ " Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j]);
+				
 				 pokazatel_sample[i][j] = List_izpitvan_pokazatelDAO
 				 .getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
 
@@ -393,7 +377,6 @@ public class SetDBfromWordDoc {
 		if (num_pokazatel == 0) {
 			num_pokazatel++;
 		}
-		System.out.println("*************** metody: ");
 		String[][] metody = new String[counts_samples][num_pokazatel];
 
 		for (int i = 0; i < counts_samples; i++) {
@@ -407,7 +390,6 @@ public class SetDBfromWordDoc {
 					} else
 						end_num = newTab.length;
 				}
-				System.out.println(" Start [" + i + "][" + j + "]= " + row_pokazatel_start[i][j] + " end = " + end_num);
 				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
 					flag_pokazatel = false;
 					int k = row;
@@ -427,7 +409,6 @@ public class SetDBfromWordDoc {
 
 				}
 
-				System.out.println(" metody: [" + i + "][" + j + "]= " + metody[i][j]);
 			}
 
 		}
@@ -437,7 +418,6 @@ public class SetDBfromWordDoc {
 		if (num_pokazatel == 0) {
 			num_pokazatel++;
 		}
-		System.out.println("*************** sample: " + counts_samples + " num_pokazatel: " + num_pokazatel);
 		String[][][] results_nuklide = new String[counts_samples][num_pokazatel][50];
 		String[][][] results_value = new String[counts_samples][num_pokazatel][50];
 		Nuclide[][][] nuclide_sample = new Nuclide[counts_samples][num_pokazatel][50];
@@ -460,11 +440,9 @@ public class SetDBfromWordDoc {
 					} else
 						end_num = newTab.length;
 				}
-				System.out.println("start " + row_pokazatel_start[i][j] + " end " + (end_num - 1));
 				for (int row = row_pokazatel_start[i][j]; row < end_num; row++) {
 					cellVolume = newTab[row][2];
 					cellVolume = cellVolume.trim();
-					System.out.println("000 razmernost " + row + "-" + newTab[row][3]);
 					if (newTab[row][3].contains("Bq") || newTab[row][3].contains("Bq")) {
 						razmernost[i] = newTab[row][3];
 
@@ -479,14 +457,12 @@ public class SetDBfromWordDoc {
 					} else
 						str_cell = cellVolume;
 					try {
-						System.out.println("nuklid " + str_cell.substring(0, 2));
+						
 
 						if ((str_cell.substring(0, 2)).equals("3H")
 								|| Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
 
-							System.out.println("sample " + i + " pokazatel-" + j + " results " + num_results + " - "
-									+ str_cell + " row " + row + "  " + str_cell);
-
+							
 							results_value_str = newTab[row][4].trim();
 
 							results_nuklide[i][j][num_results] = str_cell;
@@ -500,11 +476,11 @@ public class SetDBfromWordDoc {
 					}
 				}
 			}
-			System.out.println("razmernost " + i + "-" + razmernost[i]);
+			
 			if (razmernost[i] == null) {
 				razmernost[i] = razmernost[i - 1];
 			}
-			System.out.println("razmernost " + i + "-" + razmernost[i]);
+			
 		}
 
 		for (int i = 0; i < counts_samples; i++) {
@@ -520,21 +496,16 @@ public class SetDBfromWordDoc {
 
 							results_MDA[i][j][k] = Double
 									.valueOf(results_value_str.substring(results_value_str.indexOf("<") + 1));
-							System.out.println("MDA " + results_MDA[i][j][k] + "  " + formatter(results_MDA[i][j][k]));
-
+							
 						} else {
 							results_value_result[i][j][k] = Double
 									.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
-							System.out.println("Values " + results_value_result[i][j][k] + "  "
-									+ formatter(results_value_result[i][j][k]));
+							
 							results_uncertainty[i][j][k] = Double.valueOf(results_value_str
 									.substring(results_value_str.indexOf("±") + 1).replace("*", "").trim());
-							System.out.println("Uncertainty " + results_uncertainty[i][j][k] + " "
-									+ alignExpon(results_value_result[i][j][k], results_uncertainty[i][j][k]));
+							
 						}
 
-						System.out.println("*sample " + i + " pokazatel-" + j + " results " + results_nuklide[i][j][k]
-								+ " results " + results_value[i][j][k] + " niclude " + results_nuklide[i][j][k]);
 						nuclide_sample[i][j][k] = NuclideDAO.getValueNuclideBySymbol(results_nuklide[i][j][k]);
 					}
 				}
@@ -591,27 +562,6 @@ public class SetDBfromWordDoc {
 		Obekt_na_izpitvane_request ob_izpitvane_request = Obekt_na_izpitvane_requestDAO
 				.getValueObekt_na_izpitvane_requestByName(obekt_na_izpitvane_request);
 
-		System.out.println("ACCREDITATION " + accreditation);
-		System.out.println("APLICANT_FAMILY " + aplicant_family);
-		System.out.println("APLICANT_NAME " + aplicant_name);
-		System.out.println("DATE_EXECUTION " + date_execution);
-		System.out.println("DATE_REQUEST " + date_recuest);
-		System.out.println("DATE_TIME_RECEPTION " + date_time_reception);
-		System.out.println("DESCRIPTION_SAMPLE_GROUP " + description_sample_group);
-		System.out.println("COUNTS_SAMPLES " + counts_samples);
-		System.out.println("RECUEST_CODE " + recuest_code);
-		System.out.println("SECTION " + section);
-
-		System.out.println("EXTERNAL_APLICANT " + external_aplicant);
-		System.out.println("IND_NUM_DOC " + ((ind_num_doc == null) ? ind_num_doc : ind_num_doc.getName()));
-		System.out.println("INTERNAL_APLICANT " + ((internal_aplicant == null) ? internal_aplicant
-				: internal_aplicant.getInternal_applicant_organization()));
-		System.out.println("IZPITVAN_PRODUKT " + izpitvan_produkt.getName_zpitvan_produkt());
-		System.out.println("RAZMERNOST " + razmernost_recuest.getName_razmernosti());
-		System.out.println("USERS " + user_recues.getName_users());
-		System.out.println("ZABELEJKI " + ((note == null) ? note : note.getName_zabelejki()));
-		System.out.println("OBEKT_NA_IZPITVANE_REQUEST " + ob_izpitvane_request.getName_obekt_na_izpitvane());
-
 		Request request = new Request(recuest_code, date_recuest,
 				accreditation, // accreditation
 				section, // section
@@ -635,47 +585,20 @@ public class SetDBfromWordDoc {
 		/** --------------------------------------------------------------- **/
 		for (int p = 0; p <= max_num_pokazatel[0]; p++) {
 			Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[0][p]);
-			System.out.println("IZPITVAN_POKAZATEL " + pokazatel_sample[0][p].getName_pokazatel());
-			System.out.println("REQUEST " + request.getRecuest_code());
-			System.out.println("METOD_NA_IZPITVANE " + metody_sample.getName_metody());
+			
 			IzpitvanPokazatel izpitvan_pokazatel = new IzpitvanPokazatel(pokazatel_sample[0][p], request,
 					metody_sample);
 			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(izpitvan_pokazatel);
 			
 		for (int i = 0; i < counts_samples; i++) {
 			Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
-			
-			System.out.println("SAMPLE_CODE " + sample_code[i]);
-			System.out.println("SAMPLE_DESCRIPTION " + sample_description[i]);
-			System.out.println("DATE_TIME_REFERENCE " + date_time_reference);
-			System.out.println("OBECT_NA_IZPITVANE_SAMPLE " + ob_na_izpit[i]);
-			
-			
+		
 			Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
 					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,year);
 			SampleDAO.setValueSample(samp);
 		
 				for (int k = 0; k <= max_num_results[i][p]; k++) {
-
-					System.out.println("BASIC_VALUE " + basic_value);
-					System.out.println("DATE_CHIM_OPER " + date_chim);
-					System.out.println("DATE_MEASUR " + date_measur);
-					System.out.println("DATE_REDAC " + date_redac);
-					System.out.println("IN_PROTOKOL " + inProtokol);
-					System.out.println("MDA " + results_MDA[i][p][k]);
-					System.out.println("SIGMA " + sigma);
-					System.out.println("UNCERTAINTY " + results_uncertainty[i][p][k]);
-					System.out.println("VALUE_RESULT " + results_value_result[i][p][k]);
-
-					System.out.println("IZPITVAN_POKAZATEL " + izpitvan_pokazatel.getId_pokazatel());
-					System.out.println("RAZMERNOSTY " + razmernost_recuest.getName_razmernosti());
-					System.out.println("USER_CHIM " + user_chim_oper.getName_users());
-					System.out.println("USER_MEASUR " + user_measur.getName_users());
-					System.out.println("USER_REDAC " + user_redac.getName_users());
-					System.out.println("ZABELEJKI " + ((note == null) ? note : note.getName_zabelejki()));
-					System.out.println("QUANTITY " + quantity);
-					System.out
-							.println("DIMENSION " + ((dimension == null) ? dimension : dimension.getName_dimension()));
+				
 					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp, razmernost_recuest,
 							basic_value, results_value_result[i][p][k], sigma, results_uncertainty[i][p][k],
 							results_MDA[i][p][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,

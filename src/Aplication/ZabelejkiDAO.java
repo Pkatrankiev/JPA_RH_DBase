@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Zabelejki;
 
@@ -72,6 +73,16 @@ public class ZabelejkiDAO {
 		return zabelejki;
 	}
 
+	public static String[] getMasiveStringAllValueZabelejki(){
+		List<Zabelejki> list =  getInListAllValueZabelejki();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Zabelejki pokazatel : list) {
+			values[i] = pokazatel.getName_zabelejki();
+			i++;
+		}
+		return values;
+	}
 	
 	@GET
 	public static Zabelejki getValueZabelejkiByName(String name) {

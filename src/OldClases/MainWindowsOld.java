@@ -238,7 +238,7 @@ public class MainWindowsOld {
 //				RequestViewAplication.OpenRequestInWordDokTamplate(requestString);
 
 				
-				TableRequestList.DrawTableWithRequestList();
+				TableRequestList.DrawTableWithEnableRequestList();
 
 			}
 

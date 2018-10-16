@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
 import DBase_Class.Users;
@@ -58,19 +59,21 @@ public class UsersDAO {
 		List<Users> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-		
-		System.out.println("************************************** "+list.size());
-		for (Users e : list) {
-			
-			System.out.println("11setValueUsers(\"" + ((Users) e).getId_users() + "\", \"" + ((Users) e).getName_users()
-					+ "\", \"" + ((Users) e).getFamily_users() +"\", \"" + ((Users) e).getNikName_users()+"\", \"" + ((Users) e).getPass_users()
-					+ "\", " + ((Users) e).getIsAdmin()+");");
-		}
-
-
+	
 		return list;
 	}
-
+	
+	public static String[] getMasiveStringAllName_FamilyUsers() {
+		List<Users> list = getInListAllValueUsers();
+	String[] values = new String[list.size()];
+	int i = 0;
+	for (Users user : list) {
+		values[i] = user.getName_users()+" "+user.getFamily_users();
+		i++;
+	}
+	return values;
+	}
+	
 	@GET
 	@QueryParam("{id}")
 	public static Users getValueUsersById(@QueryParam("id") int id) {
@@ -97,9 +100,7 @@ public class UsersDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
-			setValueUsers(name,"","","",false,PostDAO.getValuePostById(1));	
-		}
+	
 		Users list = (Users) query.getSingleResult();
 		entitymanager.close();
 		emfactory.close();
@@ -118,9 +119,7 @@ public class UsersDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", nic_name);
-		if (query.getResultList().isEmpty()){
-			
-		}
+	
 		Users list = (Users) query.getSingleResult();
 		entitymanager.close();
 		emfactory.close();

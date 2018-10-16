@@ -268,7 +268,7 @@ public class DocxMainpulator {
 		}
 	}
 
-	private static void openWordDoc(String destinationDir) throws IOException {
+	public static void openWordDoc(String destinationDir) throws IOException {
 		// Process p = Runtime.getRuntime().exec("rundll32
 		// url.dll,FileProtocolHandler"+destinationDir);
 		try {

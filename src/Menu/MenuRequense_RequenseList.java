@@ -16,7 +16,7 @@ public class MenuRequense_RequenseList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TableRequestList.DrawTableWithRequestList();
+		TableRequestList.DrawTableWithEnableRequestList();
 	}
 
 	

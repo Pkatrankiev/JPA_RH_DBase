@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import WindowViewAplication.DocxMainpulator;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
@@ -14,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 
@@ -74,8 +78,13 @@ public class ChoiceDocFileFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				 String FILENAME = textField.getText();
-			
-				 System.out.println(FILENAME);
+//			String filePath = 	FILENAME.replaceAll("\\", "\")	;		 
+				 try {
+					DocxMainpulator.openWordDoc(FILENAME);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				 SetDBfromWordDoc.setVolume(FILENAME);
 			}
 			

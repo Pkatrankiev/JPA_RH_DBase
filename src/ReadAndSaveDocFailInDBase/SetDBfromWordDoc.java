@@ -5,9 +5,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import javax.swing.JOptionPane;
-
 import Aplication.DimensionDAO;
 import Aplication.Ind_num_docDAO;
 import Aplication.Internal_applicantDAO;

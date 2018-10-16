@@ -1,8 +1,6 @@
 package Aplication;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -11,15 +9,6 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
-
-import com.mysql.fabric.xmlrpc.base.Data;
-
-import DBase_Class.Dimension;
-import DBase_Class.External_applicant;
-import DBase_Class.Ind_num_doc;
-import DBase_Class.Internal_applicant;
-import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;

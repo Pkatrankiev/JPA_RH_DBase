@@ -6,7 +6,6 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
-import OldClases.TableRequestListNew;
 import WindowView.RequestViewAplication;
 
 public class TableRequestTamplate {

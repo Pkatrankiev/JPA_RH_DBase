@@ -9,8 +9,6 @@ import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
-import OldClases.MainWindowsOld;
-import ReadAndSaveDocFailInDBase.SetDBfromWordDoc;
 import WindowView.MainWindows;
 import WindowView.ReadFile;
 import WindowViewAplication.CreateNewTableIzpitvanPokazatel;

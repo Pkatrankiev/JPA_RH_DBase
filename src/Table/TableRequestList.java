@@ -1,8 +1,14 @@
 package Table;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,9 +21,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -69,8 +77,11 @@ public class TableRequestList {
 	private static List<String> listStrRequestCode;
 	private static Object[][] dataTable;
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types) {
-		JFrame frame = new JFrame("Списък на Заявките");
+		frame = new JFrame("Списък на Заявките");
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dataTable = data;
 		listStrRequestCode = new ArrayList<String>();
@@ -79,7 +90,7 @@ public class TableRequestList {
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
 		value_Zabelejki = ZabelejkiDAO.getMasiveStringAllValueZabelejki();
 		value_users = UsersDAO.getMasiveStringAllName_FamilyUsers();
-		
+
 		final JTable table = new JTable();// new DefaultTableModel(rowData,
 											// columnNames));
 
@@ -97,13 +108,14 @@ public class TableRequestList {
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), 0).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					System.out.println(row + " " + choiseRequest.getRecuest_code());
-					 new RequestMiniFrame(new JFrame(), choiseRequest);
+					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
-				if (table.getSelectedColumn() == 4 && Login.getCurentUser()!=null && Login.getCurentUser().getIsAdmin()) {
+				if (table.getSelectedColumn() == 4 && Login.getCurentUser() != null
+						&& Login.getCurentUser().getIsAdmin()) {
 					int rowPokazatel = table.rowAtPoint(e.getPoint());
 					EditColumnPokazatel(table, rowPokazatel);
-					
+
 					AddInUpdateList(rowPokazatel);
 				}
 
@@ -128,7 +140,7 @@ public class TableRequestList {
 		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
 
 		JScrollPane scrollPane = new JScrollPane(table);
-		frame.add(scrollPane, BorderLayout.CENTER);
+		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		frame.setSize(1200, 800);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -144,14 +156,14 @@ public class TableRequestList {
 					public Class getColumnClass(int columnIndex) {
 						return this.types2[columnIndex];
 					}
-					
-					 public Object getValueAt(int row, int col) {
-				            return dataTable[row][col];
-				        }
+
+					public Object getValueAt(int row, int col) {
+						return dataTable[row][col];
+					}
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (Login.getCurentUser()!=null && Login.getCurentUser().getIsAdmin()) {
+						if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
 							if (Login.getCurentUser().getIsAdmin()) {
 								return true;
 							} else {
@@ -163,43 +175,34 @@ public class TableRequestList {
 					}
 
 					public void setValueAt(Object value, int row, int col) {
-						
-						
+
 						if (!dataTable[row][col].equals(value)) {
 							dataTable[row][col] = value;
 							fireTableCellUpdated(row, col);
 							if (col == 11) {
 								EditColumnUser(value, row);
 							}
-							
+
 							AddInUpdateList(row);
 						}
-						}
-
-					
-
-				
-
-				
+					}
 
 				};
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
-				
-				
+
 				// TODO Auto-generated catch block
 				setUp_I_P_Column(table, table.getColumnModel().getColumn(2));
 				setUp_O_I_R_Column(table, table.getColumnModel().getColumn(3));
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(5));
 				setUp_Users(table, table.getColumnModel().getColumn(11));
 				setUp_Zabelejki(table, table.getColumnModel().getColumn(12));
-				
+
 				JPanel panel_Btn = new JPanel();
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				frame.getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				
 				JButton btnSave = new JButton("Запис");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -208,8 +211,8 @@ public class TableRequestList {
 				});
 				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				if (Login.getCurentUser()!=null && Login.getCurentUser().getIsAdmin()) {
-				panel_Btn.add(btnSave);
+				if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
+					panel_Btn.add(btnSave);
 				}
 				JButton btnCancel = new JButton("Изход");
 				btnCancel.addActionListener(new ActionListener() {
@@ -221,9 +224,7 @@ public class TableRequestList {
 			}
 		});
 	}
-	
 
-	
 	public static void setUp_Razmernosti(JTable table, TableColumn Razmernosti_Column) {
 		JComboBox comboBox = new JComboBox(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
@@ -231,7 +232,7 @@ public class TableRequestList {
 		renderer.setToolTipText("Натисни за избор");
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
-	
+
 	public static void setUp_I_P_Column(JTable table, TableColumn I_P_Column) {
 
 		JComboBox comboBox = new JComboBox(values_I_P);
@@ -257,7 +258,7 @@ public class TableRequestList {
 		renderer.setToolTipText("Натисни за избор");
 		users_Column.setCellRenderer(renderer);
 	}
-	
+
 	public static void setUp_Zabelejki(JTable table, TableColumn zabel_Column) {
 		JComboBox comboBox = new JComboBox(value_Zabelejki);
 		zabel_Column.setCellEditor(new DefaultCellEditor(comboBox));
@@ -265,7 +266,7 @@ public class TableRequestList {
 		renderer.setToolTipText("Натисни за избор");
 		zabel_Column.setCellRenderer(renderer);
 	}
-	
+
 	public static Request getChoiceRequest() {
 		return choiseRequest;
 	}
@@ -353,7 +354,7 @@ public class TableRequestList {
 		Date date = new Date();
 
 		try {
-		date = sdf.parse(origin_date);
+			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
@@ -362,75 +363,166 @@ public class TableRequestList {
 		date = sdf.parse(origin_date);
 		return table_sdf.format(date);
 	}
-	
+
 	private static void EditColumnUser(Object value, int row) {
 		String valueStr = value + "";
-		dataTable[row][13] = UsersDAO
-				.getValueUsersByName(
-						valueStr.substring(0,valueStr.indexOf(" ")))
-				.getId_users();
-		
+		dataTable[row][13] = UsersDAO.getValueUsersByName(valueStr.substring(0, valueStr.indexOf(" "))).getId_users();
+
 	}
-	
+
 	private static void EditColumnPokazatel(JTable table, int row) {
-		List<String> list = new ArrayList<String>();
-		String strPokazatel = table.getValueAt(table.getSelectedRow(), 4).toString().trim();
-		String str="";
-		while (!strPokazatel.isEmpty()) {
-			str = strPokazatel.substring(0, strPokazatel.indexOf(";")+1);
-			list.add(str.replaceAll(";","").trim());
-			strPokazatel = strPokazatel.replaceFirst(str, "");
-				}
+		List<String> list = ReadListPokazatelInCell(table, row);
 		JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list , false);
-		table.setValueAt(CreateStringListIzpPokaz(choiceLP),table.getSelectedRow(), 4);
+		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false);
+		if (list.size() == choiceLP.getChoiceL_P().size()) {
+			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, 4);
+		} else {
+			JOptionPane.showMessageDialog(frame, "Некоректен брой Показатели", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
-	
+
+	private static List<String> ReadListPokazatelInCell(JTable table, int row) {
+		List<String> list = new ArrayList<String>();
+		String strPokazatel = table.getValueAt(row, 4).toString().trim();
+		String str = "";
+		while (!strPokazatel.isEmpty()) {
+			str = strPokazatel.substring(0, strPokazatel.indexOf(";") + 1);
+			list.add(str.replaceAll(";", "").trim());
+			strPokazatel = strPokazatel.replaceFirst(str, "");
+		}
+		return list;
+	}
+
 	public static String CreateStringListIzpPokaz(ChoiceL_I_P choiceLP) {
-		
+
 		String list_izpitvan_pokazatel = "";
 		for (String izpitvan_pokazatel : choiceLP.getChoiceL_P()) {
-			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel+ "; ";
+			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel + "; ";
 		}
 		return list_izpitvan_pokazatel;
 	}
-	
+
 	private static void AddInUpdateList(int row) {
-		if(listStrRequestCode.isEmpty()){
-			listStrRequestCode.add((String) dataTable[row][0]);	
-		}else{
-		if (!listStrRequestCode.equals(dataTable[row][0])) {
+		if (listStrRequestCode.isEmpty()) {
 			listStrRequestCode.add((String) dataTable[row][0]);
+		} else {
+			if (!listStrRequestCode.equals(dataTable[row][0])) {
+				listStrRequestCode.add((String) dataTable[row][0]);
+			}
 		}
-}
 	}
+
 	private static void updateData(JTable table, List<String> listStrRequestCode) {
-		int numRows = table.getRowCount();
-		
+		animation();
+		List<Request> list_request = RequestDAO.getInListAllValueRequest();
+		int countRows = table.getRowCount();
+
 		for (String strRequestCode : listStrRequestCode) {
-
-			for (int i = 0; i < numRows; i++) {
-				if (strRequestCode.equals(table.getValueAt(i, 0))) {
-
-					Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", strRequestCode);
-					request.setDate_request(table.getValueAt(i, 1) + "");
-					request.setIzpitvan_produkt(
-							Izpitvan_produktDAO.getValueIzpitvan_produktByName(table.getValueAt(i, 2) + ""));
-					request.setObekt_na_izpitvane_request(Obekt_na_izpitvane_requestDAO
-							.getValueObekt_na_izpitvane_requestByName(table.getValueAt(i, 3) + ""));
-					request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(table.getValueAt(i, 5) + ""));
-					request.setCounts_samples((int) table.getValueAt(i, 6));
-					request.setDescription_sample_group(table.getValueAt(i, 7) + "");
-					request.setDate_execution(table.getValueAt(i, 9) + "");
-					request.setDate_reception(table.getValueAt(i, 10) + "");
-					request.setUsers(UsersDAO.getValueUsersById((int) table.getValueAt(i, 13)));
-					request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(table.getValueAt(i, 12) + ""));
-				
-//					RequestDAO.updateObjectRequest(request);
+		
+			for (int row = 0; row < countRows; row++) {
+				if (strRequestCode.equals(table.getValueAt(row, 0))) {
+					Request request = searchRequestFromListRequest(list_request, strRequestCode);
 					
+//					Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", strRequestCode);
+					updateRequestObject(table, row, request);
+					List_izpitvan_pokazatel[][] list_Masive_L_I_P = updateIzpitvanPokazatelObject(table, row, request);
+					updateIzpitvanPokazatelInResultObject( list_Masive_L_I_P, request);
 				}
 			}
 		}
-		
+
+	}
+
+	private static Request searchRequestFromListRequest(List<Request> list_request, String strRequestCode) {
+		Request request1=null;
+		for (Request request : list_request) {
+			if(strRequestCode.equals(request.getRecuest_code())){
+				return request;
+			}
+		}
+		return request1;
+	}
+
+	private static void updateRequestObject(JTable table, int row, Request request) {
+		request.setDate_request(table.getValueAt(row, 1) + "");
+		request.setIzpitvan_produkt(Izpitvan_produktDAO.getValueIzpitvan_produktByName(table.getValueAt(row, 2) + ""));
+		request.setObekt_na_izpitvane_request(
+				Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvane_requestByName(table.getValueAt(row, 3) + ""));
+		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(table.getValueAt(row, 5) + ""));
+		request.setCounts_samples((int) table.getValueAt(row, 6));
+		request.setDescription_sample_group(table.getValueAt(row, 7) + "");
+		request.setDate_execution(table.getValueAt(row, 9) + "");
+		request.setDate_reception(table.getValueAt(row, 10) + "");
+		request.setUsers(UsersDAO.getValueUsersById((int) table.getValueAt(row, 13)));
+		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(table.getValueAt(row, 12) + ""));
+
+		 RequestDAO.updateObjectRequest(request);
+	}
+	
+	private static List_izpitvan_pokazatel[][] updateIzpitvanPokazatelObject(JTable table, int row, Request request) {
+		List<IzpitvanPokazatel> listIzpitvanPokazatelBase = IzpitvanPokazatelDAO
+				.getValueIzpitvan_pokazatelByRequest(request);
+		List_izpitvan_pokazatel[][] list_Masive_L_I_P = new List_izpitvan_pokazatel[listIzpitvanPokazatelBase
+				.size()][2];
+		int m = 0;
+		for (String l_I_P : ReadListPokazatelInCell(table, row)) {
+			list_Masive_L_I_P[m][0] = listIzpitvanPokazatelBase.get(m).getPokazatel();
+			list_Masive_L_I_P[m][1] = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(l_I_P);
+			listIzpitvanPokazatelBase.get(m).setPokazatel(list_Masive_L_I_P[m][1]);
+			IzpitvanPokazatelDAO.updateObjectIzpitvanPokazatel(listIzpitvanPokazatelBase.get(m));
+			m++;
+		}
+		return list_Masive_L_I_P;
+	}
+	private static void animation(){
+		JFrame animationFrame = new JFrame();
+		animationFrame. setTitle("Transparent Frame Demo");
+		animationFrame. setSize(400, 400);
+		animationFrame. setAlwaysOnTop(true);
+		animationFrame. setLayout(new GridBagLayout());
+		        
+		        animationFrame. setVisible(true);
+		        animationFrame. setResizable(true);
+		        JPanel panel = new JPanel() {
+		            @Override
+		            protected void paintComponent(Graphics g) {
+		                if (g instanceof Graphics2D) {
+		                    final int R = 255;
+		                    final int G = 255;
+		                    final int B = 255;
+
+		                    Paint p =
+		                        new GradientPaint(0.0f, 0.0f, new Color(R, G, B, 0),
+		                            0.0f, getHeight(), new Color(R, G, B, 0), true);
+		                    Graphics2D g2d = (Graphics2D)g;
+		                    g2d.setPaint(p);
+		                    g2d.fillRect(0, 0, getWidth(), getHeight());
+		                }
+		            }
+		        };
+		        animationFrame.setContentPane(panel);
+		        ImageIcon loading = new ImageIcon("animation.gif");
+		   	 JLabel lab = new JLabel("loading... ", loading, JLabel.CENTER);
+		        animationFrame. setBackground(new Color(0,0,0,0));
+		        panel.add(lab);
+		    	        animationFrame.setVisible(true);
+	   
+	}
+	private static void updateIzpitvanPokazatelInResultObject(List_izpitvan_pokazatel[][] list_Masive_L_I_P, Request request) {
+		List<Sample> listSampleDBase = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		for (Sample sampleDBase : listSampleDBase) {
+			List<Results> listResults = ResultsDAO.getListResultsFromColumnByVolume("sample", sampleDBase);
+			for (Results resultsDBase : listResults) {
+
+				for (int i = 0; i < list_Masive_L_I_P.length; i++) {
+					if (resultsDBase.getPokazatel().getName_pokazatel().equals(list_Masive_L_I_P[i][0].getName_pokazatel()))
+						resultsDBase.setPokazatel(list_Masive_L_I_P[i][1]);
+					ResultsDAO.updateResults(resultsDBase);
+System.out.println(resultsDBase.getPokazatel()+"  "+list_Masive_L_I_P[i][0]);
+				}
+
+			}
+		}
 	}
 }

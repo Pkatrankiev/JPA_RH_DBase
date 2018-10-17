@@ -1,7 +1,6 @@
 package WindowViewAplication;
 
 import java.util.List;
-
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_pokazatelDAO;
 import DBase_Class.Izpitvan_pokazatel;

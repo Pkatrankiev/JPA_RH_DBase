@@ -434,8 +434,6 @@ public class RequestDAO {
 
 		return list;
 	}
-	// SELECT * FROM `request` WHERE `recuest_code` REGEXP 'tem' ORDER BY
-	// `recuest_code` ASC
 
 	@SuppressWarnings("unchecked")
 	public static List<Request> getListRequestFromColumnByContainsString(String column_name, String volume_check) {

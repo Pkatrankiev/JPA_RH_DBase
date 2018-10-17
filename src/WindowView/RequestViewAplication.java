@@ -7,10 +7,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import Aplication.GlobalVariable;

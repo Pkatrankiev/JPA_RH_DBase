@@ -10,7 +10,6 @@ import Aplication.DimensionDAO;
 import Aplication.Ind_num_docDAO;
 import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
-import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;

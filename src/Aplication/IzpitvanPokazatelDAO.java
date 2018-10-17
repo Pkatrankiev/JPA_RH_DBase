@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -48,19 +47,29 @@ public class IzpitvanPokazatelDAO {
 		emfactory.close();
 	}
 
-	public static void updateIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Request request) {
+	public static void setIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Request request) {
+		IzpitvanPokazatel izpitvanPokazatel = new IzpitvanPokazatel();
+		izpitvanPokazatel.setPokazatel(list_izpitvan_pokazatel);
+		izpitvanPokazatel.setRequest(request);
+		izpitvanPokazatel.setMetody(null);
+		setValueIzpitvanPokazatel(izpitvanPokazatel);
+	}
+	public static void updateObjectIzpitvanPokazatel(IzpitvanPokazatel izpitvan_pokazatel) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		IzpitvanPokazatel izpitvanPokazatel = new IzpitvanPokazatel();
 
-		izpitvanPokazatel.setPokazatel(list_izpitvan_pokazatel);
-		izpitvanPokazatel.setRequest(request);
-		// izpitvanPokazatel.setMetody(metody);
+		entitymanager.find(IzpitvanPokazatel.class, izpitvan_pokazatel.getId_pokazatel());
+		entitymanager.merge(izpitvan_pokazatel);
 
-		entitymanager.persist(izpitvanPokazatel);
-		entitymanager.getTransaction().commit();
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на показател: " + izpitvan_pokazatel.getPokazatel().getName_pokazatel(),
+					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+		}
+
 		entitymanager.close();
 		emfactory.close();
 	}

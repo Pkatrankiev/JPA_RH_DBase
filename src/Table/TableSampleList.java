@@ -16,9 +16,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import Aplication.IzpitvanPokazatelDAO;
-import Aplication.Izpitvan_produktDAO;
-import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;

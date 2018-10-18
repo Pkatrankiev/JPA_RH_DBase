@@ -45,7 +45,9 @@ public class TranscluentWindow {
 				    }
 				});
 				frame.setBackground(new Color(0,0,0,0));
-				frame.setContentPane(new TranslucentPane());
+				JPanel pan =new JPanel();
+				pan.setOpaque(false);
+				frame.setContentPane(pan);
 //                    frame.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("Animation.gif")))));
 				ImageIcon pic = new ImageIcon("ajax-loader (3).gif");
 				frame.getContentPane().add(new JLabel(pic)); 

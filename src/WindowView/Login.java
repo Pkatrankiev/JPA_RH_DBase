@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Aplication.UsersDAO;
 import DBase_Class.Users;
+import OldClases.TranscluentWindow;
 import WindowViewAplication.AutoSuggestor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +39,8 @@ public class Login extends JDialog {
 	public Login(Frame parent) {
 		super(parent, "Логване", true);
 		int idUser = 0;
-
+		TranscluentWindow pro = new TranscluentWindow();
+		pro.StartWindow();
 		setBounds(100, 100, 254, 145);
 		getContentPane().setLayout(new BorderLayout());
 		// центрира рамката (центъра на текущия монитор)

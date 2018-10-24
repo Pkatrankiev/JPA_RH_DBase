@@ -6,10 +6,12 @@ import javax.swing.JOptionPane;
 
 import Aplication.UsersDAO;
 import DBase_Class.Users;
+import Table.TableRequestList;
 import Table.TableRequestTamplate;
 import WindowView.Login;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
+import WindowView.TranscluentWindow;
 
 public class MenuRequense_NewRequenseInTamplate extends AbstractMenuAction{
 	
@@ -26,7 +28,18 @@ public class MenuRequense_NewRequenseInTamplate extends AbstractMenuAction{
 		if (loginDlg == null) {
 			JOptionPane.showMessageDialog(null, "Логнете се");
 		} else {
-			TableRequestTamplate.DrawTableWithRequestTamplate();
+			TranscluentWindow round = new TranscluentWindow();
+			 final Thread thread = new Thread(new Runnable() {
+			     @Override
+			     public void run() {
+			    	 
+			    	 TableRequestTamplate.DrawTableWithRequestTamplate(round);
+
+			    	
+			     }
+			    });
+			    thread.start();
+			
 
 			 }
 	}

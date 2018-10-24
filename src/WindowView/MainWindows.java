@@ -103,6 +103,7 @@ public class MainWindows {
 		return sequenseMenu;
 	}
 
+	
 	private JMenu createDataMenu() {
 		JMenu dataMenu = new JMenu("Данни");
 		dataMenu.setMnemonic(KeyEvent.VK_D);
@@ -118,9 +119,9 @@ public class MainWindows {
 		JButton loginMenu = new JButton(loginStr);
 		loginMenu.setMnemonic(KeyEvent.VK_L);
 		loginMenu.addActionListener(new ActionListener() {
-
+//			TranscluentWindow pro = new TranscluentWindow();
 			public void actionPerformed(ActionEvent e) {
-				
+			
 				String textBtnLogin = loginMenu.getText();
 				if (textBtnLogin.equals("LogOut")) {
 					Login.logOut();

@@ -3,6 +3,7 @@ package Menu;
 import java.awt.event.ActionEvent;
 
 import Table.TableRequestList;
+import WindowView.TranscluentWindow;
 
 
 public class MenuRequense_RequenseList extends AbstractMenuAction{
@@ -16,7 +17,17 @@ public class MenuRequense_RequenseList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TableRequestList.DrawTableWithEnableRequestList();
+		TranscluentWindow round = new TranscluentWindow();
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 TableRequestList.DrawTableWithEnableRequestList(round);
+
+		    	
+		     }
+		    });
+		    thread.start();
 	}
 
 	

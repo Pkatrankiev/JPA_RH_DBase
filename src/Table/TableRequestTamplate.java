@@ -7,9 +7,10 @@ import Aplication.RequestDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import WindowView.RequestViewAplication;
+import WindowView.TranscluentWindow;
 
 public class TableRequestTamplate {
-	public static void DrawTableWithRequestTamplate() {
+	public static void DrawTableWithRequestTamplate(TranscluentWindow round) {
 		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		List<Request> listTamplateRequest = RequestDAO.getListRequestFromColumnByContainsString("recuest_code",
 				"templ");
@@ -30,7 +31,7 @@ public class TableRequestTamplate {
 			i++;
 		}
 
-		TableRequestList.TableRequestList(tableHeader, tabletamplateRequest, types);
+		TableRequestList.TableRequestList(tableHeader, tabletamplateRequest, types, round);
 		
 	}
 }

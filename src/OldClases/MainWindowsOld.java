@@ -42,6 +42,7 @@ import Table.TableRequestList;
 import WindowView.Login;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
+import WindowView.TranscluentWindow;
 import WindowViewAplication.DocxMainpulator;
 
 import javax.swing.border.LineBorder;
@@ -237,8 +238,17 @@ public class MainWindowsOld {
 //				RequestViewAplication.OpenRequestInWordDokTamplate(requestString);
 
 				
-				TableRequestList.DrawTableWithEnableRequestList();
+				TranscluentWindow round = new TranscluentWindow();
+				 final Thread thread = new Thread(new Runnable() {
+				     @Override
+				     public void run() {
+				    	 
+				    	 TableRequestList.DrawTableWithEnableRequestList(round);
 
+				    	
+				     }
+				    });
+				    thread.start();
 			}
 
 		});

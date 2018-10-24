@@ -62,6 +62,7 @@ import WindowView.Login;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
+import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
@@ -80,7 +81,7 @@ public class TableRequestList {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types) {
+	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types,TranscluentWindow round) {
 		frame = new JFrame("Списък на Заявките");
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dataTable = data;
@@ -144,7 +145,7 @@ public class TableRequestList {
 		frame.setSize(1200, 800);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-
+		round.StopWindow();;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -271,7 +272,10 @@ public class TableRequestList {
 		return choiseRequest;
 	}
 
-	public static void DrawTableWithEnableRequestList() {
+	public static void DrawTableWithEnableRequestList(TranscluentWindow round) {
+		
+		
+		
 		List<Request> listRequest = RequestDAO.getInListAllValueRequest();
 		String[] tableHeader = { "№ на Заявката", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
 				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
@@ -317,7 +321,7 @@ public class TableRequestList {
 			}
 		}
 
-		TableRequestList(tableHeader, tableRequest, types);
+		TableRequestList(tableHeader, tableRequest, types, round);
 	}
 
 	private static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
@@ -414,7 +418,6 @@ public class TableRequestList {
 	}
 
 	private static void updateData(JTable table, List<String> listStrRequestCode) {
-		animation();
 		List<Request> list_request = RequestDAO.getInListAllValueRequest();
 		int countRows = table.getRowCount();
 
@@ -475,40 +478,8 @@ public class TableRequestList {
 		}
 		return list_Masive_L_I_P;
 	}
-	private static void animation(){
-		JFrame animationFrame = new JFrame();
-		animationFrame. setTitle("Transparent Frame Demo");
-		animationFrame. setSize(400, 400);
-		animationFrame. setAlwaysOnTop(true);
-		animationFrame. setLayout(new GridBagLayout());
-		        
-		        animationFrame. setVisible(true);
-		        animationFrame. setResizable(true);
-		        JPanel panel = new JPanel() {
-		            @Override
-		            protected void paintComponent(Graphics g) {
-		                if (g instanceof Graphics2D) {
-		                    final int R = 255;
-		                    final int G = 255;
-		                    final int B = 255;
-
-		                    Paint p =
-		                        new GradientPaint(0.0f, 0.0f, new Color(R, G, B, 0),
-		                            0.0f, getHeight(), new Color(R, G, B, 0), true);
-		                    Graphics2D g2d = (Graphics2D)g;
-		                    g2d.setPaint(p);
-		                    g2d.fillRect(0, 0, getWidth(), getHeight());
-		                }
-		            }
-		        };
-		        animationFrame.setContentPane(panel);
-		        ImageIcon loading = new ImageIcon("animation.gif");
-		   	 JLabel lab = new JLabel("loading... ", loading, JLabel.CENTER);
-		        animationFrame. setBackground(new Color(0,0,0,0));
-		        panel.add(lab);
-		    	        animationFrame.setVisible(true);
-	   
-	}
+	
+	
 	private static void updateIzpitvanPokazatelInResultObject(List_izpitvan_pokazatel[][] list_Masive_L_I_P, Request request) {
 		List<Sample> listSampleDBase = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		for (Sample sampleDBase : listSampleDBase) {

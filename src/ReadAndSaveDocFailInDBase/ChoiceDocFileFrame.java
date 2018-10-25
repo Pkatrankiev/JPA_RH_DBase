@@ -2,27 +2,25 @@ package ReadAndSaveDocFailInDBase;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import WindowViewAplication.DocxMainpulator;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.Dimension;
-import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import java.awt.Component;
 
 public class ChoiceDocFileFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JTextField textField;

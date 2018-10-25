@@ -220,7 +220,7 @@ public class Generate_Map_For_Request_Word_Document {
 			break;
 		}
 		if (num == 1) {
-			return "(" + str2 + ") брой ";
+			return "(" + str + ") брой ";
 		} else
 			return "(" + str + str2 + ") броя ";
 	}

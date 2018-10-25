@@ -8,43 +8,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JMenu;
 import java.awt.Panel;
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
 import java.awt.ComponentOrientation;
-import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
-
 import Aplication.UsersDAO;
 import DBase_Class.Users;
 import Table.TableRequestList;
 import WindowView.Login;
 import WindowView.RequestView;
-import WindowView.RequestViewAplication;
 import WindowView.TranscluentWindow;
 import WindowViewAplication.DocxMainpulator;
-
 import javax.swing.border.LineBorder;
 
 
@@ -113,7 +104,8 @@ public class MainWindowsOld {
 		final JLabel label11 = new JLabel();
 		final JLabel label12 = new JLabel();
 		final JButton bnt1 = new JButton();
-		final Login loginDlg = new Login(win);
+		TranscluentWindow round = new TranscluentWindow();
+		final Login loginDlg = new Login(win,round);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(Color.green);

@@ -4,11 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -17,32 +15,23 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-
 import Aplication.DimensionDAO;
 import Aplication.IzpitvanPokazatelDAO;
-import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
-import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
-import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
-import net.coderazzi.filters.gui.AutoChoices;
-import net.coderazzi.filters.gui.TableFilterHeader;
 import javax.swing.JPanel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-
 import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.SwingConstants;
@@ -52,7 +41,6 @@ import java.awt.event.ActionEvent;
 public class ResultsListInTableForReadDoc {
 
 	private static String[] values_Period;
-	private static String[] values_O_I_S;
 	private static String[] values_Metody;
 	private static String[] values_Izpit_Pokazatel;
 	private static String[] values_Nuclide;
@@ -60,14 +48,13 @@ public class ResultsListInTableForReadDoc {
 	private static String[] values_Dimension;
 	private static Request request_basic;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 	public static void DrawTableWithEnableResultsList(Request request) {
 		request_basic = request;
 		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
 				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
 				"Количество", "Мярка", "В протокол", "Id" };
+		@SuppressWarnings("rawtypes")
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
 				Double.class, Double.class, Integer.class, Double.class, String.class, Double.class, String.class,
 				Boolean.class, Integer.class };
@@ -126,7 +113,7 @@ public class ResultsListInTableForReadDoc {
 		TableResultsListEditable(tableHeader, tableSampleNew, types);
 	}
 
-	public static void TableResultsListEditable(String[] columnNames, Object[][] data, Class[] types) {
+	public static void TableResultsListEditable(String[] columnNames, Object[][] data, @SuppressWarnings("rawtypes") Class[] types) {
 		JFrame frame = new JFrame("Редактиране на Резултатите");
 
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,9 +133,7 @@ public class ResultsListInTableForReadDoc {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (table.getSelectedColumn() == 0) {
-					int row = table.getSelectedRow();
-					int col = table.getSelectedColumn();
-				}
+								}
 				super.mouseReleased(e);
 			}
 
@@ -157,7 +142,7 @@ public class ResultsListInTableForReadDoc {
 			}
 		});
 
-		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
+//		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -174,9 +159,9 @@ public class ResultsListInTableForReadDoc {
 					@SuppressWarnings("rawtypes")
 					private Class[] types2 = types;
 
-					@SuppressWarnings({ "unchecked", "rawtypes" })
+					@SuppressWarnings({ })
 					@Override
-					public Class getColumnClass(int columnIndex) {
+					public Class<?> getColumnClass(int columnIndex) {
 						return this.types2[columnIndex];
 					}
 
@@ -201,9 +186,6 @@ public class ResultsListInTableForReadDoc {
 
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
-
-				// setUp_O_I_S_Column(table,
-				// table.getColumnModel().getColumn(2));
 
 				setUp_Metody(table, table.getColumnModel().getColumn(3));
 				setUp_Izpit_Pokazatel_Column(table, table.getColumnModel().getColumn(4));
@@ -245,7 +227,7 @@ public class ResultsListInTableForReadDoc {
 
 	public static void setUp_Izpit_Pokazatel_Column(JTable table, TableColumn izpit_Pokazatel_Column) {
 
-		JComboBox comboBox = new JComboBox(values_Izpit_Pokazatel);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Izpit_Pokazatel);
 		izpit_Pokazatel_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -253,7 +235,7 @@ public class ResultsListInTableForReadDoc {
 	}
 
 	public static void setUp_values_Period_Column(JTable table, TableColumn Period_Column) {
-		JComboBox comboBox = new JComboBox(values_Period);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Period);
 		Period_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -261,7 +243,7 @@ public class ResultsListInTableForReadDoc {
 	}
 
 	public static void setUp_Metody(JTable table, TableColumn Metody_Column) {
-		JComboBox comboBox = new JComboBox(values_Metody);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Metody);
 		Metody_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -269,7 +251,7 @@ public class ResultsListInTableForReadDoc {
 	}
 
 	public static void setUp_Nuclide(JTable table, TableColumn Nuclide_Column) {
-		JComboBox comboBox = new JComboBox(values_Nuclide);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Nuclide);
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -277,7 +259,7 @@ public class ResultsListInTableForReadDoc {
 	}
 
 	public static void setUp_Razmernosti(JTable table, TableColumn Razmernosti_Column) {
-		JComboBox comboBox = new JComboBox(values_Razmernosti);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -285,7 +267,7 @@ public class ResultsListInTableForReadDoc {
 	}
 
 	public static void setUp_Dimension(JTable table, TableColumn Dimension_Column) {
-		JComboBox comboBox = new JComboBox(values_Dimension);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Dimension);
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -333,13 +315,11 @@ public class ResultsListInTableForReadDoc {
 
 		IzpitvanPokazatelDAO.deleteIzpitvanPokazatelByRequest(request);
 
-		int i = 0;
-		for (String izpitvanPokazatel : unique) {
-			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(
+		for (int i = 0; i < unique.size(); i++) {
+						IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(
 					List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(masiveIzpitPokazatel[i][0]), request,
 					MetodyDAO.getValueList_MetodyByName(masiveIzpitPokazatel[i][1]));
-			i++;
-		}
+					}
 
 	}
 }

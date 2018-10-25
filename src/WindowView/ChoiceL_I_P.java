@@ -9,24 +9,17 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
-
 import javax.swing.JScrollPane;
 import java.awt.Panel;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import java.awt.Dimension;
-import java.awt.Label;
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.ComponentOrientation;
 import javax.swing.SwingConstants;
-import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -34,6 +27,10 @@ import java.awt.event.ActionEvent;
 
 public class ChoiceL_I_P extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static ArrayList<String> bsic_list = RequestViewAplication.getStringListLIP();
 	static int countL_I_P = bsic_list.size();
 	

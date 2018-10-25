@@ -7,14 +7,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
-
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import DBase_Class.Request;
@@ -23,23 +21,19 @@ import WindowView.AddInChoice;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.print.CancelablePrintJob;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -160,7 +154,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 						panel[i].add(lbl_sample_code[i]);
 					}
 					{
-						comboBox_OI[i] = new JComboBox();
+						comboBox_OI[i] = new JComboBox<Object>();
 						comboBox_OI[i] .setFont(font);
 						comboBox_OI[i].setPreferredSize(new Dimension(200, 20));
 
@@ -199,8 +193,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 								Boolean fl = false;
 								final JFrame f = new JFrame();
 
-								AddInChoice choiceO_I_R = new AddInChoice(f, comBox_O_I_S,
-										(String) comboBox_OI[l].getSelectedItem());
+								new AddInChoice(f, comBox_O_I_S,(String) comboBox_OI[l].getSelectedItem());
 
 								String str = AddInChoice.getChoiceO_I_R();
 
@@ -221,10 +214,10 @@ public class SampleViewFromReadDocFile extends JDialog {
 								}
 								comboBox_OI[l].setSelectedItem(str);
 
-								for (int j = 0; j < countSample; j++) {
-									String string = comBox_Period[j];
-
-								}
+//								for (int j = 0; j < countSample; j++) {
+//									String string = comBox_Period[j];
+//
+//								}
 							}
 
 						});
@@ -362,7 +355,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 					});
 
 					{
-						comboBox_Period[i] = new JComboBox(comBox_Period);
+						comboBox_Period[i] = new JComboBox<Object>(comBox_Period);
 						comboBox_Period[i] .setFont(font);
 						comboBox_Period[i].setPreferredSize(new Dimension(100, 20));
 

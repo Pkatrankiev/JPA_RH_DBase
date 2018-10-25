@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import com.mysql.fabric.xmlrpc.base.Data;
+
 
 @Entity
 @Table

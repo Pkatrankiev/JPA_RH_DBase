@@ -2,7 +2,6 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
-import Table.TableRequestList;
 import Table.TableSampleList;
 
 public class MenuData_EnableSampleList extends AbstractMenuAction{

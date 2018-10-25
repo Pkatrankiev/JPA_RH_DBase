@@ -2,10 +2,8 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-
 import ReadAndSaveDocFailInDBase.ChoiceDocFileFrame;
-import Table.TableResultsList;
-import WindowView.RequestView;
+
 
 public class MenuData_ReadDataFromDocFileSaveInDBase extends AbstractMenuAction {
 

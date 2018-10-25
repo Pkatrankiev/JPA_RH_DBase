@@ -1,12 +1,10 @@
 package ReadAndSaveDocFailInDBase;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -15,16 +13,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
@@ -35,14 +29,12 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
-import Aplication.GlobalVariable;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
@@ -58,7 +50,6 @@ import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.SampleViewAdd;
 import WindowViewAplication.DocxMainpulator;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -67,7 +58,6 @@ import javax.swing.border.LineBorder;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.JTextArea;
@@ -92,13 +82,6 @@ public class RequestViewForReadDoc extends JFrame {
 	private Boolean section = true;
 	private Extra_module xtra_module = null;
 	private Boolean corectRequestCode = true;
-	private Boolean corectDateRequest = true;
-	private Boolean corectRefDate = true;
-	private Boolean corectDateExecution = true;
-	private Boolean corectDateTimeRequest = true;
-
-	private Dimension d;
-
 	private JLabel lblError;
 	private Choice choice_izpitvan_produkt;
 	private Choice choice_obekt_na_izpitvane_request;
@@ -116,7 +99,7 @@ public class RequestViewForReadDoc extends JFrame {
 	private Font font = new Font("Tahoma", Font.PLAIN, 11);
 
 	private Border border;
-	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+//	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 
 	public RequestViewForReadDoc(Request tamplateRequest, String date_time_reference) {
 		super("JScrollPane Demonstration");
@@ -127,9 +110,10 @@ public class RequestViewForReadDoc extends JFrame {
 		setVisible(true);
 	}
 
+	@SuppressWarnings("static-access")
 	public void init(Request tamplateRequest, String date_time_reference) {
 
-		Boolean flTamplate = true;
+//		Boolean flTamplate = true;
 		final JPanel p = new JPanel();
 		p.setAlignmentY(0.0f);
 		p.setAlignmentX(0.0f);
@@ -279,11 +263,9 @@ public class RequestViewForReadDoc extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
 					txtFld_Date_Request.setForeground(Color.RED);
-					corectDateRequest = false;
 				} else {
 					txtFld_Date_Request.setForeground(Color.BLACK);
 					txtFld_Date_Request.setBorder(border);
-					corectDateRequest = true;
 				}
 			}
 
@@ -467,10 +449,10 @@ public class RequestViewForReadDoc extends JFrame {
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
-				final JFrame f = new JFrame();
+//				final JFrame f = new JFrame();
 
-				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
-						choice_obekt_na_izpitvane_request.getSelectedItem());
+//				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
+//						choice_obekt_na_izpitvane_request.getSelectedItem());
 
 				String str = AddInChoice.getChoiceO_I_R();
 				for (String string : array_O_I_R) {
@@ -657,11 +639,9 @@ public class RequestViewForReadDoc extends JFrame {
 
 				if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), true)) {
 					txt_fid_date_time_reference.setForeground(Color.RED);
-					corectRefDate = false;
 				} else {
 					txt_fid_date_time_reference.setForeground(Color.BLACK);
 					txt_fid_date_time_reference.setBorder(border);
-					corectRefDate = true;
 				}
 			}
 
@@ -876,11 +856,9 @@ public class RequestViewForReadDoc extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
 					txtFld_date_execution.setForeground(Color.RED);
-					corectDateExecution = false;
 				} else {
 					txtFld_date_execution.setForeground(Color.BLACK);
 					txtFld_date_execution.setBorder(border);
-					corectDateExecution = true;
 				}
 			}
 
@@ -949,11 +927,9 @@ public class RequestViewForReadDoc extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_date_reception.getText(), true)) {
 					txtFld_date_reception.setForeground(Color.RED);
-					corectDateTimeRequest = false;
 
 				} else {
 					txtFld_date_reception.setForeground(Color.BLACK);
-					corectDateTimeRequest = true;
 					txtFld_date_reception.setBorder(border);
 				}
 			}
@@ -1336,11 +1312,11 @@ public class RequestViewForReadDoc extends JFrame {
 	}
 
 	private void sampleView(Request tamplateRequest) {
-		List<Sample> listSample = SampleDAO.getInListAllValueSample();
+//		List<Sample> listSample = SampleDAO.getInListAllValueSample();
 		try {
-			DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
+//			DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 			String ref_Date_Time = txt_fid_date_time_reference.getText();
-			LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+//			LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
 
 			try {
 				int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi

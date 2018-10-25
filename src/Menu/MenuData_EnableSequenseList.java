@@ -1,12 +1,7 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
 import Table.TableRequestList;
-import WindowView.ThreadProcesingRoundGif;
 import WindowView.TranscluentWindow;
 
 public class MenuData_EnableSequenseList extends AbstractMenuAction {
@@ -27,12 +22,11 @@ public class MenuData_EnableSequenseList extends AbstractMenuAction {
 		     public void run() {
 		    	 
 		    	 TableRequestList.DrawTableWithEnableRequestList(round);
-
-		    	
+	    	
 		     }
 		    });
 		    thread.start();
-		
+		    
 	}
 
 }

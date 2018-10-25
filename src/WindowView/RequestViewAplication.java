@@ -3,16 +3,12 @@ package WindowView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.text.MaskFormatter;
-
 import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
-import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
@@ -23,10 +19,8 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
@@ -36,7 +30,6 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
-import OldClases.TableRequestListNew;
 import WindowViewAplication.DocxMainpulator;
 
 public class RequestViewAplication {

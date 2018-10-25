@@ -1,20 +1,14 @@
 package WindowView;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -23,7 +17,6 @@ import javax.swing.JMenu;
 import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_EnableSequenseList;
@@ -31,15 +24,13 @@ import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
+import Table.TableRequestList;
 import WindowViewAplication.DocxMainpulator;
 
 public class MainWindows {
 
 	private static String loginStr = "logIn";
-
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	private Login loginDlg;
 	public void WindowNew() {
 		final JFrame win = new JFrame();
 		
@@ -123,20 +114,29 @@ public class MainWindows {
 			public void actionPerformed(ActionEvent e) {
 			
 				String textBtnLogin = loginMenu.getText();
+				
 				if (textBtnLogin.equals("LogOut")) {
 					Login.logOut();
 					loginMenu.setText("LogIn");
 					win.setTitle("my RHA");
 				} else {
-					Login loginDlg = new Login(win);
-					loginDlg.setVisible(true);
-					// if logon successfully
-					if (loginDlg.isSucceeded()) {
+					TranscluentWindow round = new TranscluentWindow();
+					 final Thread thread = new Thread(new Runnable() {
+					     @Override
+					     public void run() {
+					    	 
+					    	loginDlg = new Login(win, round);
+					    	loginDlg.setVisible(true);
+					    	
+					     }
+					    });
+					    thread.start();
+						// if logon successfully
+					   
+					if (!thread.isAlive() && loginDlg.isSucceeded()) {
 						win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
 						loginMenu.setText("LogOut");
 
-					} else {
-						System.out.println("Hi NOT " + loginDlg.getUsername() + "!");
 					}
 				}
 			}

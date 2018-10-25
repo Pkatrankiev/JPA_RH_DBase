@@ -1,26 +1,18 @@
 package CreateWordDocProtocol;
 
 
-import java.awt.Cursor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.bind.JAXBException;
-
 import org.apache.log4j.BasicConfigurator;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.P;
 import org.docx4j.wml.Tbl;
-import org.docx4j.wml.Tr;
-
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import DBase_Class.Request;
@@ -90,9 +82,8 @@ public class StartGenerateDocTemplate {
 		
 		
 		
-		java.util.List<Tr> listRow =null;
 		try {
-			listRow = AplicationDocTemplate.getListRowFromTamplate(tempTable);
+			AplicationDocTemplate.getListRowFromTamplate(tempTable);
 		} catch (Docx4JException | JAXBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

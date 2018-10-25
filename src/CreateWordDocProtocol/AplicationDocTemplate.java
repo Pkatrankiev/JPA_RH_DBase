@@ -10,15 +10,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-
 import org.docx4j.TextUtils;
 import org.docx4j.XmlUtils;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
-import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Body;
 import org.docx4j.wml.ContentAccessor;
@@ -119,7 +116,7 @@ public class AplicationDocTemplate {
 		List<?> texts = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
 
 		for (Object text : texts) {
-			Text textElement = (Text) text;
+//			Text textElement = (Text) text;
 
 			String replacementValue = replacements.get(((Text) text).getValue());
 			System.out.println(text.toString() + "  " + replacementValue);
@@ -162,7 +159,7 @@ public class AplicationDocTemplate {
 		// 1. find the table
 		Tbl tempTable = getTemplateTable(tables, placeholders[0]);
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
-		Tbl newTempTable = new Tbl();
+//		Tbl newTempTable = new Tbl();
 		Tr headerRow1 = (Tr) rows.get(0);
 		Tr headerRow2 = (Tr) rows.get(1);
 		Tr headerRow3 = (Tr) rows.get(2);
@@ -264,13 +261,13 @@ public class AplicationDocTemplate {
 	}
 
 	// izvlichane na osnovnite redove ot tablicate
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	public static List<Tr> getListRowFromTamplate(Tbl tempTable) throws Docx4JException, JAXBException {
 
 		List<Tr> listTempRow = new ArrayList<Tr>();
 
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
-		Tbl newTempTable = new Tbl();
+//		Tbl newTempTable = new Tbl();
 		listTempRow.add((Tr) rows.get(0));
 		listTempRow.add((Tr) rows.get(1));
 		listTempRow.add((Tr) rows.get(2));

@@ -145,7 +145,7 @@ public class TableRequestList {
 		frame.setSize(1200, 800);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		round.StopWindow();;
+		round.StopWindow();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -165,14 +165,14 @@ public class TableRequestList {
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
-							if (Login.getCurentUser().getIsAdmin()) {
+//							if (Login.getCurentUser().getIsAdmin()) {
 								return true;
 							} else {
 								return false;
 							}
-						} else {
-							return false;
-						}
+//						} else {
+//							return false;
+//						}
 					}
 
 					public void setValueAt(Object value, int row, int col) {
@@ -191,8 +191,7 @@ public class TableRequestList {
 				};
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
-
-				// TODO Auto-generated catch block
+			
 				setUp_I_P_Column(table, table.getColumnModel().getColumn(2));
 				setUp_O_I_R_Column(table, table.getColumnModel().getColumn(3));
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(5));
@@ -280,8 +279,8 @@ public class TableRequestList {
 		String[] tableHeader = { "№ на Заявката", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
 				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
 				"Време на приемане", "Приел заявката", "Забележка", "Id User" };
-		Class[] types = { Integer.class, Calendar.class, String.class, String.class, String.class, String.class,
-				Integer.class, String.class, Calendar.class, Calendar.class, Calendar.class, String.class, String.class,
+		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
+				Integer.class, String.class, String.class, String.class, String.class, String.class, String.class,
 				Integer.class };
 
 		Object[][] tableRequest = new Object[listRequest.size()][14];
@@ -324,6 +323,50 @@ public class TableRequestList {
 		TableRequestList(tableHeader, tableRequest, types, round);
 	}
 
+	private static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
+		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
+		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
+		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
+		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+		String globalSeparator = GlobalVariable.getSeparator();
+		SimpleDateFormat sdf;
+		String sss = "";
+		SimpleDateFormat table_sdf;
+		char separator = '.';
+		char separ = globalSeparator.charAt(0);
+		if (origin_date.contains("-")) {
+			separator = '-';
+		}
+		if (separator != separ) {
+			sss = FORMAT_DATE_TIME;
+			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
+			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
+		}
+
+		if (inTime) {
+			sss = TAB_FORMAT_DATE_TIME;
+			sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
+			table_sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+
+		} else {
+			sss = TAB_FORMAT_DATE;
+			sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
+			table_sdf = new SimpleDateFormat(FORMAT_DATE);
+		}
+
+		Date date = new Date();
+
+		try {
+			date = sdf.parse(origin_date);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		date = sdf.parse(origin_date);
+		return table_sdf.format(date);
+	}
+	
 	private static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
@@ -338,6 +381,11 @@ public class TableRequestList {
 		if (origin_date.contains("-")) {
 			separator = '-';
 		}
+		
+		if (!origin_date.substring(0, 3).contains(".")) {
+			return origin_date;
+		}
+		
 		if (separator != separ) {
 			sss = FORMAT_DATE_TIME;
 			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
@@ -448,15 +496,33 @@ public class TableRequestList {
 	}
 
 	private static void updateRequestObject(JTable table, int row, Request request) {
-		request.setDate_request(table.getValueAt(row, 1) + "");
+		try {
+			request.setDate_request(reformatFromTabDate(table.getValueAt(row, 1) + "",false));
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 		request.setIzpitvan_produkt(Izpitvan_produktDAO.getValueIzpitvan_produktByName(table.getValueAt(row, 2) + ""));
 		request.setObekt_na_izpitvane_request(
 				Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvane_requestByName(table.getValueAt(row, 3) + ""));
 		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(table.getValueAt(row, 5) + ""));
 		request.setCounts_samples((int) table.getValueAt(row, 6));
 		request.setDescription_sample_group(table.getValueAt(row, 7) + "");
-		request.setDate_execution(table.getValueAt(row, 9) + "");
-		request.setDate_reception(table.getValueAt(row, 10) + "");
+		try{
+		request.setDate_execution(reformatFromTabDate(table.getValueAt(row, 9) + "",false));
+	} catch (ParseException e) {
+		JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+				JOptionPane.ERROR_MESSAGE);
+		e.printStackTrace();
+	};
+	try{
+		request.setDate_reception(reformatFromTabDate(table.getValueAt(row, 10) + "",false));
+	} catch (ParseException e) {
+		JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+				JOptionPane.ERROR_MESSAGE);
+		e.printStackTrace();
+	}
 		request.setUsers(UsersDAO.getValueUsersById((int) table.getValueAt(row, 13)));
 		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(table.getValueAt(row, 12) + ""));
 

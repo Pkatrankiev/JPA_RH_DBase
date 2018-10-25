@@ -1,8 +1,6 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-
-import Table.TableRequestList;
 import Table.TableResultsList;
 
 public class MenuData_EnableResultsList extends AbstractMenuAction{

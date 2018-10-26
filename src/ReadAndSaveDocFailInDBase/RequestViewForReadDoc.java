@@ -1089,7 +1089,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_Preview.gridy = 25;
 		p.add(btn_Preview, gbc_btn_Preview);
 
-		// TODO btn_Template ( Шаблон )
+		// TODO btn_Template ( Резултати )
 		JButton btn_Template = new JButton("Резултати");
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

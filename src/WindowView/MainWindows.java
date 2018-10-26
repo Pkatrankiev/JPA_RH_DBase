@@ -26,11 +26,13 @@ import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
 import Table.TableRequestList;
 import WindowViewAplication.DocxMainpulator;
+import javafx.beans.binding.When;
 
 public class MainWindows {
 
 	private static String loginStr = "logIn";
 	private Login loginDlg;
+	private TranscluentWindow round;
 	public void WindowNew() {
 		final JFrame win = new JFrame();
 		
@@ -110,38 +112,44 @@ public class MainWindows {
 		JButton loginMenu = new JButton(loginStr);
 		loginMenu.setMnemonic(KeyEvent.VK_L);
 		loginMenu.addActionListener(new ActionListener() {
-//			TranscluentWindow pro = new TranscluentWindow();
 			public void actionPerformed(ActionEvent e) {
-			
+				 round = new TranscluentWindow();
 				String textBtnLogin = loginMenu.getText();
 				
 				if (textBtnLogin.equals("LogOut")) {
+					round.StopWindow();
 					Login.logOut();
 					loginMenu.setText("LogIn");
 					win.setTitle("my RHA");
 				} else {
-					TranscluentWindow round = new TranscluentWindow();
 					 final Thread thread = new Thread(new Runnable() {
 					     @Override
 					     public void run() {
 					    	 
-					    	loginDlg = new Login(win, round);
-					    	loginDlg.setVisible(true);
-					    	
+					    	 StartLoginMenu(win, loginMenu);
+				    	
 					     }
 					    });
 					    thread.start();
-						// if logon successfully
-					   
-					if (!thread.isAlive() && loginDlg.isSucceeded()) {
-						win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
-						loginMenu.setText("LogOut");
-
-					}
+					
 				}
 			}
+
+	
 		});
 		return loginMenu;
+	}
+	private void StartLoginMenu(Frame win, JButton loginMenu) {
+	
+			    	  loginDlg = new Login(win, round);
+				    	loginDlg.setVisible(true);
+		
+		 
+		if ( loginDlg.isSucceeded()) {
+			win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
+			loginMenu.setText("LogOut");
+
+		}
 	}
 
 }

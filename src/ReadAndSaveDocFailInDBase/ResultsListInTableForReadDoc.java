@@ -47,6 +47,23 @@ public class ResultsListInTableForReadDoc {
 	private static String[] values_Razmernosti;
 	private static String[] values_Dimension;
 	private static Request request_basic;
+	
+	private static int tbl_Colum = 15;
+	private static int rqst_code_Colum = 0;
+	private static int smpl_code_Colum = 1;
+	private static int obk_Izp_Colum = 2;
+	private static int mtd_Izp_Colum = 3;
+	private static int izp_Pok_Colum = 4;
+	private static int nuclide_Colum = 5;
+	private static int actv_value_Colum = 6;
+	private static int uncrt_Colum = 7;
+	private static int sigma_Colum = 8;
+	private static int mda_Colum = 9;
+	private static int razm_Colum = 10;
+	private static int qunt_Colum = 11;
+	private static int dimen_Colum = 12;
+	private static int in_Prot_Colum = 13;
+	private static int rsult_Id_Colum = 14;
 
 	
 	public static void DrawTableWithEnableResultsList(Request request) {
@@ -60,7 +77,7 @@ public class ResultsListInTableForReadDoc {
 				Boolean.class, Integer.class };
 
 		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
-		Object[][] tableSample = new Object[listAllResults.size()][15];
+		Object[][] tableSample = new Object[listAllResults.size()][tbl_Colum ];
 		List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		int i = 0;
 		for (Sample sample : listSample) {
@@ -70,27 +87,27 @@ public class ResultsListInTableForReadDoc {
 
 				try {
 					int request_code = Integer.parseInt(results.getSample().getRequest().getRecuest_code());
-					tableSample[i][0] = request_code;
-					tableSample[i][1] = sample.getSample_code();
-					tableSample[i][2] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-					tableSample[i][3] = results.getMetody().getCode_metody();
-					tableSample[i][4] = results.getPokazatel().getName_pokazatel();
-					tableSample[i][5] = results.getNuclide().getSymbol_nuclide();
-					// tableSample[i][6] =
+					tableSample[i][rqst_code_Colum ] = request_code;
+					tableSample[i][smpl_code_Colum ] = sample.getSample_code();
+					tableSample[i][obk_Izp_Colum ] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+					tableSample[i][mtd_Izp_Colum ] = results.getMetody().getCode_metody();
+					tableSample[i][izp_Pok_Colum ] = results.getPokazatel().getName_pokazatel();
+					tableSample[i][nuclide_Colum ] = results.getNuclide().getSymbol_nuclide();
+					// tableSample[i][actv_value_Colum ] =
 					// BigDecimal.valueOf(results.getValue_result()).setScale(2,
 					// RoundingMode.HALF_UP);
-					tableSample[i][6] = results.getValue_result();
-					tableSample[i][7] = results.getUncertainty();
-					tableSample[i][8] = results.getSigma();
-					tableSample[i][9] = results.getMda();
-					tableSample[i][10] = results.getRtazmernosti().getName_razmernosti();
-					tableSample[i][11] = results.getQuantity();
-					tableSample[i][12] = "";
+					tableSample[i][actv_value_Colum ] = results.getValue_result();
+					tableSample[i][uncrt_Colum ] = results.getUncertainty();
+					tableSample[i][sigma_Colum ] = results.getSigma();
+					tableSample[i][mda_Colum ] = results.getMda();
+					tableSample[i][razm_Colum ] = results.getRtazmernosti().getName_razmernosti();
+					tableSample[i][qunt_Colum ] = results.getQuantity();
+					tableSample[i][dimen_Colum ] = "";
 					if (results.getDimension() != null) {
-						tableSample[i][12] = results.getDimension().getName_dimension();
+						tableSample[i][dimen_Colum ] = results.getDimension().getName_dimension();
 					}
-					tableSample[i][13] = results.getInProtokol();
-					tableSample[i][14] = results.getId_results();
+					tableSample[i][in_Prot_Colum ] = results.getInProtokol();
+					tableSample[i][rsult_Id_Colum ] = results.getId_results();
 
 					i++;
 				} catch (NullPointerException e) {
@@ -103,9 +120,9 @@ public class ResultsListInTableForReadDoc {
 
 		}
 
-		Object[][] tableSampleNew = new Object[i][15];
+		Object[][] tableSampleNew = new Object[i][tbl_Colum ];
 		for (int j = 0; j < tableSampleNew.length; j++) {
-			for (int k = 0; k < 15; k++) {
+			for (int k = 0; k < tbl_Colum ; k++) {
 				tableSampleNew[j][k] = tableSample[j][k];
 			}
 		}
@@ -132,7 +149,7 @@ public class ResultsListInTableForReadDoc {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (table.getSelectedColumn() == 0) {
+				if (table.getSelectedColumn() == rqst_code_Colum ) {
 								}
 				super.mouseReleased(e);
 			}
@@ -187,16 +204,16 @@ public class ResultsListInTableForReadDoc {
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
 
-				setUp_Metody(table, table.getColumnModel().getColumn(3));
-				setUp_Izpit_Pokazatel_Column(table, table.getColumnModel().getColumn(4));
-				setUp_Nuclide(table, table.getColumnModel().getColumn(5));
-				setUp_Razmernosti(table, table.getColumnModel().getColumn(10));
-				setUp_Dimension(table, table.getColumnModel().getColumn(12));
+				setUp_Metody(table, table.getColumnModel().getColumn(mtd_Izp_Colum ));
+				setUp_Izpit_Pokazatel_Column(table, table.getColumnModel().getColumn(izp_Pok_Colum ));
+				setUp_Nuclide(table, table.getColumnModel().getColumn(nuclide_Colum ));
+				setUp_Razmernosti(table, table.getColumnModel().getColumn(razm_Colum ));
+				setUp_Dimension(table, table.getColumnModel().getColumn(dimen_Colum ));
 
-				table.getColumnModel().getColumn(14).setWidth(0);
-				table.getColumnModel().getColumn(14).setMinWidth(0);
-				table.getColumnModel().getColumn(14).setMaxWidth(0);
-				table.getColumnModel().getColumn(14).setPreferredWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setMinWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setMaxWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setPreferredWidth(0);
 
 				JPanel panel_Btn = new JPanel();
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -279,24 +296,24 @@ public class ResultsListInTableForReadDoc {
 		String[][] masiveIzpitPokazatel = new String[numRows][2];
 		List<List_izpitvan_pokazatel> listIzpitPokazatel = new ArrayList<List_izpitvan_pokazatel>();
 		for (int i = 0; i < numRows; i++) {
-			Results result = ResultsDAO.getValueResultsById((int) table.getValueAt(i, 14));
-			result.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(table.getValueAt(i, 3) + ""));
+			Results result = ResultsDAO.getValueResultsById((int) table.getValueAt(i, rsult_Id_Colum ));
+			result.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(table.getValueAt(i, mtd_Izp_Colum ) + ""));
 			result.setPokazatel((List_izpitvan_pokazatel) List_izpitvan_pokazatelDAO
-					.getValueIzpitvan_pokazatelByName(table.getValueAt(i, 4) + ""));
-			result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) table.getValueAt(i, 5)));
-			result.setValue_result((Double) table.getValueAt(i, 6));
-			result.setUncertainty((Double) table.getValueAt(i, 7));
-			result.setSigma((Integer) table.getValueAt(i, 8));
-			result.setMda((Double) table.getValueAt(i, 9));
-			result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(i, 10)));
-			result.setQuantity((Double) table.getValueAt(i, 11));
+					.getValueIzpitvan_pokazatelByName(table.getValueAt(i, izp_Pok_Colum ) + ""));
+			result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) table.getValueAt(i, nuclide_Colum )));
+			result.setValue_result((Double) table.getValueAt(i, actv_value_Colum ));
+			result.setUncertainty((Double) table.getValueAt(i, uncrt_Colum ));
+			result.setSigma((Integer) table.getValueAt(i, sigma_Colum ));
+			result.setMda((Double) table.getValueAt(i, mda_Colum ));
+			result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(i, razm_Colum )));
+			result.setQuantity((Double) table.getValueAt(i, qunt_Colum ));
 
-			if ((table.getValueAt(i, 12).equals(""))) {
+			if ((table.getValueAt(i, dimen_Colum ).equals(""))) {
 				result.setDimension(null);
 			} else {
-				result.setDimension(DimensionDAO.getValueDimensionByName((String) table.getValueAt(i, 12)));
+				result.setDimension(DimensionDAO.getValueDimensionByName((String) table.getValueAt(i, dimen_Colum )));
 			}
-			result.setInProtokol((Boolean) table.getValueAt(i, 13));
+			result.setInProtokol((Boolean) table.getValueAt(i, in_Prot_Colum ));
 			ResultsDAO.updateResults(result);
 			listIzpitPokazatel.add(result.getPokazatel());
 			masiveIzpitPokazatel[i][0] = result.getPokazatel().getName_pokazatel();

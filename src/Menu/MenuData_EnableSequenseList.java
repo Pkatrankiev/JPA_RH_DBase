@@ -17,6 +17,7 @@ public class MenuData_EnableSequenseList extends AbstractMenuAction {
 	public void actionPerformed(ActionEvent arg0) {
 		 
 		TranscluentWindow round = new TranscluentWindow();
+	
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {

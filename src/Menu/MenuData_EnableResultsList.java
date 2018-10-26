@@ -14,7 +14,7 @@ public class MenuData_EnableResultsList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TableResultsList.DrawTableWithEnableResultsList();
+		TableResultsList.TableResultsList();
 	}
 
 }

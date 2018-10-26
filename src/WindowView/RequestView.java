@@ -112,13 +112,14 @@ public class RequestView extends JFrame {
 	
 	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 	
-	public RequestView(Users user, Request tamplateRequest) {
+	public RequestView(Users user, Request tamplateRequest,TranscluentWindow round) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		init(user, tamplateRequest);
 		setVisible(true);
+		round.StopWindow();
 	}
 
 	public void init(Users user, Request tamplateRequest) {

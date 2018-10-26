@@ -88,4 +88,16 @@ public class Ind_num_docDAO {
 		return list;
 	}
 
+	public static String[] getMasiveStringAllValueValueInd_num_doc() {
+	
+		List<Ind_num_doc> list = getInListAllValueInd_num_doc();
+		
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Ind_num_doc izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getName();
+			i++;
+		}
+		return values;
+	}
 }

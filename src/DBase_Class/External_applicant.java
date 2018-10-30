@@ -26,10 +26,9 @@ public class External_applicant {
 	private String external_applicant_contract_number;
 	
 	
-	public External_applicant(int id_external_applicant, String external_applicant_name, String external_applicant_address, String external_applicant_telephone,
+	public External_applicant(String external_applicant_name, String external_applicant_address, String external_applicant_telephone,
 			String external_applicant_contract_number) {
 		super();
-		Id_external_applicant = id_external_applicant;
 		this.external_applicant_name = external_applicant_name;
 		this.external_applicant_address = external_applicant_address;
 		this.external_applicant_telephone = external_applicant_telephone;

@@ -21,7 +21,6 @@ public class Extra_module implements Serializable {
 	
 	private String applicant_name;
 	private String applicant_family;
-	private String deviation_metod;
 	private String additional_requirements;
 	private String additional_arrangements;
 	private Boolean return_samples;
@@ -30,23 +29,26 @@ public class Extra_module implements Serializable {
 	private External_applicant external_applicant;
 	@ManyToOne
 	private Internal_applicant internal_applicant;
+	@ManyToOne
+	private Otclonenie otclonenie;
+	
 	
 	public Extra_module(External_applicant external_applicant, 
-			Internal_applicant internal_applicant, 
+			Internal_applicant internal_applicant,
+			Otclonenie otclonenie,
 			Boolean return_samples,
 			String applicant_name,
 			String applicant_family,
-			String deviation_metod, 
 			String additional_requirements,
 			String additional_arrangements){
 		super();
 		
 		this.external_applicant = external_applicant;
 		this.internal_applicant = internal_applicant;
+		this.otclonenie = otclonenie;
 		this.return_samples = return_samples;
 		this.applicant_name = applicant_name;
 		this.applicant_family = applicant_family;
-		this.deviation_metod = deviation_metod;
 		this.additional_requirements = additional_requirements;
 		this.additional_arrangements = additional_arrangements;
 	}
@@ -60,12 +62,7 @@ public class Extra_module implements Serializable {
 	public void setId_extra_module(int id_extra_module) {
 		Id_extra_module = id_extra_module;
 	}
-	public String getDeviation_metod() {
-		return deviation_metod;
-	}
-	public void setDeviation_metod(String deviation_metod) {
-		this.deviation_metod = deviation_metod;
-	}
+
 	public String getAdditional_requirements() {
 		return additional_requirements;
 	}
@@ -110,6 +107,12 @@ public class Extra_module implements Serializable {
 	}
 	public void setApplicant_family(String applicant_family) {
 		this.applicant_family = applicant_family;
+	}
+	public Otclonenie getOtclonenie() {
+		return otclonenie;
+	}
+	public void setOtclonenie(Otclonenie otclonenie) {
+		this.otclonenie = otclonenie;
 	}
 	
 	

@@ -13,6 +13,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.List_izpitvan_pokazatel</class>
 		<class>DBase_Class.Obekt_na_izpitvane_request</class>
 		<class>DBase_Class.Zabelejki</class>
+		<class>DBase_Class.Otclonenie</class>
 		<class>DBase_Class.Razmernosti</class>
 		<class>DBase_Class.Users</class>
 		<class>DBase_Class.Nuclide</class>

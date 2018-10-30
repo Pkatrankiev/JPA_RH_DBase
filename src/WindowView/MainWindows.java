@@ -21,6 +21,7 @@ import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_EnableSequenseList;
 import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
+import Menu.MenuRequense_NewExtraRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
@@ -90,6 +91,7 @@ public class MainWindows {
 		sequenseMenu.setMnemonic(KeyEvent.VK_Z);
 		
 		sequenseMenu.add(new MenuRequense_NewRequense());
+		sequenseMenu.add(new MenuRequense_NewExtraRequense());
 		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
 		sequenseMenu.addSeparator();
 		sequenseMenu.add(new MenuRequense_RequenseList());

@@ -18,7 +18,7 @@ public class ZabelejkiDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setBasicValueZabelejki() {
-		setValueZabelejki("*Към неопределеността е добавена 10% систематична грешка.");
+		setValueZabelejki("Към неопределеността е добавена 10% систематична грешка.");
 		setValueZabelejki(": Ако е необходимо, протоколът от изпитване може да включва"
 				+ " мнения и интерпретации за определени изпитвания (заключения не се допускат) само"
 				+ " в съответствие с изискванията на т. 5.10.5 от БДС EN ISO/IEC 17025.");
@@ -35,7 +35,6 @@ public class ZabelejkiDAO {
 		entitymanager.getTransaction().begin();
 		Zabelejki valueEnt = new Zabelejki();
 		valueEnt.setName_zabelejki(value);
-		;
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
@@ -50,11 +49,6 @@ public class ZabelejkiDAO {
 		List<Zabelejki> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-
-		for (Zabelejki e : list) {
-			System.out.println(
-					"Num:" + ((Zabelejki) e).getId_zabelejki() + "  NAME :" + ((Zabelejki) e).getName_zabelejki());
-		}
 		return list;
 	}
 
@@ -95,14 +89,14 @@ public class ZabelejkiDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
-			setValueZabelejki(name);	
+		Zabelejki zab= null;
+		if (!query.getResultList().isEmpty()){
+		 zab = (Zabelejki) query.getSingleResult();
 		}
-		Zabelejki list = (Zabelejki) query.getSingleResult();
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return zab;
 	}
 
 	

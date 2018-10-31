@@ -104,7 +104,7 @@ public class AddInChoice extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				getChoiceO_I_R();
+				getChoice();
 				removeAll();
 				dispose();
 
@@ -144,7 +144,7 @@ public class AddInChoice extends JDialog {
 
 	}
 
-	public static String getChoiceO_I_R() {
+	public static String getChoice() {
 		String arr = textField.getText();
 		return arr;
 	}

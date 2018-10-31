@@ -195,7 +195,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 
 								new AddInChoice(f, comBox_O_I_S,(String) comboBox_OI[l].getSelectedItem());
 
-								String str = AddInChoice.getChoiceO_I_R();
+								String str = AddInChoice.getChoice();
 
 								for (String string : comBox_O_I_S) {
 									if (str.equals(string))

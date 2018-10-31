@@ -471,7 +471,7 @@ public class RequestView extends JFrame {
 				 AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
 				 choice_obekt_na_izpitvane_request.getSelectedItem());
 
-				String str = AddInChoice.getChoiceO_I_R();
+				String str = AddInChoice.getChoice();
 				for (String string : array_O_I_R) {
 					if (str.equals(string))
 						fl = true;
@@ -1079,7 +1079,7 @@ public class RequestView extends JFrame {
 
 				new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
 
-				String str = AddInChoice.getChoiceO_I_R();
+				String str = AddInChoice.getChoice();
 								
 //				---------------------------------------------------------
 								
@@ -1233,7 +1233,7 @@ public class RequestView extends JFrame {
 		}
 
 		String str_DateTimeRequest = "";
-		if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
+		if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), false)) {
 			txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
 			str_DateTimeRequest = "дата на приемане" + "\n";
 			saveCheck = false;

@@ -37,6 +37,8 @@ import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import Aplication.GlobalVariable;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
+import DBase_Class.Aplicant;
+import DBase_Class.AplicantDAO;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -87,7 +89,7 @@ public class ExtraRequestView extends JFrame {
 	private static ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
 	private Extra_module xtra_module = null;
-	private int id_xtra_moduleBDate;
+	private int id_xtra_ExternalAplicBDate;
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -116,20 +118,17 @@ public class ExtraRequestView extends JFrame {
 	private Font font = new Font(fondHeatText, Font.PLAIN, 11);
 	private Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiById(5);
 	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
-	private External_applicant  tamplateExternalAplic = null;
+	private External_applicant tamplateExternalAplic = null;
+	private String[] masive_AplicantNameFamily;
+	private Choice choice_AplicantNameFamily;
+	private Boolean fl_Otclon = false;
+	private Boolean fl_Aplicant = false;
+	private Boolean fl_O_I_R = false;
 
 	public ExtraRequestView(Users user, Request tamplateRequest, TranscluentWindow round) {
 		super("JScrollPane Demonstration");
 		setSize(850, 980);
-		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		InitialExtraRequestView(user, tamplateRequest);
-		setVisible(true);
-		round.StopWindow();
-	}
-
-	public void InitialExtraRequestView(Users user, Request tamplateRequest) {
-
 		curent_user = user;
 		Boolean flTamplate = true;
 		final JPanel p = new JPanel();
@@ -145,11 +144,11 @@ public class ExtraRequestView extends JFrame {
 
 		GridBagLayout gbl_p = new GridBagLayout();
 		gbl_p.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-		gbl_p.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p.columnWidths = new int[] { 15, 190, 110, 100, 110, 160, 15 };
 		gbl_p.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				17, 0 };
+				0, 11, 0, 0, 17, 0 };
 		p.setLayout(gbl_p);
 
 		String text1 = "<html>ДЪРЖАВНО ПРЕДПРИЯТИЕ “РАДИОАКТИВНИ ОТПАДЪЦИ“<br><br><br> ЛАБОРАТОРИЯ ЗА ИЗПИТВАНЕ<br>"
@@ -317,7 +316,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_txtArea_Aplicant.gridx = 1;
 		gbc_txtArea_Aplicant.gridy = 6;
 		p.add(txtArea_Aplicant, gbc_txtArea_Aplicant);
-		
+
 		// TODO txtFld_Date_Request (Звено на ДП РАО)
 		JButton btnNewButton = new JButton("Звено на ДП РАО");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -327,30 +326,28 @@ public class ExtraRequestView extends JFrame {
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 5;
 		p.add(btnNewButton, gbc_btnNewButton);
-		
-		
+
 		// TODO txtFld_Date_Request (Външни клиенти)
 		JButton btnNewButton_1 = new JButton("Външни клиенти");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TranscluentWindow round = new TranscluentWindow();
-				
+
 				if (tamplateRequest != null) {
 					if (tamplateExternalAplic != null) {
-			
+
 						tamplateExternalAplic = tamplateRequest.getXtra_module().getExternal_applicant();
-						id_xtra_moduleBDate = tamplateExternalAplic.getId_external_applicant(); 
-					} 
+						id_xtra_ExternalAplicBDate = tamplateExternalAplic.getId_external_applicant();
+					}
 				}
 				JFrame parent = new JFrame();
 				ExtraModuleView extraModView = new ExtraModuleView(parent, tamplateExternalAplic, round);
-				
+
 				tamplateExternalAplic = extraModView.getExternal_AplicFromExtraModuleView();
 				strAplicant = getStringFromExtAplicant(tamplateExternalAplic);
 				txtArea_Aplicant.setText(strAplicant);
 			}
 
-			
 		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.WEST;
@@ -367,8 +364,6 @@ public class ExtraRequestView extends JFrame {
 		// choice_ind_num_doc.select("");
 		// }
 		// }
-
-		
 
 		JLabel lbl_izpitvan_produkt = new JLabel("Изпитван продукт");
 		GridBagConstraints gbc_lbl_izpitvan_produkt = new GridBagConstraints();
@@ -468,24 +463,11 @@ public class ExtraRequestView extends JFrame {
 		JButton btn_add__obekt_na_izpitvane_request = new JButton("Добавяне");
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Boolean fl = false;
-				final JFrame f = new JFrame();
 
-				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
-						choice_obekt_na_izpitvane_request.getSelectedItem());
-
-				String str = AddInChoice.getChoiceO_I_R();
-				for (String string : array_O_I_R) {
-					if (str.equals(string))
-						fl = true;
-				}
-				if (!fl) {
-					array_O_I_R.add(str);
-					choice_obekt_na_izpitvane_request.add(str);
-
-				}
-				choice_obekt_na_izpitvane_request.select(str);
+				fl_O_I_R = ChoiceFrame(array_O_I_R, choice_obekt_na_izpitvane_request);
 			}
+
+		
 		});
 		GridBagConstraints gbc_btn_add__obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_btn_add__obekt_na_izpitvane_request.anchor = GridBagConstraints.NORTHWEST;
@@ -1005,6 +987,73 @@ public class ExtraRequestView extends JFrame {
 
 		});
 
+		JLabel label_1 = new JLabel("Допълнителни договорености:");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.anchor = GridBagConstraints.WEST;
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 1;
+		gbc_label_1.gridy = 23;
+		p.add(label_1, gbc_label_1);
+
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridwidth = 5;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 1;
+		gbc_textArea.gridy = 24;
+		p.add(textArea, gbc_textArea);
+
+		// TODO choice_otklon (Съгласувано с клиента)
+		JLabel lbl_AplicantNameFamily = new JLabel("Съгласувано с клиента:");
+		GridBagConstraints gbc_lbl_AplicantNameFamily = new GridBagConstraints();
+		gbc_lbl_AplicantNameFamily.anchor = GridBagConstraints.EAST;
+		gbc_lbl_AplicantNameFamily.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_AplicantNameFamily.gridx = 1;
+		gbc_lbl_AplicantNameFamily.gridy = 25;
+		p.add(lbl_AplicantNameFamily, gbc_lbl_AplicantNameFamily);
+
+		choice_AplicantNameFamily = new Choice();
+		choice_AplicantNameFamily.setPreferredSize(new Dimension(60, 20));
+		choice_AplicantNameFamily.setFont(new Font("Tahoma", Font.PLAIN, 11));
+
+		masive_AplicantNameFamily = AplicantDAO.getMasiveStringAllName_FamilyAplicant();
+		ArrayList<String> array_AplicantNameFamily = new ArrayList<String>();
+		for (String string : masive_AplicantNameFamily) {
+			choice_AplicantNameFamily.add(string);
+			array_AplicantNameFamily.add(string);
+		}
+		if (tamplateRequest != null) {
+			String str = tamplateRequest.getXtra_module().getAplicant().getName_aplicant() + " "
+					+ tamplateRequest.getXtra_module().getAplicant().getFamily_aplicant();
+			choice_AplicantNameFamily.select(str);
+		}
+
+		GridBagConstraints gbc_choice_AplicantNameFamily = new GridBagConstraints();
+		gbc_choice_AplicantNameFamily.fill = GridBagConstraints.HORIZONTAL;
+		gbc_choice_AplicantNameFamily.gridwidth = 2;
+		gbc_choice_AplicantNameFamily.insets = new Insets(0, 0, 5, 5);
+		gbc_choice_AplicantNameFamily.gridx = 2;
+		gbc_choice_AplicantNameFamily.gridy = 25;
+		p.add(choice_AplicantNameFamily, gbc_choice_AplicantNameFamily);
+
+		JButton button = new JButton("Добавяне");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				fl_Aplicant = ChoiceFrameNameFamily(array_AplicantNameFamily, choice_AplicantNameFamily);
+				
+			}
+		});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.anchor = GridBagConstraints.NORTHWEST;
+		gbc_button.gridheight = 2;
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 4;
+		gbc_button.gridy = 25;
+		p.add(button, gbc_button);
+
 		// date_time_request
 		// *****************************************************************
 		JLabel lbl_date_time_request = new JLabel("Дата на приемане:");
@@ -1013,7 +1062,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_lbl_date_time_request.gridwidth = 2;
 		gbc_lbl_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_time_request.gridx = 1;
-		gbc_lbl_date_time_request.gridy = 23;
+		gbc_lbl_date_time_request.gridy = 27;
 		p.add(lbl_date_time_request, gbc_lbl_date_time_request);
 
 		// TODO txtFld_date_time_request (дата на приемане)
@@ -1048,7 +1097,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_txtFld_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_time_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_time_request.gridx = 3;
-		gbc_txtFld_date_time_request.gridy = 23;
+		gbc_txtFld_date_time_request.gridy = 27;
 		p.add(txtFld_date_time_request, gbc_txtFld_date_time_request);
 
 		JButton btn_date_time_request = new JButton("Избор на дата");
@@ -1075,7 +1124,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_btn_date_time_request.gridwidth = 2;
 		gbc_btn_date_time_request.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_time_request.gridx = 4;
-		gbc_btn_date_time_request.gridy = 23;
+		gbc_btn_date_time_request.gridy = 27;
 		p.add(btn_date_time_request, gbc_btn_date_time_request);
 
 		JLabel lblNewLabel_3 = new JLabel("Приел:");
@@ -1083,14 +1132,14 @@ public class ExtraRequestView extends JFrame {
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 24;
+		gbc_lblNewLabel_3.gridy = 28;
 		p.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
 		JLabel lbl_User = new JLabel(user.getName_users() + " " + user.getFamily_users());
 		GridBagConstraints gbc_lbl_User = new GridBagConstraints();
 		gbc_lbl_User.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_User.gridx = 2;
-		gbc_lbl_User.gridy = 24;
+		gbc_lbl_User.gridy = 28;
 		p.add(lbl_User, gbc_lbl_User);
 
 		// TODO choice_otklon (Отклонение)
@@ -1124,27 +1173,7 @@ public class ExtraRequestView extends JFrame {
 
 		btn_add_otclon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				// -------------------------------------------------------
-				Boolean fl = false;
-				final JFrame f = new JFrame();
-
-				new AddInChoice(f, arrayOtclon, choice_otclon.getSelectedItem());
-
-				String str = AddInChoice.getChoiceO_I_R();
-
-				// ---------------------------------------------------------
-
-				for (String string : arrayOtclon) {
-					if (str.equals(string))
-						fl = true;
-				}
-				if (!fl) {
-					arrayOtclon.add(str);
-					choice_otclon.add(str);
-
-				}
-				choice_otclon.select(str);
+				fl_Otclon = ChoiceFrame(arrayOtclon, choice_otclon);
 			}
 		});
 
@@ -1189,7 +1218,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_btn_save.anchor = GridBagConstraints.WEST;
 		gbc_btn_save.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_save.gridx = 5;
-		gbc_btn_save.gridy = 26;
+		gbc_btn_save.gridy = 30;
 		p.add(btn_save, gbc_btn_save);
 
 		// TODO btn_Preview ( Превю )
@@ -1206,7 +1235,7 @@ public class ExtraRequestView extends JFrame {
 		GridBagConstraints gbc_btn_Preview = new GridBagConstraints();
 		gbc_btn_Preview.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_Preview.gridx = 4;
-		gbc_btn_Preview.gridy = 26;
+		gbc_btn_Preview.gridy = 30;
 		p.add(btn_Preview, gbc_btn_Preview);
 
 		// TODO btn_Template ( Шаблон )
@@ -1225,11 +1254,14 @@ public class ExtraRequestView extends JFrame {
 		GridBagConstraints gbc_btn_Template = new GridBagConstraints();
 		gbc_btn_Template.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_Template.gridx = 3;
-		gbc_btn_Template.gridy = 26;
+		gbc_btn_Template.gridy = 30;
 		p.add(btn_Template, gbc_btn_Template);
 
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 
+		setVisible(true);
+		round.StopWindow();
+		
 	}
 
 	private Boolean checkRequest() {
@@ -1297,7 +1329,7 @@ public class ExtraRequestView extends JFrame {
 		}
 
 		String str_DateTimeRequest = "";
-		if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), true)) {
+		if (DatePicker.incorrectDate(txtFld_date_time_request.getText(), false)) {
 			txtFld_date_time_request.setBorder(new LineBorder(Color.RED));
 			str_DateTimeRequest = "дата на приемане" + "\n";
 			saveCheck = false;
@@ -1425,11 +1457,44 @@ public class ExtraRequestView extends JFrame {
 	}
 
 	private String getStringFromExtAplicant(External_applicant externalAplic) {
-		
-		return "Заявител:\n Организация / Име:"+externalAplic.getExternal_applicant_name()+" \n Адрес: "
-				+ externalAplic.getExternal_applicant_address()+"\n Тел.: "
-				+externalAplic.getExternal_applicant_telephone()+" \n Договор №: "
-				+externalAplic.getExternal_applicant_contract_number();
-		
+
+		return "Заявител:\n Организация / Име:" + externalAplic.getExternal_applicant_name() + " \n Адрес: "
+				+ externalAplic.getExternal_applicant_address() + "\n Тел.: "
+				+ externalAplic.getExternal_applicant_telephone() + " \n Договор №: "
+				+ externalAplic.getExternal_applicant_contract_number();
+
+	}
+	
+	private Boolean ChoiceFrame(ArrayList<String> array_list, Choice choice_obekt) {
+		Boolean fl= false;
+		final JFrame f = new JFrame();
+		new AddInChoice(f, array_list, choice_obekt.getSelectedItem());
+		String str = AddInChoice.getChoice();
+		for (String string : array_list) {
+			if (str.equals(string))
+				fl = true;
+		}
+		if (!fl) {
+			array_list.add(str);
+			choice_obekt.add(str);
+		}
+		choice_obekt.select(str);
+		return fl;
+	}
+	private Boolean ChoiceFrameNameFamily(ArrayList<String> array_list, Choice choice_obekt) {
+		Boolean fl= false;
+		final JFrame f = new JFrame();
+		new AddInChoiceNameFamily(f, array_list, choice_obekt.getSelectedItem());
+		String str = AddInChoiceNameFamily.getChoice();
+		for (String string : array_list) {
+			if (str.equals(string))
+				fl = true;
+		}
+		if (!fl) {
+			array_list.add(str);
+			choice_obekt.add(str);
+		}
+		choice_obekt.select(str);
+		return fl;
 	}
 }

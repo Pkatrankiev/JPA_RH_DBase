@@ -19,12 +19,12 @@ public class Extra_module implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_extra_module;
 	
-	private String applicant_name;
-	private String applicant_family;
 	private String additional_requirements;
 	private String additional_arrangements;
 	private Boolean return_samples;
 	
+	@ManyToOne
+	private Aplicant aplicant;
 	@ManyToOne
 	private External_applicant external_applicant;
 	@ManyToOne
@@ -35,20 +35,18 @@ public class Extra_module implements Serializable {
 	
 	public Extra_module(External_applicant external_applicant, 
 			Internal_applicant internal_applicant,
+			Aplicant aplicant,
 			Otclonenie otclonenie,
 			Boolean return_samples,
-			String applicant_name,
-			String applicant_family,
 			String additional_requirements,
 			String additional_arrangements){
 		super();
 		
 		this.external_applicant = external_applicant;
 		this.internal_applicant = internal_applicant;
+		this.aplicant = aplicant;
 		this.otclonenie = otclonenie;
 		this.return_samples = return_samples;
-		this.applicant_name = applicant_name;
-		this.applicant_family = applicant_family;
 		this.additional_requirements = additional_requirements;
 		this.additional_arrangements = additional_arrangements;
 	}
@@ -96,23 +94,18 @@ public class Extra_module implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public String getApplicant_name() {
-		return applicant_name;
-	}
-	public void setApplicant_name(String applicant_name) {
-		this.applicant_name = applicant_name;
-	}
-	public String getApplicant_family() {
-		return applicant_family;
-	}
-	public void setApplicant_family(String applicant_family) {
-		this.applicant_family = applicant_family;
-	}
+	
 	public Otclonenie getOtclonenie() {
 		return otclonenie;
 	}
 	public void setOtclonenie(Otclonenie otclonenie) {
 		this.otclonenie = otclonenie;
+	}
+	public Aplicant getAplicant() {
+		return aplicant;
+	}
+	public void setAplicant(Aplicant aplicant) {
+		this.aplicant = aplicant;
 	}
 	
 	

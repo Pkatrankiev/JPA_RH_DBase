@@ -333,7 +333,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 								date_time_reception.setVisible(true);
 
 								String textRefDate = "";
-								textRefDate = DateChoice.get_date_time_reception();
+								textRefDate = DateChoice.get_date_time_reference();
 
 								if (DatePicker.incorrectDate(textRefDate, true)) {
 									txtFld_Ref_date[l].setForeground(Color.RED);

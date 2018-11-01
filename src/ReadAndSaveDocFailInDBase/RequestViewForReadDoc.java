@@ -682,7 +682,7 @@ public class RequestViewForReadDoc extends JFrame {
 					}
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
-					textRefDate = DateChoice.get_date_time_reception();
+					textRefDate = DateChoice.get_date_time_reference();
 
 					if (DatePicker.incorrectDate(textRefDate, true))
 						txt_fid_date_time_reference.setForeground(Color.RED);

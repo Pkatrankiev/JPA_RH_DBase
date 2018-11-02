@@ -35,6 +35,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import Aplication.External_applicantDAO;
 import Aplication.GlobalVariable;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Aplicant;
@@ -42,6 +43,7 @@ import DBase_Class.AplicantDAO;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
+import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -88,19 +90,19 @@ public class ExtraRequestView extends JFrame {
 	private JTextField txtFld_Date_Request;
 	private String[][] masiveSampleValue = null;
 	private String str_Descript_grup_Sample = "";
-	private static ArrayList<String> comBox_O_I_S;
+	private ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
 	private Extra_module xtra_module = null;
-	private int id_xtra_ExternalAplicBDate;
+	
+	
 
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
 	private Boolean corectRefDate = true;
 	private Boolean corectDateExecution = true;
-	private Boolean corectDateTimeRequest = true;
+	private Boolean corectDateReception = true;
 	private String strAplicant = "";
 	private Choice choice_Period;
-	private Dimension d;
 
 	private JLabel lblError;
 	private Choice choice_izpitvan_produkt;
@@ -121,6 +123,7 @@ public class ExtraRequestView extends JFrame {
 	private Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiById(5);
 	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 	private External_applicant tamplateExternalAplic = null;
+	private Internal_applicant tamplateInternalAplic = null;
 	private String[] masive_AplicantNameFamily;
 	private Choice choice_AplicantNameFamily;
 	private Boolean fl_Otclon = false;
@@ -133,7 +136,6 @@ public class ExtraRequestView extends JFrame {
 		setSize(850, 980);
 		setLocationRelativeTo(null);
 		curent_user = user;
-		Boolean flTamplate = true;
 		p_1 = new JPanel();
 		p_1.setAlignmentY(0.0f);
 		p_1.setAlignmentX(0.0f);
@@ -166,7 +168,7 @@ public class ExtraRequestView extends JFrame {
 		Text_Area_Aplicant(p_1, border);
 
 		// TODO Button_Internal_Aplicant (Звено на ДП РАО)
-		Button_Internal_Aplicant(p_1);
+		Button_Internal_Aplicant(tamplateRequest, p_1);
 
 		// TODO Buttom_External_Aplicant (Външни клиенти)
 		Buttom_External_Aplicant(tamplateRequest, p_1);
@@ -236,7 +238,7 @@ public class ExtraRequestView extends JFrame {
 		// TODO Button_Cancel ( Отказ )
 		Button_Cancel(p_1);
 
-		getContentPane().add(scrollpane, BorderLayout.CENTER);
+		getContentPane().add(scrollpane, BorderLayout.SOUTH);
 		setVisible(true);
 		round.StopWindow();
 
@@ -439,25 +441,45 @@ public class ExtraRequestView extends JFrame {
 		p.add(txtArea_Aplicant, gbc_txtArea_Aplicant);
 	}
 
-	private void Button_Internal_Aplicant(final JPanel p) {
-		JButton btnNewButton = new JButton("Звено на ДП РАО");
-		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton.setMargin(new Insets(2, 3, 2, 3));
-		btnNewButton.setPreferredSize(new Dimension(105, 23));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridwidth = 2;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 5;
-		p.add(btnNewButton, gbc_btnNewButton);
+	private void Button_Internal_Aplicant(Request tamplateRequest, final JPanel p) {
+		JButton btn_Internal_Aplicant = new JButton("Звено на ДП РАО");
+		btn_Internal_Aplicant.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_Internal_Aplicant.setMargin(new Insets(2, 3, 2, 3));
+		btn_Internal_Aplicant.setPreferredSize(new Dimension(105, 23));
+		btn_Internal_Aplicant.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TranscluentWindow round = new TranscluentWindow();
+
+				if (tamplateRequest != null) {
+					if (tamplateInternalAplic != null) {
+
+						tamplateInternalAplic = tamplateRequest.getXtra_module().getInternal_applicant();
+						
+					}
+				}
+				JFrame parent = new JFrame();
+				InternalAplicantModuleView intraModView = new InternalAplicantModuleView(parent, tamplateInternalAplic, round);
+
+				tamplateInternalAplic = intraModView.getInternal_AplicFromInternalModuleView();
+				strAplicant = getStringFromIntraAplicant(tamplateInternalAplic);
+				txtArea_Aplicant.setText(strAplicant);
+			}
+
+		});
+		GridBagConstraints gbc_btn_Internal_Aplicant = new GridBagConstraints();
+		gbc_btn_Internal_Aplicant.gridwidth = 2;
+		gbc_btn_Internal_Aplicant.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_Internal_Aplicant.gridx = 2;
+		gbc_btn_Internal_Aplicant.gridy = 5;
+		p.add(btn_Internal_Aplicant, gbc_btn_Internal_Aplicant);
 	}
 
 	private void Buttom_External_Aplicant(Request tamplateRequest, final JPanel p) {
-		JButton btnNewButton_1 = new JButton("Външни клиенти");
-		btnNewButton_1.setMargin(new Insets(2, 3, 2, 3));
-		btnNewButton_1.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton_1.setPreferredSize(new Dimension(105, 23));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnExternal_Aplicant = new JButton("Външни клиенти");
+		btnExternal_Aplicant.setMargin(new Insets(2, 3, 2, 3));
+		btnExternal_Aplicant.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnExternal_Aplicant.setPreferredSize(new Dimension(105, 23));
+		btnExternal_Aplicant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TranscluentWindow round = new TranscluentWindow();
 
@@ -465,11 +487,11 @@ public class ExtraRequestView extends JFrame {
 					if (tamplateExternalAplic != null) {
 
 						tamplateExternalAplic = tamplateRequest.getXtra_module().getExternal_applicant();
-						id_xtra_ExternalAplicBDate = tamplateExternalAplic.getId_external_applicant();
+						
 					}
 				}
 				JFrame parent = new JFrame();
-				ExtraModuleView extraModView = new ExtraModuleView(parent, tamplateExternalAplic, round);
+				ExternalAplicantModuleView extraModView = new ExternalAplicantModuleView(parent, tamplateExternalAplic, round);
 
 				tamplateExternalAplic = extraModView.getExternal_AplicFromExtraModuleView();
 				strAplicant = getStringFromExtAplicant(tamplateExternalAplic);
@@ -477,12 +499,12 @@ public class ExtraRequestView extends JFrame {
 			}
 
 		});
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.gridwidth = 2;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 4;
-		gbc_btnNewButton_1.gridy = 5;
-		p.add(btnNewButton_1, gbc_btnNewButton_1);
+		GridBagConstraints gbc_btnExternal_Aplicant = new GridBagConstraints();
+		gbc_btnExternal_Aplicant.gridwidth = 2;
+		gbc_btnExternal_Aplicant.insets = new Insets(0, 0, 5, 5);
+		gbc_btnExternal_Aplicant.gridx = 4;
+		gbc_btnExternal_Aplicant.gridy = 5;
+		p.add(btnExternal_Aplicant, gbc_btnExternal_Aplicant);
 	}
 
 	private void Section_Izpitvan_Produkt(Request tamplateRequest, final JPanel p) {
@@ -928,6 +950,25 @@ public class ExtraRequestView extends JFrame {
 
 		// TODO txtFld_Count_Sample (брой на пробите)
 		Section_Text_Count_Sample(p, border);
+		
+		Button_Sample_Description(p, border);
+
+		txtArea_SampleDescription = new JTextArea();
+		txtArea_SampleDescription.setFont(font);
+		txtArea_SampleDescription.setBorder(border);
+		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
+		gbc_txtArea_SampleDescription.gridwidth = 5;
+		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
+		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
+		gbc_txtArea_SampleDescription.gridx = 1;
+		gbc_txtArea_SampleDescription.gridy = 17;
+		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
+		txtArea_SampleDescription.setEditable(false);
+
+		
+	}
+
+	private void Button_Sample_Description(final JPanel p, Border border) {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -980,25 +1021,8 @@ public class ExtraRequestView extends JFrame {
 		gbc_btn_SampleDescription.gridx = 5;
 		gbc_btn_SampleDescription.gridy = 15;
 		p.add(btn_SampleDescription, gbc_btn_SampleDescription);
-
-		txtArea_SampleDescription = new JTextArea();
-		txtArea_SampleDescription.setFont(font);
-		txtArea_SampleDescription.setBorder(border);
-		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
-		gbc_txtArea_SampleDescription.gridwidth = 5;
-		gbc_txtArea_SampleDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_txtArea_SampleDescription.fill = GridBagConstraints.BOTH;
-		gbc_txtArea_SampleDescription.gridx = 1;
-		gbc_txtArea_SampleDescription.gridy = 17;
-		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
-		txtArea_SampleDescription.setEditable(false);
-
-		Button_Sample_Description(p, border);
 	}
-
-	private void Button_Sample_Description(final JPanel p, Border border) {
-	}
-
+	
 	private void Section_Date_Execution(final JPanel p, Border border) {
 		JLabel lbl_date_execution = new JLabel("Срок за изпълнение:");
 		GridBagConstraints gbc_lbl_date_execution = new GridBagConstraints();
@@ -1223,11 +1247,11 @@ public class ExtraRequestView extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
 					txtFld_date_reception.setForeground(Color.RED);
-					corectDateTimeRequest = false;
+					corectDateReception = false;
 
 				} else {
 					txtFld_date_reception.setForeground(Color.BLACK);
-					corectDateTimeRequest = true;
+					corectDateReception = true;
 					txtFld_date_reception.setBorder(border);
 				}
 			}
@@ -1382,7 +1406,11 @@ public class ExtraRequestView extends JFrame {
 		JButton btn_save = new JButton("Запис");
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(fl_O_I_R);
+				if(tamplateExternalAplic!=null){
+				System.out.println(tamplateExternalAplic.getId_external_applicant());
+				External_applicantDAO .setValueExternal_applicant(tamplateExternalAplic);
+			}
+				
 				System.out.println(fl_Aplicant);
 				System.out.println(fl_Otclon);
 				// if (checkRequest()) {
@@ -1435,7 +1463,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_btn_Template.anchor = GridBagConstraints.EAST;
 		gbc_btn_Template.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_Template.gridx = 2;
-		gbc_btn_Template.gridy = 30;
+		gbc_btn_Template.gridy = 31;
 		p.add(btn_Template, gbc_btn_Template);
 	}
 
@@ -1638,6 +1666,17 @@ public class ExtraRequestView extends JFrame {
 					+ externalAplic.getExternal_applicant_address() + "\n Тел.: "
 					+ externalAplic.getExternal_applicant_telephone() + " \n Договор №: "
 					+ externalAplic.getExternal_applicant_contract_number();
+		}
+		return str;
+
+	}
+	
+	private String getStringFromIntraAplicant(Internal_applicant internallAplic) {
+		String str = "";
+		if (internallAplic != null) {
+			str = "Заявител:\n Звено от ДП РАО:" + internallAplic.getInternal_applicant_organization() + " \n Адрес: "
+					+ internallAplic.getInternal_applicant_address() + "\n Тел.: "
+					+ internallAplic.getInternal_applicant_telephone();
 		}
 		return str;
 

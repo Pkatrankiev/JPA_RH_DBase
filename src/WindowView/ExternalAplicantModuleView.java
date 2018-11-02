@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Dimension;
 
-public class ExtraModuleView extends JDialog {
+public class ExternalAplicantModuleView extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private String fondHeatText = "Tahoma";
@@ -44,18 +44,12 @@ public class ExtraModuleView extends JDialog {
 	private String strAdress = "";
 	private String strDogovor = "";
 	private String strTel = "";
+	private int id_ExternalAplicBDate;
 	
-	public ExtraModuleView(JFrame parent,External_applicant  tamplateExternalAplic,TranscluentWindow round) {
+	public ExternalAplicantModuleView(JFrame parent,External_applicant  tamplateExternalAplic,TranscluentWindow round) {
 				super(parent, "", true);
 				setRootPaneCheckingEnabled(false);
 		setLocationRelativeTo(null);
-		InitialExtraModuleView(tamplateExternalAplic);
-		round.StopWindow();
-		setVisible(true);
-		
-	}
-	
-	public void InitialExtraModuleView(External_applicant  tamplateExternalAplic) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,7 +66,8 @@ public class ExtraModuleView extends JDialog {
 			strAdress = tamplateExternalAplic.getExternal_applicant_address();
 			strDogovor = tamplateExternalAplic.getExternal_applicant_contract_number();
 			strTel = tamplateExternalAplic.getExternal_applicant_telephone();
-			
+			external_Aplic = tamplateExternalAplic;
+			id_ExternalAplicBDate = tamplateExternalAplic.getId_external_applicant();
 		}
 		
 		
@@ -207,10 +202,34 @@ public class ExtraModuleView extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		round.StopWindow();
+		setVisible(true);
+		
+	
 	}
 
 	public External_applicant getExternal_AplicFromExtraModuleView(){
-		
+		Boolean fl = true;
+		if(!txtArea_Adress.getText().equals(external_Aplic.getExternal_applicant_address())){
+			external_Aplic.setExternal_applicant_address(txtArea_Adress.getText());
+			fl=false;
+		}
+		if(!txtArea_Organiztion.getText().equals(external_Aplic.getExternal_applicant_name())){
+			external_Aplic.setExternal_applicant_name(txtArea_Organiztion.getText());
+			fl=false;
+		}
+		if(!txtField_Tel.getText().equals(external_Aplic.getExternal_applicant_telephone())){
+			external_Aplic.setExternal_applicant_telephone(txtField_Tel.getText());
+			fl=false;
+		}
+		if(!txtArea_Dogovor.getText().equals(external_Aplic.getExternal_applicant_contract_number())){
+			external_Aplic.setExternal_applicant_contract_number(txtArea_Dogovor.getText());
+			fl=false;
+		}
+		if(fl){
+			external_Aplic.setId_external_applicant(id_ExternalAplicBDate);
+		}
 		return external_Aplic;
 			}
 }

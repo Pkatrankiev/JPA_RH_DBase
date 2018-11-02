@@ -59,7 +59,7 @@ public class ZabelejkiDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		Zabelejki zabelejki = (Zabelejki) entitymanager.find(Zabelejki.class, id);
+		Zabelejki zabelejki = entitymanager.find(Zabelejki.class, id);
 
 		entitymanager.close();
 		emfactory.close();
@@ -77,8 +77,7 @@ public class ZabelejkiDAO {
 		}
 		return values;
 	}
-	
-	@GET
+
 	public static Zabelejki getValueZabelejkiByName(String name) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -89,9 +88,11 @@ public class ZabelejkiDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
+		@SuppressWarnings("unchecked")
+		List<Zabelejki> list = query.getResultList();
 		Zabelejki zab= null;
-		if (!query.getResultList().isEmpty()){
-		 zab = (Zabelejki) query.getSingleResult();
+		if (!list.isEmpty()){
+			zab = list.get(0);
 		}
 		entitymanager.close();
 		emfactory.close();

@@ -59,6 +59,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import WindowView.ChoiceL_I_P;
+import WindowView.ExtraRequestView;
 import WindowView.Login;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
@@ -98,9 +99,7 @@ public class TableRequestList {
 	private static int user_Id_Colum = 14;
 	
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types,TranscluentWindow round) {
 		frame = new JFrame("Списък на Заявките");
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,7 +148,11 @@ public class TableRequestList {
 
 					if (reqCodeStr.startsWith("templ")) {
 						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+						if(choiseRequest.getXtra_module()!=null){
+							new ExtraRequestView(Login.getCurentUser(), choiseRequest, round);
+						}else{
 						new RequestView(Login.getCurentUser(), choiseRequest, round);
+						}
 						frame.setVisible(false);
 
 					} else {

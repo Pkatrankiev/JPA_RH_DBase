@@ -23,12 +23,12 @@ public class Internal_applicant {
 	private String internal_applicant_address;
 	private String internal_applicant_telephone;
 	
-	public Internal_applicant(int id_internal_applicant,
+	public Internal_applicant(
+			
 			String internal_applicant_organization,
 			String internal_applicant_address, 
 			String internal_applicant_telephone) {
 		super();
-		Id_internal_applicant = id_internal_applicant;
 		this.internal_applicant_organization = internal_applicant_organization;
 		this.internal_applicant_address = internal_applicant_address;
 		this.internal_applicant_telephone = internal_applicant_telephone;
@@ -44,9 +44,8 @@ public class Internal_applicant {
 	public int getId_internal_applicant() {
 		return Id_internal_applicant;
 	}
-
-	public void setId_internal_applicant(int id_internal_applicant) {
-		Id_internal_applicant = id_internal_applicant;
+	public int setId_internal_applicant(int id_internal_applicant) {
+		return Id_internal_applicant = id_internal_applicant;
 	}
 
 	public static long getSerialversionuid() {

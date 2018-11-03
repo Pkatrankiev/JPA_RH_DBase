@@ -35,7 +35,7 @@ public class Login extends JDialog {
 	private static Users curentUser = null;
 	private List<Users> users_list = null;
 
-	public Login(Frame parent, TranscluentWindow round) {
+	public Login(Frame parent) {
 		super(parent, "Логване", true);
 		int idUser = 0;
 //		TranscluentWindow pro = new TranscluentWindow();
@@ -127,7 +127,7 @@ public class Login extends JDialog {
 			});
 		}
 		
-		round.StopWindow();
+//		round.StopWindow();
 		
 	}
 

@@ -13,6 +13,7 @@ import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
+import Aplication.OtclonenieDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -25,6 +26,7 @@ import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
+import DBase_Class.Otclonenie;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
@@ -225,6 +227,18 @@ public class RequestViewAplication {
 		return arr;
 	}
 
+	public static ArrayList<String> getStringOtclon() {
+		List<Otclonenie> list = OtclonenieDAO.getInListAllValueOtclon();
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("");
+
+		for (Otclonenie e : list) {
+			arr.add(e.getName_otclon());
+
+		}
+		return arr;
+	}
+	
 	public static String DateNaw(Boolean whiteTime) {
 		String dateNaw = null;
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);

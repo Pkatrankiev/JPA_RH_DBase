@@ -9,10 +9,12 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Aplicant;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_pokazatel;
+import DBase_Class.Otclonenie;
 import DBase_Class.Sample;
 
 public class Extra_moduleDAO {
@@ -22,10 +24,9 @@ public class Extra_moduleDAO {
 	
 	public static void setValueExtra_module(External_applicant external_applicant, 
 			Internal_applicant internal_applicant, 
+			Otclonenie otclonenie,
+			Aplicant aplicant,
 			Boolean return_samples,
-			String applicant_name,
-			String applicant_family,
-			String deviation_metod, 
 			String additional_requirements,
 			String additional_arrangements){
 		
@@ -37,9 +38,8 @@ public class Extra_moduleDAO {
 		xtra_module.setExternal_applicant(external_applicant);
 		xtra_module.setInternal_applicant(internal_applicant);
 		xtra_module.setReturn_samples(return_samples);
-		xtra_module.setApplicant_name(applicant_name);
-		xtra_module.setApplicant_family(applicant_family);
-		xtra_module.setDeviation_metod(deviation_metod);
+		xtra_module.setAplicant(aplicant);
+		xtra_module.setOtclonenie(otclonenie);
 		xtra_module.setAdditional_requirements(additional_requirements);
 		xtra_module.setAdditional_arrangements(additional_arrangements);
 		
@@ -61,6 +61,7 @@ public class Extra_moduleDAO {
 		emfactory.close();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getInListAllValueExtra_module(){
 	
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -89,6 +90,7 @@ public class Extra_moduleDAO {
 	return extra_module;
 }
 	
+	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getExtra_moduleFromColumnByVolume(String column_name, Object volume_check) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -107,16 +109,5 @@ public class Extra_moduleDAO {
 		return list;
 	}
 
-	public static void setBasicValueRequest() {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		for (int i = 1; i < 9; i++) {
-			setValueExtra_module(null,null,true, "mene","tebe","1234","additional_requirements","additional_arrangements");
-		}
-		entitymanager.close();
-		emfactory.close();
-	}
 }

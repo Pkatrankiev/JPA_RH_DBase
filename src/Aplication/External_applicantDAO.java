@@ -53,6 +53,19 @@ public class External_applicantDAO {
 		
 	}
 	
+	public static void setValueExternal_applicant(External_applicant valueEnt){
+	
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+			
+		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+		
+	}
+	
 	public static List<External_applicant> getInListAllExternalApplicant() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

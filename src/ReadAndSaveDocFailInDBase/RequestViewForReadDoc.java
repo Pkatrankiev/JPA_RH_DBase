@@ -454,7 +454,7 @@ public class RequestViewForReadDoc extends JFrame {
 //				AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
 //						choice_obekt_na_izpitvane_request.getSelectedItem());
 
-				String str = AddInChoice.getChoiceO_I_R();
+				String str = AddInChoice.getChoice();
 				for (String string : array_O_I_R) {
 					if (str.equals(string))
 						fl = true;
@@ -682,7 +682,7 @@ public class RequestViewForReadDoc extends JFrame {
 					}
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
-					textRefDate = DateChoice.get_date_time_reception();
+					textRefDate = DateChoice.get_date_time_reference();
 
 					if (DatePicker.incorrectDate(textRefDate, true))
 						txt_fid_date_time_reference.setForeground(Color.RED);
@@ -1030,7 +1030,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 				new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
 
-				String str = AddInChoice.getChoiceO_I_R();
+				String str = AddInChoice.getChoice();
 
 				// ---------------------------------------------------------
 

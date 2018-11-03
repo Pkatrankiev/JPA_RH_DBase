@@ -187,7 +187,7 @@ public class SampleViewAdd extends JDialog {
 								AddInChoice choiceO_I_R = new AddInChoice(f, comBox_O_I_S,
 										(String) comboBox_OI[l].getSelectedItem());
 
-								String str = AddInChoice.getChoiceO_I_R();
+								String str = AddInChoice.getChoice();
 
 								for (String string : comBox_O_I_S) {
 									if (str.equals(string))
@@ -323,7 +323,7 @@ public class SampleViewAdd extends JDialog {
 								date_time_reception.setVisible(true);
 
 								String textRefDate = "";
-								textRefDate = DateChoice.get_date_time_reception();
+								textRefDate = DateChoice.get_date_time_reference();
 
 								if (DatePicker.incorrectDate(textRefDate, true)) {
 									txtFld_Ref_date[l].setForeground(Color.RED);

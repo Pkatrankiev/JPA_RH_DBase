@@ -22,7 +22,11 @@ public class TableRequestTamplate {
 		int i = 0;
 		for (Request tamplateRequest : listTamplateRequest) {
 			tabletamplateRequest[i][0] = tamplateRequest.getRecuest_code();
+			if(tamplateRequest.getInd_num_doc()!=null){
 			tabletamplateRequest[i][1] = tamplateRequest.getInd_num_doc().getName();
+			}else{
+				tabletamplateRequest[i][1] ="";
+			}
 			tabletamplateRequest[i][2] = tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt();
 			tabletamplateRequest[i][3] = tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 			tabletamplateRequest[i][4] = RequestViewAplication.CreateStringListIzpPokaz(tamplateRequest, list_All_I_P);

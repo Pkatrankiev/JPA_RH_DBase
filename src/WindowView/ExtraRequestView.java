@@ -110,8 +110,11 @@ public class ExtraRequestView extends JFrame {
 	private Choice choice_izpitvan_produkt;
 	private Choice choice_obekt_na_izpitvane_request;
 	private JTextArea txtArea_list_izpitvan_pokazatel;
+	private JTextArea txtArea_dopIzis;
+	private JTextArea txtArea_DopalnDogovorenosti;
 	private JTextField txt_fid_date_time_reference;
 	private JTextArea txtArea_SampleDescription;
+	private JRadioButton rdbtn_Yes;
 	private Choice choice_Razmernost;
 	private Choice choice_otclon;
 	private JCheckBox chckbx_accreditation;
@@ -486,12 +489,8 @@ public class ExtraRequestView extends JFrame {
 				TranscluentWindow round = new TranscluentWindow();
 
 				if (tamplateRequest != null) {
-					if (tamplateExternalAplic != null) {
-
-						tamplateExternalAplic = tamplateRequest.getXtra_module().getExternal_applicant();
-						
-					}
-				}
+					tamplateExternalAplic = tamplateRequest.getXtra_module().getExternal_applicant();
+								}
 				JFrame parent = new JFrame();
 				ExternalAplicantModuleView extraModView = new ExternalAplicantModuleView(parent, tamplateExternalAplic, round);
 
@@ -1119,7 +1118,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_lblNewLabel_5.gridy = 19;
 		p.add(lblNewLabel_5, gbc_lblNewLabel_5);
 
-		JRadioButton rdbtn_Yes = new JRadioButton("Да");
+		rdbtn_Yes = new JRadioButton("Да");
 		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
 		gbc_rdbtnNewRadioButton.anchor = GridBagConstraints.EAST;
 		gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 5);
@@ -1160,24 +1159,24 @@ public class ExtraRequestView extends JFrame {
 	}
 
 	private void Section_Text_Aria_DopalnDogovorenosti(final JPanel p, Border border) {
-		JLabel label_1 = new JLabel("Допълнителни договорености:");
-		GridBagConstraints gbc_label_1 = new GridBagConstraints();
-		gbc_label_1.anchor = GridBagConstraints.WEST;
-		gbc_label_1.insets = new Insets(0, 0, 5, 5);
-		gbc_label_1.gridx = 1;
-		gbc_label_1.gridy = 24;
-		p.add(label_1, gbc_label_1);
+		JLabel lbl_DopalnDogovorenosti= new JLabel("Допълнителни договорености:");
+		GridBagConstraints gbc_lbl_DopalnDogovorenosti = new GridBagConstraints();
+		gbc_lbl_DopalnDogovorenosti.anchor = GridBagConstraints.WEST;
+		gbc_lbl_DopalnDogovorenosti.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_DopalnDogovorenosti.gridx = 1;
+		gbc_lbl_DopalnDogovorenosti.gridy = 24;
+		p.add(lbl_DopalnDogovorenosti, gbc_lbl_DopalnDogovorenosti);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textArea.setBorder(border);
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 5;
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 1;
-		gbc_textArea.gridy = 25;
-		p.add(textArea, gbc_textArea);
+		txtArea_DopalnDogovorenosti = new JTextArea();
+		txtArea_DopalnDogovorenosti.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtArea_DopalnDogovorenosti.setBorder(border);
+		GridBagConstraints gbc_txtArea_DopalnDogovorenosti = new GridBagConstraints();
+		gbc_txtArea_DopalnDogovorenosti.gridwidth = 5;
+		gbc_txtArea_DopalnDogovorenosti.insets = new Insets(0, 0, 5, 5);
+		gbc_txtArea_DopalnDogovorenosti.fill = GridBagConstraints.BOTH;
+		gbc_txtArea_DopalnDogovorenosti.gridx = 1;
+		gbc_txtArea_DopalnDogovorenosti.gridy = 25;
+		p.add(txtArea_DopalnDogovorenosti, gbc_txtArea_DopalnDogovorenosti);
 	}
 
 	private void Section_Choise_AplicantNameFamily(Request tamplateRequest, final JPanel p) {
@@ -1354,12 +1353,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_choice_otclon.gridx = 1;
 		gbc_choice_otclon.gridy = 21;
 		p.add(choice_otclon, gbc_choice_otclon);
-		
-		List<Otclonenie> list = OtclonenieDAO.getInListAllValueOtclon();
-		ArrayList<String> List<Otclonenie> masive_Otclon = new ArrayList<String>();
-		for (Otclonenie e : list) {
-			arr.add(e.getName_otclon());
-		}
+				
 		ArrayList<String> arrayOtclon = RequestViewAplication.getStringOtclon();
 		for (String string : arrayOtclon) {
 			choice_otclon.add(string);
@@ -1400,7 +1394,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_lbl_note.gridy = 22;
 		p.add(lbl_note, gbc_lbl_note);
 
-		JTextArea txtArea_dopIzis = new JTextArea();
+		txtArea_dopIzis = new JTextArea();
 		txtArea_dopIzis.setFont(font);
 		txtArea_dopIzis.setBorder(border);
 		GridBagConstraints gbc_txtArea_dopIzis = new GridBagConstraints();
@@ -1433,8 +1427,7 @@ public class ExtraRequestView extends JFrame {
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tamplateExternalAplic!=null){  
-				
-					int id_tamplateExternalAplic = External_applicantDAO.setValueExternal_applicantWhithCheck(tamplateExternalAplic);
+				int id_tamplateExternalAplic = External_applicantDAO.setValueExternal_applicantWhithCheck(tamplateExternalAplic);
 				if(id_tamplateExternalAplic<0){
 					External_applicantDAO .setValueExternal_applicant(tamplateExternalAplic);
 					System.out.println("tamplateExternalAplic.getId_external  "+tamplateExternalAplic.getId_external_applicant());
@@ -1634,6 +1627,13 @@ public class ExtraRequestView extends JFrame {
 
 	}
 
+	private void createExtraModule() {
+		String Additional_Arrangements = txtArea_dopIzis.getText();
+		String Additional_Requirements = txtArea_DopalnDogovorenosti.getText();
+		Boolean Return_Samples = rdbtn_Yes.isSelected();
+	}
+	
+	
 	private void createPreviewRequestWordDoc() {
 		request = createRequestObject();
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());

@@ -166,6 +166,14 @@ public class RequestViewAplication {
 		return arr;
 	}
 
+	public static ArrayList<String> getStringOtclon() {
+		List<Otclonenie> list = OtclonenieDAO.getInListAllValueOtclon();
+		ArrayList<String> masive_Otclon = new ArrayList<String>();
+		for (Otclonenie e : list) {
+			masive_Otclon.add(e.getName_otclon());
+		}
+		return masive_Otclon;
+	}
 	public static ArrayList<String> getStringMassiveO_I_R() {
 
 		List<Obekt_na_izpitvane_request> list = Obekt_na_izpitvane_requestDAO.getInListAllValueObekt_na_izpitvane();

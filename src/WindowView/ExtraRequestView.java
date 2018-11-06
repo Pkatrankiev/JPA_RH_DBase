@@ -30,6 +30,7 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
+import Aplication.OtclonenieDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -50,6 +51,7 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
+import DBase_Class.Otclonenie;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
@@ -570,7 +572,6 @@ public class ExtraRequestView extends JFrame {
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(205, 20));
 		array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
 		for (String string : array_O_I_R) {
-			System.out.println(string);
 			choice_obekt_na_izpitvane_request.add(string);
 		}
 		if (tamplateRequest != null) {
@@ -604,6 +605,8 @@ public class ExtraRequestView extends JFrame {
 		});
 
 		Button_Add_O_I_R(p);
+		
+		
 	}
 
 	private void Button_Add_O_I_R(final JPanel p) {
@@ -611,7 +614,14 @@ public class ExtraRequestView extends JFrame {
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				fl_O_I_R = ChoiceFrame(array_O_I_R, choice_obekt_na_izpitvane_request);
+				ChoiceFrame(array_O_I_R, choice_obekt_na_izpitvane_request);
+				for (String string : array_O_I_R) {
+					if(string.contains(choice_obekt_na_izpitvane_request.getSelectedItem())){
+						fl_O_I_R = true ;
+					}else{
+						fl_O_I_R = false;
+					}
+				}
 			}
 
 		});
@@ -1203,7 +1213,22 @@ public class ExtraRequestView extends JFrame {
 		gbc_choice_AplicantNameFamily.gridy = 26;
 		p.add(choice_AplicantNameFamily, gbc_choice_AplicantNameFamily);
 
-		JButton button = Button_Add_AplicantNameFamily(array_AplicantNameFamily);
+		Button_Add_AplicantNameFamily(p, array_AplicantNameFamily);
+		
+	}
+
+	private void Button_Add_AplicantNameFamily(final JPanel p, ArrayList<String> array_AplicantNameFamily) {
+		JButton button = new JButton("Добавяне");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ChoiceFrameNameFamily(array_AplicantNameFamily, choice_AplicantNameFamily);
+				for (String string : masive_AplicantNameFamily) {
+					if(string.contains(choice_AplicantNameFamily.getSelectedItem())){
+						fl_Aplicant = true ;
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.anchor = GridBagConstraints.NORTHWEST;
 		gbc_button.gridheight = 2;
@@ -1211,16 +1236,6 @@ public class ExtraRequestView extends JFrame {
 		gbc_button.gridx = 4;
 		gbc_button.gridy = 26;
 		p.add(button, gbc_button);
-	}
-
-	private JButton Button_Add_AplicantNameFamily(ArrayList<String> array_AplicantNameFamily) {
-		JButton button = new JButton("Добавяне");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				fl_Aplicant = ChoiceFrameNameFamily(array_AplicantNameFamily, choice_AplicantNameFamily);
-			}
-		});
-		return button;
 	}
 
 	private void Section_Date_Reception(final JPanel p, Border border) {
@@ -1339,8 +1354,17 @@ public class ExtraRequestView extends JFrame {
 		gbc_choice_otclon.gridx = 1;
 		gbc_choice_otclon.gridy = 21;
 		p.add(choice_otclon, gbc_choice_otclon);
-
-		JButton btn_add_otclon = Button_Add_Otclon();
+		
+		List<Otclonenie> list = OtclonenieDAO.getInListAllValueOtclon();
+		ArrayList<String> List<Otclonenie> masive_Otclon = new ArrayList<String>();
+		for (Otclonenie e : list) {
+			arr.add(e.getName_otclon());
+		}
+		ArrayList<String> arrayOtclon = RequestViewAplication.getStringOtclon();
+		for (String string : arrayOtclon) {
+			choice_otclon.add(string);
+		}
+		JButton btn_add_otclon = Button_Add_Otclon(arrayOtclon);
 
 		GridBagConstraints gbc_btn_add_otclon = new GridBagConstraints();
 		gbc_btn_add_otclon.anchor = GridBagConstraints.NORTHWEST;
@@ -1351,15 +1375,17 @@ public class ExtraRequestView extends JFrame {
 		p.add(btn_add_otclon, gbc_btn_add_otclon);
 	}
 
-	private JButton Button_Add_Otclon() {
+	private JButton Button_Add_Otclon(ArrayList<String> arrayOtclon) {
 		JButton btn_add_otclon = new JButton("Добавяне");
-		ArrayList<String> arrayOtclon = RequestViewAplication.getStringOtclon();
-		for (String string : arrayOtclon) {
-			choice_otclon.add(string);
-		}
+		
 		btn_add_otclon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				fl_Otclon = ChoiceFrame(arrayOtclon, choice_otclon);
+				ChoiceFrame(arrayOtclon, choice_otclon);
+				for (String string : masive_AplicantNameFamily) {
+					if(string.contains(choice_otclon.getSelectedItem())){
+						fl_Otclon = true ;
+					}
+				}
 			}
 		});
 		return btn_add_otclon;
@@ -1406,9 +1432,14 @@ public class ExtraRequestView extends JFrame {
 		JButton btn_save = new JButton("Запис");
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(tamplateExternalAplic!=null){
-				System.out.println(tamplateExternalAplic.getId_external_applicant());
-				External_applicantDAO .setValueExternal_applicant(tamplateExternalAplic);
+				if(tamplateExternalAplic!=null){  
+				
+					int id_tamplateExternalAplic = External_applicantDAO.setValueExternal_applicantWhithCheck(tamplateExternalAplic);
+				if(id_tamplateExternalAplic<0){
+					External_applicantDAO .setValueExternal_applicant(tamplateExternalAplic);
+					System.out.println("tamplateExternalAplic.getId_external  "+tamplateExternalAplic.getId_external_applicant());
+				}else{System.out.println("id_tamplateExternalAplic  "+id_tamplateExternalAplic);
+			
 			}
 				
 				System.out.println(fl_Aplicant);
@@ -1417,6 +1448,7 @@ public class ExtraRequestView extends JFrame {
 				// saveRequest_Sample_PokazatelTable("RequestObject");
 				// setVisible(false);
 				// }
+			}
 			}
 		});
 		btn_save.setPreferredSize(new Dimension(80, 23));
@@ -1682,7 +1714,8 @@ public class ExtraRequestView extends JFrame {
 
 	}
 
-	private Boolean ChoiceFrame(ArrayList<String> array_list, Choice choice_obekt) {
+	private void ChoiceFrame(ArrayList<String> array_list, Choice choice_obekt) {
+		
 		Boolean fl = false;
 		final JFrame f = new JFrame();
 		new AddInChoice(f, array_list, choice_obekt.getSelectedItem());
@@ -1696,7 +1729,10 @@ public class ExtraRequestView extends JFrame {
 			choice_obekt.add(str);
 		}
 		choice_obekt.select(str);
-		return fl;
+		
+		
+		
+		
 	}
 
 	private Boolean ChoiceFrameNameFamily(ArrayList<String> array_list, Choice choice_obekt) {

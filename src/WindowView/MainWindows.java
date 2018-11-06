@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenu;
@@ -35,10 +34,9 @@ public class MainWindows {
 	private static String loginStr = "logIn";
 	private Login loginDlg;
 	private TranscluentWindow round;
-
 	public void WindowNew() {
 		final JFrame win = new JFrame();
-
+		
 		GetVisibleLAF(win);
 
 		win.setTitle("my RHA");
@@ -91,7 +89,7 @@ public class MainWindows {
 	private JMenu createRequenseMenu() {
 		JMenu sequenseMenu = new JMenu("Заявки");
 		sequenseMenu.setMnemonic(KeyEvent.VK_Z);
-
+		
 		sequenseMenu.add(new MenuRequense_NewRequense());
 		sequenseMenu.add(new MenuRequense_NewExtraRequense());
 		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
@@ -100,6 +98,7 @@ public class MainWindows {
 		return sequenseMenu;
 	}
 
+	
 	private JMenu createDataMenu() {
 		JMenu dataMenu = new JMenu("Данни");
 		dataMenu.setMnemonic(KeyEvent.VK_D);
@@ -116,38 +115,44 @@ public class MainWindows {
 		loginMenu.setMnemonic(KeyEvent.VK_L);
 		loginMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				 round = new TranscluentWindow();
 				String textBtnLogin = loginMenu.getText();
-
+				
 				if (textBtnLogin.equals("LogOut")) {
 					round.StopWindow();
 					Login.logOut();
 					loginMenu.setText("LogIn");
 					win.setTitle("my RHA");
 				} else {
-					CountDownLatch latch = new CountDownLatch(1);
-					new Thread(new TranscluentWindow(latch)).start();
-					// latch.await();
-					System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\nasdadads");
-
-					//
-					StartLoginMenu(win, loginMenu);
-
+					 final Thread thread = new Thread(new Runnable() {
+					     @Override
+					     public void run() {
+					    	 
+					    	 StartLoginMenu(win, loginMenu);
+				    	
+					     }
+					    });
+					    thread.start();
+					
 				}
 			}
 
+	
 		});
 		return loginMenu;
 	}
-
 	private void StartLoginMenu(Frame win, JButton loginMenu) {
-
-		loginDlg = new Login(win);
-		loginDlg.setVisible(true);
-		if (loginDlg.isSucceeded()) {
+	
+			    	  loginDlg = new Login(win, round);
+				    	loginDlg.setVisible(true);
+		
+		 
+		if ( loginDlg.isSucceeded()) {
 			win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
 			loginMenu.setText("LogOut");
+
 		}
 	}
 
 }
+ 

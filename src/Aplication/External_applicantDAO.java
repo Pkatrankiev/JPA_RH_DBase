@@ -66,6 +66,23 @@ public class External_applicantDAO {
 		
 	}
 	
+	public static int setValueExternal_applicantWhithCheck(External_applicant valueEnt){
+		int id=-1;
+		List<External_applicant> list = getInListAllExternalApplicant();
+	for (External_applicant external_applicant : list) {
+		if(external_applicant.getExternal_applicant_address().contains(valueEnt.getExternal_applicant_address())
+		&& external_applicant.getExternal_applicant_contract_number().contains(valueEnt.getExternal_applicant_contract_number())
+		&& external_applicant.getExternal_applicant_name().contains(valueEnt.getExternal_applicant_name())
+		&& external_applicant.getExternal_applicant_telephone().contains(valueEnt.getExternal_applicant_telephone())
+		){
+			id = external_applicant.getId_external_applicant();
+		}
+	}
+			
+	return id;
+		
+	}
+	
 	public static List<External_applicant> getInListAllExternalApplicant() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

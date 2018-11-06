@@ -227,17 +227,7 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static ArrayList<String> getStringOtclon() {
-		List<Otclonenie> list = OtclonenieDAO.getInListAllValueOtclon();
-		ArrayList<String> arr = new ArrayList<String>();
-		arr.add("");
-
-		for (Otclonenie e : list) {
-			arr.add(e.getName_otclon());
-
-		}
-		return arr;
-	}
+	
 	
 	public static String DateNaw(Boolean whiteTime) {
 		String dateNaw = null;

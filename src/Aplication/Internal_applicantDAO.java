@@ -30,19 +30,23 @@ public class Internal_applicantDAO {
 			String internal_applicant_address, 
 			String internal_applicant_telephone)
 			{
-	
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-	
-	
+		
 		Internal_applicant valueEnt = new Internal_applicant();
 		
 		valueEnt.setInternal_applicant_organization(internal_applicant_organization);
 		valueEnt.setInternal_applicant_address(internal_applicant_address);
 		valueEnt.setInternal_applicant_telephone(internal_applicant_telephone);
 		
-		
+		setValueInternal_applicant( valueEnt);
+				
+	}
+	
+	public static void setValueInternal_applicant(Internal_applicant valueEnt){
+	
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+				
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
@@ -106,6 +110,20 @@ public class Internal_applicantDAO {
 		return list;
 	}
 
-
+	public static int setValueInternal_applicantWhithCheck(Internal_applicant valueEnt){
+		int id=-1;
+		List<Internal_applicant> list = getInListAllInternal_applicant();
+	for (Internal_applicant internal_applicant : list) {
+		if(internal_applicant.getInternal_applicant_address().contains(valueEnt.getInternal_applicant_address())
+		&& internal_applicant.getInternal_applicant_organization().contains(valueEnt.getInternal_applicant_organization())
+		&& internal_applicant.getInternal_applicant_telephone().contains(valueEnt.getInternal_applicant_telephone())
+		){
+			id = internal_applicant.getId_internal_applicant();
+		}
+	}
+			
+	return id;
+		
+	}
 
 }

@@ -12,7 +12,10 @@ public class AplicantDAO {
 
 	static String name_DBase = "JPA_RH_DBase";
 
-//	Aplicant
+	// Aplicant
+	
+	
+	
 	public static void setValueAplicant(String name, String family) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -22,14 +25,20 @@ public class AplicantDAO {
 		Aplicant valueEnt = new Aplicant();
 		valueEnt.setName_aplicant(name);
 		valueEnt.setFamily_aplicant(family);
-		
+
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
 	}
+
+	public static void setValueAplicant(String nameFamily) {
+		setValueAplicant(nameFamily.substring(0, nameFamily.indexOf(" ")), nameFamily.substring(nameFamily.indexOf(" ")+1));
+	}
+	
 	@SuppressWarnings("unchecked")
 	@GET
+
 	public static List<Aplicant> getInListAllValueAplicant() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -38,21 +47,21 @@ public class AplicantDAO {
 		List<Aplicant> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-	
+
 		return list;
 	}
-	
+
 	public static String[] getMasiveStringAllName_FamilyAplicant() {
 		List<Aplicant> list = getInListAllValueAplicant();
-	String[] values = new String[list.size()];
-	int i = 0;
-	for (Aplicant user : list) {
-		values[i] = user.getName_aplicant()+" "+user.getFamily_aplicant();
-		i++;
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Aplicant user : list) {
+			values[i] = user.getName_aplicant() + " " + user.getFamily_aplicant();
+			i++;
+		}
+		return values;
 	}
-	return values;
-	}
-	
+
 	@GET
 	@QueryParam("{id}")
 	public static Aplicant getValueAplicantById(@QueryParam("id") int id) {
@@ -80,17 +89,17 @@ public class AplicantDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-	
-		List<Aplicant> list =  query.getResultList();
+
+		List<Aplicant> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@GET
-	public static  List<Aplicant> getValueAplicantByFamily(String family) {
+	public static List<Aplicant> getValueAplicantByFamily(String family) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -100,11 +109,20 @@ public class AplicantDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", family);
-	
-		 List<Aplicant> list =  query.getResultList();
+
+		List<Aplicant> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 
 		return list;
+	}
+
+	public static Aplicant getAplicantByNameFamily(String nameFamily) {
+		for (Aplicant aplicant : getInListAllValueAplicant()) {
+			if ((aplicant.getName_aplicant() + " " + aplicant.getFamily_aplicant()).equals(nameFamily)) {
+				return aplicant;
+			}
+		}
+		return null;
 	}
 }

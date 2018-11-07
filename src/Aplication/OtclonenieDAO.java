@@ -22,7 +22,7 @@ public class OtclonenieDAO {
 		entitymanager.getTransaction().begin();
 		Otclonenie valueEnt = new Otclonenie();
 		valueEnt.setName_otclon(value);
-		;
+		
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();

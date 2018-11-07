@@ -61,6 +61,35 @@ public class Extra_moduleDAO {
 		emfactory.close();
 	}
 	
+	public static Extra_module saveAndGetExtra_module(Extra_module extra_module){
+		int id = CheckExtra_module(extra_module);
+		if(id<0){
+			setValueExtra_module(extra_module);
+			return extra_module;
+		}else{
+			return getValueExtra_moduleById(id);
+		}
+	}
+	
+	public static int CheckExtra_module(Extra_module extra_module){
+		int id_extraMod = -1;
+		List<Extra_module>  list = getInListAllValueExtra_module();
+		for (Extra_module extraModule : list) {
+			if(extra_module.getAdditional_arrangements().equals(extraModule.getAdditional_arrangements())
+					&& extra_module.getAdditional_requirements().equals(extraModule.getAdditional_requirements())
+					&& extra_module.getReturn_samples().equals(extraModule.getReturn_samples())
+					&& extra_module.getAplicant().equals(extraModule.getAplicant())
+					&& extra_module.getExternal_applicant().equals(extraModule.getExternal_applicant())
+					&& extra_module.getInternal_applicant().equals(extraModule.getInternal_applicant())
+					&& extra_module.getOtclonenie().equals(extraModule.getOtclonenie())					
+					){
+				id_extraMod = extraModule.getId_extra_module();
+				return id_extraMod;
+			}
+		}
+		return id_extraMod;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getInListAllValueExtra_module(){
 	

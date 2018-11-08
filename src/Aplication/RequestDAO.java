@@ -134,7 +134,7 @@ public class RequestDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			;
-			JOptionPane.showMessageDialog(null, "e.getMessage()", "Проблем с база данни:",
+			JOptionPane.showMessageDialog(null,  "Прблем при запис на заявка: "+ valueEnt.getRecuest_code()+"kod na ExtraMod: "+valueEnt.getExtra_module().getId_extra_module() , "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

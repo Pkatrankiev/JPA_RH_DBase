@@ -102,14 +102,19 @@ public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryPa
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
+		List<Obekt_na_izpitvane_request> list = query.getResultList();
+		if (list.isEmpty()){
 			setValueObekt_na_izpitvane(name);	
 		}
-		Obekt_na_izpitvane_request list = (Obekt_na_izpitvane_request) query.getSingleResult();
+		Obekt_na_izpitvane_request obekt_Izp_Request = new Obekt_na_izpitvane_request();
+		obekt_Izp_Request = null;
+		if(list.size()>=0){
+			obekt_Izp_Request = list.get(0);
+		}
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return obekt_Izp_Request ;
 	}
 	
 }

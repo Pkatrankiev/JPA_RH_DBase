@@ -34,7 +34,7 @@ public class ExternalAplicantModuleView extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private String fondHeatText = "Tahoma";
-	private Font font = new  Font(fondHeatText, Font.PLAIN, 11);
+	private Font font = new Font(fondHeatText, Font.PLAIN, 11);
 	private JTextField txtField_Tel;
 	private JTextArea txtArea_Organiztion;
 	private JTextArea txtArea_Adress;
@@ -45,23 +45,24 @@ public class ExternalAplicantModuleView extends JDialog {
 	private String strDogovor = "";
 	private String strTel = "";
 	private int id_ExternalAplicBDate;
-	
-	public ExternalAplicantModuleView(JFrame parent,External_applicant  tamplateExternalAplic,TranscluentWindow round) {
-				super(parent, "", true);
-				setRootPaneCheckingEnabled(false);
+
+	public ExternalAplicantModuleView(JFrame parent, External_applicant tamplateExternalAplic,
+			TranscluentWindow round) {
+		super(parent, "", true);
+		setRootPaneCheckingEnabled(false);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 77, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[] { 0, 77, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
-		
-		if(tamplateExternalAplic!=null){
+
+		if (tamplateExternalAplic != null) {
 			strOrganiz = tamplateExternalAplic.getExternal_applicant_name();
 			strAdress = tamplateExternalAplic.getExternal_applicant_address();
 			strDogovor = tamplateExternalAplic.getExternal_applicant_contract_number();
@@ -69,8 +70,7 @@ public class ExternalAplicantModuleView extends JDialog {
 			external_Aplic = tamplateExternalAplic;
 			id_ExternalAplicBDate = tamplateExternalAplic.getId_external_applicant();
 		}
-		
-		
+
 		{
 			JLabel lblNewLabel = new JLabel("Заявител:");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -177,11 +177,8 @@ public class ExternalAplicantModuleView extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						external_Aplic = new External_applicant(
-								txtArea_Organiztion.getText(), 
-								txtArea_Adress.getText(), 
-								txtField_Tel.getText(),
-								txtArea_Dogovor.getText());
+						external_Aplic = new External_applicant(txtArea_Organiztion.getText().trim(), txtArea_Adress.getText().trim(),
+								txtField_Tel.getText().trim(), txtArea_Dogovor.getText().trim());
 						dispose();
 					}
 				});
@@ -193,7 +190,7 @@ public class ExternalAplicantModuleView extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+
 						external_Aplic = tamplateExternalAplic;
 						dispose();
 					}
@@ -202,34 +199,18 @@ public class ExternalAplicantModuleView extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
+
 		round.StopWindow();
 		setVisible(true);
-		
-	
+
 	}
 
-	public External_applicant getExternal_AplicFromExtraModuleView(){
-		Boolean fl = true;
-		if(!txtArea_Adress.getText().equals(external_Aplic.getExternal_applicant_address())){
-			external_Aplic.setExternal_applicant_address(txtArea_Adress.getText());
-			fl=false;
+	public External_applicant getExternal_AplicFromExtraModuleView() {
+		if (txtArea_Adress.getText().trim().isEmpty() && txtArea_Organiztion.getText().trim().isEmpty()
+				&& txtField_Tel.getText().trim().isEmpty() && txtArea_Dogovor.getText().trim().isEmpty()) {
+			external_Aplic = null;
 		}
-		if(!txtArea_Organiztion.getText().equals(external_Aplic.getExternal_applicant_name())){
-			external_Aplic.setExternal_applicant_name(txtArea_Organiztion.getText());
-			fl=false;
-		}
-		if(!txtField_Tel.getText().equals(external_Aplic.getExternal_applicant_telephone())){
-			external_Aplic.setExternal_applicant_telephone(txtField_Tel.getText());
-			fl=false;
-		}
-		if(!txtArea_Dogovor.getText().equals(external_Aplic.getExternal_applicant_contract_number())){
-			external_Aplic.setExternal_applicant_contract_number(txtArea_Dogovor.getText());
-			fl=false;
-		}
-		if(fl){
-			external_Aplic.setId_external_applicant(id_ExternalAplicBDate);
-		}
+
 		return external_Aplic;
-			}
+	}
 }

@@ -40,7 +40,7 @@ public class InternalAplicantModuleView extends JDialog {
 	private JTextArea txtArea_Organiztion;
 	private JTextArea txtArea_Adress;
 	
-	private Internal_applicant internal_Aplic;
+	private Internal_applicant internal_Aplic = null;
 	private String strOrganiz = "";
 	private String strAdress = "";
 
@@ -158,9 +158,9 @@ public class InternalAplicantModuleView extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						internal_Aplic = new Internal_applicant(
-								txtArea_Organiztion.getText(), 
-								txtArea_Adress.getText(), 
-								txtField_Tel.getText());
+								txtArea_Organiztion.getText().trim(), 
+								txtArea_Adress.getText().trim(), 
+								txtField_Tel.getText().trim());
 						dispose();
 					}
 				});
@@ -189,21 +189,9 @@ public class InternalAplicantModuleView extends JDialog {
 	}
 
 	public Internal_applicant getInternal_AplicFromInternalModuleView(){
-		Boolean fl = true;
-		if(!txtArea_Adress.getText().equals(internal_Aplic.getInternal_applicant_address())){
-			internal_Aplic.setInternal_applicant_address(txtArea_Adress.getText());
-			fl=false;
-		}
-		if(!txtArea_Organiztion.getText().equals(internal_Aplic.getInternal_applicant_organization())){
-			internal_Aplic.setInternal_applicant_organization(txtArea_Organiztion.getText());
-			fl=false;
-		}
-		if(!txtField_Tel.getText().equals(internal_Aplic.getInternal_applicant_telephone())){
-			internal_Aplic.setInternal_applicant_telephone(txtField_Tel.getText());
-			fl=false;
-		}
-		if(fl){
-			internal_Aplic.setId_internal_applicant(id_InternalAplicBDate);
+		if (txtArea_Adress.getText().trim().isEmpty() && txtArea_Organiztion.getText().trim().isEmpty()
+				&& txtField_Tel.getText().trim().isEmpty()) {
+			internal_Aplic = null;
 		}
 		return internal_Aplic;
 		

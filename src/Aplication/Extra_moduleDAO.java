@@ -74,21 +74,73 @@ public class Extra_moduleDAO {
 	public static int CheckExtra_module(Extra_module extra_module){
 		int id_extraMod = -1;
 		List<Extra_module>  list = getInListAllValueExtra_module();
+		Boolean fl = true;
 		for (Extra_module extraModule : list) {
-			if(extra_module.getAdditional_arrangements().equals(extraModule.getAdditional_arrangements())
-					&& extra_module.getAdditional_requirements().equals(extraModule.getAdditional_requirements())
-					&& extra_module.getReturn_samples().equals(extraModule.getReturn_samples())
-					&& extra_module.getAplicant().equals(extraModule.getAplicant())
-					&& extra_module.getExternal_applicant().equals(extraModule.getExternal_applicant())
-					&& extra_module.getInternal_applicant().equals(extraModule.getInternal_applicant())
-					&& extra_module.getOtclonenie().equals(extraModule.getOtclonenie())					
-					){
+			fl=true;
+			if(!extra_module.getAdditional_arrangements().equals(extraModule.getAdditional_arrangements())){
+				fl=false;
+				System.out.println("Additional_arrangements "+fl);
+			}
+			if( !extra_module.getAdditional_requirements().equals(extraModule.getAdditional_requirements())){
+				fl=false;	
+				System.out.println("Additional_requirements "+fl);
+					}
+			if( extra_module.getReturn_samples()!=extraModule.getReturn_samples()){
+				fl=false;	
+				System.out.println("Return_samples "+fl);
+					}
+			if( extra_module.getAplicant().getId_aplicant() != extraModule.getAplicant().getId_aplicant()){
+				fl=false;
+				System.out.println("Aplicant "+fl);
+					}
+			
+			
+			if(extra_module.getExternal_applicant()!=null && extraModule.getExternal_applicant()!=null){
+			
+			if(!extra_module.getExternal_applicant().equals(extraModule.getExternal_applicant())){
+				fl=false;
+				System.out.println("External_applicant "+fl);
+					}
+			}else{
+				if(extra_module.getExternal_applicant()==null && extraModule.getExternal_applicant()==null){
+				
+			}else{
+				fl=false;
+				System.out.println("External_applicant "+fl);
+			}
+			}
+			
+				if(extra_module.getInternal_applicant()!=null && extraModule.getInternal_applicant()!=null){
+					
+					if(!extra_module.getInternal_applicant().equals(extraModule.getInternal_applicant())){
+						fl=false;
+						System.out.println("getInternal_applicant "+fl);
+							}
+					}else{
+						if(extra_module.getInternal_applicant()==null && extraModule.getInternal_applicant()==null){
+							
+					}else{
+						fl=false;
+						System.out.println("getInternal_applicant "+fl);
+					}
+					}
+			if( extra_module.getOtclonenie().getId_otclon() != extraModule.getOtclonenie().getId_otclon()){
+				fl=false;
+				System.out.println("getOtclonenie "+fl);
+					}
+			
+			if(fl){
+								
 				id_extraMod = extraModule.getId_extra_module();
 				return id_extraMod;
 			}
-		}
+			}
 		return id_extraMod;
-	}
+		}
+	
+	
+		
+	
 	
 	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getInListAllValueExtra_module(){

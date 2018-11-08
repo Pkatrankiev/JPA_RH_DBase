@@ -23,8 +23,8 @@ public class Request implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_recuest;
-	 @Column(name = "recuest_code", unique=true)
-	 private String recuest_code;
+
+	private String recuest_code;
 	private String date_request;
 	private Boolean accreditation;
 	private Boolean section;
@@ -75,7 +75,7 @@ public class Request implements Serializable {
 		this.date_request = date_request;
 		this.accreditation = accreditation;
 		this.section = section;
-		this.extra_module = extra_module;
+		this.extra_module = xtra_module;
 			
 		this.counts_samples = counts_samples;
 		this.description_sample_group = description_sample_group;
@@ -92,144 +92,141 @@ public class Request implements Serializable {
 	 public Request(){
 		 super( );
 		 }
-	 
-			
-			
-	 
-	public Obekt_na_izpitvane_request getObekt_na_izpitvane_request() {
-			return obekt_na_izpitvane_request;
-		}
 
-		public void setObekt_na_izpitvane_request(Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
-			this.obekt_na_izpitvane_request = obekt_na_izpitvane_request;
-		}
-
-		public void setId_recuest(int id_recuest) {
-			Id_recuest = id_recuest;
-		}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public int getId_recuest() {
 		return Id_recuest;
 	}
 
-	
 	public String getRecuest_code() {
 		return recuest_code;
-	}
-
-	public void setRecuest_code(String recuest_code) {
-		this.recuest_code = recuest_code;
 	}
 
 	public String getDate_request() {
 		return date_request;
 	}
 
-	public void setDate_request(String date_request) {
-		this.date_request = date_request;
-	}
-
 	public Boolean getAccreditation() {
 		return accreditation;
 	}
 
-	public void setAccreditation(Boolean accreditation) {
-		this.accreditation = accreditation;
-	}
-	
-	
 	public Boolean getSection() {
 		return section;
 	}
 
-	public void setSection(Boolean section) {
-		this.section = section;
-	}
-	
-		
 	public int getCounts_samples() {
 		return counts_samples;
-	}
-
-	public void setCounts_samples(int number_samples) {
-		this.counts_samples = number_samples;
 	}
 
 	public String getDescription_sample_group() {
 		return description_sample_group;
 	}
 
-	public void setDescription_sample_group(String description_sample_group) {
-		this.description_sample_group = description_sample_group;
-	}
-
 	public String getDate_reception() {
 		return date_reception;
-	}
-
-	public void setDate_reception(String date_time_reception) {
-		this.date_reception = date_time_reception;
-	}
-
-	public Ind_num_doc getInd_num_doc() {
-		return ind_num_doc;
-	}
-
-	public void setInd_num_doc(Ind_num_doc ind_num_doc) {
-		this.ind_num_doc = ind_num_doc;
-	}
-
-	public Izpitvan_produkt getIzpitvan_produkt() {
-		return izpitvan_produkt;
-	}
-
-	public void setIzpitvan_produkt(Izpitvan_produkt izpitvan_produkt) {
-		this.izpitvan_produkt = izpitvan_produkt;
-	}
-
-	public Razmernosti getRazmernosti() {
-		return razmernosti;
-	}
-
-	public void setRazmernosti(Razmernosti razmernosti) {
-		this.razmernosti = razmernosti;
-	}
-
-	public Zabelejki getZabelejki() {
-		return zabelejki;
-	}
-
-	public void setZabelejki(Zabelejki zabelejki) {
-		this.zabelejki = zabelejki;
-	}
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-
-	
-	public Extra_module getXtra_module() {
-		return extra_module;
-	}
-
-	public void setExtra_module(Extra_module xtra_module) {
-		this.extra_module = extra_module;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public String getDate_execution() {
 		return date_execution;
 	}
 
+	public Extra_module getExtra_module() {
+		return extra_module;
+	}
+
+	public Ind_num_doc getInd_num_doc() {
+		return ind_num_doc;
+	}
+
+	public Izpitvan_produkt getIzpitvan_produkt() {
+		return izpitvan_produkt;
+	}
+
+	public Razmernosti getRazmernosti() {
+		return razmernosti;
+	}
+
+	public Zabelejki getZabelejki() {
+		return zabelejki;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public Obekt_na_izpitvane_request getObekt_na_izpitvane_request() {
+		return obekt_na_izpitvane_request;
+	}
+
+	public void setId_recuest(int id_recuest) {
+		Id_recuest = id_recuest;
+	}
+
+	public void setRecuest_code(String recuest_code) {
+		this.recuest_code = recuest_code;
+	}
+
+	public void setDate_request(String date_request) {
+		this.date_request = date_request;
+	}
+
+	public void setAccreditation(Boolean accreditation) {
+		this.accreditation = accreditation;
+	}
+
+	public void setSection(Boolean section) {
+		this.section = section;
+	}
+
+	public void setCounts_samples(int counts_samples) {
+		this.counts_samples = counts_samples;
+	}
+
+	public void setDescription_sample_group(String description_sample_group) {
+		this.description_sample_group = description_sample_group;
+	}
+
+	public void setDate_reception(String date_reception) {
+		this.date_reception = date_reception;
+	}
+
 	public void setDate_execution(String date_execution) {
 		this.date_execution = date_execution;
 	}
+
+	public void setExtra_module(Extra_module extra_module) {
+		this.extra_module = extra_module;
+	}
+
+	public void setInd_num_doc(Ind_num_doc ind_num_doc) {
+		this.ind_num_doc = ind_num_doc;
+	}
+
+	public void setIzpitvan_produkt(Izpitvan_produkt izpitvan_produkt) {
+		this.izpitvan_produkt = izpitvan_produkt;
+	}
+
+	public void setRazmernosti(Razmernosti razmernosti) {
+		this.razmernosti = razmernosti;
+	}
+
+	public void setZabelejki(Zabelejki zabelejki) {
+		this.zabelejki = zabelejki;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	public void setObekt_na_izpitvane_request(Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
+		this.obekt_na_izpitvane_request = obekt_na_izpitvane_request;
+	}
+	 
+			
+			
+	 
 	
 }

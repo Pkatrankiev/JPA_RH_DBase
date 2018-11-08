@@ -10,7 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Otclonenie;
-import DBase_Class.Zabelejki;
+
 
 public class OtclonenieDAO {
 	static String name_DBase = "JPA_RH_DBase";
@@ -34,6 +34,7 @@ public class OtclonenieDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Otclonenie e");
+		@SuppressWarnings("unchecked")
 		List<Otclonenie> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -75,10 +76,11 @@ public class OtclonenieDAO {
 		String hql = "SELECT e FROM Otclonenie e WHERE e.name = :text";
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-
+		@SuppressWarnings("unchecked")
+		List<Otclonenie> list = query.getResultList();
 		Otclonenie otclon = null;
-		if (!query.getResultList().isEmpty()) {
-			otclon = (Otclonenie) query.getSingleResult();
+		if (list.size()>=0) {
+			otclon = list.get(0);
 		}
 		entitymanager.close();
 		emfactory.close();

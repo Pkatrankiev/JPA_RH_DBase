@@ -140,7 +140,7 @@ public class TableRequestList {
 					AddInUpdateList(rowPokazatel);
 				}
 
-				if (e.getClickCount() == 4 && table.getSelectedRow() != -1) {
+				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
 
 					int row = table.getSelectedRow();
 					int col = table.getSelectedColumn();
@@ -148,7 +148,7 @@ public class TableRequestList {
 
 					if (reqCodeStr.startsWith("templ")) {
 						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-						if(choiseRequest.getXtra_module()!=null){
+						if(choiseRequest.getExtra_module()!=null){
 							new ExtraRequestView(Login.getCurentUser(), choiseRequest, round);
 						}else{
 						new RequestView(Login.getCurentUser(), choiseRequest, round);

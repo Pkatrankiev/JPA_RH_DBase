@@ -34,13 +34,13 @@ public class RequestMiniFrame extends JDialog {
 				String obekt_I_Request = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 				String countSample = request.getCounts_samples()+"";
 				String applicant = "";
-				if (request.getXtra_module()==null) {
+				if (request.getExtra_module()==null) {
 					applicant = "ÄÏ \"ÐÀÎ\"";	
 				}else{
-					if (request.getXtra_module().getInternal_applicant()!=null) {
-						applicant = request.getXtra_module().getInternal_applicant().getInternal_applicant_organization();
+					if (request.getExtra_module().getInternal_applicant()!=null) {
+						applicant = request.getExtra_module().getInternal_applicant().getInternal_applicant_organization();
 				}else{
-					applicant = request.getXtra_module().getExternal_applicant().getExternal_applicant_name();
+					applicant = request.getExtra_module().getExternal_applicant().getExternal_applicant_name();
 				}
 				}
 				GridBagLayout gridBagLayout = new GridBagLayout();

@@ -32,13 +32,21 @@ public class AplicantDAO {
 		emfactory.close();
 	}
 
-	public static void setValueAplicant(String nameFamily) {
+	public static void saveValueAplicantWitchCheck(String nameFamily) {
+		String[] masive_AplicantNameFamily = getMasiveStringAllName_FamilyAplicant();
+		Boolean fl_Aplicant = false;
+		for (String string : masive_AplicantNameFamily) {
+			if (string.equals(nameFamily)) {
+				fl_Aplicant = true;
+			}
+		}
+		if(!fl_Aplicant){
 		setValueAplicant(nameFamily.substring(0, nameFamily.indexOf(" ")), nameFamily.substring(nameFamily.indexOf(" ")+1));
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	@GET
-
 	public static List<Aplicant> getInListAllValueAplicant() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

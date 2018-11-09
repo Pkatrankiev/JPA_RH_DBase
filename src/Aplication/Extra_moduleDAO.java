@@ -97,7 +97,7 @@ public class Extra_moduleDAO {
 			
 			if(extra_module.getExternal_applicant()!=null && extraModule.getExternal_applicant()!=null){
 			
-			if(!extra_module.getExternal_applicant().equals(extraModule.getExternal_applicant())){
+			if(extra_module.getExternal_applicant().getId_external_applicant() != extraModule.getExternal_applicant().getId_external_applicant()){
 				fl=false;
 				System.out.println("External_applicant "+fl);
 					}
@@ -112,7 +112,7 @@ public class Extra_moduleDAO {
 			
 				if(extra_module.getInternal_applicant()!=null && extraModule.getInternal_applicant()!=null){
 					
-					if(!extra_module.getInternal_applicant().equals(extraModule.getInternal_applicant())){
+					if(extra_module.getInternal_applicant().getId_internal_applicant() != extraModule.getInternal_applicant().getId_internal_applicant()){
 						fl=false;
 						System.out.println("getInternal_applicant "+fl);
 							}

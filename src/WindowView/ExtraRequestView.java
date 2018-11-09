@@ -131,9 +131,7 @@ public class ExtraRequestView extends JFrame {
 	private Internal_applicant internalAplic = null;
 	private String[] masive_AplicantNameFamily;
 	private Choice choice_AplicantNameFamily;
-	private Boolean fl_Otclon = false;
-	private Boolean fl_Aplicant = false;
-	private Boolean fl_O_I_R = false;
+
 	private JPanel p_1;
 
 	public ExtraRequestView(Users user, Request tamplateRequest, TranscluentWindow round) {
@@ -622,13 +620,7 @@ public class ExtraRequestView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ChoiceFrame(array_O_I_R, choice_obekt_na_izpitvane_request);
-				for (String string : array_O_I_R) {
-					if (string.contains(choice_obekt_na_izpitvane_request.getSelectedItem())) {
-						fl_O_I_R = true;
-					} else {
-						fl_O_I_R = false;
-					}
-				}
+			
 			}
 
 		});
@@ -1225,15 +1217,11 @@ public class ExtraRequestView extends JFrame {
 
 	private void Button_Add_AplicantNameFamily(final JPanel p, ArrayList<String> array_AplicantNameFamily) {
 		JButton button = new JButton("Добавяне");
-		fl_Aplicant = false;
+		
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ChoiceFrameNameFamily(array_AplicantNameFamily, choice_AplicantNameFamily);
-				for (String string : masive_AplicantNameFamily) {
-					if (string.contains(choice_AplicantNameFamily.getSelectedItem())) {
-						fl_Aplicant = true;
-					}
-				}
+			
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -1379,41 +1367,14 @@ public class ExtraRequestView extends JFrame {
 
 	private JButton Button_Add_Otclon(ArrayList<String> arrayOtclon) {
 		JButton btn_add_otclon = new JButton("Добавяне");
-		fl_Otclon = false;
 		btn_add_otclon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ChoiceFrame(arrayOtclon, choice_otclon);
-				for (String string : masive_AplicantNameFamily) {
-					if (string.contains(choice_otclon.getSelectedItem())) {
-						fl_Otclon = true;
-					}
-				}
-			}
+						}
 		});
 		return btn_add_otclon;
 	}
-
-	private void addNewObjectOtclonenieInDBase() {
-
-		if (!fl_Otclon) {
-			OtclonenieDAO.setValueOtclon(choice_otclon.getSelectedItem());
-		}
-	}
-
-	private void addNewObjectAplicantInDBase() {
-
-		if (!fl_Aplicant) {
-			AplicantDAO.setValueAplicant(choice_AplicantNameFamily.getSelectedItem());
-		}
-	}
-
-	private void addNewObjectO_I_RInDBase() {
-
-		if (!fl_O_I_R) {
-			Obekt_na_izpitvane_requestDAO
-					.setValueObekt_na_izpitvane(choice_obekt_na_izpitvane_request.getSelectedItem());
-		}
-	}
+	
 
 	private void Section_DopalnIziskv(final JPanel p, Border border) {
 		JLabel lbl_note = new JLabel("Допълнителни изисквания на клиента:");
@@ -1458,12 +1419,13 @@ public class ExtraRequestView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (checkRequest()) {
-					addNewObjectOtclonenieInDBase();
-					addNewObjectAplicantInDBase();
-					addNewObjectO_I_RInDBase();
-					Request recuest = createAndSaveRequest();
+					OtclonenieDAO.saveOtclonWitchCheck(choice_otclon.getSelectedItem());
+					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
+					Obekt_na_izpitvane_requestDAO
+					.saveValueObekt_na_izpitvaneWitchCheck(choice_obekt_na_izpitvane_request.getSelectedItem());
+					request =  createAndSaveRequest();
 					saveSample();
-					SaveIzpitvanPokazatel(recuest);
+					SaveIzpitvanPokazatel();
 					setVisible(false);
 				}
 			}
@@ -1502,13 +1464,14 @@ public class ExtraRequestView extends JFrame {
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					addNewObjectOtclonenieInDBase();
-					addNewObjectAplicantInDBase();
-					addNewObjectO_I_RInDBase();
+					OtclonenieDAO.saveOtclonWitchCheck(choice_otclon.getSelectedItem());
+					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
+					Obekt_na_izpitvane_requestDAO
+					.saveValueObekt_na_izpitvaneWitchCheck(choice_obekt_na_izpitvane_request.getSelectedItem());
 					
-					Request recuest = createAndSaveRequestTamplate();
+					request =  createAndSaveRequestTamplate();
 					saveSample();
-					SaveIzpitvanPokazatel(recuest);
+					SaveIzpitvanPokazatel();
 					setVisible(false);
 				}
 
@@ -1604,7 +1567,7 @@ public class ExtraRequestView extends JFrame {
 		return saveCheck;
 	}
 
-	private void SaveIzpitvanPokazatel(Request request) {
+	private void SaveIzpitvanPokazatel() {
 		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
 			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
@@ -1702,7 +1665,7 @@ public class ExtraRequestView extends JFrame {
 			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
 					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
 
-			SampleDAO.setValueSample(masiveSampleValue[i][0], masiveSampleValue[i][2], masiveSampleValue[i][3], request,
+			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()), masiveSampleValue[i][2], masiveSampleValue[i][3], request,
 					obectNaIzpitvaneSample, period, Integer.valueOf(masiveSampleValue[i][5]));
 
 		}

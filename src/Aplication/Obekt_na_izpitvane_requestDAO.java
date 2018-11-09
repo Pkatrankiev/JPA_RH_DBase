@@ -36,7 +36,7 @@ public static void setBasicValueObekt_na_izpitvane(){
 		entitymanager.getTransaction().begin();
 		Obekt_na_izpitvane_request valueEnt = new Obekt_na_izpitvane_request();
 		valueEnt.setName_obekt_na_izpitvane(value);
-		;
+		
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
@@ -117,4 +117,17 @@ public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryPa
 		return obekt_Izp_Request ;
 	}
 	
+	public static void saveValueObekt_na_izpitvaneWitchCheck(String value) {
+		String [] masive_Obekt_na_izpitvane =  getMasiveStringAllValueObekt_na_izpitvane();
+		
+		Boolean fl_Obekt_na_izpitvane = false;
+		for (String string : masive_Obekt_na_izpitvane) {
+			if (string.equals(value)) {
+				fl_Obekt_na_izpitvane = true;
+			}
+		}
+		if(!fl_Obekt_na_izpitvane){
+			setValueObekt_na_izpitvane( value);	
+		}
+	}
 }

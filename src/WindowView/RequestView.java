@@ -1469,7 +1469,7 @@ public class RequestView extends JFrame {
 			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
 					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
 
-			SampleDAO.setValueSample(masiveSampleValue[i][0], masiveSampleValue[i][2], masiveSampleValue[i][3], request,
+			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()), masiveSampleValue[i][2], masiveSampleValue[i][3], request,
 					obectNaIzpitvaneSample, period, Integer.valueOf(masiveSampleValue[i][5]));
 
 		}

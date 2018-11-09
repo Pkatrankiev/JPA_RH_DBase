@@ -88,4 +88,16 @@ public class OtclonenieDAO {
 		return otclon;
 	}
 
+	public static void saveOtclonWitchCheck(String value) {
+		String[] masive_Otclon = getMasiveStringAllValueOtclon();
+		Boolean fl_Otclon = false;
+		for (String string : masive_Otclon) {
+			if (string.equals(value)) {
+				fl_Otclon = true;
+			}
+		}
+		if(!fl_Otclon){
+			setValueOtclon( value);
+	}
+	}
 }

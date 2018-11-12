@@ -67,6 +67,7 @@ public class OtclonenieDAO {
 		return values;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public static Otclonenie getValueOtclonByName(String name) {
 
@@ -76,16 +77,18 @@ public class OtclonenieDAO {
 		String hql = "SELECT e FROM Otclonenie e WHERE e.name = :text";
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		@SuppressWarnings("unchecked")
+		
 		List<Otclonenie> list = query.getResultList();
-		Otclonenie otclon = null;
-		if (list.size()>=0) {
-			otclon = list.get(0);
+		
+		if (list.isEmpty()){
+			setValueOtclon(name);
+		 list = query.getResultList();
 		}
+	
 		entitymanager.close();
 		emfactory.close();
 
-		return otclon;
+		return list.get(0);
 	}
 
 	public static void saveOtclonWitchCheck(String value) {

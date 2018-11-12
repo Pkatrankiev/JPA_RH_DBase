@@ -1,4 +1,4 @@
-package DBase_Class;
+package Aplication;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -7,6 +7,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
+
+import DBase_Class.Aplicant;
 
 public class AplicantDAO {
 

@@ -545,7 +545,7 @@ public class RequestView extends JFrame {
 				Boolean fl = false;
 				 final JFrame f = new JFrame();
 
-				 AddInChoice choiceO_I_R = new AddInChoice(f, array_O_I_R,
+				 new AddInChoice(f, array_O_I_R,
 				 choice_obekt_na_izpitvane_request.getSelectedItem());
 
 				String str = AddInChoice.getChoice();
@@ -1398,15 +1398,15 @@ public class RequestView extends JFrame {
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-		int countOld, coundNew;
-		coundNew = array_O_I_R.size();
-		countOld = RequestViewAplication.getStringMassiveO_I_R().size();
-		System.out.println(coundNew + " " + countOld);
-		if (countOld != coundNew) {
-			for (int i = countOld; i < coundNew; i++) {
-				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
-			}
-		}
+//		int countOld, coundNew;
+//		coundNew = array_O_I_R.size();
+//		countOld = RequestViewAplication.getStringMassiveO_I_R().size();
+//		System.out.println(coundNew + " " + countOld);
+//		if (countOld != coundNew) {
+//			for (int i = countOld; i < coundNew; i++) {
+//				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
+//			}
+//		}
 		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_reception.getText(),
@@ -1443,15 +1443,6 @@ public class RequestView extends JFrame {
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-		int countOld, coundNew;
-		coundNew = array_O_I_R.size();
-		countOld = RequestViewAplication.getStringMassiveO_I_R().size();
-		System.out.println(coundNew + " " + countOld);
-		if (countOld != coundNew) {
-			for (int i = countOld; i < coundNew; i++) {
-				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
-			}
-		}
 		String str_templ = RequestViewAplication.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,

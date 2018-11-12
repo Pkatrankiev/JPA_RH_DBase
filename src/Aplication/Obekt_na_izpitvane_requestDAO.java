@@ -91,6 +91,7 @@ public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryPa
 	return obekt_na_izpitvane;
 }
 	
+	@SuppressWarnings("unchecked")
 	@GET
 	public static Obekt_na_izpitvane_request getValueObekt_na_izpitvane_requestByName(String name) {
 
@@ -102,19 +103,17 @@ public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryPa
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
+		
 		List<Obekt_na_izpitvane_request> list = query.getResultList();
 		if (list.isEmpty()){
-			setValueObekt_na_izpitvane(name);	
+			setValueObekt_na_izpitvane(name);
+		 list = query.getResultList();
 		}
-		Obekt_na_izpitvane_request obekt_Izp_Request = new Obekt_na_izpitvane_request();
-		obekt_Izp_Request = null;
-		if(list.size()>=0){
-			obekt_Izp_Request = list.get(0);
-		}
+
 		entitymanager.close();
 		emfactory.close();
 
-		return obekt_Izp_Request ;
+		return list.get(0);
 	}
 	
 	public static void saveValueObekt_na_izpitvaneWitchCheck(String value) {

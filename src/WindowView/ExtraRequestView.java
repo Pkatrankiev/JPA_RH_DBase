@@ -37,12 +37,12 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
 import Aplication.GlobalVariable;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Aplicant;
-import DBase_Class.AplicantDAO;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -1419,10 +1419,7 @@ public class ExtraRequestView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (checkRequest()) {
-					OtclonenieDAO.saveOtclonWitchCheck(choice_otclon.getSelectedItem());
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
-					Obekt_na_izpitvane_requestDAO
-					.saveValueObekt_na_izpitvaneWitchCheck(choice_obekt_na_izpitvane_request.getSelectedItem());
 					request =  createAndSaveRequest();
 					saveSample();
 					SaveIzpitvanPokazatel();
@@ -1464,11 +1461,9 @@ public class ExtraRequestView extends JFrame {
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					OtclonenieDAO.saveOtclonWitchCheck(choice_otclon.getSelectedItem());
-					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
-					Obekt_na_izpitvane_requestDAO
-					.saveValueObekt_na_izpitvaneWitchCheck(choice_obekt_na_izpitvane_request.getSelectedItem());
 					
+					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
+						
 					request =  createAndSaveRequestTamplate();
 					saveSample();
 					SaveIzpitvanPokazatel();
@@ -1580,20 +1575,15 @@ public class ExtraRequestView extends JFrame {
 
 		Izpitvan_produkt izpitvan_produkt = Izpitvan_produktDAO
 				.getValueIzpitvan_produktByName(choice_izpitvan_produkt.getSelectedItem());
+		
 		Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
+		
 		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
+		
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-		int countOld, coundNew;
-		coundNew = array_O_I_R.size();
-		countOld = RequestViewAplication.getStringMassiveO_I_R().size();
-		System.out.println(coundNew + " " + countOld);
-		if (countOld != coundNew) {
-			for (int i = countOld; i < coundNew; i++) {
-				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
-			}
-		}
+
 		Extra_module extra_mod = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
 			
 		Request recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),

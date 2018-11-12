@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import DBase_Class.AplicantDAO;
+import Aplication.AplicantDAO;
 import WindowView.AddInChoice;
 import WindowView.AddInChoiceNameFamily;
 

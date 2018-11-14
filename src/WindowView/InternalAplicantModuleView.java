@@ -15,6 +15,9 @@ import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Request;
 import DBase_Class.Users;
+import Table.TableInternalApplicantList;
+import Table.Table_Internal_ApplicantList;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -26,6 +29,7 @@ import Aplication.External_applicantDAO;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -48,8 +52,10 @@ public class InternalAplicantModuleView extends JDialog {
 	private int id_InternalAplicBDate;
 	
 	public InternalAplicantModuleView(JFrame parent,Internal_applicant  tamplateInternalAplic,TranscluentWindow round) {
-				super(parent, "", true);
-				setRootPaneCheckingEnabled(false);
+				super(parent, "");
+				setModal(true);
+//				setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+				pack();
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -141,12 +147,46 @@ public class InternalAplicantModuleView extends JDialog {
 			txtField_Tel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 			txtField_Tel.setFont(font);
 			GridBagConstraints gbc_txtField_Tel = new GridBagConstraints();
-			gbc_txtField_Tel.insets = new Insets(0, 0, 5, 0);
+			gbc_txtField_Tel.insets = new Insets(0, 0, 5, 5);
 			gbc_txtField_Tel.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtField_Tel.gridx = 1;
 			gbc_txtField_Tel.gridy = 5;
 			contentPanel.add(txtField_Tel, gbc_txtField_Tel);
 			txtField_Tel.setColumns(10);
+		}
+		{
+			JLabel lblNewLabel_1 = new JLabel("Вмъкване от списък:                   ");
+			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
+			gbc_lblNewLabel_1.gridx = 2;
+			gbc_lblNewLabel_1.gridy = 6;
+			contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		}
+		{
+			JButton btnNewButton = new JButton("Прочети");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					TranscluentWindow round = new TranscluentWindow();
+					 final Thread thread = new Thread(new Runnable() {
+					     @Override
+					     public void run() {
+					    	 JDialog dialog = new JDialog();
+					    	 TableInternalApplicantList tabIntApplic = new TableInternalApplicantList(dialog, round, Login.getCurentUser());
+
+					    	
+					     }
+					    });
+					    thread.start();
+						
+					
+				}
+			});
+			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+			gbc_btnNewButton.anchor = GridBagConstraints.EAST;
+			gbc_btnNewButton.gridx = 2;
+			gbc_btnNewButton.gridy = 7;
+			contentPanel.add(btnNewButton, gbc_btnNewButton);
 		}
 		
 		{

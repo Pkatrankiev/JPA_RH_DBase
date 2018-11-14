@@ -6,12 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.External_applicant;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.Request;
 
 public class Internal_applicantDAO {
 	
@@ -125,5 +127,24 @@ public class Internal_applicantDAO {
 	return id;
 		
 	}
+	
+	public static void updateObjectInternal_applicant(Internal_applicant valueEnt) {
 
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		entitymanager.find(Request.class, valueEnt.getId_internal_applicant());
+		entitymanager.merge(valueEnt);
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на данните на: " + valueEnt.getInternal_applicant_organization(),
+					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
 }

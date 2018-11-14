@@ -21,7 +21,6 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
-import WindowView.RequestView;
 import DBase_Class.Obekt_na_izpitvane_request;
 
 public class RequestDAO {

@@ -21,13 +21,13 @@ import javax.swing.UIManager;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
-import Menu.MenuData_EnableSequenseList;
+import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuRequense_NewExtraRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
-import Table.TableRequestList;
+import Table.Table_Request_List;
 import WindowViewAplication.DocxMainpulator;
 import javafx.beans.binding.When;
 
@@ -104,7 +104,7 @@ public class MainWindows {
 	private JMenu createDataMenu() {
 		JMenu dataMenu = new JMenu("Данни");
 		dataMenu.setMnemonic(KeyEvent.VK_D);
-		dataMenu.add(new MenuData_EnableSequenseList());
+		dataMenu.add(new MenuData_EnableRequestList());
 		dataMenu.add(new MenuData_EnableSampleList());
 		dataMenu.add(new MenuData_EnableResultsList());
 		dataMenu.add(new MenuData_EnableInternalAplicant());

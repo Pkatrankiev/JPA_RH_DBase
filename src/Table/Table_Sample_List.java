@@ -32,7 +32,7 @@ import WindowView.RequestViewAplication;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class TableSampleList {
+public class Table_Sample_List {
 
 	private static String[] values_Period;
 	private static String[] values_O_I_S;

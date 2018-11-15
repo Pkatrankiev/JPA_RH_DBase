@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import Aplication.Ind_num_docDAO;
+
 import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
@@ -42,7 +42,6 @@ import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
 import Aplication.GlobalVariable;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import DBase_Class.Aplicant;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -50,14 +49,11 @@ import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
-import DBase_Class.Otclonenie;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
-import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import WindowViewAplication.DocxMainpulator;
@@ -74,12 +70,10 @@ import javax.swing.UIManager;
 import java.awt.Font;
 
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.JTextArea;
 import java.awt.Dimension;
 import java.awt.Choice;
 import javax.swing.JButton;
-import java.awt.SystemColor;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
@@ -99,10 +93,6 @@ public class ExtraRequestView extends JFrame {
 	
 
 	private Boolean corectRequestCode = true;
-	private Boolean corectDateRequest = true;
-	private Boolean corectRefDate = true;
-	private Boolean corectDateExecution = true;
-	private Boolean corectDateReception = true;
 	private String strAplicant = "";
 	private Choice choice_Period;
 
@@ -381,11 +371,9 @@ public class ExtraRequestView extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
 					txtFld_Date_Request.setForeground(Color.RED);
-					corectDateRequest = false;
 				} else {
 					txtFld_Date_Request.setForeground(Color.BLACK);
 					txtFld_Date_Request.setBorder(border);
-					corectDateRequest = true;
 				}
 			}
 
@@ -765,11 +753,9 @@ public class ExtraRequestView extends JFrame {
 
 				if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), true)) {
 					txt_fid_date_time_reference.setForeground(Color.RED);
-					corectRefDate = false;
 				} else {
 					txt_fid_date_time_reference.setForeground(Color.BLACK);
 					txt_fid_date_time_reference.setBorder(border);
-					corectRefDate = true;
 				}
 			}
 
@@ -1054,11 +1040,9 @@ public class ExtraRequestView extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
 					txtFld_date_execution.setForeground(Color.RED);
-					corectDateExecution = false;
 				} else {
 					txtFld_date_execution.setForeground(Color.BLACK);
 					txtFld_date_execution.setBorder(border);
-					corectDateExecution = true;
 				}
 			}
 
@@ -1257,11 +1241,9 @@ public class ExtraRequestView extends JFrame {
 
 				if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
 					txtFld_date_reception.setForeground(Color.RED);
-					corectDateReception = false;
 
 				} else {
 					txtFld_date_reception.setForeground(Color.BLACK);
-					corectDateReception = true;
 					txtFld_date_reception.setBorder(border);
 				}
 			}

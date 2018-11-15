@@ -1,14 +1,18 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-import Table.TableRequestList;
+
+import javax.swing.JFrame;
+
+import Table.Table_Request_List;
+import WindowView.Login;
 import WindowView.TranscluentWindow;
 
-public class MenuData_EnableSequenseList extends AbstractMenuAction {
+public class MenuData_EnableRequestList extends AbstractMenuAction {
 
 	private static final long serialVersionUID = 1L;
 
-	public MenuData_EnableSequenseList() {
+	public MenuData_EnableRequestList() {
 		super("Редактиране на Заявките");
 		// TODO Auto-generated constructor stub
 	}
@@ -22,7 +26,8 @@ public class MenuData_EnableSequenseList extends AbstractMenuAction {
 		     @Override
 		     public void run() {
 		    	 
-		    	 TableRequestList.DrawTableWithEnableRequestList(round);
+		    	 JFrame f = new JFrame();
+		 		new Table_Request_List(f,round,Login.getCurentUser());
 	    	
 		     }
 		    });

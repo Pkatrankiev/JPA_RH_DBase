@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,23 +32,23 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
-import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import DBase_Class.Users;
+import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class TableResultsList {
+public class Table_Results_List  extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private static String[] values_Period;
 	private static String[] values_Metody;
 	private static String[] values_Izpit_Pokazatel;
@@ -55,6 +56,7 @@ public class TableResultsList {
 	private static String[] values_Razmernosti;
 	private static String[] values_Dimension;
 	private static Request request_basic;
+	private static List<String> listWhithChangeResults_Id;
 	
 	private static int tbl_Colum = 15;
 	private static int rqst_code_Colum = 0;
@@ -72,21 +74,148 @@ public class TableResultsList {
 	private static int dimen_Colum = 12;
 	private static int in_Prot_Colum = 13;
 	private static int rsult_Id_Colum = 14;
-
 	
-	public static void TableResultsList() {
+
+	public Table_Results_List(JFrame parent, TranscluentWindow round, Users user) {
+		super(parent, "",true);
+
+		String[] columnNames = getTabHeader();
+		@SuppressWarnings("rawtypes")
+		Class[] types = getTypes();
+		Object[][] dataTable = getDataTable();
+	
 		
+		setTitle("Списък на Резултатите");	
+		values_Metody = MetodyDAO.getMasiveStringAllValueMetody();
+		values_Izpit_Pokazatel = List_izpitvan_pokazatelDAO.getMasiveStringAllValueList_Izpitvan_Pokazatel();
+		values_Nuclide = NuclideDAO.getMasiveStringAllValueNuclide();
+		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
+		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
+
+		final JTable table = new JTable();// new DefaultTableModel(rowData,
+											// columnNames));
+
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (table.getSelectedColumn() == rqst_code_Colum ) {
+								}
+				super.mouseReleased(e);
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+		});
+
+		new TableFilterHeader(table, AutoChoices.ENABLED);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		setSize(1200, 800);
+		setLocationRelativeTo(null);
+		round.StopWindow();
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				DefaultTableModel dtm = new DefaultTableModel(dataTable, columnNames) {
+
+					private static final long serialVersionUID = 1L;
+					@SuppressWarnings("rawtypes")
+					private Class[] types2 = types;
+
+					@SuppressWarnings({ })
+					@Override
+					public Class<?> getColumnClass(int columnIndex) {
+						return this.types2[columnIndex];
+					}
+
+					@Override
+					public boolean isCellEditable(int row, int column) {
+						if (column > 2) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+					
+					public void setValueAt(Object value, int row, int col) {
+
+						if (!dataTable[row][col].equals(value)) {
+							dataTable[row][col] = value;
+							fireTableCellUpdated(row, col);
+							AddInUpdateList(row, dataTable);
+						}
+					}
+
+					public int getColumnCount() {
+						return columnNames.length;
+					}
+
+					public int getRowCount() {
+						return dataTable.length;
+					}
+
+				};
+
+				table.setModel(dtm);
+				table.setFillsViewportHeight(true);
+
+				setUp_Metody(table, table.getColumnModel().getColumn(mtd_Izp_Colum ));
+				setUp_Izpit_Pokazatel_Column(table, table.getColumnModel().getColumn(izp_Pok_Colum ));
+				setUp_Nuclide(table, table.getColumnModel().getColumn(nuclide_Colum ));
+				setUp_Razmernosti(table, table.getColumnModel().getColumn(razm_Colum ));
+				setUp_Dimension(table, table.getColumnModel().getColumn(dimen_Colum ));
+
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setMinWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setMaxWidth(0);
+				table.getColumnModel().getColumn(rsult_Id_Colum ).setPreferredWidth(0);
+
+				JPanel panel_Btn = new JPanel();
+				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
+				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+
+				JButton btnSave = new JButton("Запис");
+				btnSave.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						TranscluentWindow round = new TranscluentWindow();
+						final Thread thread = new Thread(new Runnable() {
+							@Override
+							public void run() {
+								updateData(table);
+								}
+						});
+						thread.start();
+						
+					}
+				});
+				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
+				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
+				if (user != null && user.getIsAdmin()) {
+					panel_Btn.add(btnSave);
+				}
+
+				JButton btnCancel = new JButton("Изход");
+				btnCancel.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
+					}
+				});
+				panel_Btn.add(btnCancel);
+
+			}
+		});
+		
+		setVisible(true);
+	}
+
+	private Object[][] getDataTable() {
 		List<Request> listAllRequest = RequestDAO.getInListAllValueRequest();
 		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
-		
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
-				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
-				"Количество", "Мярка", "В протокол", "Id" };
-		@SuppressWarnings("rawtypes")
-		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
-				Double.class, Double.class, Integer.class, Double.class, String.class, Double.class, String.class,
-				Boolean.class, Integer.class };
-
 		
 		Object[][] tableSample = new Object[listAllResults.size()][tbl_Colum ];
 		int i = 0;
@@ -142,119 +271,24 @@ public class TableResultsList {
 			}
 		}
 
-		TableResultsListEditable(tableHeader, tableSampleNew, types);
+		return tableSampleNew;
 	}
 
-	public static void TableResultsListEditable(String[] columnNames, Object[][] data, @SuppressWarnings("rawtypes") Class[] types) {
-		JFrame frame = new JFrame("Редактиране на Резултатите");
+	@SuppressWarnings("rawtypes")
+	private Class[] getTypes() {
+		
+		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
+				Double.class, Double.class, Integer.class, Double.class, String.class, Double.class, String.class,
+				Boolean.class, Integer.class };
 
-		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// values_O_I_S =
-		// Obekt_na_izpitvane_sampleDAO.getMasiveStringAllValueObekt_na_izpitvane_sample();
+		return types;
+	}
 
-		values_Metody = MetodyDAO.getMasiveStringAllValueMetody();
-		values_Izpit_Pokazatel = List_izpitvan_pokazatelDAO.getMasiveStringAllValueList_Izpitvan_Pokazatel();
-		values_Nuclide = NuclideDAO.getMasiveStringAllValueNuclide();
-		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
-		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
-
-		final JTable table = new JTable();// new DefaultTableModel(rowData,
-											// columnNames));
-
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				if (table.getSelectedColumn() == rqst_code_Colum ) {
-								}
-				super.mouseReleased(e);
-			}
-
-			public void mousePressed(MouseEvent e) {
-
-			}
-		});
-
-		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
-
-		JScrollPane scrollPane = new JScrollPane(table);
-		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		frame.setSize(1200, 800);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				DefaultTableModel dtm = new DefaultTableModel(data, columnNames) {
-
-					private static final long serialVersionUID = 1L;
-					@SuppressWarnings("rawtypes")
-					private Class[] types2 = types;
-
-					@SuppressWarnings({ })
-					@Override
-					public Class<?> getColumnClass(int columnIndex) {
-						return this.types2[columnIndex];
-					}
-
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						if (column > 2) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-
-					public int getColumnCount() {
-						return columnNames.length;
-					}
-
-					public int getRowCount() {
-						return data.length;
-					}
-
-				};
-
-				table.setModel(dtm);
-				table.setFillsViewportHeight(true);
-
-				setUp_Metody(table, table.getColumnModel().getColumn(mtd_Izp_Colum ));
-				setUp_Izpit_Pokazatel_Column(table, table.getColumnModel().getColumn(izp_Pok_Colum ));
-				setUp_Nuclide(table, table.getColumnModel().getColumn(nuclide_Colum ));
-				setUp_Razmernosti(table, table.getColumnModel().getColumn(razm_Colum ));
-				setUp_Dimension(table, table.getColumnModel().getColumn(dimen_Colum ));
-
-				table.getColumnModel().getColumn(rsult_Id_Colum ).setWidth(0);
-				table.getColumnModel().getColumn(rsult_Id_Colum ).setMinWidth(0);
-				table.getColumnModel().getColumn(rsult_Id_Colum ).setMaxWidth(0);
-				table.getColumnModel().getColumn(rsult_Id_Colum ).setPreferredWidth(0);
-
-				JPanel panel_Btn = new JPanel();
-				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				frame.getContentPane().add(panel_Btn, BorderLayout.SOUTH);
-				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-				JButton btnSave = new JButton("Запис");
-				btnSave.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						updateData(table);
-					}
-				});
-				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
-				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				panel_Btn.add(btnSave);
-
-				JButton btnCancel = new JButton("Изход");
-				btnCancel.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						frame.setVisible(false);
-					}
-				});
-				panel_Btn.add(btnCancel);
-
-			}
-		});
+	private String[] getTabHeader() {
+		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
+				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
+				"Количество", "Мярка", "В протокол", "Id" };
+		return tableHeader;
 	}
 
 	public static void setUp_Izpit_Pokazatel_Column(JTable table, TableColumn izpit_Pokazatel_Column) {
@@ -337,6 +371,16 @@ public class TableResultsList {
 		updateDataIzpitwanPokazatel(request_basic, masiveIzpitPokazatel);
 	}
 
+	private static void AddInUpdateList(int row, Object[][] dataTable) {
+		if (listWhithChangeResults_Id.isEmpty()) {
+			listWhithChangeResults_Id.add((String) dataTable[row][rsult_Id_Colum ]);
+		} else {
+			if (!listWhithChangeResults_Id.equals(dataTable[row][rsult_Id_Colum ])) {
+				listWhithChangeResults_Id.add((String) dataTable[row][rsult_Id_Colum ]);
+			}
+		}
+	}
+	
 	private static void updateDataIzpitwanPokazatel(Request request, String[][] masiveIzpitPokazatel) {
 		List<String> listPokazatel = new ArrayList<String>();
 

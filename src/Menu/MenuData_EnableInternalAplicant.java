@@ -1,7 +1,10 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-import Table.Table_Internal_ApplicantList;
+
+import javax.swing.JDialog;
+
+import Table.Table_InternalApplicant_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
@@ -21,10 +24,9 @@ public class MenuData_EnableInternalAplicant extends AbstractMenuAction{
 			 final Thread thread = new Thread(new Runnable() {
 			     @Override
 			     public void run() {
-			    	 
-			    	 Table_Internal_ApplicantList.TableInternalAplicantListTable(round, Login.getCurentUser());
-			    	
-			     }
+			    	 JDialog dialog = new JDialog();
+			    	 new Table_InternalApplicant_List(dialog, round, Login.getCurentUser());
+ 				     }
 			    });
 			    thread.start();
 				

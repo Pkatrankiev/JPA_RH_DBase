@@ -897,13 +897,11 @@ public class RequestView extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-				System.out.println("Data = " + txtFld_Count_Sample.getText());
 				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
-				// String str = txtFld_Count_Sample.getText();
-
+				
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);
-					lblError_Count_Sample.setText("Некоректен номер");
+					lblError_Count_Sample.setText("Некоректен брой");
 
 				} else {
 					txtFld_Count_Sample.setForeground(Color.BLACK);
@@ -945,8 +943,13 @@ public class RequestView extends JFrame {
 						 sdf); // ref
 						String period = choice_Period.getSelectedItem();
 						try {
+							
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
-//							 String ref_Date = (txtField_RequestCode.getText());
+							if(count_Sample<=0 ||count_Sample>20 ){
+								txtFld_Count_Sample.setText("");
+								count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+							}
+							
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
@@ -962,7 +965,7 @@ public class RequestView extends JFrame {
 								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(RequestView.this, "Не сте въвели брой на пробите!",
+							JOptionPane.showMessageDialog(null, "Некоректен брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
 						}
 					} catch (DateTimeParseException e) {

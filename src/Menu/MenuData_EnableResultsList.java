@@ -1,7 +1,13 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-import Table.TableResultsList;
+
+import javax.swing.JFrame;
+
+import Table.Table_Request_List;
+import Table.Table_Results_List;
+import WindowView.Login;
+import WindowView.TranscluentWindow;
 
 public class MenuData_EnableResultsList extends AbstractMenuAction{
 	
@@ -14,7 +20,19 @@ public class MenuData_EnableResultsList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TableResultsList.TableResultsList();
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 JFrame f = new JFrame();
+		 		new Table_Results_List(f,round,Login.getCurentUser());
+		 			    	
+		     }
+		    });
+		    thread.start();
+		
 	}
 
 }

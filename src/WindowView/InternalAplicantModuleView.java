@@ -10,13 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import DBase_Class.External_applicant;
-import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
-import DBase_Class.Request;
-import DBase_Class.Users;
-import Table.TableInternalApplicantList;
-import Table.Table_Internal_ApplicantList;
+import Table.Table_InternalApplicant_List;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -25,18 +20,14 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
-import Aplication.External_applicantDAO;
-
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import java.awt.Dimension;
 
 public class InternalAplicantModuleView extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private String fondHeatText = "Tahoma";
 	private Font font = new  Font(fondHeatText, Font.PLAIN, 11);
@@ -49,13 +40,9 @@ public class InternalAplicantModuleView extends JDialog {
 	private String strAdress = "";
 
 	private String strTel = "";
-	private int id_InternalAplicBDate;
-	
 	public InternalAplicantModuleView(JFrame parent,Internal_applicant  tamplateInternalAplic,TranscluentWindow round) {
-				super(parent, "");
-				setModal(true);
-//				setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-				pack();
+				super(parent, "", true);
+
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -73,7 +60,7 @@ public class InternalAplicantModuleView extends JDialog {
 			strAdress = tamplateInternalAplic.getInternal_applicant_address();
 			strTel = tamplateInternalAplic.getInternal_applicant_telephone();
 			internal_Aplic = tamplateInternalAplic;
-			id_InternalAplicBDate = tamplateInternalAplic.getId_internal_applicant();
+			tamplateInternalAplic.getId_internal_applicant();
 		}
 		
 		
@@ -172,8 +159,8 @@ public class InternalAplicantModuleView extends JDialog {
 					     @Override
 					     public void run() {
 					    	 JDialog dialog = new JDialog();
-					    	 TableInternalApplicantList tabIntApplic = new TableInternalApplicantList(dialog, round, Login.getCurentUser());
-
+					    	 Table_InternalApplicant_List tabIntApplic = new Table_InternalApplicant_List(dialog, round, null);
+					    	 internal_Aplic = tabIntApplic.getInternal_applicant();
 					    	
 					     }
 					    });

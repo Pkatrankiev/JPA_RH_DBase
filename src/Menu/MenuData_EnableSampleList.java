@@ -2,7 +2,7 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
-import Table.TableSampleList;
+import Table.Table_Sample_List;
 
 public class MenuData_EnableSampleList extends AbstractMenuAction{
 	
@@ -15,7 +15,7 @@ public class MenuData_EnableSampleList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TableSampleList.DrawTableWithEnableSampleList();
+		Table_Sample_List.DrawTableWithEnableSampleList();
 	}
 
 }

@@ -2,6 +2,8 @@ package Table;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
 import DBase_Class.IzpitvanPokazatel;
@@ -34,8 +36,8 @@ public class TableRequestTamplate {
 
 			i++;
 		}
-
-		TableRequestList.TableRequestList(tableHeader, tabletamplateRequest, types, round);
+		JFrame f = new JFrame();
+		new Table_Request_List(f,round,null);
 		
 	}
 }

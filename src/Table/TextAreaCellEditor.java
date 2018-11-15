@@ -6,7 +6,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.EventObject;
 
 import javax.swing.AbstractAction;
@@ -35,7 +34,9 @@ abstract class TextAreaCellEditor implements TableCellEditor {
         KeyStroke enter = KeyStroke.getKeyStroke(
                 KeyEvent.VK_ENTER, InputEvent.CTRL_MASK);
         textArea.getInputMap(JComponent.WHEN_FOCUSED).put(enter, new AbstractAction() {
-            @Override
+        	private static final long serialVersionUID = 1L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
             	        stopCellEditing();
             }

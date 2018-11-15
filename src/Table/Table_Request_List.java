@@ -24,6 +24,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,6 +40,7 @@ import javax.swing.table.TableColumn;
 import Aplication.DimensionDAO;
 import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
+import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
@@ -52,12 +54,14 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
+import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import DBase_Class.Users;
 import WindowView.ChoiceL_I_P;
 import WindowView.ExtraRequestView;
 import WindowView.Login;
@@ -68,7 +72,7 @@ import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class TableRequestList {
+public class Table_Request_List  extends JDialog {
 
 	private static Request choiseRequest;
 	private static String[] values_I_P;
@@ -77,7 +81,7 @@ public class TableRequestList {
 	private static String[] values_Razmernosti;
 	private static String[] value_users;
 	private static String[] value_Zabelejki;
-	private static JFrame frame;
+//	private static JFrame frame;
 	private static List<String> listStrRequestCode;
 	private static Object[][] dataTable;
 
@@ -98,11 +102,15 @@ public class TableRequestList {
 	private static int zab_Colum = 13;
 	private static int user_Id_Colum = 14;
 	
+	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user) {
+		super(parent, "Списък на Заявките",true);
+
+		String[] columnNames = getTabHeader();
+		@SuppressWarnings("rawtypes")
+		Class[] types = getTypes();
+		Object[][] data = getDataTable();
+		int counRow = data.length; 
 	
-	
-	public static void TableRequestList(String[] columnNames, Object[][] data, Class[] types,TranscluentWindow round) {
-		frame = new JFrame("Списък на Заявките");
-		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dataTable = data;
 		listStrRequestCode = new ArrayList<String>();
 		values_Id_Num_Doc = Ind_num_docDAO.getMasiveStringAllValueValueInd_num_doc();
@@ -112,15 +120,11 @@ public class TableRequestList {
 		value_Zabelejki = ZabelejkiDAO.getMasiveStringAllValueZabelejki();
 		value_users = UsersDAO.getMasiveStringAllName_FamilyUsers();
 
-		final JTable table = new JTable();// new DefaultTableModel(rowData,
-											// columnNames));
-
+		final JTable table = new JTable();
+		
 		table.addMouseListener(new MouseAdapter() {
-
 			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
+			public void mouseEntered(MouseEvent e) {}
 
 			public void mousePressed(MouseEvent e) {
 				if (table.getSelectedColumn() == rqst_code_Colum ) {
@@ -128,7 +132,6 @@ public class TableRequestList {
 					int col = table.columnAtPoint(e.getPoint());
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-					System.out.println(row + " " + choiseRequest.getRecuest_code());
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
@@ -142,8 +145,6 @@ public class TableRequestList {
 
 				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
 
-					int row = table.getSelectedRow();
-					int col = table.getSelectedColumn();
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
 
 					if (reqCodeStr.startsWith("templ")) {
@@ -153,7 +154,7 @@ public class TableRequestList {
 						}else{
 						new RequestView(Login.getCurentUser(), choiseRequest, round);
 						}
-						frame.setVisible(false);
+						setVisible(false);
 
 					} else {
 						RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
@@ -162,12 +163,12 @@ public class TableRequestList {
 			}
 		});
 
-		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
+		new TableFilterHeader(table, AutoChoices.ENABLED);
 
 		JScrollPane scrollPane = new JScrollPane(table);
-		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		frame.setSize(1200, 800);
-		frame.setLocationRelativeTo(null);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		setSize(1200, 800);
+		setLocationRelativeTo(null);
 		
 		round.StopWindow();
 		SwingUtilities.invokeLater(new Runnable() {
@@ -215,6 +216,13 @@ public class TableRequestList {
 				};
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
+				
+				table.getColumnModel().getColumn(user_Id_Colum ).setWidth(0);
+				table.getColumnModel().getColumn(user_Id_Colum ).setMinWidth(0);
+				table.getColumnModel().getColumn(user_Id_Colum ).setMaxWidth(0);
+				table.getColumnModel().getColumn(user_Id_Colum ).setPreferredWidth(0);
+				
+				
 				setUp_Id_Num_Doc(table, table.getColumnModel().getColumn(id_ND_Colum ));
 				setUp_I_P_Column(table, table.getColumnModel().getColumn(izp_Prod_Colum ));
 				setUp_O_I_R_Column(table, table.getColumnModel().getColumn(obk_Izp_Colum ));
@@ -224,7 +232,7 @@ public class TableRequestList {
 
 				JPanel panel_Btn = new JPanel();
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				frame.getContentPane().add(panel_Btn, BorderLayout.SOUTH);
+				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
 				JButton btnSave = new JButton("Запис");
@@ -255,13 +263,13 @@ public class TableRequestList {
 				JButton btnCancel = new JButton("Изход");
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						frame.setVisible(false);
+						setVisible(false);
 					}
 				});
 				panel_Btn.add(btnCancel);
 			}
 		});
-		frame.setVisible(true);
+		setVisible(true);
 	}
 
 	public static void setUp_Razmernosti(JTable table, TableColumn Razmernosti_Column) {
@@ -318,18 +326,9 @@ public class TableRequestList {
 		return choiseRequest;
 	}
 
-	public static void DrawTableWithEnableRequestList(TranscluentWindow round) {
-		
-		
-		
+	private Object[][] getDataTable() {
 		List<Request> listRequest = RequestDAO.getInListAllValueRequest();
-		String[] tableHeader = { "№ на Заявката", "Ид.№ на документа", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
-				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
-				"Време на приемане", "Приел заявката", "Забележка", "Id User" };
-		Class[] types = { Integer.class, String.class,String.class, String.class, String.class, String.class, String.class,
-				Integer.class, String.class, String.class, String.class, String.class, String.class, String.class,
-				Integer.class };
-
+		
 		Object[][] tableRequest = new Object[listRequest.size()][tbl_Colum ];
 		int i = 0;
 		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
@@ -341,7 +340,11 @@ public class TableRequestList {
 				String[][] masiveSample = RequestViewAplication.getMasiveSampleFromListSampleFromRequest(request,
 						listSample);
 				tableRequest[i][rqst_code_Colum ] = request.getRecuest_code();
+				if(request.getInd_num_doc()!=null){
 				tableRequest[i][id_ND_Colum ] = request.getInd_num_doc().getName();
+				}else{
+					tableRequest[i][id_ND_Colum ] = "";	
+				}
 				tableRequest[i][rqst_Date_Colum ] = formatToTabDate(request.getDate_request(), false);
 				// tableRequest[i][rqst_Date_Colum ] = request.getDate_request();
 				tableRequest[i][izp_Prod_Colum ] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
@@ -368,8 +371,25 @@ public class TableRequestList {
 			}
 		}
 
-		TableRequestList(tableHeader, tableRequest, types, round);
+		return tableRequest;
 	}
+
+	@SuppressWarnings("rawtypes")
+	private Class[] getTypes() {
+		Class[] types = { Integer.class, String.class,String.class, String.class, String.class, String.class, String.class,
+				Integer.class, String.class, String.class, String.class, String.class, String.class, String.class,
+				Integer.class };
+		return types;
+	}
+
+	private String[] getTabHeader() {
+		String[] tableHeader = { "№ на Заявката", "Ид.№ на документа", "Дата на заявката", "Изпитван продукт", "Обект на изпитване",
+				"Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата", "Срок на изпълнение",
+				"Време на приемане", "Приел заявката", "Забележка", "Id User" };
+	return tableHeader;
+	}
+
+		
 
 	private static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
@@ -407,7 +427,7 @@ public class TableRequestList {
 		try {
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
@@ -456,7 +476,7 @@ public class TableRequestList {
 		try {
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
@@ -474,10 +494,10 @@ public class TableRequestList {
 		List<String> list = ReadListPokazatelInCell(table, row);
 		JFrame f = new JFrame();
 		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false);
-		if (list.size() == choiceLP.getChoiceL_P().size()) {
+		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
 			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, izp_Pok_Colum );
 		} else {
-			JOptionPane.showMessageDialog(frame, "Некоректен брой Показатели", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Некоректен брой Показатели", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -547,7 +567,7 @@ public class TableRequestList {
 		try {
 			request.setDate_request(reformatFromTabDate(table.getValueAt(row, rqst_Date_Colum ) + "",false));
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
@@ -561,14 +581,14 @@ public class TableRequestList {
 		try{
 		request.setDate_execution(reformatFromTabDate(table.getValueAt(row, exec_Date_Colum ) + "",false));
 	} catch (ParseException e) {
-		JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+		JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 				JOptionPane.ERROR_MESSAGE);
 		e.printStackTrace();
 	};
 	try{
 		request.setDate_reception(reformatFromTabDate(table.getValueAt(row, rcpt_Date_Colum ) + "",false));
 	} catch (ParseException e) {
-		JOptionPane.showMessageDialog(frame, "Преформатиране на Датата", "Грешка в данните",
+		JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 				JOptionPane.ERROR_MESSAGE);
 		e.printStackTrace();
 	}
@@ -593,8 +613,7 @@ public class TableRequestList {
 		}
 		return list_Masive_L_I_P;
 	}
-	
-	
+		
 	private static void updateIzpitvanPokazatelInResultObject(List_izpitvan_pokazatel[][] list_Masive_L_I_P, Request request) {
 		List<Sample> listSampleDBase = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		for (Sample sampleDBase : listSampleDBase) {

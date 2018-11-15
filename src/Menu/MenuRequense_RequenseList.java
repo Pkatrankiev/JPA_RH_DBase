@@ -2,7 +2,9 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
-import Table.TableRequestList;
+import javax.swing.JFrame;
+
+import Table.Table_Request_List;
 import WindowView.TranscluentWindow;
 
 
@@ -22,7 +24,8 @@ public class MenuRequense_RequenseList extends AbstractMenuAction{
 		     @Override
 		     public void run() {
 		    	 
-		    	 TableRequestList.DrawTableWithEnableRequestList(round);
+		    	 JFrame f = new JFrame();
+		 		new Table_Request_List(f,round,null);
 
 		    	
 		     }

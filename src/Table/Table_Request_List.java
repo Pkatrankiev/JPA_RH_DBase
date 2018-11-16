@@ -171,6 +171,7 @@ public class Table_Request_List  extends JDialog {
 		setLocationRelativeTo(null);
 		
 		round.StopWindow();
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -388,8 +389,6 @@ public class Table_Request_List  extends JDialog {
 				"Време на приемане", "Приел заявката", "Забележка", "Id User" };
 	return tableHeader;
 	}
-
-		
 
 	private static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();

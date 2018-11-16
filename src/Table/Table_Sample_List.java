@@ -29,6 +29,7 @@ import WindowView.RequestMiniFrame4;
 import WindowView.RequestMiniFrame3;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
+import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
@@ -101,25 +102,40 @@ public class Table_Sample_List {
 					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
-				// if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-				//
-				// int row = table.getSelectedRow();
-				// int col = table.getSelectedColumn();
-				// String reqCodeStr = table.getValueAt(table.getSelectedRow(),
-				// 0).toString();
-				//
-				// if (reqCodeStr.startsWith("templ")) {
-				// choiseRequest =
-				// RequestDAO.getRequestFromColumnByVolume("recuest_code",
-				// reqCodeStr);
-				// RequestView reqView = new RequestView(Login.getCurentUser(),
-				// choiseRequest);
-				// frame.setVisible(false);
-				//
-				// } else {
-				// RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
-				// }
-				// }
+				 if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+				
+				 int row = table.getSelectedRow();
+				 int col = table.getSelectedColumn();
+				 String reqCodeStr = table.getValueAt(table.getSelectedRow(),
+				 0).toString();
+				
+				 if (reqCodeStr.startsWith("templ")) {
+//				 choiseRequest =
+//				 RequestDAO.getRequestFromColumnByVolume("recuest_code",
+//				 reqCodeStr);
+//				 RequestView reqView = new RequestView(Login.getCurentUser(),
+//				 choiseRequest);
+//				 frame.setVisible(false);
+				
+				 } else {
+					Request choiseRequest =
+							 RequestDAO.getRequestFromColumnByVolume("recuest_code",
+							 reqCodeStr);
+					TranscluentWindow round = new TranscluentWindow();
+					
+					 final Thread thread = new Thread(new Runnable() {
+					     @Override
+					     public void run() {
+					    	 
+					    	 JFrame f = new JFrame();
+						 		new Table_Results_List(f,round,Login.getCurentUser(), choiseRequest);
+					 			    	
+					     }
+					    });
+					    thread.start();
+					
+				 }
+				 }
 			}
 		});
 

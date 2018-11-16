@@ -27,7 +27,7 @@ public class MenuData_EnableResultsList extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Results_List(f,round,Login.getCurentUser());
+		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
 		 			    	
 		     }
 		    });

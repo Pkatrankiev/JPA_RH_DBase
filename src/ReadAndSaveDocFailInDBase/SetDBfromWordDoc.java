@@ -9,6 +9,7 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Aplication.DimensionDAO;
+import Aplication.Extra_moduleDAO;
 import Aplication.Ind_num_docDAO;
 import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -573,6 +574,7 @@ public class SetDBfromWordDoc {
 			Internal_applicantDAO.setValueInternal_applicant(int_appl);
 			extra_mod = new Extra_module();
 			extra_mod.setInternal_applicant(int_appl);
+			Extra_moduleDAO.setValueExtra_module(extra_mod);
 		}
 		Request request = new Request(recuest_code, date_recuest, accreditation, // accreditation
 				section, // section

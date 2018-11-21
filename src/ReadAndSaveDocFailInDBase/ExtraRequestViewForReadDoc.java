@@ -200,7 +200,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		Section_Choice_Period(p_1);
 
 		// TODO Section_Text_Area_Sample_Description (описание на пробите)
-		Section_Text_Area_Sample_Description(p_1, border);
+		Section_Text_Area_Sample_Description(p_1, border, tamplateRequest);
 
 		// TODO Section_date_execution (срок за изпълнение)
 		Section_Date_Execution(p_1, border);
@@ -945,7 +945,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		txtFld_Count_Sample.setColumns(3);
 	}
 
-	private void Section_Text_Area_Sample_Description(final JPanel p, Border border) {
+	private void Section_Text_Area_Sample_Description(final JPanel p, Border border, Request tamplateRequest) {
 
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
 		GridBagConstraints gbc_lbl_SampleDescription = new GridBagConstraints();
@@ -958,7 +958,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		// TODO txtFld_Count_Sample (брой на пробите)
 		Section_Text_Count_Sample(p, border);
 
-		Button_Sample_Description(p, border);
+		Button_Sample_Description(p, border,tamplateRequest);
 
 		txtArea_SampleDescription = new JTextArea();
 		txtArea_SampleDescription.setFont(font);
@@ -974,7 +974,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 
 	}
 
-	private void Button_Sample_Description(final JPanel p, Border border) {
+	private void Button_Sample_Description(final JPanel p, Border border, Request tamplateRequest) {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -991,10 +991,12 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 							// String ref_Date =
 							// (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
-							SampleViewAdd sampleDescript = null;
+							SampleViewFromReadDocFile sampleDescript = null;
 
-							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, masiveSampleValue);
+							sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest,
+									comBox_O_I_S, ref_Date_Time, null, masiveSampleValue);
+//							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
+//									ref_Date_Time, period, masiveSampleValue);
 
 							sampleDescript.setVisible(true);
 							if (!SampleViewAdd.cancelEntered()) {
@@ -1194,8 +1196,8 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			array_AplicantNameFamily.add(string);
 		}
 		if (tamplateRequest != null) {
-			String str = tamplateRequest.getExtra_module().getAplicant().getName_aplicant() + " "
-					+ tamplateRequest.getExtra_module().getAplicant().getFamily_aplicant();
+			
+			String str = "";
 			choice_AplicantNameFamily.select(str);
 		}
 

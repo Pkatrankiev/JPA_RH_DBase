@@ -255,15 +255,17 @@ public class Table_Results_List extends JDialog {
 		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
 		Object[][] tableResult = new Object[listAllResults.size()][tbl_Colum];
 		int i = 0;
+		
 		for (Request request : listAllRequest) {
 
 			for (Sample sample : listAllSample) {
 				if (sample.getRequest().getId_recuest() == request.getId_recuest()) {
 
 					for (Results results : listAllResults) {
+						try {
 						if (results.getSample().getId_sample() == sample.getId_sample()) {
 
-							try {
+							
 								int request_code = Integer.parseInt(results.getSample().getRequest().getRecuest_code());
 								tableResult[i][rqst_code_Colum] = request_code;
 								tableResult[i][smpl_code_Colum] = sample.getSample_code();
@@ -289,16 +291,18 @@ public class Table_Results_List extends JDialog {
 								tableResult[i][rsult_Id_Colum] = results.getId_results();
 
 								i++;
-							} catch (NullPointerException e) {
-								JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-							} catch (NumberFormatException e) {
-								JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-							}
+							
+						}
+						} catch (NullPointerException e) {
+							JOptionPane.showInputDialog("Грешни данни за резултат:"+results.getId_results(), JOptionPane.ERROR_MESSAGE);
+						} catch (NumberFormatException e) {
+							JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
 			}
 		}
+		
 		Object[][] tableSampleNew = new Object[i][tbl_Colum];
 		for (int j = 0; j < tableSampleNew.length; j++) {
 			for (int k = 0; k < tbl_Colum; k++) {

@@ -1,11 +1,12 @@
 package ReadAndSaveDocFailInDBase;
 
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Aplication.DimensionDAO;
 import Aplication.Ind_num_docDAO;
@@ -26,6 +27,7 @@ import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
+import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
@@ -43,7 +45,11 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import Table.Table_Request_List;
+import WindowView.ExtraRequestView;
+import WindowView.Login;
 import WindowView.ReaderWordDoc;
+import WindowView.TranscluentWindow;
 
 public class SetDBfromWordDoc {
 
@@ -60,7 +66,7 @@ public class SetDBfromWordDoc {
 		String date_time_reception = null;
 		String obekt_na_izpitvane_request = null;
 		String date_recuest = null;
-		String date_time_reference = null;
+		String  date_time_reference = null;
 		String date_redac = null;
 		String date_measur = null;
 		String aplicant_name = null;
@@ -69,6 +75,7 @@ public class SetDBfromWordDoc {
 		String date_chim = null;
 		String zabelejka_recuest = null;
 		Boolean accreditation = false;
+		String NewSector = "";
 		Boolean section = false;
 		Boolean flag_note = false;
 		Izpitvan_produkt izpitvan_produkt = null;
@@ -76,6 +83,7 @@ public class SetDBfromWordDoc {
 
 		External_applicant external_aplicant = null;
 		Internal_applicant internal_aplicant = null;
+		Extra_module extra_mod = null;
 		Ind_num_doc ind_num_doc = null;
 		Zabelejki note = null;
 
@@ -88,7 +96,7 @@ public class SetDBfromWordDoc {
 
 					cellVolume = celsTranfer[tab][row][coll];
 					if (cellVolume != null) {
-						
+
 						/**
 						 * is RECUEST_CODE in RECUEST Class -kod na zaqvkata-
 						 **/
@@ -139,6 +147,10 @@ public class SetDBfromWordDoc {
 									.replace("Държавно предприятие “Радиоактивни отпадъци”", "").trim().length() == 0) {
 
 								section = true;
+							} else {
+								section = false;
+								NewSector = celsTranfer[tab][row][coll + 1]
+										.replace("Държавно предприятие “Радиоактивни отпадъци”", "").trim();
 							}
 
 						}
@@ -158,8 +170,8 @@ public class SetDBfromWordDoc {
 						 * i chas-
 						 **/
 						if (cellVolume.startsWith("Референтна дата")) {
-							date_time_reference = celsTranfer[tab][row][coll + 1].replaceAll(" ", "").replaceAll("h",
-									"").replaceAll("/", " ");
+							date_time_reference = celsTranfer[tab][row][coll + 1].replaceAll(" ", "")
+									.replaceAll("h", "").replaceAll("/", " ");
 						}
 
 						/** IZPITVAN_PRODUKT in RECUEST Class **/
@@ -197,7 +209,7 @@ public class SetDBfromWordDoc {
 								date_measur = str_tran.trim();
 							}
 
-								}
+						}
 
 					}
 				}
@@ -213,7 +225,6 @@ public class SetDBfromWordDoc {
 		String str;
 		int counts_samples = description_sample_group.replaceAll("[^" + recuest_code + "]", "").length()
 				/ recuest_code.length();
-
 
 		String[] ob_na_izpit = new String[counts_samples];
 		for (int i = 0; i < ob_na_izpit.length; i++) {
@@ -239,7 +250,7 @@ public class SetDBfromWordDoc {
 			str = description_sample_group.substring(num_start, num_end);
 			num_start = num_end;
 			sample_description[i] = str.substring((str.indexOf("/", 0) + 1), str.length()).trim();
-		
+
 		}
 
 		/** split tabs in one tab **/
@@ -293,8 +304,8 @@ public class SetDBfromWordDoc {
 			columnNames2[j] = j + "";
 		}
 
-//		TablePrintDemo.createAndShowGUI(columnNames2, newTab);
-	/** SET interval SAMPLES **/
+		// TablePrintDemo.createAndShowGUI(columnNames2, newTab);
+		/** SET interval SAMPLES **/
 		int sample_N = 0;
 		String[] sample_code = new String[counts_samples];
 		int[] row_sample_start = new int[counts_samples];
@@ -363,9 +374,9 @@ public class SetDBfromWordDoc {
 		List_izpitvan_pokazatel[][] pokazatel_sample = new List_izpitvan_pokazatel[counts_samples][num_pokazatel + 1];
 		for (int i = 0; i < counts_samples; i++) {
 			for (int j = 0; j <= max_num_pokazatel[i]; j++) {
-				
-				 pokazatel_sample[i][j] = List_izpitvan_pokazatelDAO
-				 .getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
+
+				pokazatel_sample[i][j] = List_izpitvan_pokazatelDAO
+						.getValueIzpitvan_pokazatelByName(str_pokazatel_sample[i][j]);
 
 			}
 
@@ -455,12 +466,10 @@ public class SetDBfromWordDoc {
 					} else
 						str_cell = cellVolume;
 					try {
-						
 
 						if ((str_cell.substring(0, 2)).equals("3H")
 								|| Integer.parseInt(str_cell.substring(0, 2)) >= 10) {
 
-							
 							results_value_str = newTab[row][4].trim();
 
 							results_nuklide[i][j][num_results] = str_cell;
@@ -474,11 +483,11 @@ public class SetDBfromWordDoc {
 					}
 				}
 			}
-			
+
 			if (razmernost[i] == null) {
 				razmernost[i] = razmernost[i - 1];
 			}
-			
+
 		}
 
 		for (int i = 0; i < counts_samples; i++) {
@@ -494,14 +503,14 @@ public class SetDBfromWordDoc {
 
 							results_MDA[i][j][k] = Double
 									.valueOf(results_value_str.substring(results_value_str.indexOf("<") + 1));
-							
+
 						} else {
 							results_value_result[i][j][k] = Double
 									.valueOf(results_value_str.substring(0, results_value_str.indexOf("±")).trim());
-							
+
 							results_uncertainty[i][j][k] = Double.valueOf(results_value_str
 									.substring(results_value_str.indexOf("±") + 1).replace("*", "").trim());
-							
+
 						}
 
 						nuclide_sample[i][j][k] = NuclideDAO.getValueNuclideBySymbol(results_nuklide[i][j][k]);
@@ -519,16 +528,14 @@ public class SetDBfromWordDoc {
 		Calendar c = Calendar.getInstance();
 		try {
 			c.setTime(sdf.parse(date_time_reference));
-			period = PeriodDAO.getPeriodById(c.getTime().getMonth()+1);
-			year = c.getTime().getYear()+1900;
+			period = PeriodDAO.getPeriodById(c.getTime().getMonth() + 1);
+			year = c.getTime().getYear() + 1900;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			JOptionPane.showInputDialog( "Грешна дата: "+date_time_reference,
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Грешна дата: " + date_time_reference, JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
+
 		int sigma = 2;
 		if (section) {
 			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(4);
@@ -560,10 +567,16 @@ public class SetDBfromWordDoc {
 		Obekt_na_izpitvane_request ob_izpitvane_request = Obekt_na_izpitvane_requestDAO
 				.getValueObekt_na_izpitvane_requestByName(obekt_na_izpitvane_request);
 
-		Request request = new Request(recuest_code, date_recuest,
-				accreditation, // accreditation
+		if (!section) {
+			Internal_applicant int_appl = new Internal_applicant();
+			int_appl.setInternal_applicant_organization(NewSector);
+			Internal_applicantDAO.setValueInternal_applicant(int_appl);
+			extra_mod = new Extra_module();
+			extra_mod.setInternal_applicant(int_appl);
+		}
+		Request request = new Request(recuest_code, date_recuest, accreditation, // accreditation
 				section, // section
-				null, // xtra_module
+				extra_mod, // xtra_module
 				counts_samples, // counts_samples
 				description_sample_group, // description_sample_group
 				date_time_reception, // date_time_reception
@@ -574,39 +587,59 @@ public class SetDBfromWordDoc {
 				note, // zabelejki
 				user_recues, // users
 				ob_izpitvane_request);
-		
-//		RequestView reqView = new RequestView(Login.getCurentUser(), request);
-		
+
+		// RequestView reqView = new RequestView(Login.getCurentUser(),
+		// request);
 
 		RequestDAO.saveRequestFromRequest(request);
 
 		/** --------------------------------------------------------------- **/
 		for (int p = 0; p <= max_num_pokazatel[0]; p++) {
 			Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[0][p]);
-			
+
 			IzpitvanPokazatel izpitvan_pokazatel = new IzpitvanPokazatel(pokazatel_sample[0][p], request,
 					metody_sample);
 			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(izpitvan_pokazatel);
-			
-		for (int i = 0; i < counts_samples; i++) {
-			Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
-		
-			Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
-					Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,year);
-			SampleDAO.setValueSample(samp);
-		
+
+			for (int i = 0; i < counts_samples; i++) {
+				Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
+
+				Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
+						Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,
+						year);
+				SampleDAO.setValueSample(samp);
+
 				for (int k = 0; k <= max_num_results[i][p]; k++) {
-				
-					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp, razmernost_recuest,
-							basic_value, results_value_result[i][p][k], sigma, results_uncertainty[i][p][k],
-							results_MDA[i][p][k], note, user_chim_oper, date_chim, user_measur, date_measur, user_redac,
-							date_redac, inProtokol, quantity, dimension);
+
+					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp,
+							razmernost_recuest, basic_value, results_value_result[i][p][k], sigma,
+							results_uncertainty[i][p][k], results_MDA[i][p][k], note, user_chim_oper, date_chim,
+							user_measur, date_measur, user_redac, date_redac, inProtokol, quantity, dimension);
 					ResultsDAO.setValueResults(resul);
 				}
 
 			}
 		}
-		RequestViewForReadDoc reqView = new RequestViewForReadDoc(request,date_time_reference);
+		String date_time_reference2 = date_time_reference;
+		if(extra_mod!=null){
+			TranscluentWindow round = new TranscluentWindow();
+				 final Thread thread = new Thread(new Runnable() {
+			     @Override
+			     public void run() {
+			    	 
+			    	 new ExtraRequestViewForReadDoc(UsersDAO.getValueUsersById(4), request, round, date_time_reference2);
+				    	
+			     }
+			    });
+			    thread.start();
+			
+			
+		}else{
+			
+		    	 RequestViewForReadDoc reqView = new RequestViewForReadDoc(request, date_time_reference2);
+		 		 
+		}	
+		   
 
 	}
 

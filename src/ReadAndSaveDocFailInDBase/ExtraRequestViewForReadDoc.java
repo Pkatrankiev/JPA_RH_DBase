@@ -883,7 +883,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		});
 	}
 
-	private void Section_Text_Count_Sample(final JPanel p, Border border) {
+	private void Section_Text_Count_Sample(final JPanel p, Border border, Request tamplateRequest) {
 
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
 		GridBagConstraints gbc_lbl_Count_Sample = new GridBagConstraints();
@@ -902,7 +902,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		p.add(lblError_Count_Sample, gbc_lblError_Count_Sample);
 
 		txtFld_Count_Sample = new JTextField();
-		txtFld_Count_Sample.setText("1");
+		txtFld_Count_Sample.setText(tamplateRequest.getCounts_samples() + "");
 		txtFld_Count_Sample.addKeyListener(new KeyListener() {
 
 			@Override
@@ -956,7 +956,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		p.add(lbl_SampleDescription, gbc_lbl_SampleDescription);
 
 		// TODO txtFld_Count_Sample (брой на пробите)
-		Section_Text_Count_Sample(p, border);
+		Section_Text_Count_Sample(p, border, tamplateRequest);
 
 		Button_Sample_Description(p, border,tamplateRequest);
 

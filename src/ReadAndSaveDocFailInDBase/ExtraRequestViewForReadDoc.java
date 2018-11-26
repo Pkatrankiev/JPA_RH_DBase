@@ -185,13 +185,13 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		Section_Razmernost(tamplateRequest, p_1);
 
 		// TODO CheckBox_InProtokol (извън протокол)
-		CheckBox_InProtokol(p_1);
+		CheckBox_InProtokol(tamplateRequest, p_1);
 
 		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
 		Section_Pokazatel(tamplateRequest, p_1, border);
 
 		// TODO txtArea_Descript_grup_Sample (описание на групата проби)
-		Text_Area_Description_Sample_Grup(p_1, border);
+		Text_Area_Description_Sample_Grup(tamplateRequest,p_1, border);
 
 		// TODO Section_Date_Time_Reference (референтна дата час)
 		Section_Date_Time_Reference(p_1, border, date_time_reference);
@@ -233,7 +233,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		Button_Preview(p_1);
 
 		// TODO btn_Results ( Резултати )
-		Button_Results(p_1);
+		Button_Results(tamplateRequest, p_1);
 
 		// TODO Button_Template ( Шаблон )
 		if (user.getIsAdmin()) {
@@ -658,8 +658,11 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 	}
 
-	private void CheckBox_InProtokol(final JPanel p) {
+	private void CheckBox_InProtokol(Request tamplateRequest,final JPanel p) {
 		chckbx_accreditation = new JCheckBox("Извън обхват");
+		if (tamplateRequest != null) {
+			chckbx_accreditation.setSelected(tamplateRequest.getAccreditation());
+		}
 		GridBagConstraints gbc_chckbx_accreditation = new GridBagConstraints();
 		gbc_chckbx_accreditation.anchor = GridBagConstraints.EAST;
 		gbc_chckbx_accreditation.insets = new Insets(0, 0, 5, 5);
@@ -727,8 +730,13 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 	}
 
-	private void Text_Area_Description_Sample_Grup(final JPanel p, Border border) {
-		txtArea_Descript_grup_Sample = new JTextArea();
+	private void Text_Area_Description_Sample_Grup(Request tamplateRequest, final JPanel p, Border border) {
+		
+		String str ="";
+		if (tamplateRequest != null) {
+			str = tamplateRequest.getDescription_sample_group();
+		}
+		txtArea_Descript_grup_Sample = new JTextArea(str);
 		txtArea_Descript_grup_Sample.setFont(font);
 		txtArea_Descript_grup_Sample.setBorder(border);
 		GridBagConstraints gbc_txtArea_Descript_grup_Sample = new GridBagConstraints();
@@ -869,7 +877,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 				} else {
 					if (DateChoice.get_str_period().equals("")) {
 						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
+						str_Descript_grup_Sample = "за м." + choice_Period.getSelectedItem();
 					} else {
 						str_Descript_grup_Sample = "";
 						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза м."
@@ -991,19 +999,16 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 							// String ref_Date =
 							// (txtField_RequestCode.getText());
 							final JFrame f = new JFrame();
-							SampleViewFromReadDocFile sampleDescript = null;
-
-							sampleDescript = new SampleViewFromReadDocFile(f, tamplateRequest,
+							SampleViewFromReadDocFile sampleDescript =  new SampleViewFromReadDocFile(f, tamplateRequest,
 									comBox_O_I_S, ref_Date_Time, null, masiveSampleValue);
 //							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
 //									ref_Date_Time, period, masiveSampleValue);
 
 							sampleDescript.setVisible(true);
 							if (!SampleViewAdd.cancelEntered()) {
-								masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
+								masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
 								txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-								txtArea_SampleDescription
-										.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
+								txtArea_SampleDescription.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
 								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
@@ -1451,11 +1456,11 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		p.add(btn_Preview, gbc_btn_Preview);
 	}
 
-	private void Button_Results(final JPanel p) {
+	private void Button_Results(Request tamplateRequest, final JPanel p) {
 		JButton btnNewButton = new JButton("Резултати");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultsListInTableForReadDoc.DrawTableWithEnableResultsList(request);
+				ResultsListInTableForReadDoc.DrawTableWithEnableResultsList(tamplateRequest);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();

@@ -723,10 +723,10 @@ public class RequestViewForReadDoc extends JFrame {
 				} else {
 					if (DateChoice.get_str_period().equals("")) {
 						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
+						str_Descript_grup_Sample = "за м." + choice_Period.getSelectedItem();
 					} else {
 						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза "
+						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза м."
 								+ choice_Period.getSelectedItem();
 
 					}
@@ -770,7 +770,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 0, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);
-					lblError_Count_Sample.setText("Некоректен номер");
+					lblError_Count_Sample.setText("Некоректен брой");
 
 				} else {
 					txtFld_Count_Sample.setForeground(Color.BLACK);

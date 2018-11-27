@@ -15,7 +15,7 @@ public class MenuData_EnableSampleList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Table_Sample_List.DrawTableWithEnableSampleList();
+		Table_Sample_List.DrawTableWithEnableSampleList(null);
 	}
 
 }

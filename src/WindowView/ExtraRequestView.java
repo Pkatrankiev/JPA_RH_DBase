@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-
 import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
@@ -91,7 +90,6 @@ public class ExtraRequestView extends JFrame {
 	private ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
 	
-
 	private Boolean corectRequestCode = true;
 	private String strAplicant = "";
 	private Choice choice_Period;
@@ -177,13 +175,13 @@ public class ExtraRequestView extends JFrame {
 		Section_Razmernost(tamplateRequest, p_1);
 
 		// TODO CheckBox_InProtokol (извън протокол)
-		CheckBox_InProtokol(p_1);
+		CheckBox_InProtokol(tamplateRequest, p_1);
 
 		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
 		Section_Pokazatel(tamplateRequest, p_1, border);
 
 		// TODO txtArea_Descript_grup_Sample (описание на групата проби)
-		Text_Area_Description_Sample_Grup(p_1, border);
+		Text_Area_Description_Sample_Grup(tamplateRequest, p_1, border);
 
 		// TODO Section_Date_Time_Reference (референтна дата час)
 		Section_Date_Time_Reference(p_1, border);
@@ -647,8 +645,11 @@ public class ExtraRequestView extends JFrame {
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 	}
 
-	private void CheckBox_InProtokol(final JPanel p) {
+	private void CheckBox_InProtokol(Request tamplateRequest,final JPanel p) {
 		chckbx_accreditation = new JCheckBox("Извън обхват");
+		if (tamplateRequest != null) {
+			chckbx_accreditation.setSelected(tamplateRequest.getAccreditation());
+		}
 		GridBagConstraints gbc_chckbx_accreditation = new GridBagConstraints();
 		gbc_chckbx_accreditation.anchor = GridBagConstraints.EAST;
 		gbc_chckbx_accreditation.insets = new Insets(0, 0, 5, 5);
@@ -716,8 +717,13 @@ public class ExtraRequestView extends JFrame {
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 	}
 
-	private void Text_Area_Description_Sample_Grup(final JPanel p, Border border) {
-		txtArea_Descript_grup_Sample = new JTextArea();
+	private void Text_Area_Description_Sample_Grup(Request tamplateRequest, final JPanel p, Border border) {
+		
+		String str ="";
+		if (tamplateRequest != null) {
+			str = tamplateRequest.getDescription_sample_group();
+		}
+		txtArea_Descript_grup_Sample = new JTextArea(str);
 		txtArea_Descript_grup_Sample.setFont(font);
 		txtArea_Descript_grup_Sample.setBorder(border);
 		GridBagConstraints gbc_txtArea_Descript_grup_Sample = new GridBagConstraints();

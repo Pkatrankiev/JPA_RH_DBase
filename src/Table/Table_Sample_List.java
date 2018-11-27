@@ -3,6 +3,7 @@ package Table;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -38,9 +39,16 @@ public class Table_Sample_List {
 	private static String[] values_Period;
 	private static String[] values_O_I_S;
 
-	public static void DrawTableWithEnableSampleList() {
-		 List<Request> listRequest = RequestDAO.getInListAllValueRequest();
-		List<Sample> listSample = SampleDAO.getInListAllValueSample();
+	public static void DrawTableWithEnableSampleList(Request templateRequest) {
+		List<Sample> listSample = new ArrayList<Sample>();
+		if(templateRequest==null) {
+			listSample = SampleDAO.getInListAllValueSample();
+		}else {
+			listSample =SampleDAO.getListSampleFromColumnByVolume("request", templateRequest);
+			
+		}
+		
+		 
 		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване", "Обект на пробата",
 				"Описание на групата проби","Описание на пробата", "Референтна дата", "Приод", "Година" };
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class, Calendar.class,

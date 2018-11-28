@@ -2,7 +2,10 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
+
 import Table.Table_Sample_List;
+import WindowView.TranscluentWindow;
 
 public class MenuData_EnableSampleList extends AbstractMenuAction{
 	
@@ -15,7 +18,18 @@ public class MenuData_EnableSampleList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Table_Sample_List.DrawTableWithEnableSampleList(null);
+		 JFrame f = new JFrame();
+			TranscluentWindow round = new TranscluentWindow();
+			
+			 final Thread thread = new Thread(new Runnable() {
+			     @Override
+			     public void run() {
+			    	 
+			    	 JFrame f = new JFrame();
+			    		new Table_Sample_List(f,round, null);
+			     }
+			    });
+			    thread.start();
 	}
 
 }

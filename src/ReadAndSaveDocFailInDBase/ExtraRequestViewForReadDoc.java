@@ -1664,7 +1664,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		for (int i = 0; i < masiveSampleValue.length; i++) {
 			Period period = null;
 			if (!masiveSampleValue[i][4].equals(""))
-				period = PeriodDAO.getPeriodByValue(masiveSampleValue[i][4]);
+				period = PeriodDAO.getValuePeriodByPeriod(masiveSampleValue[i][4]);
 			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
 					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
 

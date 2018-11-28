@@ -144,16 +144,28 @@ public class Table_Request_List extends JDialog {
 					AddInUpdateList(rowPokazatel);
 				}
 
-				if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
+				if (e.getClickCount() == 2 && Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
 					if (table.getSelectedColumn() == cunt_Smpl_Colum || table.getSelectedColumn() == dscr_Smpl_Colum
 							|| table.getSelectedColumn() == ref_Date_Colum) {
 						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-						Table_Sample_List.DrawTableWithEnableSampleList(choiseRequest);
+						 JFrame f = new JFrame();
+							TranscluentWindow round = new TranscluentWindow();
+							
+							 final Thread thread = new Thread(new Runnable() {
+							     @Override
+							     public void run() {
+							    	 
+							    	 JFrame f = new JFrame();
+							    		new Table_Sample_List(f,round, choiseRequest);
+							     }
+							    });
+							    thread.start();
+					
 					}
 				}
 
-				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+				if (e.getClickCount() == MouseEvent.BUTTON3 && table.getSelectedRow() != -1) {
 
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 

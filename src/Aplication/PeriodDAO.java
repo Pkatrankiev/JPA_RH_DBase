@@ -104,35 +104,19 @@ public static Period getPeriodById(@QueryParam("id") int id) {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Period e WHERE e.period = :text";
+		String hql = "SELECT e FROM Period e WHERE e.value = :text";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", period);
 		
-		Period list = (Period) query.getSingleResult();
+		List<Period> listPeriod =  query.getResultList();
+		Period list = listPeriod.get(0);
 		entitymanager.close();
 		emfactory.close();
 
 		return list;
 	}
 	
-	@GET
-	public static Period getPeriodByValue(String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		String hql = "SELECT e FROM Period e WHERE e.value = :text";
-
-		Query query = entitymanager.createQuery(hql);
-		query.setParameter("text", value);
-		
-		Period list = (Period) query.getSingleResult();
-		entitymanager.close();
-		emfactory.close();
-
-		return list;
-	}
 
 }

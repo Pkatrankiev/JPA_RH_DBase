@@ -1,5 +1,6 @@
 package Aplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -47,10 +48,13 @@ public class PeriodDAO {
 		return list;
 	}
 
+	
+	
 	public static String [] getMasiveStringAllValuePeriod() {
 		List<Period> list = getInListAllValuePeriod();
-		String[] values = new String[list.size()];
-		int i = 0;
+		String[] values = new String[list.size()+1];
+		values[0] = "";
+		int i = 1;
 		for (Period e : list) { 
 			values[i] = e.getValue();
 			i++;

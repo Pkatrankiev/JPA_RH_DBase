@@ -27,7 +27,7 @@ public class MenuData_EnableRequestList extends AbstractMenuAction {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Request_List(f,round,Login.getCurentUser());
+		 		new Table_Request_List(f,round,Login.getCurentUser(),null);
 	    	
 		     }
 		    });

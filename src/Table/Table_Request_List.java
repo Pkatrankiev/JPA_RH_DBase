@@ -102,13 +102,13 @@ public class Table_Request_List extends JDialog {
 	private static int zab_Colum = 13;
 	private static int user_Id_Colum = 14;
 
-	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user) {
+	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user, Request tamplateRequest) {
 		super(parent, "Списък на Заявките", true);
 
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
 		Class[] types = getTypes();
-		Object[][] data = getDataTable();
+		Object[][] data = getDataTable(tamplateRequest);
 		int counRow = data.length;
 
 		dataTable = data;
@@ -145,8 +145,7 @@ public class Table_Request_List extends JDialog {
 				}
 
 				if (e.getClickCount() == 2 && Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
-					if (table.getSelectedColumn() == cunt_Smpl_Colum || table.getSelectedColumn() == dscr_Smpl_Colum
-							|| table.getSelectedColumn() == ref_Date_Colum) {
+					if (table.getSelectedColumn() == cunt_Smpl_Colum || table.getSelectedColumn() == ref_Date_Colum) {
 						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 						 JFrame f = new JFrame();
@@ -346,8 +345,13 @@ public class Table_Request_List extends JDialog {
 		return choiseRequest;
 	}
 
-	private Object[][] getDataTable() {
-		List<Request> listRequest = RequestDAO.getInListAllValueRequest();
+	private Object[][] getDataTable(Request tamplateRequest) {
+		List<Request> listRequest = new ArrayList<Request>();
+		if(tamplateRequest==null){
+		listRequest = RequestDAO.getInListAllValueRequest();
+		}else{
+			listRequest.add(tamplateRequest);
+		}
 
 		Object[][] tableRequest = new Object[listRequest.size()][tbl_Colum];
 		int i = 0;

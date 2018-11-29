@@ -37,7 +37,7 @@ public class TableRequestTamplate {
 			i++;
 		}
 		JFrame f = new JFrame();
-		new Table_Request_List(f,round,null);
+		new Table_Request_List(f,round,null,null);
 		
 	}
 }

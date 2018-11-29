@@ -25,7 +25,7 @@ public class MenuRequense_RequenseList extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Request_List(f,round,null);
+		 		new Table_Request_List(f,round,null,null);
 
 		    	
 		     }

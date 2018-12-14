@@ -63,6 +63,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import WindowView.ChoiceL_I_P;
+import WindowView.DatePicker;
 import WindowView.ExtraRequestView;
 import WindowView.Login;
 import WindowView.RequestMiniFrame;
@@ -213,6 +214,9 @@ public class Table_Request_List extends JDialog {
 					public boolean isCellEditable(int row, int column) {
 						if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
 							if (Login.getCurentUser().getIsAdmin()) {
+								if (column == ref_Date_Colum){
+									return false;
+								}
 								return true;
 							} else {
 								return false;
@@ -225,7 +229,14 @@ public class Table_Request_List extends JDialog {
 					public void setValueAt(Object value, int row, int col) {
 
 						if (!dataTable[row][col].equals(value)) {
-							dataTable[row][col] = value;
+							if (col == exec_Date_Colum) {
+								String str = (String) value;
+								if (!DatePicker.incorrectDate(str, true)) {
+									dataTable[row][col] = value;
+								}
+							} else {
+								dataTable[row][col] = value;
+							}
 							fireTableCellUpdated(row, col);
 							if (col == user_Colum) {
 								EditColumnUser(value, row);
@@ -250,6 +261,8 @@ public class Table_Request_List extends JDialog {
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(razmer_Colum));
 				setUp_Users(table, table.getColumnModel().getColumn(user_Colum));
 				setUp_Zabelejki(table, table.getColumnModel().getColumn(zab_Colum));
+				
+//				table.getColumnModel().getColumn(user_Id_Colum).se
 
 				JPanel panel_Btn = new JPanel();
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);

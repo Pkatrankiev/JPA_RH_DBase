@@ -577,9 +577,10 @@ public class SetDBfromWordDoc {
 			Extra_moduleDAO.setValueExtra_module(extra_mod);
 			
 		}
+	
 		Request request = new Request(recuest_code, date_recuest, accreditation, // accreditation
 				section, // section
-				Extra_moduleDAO.getValueExtra_moduleById(extra_mod.getId_extra_module()), // xtra_module
+				extra_mod, // xtra_module
 				counts_samples, // counts_samples
 				description_sample_group, // description_sample_group
 				date_time_reception, // date_time_reception

@@ -10,7 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Dimension;
-import DBase_Class.Razmernosti;
+
 
 public class DimensionDAO {
 

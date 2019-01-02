@@ -13,7 +13,6 @@ import DBase_Class.Aplicant;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Otclonenie;
 import DBase_Class.Sample;
 

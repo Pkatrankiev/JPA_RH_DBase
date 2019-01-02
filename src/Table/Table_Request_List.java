@@ -42,7 +42,6 @@ import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
 import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
-import Aplication.Izpitvan_pokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
@@ -103,7 +102,7 @@ public class Table_Request_List extends JDialog {
 	private static int zab_Colum = 13;
 	private static int user_Id_Colum = 14;
 
-	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user, Request tamplateRequest) {
+	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user4, Request tamplateRequest) {
 		super(parent, "Списък на Заявките", true);
 
 		String[] columnNames = getTabHeader();

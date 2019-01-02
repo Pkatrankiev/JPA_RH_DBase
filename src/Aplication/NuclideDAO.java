@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
+import DBase_Class.Request;
 import DBase_Class.Sample;
 
 public class NuclideDAO {
@@ -42,6 +43,33 @@ public class NuclideDAO {
 		emfactory.close();
 	}
 
+	public static void setValueNuclide(Nuclide nuclide) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		entitymanager.persist(nuclide);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+
+	public static void updateNuclide(Nuclide nuclide) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		entitymanager.find(Nuclide.class, nuclide.getId_nuclide());
+		entitymanager.merge(nuclide);
+		
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+	
+	
 	public static List<Nuclide> getInListAllValueNuclide() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -113,7 +141,7 @@ public class NuclideDAO {
 	
 	@GET
 	@QueryParam("{id}")
-public static Nuclide getValueSNuclideById(@QueryParam("id") int id) {
+	public static Nuclide getValueSNuclideById(@QueryParam("id") int id) {
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();

@@ -177,7 +177,7 @@ public class Login extends JDialog {
 		passwordField.setText("");
 		txt_nik_name.setText("");
 		succeeded = false;
-
+		curentUser = null;
 	}
 
 	public static final String encrypt(String md5) { // kriptirane na string v

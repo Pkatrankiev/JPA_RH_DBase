@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
 

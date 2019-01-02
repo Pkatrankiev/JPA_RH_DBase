@@ -2,16 +2,23 @@ package Aplication;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Iterator;
 import java.util.List;
 
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
+import DBase_Class.Metody_to_Pokazatel;
+import DBase_Class.Nuclide;
+import DBase_Class.Nuclide_to_Pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
+import DBase_Class.Sample;
 import WindowView.MainWindows;
 import WindowView.ReadFile;
-import WindowViewAplication.CreateNewTableIzpitvanPokazatel;
+
 
 
 public class Main_Aplication {
@@ -23,16 +30,13 @@ public class Main_Aplication {
 
 //		 SetBasikValueInDataBase();
 
-//		 ChangeObjectsInClassIzpitvan_pokazatel();
 
 		// ReaderWordDoc.readMyDocument(fileName);
 
-//		CreateNewTableIzpitvanPokazatel.CreateNewTableIzpitvanPokazatel();
-//		Results_oldDAO.chanchceRsultsClass();
+//		ChangeObjectsInClass();
 
-		StartMainWindow();
-//
-//		 String FILENAME = "l:\\ЛИ-РХ\\Протоколи\\3700_20.09.2018.doc";
+			StartMainWindow();
+
 		
 //		 ReadFile.ReadFile(FILENAME);
 
@@ -46,52 +50,40 @@ public class Main_Aplication {
 		}
 	}
 
- static void ChangeObjectsInClassIzpitvan_pokazatel() {
-		Razmernosti nuclide_old = RazmernostiDAO.getValueRazmernostiById(7);
-		Razmernosti nuclide_new = RazmernostiDAO.getValueRazmernostiById(5);
-		List<Results> results_list = ResultsDAO.getListResultsFromColumnByVolume("rtazmernosti", nuclide_old);
-		for (Results results : results_list) {
-			ResultsDAO.setVolumeInColumInResultsById(results.getId_results(), nuclide_new, "rtazmernosti");
-		}
-	}
 
 	private static void ChangeObjectsInClass() {
-		Izpitvan_produkt izpitvan_produkt_old = Izpitvan_produktDAO.getValueIzpitvan_produktById(9);
-		Izpitvan_produkt izpitvan_produkt_new = Izpitvan_produktDAO.getValueIzpitvan_produktById(4);
-		List<Request> list_request = RequestDAO.getListRequestFromColumnByVolume("izpitvan_produkt",
-				izpitvan_produkt_old);
-		for (Request request : list_request) {
-			RequestDAO.setIzpitvan_produktInRequestById(request.getId_recuest(), izpitvan_produkt_new);
+		List_izpitvan_pokazatel pokaz = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(8);
+		
+		List<Results> listResult = ResultsDAO.getListResultsFromColumnByVolume("pokazatel", pokaz);
+		
+		for (Results object : listResult) {
+			Request request = object.getSample().getRequest();
+			List<IzpitvanPokazatel> izpitPok = IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelByRequest(request);
+			System.out.println("***********************************************");
+			System.out.println(izpitPok.size());
+			for (IzpitvanPokazatel izpitvanPokazatel : izpitPok) {
+				System.out.println("///////////////////////////////////////////////");
+				System.out.println(izpitvanPokazatel.getPokazatel().getId_pokazatel());
+				if(izpitvanPokazatel.getPokazatel().getId_pokazatel()==pokaz.getId_pokazatel()){
+					System.out.println("-------------------------------------------------");
+					System.out.println(pokaz.getId_pokazatel());
+					Metody metody_new = izpitvanPokazatel.getMetody();
+					Results res = ResultsDAO.getValueResultsById(object.getId_results());
+					System.out.println(metody_new.getId_metody()+"   "+res.getId_results());
+					res.setMetody(metody_new);
+					ResultsDAO.updateResults(res);
+				}
+			}
+			
 		}
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(listResult.size());
 	}
 
 	private static void StartMainWindow() {
+				
 		MainWindows win = new MainWindows();
 		win.WindowNew();
-	}
-
-	private static void SetBasikValueInDataBase() {
-		// External_applicantDAO.setBasikValueExternal_applicant();
-		// Izpitvan_produktDAO.setBasikValueIzpitvan_produkt();
-		// Ind_num_docDAO.setBasikValueInd_num_doc();
-		// MetodyDAO.setBasikValueMetody();
-		// List_izpitvan_pokazatelDAO.setBasikValuePokazatel();
-		// NuclideDAO.setBasicValueNuclide();
-		// Obekt_na_izpitvane_requestDAO.setBasicValueObekt_na_izpitvane();
-		// Obekt_na_izpitvane_sampleDAO.setBasicValueObekt_na_izpitvane_sample();
-		// Izpitvan_pokazatelDAO.setBasikValueIzpitvan_pokazatel();
-		// RazmernostiDAO.setBasicValueRazmernosti();
-		// DimensionDAO.setBasicValueDimension();
-		// PostDAO.setBasikValuePost();
-//		 UsersDAO.setBasicValueUsers();
-		// ZabelejkiDAO.setBasicValueZabelejki();
-		// Internal_applicantDAO.setBasikValueInternal_applicant();
-		// PeriodDAO.setBasicValuePeriod();
-//		 RequestDAO.setBasicValueRequest();
-//		 SampleDAO.setBasicValueSample();
-		// ResultsDAO.setBasicValueResults();
-		// Extra_moduleDAO.setBasicValueRequest();
-//		IzpitvanPokazatelDAO.setBasikValueIzpitvan_pokazatel();
 	}
 
 	public static String alignExpon(double basic, double foll) {

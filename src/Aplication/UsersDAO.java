@@ -1,5 +1,6 @@
 package Aplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,9 +10,11 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Aplicant;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
+import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 
@@ -125,5 +128,38 @@ public class UsersDAO {
 		emfactory.close();
 
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Users> getListUsersFromColumnByVolume(String column_name, Object volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Users e WHERE e." + column_name + " = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", volume_check);
+
+		List<Users> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	public static List<String> getListStringAllName_FamilyUsers(Post post) {
+		List<Users> list = new ArrayList<>();
+		if(post==null){
+			 list = getInListAllValueUsers();
+		}else{
+		 list = getListUsersFromColumnByVolume("post", post);
+		}
+		List<String> values = new ArrayList<>();
+		for (Users user : list) {
+			values. add( user.getName_users() + " " + user.getFamily_users());
+		}
+		return values;
 	}
 }

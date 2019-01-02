@@ -12,16 +12,29 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Aplication.AplicantDAO;
 import Aplication.DimensionDAO;
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.List_izpitvan_pokazatelDAO;
+import Aplication.MetodyDAO;
+import Aplication.Metody_to_PokazatelDAO;
+import Aplication.NuclideDAO;
+import Aplication.PostDAO;
+import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
+import Aplication.UsersDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Metody_to_Pokazatel;
+import DBase_Class.Nuclide;
+import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import DBase_Class.Users;
 
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -52,22 +65,36 @@ import java.awt.Point;
 public class AddResultsView extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JPanel panelRsltsList;
 	private JTextField txtBasicValueResult;
 	private JTextField txtRqstCode;
 	private Sample sample = null;
-	private IzpitvanPokazatel pokazatel;
-	private Metody metod;
+	private List_izpitvan_pokazatel pokazatel = null;
+	private Choice choicePokazatel;
+	private Choice choiceOIR;
+	private Choice choiceORHO;
+	private Metody selectedMetod = null;
 	private Boolean corectRequestCode = false;
 	private List<DBase_Class.Dimension> listDimension;
+	private List<Razmernosti> listRazmernost;
 	private List<Sample> listSample;
+	private List<String> list_UsersNameFamily;
+	private List<String> list_UsersNameFamilyOIR;
+	private List<String> list_UsersNameFamilyORHO;
 	private List<IzpitvanPokazatel> listPokazatel;
+	private List<Metody> listMetody;
+	private Results[] choiceResults;
+	private List<Nuclide> listNuclide;
 	private Request choiseRequest;
 
 	int newCountResults = 0;
 	int countResults = 0;
-
+	int addCount = 0;
+	int rowWidth = 40;
+	Boolean flagNotReadListPokazatel = true;
+	Boolean flagNotReadListMetody = true; 	
+	
 	private JPanel[] panelRsltsValues;
-	private JLabel[] lblNcldName;
 	private JTextField[] txtValueResult;
 	private JTextField[] txtUncertainty;
 	private JTextField[] txtMDA;
@@ -77,6 +104,7 @@ public class AddResultsView extends JDialog {
 	private JTextField[] txtDateMeasur;
 	private JCheckBox[] chckbxInProtokol;
 	private JButton[] btnCheckResult;
+	private Choice[] choiceNcldName;
 	private Choice[] choiceDimention;
 	private Choice[] choicÂRazmernosti;
 	private Font font = new Font("Tahoma", Font.PLAIN, 12);
@@ -95,31 +123,21 @@ public class AddResultsView extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public AddResultsView() {
 
-		countResults = 4;
-
-		pokazatel = null;
-		metod = null;
-
-		newCountResults = countResults;
+		
 		listDimension = DimensionDAO.getInListAllValueDimension();
+		listRazmernost = RazmernostiDAO.getInListAllValueRazmernosti();
+		list_UsersNameFamily = UsersDAO.getListStringAllName_FamilyUsers(null);
+		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsers(PostDAO.getValuePostByName("Œ»–"));
+		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsers(PostDAO.getValuePostByName("Œ–’Œ"));
+		listNuclide = NuclideDAO.getInListAllValueNuclide();
 		listSample = new ArrayList<Sample>();
-		if (sample != null) {
-			List<Results> ListResults = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
+		listMetody = new ArrayList<Metody>();
+		
 
-			for (Results result : ListResults) {
-				if (result.equals(pokazatel) && result.equals(metod)) {
-
-				}
-
-			}
-		}
-
-		setBounds(100, 100, 840, (countResults * 34) + 280);
+		setBounds(100, 100, 910, (countResults * rowWidth) + 320);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -144,13 +162,13 @@ public class AddResultsView extends JDialog {
 
 		PokazatelSection(panel_2);
 
-		ChoiceOHR_Section(panel_2);
+		ChoiceORHO_Section(panel_2);
 
-		ChoiceMetodSection(panel_2);
+		MetodSection(panel_2);
 
 		ChoiceOIR_Section(panel_2);
 
-		PanelResultListSection(panel_2);
+//		PanelResultListSection(panel_2);
 
 		BasicValueFileSection(panel_2);
 
@@ -160,6 +178,26 @@ public class AddResultsView extends JDialog {
 
 	}
 
+
+	private Results[] creadListChoiseResults(Sample sample) {
+		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
+			List<Results> choiceResults = new ArrayList<Results>();
+			for (Results result : ListResultsFromSample) {
+				if (result.getPokazatel().getId_pokazatel()==pokazatel.getId_pokazatel()&& result.getMetody().getId_metody()==selectedMetod.getId_metody()) {
+					choiceResults.add(result);
+				}
+			}
+			Results[] masiveResults = new Results[choiceResults.size()];
+			int i=0;
+			for (Results results : choiceResults) {
+				masiveResults[i] = results;
+				i++;
+			} 
+		return masiveResults;
+	}
+
+	
+	
 	private void ButtonPanell() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -215,7 +253,9 @@ public class AddResultsView extends JDialog {
 	}
 
 	private void PanelResultListSection(JPanel panel) {
-		JPanel panelRsltsList = new JPanel();
+				
+		JPanel  panelRsltsList = new JPanel();
+		panelRsltsList.removeAll();
 		GridBagConstraints gbc_panelRsltsList = new GridBagConstraints();
 		gbc_panelRsltsList.gridwidth = 6;
 		gbc_panelRsltsList.insets = new Insets(0, 0, 5, 0);
@@ -232,7 +272,7 @@ public class AddResultsView extends JDialog {
 		PanelLabelResultsList(panelLabellResults);
 
 		panelRsltsValues = new JPanel[countResults + 6];
-		lblNcldName = new JLabel[countResults + 6];
+		choiceNcldName = new Choice[countResults + 6];
 		txtValueResult = new JTextField[countResults + 6];
 		txtUncertainty = new JTextField[countResults + 6];
 		txtMDA = new JTextField[countResults + 6];
@@ -246,20 +286,21 @@ public class AddResultsView extends JDialog {
 		btnCheckResult = new JButton[countResults + 6];
 
 		for (int i = 0; i < countResults; i++) {
-			final int selection = i;
-			RowInListResults(panelRsltsList, i, sample);
+			
+			RowInListResults(panelRsltsList, i);
 		}
 
 		JButton btnAddNuclide = new JButton("ƒÓ·‡‚ˇÌÂ ÌÛÍÎË‰");
 		btnAddNuclide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				newCountResults = newCountResults + 1;
-				RowInListResults(panelRsltsList, newCountResults, null);
+				addCount = addCount + 1;
+				newCountResults = countResults + addCount;
+				RowInListResults(panelRsltsList, newCountResults);
 				if (newCountResults == countResults + 5) {
 					btnAddNuclide.setVisible(false);
 				}
 				System.out.println(newCountResults);
-				setBounds(100, 100, 840, (newCountResults * 34) + 280);
+				setBounds(100, 100, 910, (newCountResults * rowWidth) + 320);
 				validate();
 				repaint();
 			}
@@ -267,7 +308,7 @@ public class AddResultsView extends JDialog {
 		btnAddNuclide.setMargin(new Insets(2, 5, 2, 5));
 		btnAddNuclide.setPreferredSize(new Dimension(123, 20));
 		GridBagConstraints gbc_btnAddNuclide = new GridBagConstraints();
-		gbc_btnAddNuclide.anchor = GridBagConstraints.EAST;
+		gbc_btnAddNuclide.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAddNuclide.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAddNuclide.gridx = 5;
 		gbc_btnAddNuclide.gridy = 6;
@@ -280,19 +321,40 @@ public class AddResultsView extends JDialog {
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 4;
-		gbc_lblNewLabel_2.gridy = 4;
+		gbc_lblNewLabel_2.gridy = 3;
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
-
-		Choice choiceOIR = new Choice();
-		GridBagConstraints gbc_choiceOIR = new GridBagConstraints();
-		gbc_choiceOIR.fill = GridBagConstraints.HORIZONTAL;
-		gbc_choiceOIR.insets = new Insets(0, 0, 5, 0);
-		gbc_choiceOIR.gridx = 5;
-		gbc_choiceOIR.gridy = 4;
-		panel.add(choiceOIR, gbc_choiceOIR);
+		
+				choiceOIR = new Choice();
+				GridBagConstraints gbc_choiceOIR = new GridBagConstraints();
+				gbc_choiceOIR.fill = GridBagConstraints.HORIZONTAL;
+				gbc_choiceOIR.insets = new Insets(0, 0, 5, 0);
+				gbc_choiceOIR.gridx = 5;
+				gbc_choiceOIR.gridy = 3;
+				panel.add(choiceOIR, gbc_choiceOIR);
+				
+				for (String str : list_UsersNameFamilyOIR) {
+					choiceOIR.addItem(str);
+				}
+				
 	}
 
-	private void ChoiceMetodSection(JPanel panel) {
+	private void MetodSection(JPanel panel) {
+		
+		JLabel lblNameMetod = new JLabel();
+		Dimension dim = new Dimension(480, 14);
+		lblNameMetod.setPreferredSize(dim);
+		lblNameMetod.setMinimumSize(dim);
+		lblNameMetod.setMaximumSize(dim);
+		lblNameMetod.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		GridBagConstraints gbc_lblNameMetod = new GridBagConstraints();
+		gbc_lblNameMetod.anchor = GridBagConstraints.WEST;
+		gbc_lblNameMetod.gridwidth = 3;
+		gbc_lblNameMetod.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNameMetod.gridx = 3;
+		gbc_lblNameMetod.gridy = 4;
+		panel_2.add(lblNameMetod, gbc_lblNameMetod);
+				
 		JLabel lblMetody = new JLabel("ÃÂÚÓ‰");
 		GridBagConstraints gbc_lblMetody = new GridBagConstraints();
 		gbc_lblMetody.insets = new Insets(0, 0, 5, 5);
@@ -308,24 +370,71 @@ public class AddResultsView extends JDialog {
 		gbc_choiceMetody.gridx = 1;
 		gbc_choiceMetody.gridy = 4;
 		panel.add(choiceMetody, gbc_choiceMetody);
+		
+		choiceMetody.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+					if (choicePokazatel.getSelectedItem()!= null) {
+						if(flagNotReadListMetody){
+						
+						pokazatel = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem());
+						List<Metody_to_Pokazatel> list = Metody_to_PokazatelDAO.getListMetody_to_PokazatelFromColumnByVolume("pokazatel", pokazatel);			
+						for (Metody_to_Pokazatel metody_to_Pokazatel : list) {
+							listMetody.add(metody_to_Pokazatel.getMetody());
+						}
+						for (Metody metod : listMetody) {
+							choiceMetody.add(metod.getCode_metody());
+							flagNotReadListMetody = false;
+						}
+						}
+						selectedMetod = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
+						lblNameMetod.setText(selectedMetod.getName_metody());
+						choiceResults = creadListChoiseResults(sample);
+						countResults = choiceResults.length;
+//						newCountResults = countResults;
+						
+						PanelResultListSection(panel_2);
+//						setBounds(100, 100, 910, (countResults * rowWidth) + 320);
+//						validate();
+//						repaint();
+					}
+				}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+		});
+		
 	}
 
-	private void ChoiceOHR_Section(JPanel panel) {
+	private void ChoiceORHO_Section(JPanel panel) {
 		JLabel lblNewLabel_1 = new JLabel("»Á‚˙¯ËÎ ’ËÏ. Ó·‡·ÓÚ.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_1.gridx = 4;
-		gbc_lblNewLabel_1.gridy = 3;
+		gbc_lblNewLabel_1.gridy = 1;
 		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+				choiceORHO = new Choice();
+				GridBagConstraints gbc_choiceORHO = new GridBagConstraints();
+				gbc_choiceORHO.fill = GridBagConstraints.HORIZONTAL;
+				gbc_choiceORHO.insets = new Insets(0, 0, 5, 0);
+				gbc_choiceORHO.gridx = 5;
+				gbc_choiceORHO.gridy = 1;
+				panel.add(choiceORHO, gbc_choiceORHO);
+				
+				for (String str : list_UsersNameFamilyORHO) {
+					choiceORHO.addItem(str);
+				}
 
-		Choice choiceOHR = new Choice();
-		GridBagConstraints gbc_choiceOHR = new GridBagConstraints();
-		gbc_choiceOHR.fill = GridBagConstraints.HORIZONTAL;
-		gbc_choiceOHR.insets = new Insets(0, 0, 5, 0);
-		gbc_choiceOHR.gridx = 5;
-		gbc_choiceOHR.gridy = 3;
-		panel.add(choiceOHR, gbc_choiceOHR);
 	}
 
 	private void PokazatelSection(JPanel panel) {
@@ -337,7 +446,8 @@ public class AddResultsView extends JDialog {
 		gbc_lblPokazatel.gridy = 3;
 		panel.add(lblPokazatel, gbc_lblPokazatel);
 
-		Choice choicePokazatel = new Choice();
+		choicePokazatel = new Choice();
+		choicePokazatel.setPreferredSize(new Dimension(205, 20));
 		GridBagConstraints gbc_choicePokazatel = new GridBagConstraints();
 		gbc_choicePokazatel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choicePokazatel.gridwidth = 2;
@@ -352,9 +462,10 @@ public class AddResultsView extends JDialog {
 
 				if (choiseRequest != null) {
 					if (sample != null) {
-//						if (choicePokazatel.get)
+						if (flagNotReadListPokazatel)
 						for (IzpitvanPokazatel pokazat : listPokazatel) {
 							choicePokazatel.add(pokazat.getPokazatel().getName_pokazatel());
+							flagNotReadListPokazatel = false;
 						}
 					}
 				}
@@ -373,6 +484,7 @@ public class AddResultsView extends JDialog {
 		});
 	}
 
+	
 	private void SampleCodeSection(JPanel panel) {
 		JLabel lblSmplCode = new JLabel("π Ì‡ ÔÓ·‡");
 		GridBagConstraints gbc_lblSmplCode = new GridBagConstraints();
@@ -412,7 +524,6 @@ public class AddResultsView extends JDialog {
 						sample = samp;
 					}
 				}
-
 				choiceSmplCode.getSelectedItem();
 			}
 
@@ -425,9 +536,11 @@ public class AddResultsView extends JDialog {
 	}
 
 	private void RequestCodeSection(JPanel panel) {
-
+		
 		JLabel lblError = new JLabel();
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
+		gbc_lblError.anchor = GridBagConstraints.WEST;
+		gbc_lblError.gridwidth = 2;
 		gbc_lblError.insets = new Insets(0, 0, 5, 5);
 		gbc_lblError.gridx = 1;
 		gbc_lblError.gridy = 2;
@@ -491,110 +604,134 @@ public class AddResultsView extends JDialog {
 
 	}
 
-	private void ListResultsInRow(int countResults, JPanel panelRsltsList) {
-
-	}
-
-	private void RowInListResults(JPanel panelRsltsList, int i, Sample sample) {
+	
+	private void RowInListResults(JPanel panelRsltsList, int i) {
 		panelRsltsValues[i] = new JPanel();
 		panelRsltsList.add(panelRsltsValues[i]);
 		panelRsltsValues[i].setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		{
-			lblNcldName[i] = new JLabel("60Co");
-			lblNcldName[i].setFont(font);
-			lblNcldName[i].setPreferredSize(new Dimension(42, 15));
-			lblNcldName[i].setHorizontalAlignment(JLabel.CENTER);
-			lblNcldName[i].setBorder(new LineBorder(new Color(0, 0, 0)));
-			panelRsltsValues[i].add(lblNcldName[i]);
+			choiceNcldName[i] = new Choice();
+			choiceNcldName[i].setFont(font);
+			choiceNcldName[i].setPreferredSize(new Dimension(85, 22));
+			for (Nuclide nuclid : listNuclide) {
+				choiceNcldName[i].addItem(nuclid.getSymbol_nuclide());
+			}
+			panelRsltsValues[i].add(choiceNcldName[i]);
+			if(countResults>0&&countResults>i){
+				choiceNcldName[i].select(choiceResults[i].getNuclide().getSymbol_nuclide());
+			}
+			
 		}
 		{
 			txtValueResult[i] = new JTextField();
 			txtValueResult[i].setFont(font);
-			txtValueResult[i].setSize(new Dimension(5, 15));
+			txtValueResult[i].setPreferredSize(new Dimension(5, 22));
 			txtValueResult[i].setColumns(6);
 			txtValueResult[i].setHorizontalAlignment(JLabel.CENTER);
 			txtValueResult[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtValueResult[i]);
-
+			if(countResults>0&&countResults>i){
+				txtValueResult[i].setText(choiceResults[i].getValue_result()+"");
+			}else{txtValueResult[i].setText("");}
 		}
 		{
 			txtUncertainty[i] = new JTextField();
 			txtUncertainty[i].setFont(font);
-			txtUncertainty[i].setSize(new Dimension(5, 15));
+			txtUncertainty[i].setPreferredSize(new Dimension(5, 22));
 			txtUncertainty[i].setColumns(6);
 			txtUncertainty[i].setHorizontalAlignment(JLabel.CENTER);
 			txtUncertainty[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtUncertainty[i]);
-
+			if(countResults>0&&countResults>i){
+				txtUncertainty[i].setText(choiceResults[i].getUncertainty()+"");
+			}else{txtUncertainty[i].setText("");}
 		}
 		{
 			txtMDA[i] = new JTextField();
 			txtMDA[i].setFont(font);
-			txtMDA[i].setSize(new Dimension(6, 15));
+			txtMDA[i].setPreferredSize(new Dimension(5,22));
 			txtMDA[i].setColumns(6);
 			txtMDA[i].setHorizontalAlignment(JLabel.CENTER);
 			txtMDA[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtMDA[i]);
-
+			if(countResults>0&&countResults>i){
+				txtMDA[i].setText(choiceResults[i].getMda()+"");
+			}else{txtMDA[i].setText("");}
 		}
 		{
 			choicÂRazmernosti[i] = new Choice();
-			lblNcldName[i].setFont(font);
-			choicÂRazmernosti[i].setPreferredSize(new Dimension(50, 20));
+			choicÂRazmernosti[i].setFont(font);
+			choicÂRazmernosti[i].setPreferredSize(new Dimension(65, 22));
 			panelRsltsValues[i].add(choicÂRazmernosti[i]);
+			for (Razmernosti razm : listRazmernost) {
+				choicÂRazmernosti[i].addItem(razm.getName_razmernosti());
+			}
+			if(countResults>0&&countResults>i){
+				choicÂRazmernosti[i].select(choiceResults[i].getRtazmernosti().getName_razmernosti());
+			}
 		}
 		{
 			txtSigma[i] = new JTextField();
 			txtSigma[i].setFont(font);
-			txtSigma[i].setSize(new Dimension(6, 15));
+			txtSigma[i].setPreferredSize(new Dimension(5, 22));
 			txtSigma[i].setColumns(4);
 			txtSigma[i].setHorizontalAlignment(JLabel.CENTER);
 			txtSigma[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtSigma[i]);
-
+			if(countResults>0&&countResults>i){
+				txtSigma[i].setText(choiceResults[i].getSigma()+"");
+			}else{txtSigma[i].setText("");}
 		}
 		{
 			txtQuantity[i] = new JTextField();
 			txtQuantity[i].setFont(font);
-			txtQuantity[i].setSize(new Dimension(6, 15));
+			txtQuantity[i].setPreferredSize(new Dimension(5, 22));
 			txtQuantity[i].setColumns(6);
 			txtQuantity[i].setHorizontalAlignment(JLabel.CENTER);
 			txtQuantity[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtQuantity[i]);
-
+			if(countResults>0&&countResults>i){
+				txtQuantity[i].setText(choiceResults[i].getQuantity()+"");
+			}else{txtQuantity[i].setText("");}
 		}
 		{
 			choiceDimention[i] = new Choice();
 			choiceDimention[i].setFont(font);
-			choiceDimention[i].setPreferredSize(new Dimension(50, 20));
-
 			for (DBase_Class.Dimension dim : listDimension) {
 				choiceDimention[i].addItem(dim.getName_dimension());
 			}
-			// if (sample!=null)
-			// choiceDimention[i].setSelectedItem(sample);
-
 			panelRsltsValues[i].add(choiceDimention[i]);
+			if(countResults>0&&countResults>i){
+				String str="";
+				if(choiceResults[i].getDimension()!=null){
+					str = choiceResults[i].getDimension().getName_dimension();
+				}
+				choiceDimention[i].select(str);
+			}
 		}
 		{
 			txtDateChimOper[i] = new JTextField();
 			txtDateChimOper[i].setFont(font);
-			txtDateChimOper[i].setSize(new Dimension(6, 15));
+			txtDateChimOper[i].setPreferredSize(new Dimension(5, 22));
 			txtDateChimOper[i].setColumns(8);
 			txtDateChimOper[i].setHorizontalAlignment(JLabel.CENTER);
 			txtDateChimOper[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtDateChimOper[i]);
-
+			if(countResults>0&&countResults>i){
+				txtDateChimOper[i].setText(choiceResults[i].getDate_chim_oper()+"");
+			}else{txtDateChimOper[i].setText("");}
 		}
 		{
 			txtDateMeasur[i] = new JTextField();
 			txtDateMeasur[i].setFont(font);
-			txtDateMeasur[i].setSize(new Dimension(6, 15));
+			txtDateMeasur[i].setPreferredSize(new Dimension(5, 22));
 			txtDateMeasur[i].setColumns(8);
 			txtDateMeasur[i].setHorizontalAlignment(JLabel.CENTER);
 			txtDateMeasur[i].setBorder(new LineBorder(new Color(0, 0, 0)));
 			panelRsltsValues[i].add(txtDateMeasur[i]);
-
+			if(countResults>0&&countResults>i){
+				txtDateMeasur[i].setText(choiceResults[i].getDate_measur()+"");
+			}else{txtDateMeasur[i].setText("");}
 		}
 		{
 			chckbxInProtokol[i] = new JCheckBox("");
@@ -602,12 +739,15 @@ public class AddResultsView extends JDialog {
 			chckbxInProtokol[i].setAlignmentX(Component.CENTER_ALIGNMENT);
 			chckbxInProtokol[i].setPreferredSize(new Dimension(75, 20));
 			panelRsltsValues[i].add(chckbxInProtokol[i]);
+			if(countResults>0&&countResults>i){
+				chckbxInProtokol[i].setSelected(choiceResults[i].getInProtokol());
+			}
 		}
 		{
 			btnCheckResult[i] = new JButton("œÓ‚ÂÍ‡");
 			btnCheckResult[i].setMargin(new Insets(2, 5, 2, 5));
 			btnCheckResult[i].setFont(font);
-			btnCheckResult[i].setPreferredSize(new Dimension(75, 20));
+			btnCheckResult[i].setPreferredSize(new Dimension(75, 22));
 			btnCheckResult[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 				}
@@ -616,9 +756,10 @@ public class AddResultsView extends JDialog {
 		}
 	}
 
+	
 	private void PanelLabelResultsList(Panel panel_1) {
 		JLabel lblNameNuclide = new JLabel("ÕÛÍÎË‰");
-		lblNameNuclide.setPreferredSize(new Dimension(42, 20));
+		lblNameNuclide.setPreferredSize(new Dimension(85, 20));
 		lblNameNuclide.setHorizontalAlignment(JLabel.CENTER);
 		lblNameNuclide.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.add(lblNameNuclide);
@@ -645,7 +786,7 @@ public class AddResultsView extends JDialog {
 		}
 		{
 			JLabel lblRazmernosti = new JLabel("–‡ÁÏ.");
-			lblRazmernosti.setPreferredSize(new Dimension(50, 20));
+			lblRazmernosti.setPreferredSize(new Dimension(65, 20));
 			lblRazmernosti.setHorizontalAlignment(JLabel.CENTER);
 			lblRazmernosti.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_1.add(lblRazmernosti);

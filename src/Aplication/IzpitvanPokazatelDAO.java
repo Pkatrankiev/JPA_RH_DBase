@@ -14,7 +14,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
@@ -28,7 +27,6 @@ public class IzpitvanPokazatelDAO {
 
 	static String name_DBase = "JPA_RH_DBase";
 
-	// Pokazatel
 	public static void setValueIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Request request,
 			Metody metody) {
 
@@ -47,13 +45,6 @@ public class IzpitvanPokazatelDAO {
 		emfactory.close();
 	}
 
-	public static void setIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Request request) {
-		IzpitvanPokazatel izpitvanPokazatel = new IzpitvanPokazatel();
-		izpitvanPokazatel.setPokazatel(list_izpitvan_pokazatel);
-		izpitvanPokazatel.setRequest(request);
-		izpitvanPokazatel.setMetody(null);
-		setValueIzpitvanPokazatel(izpitvanPokazatel);
-	}
 	public static void updateObjectIzpitvanPokazatel(IzpitvanPokazatel izpitvan_pokazatel) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -95,11 +86,7 @@ public class IzpitvanPokazatelDAO {
 		List<IzpitvanPokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-
-		for (IzpitvanPokazatel e : list) {
-			System.out.println("Num:" + ((IzpitvanPokazatel) e).getId_pokazatel() + "  id :"
-					+ ((IzpitvanPokazatel) e).getId_pokazatel());
-		}
+	
 		return list;
 	}
 
@@ -222,7 +209,7 @@ public class IzpitvanPokazatelDAO {
 		return list;
 	}
 
-	public static void setList_Izpitvan_pokazatelInIzpitvan_pokazatelById(int id, Object izpitvan_pokazatel,
+	public static void setObjectInIzpitvan_pokazatelById(int id, Object updateObject,
 			String colum) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -230,7 +217,7 @@ public class IzpitvanPokazatelDAO {
 		updateTranzaction.begin();
 		Query query = entitymanager
 				.createQuery("UPDATE IzpitvanPokazatel e SET e." + colum + "= :coll WHERE e.Id_pokazatel= :id");
-		query.setParameter("coll", izpitvan_pokazatel).setParameter("id", id);
+		query.setParameter("coll", updateObject).setParameter("id", id);
 
 		query.executeUpdate();
 		updateTranzaction.commit();

@@ -9,10 +9,11 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
+
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -133,7 +134,7 @@ public class ResultsDAO {
 		int ran = 1;
 
 		// Get pokazatel list
-		List<Izpitvan_pokazatel> list_pokazatel = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e").getResultList();
+		List<IzpitvanPokazatel> list_pokazatel = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e").getResultList();
 		System.out.println("Num pokazatel:" + list_pokazatel.size());
 		
 		Metody metody = null;

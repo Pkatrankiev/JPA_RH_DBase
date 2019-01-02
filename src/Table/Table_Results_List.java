@@ -87,7 +87,7 @@ public class Table_Results_List extends JDialog {
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
 		Class[] types = getTypes();
-		Object[][] data = getDataTable(request);
+		dataTable = getDataTable(request);
 
 		setTitle("Списък на Резултатите");
 		values_Metody = MetodyDAO.getMasiveStringAllValueMetody();
@@ -95,7 +95,7 @@ public class Table_Results_List extends JDialog {
 		values_Nuclide = NuclideDAO.getMasiveStringAllValueNuclide();
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
 		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
-		dataTable = data;
+		
 		listWhithChangeRow = new ArrayList<Integer>() ;
 		final JTable table = new JTable();// new DefaultTableModel(rowData,
 											// columnNames));

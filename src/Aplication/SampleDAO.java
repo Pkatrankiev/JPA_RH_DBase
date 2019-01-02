@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Izpitvan_pokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
@@ -174,7 +173,7 @@ public class SampleDAO {
 		entitymanager.getTransaction().begin();
 		
 
-		entitymanager.find(Request.class, sample.getId_sample());
+		entitymanager.find(Sample.class, sample.getId_sample());
 		entitymanager.merge(sample);
 		
 		try {

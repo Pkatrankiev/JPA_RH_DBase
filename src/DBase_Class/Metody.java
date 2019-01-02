@@ -23,15 +23,25 @@ public class Metody implements Serializable {
 	
 	private String name;
 	private String code;
+	private Boolean inAcredit;
 
-	public Metody(Integer id, String name, String code) {
+	public Metody(Integer id, String name, String code, Boolean inAcredit) {
 		super();
 		this.code = code;
 		this.name = name;
+		this.inAcredit = inAcredit;
 	}
 
 	public Metody (){
 		super();
+	}
+
+	public Boolean getInAcredit() {
+		return inAcredit;
+	}
+
+	public void setInAcredit(Boolean inAcredit) {
+		this.inAcredit = inAcredit;
 	}
 
 	public int getId_metody() {

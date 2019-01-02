@@ -1189,7 +1189,7 @@ public class RequestViewForReadDoc extends JFrame {
 		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
 			
-			IzpitvanPokazatelDAO.setIzpitvanPokazatel(l_I_P, request);
+			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
 		}
 
 		// TODO Update Sample ( презапис на проби )

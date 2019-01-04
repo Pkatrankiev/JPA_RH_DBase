@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time:  2 яну 2019 в 18:23
--- Версия на сървъра: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time:  4 яну 2019 в 14:52
+-- Версия на сървъра: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -252,7 +254,8 @@ INSERT INTO `izpitvanpokazatel` (`ID_POKAZATEL`, `METODY_ID_METODY`, `POKAZATEL_
 (256, 9, 1, 83),
 (259, 9, 1, 84),
 (261, 9, 1, 85),
-(262, NULL, 1, 86);
+(262, NULL, 1, 86),
+(263, NULL, 1, 88);
 
 -- --------------------------------------------------------
 
@@ -1056,7 +1059,8 @@ INSERT INTO `request` (`ID_RECUEST`, `ACCREDITATION`, `COUNTS_SAMPLES`, `DATE_EX
 (83, 0, 1, '15.03.2017', '28.02.2017', '28.02.2017', 'Сборна водна проба за м. 02.2017 г., период 01.02.2017 ÷ 28.02.2017\n', '3196', 1, NULL, 4, 3, 16, 5, 1, 5),
 (84, 0, 1, '15.03.2017', '28.02.2017', '28.02.2017', 'Сборна водна проба за м. 02.2017 г., период 01.02.2017 ÷ 28.02.2017', '3197', 1, NULL, 4, 3, 15, 5, 1, 5),
 (85, 0, 1, '15.03.2017', '27.02.2017', '27.02.2017', ' Бетон от демонтирана плоча на ТГ-7', '3198', 0, 30, 1, 1, 26, 2, 1, 1),
-(86, 0, 2, '18.01.2019', '02.01.2019', '02.01.2019', '', '3399', 1, NULL, 4, 4, 2, 4, 4, 5);
+(86, 0, 2, '18.01.2019', '02.01.2019', '02.01.2019', '', '3399', 1, NULL, 4, 4, 2, 4, 4, 5),
+(88, 0, 3, '11.01.2019', '02.01.2019', '02.01.2019', 'Период за вземане на пробите: 01.12.2018г. - 31.12.2018г.\nза м.Декември', '3783', 1, NULL, 4, 3, 107, 5, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -1453,7 +1457,10 @@ INSERT INTO `sample` (`ID_SAMPLE`, `DATE_TIME_REFERENCE`, `DESCRIPTION_SAMPLE`, 
 (150, '15.02.2017 00:00', 'V=1.0 l', 2017, '1', 12, 2, 84),
 (151, '27.02.17 14:00', 'm=1829.25 g', 17, '1', 22, 2, 85),
 (152, '20.12.2018 16:21', '', 2018, '1', 3, NULL, 86),
-(153, '20.12.2018 16:21', '', 2018, '2', 4, NULL, 86);
+(153, '20.12.2018 16:21', '', 2018, '2', 4, NULL, 86),
+(154, '16.12.2018 12:00', '', 2018, '1', 3, 12, 88),
+(155, '16.12.2018 12:00', '', 2018, '2', 4, 12, 88),
+(156, '16.12.2018 12:00', '', 2018, '3', 11, 12, 88);
 
 -- --------------------------------------------------------
 
@@ -1690,121 +1697,145 @@ ALTER TABLE `zabelejki`
 --
 ALTER TABLE `aplicant`
   MODIFY `ID_APLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `dimension`
 --
 ALTER TABLE `dimension`
   MODIFY `ID_DIMENSION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `external_applicant`
 --
 ALTER TABLE `external_applicant`
   MODIFY `ID_EXTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `extra_module`
 --
 ALTER TABLE `extra_module`
   MODIFY `ID_EXTRA_MODULE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
 -- AUTO_INCREMENT for table `ind_num_doc`
 --
 ALTER TABLE `ind_num_doc`
   MODIFY `ID_IND_NUM_DOC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `internal_applicant`
 --
 ALTER TABLE `internal_applicant`
   MODIFY `ID_INTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `izpitvanpokazatel`
 --
 ALTER TABLE `izpitvanpokazatel`
-  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
+  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
+
 --
 -- AUTO_INCREMENT for table `izpitvan_produkt`
 --
 ALTER TABLE `izpitvan_produkt`
   MODIFY `ID_IZPITVAN_PRODUKT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `list_izpitvan_pokazatel`
 --
 ALTER TABLE `list_izpitvan_pokazatel`
   MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `metody`
 --
 ALTER TABLE `metody`
   MODIFY `ID_METODY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
 --
 -- AUTO_INCREMENT for table `metody_to_pokazatel`
 --
 ALTER TABLE `metody_to_pokazatel`
   MODIFY `ID_METODY_TO_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `nuclide`
 --
 ALTER TABLE `nuclide`
   MODIFY `ID_NUCLIDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
 --
 -- AUTO_INCREMENT for table `nuclide_to_pokazatel`
 --
 ALTER TABLE `nuclide_to_pokazatel`
   MODIFY `ID_NUCLIDE_TO_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
 --
 -- AUTO_INCREMENT for table `obekt_na_izpitvane_request`
 --
 ALTER TABLE `obekt_na_izpitvane_request`
   MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+
 --
 -- AUTO_INCREMENT for table `obekt_na_izpitvane_sample`
 --
 ALTER TABLE `obekt_na_izpitvane_sample`
   MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+
 --
 -- AUTO_INCREMENT for table `otclonenie`
 --
 ALTER TABLE `otclonenie`
   MODIFY `ID_OTCLON` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `period`
 --
 ALTER TABLE `period`
   MODIFY `ID_PERIOD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `ID_POST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `razmernosti`
 --
 ALTER TABLE `razmernosti`
   MODIFY `ID_RAZMERNOSTI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
   MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+
 --
 -- AUTO_INCREMENT for table `sample`
 --
 ALTER TABLE `sample`
-  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `ID_USERS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `zabelejki`
 --
 ALTER TABLE `zabelejki`
   MODIFY `ID_ZABELEJKI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- Ограничения за дъмпнати таблици
 --
@@ -1871,6 +1902,7 @@ ALTER TABLE `sample`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `FK_USERS_POST_ID_POST` FOREIGN KEY (`POST_ID_POST`) REFERENCES `post` (`ID_POST`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

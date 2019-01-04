@@ -101,7 +101,7 @@ import javax.swing.JTable;
 		private static List<String> list_UsersNameFamilyORHO;
 		private static List<IzpitvanPokazatel> listPokazatel;
 		private static List<Metody> listMetody;
-		private Results[] choiceResults;
+		private Results[] masiveResultsForChoiceSample;
 		private static List<Nuclide> listNuclide;
 		private Request choiseRequest;
 
@@ -590,15 +590,19 @@ import javax.swing.JTable;
 					List<Nuclide_to_Pokazatel> listNucPok = Nuclide_to_PokazatelDAO.getListNuclide_to_PokazatelFromColumnByVolume("pokazatel", pokazatel);
 					
 					values_Nuclide = new String[listNucPok.size()];
+					List<String> listBasikNulide = new ArrayList<String>();
 					int i =0;
 					for (Nuclide_to_Pokazatel nuclide_to_Pokazatel : listNucPok) {
 						values_Nuclide[i]= nuclide_to_Pokazatel.getNuclide().getSymbol_nuclide();
+						if(nuclide_to_Pokazatel.getNuclide().getFavorite_nuclide()){
+						listBasikNulide.add(nuclide_to_Pokazatel.getNuclide().getSymbol_nuclide());
+						}
 						i++;
 					}
 					selectedMetod = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
 					lblNameMetod.setText(selectedMetod.getName_metody());
-					choiceResults = creadListChoiseResults(sample);
-					countResults = 	choiceResults.length;	
+					masiveResultsForChoiceSample = creadListChoiseResults(sample);
+					countResults = 	masiveResultsForChoiceSample.length;	
 					
 					if (scrollTablePane!=null){
 						scrollTablePane.removeNotify();
@@ -616,7 +620,9 @@ import javax.swing.JTable;
 					panelTable.removeAll();
 					scrollTablePane.setViewportView(panelTable);
 					panelTable.setLayout(new BorderLayout(0, 0));
-					JTable tab = CreateTableResults(choiceResults);
+					
+					JTable tab = CreateTableResults(masiveResultsForChoiceSample,listBasikNulide);
+					
 					tab.validate();
 					tab.repaint();
 					
@@ -670,11 +676,11 @@ import javax.swing.JTable;
 			
 		}
 		
-		public JTable CreateTableResults( Results[] masiveChoiceResults){
+		public JTable CreateTableResults( Results[] masiveResultsForChoiceSample, List<String> listBasikNulide){
 			String[] columnNames = getTabHeader();
 			@SuppressWarnings("rawtypes")
 			Class[] types = getTypes();
-			dataTable = getDataTable(masiveChoiceResults);	
+			dataTable = getDataTable(masiveResultsForChoiceSample, listBasikNulide);	
 			
 			
 			JTable table = new JTable();// new DefaultTableModel(rowData,
@@ -686,7 +692,7 @@ import javax.swing.JTable;
 
 				public void mousePressed(MouseEvent e) {
 					System.out.println(table.getSelectedColumn()+"  "+table.getSelectedRow()+"   "+ dataTable.length);
-					System.out.println(countResults+"   " +choiceResults.length);	
+					System.out.println(countResults+"   " +masiveResultsForChoiceSample.length);	
 					if (table.getSelectedColumn() == check_Colum ) {
 //						**************************
 					}
@@ -771,70 +777,74 @@ import javax.swing.JTable;
 			return types;
 		}
 		
-		private static Object[][] getDataTable(Results[] results) {
-			Object[][] tableResult;
-//			if (results.length==0){
-//				 tableResult = new Object[1][tbl_Colum];
-//				 int i =0;
-//				 tableResult[i][nuclide_Colum] = listNuclide.get(0).getSymbol_nuclide();
-//					tableResult[i][actv_value_Colum] = 0.0;
-//					tableResult[i][uncrt_Colum] = 0.0;
-//					tableResult[i][mda_Colum] = 0.0;
-//					tableResult[i][razm_Colum] = values_Razmernosti[0];
-//					tableResult[i][sigma_Colum] = 2;
-//					tableResult[i][qunt_Colum] = 0.0;
-//					tableResult[i][dimen_Colum] = "";
-//					tableResult[i][dimen_Colum] = values_Dimension[0];
-//					tableResult[i][dateHimObr_Colum] = "";
-//					tableResult[i][dateAnaliz_Colum] = "";
-//					tableResult[i][in_Prot_Colum] = true;
-//					tableResult[i][check_Colum] = "Провери";
-//			}else{
-			tableResult = new Object[results.length+1][tbl_Colum];
+		private static Object[][] getDataTable(Results[] masiveResultsForChoiceSample,  List<String> listBasikNulide) {
+			Object[][] tableResult = new Object[masiveResultsForChoiceSample.length+1][tbl_Colum];
+			Object[] rowFromTableResult = new Object[tbl_Colum];
 			int k=0;
-						for (int i = 0; i < results.length; i++) {
-							try {tableResult[i][nuclide_Colum] = results[i].getNuclide().getSymbol_nuclide();
-									tableResult[i][actv_value_Colum] = results[i].getValue_result();
-									tableResult[i][uncrt_Colum] = results[i].getUncertainty();
-									tableResult[i][mda_Colum] = results[i].getMda();
-									tableResult[i][razm_Colum] = results[i].getRtazmernosti().getName_razmernosti();
-									tableResult[i][sigma_Colum] = results[i].getSigma();
-									tableResult[i][qunt_Colum] = results[i].getQuantity();
-									tableResult[i][dimen_Colum] = "";
-									if (results[i].getDimension() != null) {
-										tableResult[i][dimen_Colum] = results[i].getDimension().getName_dimension();
-									}
-									tableResult[i][dateHimObr_Colum] = results[i].getDate_chim_oper();
-									tableResult[i][dateAnaliz_Colum] = results[i].getDate_measur();
-									tableResult[i][in_Prot_Colum] = results[i].getInProtokol();
-									tableResult[i][check_Colum] = "Провери";
-
-							
-							} catch (NullPointerException e) {
-								JOptionPane.showInputDialog("Грешни данни за резултат:"+results[i].getId_results(), JOptionPane.ERROR_MESSAGE);
-							} catch (NumberFormatException e) {
-								JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-							}
-				
-//			}
+			Boolean flag;
+			for (String basikNulide : listBasikNulide) {
+				flag = false;
+			for (int i = 0; i < masiveResultsForChoiceSample.length; i++) {
+				Results results =	masiveResultsForChoiceSample[i];
+				if(basikNulide.equals(results.getNuclide().getSymbol_nuclide())){
+					flag = true;
+			rowWithValueResults(results, tableResult, i);
+				}
 			k++;
 			}
-						  
-						 tableResult[k][nuclide_Colum] = values_Nuclide[0];
-							tableResult[k][actv_value_Colum] = 0.0;
-							tableResult[k][uncrt_Colum] = 0.0;
-							tableResult[k][mda_Colum] = 0.0;
-							tableResult[k][razm_Colum] = values_Razmernosti[0];
-							tableResult[k][sigma_Colum] = 2;
-							tableResult[k][qunt_Colum] = 0.0;
-							tableResult[k][dimen_Colum] = "";
-							tableResult[k][dimen_Colum] = values_Dimension[0];
-							tableResult[k][dateHimObr_Colum] = "";
-							tableResult[k][dateAnaliz_Colum] = "";
-							tableResult[k][in_Prot_Colum] = true;
-							tableResult[k][check_Colum] = "Провери";
+			if(flag){
+				tableResult[k] = rowWithoutValueResults(k);	
+			}
+			k++;
+			}
+			
 
 			return tableResult;
+		}
+
+
+		private static Object[] rowWithoutValueResults( int k) {
+			Object[] rowFromTableResult = new Object[tbl_Colum];
+			rowFromTableResult[nuclide_Colum] = values_Nuclide[0];
+			rowFromTableResult[actv_value_Colum] = 0.0;
+			rowFromTableResult[uncrt_Colum] = 0.0;
+			rowFromTableResult[mda_Colum] = 0.0;
+			rowFromTableResult[razm_Colum] = values_Razmernosti[0];
+			rowFromTableResult[sigma_Colum] = 2;
+			rowFromTableResult[qunt_Colum] = 0.0;
+			rowFromTableResult[dimen_Colum] = "";
+			rowFromTableResult[dimen_Colum] = values_Dimension[0];
+			rowFromTableResult[dateHimObr_Colum] = "";
+			rowFromTableResult[dateAnaliz_Colum] = "";
+			rowFromTableResult[in_Prot_Colum] = true;
+			rowFromTableResult[check_Colum] = "Провери";
+			return rowFromTableResult;
+		}
+
+
+		private static void rowWithValueResults(Results results, Object[][] tableResult, int i) {
+			try {
+			tableResult[i][nuclide_Colum] = results.getNuclide().getSymbol_nuclide();
+			tableResult[i][actv_value_Colum] = results.getValue_result();
+			tableResult[i][uncrt_Colum] = results.getUncertainty();
+			tableResult[i][mda_Colum] = results.getMda();
+			tableResult[i][razm_Colum] = results.getRtazmernosti().getName_razmernosti();
+			tableResult[i][sigma_Colum] = results.getSigma();
+			tableResult[i][qunt_Colum] = results.getQuantity();
+			tableResult[i][dimen_Colum] = "";
+			if (results.getDimension() != null) {
+				tableResult[i][dimen_Colum] = results.getDimension().getName_dimension();
+			}
+			tableResult[i][dateHimObr_Colum] = results.getDate_chim_oper();
+			tableResult[i][dateAnaliz_Colum] = results.getDate_measur();
+			tableResult[i][in_Prot_Colum] = results.getInProtokol();
+			tableResult[i][check_Colum] = "Провери";
+		} catch (NullPointerException e) {
+			JOptionPane.showInputDialog("Грешни данни за резултат:"+results.getId_results(), JOptionPane.ERROR_MESSAGE);
+		} catch (NumberFormatException e) {
+			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+		}
+		
 		}
 		
 	}

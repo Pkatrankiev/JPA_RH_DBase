@@ -16,17 +16,53 @@ public class ReadGamaFile {
 	private static List<String[]> listObjectNuclideAkv ;
 	private static List<String[]> listObjectNuclideMDA ;
 	
+	private static String cod_sample;
+	private static String user_mesure;
+	private static String quantity;
+	private static String dimension;
+	private static String uncertainy;
+	private static String T_S_I;
+	private static String sysError;
+	private static String sigma;
+	private static String date_mesur;
+
+	
+	public static int getCountLine() {
+		return countLine;
+	}
+	public static String getCod_sample() {
+		return cod_sample;
+	}
+	public static String getUser_mesure() {
+		return user_mesure;
+	}
+	public static String getQuantity() {
+		return quantity;
+	}
+	public static String getDimension() {
+		return dimension;
+	}
+	public static String getUncertainy() {
+		return uncertainy;
+	}
+	public static String getT_S_I() {
+		return T_S_I;
+	}
+	public static String getSysError() {
+		return sysError;
+	}
+	public static String getSigma() {
+		return sigma;
+	}
+	public static String getDate_mesur() {
+		return date_mesur;
+	}
 	public static void  ReadGamaFile( String FILENAME ) {
 	
 		String[] stringArray = CreadMasiveFromReadFile(FILENAME);
 		creadDataFromTextLine(stringArray);
 		listObjectNuclideAkv = new ArrayList<String[]>();
 		listObjectNuclideMDA = new ArrayList<String[]>();
-	
-		
-		
-	
-	
 	
 	}
 	public static Object[][] getMasivNuclideAktiv(){
@@ -60,7 +96,8 @@ public class ReadGamaFile {
 		
 	}
 	
- 	private static String [] CreadMasiveFromReadFile(String FILENAME) {
+ 	
+	private static String [] CreadMasiveFromReadFile(String FILENAME) {
 	BufferedReader br = null;
 	FileReader fr = null;
 	String [] stringArray = new String[1000];
@@ -92,7 +129,8 @@ public class ReadGamaFile {
 	return stringArray;
 }
 
-	private static void creadDataFromTextLine(String[] stringArray) {
+
+ 	private static void creadDataFromTextLine(String[] stringArray) {
 	int flagNuclidy = 0;
 	int countLineToNuclide = 0;
 		
@@ -102,15 +140,8 @@ public class ReadGamaFile {
 	
 				
 	for (int j = 0; j < countLine; j++) {
-		System.out.println("++++++++++++++++++++	"+flagNuclidy);	
 		stringLine[j] = StringUtils.split(stringArray[j]);
-		System.out.println(j+" --- "+stringLine[j].length);
-		for (int j2 = 0; j2 < stringLine[j].length; j2++) {
-			System.out.print(stringLine[j][j2]+"/");
-							}
-		System.out.println();
-		
-		if(flagNuclidy==1){
+			if(flagNuclidy==1){
 			countLineToNuclide++;
 			if(countLineToNuclide>2){
 				if(stringLine[j].length!=0){
@@ -133,34 +164,36 @@ public class ReadGamaFile {
 	if(stringLine[j].length>0){
 	switch (stringLine[j][0]) {
 	case "Описание":
-		String cod_sample = stringLine[j][3];
+		cod_sample = stringLine[j][3];
 		break;
 	case "Извършил":
-		String user_mesure = stringLine[j][3];
+		user_mesure = stringLine[j][3];
 		break;
 	case "Количество":
-		String quantity = stringLine[j][3];
+		quantity = stringLine[j][3];
 		if(stringLine[j].length>4){
-			String dimension = stringLine[j][4];
+			 dimension = stringLine[j][4];
 		}
 		break;
 	case "Неопределеност":
-		String uncertainy = stringLine[j][1];
+		 uncertainy = stringLine[j][1];
 		break;
 	case "Kалибровка":
-		String T_S_I = stringLine[j][3];
+		 T_S_I = stringLine[j][3];
 		break;
 	case "Нуклид":
-	{
-		flagNuclidy++;
-		 countLineToNuclide = 0;
+	{flagNuclidy++;
+	 countLineToNuclide = 0;
 	}
 	break;
 	case "Систематична":
-		String sysError = stringLine[j][2];
+		sysError = stringLine[j][2];
 		break;
 	case "Неопределеността":
-		String sigma = stringLine[j][4];
+		sigma = stringLine[j][4];
+		break;
+	case "Начало":
+		date_mesur = stringLine[j][3];
 		break;
 		
 	}

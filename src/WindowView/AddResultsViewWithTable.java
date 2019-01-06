@@ -119,6 +119,7 @@ public class AddResultsViewWithTable extends JDialog {
 	int rowWidth = 20;
 	Boolean flagNotReadListPokazatel = true;
 	Boolean flagNotReadListMetody = true;
+	boolean flagIncertedFile;
 
 	private static JTable tabResults;
 	private static String[] masuveSimbolNucToPok;
@@ -205,6 +206,8 @@ public class AddResultsViewWithTable extends JDialog {
 		CreadTableButton(basic_panel);
 
 		BasicValueFileSection(basic_panel);
+		
+		ButtonTableFromFile(basic_panel);
 		
 		addRowButtonSection(basic_panel);
 
@@ -394,12 +397,14 @@ public class AddResultsViewWithTable extends JDialog {
 				JFileChooser f = new JFileChooser();
 		        f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
 		        f.showOpenDialog(null);
-//		        System.out.println(f.getCurrentDirectory());
-//		        System.out.println(f.getSelectedFile());
 		        txtBasicValueResult.setText((f.getSelectedFile()).toString());
 		        ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
-		        System.out.println("++++++++++++++++++++	"+ReadGamaFile.getMasivNuclideAktiv().length);
-			}
+		        if(ReadGamaFile.getMasivNuclideMDA().length>0){
+		        	flagIncertedFile=true;
+		        	}else{
+		        	flagIncertedFile = false;
+		        }
+		      }
 		});
 		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
 		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
@@ -410,6 +415,35 @@ public class AddResultsViewWithTable extends JDialog {
 		
 	}
 
+	private void ButtonTableFromFile(JPanel basic_panel){
+		
+		JButton btnTabFromFile = new JButton("Данни от файл");
+		btnTabFromFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(flagIncertedFile){
+					CreatedataTableFromFile();
+				}
+			}
+
+		});
+		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
+		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
+		gbc_btnTabFromFile.insets = new Insets(0, 0, 5, 0);
+		gbc_btnTabFromFile.gridx = 5;
+		gbc_btnTabFromFile.gridy = 6;
+		basic_panel.add(btnTabFromFile, gbc_btnTabFromFile);
+	}
+	private Object[][] CreatedataTableFromFile() {
+		int countBigMasive = ReadGamaFile.getMasivNuclideAktiv().length + listSimbolBasikNulide.size();
+		Object[][] bigMasiveResult = new Object[countBigMasive][tbl_Colum];
+		
+		int countMasiveTable =  + listSimbolBasikNulide.size();
+		Object[][] tableResult = new Object[countMasiveTable][tbl_Colum];
+	
+		
+		return 	tableResult;
+	}
+	
 	private void ChoiceOIR_Section(JPanel panel) {
 		JLabel lblNewLabel_2 = new JLabel("Извършил анализа");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -833,7 +867,7 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 			
 	private void addRowButtonSection(JPanel basic_panel){
-		
+	
 		JLabel lblNewLabel = new JLabel(" ");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);

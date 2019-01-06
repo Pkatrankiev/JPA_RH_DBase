@@ -18,6 +18,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import WindowView.MainWindows;
 import WindowView.ReadFile;
+import WindowView.ReaderWordDoc;
 
 
 
@@ -30,15 +31,15 @@ public class Main_Aplication {
 
 //		 SetBasikValueInDataBase();
 
-
-		// ReaderWordDoc.readMyDocument(fileName);
+		 String fileName = "E:\\123\\123.txt";
+//		 ReaderWordDoc.readMyDocument(fileName);
 
 //		ChangeObjectsInClass();
 
-			StartMainWindow();
+//			StartMainWindow();
 
 		
-//		 ReadFile.ReadFile(FILENAME);
+		 ReadFile.ReadFile(fileName);
 
 //		SetDBfromWordDoc.setVolume(FILENAME);
 		

@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -70,6 +71,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -106,8 +108,9 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<IzpitvanPokazatel> listPokazatel;
 	private static List<Metody> listMetody;
-	private Results[] masiveResultsForChoiceSample;
+	private static Results[] masiveResultsForChoiceSample;
 	private static List<Nuclide> listNuclide;
+	private static List<String> listSimbolBasikNulide;
 	private Request choiseRequest;
 
 	int newCountResults = 0;
@@ -202,6 +205,8 @@ public class AddResultsViewWithTable extends JDialog {
 		CreadTableButton(basic_panel);
 
 		BasicValueFileSection(basic_panel);
+		
+		addRowButtonSection(basic_panel);
 
 		DobivSection(basic_panel);
 
@@ -252,7 +257,30 @@ public class AddResultsViewWithTable extends JDialog {
 		buttonPane.add(cancelButton);
 	}
 
+	private static Boolean checkDuplicateCodeNuclide() {
+		Boolean corectCheck = true;
+		List<String> listCodeNuclide = new ArrayList<String>();
+		for (int i = 0; i < dataTable.length; i++) {
+			String s1 = dataTable[i][mda_Colum].toString().toString();
+			String s2 = dataTable[i][actv_value_Colum].toString();
+			if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) > 0)) {
+				
+					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
+				
+			}
+		}
+		System.out.println(listCodeNuclide.size());
+		List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
+		System.out.println(deDupStringList.size()+"  "+listCodeNuclide.size());
+		if(deDupStringList.size()!=listCodeNuclide.size()){
+			corectCheck = false;
+		}
+		return corectCheck;
+	}
+	
 	private static void updateDataResults() {
+		if(checkDuplicateCodeNuclide()){
+
 		for (int i = 0; i < dataTable.length; i++) {
 			String s1 = dataTable[i][mda_Colum].toString().toString();
 			String s2 = dataTable[i][actv_value_Colum].toString();
@@ -267,6 +295,10 @@ public class AddResultsViewWithTable extends JDialog {
 					ResultsDAO.updateResults(result);
 				}
 			}
+		}
+		}else{
+		JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
+				JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -314,13 +346,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void DobivSection(JPanel panel) {
-
-		JLabel lblNewLabel = new JLabel(" ");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 8;
-		basic_panel.add(lblNewLabel, gbc_lblNewLabel);
+	
 		JLabel lblDobiv = new JLabel("Добив");
 		GridBagConstraints gbc_lblDobiv = new GridBagConstraints();
 		gbc_lblDobiv.anchor = GridBagConstraints.EAST;
@@ -354,14 +380,34 @@ public class AddResultsViewWithTable extends JDialog {
 		txtBasicValueResult = new JTextField();
 		GridBagConstraints gbc_txtBasicValueResult = new GridBagConstraints();
 		gbc_txtBasicValueResult.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtBasicValueResult.insets = new Insets(0, 0, 5, 0);
-		gbc_txtBasicValueResult.gridwidth = 5;
+		gbc_txtBasicValueResult.insets = new Insets(0, 0, 5, 5);
+		gbc_txtBasicValueResult.gridwidth = 4;
 		gbc_txtBasicValueResult.gridx = 1;
 		gbc_txtBasicValueResult.gridy = 5;
 		panel.add(txtBasicValueResult, gbc_txtBasicValueResult);
 
 		txtBasicValueResult.setColumns(10);
 
+		JButton btnBasicDataFile = new JButton("Отвори");
+		btnBasicDataFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser f = new JFileChooser();
+		        f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
+		        f.showOpenDialog(null);
+//		        System.out.println(f.getCurrentDirectory());
+//		        System.out.println(f.getSelectedFile());
+		        txtBasicValueResult.setText((f.getSelectedFile()).toString());
+		        ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
+		        System.out.println("++++++++++++++++++++	"+ReadGamaFile.getMasivNuclideAktiv().length);
+			}
+		});
+		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
+		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
+		gbc_btnBasicDataFile.insets = new Insets(0, 0, 5, 0);
+		gbc_btnBasicDataFile.gridx = 5;
+		gbc_btnBasicDataFile.gridy = 5;
+		basic_panel.add(btnBasicDataFile, gbc_btnBasicDataFile);
+		
 	}
 
 	private void ChoiceOIR_Section(JPanel panel) {
@@ -686,7 +732,7 @@ public class AddResultsViewWithTable extends JDialog {
 							.getListNuclide_to_PokazatelFromColumnByVolume("pokazatel", pokazatel);
 
 					masuveSimbolNucToPok = new String[listNucToPok.size()];
-					List<String> listSimbolBasikNulide = new ArrayList<String>();
+					listSimbolBasikNulide = new ArrayList<String>();
 					int i = 0;
 					for (Nuclide_to_Pokazatel nuclide_to_Pokazatel : listNucToPok) {
 						masuveSimbolNucToPok[i] = nuclide_to_Pokazatel.getNuclide().getSymbol_nuclide();
@@ -695,8 +741,6 @@ public class AddResultsViewWithTable extends JDialog {
 						}
 						i++;
 					}
-					
-					
 					selectedMetod = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
 					lblNameMetod.setText(selectedMetod.getName_metody());
 					masiveResultsForChoiceSample = creadListChoiseResults(sample);
@@ -711,68 +755,12 @@ public class AddResultsViewWithTable extends JDialog {
 						choiceORHO.select(str);
 					}
 					countRowTabResults = masiveResultsForChoiceSample.length;
-
-					if (scrollTablePane != null) {
-						scrollTablePane.removeNotify();
-					}
-					scrollTablePane = new JScrollPane();
-					GridBagConstraints gbc_scrollTablePane = new GridBagConstraints();
-					gbc_scrollTablePane.gridwidth = 6;
-					gbc_scrollTablePane.insets = new Insets(0, 0, 5, 5);
-					gbc_scrollTablePane.fill = GridBagConstraints.BOTH;
-					gbc_scrollTablePane.gridx = 0;
-					gbc_scrollTablePane.gridy = 7;
-					panel.add(scrollTablePane, gbc_scrollTablePane);
-
-					JPanel panelTable = new JPanel();
-					panelTable.removeAll();
-					scrollTablePane.setViewportView(panelTable);
-					panelTable.setLayout(new BorderLayout(0, 0));
-
-					tabResults = CreateTableResults(masiveResultsForChoiceSample, listSimbolBasikNulide);
-					countRowTabResults = dataTable.length;
-					tabResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-						@Override
-						public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-								boolean hasFocus, int row, int col) {
-
-							super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-
-							String s1 = table.getValueAt(row, 1).toString();
-							String s2 = table.getValueAt(row, 3).toString();
-
-							if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2))) == 0) {
-								// setBackground(Color.BLACK);
-								setForeground(Color.LIGHT_GRAY);
-							} else {
-								// setBackground(table.getBackground());
-								setForeground(table.getForeground());
-							}
-							return this;
-						}
-					});
-					tabResults.validate();
-					tabResults.repaint();
-
-					panelTable.add(tabResults.getTableHeader(), BorderLayout.NORTH);
-					panelTable.add(tabResults, BorderLayout.CENTER);
-
-					panelTable.validate();
-					panelTable.repaint();
-
-					scrollTablePane.validate();
-					scrollTablePane.repaint();
-
-					panel.validate();
-					panel.repaint();
-
-					setBounds(100, 100, 960, (countRowTabResults * rowWidth) + 340);
-					validate();
-					repaint();
+					dataTable = getDataTable();
+					ViewTableInPanel(panel);
 				}
 			}
 		});
-
+					
 		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
 		gbc_btnCreadTable.gridwidth = 2;
 		gbc_btnCreadTable.anchor = GridBagConstraints.EAST;
@@ -783,12 +771,116 @@ public class AddResultsViewWithTable extends JDialog {
 
 	}
 
-	public JTable CreateTableResults(Results[] masiveResultsForChoiceSample, List<String> listBasikNulide) {
+	private void ViewTableInPanel(JPanel panel) {
+			if (scrollTablePane != null) {
+				scrollTablePane.removeNotify();
+			}
+			scrollTablePane = new JScrollPane();
+			GridBagConstraints gbc_scrollTablePane = new GridBagConstraints();
+			gbc_scrollTablePane.gridwidth = 6;
+			gbc_scrollTablePane.insets = new Insets(0, 0, 5, 5);
+			gbc_scrollTablePane.fill = GridBagConstraints.BOTH;
+			gbc_scrollTablePane.gridx = 0;
+			gbc_scrollTablePane.gridy = 7;
+			panel.add(scrollTablePane, gbc_scrollTablePane);
+
+			JPanel panelTable = new JPanel();
+			panelTable.removeAll();
+			scrollTablePane.setViewportView(panelTable);
+			panelTable.setLayout(new BorderLayout(0, 0));
+
+			tabResults = CreateTableResults();
+			countRowTabResults = dataTable.length;
+			tabResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+				@Override
+				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+						boolean hasFocus, int row, int col) {
+
+					super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+
+					String s1 = table.getValueAt(row, 1).toString();
+					String s2 = table.getValueAt(row, 3).toString();
+
+					if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2))) == 0) {
+						// setBackground(Color.BLACK);
+						setForeground(Color.LIGHT_GRAY);
+					} else {
+						// setBackground(table.getBackground());
+						setForeground(table.getForeground());
+					}
+					return this;
+				}
+			});
+			tabResults.repaint();
+			tabResults.validate();
+			
+
+			panelTable.add(tabResults.getTableHeader(), BorderLayout.NORTH);
+			panelTable.add(tabResults, BorderLayout.CENTER);
+
+			panelTable.validate();
+			panelTable.repaint();
+
+			scrollTablePane.validate();
+			scrollTablePane.repaint();
+
+			panel.validate();
+			panel.repaint();
+
+			setBounds(100, 100, 960, (countRowTabResults * rowWidth) + 340);
+			validate();
+			repaint();
+		}
+			
+	private void addRowButtonSection(JPanel basic_panel){
+		
+		JLabel lblNewLabel = new JLabel(" ");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 8;
+		basic_panel.add(lblNewLabel, gbc_lblNewLabel);
+		
+		JButton btnAddRow = new JButton("New button");
+		btnAddRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddNewRowIn_dataTable();
+				ViewTableInPanel(basic_panel);
+			}
+
+			
+		});
+		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
+		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
+		gbc_btnAddRow.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddRow.gridx = 5;
+		gbc_btnAddRow.gridy = 8;
+		basic_panel.add(btnAddRow, gbc_btnAddRow);
+	}
+
+	private void AddNewRowIn_dataTable() {
+		Object[][] newTable = new Object[dataTable.length+1][tbl_Colum];
+		System.out.println("dataTable "+dataTable.length);
+		System.out.println("newTable "+newTable.length);
+		
+		for (int i = 0; i < dataTable.length; i++) {
+			newTable[i] = dataTable[i];
+		}
+		newTable[dataTable.length] = rowWithoutValueResults(listSimbolBasikNulide.get(0));
+		dataTable = new Object[newTable.length][tbl_Colum];
+		for (int i = 0; i < newTable.length; i++) {
+			dataTable[i] = newTable[i];
+		}
+		System.out.println("dataTable "+dataTable.length);
+	}
+	
+	public JTable CreateTableResults() {
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
 		Class[] types = getTypes();
-		dataTable = getDataTable(masiveResultsForChoiceSample, listBasikNulide);
-
+//		dataTable = getDataTable();
+System.out.println(dataTable.length);
 		JTable table = new JTable();// new DefaultTableModel(rowData,
 									// columnNames));
 
@@ -918,16 +1010,15 @@ public class AddResultsViewWithTable extends JDialog {
 		return types;
 	}
 
-	private static Object[][] getDataTable(Results[] masiveResultsForChoiceSample, List<String> listBasikNulide) {
-		int countBigMasive = masiveResultsForChoiceSample.length + listBasikNulide.size();
+	private static Object[][] getDataTable() {
+		int countBigMasive = masiveResultsForChoiceSample.length + listSimbolBasikNulide.size();
 		Object[][] bigMasiveResult = new Object[countBigMasive][tbl_Colum];
 
-		String firstSimbolBasikNulide = listBasikNulide.get(0);
 		for (int i = 0; i < masiveResultsForChoiceSample.length; i++) {
 			Results results = masiveResultsForChoiceSample[i];
 			bigMasiveResult[i] = rowWithValueResults(results);
 
-			Iterator<String> itr = listBasikNulide.iterator();
+			Iterator<String> itr = listSimbolBasikNulide.iterator();
 			while (itr.hasNext()) {
 				String basikNulide = itr.next();
 				if (basikNulide.equals(results.getNuclide().getSymbol_nuclide())) {
@@ -937,23 +1028,23 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 
 		int k = masiveResultsForChoiceSample.length;
-		for (String basikNulide : listBasikNulide) {
+		for (String basikNulide : listSimbolBasikNulide) {
 			bigMasiveResult[k] = rowWithoutValueResults(basikNulide);
 			k++;
 		}
-		int countMasiveTable = masiveResultsForChoiceSample.length + listBasikNulide.size();
-		Object[][] tableResult = new Object[countMasiveTable + 1][tbl_Colum];
-		for (int i = 0; i < tableResult.length - 1; i++) {
+		int countMasiveTable = masiveResultsForChoiceSample.length + listSimbolBasikNulide.size();
+		Object[][] tableResult = new Object[countMasiveTable][tbl_Colum];
+		for (int i = 0; i < tableResult.length; i++) {
 			tableResult[i] = bigMasiveResult[i];
 		}
 
-		tableResult[tableResult.length - 1] = rowWithoutValueResults(firstSimbolBasikNulide);
+//		tableResult[tableResult.length - 1] = rowWithoutValueResults(firstSimbolBasikNulide);
 		return tableResult;
 	}
 
-	private static Object[] rowWithoutValueResults(String basikNulide) {
+	private static Object[] rowWithoutValueResults(String BasicNuclide) {
 		Object[] rowFromTableResult = new Object[tbl_Colum];
-		rowFromTableResult[nuclide_Colum] = basikNulide;
+		rowFromTableResult[nuclide_Colum] = BasicNuclide;
 		rowFromTableResult[actv_value_Colum] = 0.0;
 		rowFromTableResult[uncrt_Colum] = 0.0;
 		rowFromTableResult[mda_Colum] = 0.0;

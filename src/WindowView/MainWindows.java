@@ -18,6 +18,7 @@ import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import Menu.MenuData_AddResultsFrame;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
@@ -95,6 +96,7 @@ public class MainWindows {
 		sequenseMenu.add(new MenuRequense_NewRequense());
 		sequenseMenu.add(new MenuRequense_NewExtraRequense());
 		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
+		sequenseMenu.add(new MenuData_AddResultsFrame());
 		sequenseMenu.addSeparator();
 		sequenseMenu.add(new MenuRequense_RequenseList());
 		return sequenseMenu;

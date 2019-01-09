@@ -112,6 +112,31 @@ public class UsersDAO {
 	}
 	
 	@GET
+	public static Users getValueUsersByFamily(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Users e WHERE e.family = :text";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		Users user;
+		@SuppressWarnings("unchecked")
+		List<Users> list =  query.getResultList();
+		if(list.size()>0){
+		user = list.get(0);
+		}else{
+			user =getValueUsersById(1);
+		}
+		entitymanager.close();
+		emfactory.close();
+
+		return user;
+	}
+	
+	@GET
 	public static Users getValueUsersByNicName(String nic_name) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

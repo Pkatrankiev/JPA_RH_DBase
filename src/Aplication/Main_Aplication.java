@@ -31,14 +31,14 @@ public class Main_Aplication {
 
 //		 SetBasikValueInDataBase();
 
-		 String fileName = "E:\\123\\123.txt";
-		 ReadGamaFile.ReadGamaFile(fileName);
+//		 String fileName = "E:\\123\\123.txt";
+//		 ReadGamaFile.ReadGamaFile(fileName);
 		 
 //		 ReaderWordDoc.readMyDocument(fileName);
 
 //		ChangeObjectsInClass();
 
-//			StartMainWindow();
+			StartMainWindow();
 
 		
 		 

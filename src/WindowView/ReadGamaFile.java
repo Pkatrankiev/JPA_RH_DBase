@@ -174,6 +174,7 @@ public class ReadGamaFile {
 			masiveResults[i].setMda(Double.parseDouble(masiveActiveResults[i][3]));
 			masiveResults[i].setUser_measur(getUserFromFile());
 			masiveResults[i].setDate_measur(date_mesur);
+			masiveResults[i].setDate_chim_oper("");
 			if(quantity.length()>0){
 				masiveResults[i].setQuantity(Double.parseDouble(quantity));	
 				masiveResults[i].setDimension(DimensionDAO.getValueDimensionByName(dimension));
@@ -208,6 +209,7 @@ public class ReadGamaFile {
 			masiveResultsMDA[k].setMda(Double.parseDouble(masiveNuclideMDA[i][1]));
 			masiveResultsMDA[k].setUser_measur(getUserFromFile());
 			masiveResultsMDA[k].setDate_measur(date_mesur);
+			masiveResultsMDA[k].setDate_chim_oper("");
 			if (quantity.length() > 0) {
 				masiveResultsMDA[k].setQuantity(Double.parseDouble(quantity));
 				masiveResultsMDA[k].setDimension(DimensionDAO.getValueDimensionByName(dimension));

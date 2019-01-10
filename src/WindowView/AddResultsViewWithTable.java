@@ -296,7 +296,11 @@ public class AddResultsViewWithTable extends JDialog {
 	private static Results updateResultsObject(int i, Results result, Sample sample) {
 
 		result.setBasic_value(txtBasicValueResult.getText());
+		if(dataTable[i][dateHimObr_Colum]==null){
+			result.setDate_chim_oper("");
+		}else{
 		result.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
+		}
 		result.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
 		result.setDate_redac(RequestViewAplication.DateNaw(false));
 		result.setInProtokol((Boolean) dataTable[i][in_Prot_Colum]);
@@ -472,6 +476,7 @@ public class AddResultsViewWithTable extends JDialog {
 			tableResult[i] = rowWithValueResultsFromFile(masiveResultsActivFromFile[i]);
 			k = i;
 		}
+		if(k==0)k=-1;
 		for (int i = 0; i < masiveResultsMDAFromFile.length; i++) {
 			k++;
 			tableResult[k] = rowWithValueResultsFromFile(masiveResultsMDAFromFile[i]);

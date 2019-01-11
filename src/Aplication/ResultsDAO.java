@@ -110,6 +110,21 @@ public class ResultsDAO {
 		emfactory.close();
 		}
 	
+	public static void deleteResultsById(int id) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityTransaction updateTranzaction = entitymanager.getTransaction();
+		updateTranzaction.begin();
+		Query query = entitymanager.createQuery(" delete from Results where id =:id");
+		query.setParameter("id", id);
+		
+        query.executeUpdate();
+        updateTranzaction.commit();
+				
+		entitymanager.close();
+		emfactory.close();
+		}
+	
 	public static List<Results> getInListAllValueResults() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -123,6 +138,8 @@ public class ResultsDAO {
 		return list;
 	}
 
+	
+	
 	public static void setBasicValueResults() {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

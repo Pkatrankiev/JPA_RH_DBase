@@ -139,7 +139,6 @@ public class AddResultsViewWithTable extends JDialog {
 	private JPanel basic_panel;
 	private JScrollPane scrollTablePane;
 
-	
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
 		// listDimension = DimensionDAO.getInListAllValueDimension();
@@ -154,7 +153,6 @@ public class AddResultsViewWithTable extends JDialog {
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
 		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
 
-		
 		setSize(960, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -202,10 +200,10 @@ public class AddResultsViewWithTable extends JDialog {
 		round.StopWindow();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
-		
+
 	}
 
-	private Results[] creadListChoiseResults(Sample sample) {
+	private  Results[] creadMasiveFromResultsObjects_ChoiseSample(Sample sample) {
 		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 		List<Results> choiceResults = new ArrayList<Results>();
 		List_izpitvan_pokazatel pokazatel = getPokazatelObjectFromChoicePokazatel();
@@ -224,6 +222,20 @@ public class AddResultsViewWithTable extends JDialog {
 		return masiveResults;
 	}
 
+	private  List<Results> creadListResultsObjects_ChoiseSample(Sample sample) {
+		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
+		List<Results> choiceResults = new ArrayList<Results>();
+		List_izpitvan_pokazatel pokazatel = getPokazatelObjectFromChoicePokazatel();
+		for (Results result : ListResultsFromSample) {
+			if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()
+					&& result.getMetody().getId_metody() == selectedMetod.getId_metody()) {
+				choiceResults.add(result);
+			}
+		}
+	
+		return choiceResults;
+	}
+	
 	private void ButtonPanell() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -231,7 +243,7 @@ public class AddResultsViewWithTable extends JDialog {
 		JButton okButton = new JButton("Запис");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateDataResults(getSampleObjectFromChoiceSampleCode());
+				creadListFromResultObjectForSave(getSampleObjectFromChoiceSampleCode());
 			}
 		});
 		// okButton.setActionCommand("OK");
@@ -266,40 +278,92 @@ public class AddResultsViewWithTable extends JDialog {
 		if (deDupStringList.size() != listCodeNuclide.size()) {
 			corectCheck = false;
 		}
+		if (!corectCheck) {
+			JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
 		return corectCheck;
 	}
 
-	private static void updateDataResults(Sample sample) {
+	private  List<Results> creadListFromResultObjectForSave(Sample sample) {
+		Boolean fl;
+		List<Results> listResultsForSave = new ArrayList<Results>();
+		List<Results> listResultsForDelete = new ArrayList<Results>();
+		List<Results> listResultsFromTable = new ArrayList<Results>();
 		if (checkDuplicateCodeNuclide(dataTable)) {
-
 			for (int i = 0; i < dataTable.length; i++) {
 				String s1 = dataTable[i][mda_Colum].toString().toString();
 				String s2 = dataTable[i][actv_value_Colum].toString();
 				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) > 0)) {
-					System.out.println(dataTable[i][rsult_Id_Colum]);
-					if (dataTable[i][rsult_Id_Colum] == null) {
-						Results result = updateResultsObject(i, new Results(), sample);
-						ResultsDAO.updateResults(result);
-					} else {
-						Results result = updateResultsObject(i,
-								ResultsDAO.getValueResultsById((int) dataTable[i][rsult_Id_Colum]), sample);
-						ResultsDAO.updateResults(result);
+					listResultsFromTable.add(creadResultObject(sample, i));
+				}else{
+					if(dataTable[i][rsult_Id_Colum] != null){
+						listResultsForDelete.add(ResultsDAO.getValueResultsById((int) dataTable[i][rsult_Id_Colum]));
 					}
 				}
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
-					JOptionPane.ERROR_MESSAGE);
 		}
+		List<Results> ListResultsFromDBase = creadListResultsObjects_ChoiseSample(sample);
+		Iterator<Results> itr = null;
+		for (Results results:listResultsFromTable) {
+			
+			itr = ListResultsFromDBase.iterator();
+			fl=false;
+			while (itr.hasNext()) {
+				String codeNulide = itr.next().getNuclide().getSymbol_nuclide();
+				if (codeNulide.equals(results.getNuclide().getSymbol_nuclide())) {
+					itr.remove();
+					listResultsForSave.add(results);
+					fl=true;
+				}
+			}
+			if(!fl){
+				listResultsForSave.add(results);
+			}
+		}
+		System.out.println(ListResultsFromDBase.size());
+		for (Results results : ListResultsFromDBase) {
+		System.out.println(results.getNuclide().getSymbol_nuclide());
+			listResultsForSave.add(results);
+		}
+		System.out.println("За изтриване:");
+		for (Results results : listResultsForDelete) {
+			System.out.println(results.getNuclide().getSymbol_nuclide()+" "+results.getId_results());
+			JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
+					JOptionPane.YES_NO_OPTION);
+			ResultsDAO.deleteResultsById(results.getId_results());
+		}
+		System.out.println("За запис:");
+		for (Results results : listResultsForSave) {
+			System.out.println(results.getNuclide().getSymbol_nuclide());
+		}
+		
+//		saveResultsObjectInDBase(result);
+		return listResultsForSave;
 	}
 
-	private static Results updateResultsObject(int i, Results result, Sample sample) {
+	private static void saveResultsObjectInDBase(Results result) {
+
+		ResultsDAO.updateResults(result);
+	}
+
+	private static Results creadResultObject(Sample sample, int i) {
+		Results result;
+		if (dataTable[i][rsult_Id_Colum] == null) {
+			result = creadResultsObject(i, new Results(), sample);
+		} else {
+			result = creadResultsObject(i, ResultsDAO.getValueResultsById((int) dataTable[i][rsult_Id_Colum]), sample);
+		}
+		return result;
+	}
+
+	private static Results creadResultsObject(int i, Results result, Sample sample) {
 
 		result.setBasic_value(txtBasicValueResult.getText());
-		if(dataTable[i][dateHimObr_Colum]==null){
+		if (dataTable[i][dateHimObr_Colum] == null) {
 			result.setDate_chim_oper("");
-		}else{
-		result.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
+		} else {
+			result.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
 		}
 		result.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
 		result.setDate_redac(RequestViewAplication.DateNaw(false));
@@ -418,26 +482,26 @@ public class AddResultsViewWithTable extends JDialog {
 		JButton btnTabFromFile = new JButton("Данни от файл");
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (flagIncertedFile ){
-						if(choiceMetody.getSelectedItem() != null) {
-					if (MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()).getId_metody() == 9) {
-						TranscluentWindow round = new TranscluentWindow();
-						 final Thread thread = new Thread(new Runnable() {
-						     @Override
-						     public void run() {
-						    
-						    	 readFromGenie2kFile();
-						    	  ViewTableInPanel(panel,round);
-							}
-						    });
-						    thread.start();
-						  
+				if (flagIncertedFile) {
+					if (choiceMetody.getSelectedItem() != null) {
+						if (MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()).getId_metody() == 9) {
+							TranscluentWindow round = new TranscluentWindow();
+							final Thread thread = new Thread(new Runnable() {
+								@Override
+								public void run() {
+
+									readFromGenie2kFile();
+									ViewTableInPanel(panel, round);
+								}
+							});
+							thread.start();
+
+						}
+					} else {
+						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
 					}
-				}else{
-					JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10" ,JOptionPane.ERROR_MESSAGE);
-				}
-				}else{
-					JOptionPane.showInputDialog("Не сте избрали коректен файл",	JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -458,7 +522,7 @@ public class AddResultsViewWithTable extends JDialog {
 		Object[][] ss = CreatedataTableFromFile();
 		dataTable = new Object[ss.length][tbl_Colum];
 		dataTable = ss;
-	
+
 	}
 
 	private Object[][] CreatedataTableFromFile() {
@@ -476,7 +540,8 @@ public class AddResultsViewWithTable extends JDialog {
 			tableResult[i] = rowWithValueResultsFromFile(masiveResultsActivFromFile[i]);
 			k = i;
 		}
-		if(k==0)k=-1;
+		if (k == 0)
+			k = -1;
 		for (int i = 0; i < masiveResultsMDAFromFile.length; i++) {
 			k++;
 			tableResult[k] = rowWithValueResultsFromFile(masiveResultsMDAFromFile[i]);
@@ -813,8 +878,7 @@ public class AddResultsViewWithTable extends JDialog {
 					List<String> listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 					masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);
 
-					
-					Results[] masiveResultsForChoiceSample = creadListChoiseResults(
+					Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
 							getSampleObjectFromChoiceSampleCode());
 					if (masiveResultsForChoiceSample.length > 0) {
 						if (masiveResultsForChoiceSample[0].getUser_measur() != null) {
@@ -829,18 +893,18 @@ public class AddResultsViewWithTable extends JDialog {
 						}
 					}
 					TranscluentWindow round = new TranscluentWindow();
-					 final Thread thread = new Thread(new Runnable() {
-					     @Override
-					     public void run() {
-					    	 Object[][] ss = getDataTable(masiveResultsForChoiceSample, listSimbolBasikNulide);
-								dataTable = new Object[ss.length][tbl_Colum];
-								dataTable = ss;
+					final Thread thread = new Thread(new Runnable() {
+						@Override
+						public void run() {
+							Object[][] ss = getDataTable(masiveResultsForChoiceSample, listSimbolBasikNulide);
+							dataTable = new Object[ss.length][tbl_Colum];
+							dataTable = ss;
 
-								ViewTableInPanel(panel,round);
+							ViewTableInPanel(panel, round);
 						}
-					    });
-					    thread.start();
-					
+					});
+					thread.start();
+
 				}
 			}
 		});
@@ -893,7 +957,7 @@ public class AddResultsViewWithTable extends JDialog {
 		return smp;
 	}
 
-	private void ViewTableInPanel(JPanel panel,TranscluentWindow round) {
+	private void ViewTableInPanel(JPanel panel, TranscluentWindow round) {
 		round.StopWindow();
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
@@ -954,7 +1018,7 @@ public class AddResultsViewWithTable extends JDialog {
 		setLocationRelativeTo(null);
 		validate();
 		repaint();
-		
+
 	}
 
 	private void addRowButtonSection(JPanel basic_panel) {
@@ -970,16 +1034,16 @@ public class AddResultsViewWithTable extends JDialog {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TranscluentWindow round = new TranscluentWindow();
-				 final Thread thread = new Thread(new Runnable() {
-				     @Override
-				     public void run() {
-				    
-				    	 AddNewRowIn_dataTable();
-							ViewTableInPanel(basic_panel,round);
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+
+						AddNewRowIn_dataTable();
+						ViewTableInPanel(basic_panel, round);
 					}
-				    });
-				    thread.start();
-				
+				});
+				thread.start();
+
 			}
 
 		});
@@ -1171,8 +1235,6 @@ public class AddResultsViewWithTable extends JDialog {
 			tableResult[i] = bigMasiveResult[i];
 		}
 
-		// tableResult[tableResult.length - 1] =
-		// rowWithoutValueResults(firstSimbolBasikNulide);
 		return tableResult;
 	}
 

@@ -5,6 +5,10 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -37,8 +41,28 @@ public class Main_Aplication {
 //		 ReaderWordDoc.readMyDocument(fileName);
 
 //		ChangeObjectsInClass();
+//		 Object[] options1 = { "Yes",  "Quit" };
+//		  JPanel panel = new JPanel();
+//		 panel.add(new JLabel("Enter number between 0 and 1000"));
+//		 int result = JOptionPane.showOptionDialog(null,panel, "Enter a Number",
+//	                JOptionPane.OK_OPTION, JOptionPane.CLOSED_OPTION,
+//	                null, options1, null);
+//	        if (result == JOptionPane.OK_OPTION){
+//
+//System.out.println(result);;
+//	        }
+		
+		int n = JOptionPane.showConfirmDialog(
+			    null,
+			    "Would you like green eggs and ham?",
+			    "An Inane Question",
+			    JOptionPane.YES_NO_OPTION);
+		
+//	        if (result == JOptionPane.PLAIN_MESSAGE){
 
-			StartMainWindow();
+	        	System.out.println(n);;
+//	        		        }
+//			StartMainWindow();
 
 		
 		 

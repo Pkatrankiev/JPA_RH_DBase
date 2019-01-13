@@ -1,10 +1,15 @@
 package Aplication;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +25,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import OldClases.test;
 import WindowView.MainWindows;
 import WindowView.ReadGamaFile;
 import WindowView.ReaderWordDoc;
@@ -41,26 +47,46 @@ public class Main_Aplication {
 //		 ReaderWordDoc.readMyDocument(fileName);
 
 //		ChangeObjectsInClass();
-//		 Object[] options1 = { "Yes",  "Quit" };
-//		  JPanel panel = new JPanel();
-//		 panel.add(new JLabel("Enter number between 0 and 1000"));
-//		 int result = JOptionPane.showOptionDialog(null,panel, "Enter a Number",
-//	                JOptionPane.OK_OPTION, JOptionPane.CLOSED_OPTION,
-//	                null, options1, null);
+		
+		String[][] str = new String[4][];
+		str[0] = new String[] { "Pie", "2.2", "12" };
+		str[1] = new String[] { "Cracker", "4", "15" };
+		str[2] = new String[] { "Pop tarts", "1", "4" };
+		str[3] = new String[] { "Sun Chips", "5", "2" };
+		Object[] options1 = { "Да",  "Отказ" };
+		  JPanel panel = new JPanel();
+		  panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		  panel.add(createTextPanel("За изтриване"));
+		  panel.add(test.creadJPanel(str));
+		  panel.add(createTextPanel("За запис"));
+		  panel.add(test.creadJPanel(str));
+		 int result = JOptionPane.showOptionDialog(null,panel, "Enter a Number",
+	                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,
+	                null, options1, null);
+		 System.out.println(result);
 //	        if (result == JOptionPane.OK_OPTION){
 //
-//System.out.println(result);;
+//;
 //	        }
-		
-		int n = JOptionPane.showConfirmDialog(
-			    null,
-			    "Would you like green eggs and ham?",
-			    "An Inane Question",
-			    JOptionPane.YES_NO_OPTION);
+//		String str1= "123";
+//		String str2= "123";
+//		int int1 = 6;
+//		String ss = "";
+//		
+//		for (int i = 0; i < 5; i++) {
+//			 int1++;
+//			 System.out.format("|%-10s|%-10d|%-10s|\n", str1, int1, str2);
+////			ss = ss+str3;
+//		}
+//		int n = JOptionPane.showConfirmDialog(
+//			    null,
+//			    ss,
+//			    "An Inane Question",
+//			    JOptionPane.ERROR_MESSAGE);
 		
 //	        if (result == JOptionPane.PLAIN_MESSAGE){
 
-	        	System.out.println(n);;
+//	        	System.out.println(n);;
 //	        		        }
 //			StartMainWindow();
 
@@ -70,6 +96,14 @@ public class Main_Aplication {
 //		SetDBfromWordDoc.setVolume(FILENAME);
 		
 	}
+	private static JPanel createTextPanel(String str) {
+		JPanel panel2 = new JPanel(); 
+		  FlowLayout flowLayout = (FlowLayout) panel2.getLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			panel2.add(new JLabel(str));
+		return panel2;
+	}
+	
 	private static void TestIzpitvanPokazatelClass() {
 		List<IzpitvanPokazatel> list =  IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		for (IzpitvanPokazatel izpitvanPokazatel : list) {

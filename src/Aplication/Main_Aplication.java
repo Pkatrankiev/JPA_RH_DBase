@@ -48,26 +48,10 @@ public class Main_Aplication {
 
 //		ChangeObjectsInClass();
 		
-		String[][] str = new String[4][];
-		str[0] = new String[] { "Pie", "2.2", "12" };
-		str[1] = new String[] { "Cracker", "4", "15" };
-		str[2] = new String[] { "Pop tarts", "1", "4" };
-		str[3] = new String[] { "Sun Chips", "5", "2" };
-		Object[] options1 = { "Да",  "Отказ" };
-		  JPanel panel = new JPanel();
-		  panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		  panel.add(createTextPanel("За изтриване"));
-		  panel.add(test.creadJPanel(str));
-		  panel.add(createTextPanel("За запис"));
-		  panel.add(test.creadJPanel(str));
-		 int result = JOptionPane.showOptionDialog(null,panel, "Enter a Number",
-	                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,
-	                null, options1, null);
-		 System.out.println(result);
-//	        if (result == JOptionPane.OK_OPTION){
-//
-//;
-//	        }
+//		MesejePanel();
+		
+		
+
 //		String str1= "123";
 //		String str2= "123";
 //		int int1 = 6;
@@ -88,7 +72,9 @@ public class Main_Aplication {
 
 //	        	System.out.println(n);;
 //	        		        }
-//			StartMainWindow();
+
+		
+					StartMainWindow();
 
 		
 		 
@@ -96,6 +82,25 @@ public class Main_Aplication {
 //		SetDBfromWordDoc.setVolume(FILENAME);
 		
 	}
+	private static void MesejePanel() {
+		String[][] str = new String[4][];
+		str[0] = new String[] { "Pie", "2.2", "12" };
+		str[1] = new String[] { "Cracker", "4", "15" };
+		str[2] = new String[] { "Pop tarts", "1", "4" };
+		str[3] = new String[] { "Sun Chips", "5", "2" };
+		Object[] options1 = { "Да",  "Отказ" };
+		  JPanel panel = new JPanel();
+		  panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		  panel.add(createTextPanel("За изтриване"));
+		  panel.add(test.creadJPanel(str));
+		  panel.add(createTextPanel("За запис"));
+		  panel.add(test.creadJPanel(str));
+		 int result = JOptionPane.showOptionDialog(null,panel, "Enter a Number",
+	                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,
+	                null, options1, null);
+		 System.out.println(result);
+	}
+	
 	private static JPanel createTextPanel(String str) {
 		JPanel panel2 = new JPanel(); 
 		  FlowLayout flowLayout = (FlowLayout) panel2.getLayout();

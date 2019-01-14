@@ -243,7 +243,11 @@ public class AddResultsViewWithTable extends JDialog {
 		JButton okButton = new JButton("Запис");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				creadListFromResultObjectForSave(getSampleObjectFromChoiceSampleCode());
+				List<Results> listResultsForSave = creadListFromResultObjectForSave(getSampleObjectFromChoiceSampleCode());
+				for (Results results : listResultsForSave) {
+					saveResultsObjectInDBase(results);
+				}
+				
 			}
 		});
 		// okButton.setActionCommand("OK");
@@ -338,7 +342,6 @@ public class AddResultsViewWithTable extends JDialog {
 			System.out.println(results.getNuclide().getSymbol_nuclide());
 		}
 		
-//		saveResultsObjectInDBase(result);
 		return listResultsForSave;
 	}
 

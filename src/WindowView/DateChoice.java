@@ -353,7 +353,7 @@ public class DateChoice extends JDialog {
 		String str="";
 		System.out.println("*"+txtEndDate.getText()+"*");
 		if(!txtEndDate.getText().equals(""))
-		str = "ѕериод за вземане на пробите: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.";
+		str = "ѕериод за вземане на пробите: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
 		return str;
 	}
 	public static String get_str_period_sample() {
@@ -361,7 +361,7 @@ public class DateChoice extends JDialog {
 		String str="";
 		System.out.println("*"+txtEndDate.getText()+"*");
 		if(!txtEndDate.getText().equals(""))
-		str = "за период: "+txtStartDate.getText().substring(0, 9)+"г. - "+ txtEndDate.getText().substring(0, 9) +"г.";
+		str = "за период: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
 		return str;
 	}
 	public static String get_date_time_reference() {

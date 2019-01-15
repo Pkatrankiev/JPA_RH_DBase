@@ -16,12 +16,16 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import Aplication.RequestDAO;
+import Aplication.SampleDAO;
+import DBase_Class.Request;
+import DBase_Class.Sample;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -359,6 +363,9 @@ public class SampleViewAdd extends JDialog {
 					}
 
 					{
+						if(period==null){
+							year="";
+						}
 						txtFld_Year[i] = new JTextField(year);
 						txtFld_Year[i] .setFont(font);
 						txtFld_Year[i].setPreferredSize(new Dimension(37, 20));
@@ -510,9 +517,40 @@ public class SampleViewAdd extends JDialog {
 
 	}
 
-	public static String[][] getVolumeSampleView(int countSample) {
-		String[][] volSampleView = new String[countSample][6];
+	public static String[][] getVolumeSampleViewFromTamplete(Request tamplateRequest, String ref_Date_Time, String period) {
 		
+		cancelEntered = true;
+			List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request", tamplateRequest);
+			String[][] volSampleView = new String[listSample.size()][6];
+			int i = 0;
+			for (Sample sample : listSample) {
+				volSampleView[i][0] = sample.getSample_code();
+			
+				volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+				
+				volSampleView[i][2] = sample.getDescription_sample();
+			
+				volSampleView[i][3] = ref_Date_Time;
+				
+				volSampleView[i][4] = period;
+				String year ="";
+				if(ref_Date_Time!=""){
+					 year =ref_Date_Time.substring(6, 10);
+				}
+				if(period==null){
+					year="";
+				}
+				
+				volSampleView[i][5] = year;
+				
+				i++;
+			}
+		
+			return volSampleView;
+		}
+			
+	public static String[][] getVolumeSampleView(int countSample) {
+				String[][] volSampleView = new String[countSample][6];
 		for (int i = 0; i < countSample; i++) {
 			volSampleView[i][0] = lbl_sample_code[i].getText();
 			volSampleView[i][1] = comboBox_OI[i].getSelectedItem().toString();
@@ -520,6 +558,7 @@ public class SampleViewAdd extends JDialog {
 			volSampleView[i][3] = txtFld_Ref_date[i].getText();
 			volSampleView[i][4] = comboBox_Period[i].getSelectedItem().toString();
 			volSampleView[i][5] = txtFld_Year[i].getText();
+		
 		}
 		return volSampleView;
 	}

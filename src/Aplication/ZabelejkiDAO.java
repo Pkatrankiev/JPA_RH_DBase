@@ -93,6 +93,9 @@ public class ZabelejkiDAO {
 		Zabelejki zab= null;
 		if (!list.isEmpty()){
 			zab = list.get(0);
+		}else{
+			setValueZabelejki(name);
+			zab = getValueZabelejkiByName(name);
 		}
 		entitymanager.close();
 		emfactory.close();

@@ -110,7 +110,7 @@ public class RequestView extends JFrame {
 	private Boolean corectDateExecution = true;
 	private Boolean corectDateReception = true;
 	private Boolean section = true;
-	
+	private Boolean firstReadSampleDescription = true;
 	private Extra_module xtra_module = null;
 	private Users curent_user;
 	private Request request = null;
@@ -184,7 +184,7 @@ public class RequestView extends JFrame {
 		Section_Choice_Period(p);
 
 		// TODO txtArea_SampleDescription (описание на пробите)
-		Section_Sample_Description(p, border);
+		Section_Sample_Description(tamplateRequest, p, border);
 
 		// TODO txtFld_date_execution (срок за изпълнение)
 		Section_Date_Execution(p, border);
@@ -840,7 +840,7 @@ public class RequestView extends JFrame {
 		});
 	}
 
-	private void Section_Sample_Description(final JPanel p, Border border) {
+	private void Section_Sample_Description(Request tamplateRequest, final JPanel p, Border border) {
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
 		GridBagConstraints gbc_lbl_SampleDescription = new GridBagConstraints();
 		gbc_lbl_SampleDescription.anchor = GridBagConstraints.WEST;
@@ -850,7 +850,10 @@ public class RequestView extends JFrame {
 		p.add(lbl_SampleDescription, gbc_lbl_SampleDescription);
 		
 		// TODO txtFld_Count_Sample (брой на пробите)
-		Text_Count_Sample(p, border);
+		Text_Count_Sample(tamplateRequest, p, border);
+				
+		// TODO Button_Sample_Description (Бутон Описание на пробите )
+				Button_Smple_Description(tamplateRequest,p, border);
 				
 		txtArea_SampleDescription = new JTextArea();
 		txtArea_SampleDescription.setFont(font);
@@ -863,11 +866,21 @@ public class RequestView extends JFrame {
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 		txtArea_SampleDescription.setEditable(false);
 
-		// TODO Button_Sample_Description (Бутон Описание на пробите )
-		Button_Smple_Description(p, border);
+		if (tamplateRequest != null && firstReadSampleDescription) {
+			System.out.println("**************************************************************************************");
+				masiveSampleValue = SampleViewAdd.getVolumeSampleViewFromTamplete(tamplateRequest, "", "");
+				txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
+				txtArea_SampleDescription
+						.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
+				txtArea_SampleDescription.setBorder(border);
+				firstReadSampleDescription=false;
+			
+		}
+		
+				
 	}
 
-	private void Text_Count_Sample(final JPanel p, Border border) {
+	private void Text_Count_Sample(Request tamplateRequest,final JPanel p, Border border) {
 		
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
 		GridBagConstraints gbc_lbl_Count_Sample = new GridBagConstraints();
@@ -884,10 +897,13 @@ public class RequestView extends JFrame {
 		gbc_lblError_Count_Sample.gridx = 4;
 		gbc_lblError_Count_Sample.gridy = 16;
 		p.add(lblError_Count_Sample, gbc_lblError_Count_Sample);
-		
-		
+		String countSamp = "1";
+		if (tamplateRequest != null) {
+			countSamp = tamplateRequest.getCounts_samples()+"";
+							
+		}
 		txtFld_Count_Sample = new JTextField();
-		txtFld_Count_Sample.setText("1");
+		txtFld_Count_Sample.setText(countSamp);
 		txtFld_Count_Sample.addKeyListener(new KeyListener() {
 
 			@Override
@@ -928,7 +944,7 @@ public class RequestView extends JFrame {
 		txtFld_Count_Sample.setColumns(3);
 	}
 
-	private void Button_Smple_Description(final JPanel p, Border border) {
+	private void Button_Smple_Description(Request tamplateRequest, final JPanel p, Border border) {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
 		btn_SampleDescription.addActionListener(new ActionListener() {
@@ -942,9 +958,10 @@ public class RequestView extends JFrame {
 						 LocalDate data_time = LocalDate.parse(ref_Date_Time,
 						 sdf); // ref
 						String period = choice_Period.getSelectedItem();
+						int count_Sample =0;
 						try {
+						 count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							
-							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							if(count_Sample<=0 ||count_Sample>20 ){
 								txtFld_Count_Sample.setText("");
 								count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
@@ -952,17 +969,20 @@ public class RequestView extends JFrame {
 							
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
-
+							
+						
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
 									ref_Date_Time, period, masiveSampleValue);
 
 							sampleDescript.setVisible(true);
+
 							if (!SampleViewAdd.cancelEntered()) {
 								masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
 								txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
 								txtArea_SampleDescription
 										.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
-								txtArea_SampleDescription.setBorder(border);
+								txtArea_SampleDescription.setBorder(border);;
+								
 							}
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(null, "Некоректен брой на пробите!",

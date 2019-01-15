@@ -168,7 +168,8 @@ public class Table_Request_List extends JDialog {
 
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 
-					if (reqCodeStr.startsWith("templ")) {
+//					if (reqCodeStr.startsWith("templ")) {
+						if (true) {
 						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 						if (choiseRequest.getExtra_module() != null) {
 							new ExtraRequestView(Login.getCurentUser(), choiseRequest, round);
@@ -177,9 +178,10 @@ public class Table_Request_List extends JDialog {
 						}
 						setVisible(false);
 
-					} else {
-						RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
-					}
+					} 
+//						else {
+//						RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
+//					}
 				}
 			}
 		});

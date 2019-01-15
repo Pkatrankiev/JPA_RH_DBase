@@ -190,7 +190,7 @@ public class ExtraRequestView extends JFrame {
 		Section_Choice_Period(p_1);
 
 		// TODO Section_Text_Area_Sample_Description (описание на пробите)
-		Section_Text_Area_Sample_Description(p_1, border);
+		Section_Text_Area_Sample_Description(tamplateRequest, p_1, border);
 
 		// TODO Section_date_execution (срок за изпълнение)
 		Section_Date_Execution(p_1, border);
@@ -939,7 +939,7 @@ public class ExtraRequestView extends JFrame {
 		txtFld_Count_Sample.setColumns(3);
 	}
 
-	private void Section_Text_Area_Sample_Description(final JPanel p, Border border) {
+	private void Section_Text_Area_Sample_Description(Request tamplateRequest,final JPanel p, Border border) {
 
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
 		GridBagConstraints gbc_lbl_SampleDescription = new GridBagConstraints();
@@ -952,7 +952,7 @@ public class ExtraRequestView extends JFrame {
 		// TODO txtFld_Count_Sample (брой на пробите)
 		Section_Text_Count_Sample(p, border);
 
-		Button_Sample_Description(p, border);
+		Button_Smple_Description(tamplateRequest,p, border);
 
 		txtArea_SampleDescription = new JTextArea();
 		txtArea_SampleDescription.setFont(font);
@@ -968,22 +968,32 @@ public class ExtraRequestView extends JFrame {
 
 	}
 
-	private void Button_Sample_Description(final JPanel p, Border border) {
+	private void Button_Smple_Description(Request tamplateRequest, final JPanel p, Border border) {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
+		comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
 				try {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
-						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
+						 DateTimeFormatter sdf =
+						 DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+						 LocalDate data_time = LocalDate.parse(ref_Date_Time,
+						 sdf); // ref
 						String period = choice_Period.getSelectedItem();
+						int count_Sample =0;
 						try {
-							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
-							// String ref_Date =
-							// (txtField_RequestCode.getText());
+							if (tamplateRequest != null) {
+								count_Sample = tamplateRequest.getCounts_samples();
+							}else{
+							 count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
+							}
+							if(count_Sample<=0 ||count_Sample>20 ){
+								txtFld_Count_Sample.setText("");
+								count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
+							}
+							
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
@@ -999,7 +1009,7 @@ public class ExtraRequestView extends JFrame {
 								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(ExtraRequestView.this, "Не сте въвели брой на пробите!",
+							JOptionPane.showMessageDialog(null, "Некоректен брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
 						}
 					} catch (DateTimeParseException e) {
@@ -1007,16 +1017,15 @@ public class ExtraRequestView extends JFrame {
 								"Грешни данни", JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(ExtraRequestView.this, "Не сте въвели код на пробата!",
-							"Грешни данни", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(ExtraRequestView.this, "Не сте въвели код на пробата!", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
 
 		});
 		GridBagConstraints gbc_btn_SampleDescription = new GridBagConstraints();
-		gbc_btn_SampleDescription.gridheight = 2;
-		gbc_btn_SampleDescription.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_btn_SampleDescription.anchor = GridBagConstraints.WEST;
 		gbc_btn_SampleDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_SampleDescription.gridx = 5;
 		gbc_btn_SampleDescription.gridy = 15;

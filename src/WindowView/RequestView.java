@@ -196,7 +196,7 @@ public class RequestView extends JFrame {
 		Section_Label_User(user, p);
 		
 		// TODO Section_Choice_Zab (забележка)
-		Section_Choice_Zab(p);
+		Section_Choice_Zab(tamplateRequest, p);
 
 		// TODO Button_Save ( Запис )
 		Button_Save(p);
@@ -852,8 +852,7 @@ public class RequestView extends JFrame {
 		// TODO txtFld_Count_Sample (брой на пробите)
 		Text_Count_Sample(tamplateRequest, p, border);
 				
-		// TODO Button_Sample_Description (Бутон Описание на пробите )
-				Button_Smple_Description(tamplateRequest,p, border);
+		
 				
 		txtArea_SampleDescription = new JTextArea();
 		txtArea_SampleDescription.setFont(font);
@@ -866,16 +865,8 @@ public class RequestView extends JFrame {
 		p.add(txtArea_SampleDescription, gbc_txtArea_SampleDescription);
 		txtArea_SampleDescription.setEditable(false);
 
-		if (tamplateRequest != null && firstReadSampleDescription) {
-			System.out.println("**************************************************************************************");
-				masiveSampleValue = SampleViewAdd.getVolumeSampleViewFromTamplete(tamplateRequest, "", "");
-				txtArea_SampleDescription.setFont(new Font("monospaced", Font.PLAIN, 12));
-				txtArea_SampleDescription
-						.setText(RequestViewAplication.writeSampleDescript(masiveSampleValue));
-				txtArea_SampleDescription.setBorder(border);
-				firstReadSampleDescription=false;
-			
-		}
+		// TODO Button_Sample_Description (Бутон Описание на пробите )
+		Button_Smple_Description(tamplateRequest,p, border);
 		
 				
 	}
@@ -958,10 +949,10 @@ public class RequestView extends JFrame {
 						 LocalDate data_time = LocalDate.parse(ref_Date_Time,
 						 sdf); // ref
 						String period = choice_Period.getSelectedItem();
-						int count_Sample =0;
+						
 						try {
-						 count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							
+							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							if(count_Sample<=0 ||count_Sample>20 ){
 								txtFld_Count_Sample.setText("");
 								count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
@@ -970,9 +961,8 @@ public class RequestView extends JFrame {
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 							
-						
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, masiveSampleValue);
+									ref_Date_Time, period, masiveSampleValue, tamplateRequest);
 
 							sampleDescript.setVisible(true);
 
@@ -1180,7 +1170,7 @@ public class RequestView extends JFrame {
 		p.add(lbl_User, gbc_lbl_User);
 	}
 
-	private void Section_Choice_Zab(final JPanel p) {
+	private void Section_Choice_Zab(Request tamplateRequest, final JPanel p) {
 		JLabel lbl_note = new JLabel("Забележка:");
 		GridBagConstraints gbc_lbl_note = new GridBagConstraints();
 		gbc_lbl_note.anchor = GridBagConstraints.WEST;
@@ -1198,6 +1188,14 @@ public class RequestView extends JFrame {
 			choice_Zab.add(string);
 		}
 		choice_Zab.setPreferredSize(new Dimension(4, 18));
+		
+		if (tamplateRequest != null) {
+			if (tamplateRequest.getInd_num_doc()!=null){
+				choice_Zab.select(tamplateRequest.getZabelejki().getName_zabelejki());
+			}else {
+				choice_Zab.select("");
+			}
+		}
 
 		GridBagConstraints gbc_choice_Zab = new GridBagConstraints();
 		gbc_choice_Zab.fill = GridBagConstraints.BOTH;

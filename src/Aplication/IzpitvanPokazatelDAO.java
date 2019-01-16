@@ -122,7 +122,22 @@ public class IzpitvanPokazatelDAO {
 
 		return list;
 	}
+	
+	@GET
+	public static IzpitvanPokazatel getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(Request request, List_izpitvan_pokazatel pokazatel) {
 
+		for (IzpitvanPokazatel izpitvanPokazatel : getValueIzpitvan_pokazatelByRequest(request)) {
+			if(izpitvanPokazatel.getPokazatel().getName_pokazatel().equals(pokazatel.getName_pokazatel())){
+				return izpitvanPokazatel;
+			}
+		}
+
+		return null;
+	}
+
+	
+	
+	
 	@GET
 	public static List<IzpitvanPokazatel> getValueIzpitvan_pokazatelByPokazatel(List_izpitvan_pokazatel pokazatel) {
 

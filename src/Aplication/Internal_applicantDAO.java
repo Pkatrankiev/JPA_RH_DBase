@@ -115,6 +115,7 @@ public class Internal_applicantDAO {
 	public static int setValueInternal_applicantWhithCheck(Internal_applicant valueEnt){
 		int id=-1;
 		List<Internal_applicant> list = getInListAllInternal_applicant();
+		
 	for (Internal_applicant internal_applicant : list) {
 		if(internal_applicant.getInternal_applicant_address().contains(valueEnt.getInternal_applicant_address())
 		&& internal_applicant.getInternal_applicant_organization().contains(valueEnt.getInternal_applicant_organization())
@@ -123,7 +124,7 @@ public class Internal_applicantDAO {
 			id = internal_applicant.getId_internal_applicant();
 		}
 	}
-			
+	
 	return id;
 		
 	}

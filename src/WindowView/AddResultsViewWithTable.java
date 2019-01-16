@@ -243,12 +243,15 @@ public class AddResultsViewWithTable extends JDialog {
 		JButton okButton = new JButton("Запис");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateIzpitvanPokazatelObjectInDBase();
 				List<Results> listResultsForSave = creadListFromResultObjectForSave(getSampleObjectFromChoiceSampleCode());
 				for (Results results : listResultsForSave) {
 					saveResultsObjectInDBase(results);
 				}
 				
 			}
+
+			
 		});
 		// okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -263,7 +266,13 @@ public class AddResultsViewWithTable extends JDialog {
 		// cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 	}
-
+	private void updateIzpitvanPokazatelObjectInDBase() {
+		IzpitvanPokazatel izpivanPokazatel = IzpitvanPokazatelDAO.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(choiseRequest, getPokazatelObjectFromChoicePokazatel());
+		Metody mm = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
+		izpivanPokazatel.getId_pokazatel();
+		izpivanPokazatel.setMetody(mm);
+		IzpitvanPokazatelDAO.updateIzpitvanPokazatel( izpivanPokazatel);
+	}
 	private static Boolean checkDuplicateCodeNuclide(Object[][] dataTable) {
 		Boolean corectCheck = true;
 		List<String> listCodeNuclide = new ArrayList<String>();

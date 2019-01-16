@@ -58,15 +58,20 @@ public class SampleViewAdd extends JDialog {
 	private Boolean notEmptryString;
 	private static Boolean cancelEntered = false;
 	private Font font = new  Font("Tahoma", Font.PLAIN, 12);
-
+	
 	/**
 	 * Create the dialog.
 	 */
 	@SuppressWarnings("unchecked")
 	public SampleViewAdd(Frame parent, final int countSample, int requestCode,  ArrayList<String> comBox_O_I_S, String ref_Date_Time, String period,
-			String[][] stringVol) {
+			String[][] stringVol, Request tamplateRequest) {
 		super(parent, "Информация за пробите", true);
-
+		
+		List<Sample> listSample = new ArrayList<Sample>();
+		if(tamplateRequest != null){
+			listSample = SampleDAO.getListSampleFromColumnByVolume("request", tamplateRequest);
+				}
+		
 		setBounds(100, 100, 910, (countSample * 29) + 120);
 		getContentPane().setLayout(new BorderLayout());
 		{
@@ -133,6 +138,7 @@ public class SampleViewAdd extends JDialog {
 			} catch (NullPointerException e) {
 				notEmptryString = false;
 			}
+			
 			for (int i = 0; i < countSample; i++) {
 
 				final int selection = i;
@@ -158,8 +164,12 @@ public class SampleViewAdd extends JDialog {
 						for (String string : comBox_O_I_S) {
 							comboBox_OI[i].addItem(string);
 						}
-						if (notEmptryString)
+						if (notEmptryString){
 							comboBox_OI[i].setSelectedItem(stringVol[i][1]);
+						}else{
+						if(tamplateRequest != null && i<listSample.size())
+							comboBox_OI[i].setSelectedItem(listSample.get(i).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+						}
 						panel[i].add(comboBox_OI[i]);
 
 						edit_comboBox_OI[i] = new JPanel();
@@ -222,8 +232,12 @@ public class SampleViewAdd extends JDialog {
 					{
 						txtArea_Sample_Descr[i] = new JTextArea();
 						txtArea_Sample_Descr[i] .setFont(font);
-						if (notEmptryString)
+						if (notEmptryString){
 							txtArea_Sample_Descr[i].setText(stringVol[i][2]);
+						}else{
+						if(tamplateRequest != null && i<listSample.size())
+							txtArea_Sample_Descr[i].setText(listSample.get(i).getDescription_sample());
+						}
 						txtArea_Sample_Descr[i].setPreferredSize(new Dimension(300, 20));
 						// txtArea_Sample_Descr[i].setMinimumSize(new
 						// Dimension(400, 20));
@@ -264,6 +278,7 @@ public class SampleViewAdd extends JDialog {
 						txtFld_Ref_date[i].setPreferredSize(new Dimension(120, 20));
 						if (notEmptryString)
 							txtFld_Ref_date[i].setText(stringVol[i][3]);
+												
 						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
 
 							@Override
@@ -359,6 +374,7 @@ public class SampleViewAdd extends JDialog {
 						comboBox_Period[i].setSelectedItem(period);
 						if (notEmptryString)
 							comboBox_Period[i].setSelectedItem(stringVol[i][4]);
+												
 						panel[i].add(comboBox_Period[i]);
 					}
 
@@ -371,6 +387,7 @@ public class SampleViewAdd extends JDialog {
 						txtFld_Year[i].setPreferredSize(new Dimension(37, 20));
 						if (notEmptryString)
 							txtFld_Year[i].setText(stringVol[i][5]);
+						
 						panel[i].add(txtFld_Year[i]);
 						txtFld_Year[i].setColumns(3);
 
@@ -446,40 +463,7 @@ public class SampleViewAdd extends JDialog {
 								str_Ref_date = "некоректна дата" + "\n";
 								saveCheck = false;
 							}
-							// String str_Izpit_Prod = "";
-							// if
-							// (choice_izpitvan_produkt.getSelectedItem().equals(""))
-							// {
-							// choice_izpitvan_produkt.setBackground(Color.RED);
-							// str_Izpit_Prod = "изпитван продукт" + "\n";
-							// saveCheck = false;
-							// }
-							// String str_Obekt_Izpit = "";
-							// if
-							// (choice_obekt_na_izpitvane_request.getSelectedItem().equals(""))
-							// {
-							// choice_obekt_na_izpitvane_request.setBackground(Color.RED);
-							// str_Obekt_Izpit = "обект на изпитване" + "\n";
-							// saveCheck = false;
-							// }
-							// String str_L_I_P = "";
-							// if
-							// (txtArea_list_izpitvan_pokazatel.getText().equals(""))
-							// {
-							// txtArea_list_izpitvan_pokazatel.setBorder(new
-							// LineBorder(Color.RED));
-							// str_L_I_P = "изпитван показател" + "\n";
-							// saveCheck = false;
-							// }
-							// String str_corectRefDate = "";
-							// if (!corectRefDate ||
-							// txt_fid_date_time_reception.getText().equals(""))
-							// {
-							// txt_fid_date_time_reception.setBorder(new
-							// LineBorder(Color.RED));
-							// str_corectRefDate = "референтна дата" + "\n";
-							// saveCheck = false;
-							// }
+							
 						}
 						if (!saveCheck) {
 							String str = str_Ref_date + str_Year;
@@ -517,37 +501,37 @@ public class SampleViewAdd extends JDialog {
 
 	}
 
-	public static String[][] getVolumeSampleViewFromTamplete(Request tamplateRequest, String ref_Date_Time, String period) {
-		
-		cancelEntered = true;
-			List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request", tamplateRequest);
-			String[][] volSampleView = new String[listSample.size()][6];
-			int i = 0;
-			for (Sample sample : listSample) {
-				volSampleView[i][0] = sample.getSample_code();
-			
-				volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-				
-				volSampleView[i][2] = sample.getDescription_sample();
-			
-				volSampleView[i][3] = ref_Date_Time;
-				
-				volSampleView[i][4] = period;
-				String year ="";
-				if(ref_Date_Time!=""){
-					 year =ref_Date_Time.substring(6, 10);
-				}
-				if(period==null){
-					year="";
-				}
-				
-				volSampleView[i][5] = year;
-				
-				i++;
-			}
-		
-			return volSampleView;
-		}
+//	public static String[][] getVolumeSampleViewFromTamplete(Request tamplateRequest, String ref_Date_Time, String period) {
+//		
+////		cancelEntered = true;
+////			
+////			String[][] volSampleView = new String[listSample.size()][6];
+////			int i = 0;
+////			for (Sample sample : listSample) {
+////				volSampleView[i][0] = sample.getSample_code();
+////			
+////				volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+////				
+////				volSampleView[i][2] = sample.getDescription_sample();
+////			
+////				volSampleView[i][3] = ref_Date_Time;
+////				
+////				volSampleView[i][4] = period;
+////				String year ="";
+////				if(ref_Date_Time!=""){
+////					 year =ref_Date_Time.substring(6, 10);
+////				}
+////				if(period==null){
+////					year="";
+////				}
+////				
+////				volSampleView[i][5] = year;
+////				
+////				i++;
+////			}
+//		
+//			return volSampleView;
+//		}
 			
 	public static String[][] getVolumeSampleView(int countSample) {
 				String[][] volSampleView = new String[countSample][6];

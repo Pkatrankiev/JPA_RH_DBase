@@ -184,12 +184,11 @@ public class InternalAplicantModuleView extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						internal_Aplic = new Internal_applicant(
-								txtArea_Organiztion.getText().trim(), 
-								txtArea_Adress.getText().trim(), 
-								txtField_Tel.getText().trim());
+						internal_Aplic = generateInternalAplicant();
 						dispose();
 					}
+
+				
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -215,12 +214,19 @@ public class InternalAplicantModuleView extends JDialog {
 	
 	}
 
+	private Internal_applicant generateInternalAplicant() {
+		return new Internal_applicant(
+				txtArea_Organiztion.getText().trim(), 
+				txtArea_Adress.getText().trim(), 
+				txtField_Tel.getText().trim());
+	}
+	
 	public Internal_applicant getInternal_AplicFromInternalModuleView(){
 		if (txtArea_Adress.getText().trim().isEmpty() && txtArea_Organiztion.getText().trim().isEmpty()
 				&& txtField_Tel.getText().trim().isEmpty()) {
-			internal_Aplic = null;
+			return null;
 		}
-		return internal_Aplic;
+		return generateInternalAplicant();
 		
 			}
 }

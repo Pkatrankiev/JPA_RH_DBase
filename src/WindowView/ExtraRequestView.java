@@ -998,7 +998,7 @@ public class ExtraRequestView extends JFrame {
 							SampleViewAdd sampleDescript = null;
 
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, masiveSampleValue);
+									ref_Date_Time, period, masiveSampleValue, tamplateRequest );
 
 							sampleDescript.setVisible(true);
 							if (!SampleViewAdd.cancelEntered()) {
@@ -1756,6 +1756,9 @@ public class ExtraRequestView extends JFrame {
 
 	private Internal_applicant GetAndSaveInternalAplicant() {
 		if (internalAplic != null) {
+			System.out.println(internalAplic.getInternal_applicant_address());
+			System.out.println(internalAplic.getInternal_applicant_organization());
+			System.out.println(internalAplic.getInternal_applicant_telephone());
 			int id_internalAplic = Internal_applicantDAO.setValueInternal_applicantWhithCheck(internalAplic);
 			if (id_internalAplic < 0) {
 				Internal_applicantDAO.setValueInternal_applicant(internalAplic);

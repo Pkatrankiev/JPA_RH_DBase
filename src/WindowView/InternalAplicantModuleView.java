@@ -159,9 +159,14 @@ public class InternalAplicantModuleView extends JDialog {
 					     @Override
 					     public void run() {
 					    	 JDialog dialog = new JDialog();
+					    	 dialog.setName("ExtraRequest");
 					    	 Table_InternalApplicant_List tabIntApplic = new Table_InternalApplicant_List(dialog, round, null);
 					    	 internal_Aplic = tabIntApplic.getInternal_applicant();
-					    	
+					    	 txtArea_Organiztion.setText( internal_Aplic.getInternal_applicant_organization());
+					    	 txtArea_Adress .setText(internal_Aplic.getInternal_applicant_address());
+								txtField_Tel.setText( internal_Aplic.getInternal_applicant_telephone());
+								revalidate();
+								repaint();
 					     }
 					    });
 					    thread.start();

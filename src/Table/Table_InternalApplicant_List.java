@@ -72,6 +72,9 @@ public class Table_InternalApplicant_List extends JDialog {
 				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
 					int id_Aplic = (int) table.getValueAt(table.getSelectedRow(), aplic_Id_Colum);
 					int_Aplic = Internal_applicantDAO.getValueInternal_applicantById(id_Aplic);
+					if(parent.getName().equals("ExtraRequest")){
+						setVisible(false);
+					}
 				}
 			}
 		});

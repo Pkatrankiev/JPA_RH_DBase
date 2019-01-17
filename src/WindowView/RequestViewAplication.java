@@ -133,6 +133,7 @@ public class RequestViewAplication {
 	}
 
 	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
+		
 		int count_Sample = masiveRefDateTime.length;
 		Boolean comparedFlag = false;
 		for (int i = 0; i < count_Sample; i++) {

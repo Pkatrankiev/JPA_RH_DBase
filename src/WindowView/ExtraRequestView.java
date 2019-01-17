@@ -408,7 +408,7 @@ public class ExtraRequestView extends JFrame {
 		p_1.add(lblNewLabel_6, gbc_lblNewLabel_6);
 
 		JLabel label = new JLabel(
-				"<html>\u0417\u0430 \u0438\u0437\u043F\u0438\u0442\u0432\u0430\u043D\u0438\u044F \u0438\u0437\u0432\u044A\u043D \u043E\u0431\u0435\u043C\u0430,<br>\u043F\u0440\u0435\u0434\u0432\u0438\u0434\u0435\u043D \u0432\u044A\u0432 \u0432\u044A\u0442\u0440\u0435\u0448\u043D\u0438\u0442\u0435 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438</html>");
+				"За изпитвания от външни клиенти");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -449,6 +449,7 @@ public class ExtraRequestView extends JFrame {
 					tamplateInternalAplic = internalAplic;
 				}
 				JFrame parent = new JFrame();
+				
 				InternalAplicantModuleView intraModView = new InternalAplicantModuleView(parent, tamplateInternalAplic,
 						round);
 

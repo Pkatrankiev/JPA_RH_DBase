@@ -152,7 +152,7 @@ public class InternalAplicantModuleView extends JDialog {
 		}
 		{
 			JButton btnNewButton = new JButton("Прочети");
-			btnNewButton.addActionListener(new ActionListener() {
+			btnNewButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					TranscluentWindow round = new TranscluentWindow();
 					 final Thread thread = new Thread(new Runnable() {

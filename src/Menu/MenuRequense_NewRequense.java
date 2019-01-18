@@ -2,6 +2,8 @@ package Menu;
 
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import DBase_Class.Users;
 import Table.Table_Request_List;
@@ -30,7 +32,8 @@ public class MenuRequense_NewRequense extends AbstractMenuAction{
 			 final Thread thread = new Thread(new Runnable() {
 			     @Override
 			     public void run() {
-			    	 RequestView reqView = new RequestView(loginDlg,null,round);
+			    	 JFrame f = new JFrame();
+			    	 RequestView reqView = new RequestView(f, loginDlg,null,round);
 						reqView.setVisible(true);
 			    	     	
 			     }

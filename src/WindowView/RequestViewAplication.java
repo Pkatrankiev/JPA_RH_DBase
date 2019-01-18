@@ -139,6 +139,7 @@ public class RequestViewAplication {
 		for (int i = 0; i < count_Sample; i++) {
 			String compared = masiveRefDateTime[i];
 			for (int j = i; j < count_Sample; j++) {
+				System.out.println(j+"  "+masiveRefDateTime[j]);
 				if (!compared.equals(masiveRefDateTime[j])) {
 					comparedFlag = true;
 					return comparedFlag;

@@ -2,6 +2,7 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import DBase_Class.Users;
@@ -28,7 +29,8 @@ public class MenuRequense_NewExtraRequense extends AbstractMenuAction{
 			 final Thread thread = new Thread(new Runnable() {
 			     @Override
 			     public void run() {
-			    	 ExtraRequestView reqView = new ExtraRequestView(loginDlg,null,round);
+			    	 JFrame f = new JFrame();
+			    	 ExtraRequestView reqView = new ExtraRequestView(f, loginDlg,null,round);
 						reqView.setVisible(true);
 			    	     	
 			     }

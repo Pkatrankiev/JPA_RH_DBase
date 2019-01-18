@@ -128,7 +128,8 @@ public class Table_Request_List extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				if (table.getSelectedColumn() == rqst_code_Colum) {
+				Users loginUser = Login.getCurentUser();
+				if (table.getSelectedColumn() == rqst_code_Colum && table.getSelectedRow() != -1) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
 					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
@@ -136,15 +137,16 @@ public class Table_Request_List extends JDialog {
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
-				if (table.getSelectedColumn() == izp_Pok_Colum && Login.getCurentUser() != null
-						&& Login.getCurentUser().getIsAdmin()) {
+				if (table.getSelectedColumn() == izp_Pok_Colum && loginUser != null
+						&& loginUser.getIsAdmin() && table.getSelectedRow() != -1) {
 					int rowPokazatel = table.rowAtPoint(e.getPoint());
 					EditColumnPokazatel(table, rowPokazatel);
 
 					AddInUpdateList(rowPokazatel);
 				}
 
-				if (e.getClickCount() == 2 && Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
+				if (e.getClickCount() == 2 && loginUser != null && table.getSelectedRow() != -1) {
+					if(loginUser.getIsAdmin()){
 					if (table.getSelectedColumn() == cunt_Smpl_Colum || table.getSelectedColumn() == ref_Date_Colum) {
 						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
@@ -160,29 +162,26 @@ public class Table_Request_List extends JDialog {
 							     }
 							    });
 							    thread.start();
-					
 					}
-				}
-
-				if (e.getClickCount() == MouseEvent.BUTTON3 && table.getSelectedRow() != -1) {
-
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
-
-//					if (reqCodeStr.startsWith("templ")) {
-						if (true) {
+					}else{
+						
+						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+						if (parent.getName().equals("tamplete")) {
 						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+						 JFrame f = new JFrame();
 						if (choiseRequest.getExtra_module() != null) {
-							new ExtraRequestView(Login.getCurentUser(), choiseRequest, round);
+							new ExtraRequestView(f, loginUser, choiseRequest, round);
 						} else {
-							new RequestView(Login.getCurentUser(), choiseRequest, round);
+							new RequestView(f, loginUser, choiseRequest, round);
 						}
-						setVisible(false);
+						
 
 					} 
-//						else {
-//						RequestViewAplication.OpenRequestInWordDokTamplate(reqCodeStr);
-//					}
+					}
+					
 				}
+
+				
 			}
 		});
 
@@ -378,10 +377,19 @@ public class Table_Request_List extends JDialog {
 				String[][] masiveSample = RequestViewAplication.getMasiveSampleFromListSampleFromRequest(request,
 						listSample);
 				tableRequest[i][rqst_code_Colum] = request.getRecuest_code();
+				
 				if (request.getInd_num_doc() != null) {
 					tableRequest[i][id_ND_Colum] = request.getInd_num_doc().getName();
 				} else {
-					tableRequest[i][id_ND_Colum] = "";
+					if(request.getExtra_module()!=null){
+						if(request.getExtra_module().getInternal_applicant()!=null){
+							tableRequest[i][id_ND_Colum] = request.getExtra_module().getInternal_applicant().getInternal_applicant_organization();	
+						}else{
+							if(request.getExtra_module().getExternal_applicant()!=null){
+								tableRequest[i][id_ND_Colum] = request.getExtra_module().getExternal_applicant().getExternal_applicant_name();	
+							}
+					}
+				}
 				}
 				tableRequest[i][rqst_Date_Colum] = formatToTabDate(request.getDate_request(), false);
 				// tableRequest[i][rqst_Date_Colum ] =

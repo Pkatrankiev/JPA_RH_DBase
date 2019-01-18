@@ -74,10 +74,11 @@ import java.awt.Dimension;
 import java.awt.Choice;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
-public class ExtraRequestView extends JFrame {
+public class ExtraRequestView extends JDialog {
 
 	JScrollPane scrollpane;
 	private JTextField txtFld_Count_Sample;
@@ -89,7 +90,7 @@ public class ExtraRequestView extends JFrame {
 	private String str_Descript_grup_Sample = "";
 	private ArrayList<String> comBox_O_I_S;
 	private Boolean section = true;
-	
+
 	private Boolean corectRequestCode = true;
 	private String strAplicant = "";
 	private Choice choice_Period;
@@ -122,8 +123,8 @@ public class ExtraRequestView extends JFrame {
 
 	private JPanel p_1;
 
-	public ExtraRequestView(Users user, Request tamplateRequest, TranscluentWindow round) {
-		super("Заявка за Извънредно Изпитване");
+	public ExtraRequestView(JFrame parent, Users user, Request tamplateRequest, TranscluentWindow round) {
+		super(parent,"Заявка за Извънредно Изпитване",true);
 		setSize(850, 980);
 		setLocationRelativeTo(null);
 		curent_user = user;
@@ -146,8 +147,7 @@ public class ExtraRequestView extends JFrame {
 		gbl_p_1.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 11, 0, 0, 17, 0 };
 		p_1.setLayout(gbl_p_1);
-		
-		
+
 		// TODO Section_Header_Request (Титул на заявката)
 		Section_Header_Request(p_1);
 
@@ -157,7 +157,7 @@ public class ExtraRequestView extends JFrame {
 		Section_Code_Date_Request(p_1, border);
 
 		// TODO Text_Area_Aplicant (Заявител)
-		Text_Area_Aplicant(p_1, border);
+		Text_Area_Aplicant(tamplateRequest, p_1, border);
 
 		// TODO Button_Internal_Aplicant (Звено на ДП РАО)
 		Button_Internal_Aplicant(tamplateRequest, p_1);
@@ -383,7 +383,19 @@ public class ExtraRequestView extends JFrame {
 		panel_1.add(txtFld_Date_Request);
 	}
 
-	private void Text_Area_Aplicant(final JPanel p, Border border) {
+	private void Text_Area_Aplicant(Request tamplateRequest, final JPanel p, Border border) {
+
+		if (tamplateRequest != null) {
+			internalAplic = tamplateRequest.getExtra_module().getInternal_applicant();
+			if (internalAplic != null) {
+				strAplicant = getStringFromIntraAplicant(internalAplic);
+			} else {
+				externalAplic = tamplateRequest.getExtra_module().getExternal_applicant();
+				if (externalAplic != null) {
+					strAplicant = getStringFromExtAplicant(externalAplic);
+				}
+			}
+		}
 		JLabel lblNewLabel_4 = new JLabel("Заявител: ");
 
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -407,8 +419,7 @@ public class ExtraRequestView extends JFrame {
 		gbc_lblNewLabel_6.gridy = 6;
 		p_1.add(lblNewLabel_6, gbc_lblNewLabel_6);
 
-		JLabel label = new JLabel(
-				"За изпитвания от външни клиенти");
+		JLabel label = new JLabel("За изпитвания от външни клиенти");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -445,18 +456,18 @@ public class ExtraRequestView extends JFrame {
 				if (tamplateRequest != null) {
 					tamplateInternalAplic = tamplateRequest.getExtra_module().getInternal_applicant();
 				}
-				if(internalAplic!=null){
+				if (internalAplic != null) {
 					tamplateInternalAplic = internalAplic;
 				}
 				JFrame parent = new JFrame();
-				
+
 				InternalAplicantModuleView intraModView = new InternalAplicantModuleView(parent, tamplateInternalAplic,
 						round);
 
 				internalAplic = intraModView.getInternal_AplicFromInternalModuleView();
 				strAplicant = getStringFromIntraAplicant(internalAplic);
 				txtArea_Aplicant.setText(strAplicant);
-				System.out.println("--------------"+strAplicant);
+				System.out.println("--------------" + strAplicant);
 			}
 
 		});
@@ -481,7 +492,7 @@ public class ExtraRequestView extends JFrame {
 				if (tamplateRequest != null) {
 					tamplateExternalAplic = tamplateRequest.getExtra_module().getExternal_applicant();
 				}
-				if(externalAplic!=null){
+				if (externalAplic != null) {
 					tamplateExternalAplic = externalAplic;
 				}
 				JFrame parent = new JFrame();
@@ -607,7 +618,7 @@ public class ExtraRequestView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ChoiceFrame(array_O_I_R, choice_obekt_na_izpitvane_request);
-			
+
 			}
 
 		});
@@ -646,7 +657,7 @@ public class ExtraRequestView extends JFrame {
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 	}
 
-	private void CheckBox_InProtokol(Request tamplateRequest,final JPanel p) {
+	private void CheckBox_InProtokol(Request tamplateRequest, final JPanel p) {
 		chckbx_accreditation = new JCheckBox("Извън обхват");
 		if (tamplateRequest != null) {
 			chckbx_accreditation.setSelected(tamplateRequest.getAccreditation());
@@ -719,8 +730,8 @@ public class ExtraRequestView extends JFrame {
 	}
 
 	private void Text_Area_Description_Sample_Grup(Request tamplateRequest, final JPanel p, Border border) {
-		
-		String str ="";
+
+		String str = "";
 		if (tamplateRequest != null) {
 			str = tamplateRequest.getDescription_sample_group();
 		}
@@ -940,7 +951,7 @@ public class ExtraRequestView extends JFrame {
 		txtFld_Count_Sample.setColumns(3);
 	}
 
-	private void Section_Text_Area_Sample_Description(Request tamplateRequest,final JPanel p, Border border) {
+	private void Section_Text_Area_Sample_Description(Request tamplateRequest, final JPanel p, Border border) {
 
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
 		GridBagConstraints gbc_lbl_SampleDescription = new GridBagConstraints();
@@ -953,7 +964,7 @@ public class ExtraRequestView extends JFrame {
 		// TODO txtFld_Count_Sample (брой на пробите)
 		Section_Text_Count_Sample(p, border);
 
-		Button_Smple_Description(tamplateRequest,p, border);
+		Button_Smple_Description(tamplateRequest, p, border);
 
 		txtArea_SampleDescription = new JTextArea();
 		txtArea_SampleDescription.setFont(font);
@@ -977,29 +988,27 @@ public class ExtraRequestView extends JFrame {
 				try {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
-						 DateTimeFormatter sdf =
-						 DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
+						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						 LocalDate data_time = LocalDate.parse(ref_Date_Time,
-						 sdf); // ref
+						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
 						String period = choice_Period.getSelectedItem();
-						int count_Sample =0;
+						int count_Sample = 0;
 						try {
 							if (tamplateRequest != null) {
 								count_Sample = tamplateRequest.getCounts_samples();
-							}else{
-							 count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
+							} else {
+								count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							}
-							if(count_Sample<=0 ||count_Sample>20 ){
+							if (count_Sample <= 0 || count_Sample > 20) {
 								txtFld_Count_Sample.setText("");
 								count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 							}
-							
+
 							final JFrame f = new JFrame();
 							SampleViewAdd sampleDescript = null;
 
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, masiveSampleValue, tamplateRequest );
+									ref_Date_Time, period, masiveSampleValue, tamplateRequest);
 
 							sampleDescript.setVisible(true);
 							if (!SampleViewAdd.cancelEntered()) {
@@ -1010,16 +1019,16 @@ public class ExtraRequestView extends JFrame {
 								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(null, "Некоректен брой на пробите!",
-									"Грешни данни", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Некоректен брой на пробите!", "Грешни данни",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					} catch (DateTimeParseException e) {
 						JOptionPane.showMessageDialog(ExtraRequestView.this, "Не сте въвели референтна дата и време!",
 								"Грешни данни", JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(ExtraRequestView.this, "Не сте въвели код на пробата!", "Грешни данни",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(ExtraRequestView.this, "Не сте въвели код на пробата!",
+							"Грешни данни", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -1217,11 +1226,11 @@ public class ExtraRequestView extends JFrame {
 
 	private void Button_Add_AplicantNameFamily(final JPanel p, ArrayList<String> array_AplicantNameFamily) {
 		JButton button = new JButton("Добавяне");
-		
+
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ChoiceFrameNameFamily(array_AplicantNameFamily, choice_AplicantNameFamily);
-			
+
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -1368,11 +1377,10 @@ public class ExtraRequestView extends JFrame {
 		btn_add_otclon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ChoiceFrame(arrayOtclon, choice_otclon);
-						}
+			}
 		});
 		return btn_add_otclon;
 	}
-	
 
 	private void Section_DopalnIziskv(final JPanel p, Border border) {
 		JLabel lbl_note = new JLabel("Допълнителни изисквания на клиента:");
@@ -1418,7 +1426,7 @@ public class ExtraRequestView extends JFrame {
 
 				if (checkRequest()) {
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
-					request =  createAndSaveRequest();
+					request = createAndSaveRequest();
 					saveSample();
 					SaveIzpitvanPokazatel();
 					setVisible(false);
@@ -1459,10 +1467,10 @@ public class ExtraRequestView extends JFrame {
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					
+
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
-						
-					request =  createAndSaveRequestTamplate();
+
+					request = createAndSaveRequestTamplate();
 					saveSample();
 					SaveIzpitvanPokazatel();
 					setVisible(false);
@@ -1568,22 +1576,21 @@ public class ExtraRequestView extends JFrame {
 	}
 
 	private Request createRequestObject() {
-		
+
 		Ind_num_doc ind_num_doc = null;
 
 		Izpitvan_produkt izpitvan_produkt = Izpitvan_produktDAO
 				.getValueIzpitvan_produktByName(choice_izpitvan_produkt.getSelectedItem());
-		
+
 		Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
-		
+
 		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
-		
+
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-
 		Extra_module extra_mod = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
-			
+
 		Request recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, extra_mod, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_reception.getText(),
@@ -1632,7 +1639,7 @@ public class ExtraRequestView extends JFrame {
 	private Request createAndSaveRequestTamplate() {
 		Request recuest = createRequestObject();
 		String str_templ = RequestViewAplication.DateNaw(true);
-			
+
 		recuest.setRecuest_code("templ" + str_templ);
 		recuest.setDate_request("");
 		recuest.setDate_reception("");
@@ -1653,8 +1660,9 @@ public class ExtraRequestView extends JFrame {
 			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
 					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
 
-			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5,masiveSampleValue[i][0].length()), masiveSampleValue[i][2], masiveSampleValue[i][3], request,
-					obectNaIzpitvaneSample, period, Integer.valueOf(masiveSampleValue[i][5]));
+			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5, masiveSampleValue[i][0].length()),
+					masiveSampleValue[i][2], masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,
+					Integer.valueOf(masiveSampleValue[i][5]));
 
 		}
 	}

@@ -1,9 +1,11 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import DBase_Class.Users;
-import Table.TableRequestTamplate;
+import Table.Table_Request_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
@@ -27,7 +29,9 @@ public class MenuRequense_NewRequenseInTamplate extends AbstractMenuAction{
 			     @Override
 			     public void run() {
 			    	 
-			    	 TableRequestTamplate.DrawTableWithRequestTamplate(round);
+			    	 JFrame f = new JFrame();
+			    	 f.setName("tamplete");
+				 		new Table_Request_List(f,round,Login.getCurentUser(),null);
 
 			    	
 			     }

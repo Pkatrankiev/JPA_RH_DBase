@@ -72,10 +72,11 @@ import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class RequestView extends JFrame {
+public class RequestView extends JDialog  {
 
 	JScrollPane scrollpane;
 	private JTextField txtFld_Count_Sample;
@@ -118,8 +119,8 @@ public class RequestView extends JFrame {
 	private Font font = new  Font("Tahoma", Font.PLAIN, 11);
 	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 	
-	public RequestView(Users user, Request tamplateRequest,TranscluentWindow round) {
-		super("JScrollPane Demonstration");
+	public RequestView(JFrame parent, Users user, Request tamplateRequest,TranscluentWindow round) {
+		super(parent,"JScrollPane Demonstration", true);
 		setSize(850, 980);
 		setLocationRelativeTo(null);
 		curent_user = user;

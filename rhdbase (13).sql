@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time:  2 яну 2019 в 18:23
--- Версия на сървъра: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: 18 яну 2019 в 15:13
+-- Версия на сървъра: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -38,7 +40,8 @@ CREATE TABLE `aplicant` (
 
 INSERT INTO `aplicant` (`ID_APLICANT`, `FAMILY`, `NAME`) VALUES
 (1, 'Петров', 'Йордан'),
-(2, 'Пашов', 'Иван');
+(2, 'Пашов', 'Иван'),
+(3, 'Непознат', 'Непознат');
 
 -- --------------------------------------------------------
 
@@ -62,6 +65,7 @@ INSERT INTO `dimension` (`ID_DIMENSION`, `NAME`) VALUES
 (5, 'kg'),
 (3, 'L'),
 (6, 'm3\r'),
+(9, 'm3'),
 (2, 'mL');
 
 -- --------------------------------------------------------
@@ -119,9 +123,10 @@ INSERT INTO `extra_module` (`ID_EXTRA_MODULE`, `ADDITIONAL_ARRANGEMENTS`, `ADDIT
 (21, ' ', '', 1, 1, 6, NULL, 1),
 (22, ' ', '', 1, 2, NULL, 8, 2),
 (23, ' ', '', 1, 1, 7, NULL, 1),
-(24, NULL, NULL, NULL, NULL, NULL, 9, NULL),
-(29, NULL, NULL, NULL, NULL, NULL, 14, NULL),
-(30, NULL, NULL, NULL, NULL, NULL, 15, NULL);
+(30, '', '', 1, 3, NULL, 15, 1),
+(31, ' ', '', 1, 1, NULL, 18, 1),
+(32, ' ', '', 1, 2, NULL, 16, 1),
+(33, ' ', '', 0, 2, NULL, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -171,9 +176,12 @@ INSERT INTO `internal_applicant` (`ID_INTERNAL_APPLICANT`, `INTERNAL_APPLICANT_A
 (6, '', 'УМО', '77-44'),
 (7, '', 'ЦНРД', '88-88'),
 (8, '', 'ЦНРД', '88-99'),
-(9, NULL, 'с-р „Дезактивация”', NULL),
-(14, NULL, 'с-р ОРДК', NULL),
-(15, NULL, 'Сектор „Дезактивация”', NULL);
+(9, '', 'с-р „Дезактивация”', ''),
+(14, '', 'с-р ОРДК', ''),
+(15, '', 'Сектор „Дезактивация”', ''),
+(16, '', 'с-р ОРДК', '23-46'),
+(17, '', 'ee', '99'),
+(18, '', 'tt', '11');
 
 -- --------------------------------------------------------
 
@@ -252,7 +260,14 @@ INSERT INTO `izpitvanpokazatel` (`ID_POKAZATEL`, `METODY_ID_METODY`, `POKAZATEL_
 (256, 9, 1, 83),
 (259, 9, 1, 84),
 (261, 9, 1, 85),
-(262, NULL, 1, 86);
+(263, 9, 1, 88),
+(264, 3, 8, 89),
+(265, 13, 7, 90),
+(266, 9, 1, 91),
+(267, 9, 1, 92),
+(269, 9, 1, 94),
+(270, NULL, 2, 95),
+(271, NULL, 5, 95);
 
 -- --------------------------------------------------------
 
@@ -1056,7 +1071,13 @@ INSERT INTO `request` (`ID_RECUEST`, `ACCREDITATION`, `COUNTS_SAMPLES`, `DATE_EX
 (83, 0, 1, '15.03.2017', '28.02.2017', '28.02.2017', 'Сборна водна проба за м. 02.2017 г., период 01.02.2017 ÷ 28.02.2017\n', '3196', 1, NULL, 4, 3, 16, 5, 1, 5),
 (84, 0, 1, '15.03.2017', '28.02.2017', '28.02.2017', 'Сборна водна проба за м. 02.2017 г., период 01.02.2017 ÷ 28.02.2017', '3197', 1, NULL, 4, 3, 15, 5, 1, 5),
 (85, 0, 1, '15.03.2017', '27.02.2017', '27.02.2017', ' Бетон от демонтирана плоча на ТГ-7', '3198', 0, 30, 1, 1, 26, 2, 1, 1),
-(86, 0, 2, '18.01.2019', '02.01.2019', '02.01.2019', '', '3399', 1, NULL, 4, 4, 2, 4, 4, 5);
+(88, 0, 3, '11.01.2019', '02.01.2019', '02.01.2019', 'Период за вземане на пробите: 01.12.2018г. - 31.12.2018г.\nза м.Декември', '3783', 1, NULL, 4, 3, 107, 5, 2, 5),
+(89, 0, 4, '11.01.2019', '14.12.2018', '14.12.2018', 'Сборни проби воден десорбат за прериода: 04.12.2018г. - 02.01.2019г., за м.Декември', '3775', 1, NULL, 4, 5, 1, 1, 3, NULL),
+(90, 0, 4, '14.01.2019', '14.01.2019', '14.12.2018', 'Сборни водни проби за периода: 04.12.2018г. - 02.01.2018г.за м. Декември', '3776', 1, NULL, 4, 5, 1, 5, 3, 9),
+(91, 0, 5, '31.01.2019', '16.01.2019', '16.01.2019', 'за Февруари', '3000', 1, NULL, 4, 4, 12, 4, 3, 9),
+(92, 0, 2, '11.01.2019', '02.01.2019', '02.01.2019', 'Аерозолни филтри за периода: 04.12.2018г. - 02.01.2019г., за м. Декември', '3782', 1, NULL, 4, 5, 1, 5, 3, 5),
+(94, 0, 1, '11.01.2019', '31.12.2018', '31.12.2018', 'Аерозолен филтър, период: 30.11.2018г. - 28.12.2018г.', '3781', 1, 32, NULL, 5, 121, 5, 3, 5),
+(95, 0, 1, '28.03.2019', '07.01.2019', '07.01.2019', 'Сборна проба аерозолен филтър за период: 28.09.2018г. - 28.12.2018г. за 4-то тримесечие', '3787', 1, 33, NULL, 5, 121, 5, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -1309,7 +1330,55 @@ INSERT INTO `results` (`ID_RESULTS`, `BASIC_VALUE`, `DATE_CHIM_OPER`, `DATE_MEAS
 (229, '', '28.02.2017', '01.03.2017', '01.03.2017', 1, 214, 0, 2, 0, 0, 4, 9, 9, 1, 5, 150, 1, 1, 1, NULL),
 (230, '', '28.02.2017', '01.03.2017', '01.03.2017', 1, 0, 0, 2, 311, 5620, 4, 9, 31, 1, 5, 150, 1, 1, 1, NULL),
 (231, '', '27.02.2017', '01.03.2017', '01.03.2017', 1, 0, 1829.25, 2, 0.00448, 0.0198, 1, 9, 9, 1, 2, 151, 1, 1, 1, 1),
-(232, '', '27.02.2017', '01.03.2017', '01.03.2017', 1, 0, 1829.25, 2, 2.52, 11.2, 1, 9, 31, 1, 2, 151, 1, 1, 1, 1);
+(232, '', '27.02.2017', '01.03.2017', '01.03.2017', 1, 0, 1829.25, 2, 2.52, 11.2, 1, 9, 31, 1, 2, 151, 1, 1, 1, 1),
+(234, 'C:\\GENIE2K\\REPFILES\\3783-1.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 1, 264, 0.001, 2, 167, 1590, 9, 9, 31, 1, 5, 154, 8, 2, NULL, NULL),
+(235, 'C:\\GENIE2K\\REPFILES\\3783-1.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 204, 0.001, 2, 0, 0, 9, 9, 5, 1, 5, 154, 8, 2, NULL, NULL),
+(236, 'C:\\GENIE2K\\REPFILES\\3783-1.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 1, 240, 0.001, 2, 0, 0, 9, 9, 9, 1, 5, 154, 8, 2, NULL, NULL),
+(237, 'C:\\GENIE2K\\REPFILES\\3783-1.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 278, 0.001, 2, 0, 0, 9, 9, 24, 1, 5, 154, 8, 2, NULL, NULL),
+(238, 'C:\\GENIE2K\\REPFILES\\3783-1.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 231, 0.001, 2, 0, 0, 9, 9, 30, 1, 5, 154, 8, 2, NULL, NULL),
+(239, 'C:\\GENIE2K\\REPFILES\\3783-2.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 1, 242, 0.001, 2, 399, 8200, 9, 9, 31, 1, 5, 155, 8, 2, NULL, NULL),
+(240, 'C:\\GENIE2K\\REPFILES\\3783-2.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 205, 0.001, 2, 0, 0, 9, 9, 5, 1, 5, 155, 8, 2, NULL, NULL),
+(241, 'C:\\GENIE2K\\REPFILES\\3783-2.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 1, 224, 0.001, 2, 0, 0, 9, 9, 9, 1, 5, 155, 8, 2, NULL, NULL),
+(242, 'C:\\GENIE2K\\REPFILES\\3783-2.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 292, 0.001, 2, 0, 0, 9, 9, 24, 1, 5, 155, 8, 2, NULL, NULL),
+(243, 'C:\\GENIE2K\\REPFILES\\3783-2.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 221, 0.001, 2, 0, 0, 9, 9, 30, 1, 5, 155, 8, 2, NULL, NULL),
+(244, 'C:\\GENIE2K\\REPFILES\\3783-2.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 748, 0.001, 2, 0, 0, 9, 9, 45, 1, 5, 155, 8, 2, NULL, NULL),
+(245, 'C:\\GENIE2K\\REPFILES\\3783-3.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 213, 0.001, 2, 0, 0, 9, 9, 17, 1, 5, 156, 8, 2, NULL, NULL),
+(246, 'C:\\GENIE2K\\REPFILES\\3783-3.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 1, 226, 0.001, 2, 0, 0, 9, 9, 9, 1, 5, 156, 8, 2, NULL, NULL),
+(247, 'C:\\GENIE2K\\REPFILES\\3783-3.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 231, 0.001, 2, 0, 0, 9, 9, 24, 1, 5, 156, 8, 2, NULL, NULL),
+(248, 'C:\\GENIE2K\\REPFILES\\3783-3.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 0, 218, 0.001, 2, 0, 0, 9, 9, 30, 1, 5, 156, 8, 2, NULL, NULL),
+(249, 'C:\\GENIE2K\\REPFILES\\3783-3.RPT', '02.01.2019', '03.01.2019', '10.01.2019', 1, 245, 0.001, 2, 0, 0, 9, 9, 31, 1, 5, 156, 8, 2, NULL, NULL),
+(250, 'L:\\ЛИ-РХ\\Excel_Изчисления_Tri Carb\\H-3_М.ЛИ-РХ-03_Tri Carb\\H3-BT-2018\\H3_3775-1_ВТ1-Декември_Ред 4-Т21.xls', '09.01.2019', '11.01.2019', '14.01.2019', 1, 0.00787, 9, 2, 0.0204, 0.229, 2, 3, 47, 8, 3, 157, 5, 3, NULL, NULL),
+(251, 'L:\\ЛИ-РХ\\Excel_Изчисления_Tri Carb\\H-3_М.ЛИ-РХ-03_Tri Carb\\H3-BT-2018\\H3_3775-2_ВТ1-Декември_Ред 4-Т21.xls', '09.01.2019', '11.01.2019', '14.01.2019', 1, 0.0078, 9, 2, 0.0206, 0.231, 2, 3, 47, 8, 3, 158, 5, 3, NULL, NULL),
+(252, 'L:\\ЛИ-РХ\\Excel_Изчисления_Tri Carb\\H-3_М.ЛИ-РХ-03_Tri Carb\\H3-BT-2018\\H3_3775-3_ВТ2-Декември_Ред 4-Т21.xls', '09.01.2019', '11.01.2019', '14.01.2019', 1, 0.00782, 9, 2, 0.0247, 0.282, 2, 3, 47, 8, 3, 159, 5, 3, NULL, NULL),
+(253, 'L:\\ЛИ-РХ\\Excel_Изчисления_Tri Carb\\H-3_М.ЛИ-РХ-03_Tri Carb\\H3-BT-2018\\H3_3775-4_ВТ2-Декември_Ред 4-Т21.xls', '09.01.2019', '11.01.2019', '14.01.2019', 1, 0.00783, 9, 2, 0.0257, 0.294, 2, 3, 47, 8, 3, 160, 5, 3, NULL, NULL),
+(254, 'L:\\ЛИ-РХ\\Excel - Изчисления\\C-14_M.ЛИ-РХ-15\\C-14_2018\\C-14_3776-1 BT-1-Ред 4-T05.xls', '08.01.2019', '14.01.2019', '14.01.2019', 1, 0.0646, 6.7795, 2, 0.0515, 0.238, 6, 13, 46, 7, 5, 161, 5, 3, NULL, NULL),
+(255, 'L:\\ЛИ-РХ\\Excel - Изчисления\\C-14_M.ЛИ-РХ-15\\C-14_2018\\C-14_3776-2 BT-1-Ред 4-T05.xls', '08.01.2019', '14.01.2019', '14.01.2019', 1, 0.0693, 6.8295, 2, 0.0524, 0.217, 6, 13, 46, 7, 5, 162, 5, 3, NULL, NULL),
+(256, 'L:\\ЛИ-РХ\\Excel - Изчисления\\C-14_M.ЛИ-РХ-15\\C-14_2018\\C-14_3776-3 BT-2-Ред 4-T05.xls', '08.01.2019', '14.01.2019', '14.01.2019', 1, 0.288, 8188.6, 2, 1.05, 8.72, 6, 13, 46, 7, 5, 163, 5, 3, NULL, NULL),
+(257, 'L:\\ЛИ-РХ\\Excel - Изчисления\\C-14_M.ЛИ-РХ-15\\C-14_2018\\C-14_3776-4 BT-2-Ред 4-T05.xls', '08.01.2019', '14.01.2019', '14.01.2019', 1, 0.285, 8.1874, 2, 0.997, 8.28, 6, 13, 46, 7, 5, 164, 5, 3, NULL, NULL),
+(258, 'C:\\GENIE2K\\REPFILES\\3782-1.RPT', '', '3.1.2019', '16.01.2019', 1, 0.0000162, 20100, 2, 0.0000215, 0.000241, 9, 9, 9, 1, 5, 170, 5, 2, NULL, NULL),
+(259, 'C:\\GENIE2K\\REPFILES\\3782-1.RPT', '', '3.1.2019', '16.01.2019', 1, 0.0000179, 20100, 2, 0.000027, 0.000292, 9, 9, 31, 1, 5, 170, 5, 2, NULL, NULL),
+(260, 'C:\\GENIE2K\\REPFILES\\3782-1.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000152, 20100, 2, 0, 0, 9, 9, 5, 1, 5, 170, 5, 2, NULL, NULL),
+(261, 'C:\\GENIE2K\\REPFILES\\3782-1.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000225, 20100, 2, 0, 0, 9, 9, 24, 1, 5, 170, 5, 2, NULL, NULL),
+(262, 'C:\\GENIE2K\\REPFILES\\3782-1.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000147, 20100, 2, 0, 0, 9, 9, 30, 1, 5, 170, 5, 2, NULL, NULL),
+(263, 'C:\\GENIE2K\\REPFILES\\3782-1.RPT', '', '3.1.2019', '16.01.2019', 0, 0.000101, 20100, 2, 0, 0, 9, 9, 45, 1, 5, 170, 5, 2, NULL, NULL),
+(264, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 1, 0.0000116, 24200, 2, 0.0000136, 0.000141, 9, 9, 9, 1, 5, 171, 5, 2, NULL, NULL),
+(265, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 1, 0.0000141, 24200, 2, 0.0000692, 0.000901, 9, 9, 31, 1, 5, 171, 5, 2, NULL, NULL),
+(266, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000124, 24200, 2, 0, 0, 9, 9, 5, 1, 5, 171, 5, 2, NULL, NULL),
+(267, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000169, 24200, 2, 0, 0, 9, 9, 24, 1, 5, 171, 5, 2, NULL, NULL),
+(268, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.000014, 24200, 2, 0, 0, 9, 9, 30, 1, 5, 171, 5, 2, NULL, NULL),
+(269, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000833, 24200, 2, 0, 0, 9, 9, 45, 1, 5, 171, 5, 2, NULL, NULL),
+(270, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 1, 0.0000116, 24200, 2, 0.0000136, 0.000141, 9, 9, 9, 1, 5, 171, 5, 2, NULL, NULL),
+(271, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 1, 0.0000141, 24200, 2, 0.0000692, 0.000901, 9, 9, 31, 1, 5, 171, 5, 2, NULL, NULL),
+(272, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000124, 24200, 2, 0, 0, 9, 9, 5, 1, 5, 171, 5, 2, NULL, NULL),
+(273, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000169, 24200, 2, 0, 0, 9, 9, 24, 1, 5, 171, 5, 2, NULL, NULL),
+(274, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.000014, 24200, 2, 0, 0, 9, 9, 30, 1, 5, 171, 5, 2, NULL, NULL),
+(275, 'C:\\GENIE2K\\REPFILES\\3782-2.RPT', '', '3.1.2019', '16.01.2019', 0, 0.0000833, 24200, 2, 0, 0, 9, 9, 45, 1, 5, 171, 5, 2, NULL, NULL),
+(276, 'C:\\3781-1.RPT', '', '31.12.2018', '16.01.2019', 0, 0.0000198, 1410, 2, 0, 0, 9, 9, 5, 1, 5, 173, 5, 2, NULL, NULL),
+(277, 'C:\\3781-1.RPT', '', '31.12.2018', '16.01.2019', 1, 0.0000239, 1410, 2, 0, 0, 9, 9, 9, 1, 5, 173, 5, 2, NULL, NULL),
+(278, 'C:\\3781-1.RPT', '', '31.12.2018', '16.01.2019', 0, 0.0000182, 1410, 2, 0, 0, 9, 9, 24, 1, 5, 173, 5, 2, NULL, NULL),
+(279, 'C:\\3781-1.RPT', '', '31.12.2018', '16.01.2019', 0, 0.0000194, 1410, 2, 0, 0, 9, 9, 30, 1, 5, 173, 5, 2, NULL, NULL),
+(280, 'C:\\3781-1.RPT', '', '31.12.2018', '16.01.2019', 1, 0.0000201, 1410, 2, 0, 0, 9, 9, 31, 1, 5, 173, 5, 2, NULL, NULL),
+(281, 'C:\\3781-1.RPT', '', '31.12.2018', '16.01.2019', 0, 0.0000376, 1410, 2, 0, 0, 9, 9, 45, 1, 5, 173, 5, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1451,9 +1520,27 @@ INSERT INTO `sample` (`ID_SAMPLE`, `DATE_TIME_REFERENCE`, `DESCRIPTION_SAMPLE`, 
 (143, '24.02.2017 15:00', 'Водна проба от дренажа на резервоара, V = 5.0 l', 2017, '1', 21, 2, 76),
 (149, '15.02.2017 00:00', 'V=1.0 l', 2017, '1', 13, 2, 83),
 (150, '15.02.2017 00:00', 'V=1.0 l', 2017, '1', 12, 2, 84),
-(151, '27.02.17 14:00', 'm=1829.25 g', 17, '1', 22, 2, 85),
-(152, '20.12.2018 16:21', '', 2018, '1', 3, NULL, 86),
-(153, '20.12.2018 16:21', '', 2018, '2', 4, NULL, 86);
+(151, '27.02.2017 14:00', 'm=1829.25 g', 17, '1', 22, 2, 85),
+(154, '16.12.2018 12:00', '', 2018, '1', 3, 12, 88),
+(155, '16.12.2018 12:00', '', 2018, '2', 4, 12, 88),
+(156, '16.12.2018 12:00', '', 2018, '3', 11, 12, 88),
+(157, '19.12.2018 00:00', 'HT+HTO', 2018, '1', 1, 12, 89),
+(158, '19.12.2018 00:00', 'HTO', 2018, '2', 1, 12, 89),
+(159, '19.12.2018 00:00', 'HT+HTO', 2018, '3', 2, 12, 89),
+(160, '19.12.2018 00:00', 'HTO', 2018, '4', 2, 12, 89),
+(161, '19.12.2018 00:00', 'CO2+CO+CxHy', 2018, '1', 1, 12, 90),
+(162, '19.12.2018 00:00', 'CO2', 2018, '2', 1, 12, 90),
+(163, '19.12.2018 00:00', 'CO2+CO+CxHy', 2018, '3', 2, 12, 90),
+(164, '19.12.2018 00:00', 'CO2', 2018, '4', 2, 12, 90),
+(165, '15.01.2019 23:02', 'за период: 01.01.2019г. - 30.01.2019г.', 2019, '1', 127, 2, 91),
+(166, '22.01.2019 11:01', '', 2019, '2', 128, 2, 91),
+(167, '22.01.2019 11:01', '', 2019, '3', 129, 2, 91),
+(168, '22.01.2019 11:01', '', 2019, '4', 130, 2, 91),
+(169, '22.01.2019 11:01', '', 2019, '5', 131, 2, 91),
+(170, '19.12.2018 00:00', 'V = 20075,7 m3', 2018, '1', 1, 12, 92),
+(171, '19.12.2018 00:00', 'V = 24190,0 m3', 2018, '2', 2, 12, 92),
+(173, '14.12.2018 10:30', 'V = 1411,2 m3', 2018, '1', 113, NULL, 94),
+(174, '12.11.2018 22:30', 'V = 4586.2 m3', 2018, '1', 113, 34, 95);
 
 -- --------------------------------------------------------
 
@@ -1478,7 +1565,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`ID_USERS`, `FAMILY`, `ISADMIN`, `NAME`, `NIKNAME`, `PASS`, `POST_ID_POST`) VALUES
 (1, 'Непознат', 0, 'Непознат', '555', '123', 1),
 (2, 'Балачев', 0, 'Михаил', 'mbalachev', '123', 2),
-(3, 'Катранкиев', 0, 'Петър', '123', '123', 2),
+(3, 'Катранкиев', 0, 'Петър', 'pkatrankiev', '123', 2),
 (4, 'Илиев', 1, 'Мартин', 'miliev', '123', 4),
 (5, 'Денова', 0, 'Таня', 'denova', '123', 3),
 (6, 'Иванов', 0, 'Иван', 'ivanow', '123', 3),
@@ -1506,7 +1593,8 @@ INSERT INTO `zabelejki` (`ID_ZABELEJKI`, `NAME`) VALUES
 (3, 'Резултатите от изпитването се отнасят само за изпитваните проби.Протоколът от изпитване не може да бъде възпроизвеждан, освен с писменото разрешениена лабораторията и само изцяло.'),
 (5, ''),
 (7, 'Към неопределеността е добавена 10% систематична грешка.'),
-(8, 'Наредба за радиационна защита, обн., ДВ, бр. 16 от 20.02.2018 г., Приложение № 2, Таблица № 5');
+(8, 'Наредба за радиационна защита, обн., ДВ, бр. 16 от 20.02.2018 г., Приложение № 2, Таблица № 5'),
+(9, 'Да се докладва МДА на 14С за всяка проба');
 
 --
 -- Indexes for dumped tables
@@ -1689,122 +1777,146 @@ ALTER TABLE `zabelejki`
 -- AUTO_INCREMENT for table `aplicant`
 --
 ALTER TABLE `aplicant`
-  MODIFY `ID_APLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_APLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `dimension`
 --
 ALTER TABLE `dimension`
-  MODIFY `ID_DIMENSION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_DIMENSION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `external_applicant`
 --
 ALTER TABLE `external_applicant`
   MODIFY `ID_EXTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `extra_module`
 --
 ALTER TABLE `extra_module`
-  MODIFY `ID_EXTRA_MODULE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `ID_EXTRA_MODULE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
 --
 -- AUTO_INCREMENT for table `ind_num_doc`
 --
 ALTER TABLE `ind_num_doc`
   MODIFY `ID_IND_NUM_DOC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `internal_applicant`
 --
 ALTER TABLE `internal_applicant`
-  MODIFY `ID_INTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID_INTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `izpitvanpokazatel`
 --
 ALTER TABLE `izpitvanpokazatel`
-  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
+  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=272;
+
 --
 -- AUTO_INCREMENT for table `izpitvan_produkt`
 --
 ALTER TABLE `izpitvan_produkt`
   MODIFY `ID_IZPITVAN_PRODUKT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `list_izpitvan_pokazatel`
 --
 ALTER TABLE `list_izpitvan_pokazatel`
   MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `metody`
 --
 ALTER TABLE `metody`
   MODIFY `ID_METODY` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
 --
 -- AUTO_INCREMENT for table `metody_to_pokazatel`
 --
 ALTER TABLE `metody_to_pokazatel`
   MODIFY `ID_METODY_TO_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `nuclide`
 --
 ALTER TABLE `nuclide`
-  MODIFY `ID_NUCLIDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `ID_NUCLIDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
 --
 -- AUTO_INCREMENT for table `nuclide_to_pokazatel`
 --
 ALTER TABLE `nuclide_to_pokazatel`
   MODIFY `ID_NUCLIDE_TO_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
 --
 -- AUTO_INCREMENT for table `obekt_na_izpitvane_request`
 --
 ALTER TABLE `obekt_na_izpitvane_request`
   MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+
 --
 -- AUTO_INCREMENT for table `obekt_na_izpitvane_sample`
 --
 ALTER TABLE `obekt_na_izpitvane_sample`
   MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+
 --
 -- AUTO_INCREMENT for table `otclonenie`
 --
 ALTER TABLE `otclonenie`
   MODIFY `ID_OTCLON` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `period`
 --
 ALTER TABLE `period`
   MODIFY `ID_PERIOD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `ID_POST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `razmernosti`
 --
 ALTER TABLE `razmernosti`
   MODIFY `ID_RAZMERNOSTI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=282;
+
 --
 -- AUTO_INCREMENT for table `sample`
 --
 ALTER TABLE `sample`
-  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `ID_USERS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `zabelejki`
 --
 ALTER TABLE `zabelejki`
-  MODIFY `ID_ZABELEJKI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_ZABELEJKI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- Ограничения за дъмпнати таблици
 --
@@ -1871,6 +1983,7 @@ ALTER TABLE `sample`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `FK_USERS_POST_ID_POST` FOREIGN KEY (`POST_ID_POST`) REFERENCES `post` (`ID_POST`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

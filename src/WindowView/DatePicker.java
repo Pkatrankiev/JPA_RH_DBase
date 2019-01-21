@@ -185,12 +185,13 @@ public class DatePicker {
 		
 		try {
 			data_int = sdf.parse(date);
+			cal_int.setTime(data_int);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
-		cal_int.setTime(data_int);
+		
 		try {
 
 		
@@ -212,17 +213,51 @@ public class DatePicker {
 	private void getTimeModule(JPanel panel) {
 		Date data_time = null;
 		final SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
-		final String time = hour + ":00";
-		final JLabel label = new JLabel(time, SwingConstants.CENTER);
-
+		String time = hour + ":00";
 		try {
-			data_time = sdf_time.parse(time);
-		} catch (ParseException e) {
+			cal_time.setTime(sdf_time.parse(time));
+		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+		minute = cal_time.get(Calendar.MINUTE);
+		JTextField label = new JTextField(time, SwingConstants.CENTER);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		label.addKeyListener(new KeyListener() {
 
-		cal_time.setTime(data_time);
+			@Override
+			public void keyTyped(KeyEvent event) {
+				incorrectTime(label.getText(), label);
+			}
+
+			@Override
+			public void keyReleased(KeyEvent event) {
+
+				
+				try {
+					cal_time.setTime(sdf_time.parse(label.getText()));
+					} catch (ParseException e) {
+					JOptionPane.showMessageDialog(null, "Некоректен час!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				hour = cal_time.get(Calendar.HOUR_OF_DAY);
+				minute = cal_time.get(Calendar.MINUTE);
+				String new_time = sdf_time.format(cal_time.getTime());
+				label.setText(new_time);
+				incorrectTime(label.getText(), label);
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent event) {
+				incorrectTime(label.getText(), label);
+			}
+		});
+
+		
+
+		
 
 		JButton previous_time_btn = new JButton("<< T Назад");
 		previous_time_btn.setFont(font);
@@ -239,8 +274,6 @@ public class DatePicker {
 		});
 
 		panel.add(previous_time_btn);
-
-		label.setText(time);
 
 		panel.add(label);
 
@@ -277,7 +310,7 @@ public class DatePicker {
 		// TODO Auto-generated method stub
 		super.finalize();
 	}
-
+	
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
@@ -403,6 +436,20 @@ public class DatePicker {
 		return meanStrPeriod;
 	}
 
+	public static Boolean incorrectTime(String time, JTextField label) {
+		Boolean corDate = false;
+		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+		Date data_time = null;
+		try {
+			data_time = sdf_time.parse(time);
+			label.setForeground(Color.BLACK);
+			return true;
+		} catch (ParseException e) {
+			label.setForeground(Color.RED);
+			return false;
+		}
+	}
+	
 	public static Boolean incorrectDate(String date, Boolean inTime) {
 		Boolean corDate = false;
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);

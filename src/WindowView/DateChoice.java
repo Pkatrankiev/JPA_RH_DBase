@@ -353,13 +353,12 @@ public class DateChoice extends JDialog {
 		String str="";
 		System.out.println("*"+txtEndDate.getText()+"*");
 		if(!txtEndDate.getText().equals(""))
-		str = "Период за вземане на пробите: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
+		str = "Сборна проба за периода: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
 		return str;
 	}
 	public static String get_str_period_sample() {
 		// TODO Auto-generated method stub
 		String str="";
-		System.out.println("*"+txtEndDate.getText()+"*");
 		if(!txtEndDate.getText().equals(""))
 		str = "за период: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
 		return str;

@@ -54,6 +54,8 @@ public class Results implements Serializable {
 	private Users user_redac;
 	@ManyToOne
 	private Dimension dimension;
+	@ManyToOne
+	private TSI tsi;
 
 	public Results( 
 			Nuclide nuclide, 
@@ -75,7 +77,8 @@ public class Results implements Serializable {
 			String date_redac,
 			Boolean inProtokol,
 			Double quantity,
-			Dimension dimension
+			Dimension dimension,
+			TSI tsi
 			) {
 		
 		super();
@@ -100,6 +103,7 @@ public class Results implements Serializable {
 		this.inProtokol = inProtokol;
 		this.dimension = dimension;
 		this.quantity = quantity;
+		this.tsi = tsi;
 		
 		
 	}
@@ -281,6 +285,14 @@ public class Results implements Serializable {
 
 	public void setMetody(Metody metody) {
 		this.metody = metody;
+	}
+
+	public TSI getTsi() {
+		return tsi;
+	}
+
+	public void setTsi(TSI tsi) {
+		this.tsi = tsi;
 	}
 
 }

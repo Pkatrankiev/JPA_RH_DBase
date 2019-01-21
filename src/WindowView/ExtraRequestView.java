@@ -229,10 +229,10 @@ public class ExtraRequestView extends JDialog {
 
 		// TODO Button_Cancel ( Отказ )
 		Button_Cancel(p_1);
-
+		round.StopWindow();
 		getContentPane().add(scrollpane, BorderLayout.SOUTH);
 		setVisible(true);
-		round.StopWindow();
+		
 
 	}
 
@@ -802,20 +802,7 @@ public class ExtraRequestView extends JDialog {
 					final JFrame f = new JFrame();
 					DateChoice date_time_reference = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reference.setVisible(true);
-					if (choice_Period.getSelectedItem().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period();
-					} else {
-						if (DateChoice.get_str_period().equals("")) {
-							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
-						} else {
-							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза "
-									+ choice_Period.getSelectedItem();
-
-						}
-					}
+					str_Descript_grup_Sample = generateTxtInDescriptGrupSample(choice_Period);
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
 					textRefDate = DateChoice.get_date_time_reference();
@@ -869,26 +856,42 @@ public class ExtraRequestView extends JDialog {
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				if (choice_Period.getSelectedItem().equals("")) {
-					str_Descript_grup_Sample = "";
-					str_Descript_grup_Sample = DateChoice.get_str_period();
-				} else {
-					if (DateChoice.get_str_period().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
-					} else {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза м."
-								+ choice_Period.getSelectedItem();
-
-					}
-				}
+				str_Descript_grup_Sample = generateTxtInDescriptGrupSample(choice_Period);
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 
 			}
+
+			
 		});
 	}
 
+	private String  generateTxtInDescriptGrupSample(Choice choice_Period) {
+		String txtInDescriptGrupSample="";
+		String strMesec = "";
+		String strChoice_Period = choice_Period.getSelectedItem();
+		
+		if (strChoice_Period.equals("")) {
+			txtInDescriptGrupSample = "";
+			txtInDescriptGrupSample = DateChoice.get_str_period();
+		} else {
+			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
+			if(id_Period<13){
+				strMesec = "м.";
+			}
+			if (DateChoice.get_str_period().equals("")) {
+				txtInDescriptGrupSample = "";
+				txtInDescriptGrupSample = " за "+strMesec + strChoice_Period;
+			} else {
+				txtInDescriptGrupSample = "";
+				
+				txtInDescriptGrupSample = DateChoice.get_str_period() + " за "+strMesec
+						+ strChoice_Period;
+			}
+		}
+		return txtInDescriptGrupSample;
+	}
+	
+	
 	private void Section_Text_Count_Sample(final JPanel p, Border border) {
 
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");

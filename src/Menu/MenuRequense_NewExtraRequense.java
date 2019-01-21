@@ -30,8 +30,8 @@ public class MenuRequense_NewExtraRequense extends AbstractMenuAction{
 			     @Override
 			     public void run() {
 			    	 JFrame f = new JFrame();
-			    	 ExtraRequestView reqView = new ExtraRequestView(f, loginDlg,null,round);
-						reqView.setVisible(true);
+			    	new ExtraRequestView(f, loginDlg,null,round);
+					
 			    	     	
 			     }
 			    });

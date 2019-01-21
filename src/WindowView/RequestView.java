@@ -176,7 +176,7 @@ public class RequestView extends JDialog  {
 		Section_Text_Pokazatel(tamplateRequest, p, border);
 
 		// TODO Text_Area_Description_Sample_Goup (описание на групата проби)
-		Text_Area_Description_Sample_Goup(p);
+		Text_Area_Description_Sample_Group(tamplateRequest,  p);
 		
 		// TODO Sestion_Date_Time_Reference (референтна дата час)
 		Sestion_Date_Time_Reference(p, border);
@@ -209,10 +209,10 @@ public class RequestView extends JDialog  {
 		if (user.getIsAdmin()) {
 		Button_Template(p);
 		}
-		
+		round.StopWindow();
 		getContentPane().add(scrollpane, BorderLayout.CENTER);
 		setVisible(true);
-		round.StopWindow();
+		
 		
 	}
 
@@ -683,8 +683,12 @@ public class RequestView extends JDialog  {
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 	}
 
-	private void Text_Area_Description_Sample_Goup(final JPanel p) {
-		txtArea_Descript_grup_Sample = new JTextArea();
+	private void Text_Area_Description_Sample_Group(Request tamplateRequest, final JPanel p) {
+		String strSampGroup="";
+		if (tamplateRequest != null) {
+			strSampGroup=tamplateRequest.getDescription_sample_group();
+		}
+		txtArea_Descript_grup_Sample = new JTextArea(strSampGroup);
 		txtArea_Descript_grup_Sample.setFont(font);
 
 		GridBagConstraints gbc_txtArea_Descript_grup_Sample = new GridBagConstraints();
@@ -754,20 +758,7 @@ public class RequestView extends JDialog  {
 					final JFrame f = new JFrame();
 					DateChoice date_time_reference = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reference.setVisible(true);
-					if (choice_Period.getSelectedItem().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period();
-					} else {
-						if (DateChoice.get_str_period().equals("")) {
-							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
-						} else {
-							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза "
-									+ choice_Period.getSelectedItem();
-
-						}
-					}
+					str_Descript_grup_Sample = generateTxtInDescriptGrupSample(choice_Period);
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
 					textRefDate = DateChoice.get_date_time_reference();
@@ -794,6 +785,32 @@ public class RequestView extends JDialog  {
 		p.add(btn_date_time_reference, gbc_btn_date_time_reference);
 	}
 
+	private String  generateTxtInDescriptGrupSample(Choice choice_Period) {
+		String txtInDescriptGrupSample="";
+		String strMesec = "";
+		String strChoice_Period = choice_Period.getSelectedItem();
+		
+		if (strChoice_Period.equals("")) {
+			txtInDescriptGrupSample = "";
+			txtInDescriptGrupSample = DateChoice.get_str_period();
+		} else {
+			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
+			if(id_Period<13){
+				strMesec = "м.";
+			}
+			if (DateChoice.get_str_period().equals("")) {
+				txtInDescriptGrupSample = "";
+				txtInDescriptGrupSample = " за "+strMesec + strChoice_Period;
+			} else {
+				txtInDescriptGrupSample = "";
+				
+				txtInDescriptGrupSample = DateChoice.get_str_period() + " за "+strMesec
+						+ strChoice_Period;
+			}
+		}
+		return txtInDescriptGrupSample;
+	}
+		
 	private void Section_Choice_Period(final JPanel p) {
 		JLabel lbl_Period = new JLabel("Периодичност");
 		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
@@ -821,20 +838,7 @@ public class RequestView extends JDialog  {
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				if (choice_Period.getSelectedItem().equals("")) {
-					str_Descript_grup_Sample = "";
-					str_Descript_grup_Sample = DateChoice.get_str_period();
-				} else {
-					if (DateChoice.get_str_period().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
-					} else {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза "
-								+ choice_Period.getSelectedItem();
-
-					}
-				}
+				str_Descript_grup_Sample =  generateTxtInDescriptGrupSample( choice_Period);
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 
 			}

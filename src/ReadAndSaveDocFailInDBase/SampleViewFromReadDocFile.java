@@ -21,6 +21,8 @@ import WindowView.AddInChoice;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -392,12 +394,12 @@ public class SampleViewFromReadDocFile extends JDialog {
 							public void keyReleased(KeyEvent event) {
 
 								txtFld_Year[k]
-										.setText(RequestViewAplication.checkFormatString(txtFld_Year[k].getText()));
+										.setText(RequestViewFunction.checkFormatString(txtFld_Year[k].getText()));
 								if (RequestDAO.checkRequestCode(txtFld_Year[k].getText())) {
 									txtFld_Year[k].setForeground(Color.red);
 									corectYear[k] = false;
 								} else {
-									if (RequestViewAplication.checkMaxVolume(txtFld_Year[k].getText(), 2000, 2050)) {
+									if (RequestViewFunction.checkMaxVolume(txtFld_Year[k].getText(), 2000, 2050)) {
 										txtFld_Year[k].setForeground(Color.red);
 										corectYear[k] = false;
 									} else {

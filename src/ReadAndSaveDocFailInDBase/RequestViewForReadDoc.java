@@ -48,6 +48,7 @@ import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
 import WindowView.SampleViewAdd;
 import WindowViewAplication.DocxMainpulator;
 import java.awt.GridBagLayout;
@@ -209,14 +210,14 @@ public class RequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
+				txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
 					corectRequestCode = false;
 				} else {
 
-					if (RequestViewAplication.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
+					if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 						txtField_RequestCode.setForeground(Color.red);
 						lblError.setText("Некоректен номер");
 						corectRequestCode = false;
@@ -312,7 +313,7 @@ public class RequestViewForReadDoc extends JFrame {
 		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setFont(font);
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
-		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
+		String[] arr = RequestViewFunction.getStringMassiveI_N_D();
 		for (String string : arr) {
 			choice_ind_num_doc.add(string);
 		}
@@ -765,10 +766,10 @@ public class RequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				// String str = txtFld_Count_Sample.getText();
 
-				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 0, 20)) {
+				if (RequestViewFunction.checkMaxVolume(txtFld_Count_Sample.getText(), 0, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);
 					lblError_Count_Sample.setText("Некоректен брой");
 
@@ -1276,7 +1277,7 @@ public class RequestViewForReadDoc extends JFrame {
 				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
 			}
 		}
-		String str_templ = RequestViewAplication.DateNaw(true);
+		String str_templ = DatePicker.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
 				izpitvan_produkt, razmernosti, zabelejki, curent_user, obekt_na_izpitvane_request);

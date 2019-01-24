@@ -20,7 +20,6 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -39,18 +38,6 @@ public class RequestViewAplication {
 	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
 	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME(); 
 	
-	public static String[] getStringMassiveI_N_D() {
-		int i = 0;
-		List<Ind_num_doc> list = Ind_num_docDAO.getInListAllValueInd_num_doc();
-		String[] arr1 = new String[list.size()];
-		for (Ind_num_doc e : list) {
-			arr1[i] = ((Ind_num_doc) e).getName();
-			i++;
-		}
-		arr1[0] = "";
-		return arr1;
-	}
-
 	public static String getIND_DescriptByName(String name) {
 		String descript = Ind_num_docDAO.getValueIByName(name).getContent();
 		return descript;
@@ -239,16 +226,7 @@ public class RequestViewAplication {
 
 	
 	
-	public static String DateNaw(Boolean whiteTime) {
-		String dateNaw = null;
-		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
-		if (whiteTime)
-			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
-
-		dateNaw = sdf.format(Calendar.getInstance().getTime());
-
-		return dateNaw;
-	}
+	
 
 	public static MaskFormatter createFormatter(String s) {
 		MaskFormatter formatter = null;
@@ -346,22 +324,7 @@ public class RequestViewAplication {
 		return str;
 	}
 
-	public static String checkFormatString(String code) {
-
-		String newCode = code;
-
-		System.out.println(code);
-		for (int i = 0; i < code.length(); i++) {
-			try {
-				Integer.parseInt(code.substring(i, i + 1));
-
-			} catch (NumberFormatException e) {
-				newCode = code.replace(code.substring(i, i + 1), "");
-			}
-		}
-
-		return newCode;
-	}
+	
 
 	public static void OpenRequestInWordDokTamplate(String requestString) {
 		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
@@ -436,14 +399,5 @@ public class RequestViewAplication {
 
 
 		
-	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {
-		Boolean underMaximum = true;
-		try {
-			if (Integer.parseInt(code) >= minVolume && Integer.parseInt(code) <= maxVolume)
-				underMaximum = false;
-		} catch (NumberFormatException e) {
-
-		}
-		return underMaximum;
-	}
+	
 }

@@ -64,6 +64,7 @@ import WindowView.DatePicker;
 import WindowView.ExternalAplicantModuleView;
 import WindowView.InternalAplicantModuleView;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
 import WindowView.SampleViewAdd;
 import WindowView.TranscluentWindow;
 import WindowViewAplication.DocxMainpulator;
@@ -335,14 +336,14 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
+				txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
 					corectRequestCode = false;
 				} else {
 
-					if (RequestViewAplication.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
+					if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 						txtField_RequestCode.setForeground(Color.red);
 						lblError.setText("Некоректен номер");
 						corectRequestCode = false;
@@ -369,7 +370,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		txtFld_Date_Request = new JTextField();
 		txtFld_Date_Request.setColumns(8);
 
-		txtFld_Date_Request.setText(RequestViewAplication.DateNaw(false));
+		txtFld_Date_Request.setText(DatePicker.DateNaw(false));
 		txtFld_Date_Request.addKeyListener(new KeyListener() {
 
 			@Override
@@ -921,10 +922,10 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				// String str = txtFld_Count_Sample.getText();
 
-				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {
+				if (RequestViewFunction.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);
 					lblError_Count_Sample.setText("Некоректен брой");
 
@@ -1247,7 +1248,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		p.add(lbl_date_reception, gbc_lbl_date_reception);
 
 		// TODO txtFld_date_reception (дата на приемане)
-		txtFld_date_reception = new JTextField(RequestViewAplication.DateNaw(false));
+		txtFld_date_reception = new JTextField(DatePicker.DateNaw(false));
 		txtFld_date_reception.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1646,7 +1647,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 
 	private Request createAndSaveRequestTamplate() {
 		Request recuest = createRequestObject();
-		String str_templ = RequestViewAplication.DateNaw(true);
+		String str_templ = DatePicker.DateNaw(true);
 
 		recuest.setRecuest_code("templ" + str_templ);
 		recuest.setDate_request("");

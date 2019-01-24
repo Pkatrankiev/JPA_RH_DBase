@@ -105,7 +105,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<IzpitvanPokazatel> listPokazatel;
 
-	private Request choiseRequest;
+	private static Request choiseRequest;
 
 	int newCountResults = 0;
 	int countRowTabResults = 0;
@@ -378,7 +378,7 @@ public class AddResultsViewWithTable extends JDialog {
 			result.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
 		}
 		result.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
-		result.setDate_redac(RequestViewAplication.DateNaw(false));
+		result.setDate_redac(DatePicker.DateNaw(false));
 		result.setInProtokol((Boolean) dataTable[i][in_Prot_Colum]);
 		result.setMda(Double.parseDouble((String) dataTable[i][mda_Colum].toString()));
 		result.setQuantity(Double.parseDouble((String) dataTable[i][qunt_Colum].toString()));
@@ -816,7 +816,7 @@ public class AddResultsViewWithTable extends JDialog {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtRqstCode.setText(RequestViewAplication.checkFormatString(txtRqstCode.getText()));
+				txtRqstCode.setText(RequestViewFunction.checkFormatString(txtRqstCode.getText()));
 				if (!RequestDAO.checkRequestCode(txtRqstCode.getText())) {
 					txtRqstCode.setForeground(Color.red);
 					lblError.setVisible(true);
@@ -1274,7 +1274,7 @@ public class AddResultsViewWithTable extends JDialog {
 		rowFromTableResult[actv_value_Colum] = 0.0;
 		rowFromTableResult[uncrt_Colum] = 0.0;
 		rowFromTableResult[mda_Colum] = 0.0;
-		rowFromTableResult[razm_Colum] = values_Razmernosti[0];
+		rowFromTableResult[razm_Colum] = choiseRequest.getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = 2;
 		rowFromTableResult[qunt_Colum] = 0.0;
 		rowFromTableResult[dimen_Colum] = "";

@@ -303,26 +303,10 @@ public class RequestView extends JDialog  {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
-				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
-					txtField_RequestCode.setForeground(Color.red);
-					lblError.setText("Заявка с този номер вече съществува");
-					corectRequestCode = false;
-				} else {
-
-					if (RequestViewAplication.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
-						txtField_RequestCode.setForeground(Color.red);
-						lblError.setText("Некоректен номер");
-						corectRequestCode = false;
-					} else {
-						txtField_RequestCode.setForeground(Color.BLACK);
-
-						txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-						lblError.setText(" ");
-						corectRequestCode = true;
-					}
-				}
+				RequestViewFunction.enterRequestCode(txtField_RequestCode, lblError, corectRequestCode);
 			}
+
+		
 
 			@Override
 			public void keyPressed(KeyEvent event) {
@@ -337,7 +321,7 @@ public class RequestView extends JDialog  {
 		txtFld_Date_Request = new JTextField();
 		txtFld_Date_Request.setColumns(8);
 		
-		txtFld_Date_Request.setText(RequestViewAplication.DateNaw(false));
+		txtFld_Date_Request.setText(DatePicker.DateNaw(false));
 		txtFld_Date_Request.addKeyListener(new KeyListener() {
 
 			@Override
@@ -399,17 +383,7 @@ public class RequestView extends JDialog  {
 		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setFont(font);
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
-		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
-		for (String string : arr) {
-			choice_ind_num_doc.add(string);
-		}
-		if (tamplateRequest != null) {
-			if (tamplateRequest.getInd_num_doc()!=null){
-			choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
-			}else {
-				choice_ind_num_doc.select("");
-			}
-		}
+		generateStringForChoice_I_N_Doc(tamplateRequest);
 		GridBagConstraints gbc_choice_ind_num_doc = new GridBagConstraints();
 		gbc_choice_ind_num_doc.anchor = GridBagConstraints.WEST;
 		gbc_choice_ind_num_doc.gridwidth = 3;
@@ -436,6 +410,20 @@ public class RequestView extends JDialog  {
 			}
 
 		});
+	}
+
+	private void generateStringForChoice_I_N_Doc(Request tamplateRequest) {
+		String[] arr = RequestViewFunction.getStringMassiveI_N_D();
+		for (String string : arr) {
+			choice_ind_num_doc.add(string);
+		}
+		if (tamplateRequest != null) {
+			if (tamplateRequest.getInd_num_doc()!=null){
+			choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
+			}else {
+				choice_ind_num_doc.select("");
+			}
+		}
 	}
 
 	private void Section_Izpitvan_Produkt(Request tamplateRequest, final JPanel p) {
@@ -909,9 +897,9 @@ public class RequestView extends JDialog  {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				
-				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {
+				if (RequestViewFunction.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);
 					lblError_Count_Sample.setText("Некоректен брой");
 
@@ -1091,7 +1079,7 @@ public class RequestView extends JDialog  {
 		p.add(lbl_date_reception, gbc_lbl_date_reception);
 
 	
-		txtFld_date_reception = new JTextField(RequestViewAplication.DateNaw(false));
+		txtFld_date_reception = new JTextField(DatePicker.DateNaw(false));
 		txtFld_date_reception.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1469,7 +1457,7 @@ public class RequestView extends JDialog  {
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-		String str_templ = RequestViewAplication.DateNaw(true);
+		String str_templ = DatePicker.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
 				izpitvan_produkt, razmernosti, zabelejki, null, obekt_na_izpitvane_request);

@@ -261,6 +261,7 @@ public class AddResultsViewWithTable extends JDialog {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				setVisible(false);
 			}
 		});
 		// cancelButton.setActionCommand("Cancel");

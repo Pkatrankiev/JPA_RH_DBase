@@ -105,7 +105,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<IzpitvanPokazatel> listPokazatel;
 
-	private Request choiseRequest;
+	private static Request choiseRequest;
 
 	int newCountResults = 0;
 	int countRowTabResults = 0;
@@ -261,6 +261,7 @@ public class AddResultsViewWithTable extends JDialog {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				setVisible(false);
 			}
 		});
 		// cancelButton.setActionCommand("Cancel");
@@ -1274,7 +1275,7 @@ public class AddResultsViewWithTable extends JDialog {
 		rowFromTableResult[actv_value_Colum] = 0.0;
 		rowFromTableResult[uncrt_Colum] = 0.0;
 		rowFromTableResult[mda_Colum] = 0.0;
-		rowFromTableResult[razm_Colum] = values_Razmernosti[0];
+		rowFromTableResult[razm_Colum] = choiseRequest.getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = 2;
 		rowFromTableResult[qunt_Colum] = 0.0;
 		rowFromTableResult[dimen_Colum] = "";

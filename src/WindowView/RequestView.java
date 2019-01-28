@@ -103,7 +103,7 @@ public class RequestView extends JDialog  {
 		
 	private String str_Descript_grup_Sample = "";
 	private ArrayList<String> comBox_O_I_S;
-	private ArrayList<String> array_O_I_R;
+//	private ;
 	private String[][] masiveSampleValue = null;
 	private Boolean corectRequestCode = true;
 	private Boolean corectDateRequest = true;
@@ -302,26 +302,8 @@ public class RequestView extends JDialog  {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
-				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
-					txtField_RequestCode.setForeground(Color.red);
-					lblError.setText("Заявка с този номер вече съществува");
-					corectRequestCode = false;
-				} else {
-
-					if (RequestViewAplication.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
-						txtField_RequestCode.setForeground(Color.red);
-						lblError.setText("Некоректен номер");
-						corectRequestCode = false;
-					} else {
-						txtField_RequestCode.setForeground(Color.BLACK);
-
-						txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
-						lblError.setText(" ");
-						corectRequestCode = true;
-					}
-				}
+				RequestViewFunction.enterRequestCode( txtField_RequestCode,lblError, corectRequestCode );
+		
 			}
 
 			@Override
@@ -399,17 +381,9 @@ public class RequestView extends JDialog  {
 		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setFont(font);
 		choice_ind_num_doc.setPreferredSize(new Dimension(300, 20));
-		String[] arr = RequestViewAplication.getStringMassiveI_N_D();
-		for (String string : arr) {
-			choice_ind_num_doc.add(string);
-		}
-		if (tamplateRequest != null) {
-			if (tamplateRequest.getInd_num_doc()!=null){
-			choice_ind_num_doc.select(tamplateRequest.getInd_num_doc().getName());
-			}else {
-				choice_ind_num_doc.select("");
-			}
-		}
+		
+		RequestViewFunction.setDataIn_Choice_Ind_Num_Doc(choice_ind_num_doc, tamplateRequest);
+		
 		GridBagConstraints gbc_choice_ind_num_doc = new GridBagConstraints();
 		gbc_choice_ind_num_doc.anchor = GridBagConstraints.WEST;
 		gbc_choice_ind_num_doc.gridwidth = 3;
@@ -438,6 +412,8 @@ public class RequestView extends JDialog  {
 		});
 	}
 
+
+
 	private void Section_Izpitvan_Produkt(Request tamplateRequest, final JPanel p) {
 		JLabel lbl_izpitvan_produkt = new JLabel("Изпитван продукт");
 		GridBagConstraints gbc_lbl_izpitvan_produkt = new GridBagConstraints();
@@ -450,13 +426,9 @@ public class RequestView extends JDialog  {
 		
 		choice_izpitvan_produkt = new Choice();
 		choice_izpitvan_produkt.setFont(font);
-		String[] arr1 = RequestViewAplication.getStringMassiveIzpitvanProdukt();
-		for (String string : arr1) {
-			choice_izpitvan_produkt.add(string);
-		}
-		if (tamplateRequest != null) {
-			choice_izpitvan_produkt.select(tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt());
-		}
+		
+		RequestViewFunction.setDataIn_Choice_Izpitvan_Produkt(choice_izpitvan_produkt, tamplateRequest);
+		
 		GridBagConstraints gbc_izpitvan_produkt = new GridBagConstraints();
 		gbc_izpitvan_produkt.gridwidth = 4;
 		gbc_izpitvan_produkt.fill = GridBagConstraints.HORIZONTAL;
@@ -488,6 +460,8 @@ public class RequestView extends JDialog  {
 		});
 	}
 
+	
+
 	private void Section_Choice_O_I_R(Request tamplateRequest, final JPanel p) {
 		JLabel lbl_obekt_na_izpitvane_request = new JLabel("Обект, от който са взети пробите:");
 		GridBagConstraints gbc_lbl_obekt_na_izpitvane_request = new GridBagConstraints();
@@ -500,15 +474,9 @@ public class RequestView extends JDialog  {
 		choice_obekt_na_izpitvane_request = new Choice();
 		choice_obekt_na_izpitvane_request.setFont(font);
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(205, 20));
-		array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
-		for (String string : array_O_I_R) {
-			System.out.println(string);
-			choice_obekt_na_izpitvane_request.add(string);
-		}
-		if (tamplateRequest != null) {
-			choice_obekt_na_izpitvane_request
-					.select(tamplateRequest.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane());
-		}
+		
+		RequestViewFunction.setDataIn_Choice_Obekt_na_Izpitvane_Request(choice_obekt_na_izpitvane_request, tamplateRequest);
+		
 		GridBagConstraints gbc_choice_obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_choice_obekt_na_izpitvane_request.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_obekt_na_izpitvane_request.gridwidth = 3;
@@ -539,28 +507,17 @@ public class RequestView extends JDialog  {
 		Button_Add_O_I_R(p);
 	}
 
+	
+
 	private void Button_Add_O_I_R(final JPanel p) {
 		JButton btn_add__obekt_na_izpitvane_request = new JButton("Добавяне");
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Boolean fl = false;
-				 final JFrame f = new JFrame();
-
-				 new AddInChoice(f, array_O_I_R,
-				 choice_obekt_na_izpitvane_request.getSelectedItem());
-
-				String str = AddInChoice.getChoice();
-				for (String string : array_O_I_R) {
-					if (str.equals(string))
-						fl = true;
-				}
-				if (!fl) {
-					array_O_I_R.add(str);
-					choice_obekt_na_izpitvane_request.add(str);
-
-				}
-				choice_obekt_na_izpitvane_request.select(str);
+				
+				RequestViewFunction.addNewObjectIn_Choice_Obekt_na_Izpitvane_Request( choice_obekt_na_izpitvane_request);
 			}
+
+		
 		});
 		GridBagConstraints gbc_btn_add__obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_btn_add__obekt_na_izpitvane_request.anchor = GridBagConstraints.NORTHWEST;
@@ -593,13 +550,9 @@ public class RequestView extends JDialog  {
 		choice_Razmernost = new Choice();
 		choice_Razmernost.setFont(font);
 		choice_Razmernost.setPreferredSize(new Dimension(60, 20));
-		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
-		for (String string : arr3) {
-			choice_Razmernost.add(string);
-		}
-		if (tamplateRequest != null) {
-			choice_Razmernost.select(tamplateRequest.getRazmernosti().getName_razmernosti());
-		}
+		
+		RequestViewFunction.setDataIn_Choice_Razmernost(choice_Razmernost, tamplateRequest);
+		
 		GridBagConstraints gbc_choice_Razmernost = new GridBagConstraints();
 		gbc_choice_Razmernost.anchor = GridBagConstraints.WEST;
 		gbc_choice_Razmernost.insets = new Insets(0, 0, 5, 5);
@@ -607,6 +560,8 @@ public class RequestView extends JDialog  {
 		gbc_choice_Razmernost.gridy = 10;
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 	}
+
+
 
 	private void Section_Text_Pokazatel(Request tamplateRequest, final JPanel p, Border border) {
 		JLabel lbl_list_izpitvan_pokazatel = new JLabel("Изпитван показател:");
@@ -628,52 +583,24 @@ public class RequestView extends JDialog  {
 		txtArea_list_izpitvan_pokazatel.setEditable(false);
 		p.add(txtArea_list_izpitvan_pokazatel, gbc_txtArea_list_izpitvan_pokazatel);
 
-		if (tamplateRequest != null) {
-			List<String> list_String_I_P_Tamplate = new ArrayList<String>();
-			for (IzpitvanPokazatel izpitPokazatelFormTamplate : RequestViewAplication
-					.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest)) {
-				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
-			}
-			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
-			String strTamplate = "";
-			txtArea_list_izpitvan_pokazatel.setText("");
-			for (String string : choiceLP.getChoiceL_P()) {
-				strTamplate = strTamplate + string + "\n";
-			}
-			int cout_str = strTamplate.length();
-			txtArea_list_izpitvan_pokazatel.setText(strTamplate.substring(0, cout_str - 1));
-		}
+		RequestViewFunction.setTextIn_Text_Area_List_Izpitvan_Pokazatel(txtArea_list_izpitvan_pokazatel, tamplateRequest);
 
 		Button_Pokazatel(p, border);
 	}
 
+	
+
 	private void Button_Pokazatel(final JPanel p, Border border) {
 		JButton btn_list_izpitvan_pokazatel = new JButton("Избор на показател");
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 
-				// String [] list_I_P = null;
-				ArrayList<String> list_I_P = new ArrayList<String>();
-
-				if (!txtArea_list_izpitvan_pokazatel.getText().equals("")) {
-					list_I_P = ChoiceL_I_P.getChoiceL_P();
-					System.out.println(list_I_P.size());
-				}
-				final JFrame f = new JFrame();
-				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false);
-
-				String str = "";
-				txtArea_list_izpitvan_pokazatel.setText("");
-				for (String string : choiceLP.getChoiceL_P()) {
-					str = str + string + "\n";
-				}
-
-				txtArea_list_izpitvan_pokazatel.setBorder(border);
-				int cout_str = str.length();
-				txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
+				RequestViewFunction.generateTextIn_Text_Area_List_Izpitvan_Pokazatel(txtArea_list_izpitvan_pokazatel, border);
 
 			}
+
+			
 		});
 		GridBagConstraints gbc_btn_list_izpitvan_pokazatel = new GridBagConstraints();
 		gbc_btn_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
@@ -746,10 +673,10 @@ public class RequestView extends JDialog  {
 		gbc_date_time_reference.gridy = 12;
 		p.add(txt_fid_date_time_reference, gbc_date_time_reference);
 
-		Buttom_Date_Time_Reference(p, border);
+		Button_Date_Time_Reference(p, border);
 	}
 
-	private void Buttom_Date_Time_Reference(final JPanel p, Border border) {
+	private void Button_Date_Time_Reference(final JPanel p, Border border) {
 		JButton btn_date_time_reference = new JButton("Избор");
 		btn_date_time_reference.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -758,7 +685,7 @@ public class RequestView extends JDialog  {
 					final JFrame f = new JFrame();
 					DateChoice date_time_reference = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reference.setVisible(true);
-					str_Descript_grup_Sample = generateTxtInDescriptGrupSample(choice_Period);
+					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period);
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
 					textRefDate = DateChoice.get_date_time_reference();
@@ -785,31 +712,6 @@ public class RequestView extends JDialog  {
 		p.add(btn_date_time_reference, gbc_btn_date_time_reference);
 	}
 
-	private String  generateTxtInDescriptGrupSample(Choice choice_Period) {
-		String txtInDescriptGrupSample="";
-		String strMesec = "";
-		String strChoice_Period = choice_Period.getSelectedItem();
-		
-		if (strChoice_Period.equals("")) {
-			txtInDescriptGrupSample = "";
-			txtInDescriptGrupSample = DateChoice.get_str_period();
-		} else {
-			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
-			if(id_Period<13){
-				strMesec = "м.";
-			}
-			if (DateChoice.get_str_period().equals("")) {
-				txtInDescriptGrupSample = "";
-				txtInDescriptGrupSample = " за "+strMesec + strChoice_Period;
-			} else {
-				txtInDescriptGrupSample = "";
-				
-				txtInDescriptGrupSample = DateChoice.get_str_period() + " за "+strMesec
-						+ strChoice_Period;
-			}
-		}
-		return txtInDescriptGrupSample;
-	}
 		
 	private void Section_Choice_Period(final JPanel p) {
 		JLabel lbl_Period = new JLabel("Периодичност");
@@ -830,20 +732,19 @@ public class RequestView extends JDialog  {
 		gbc_choice_Period.gridy = 13;
 		p.add(choice_Period, gbc_choice_Period);
 
-		String[] arr4 = RequestViewAplication.getStringMassivePeriod();
-		for (String string : arr4) {
-			choice_Period.add(string);
-		}
+		RequestViewFunction.setDataIn_Choice_Period(choice_Period);
 
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				str_Descript_grup_Sample =  generateTxtInDescriptGrupSample( choice_Period);
+				str_Descript_grup_Sample =   RequestViewFunction.generateTxtInDescriptGrupSample( choice_Period);
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 
 			}
 		});
 	}
+
+	
 
 	private void Section_Sample_Description(Request tamplateRequest, final JPanel p, Border border) {
 		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
@@ -1424,15 +1325,7 @@ public class RequestView extends JDialog  {
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-//		int countOld, coundNew;
-//		coundNew = array_O_I_R.size();
-//		countOld = RequestViewAplication.getStringMassiveO_I_R().size();
-//		System.out.println(coundNew + " " + countOld);
-//		if (countOld != coundNew) {
-//			for (int i = countOld; i < coundNew; i++) {
-//				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
-//			}
-//		}
+
 		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_reception.getText(),

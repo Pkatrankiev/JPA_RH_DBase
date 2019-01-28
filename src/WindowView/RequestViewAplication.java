@@ -204,18 +204,6 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static String[] getStringMassivePeriod() {
-		List<Period> list = PeriodDAO.getInListAllValuePeriod();
-		String[] arr = new String[list.size() + 1];
-		arr[0] = "";
-		int i = 1;
-		for (Period e : list) {
-			arr[i] = ((Period) e).getValue();
-			i++;
-		}
-		return arr;
-	}
-
 	public static String getStringZabelejkiFormRequest(Request request) {
 		String zabel_str = "";
 		if (request.getZabelejki() != null) {

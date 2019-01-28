@@ -21,6 +21,8 @@ import WindowView.AddInChoice;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -108,7 +110,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 			panel_1.add(panel_Label);
 
 			
-			String[] comBox_Period = RequestViewAplication.getStringMassivePeriod();
+			String[] comBox_Period = RequestViewFunction.getStringMassivePeriod();
 			String year = ref_Date_Time.substring(6, 10);
 
 			panel = new JPanel[countSample];

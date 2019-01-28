@@ -64,6 +64,7 @@ import WindowView.DatePicker;
 import WindowView.ExternalAplicantModuleView;
 import WindowView.InternalAplicantModuleView;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
 import WindowView.SampleViewAdd;
 import WindowView.TranscluentWindow;
 import WindowViewAplication.DocxMainpulator;
@@ -855,7 +856,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		gbc_choice_Period.gridx = 2;
 		gbc_choice_Period.gridy = 13;
 		p.add(choice_Period, gbc_choice_Period);
-		String[] arr4 = RequestViewAplication.getStringMassivePeriod();
+		String[] arr4 = RequestViewFunction.getStringMassivePeriod();
 		for (String string : arr4) {
 			choice_Period.add(string);
 		}

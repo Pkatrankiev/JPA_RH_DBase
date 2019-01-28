@@ -48,6 +48,7 @@ import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
 import WindowView.SampleViewAdd;
 import WindowViewAplication.DocxMainpulator;
 import java.awt.GridBagLayout;
@@ -619,7 +620,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_choice_Period.gridy = 13;
 		p.add(choice_Period, gbc_choice_Period);
 
-		String[] arr4 = RequestViewAplication.getStringMassivePeriod();
+		String[] arr4 = RequestViewFunction.getStringMassivePeriod();
 		for (String string : arr4) {
 			choice_Period.add(string);
 		}

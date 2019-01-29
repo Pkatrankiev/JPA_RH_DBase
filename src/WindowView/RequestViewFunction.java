@@ -129,6 +129,7 @@ public class RequestViewFunction {
 		choice_obekt_na_izpitvane_request.select(str);
 	}
 	
+	
 	public static void setDataIn_Choice_Razmernost(Choice choice_Razmernost, Request tamplateRequest) {
 		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
 		for (String string : arr3) {

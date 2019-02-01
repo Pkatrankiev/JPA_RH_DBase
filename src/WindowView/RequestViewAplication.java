@@ -92,24 +92,7 @@ public class RequestViewAplication {
 		return str;
 	}
 
-	public static String GenerateStringRefDateTime(String[][] masiveSampleValue) {
-		String[] masiveRefDateTime = new String[masiveSampleValue.length];
-
-		for (int i = 0; i < masiveSampleValue.length; i++) {
-			masiveRefDateTime[i] = masiveSampleValue[i][3];
-		}
-		String date_time_reference = masiveRefDateTime[0];
-		if (compaRefDateTime(masiveRefDateTime)) {
-			date_time_reference = "";
-			for (int i = 0; i < masiveRefDateTime.length; i++) {
-				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " / " + masiveRefDateTime[i]
-						+ ";  ";
-			}
-		}
-
-		return date_time_reference;
-
-	}
+	
 
 	public static String[][] getMasiveSampleFromReques(Request request) {
 		int countSample = request.getCounts_samples();
@@ -132,22 +115,7 @@ public class RequestViewAplication {
 		return volSampleView;
 	}
 
-	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
-		
-		int count_Sample = masiveRefDateTime.length;
-		Boolean comparedFlag = false;
-		for (int i = 0; i < count_Sample; i++) {
-			String compared = masiveRefDateTime[i];
-			for (int j = i; j < count_Sample; j++) {
-				System.out.println(j+"  "+masiveRefDateTime[j]);
-				if (!compared.equals(masiveRefDateTime[j])) {
-					comparedFlag = true;
-					return comparedFlag;
-				}
-			}
-		}
-		return comparedFlag;
-	}
+
 
 	public static String get_String_Ind_Num_Doc_From_Request(Request request) {
 		String str_I_N_D = "";
@@ -351,76 +319,9 @@ public class RequestViewAplication {
 		return newCode;
 	}
 
-	public static void OpenRequestInWordDokTamplate(String requestString) {
-		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
-		// String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request);
-
-		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", request);
-		String[][] smple_vol = new String[smple_list.size()][6];
-		int i = 0;
-		for (Sample sample : smple_list) {
-			smple_vol[i][0] = sample.getSample_code();
-			smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-			smple_vol[i][2] = sample.getDescription_sample();
-			smple_vol[i][3] = sample.getDate_time_reference();
-			if (sample.getPeriod() == null) {
-				smple_vol[i][4] = "";
-			} else {
-				smple_vol[i][4] = sample.getPeriod().getValue();
-			}
-			smple_vol[i][5] = sample.getGodina_period() + "";
-			i++;
-		}
-
-		String date_time_reference = "";
-		if (!request.getRecuest_code().equals("templ")) {
-			date_time_reference = RequestViewAplication.GenerateStringRefDateTime(smple_vol);
-		}
-		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
-		String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request, list_All_I_P);
-
-		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
-				.GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel, smple_vol, date_time_reference);
-
-		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
-
-		// StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx",
-		// requestString, substitutionData);
-	}
-
 	// List_Izpitvan_Pokazatel
-	public static String CreateStringListIzpPokaz(Request request, List<IzpitvanPokazatel> list_All_I_P) {
-
-		List<IzpitvanPokazatel> list_izp_pok = get_List_Izpitvan_pokazatelFromList_I_P(request, list_All_I_P);
-		// List<IzpitvanPokazatel> list_izp_pok =
-		// get_List_Izpitvan_pokazatel_From_Request(request);
-		String list_izpitvan_pokazatel = "";
-		for (IzpitvanPokazatel izpitvan_pokazatel : list_izp_pok) {
-			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel.getPokazatel().getName_pokazatel()
-					+ "; \n";
-		}
-		return list_izpitvan_pokazatel;
-	}
 	
-	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatelFromList_I_P(Request request,
-			List<IzpitvanPokazatel> listTab_I_P) {
-		List<IzpitvanPokazatel> list_izp_pok = new ArrayList<IzpitvanPokazatel>();
-		for (IzpitvanPokazatel izpitvanPokazatel : listTab_I_P) {
-			if (izpitvanPokazatel.getRequest().getRecuest_code().equals(request.getRecuest_code())) {
-				list_izp_pok.add(izpitvanPokazatel);
-
-			}
-		}
-		return list_izp_pok;
-	}
-
-	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
-		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO
-				.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
-
-		return list_izp_pok;
-	}
+	
 
 
 		

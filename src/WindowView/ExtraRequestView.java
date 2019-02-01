@@ -693,7 +693,7 @@ public class ExtraRequestView extends JDialog {
 
 		if (tamplateRequest != null) {
 			List<String> list_String_I_P_Tamplate = new ArrayList<String>();
-			for (IzpitvanPokazatel izpitPokazatelFormTamplate : RequestViewAplication
+			for (IzpitvanPokazatel izpitPokazatelFormTamplate : RequestViewFunction
 					.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest)) {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
@@ -1630,7 +1630,7 @@ public class ExtraRequestView extends JDialog {
 		request = createRequestObject();
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
+		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSampleValue);
 
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);

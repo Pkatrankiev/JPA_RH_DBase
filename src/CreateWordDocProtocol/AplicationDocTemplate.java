@@ -30,7 +30,7 @@ public class AplicationDocTemplate {
 
 		Map<String, String> repl1 = new HashMap<String, String>();
 
-		repl1.put("gamma", "Ãàìà ðàäèîíóêëèäè");
+		repl1.put("gamma", "123456789");
 		return repl1;
 	}
 

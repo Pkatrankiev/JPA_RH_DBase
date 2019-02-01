@@ -20,7 +20,7 @@ import DBase_Class.Sample;
 
 public class StartGenerateDocTemplate {
 
-	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, String requestCode, Map<String, String> substitutionData) {
+	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest, Map<String, String> substitutionData) {
 		BasicConfigurator.configure();
 
 		
@@ -28,7 +28,7 @@ public class StartGenerateDocTemplate {
 		Map<String, String> repl = new HashMap<String, String>();
 		String tempDoc = nameTaplateProtokol;
 	
-		Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestCode);
+//		Request recuest = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestCode);
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		String [][] smple_vol = new String [smple_list.size()][6];
 		int i = 0;

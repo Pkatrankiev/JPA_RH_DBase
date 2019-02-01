@@ -1339,7 +1339,7 @@ public class RequestView extends JDialog  {
 		request = createRequestObject();
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
+		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSampleValue);
 		
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);

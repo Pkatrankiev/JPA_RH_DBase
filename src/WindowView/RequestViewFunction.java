@@ -4,6 +4,7 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,12 +14,17 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Aplication.Ind_num_docDAO;
+import Aplication.IzpitvanPokazatelDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
+import Aplication.SampleDAO;
+import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Period;
 import DBase_Class.Request;
+import DBase_Class.Sample;
+import WindowViewAplication.DocxMainpulator;
 
 public class RequestViewFunction {
 
@@ -143,8 +149,7 @@ public class RequestViewFunction {
 	public static  void setTextIn_Text_Area_List_Izpitvan_Pokazatel(JTextArea txtArea_list_izpitvan_pokazatel, Request tamplateRequest) {
 		if (tamplateRequest != null) {
 			List<String> list_String_I_P_Tamplate = new ArrayList<String>();
-			for (IzpitvanPokazatel izpitPokazatelFormTamplate : RequestViewAplication
-					.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest)) {
+			for (IzpitvanPokazatel izpitPokazatelFormTamplate : get_List_Izpitvan_pokazatel_From_Request(tamplateRequest)) {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
 			JFrame f = new JFrame();
@@ -225,6 +230,163 @@ public class RequestViewFunction {
 		return arr;
 	}
 
+	public static String GenerateStringRefDateTimeFromRequest(Request request) {
+		List<Sample> sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		
+		String [] masiveReffDateTime = new String[sample.size()];
+		String [] masiveSampleCode = new String[sample.size()];
+		int k=0;
+		for (Sample samp : sample) {
+			masiveReffDateTime[k] = samp.getDate_time_reference();
+			masiveSampleCode[k] = samp.getSample_code();
+			k++;
+		}
+		
+		String date_time_reference = masiveReffDateTime[0];
+		if (compaRefDateTime(masiveReffDateTime)) {
+			date_time_reference = "";
+			for (int i = 0; i < masiveReffDateTime.length; i++) {
+				date_time_reference = date_time_reference + masiveSampleCode[i] + " / " + masiveReffDateTime[i]
+						+ ";  ";
+			}
+		}
+
+		return date_time_reference;
+
+	}
+	
+	public static String GenerateStringRefDateTimeFromMasiveSample(String[][] masiveSampleValue) {
+		String[] masiveRefDateTime = new String[masiveSampleValue.length];
+
+		for (int i = 0; i < masiveSampleValue.length; i++) {
+			masiveRefDateTime[i] = masiveSampleValue[i][3];
+		}
+		String date_time_reference = masiveRefDateTime[0];
+		if (compaRefDateTime(masiveRefDateTime)) {
+			date_time_reference = "";
+			for (int i = 0; i < masiveRefDateTime.length; i++) {
+				date_time_reference = date_time_reference + masiveSampleValue[i][0] + " / " + masiveRefDateTime[i]
+						+ ";  ";
+			}
+		}
+
+		return date_time_reference;
+
+	}
+	
+	public static void OpenRequestInWordDokTamplate(String requestString) {
+		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
+		// String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request);
+
+		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		String[][] smple_vol = new String[smple_list.size()][6];
+		int i = 0;
+		for (Sample sample : smple_list) {
+			smple_vol[i][0] = sample.getSample_code();
+			smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			smple_vol[i][2] = sample.getDescription_sample();
+			smple_vol[i][3] = sample.getDate_time_reference();
+			if (sample.getPeriod() == null) {
+				smple_vol[i][4] = "";
+			} else {
+				smple_vol[i][4] = sample.getPeriod().getValue();
+			}
+			smple_vol[i][5] = sample.getGodina_period() + "";
+			i++;
+		}
+
+		String date_time_reference = "";
+		if (!request.getRecuest_code().equals("templ")) {
+			date_time_reference = GenerateStringRefDateTimeFromMasiveSample(smple_vol);
+		}
+		List<IzpitvanPokazatel> list_All_I_P = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
+		String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request, list_All_I_P);
+
+		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
+				.GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel, smple_vol, date_time_reference);
+
+		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
+
+		// StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx",
+		// requestString, substitutionData);
+	}
+	
+	public static String CreateStringListIzpPokaz(Request request, List<IzpitvanPokazatel> list_All_I_P) {
+
+		List<IzpitvanPokazatel> list_izp_pok = get_List_Izpitvan_pokazatelFromList_I_P(request, list_All_I_P);
+		// List<IzpitvanPokazatel> list_izp_pok =
+		// get_List_Izpitvan_pokazatel_From_Request(request);
+		String list_izpitvan_pokazatel = "";
+		for (IzpitvanPokazatel izpitvan_pokazatel : list_izp_pok) {
+			list_izpitvan_pokazatel = list_izpitvan_pokazatel + izpitvan_pokazatel.getPokazatel().getName_pokazatel()
+					+ "; \n";
+		}
+		return list_izpitvan_pokazatel;
+	}
+	
+	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatelFromList_I_P(Request request,
+			List<IzpitvanPokazatel> listTab_I_P) {
+		List<IzpitvanPokazatel> list_izp_pok = new ArrayList<IzpitvanPokazatel>();
+		for (IzpitvanPokazatel izpitvanPokazatel : listTab_I_P) {
+			if (izpitvanPokazatel.getRequest().getRecuest_code().equals(request.getRecuest_code())) {
+				list_izp_pok.add(izpitvanPokazatel);
+
+			}
+		}
+		return list_izp_pok;
+	}
+
+	public static String[][] generateMasiveSampleDescriptionFromRequest(Request request) {
+		int countSample = request.getCounts_samples();
+		List<Sample> sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		String[][] volSampleView = new String[countSample][6];
+for (int i = 0; i < countSample; i++) {
+	volSampleView[i][0] = sample.get(i).getSample_code();
+	volSampleView[i][1] = sample.get(i).getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+	volSampleView[i][2] = sample.get(i).getDescription_sample();
+	volSampleView[i][3] = sample.get(i).getDate_time_reference();
+	volSampleView[i][4] = sample.get(i).getPeriod().getValue();
+	volSampleView[i][5] = sample.get(i).getGodina_period()+"";
+
+}
+return volSampleView;
+}
+	
+	private static Boolean compaRefDateTime(String[] masiveRefDateTime) {
+		
+		int count_Sample = masiveRefDateTime.length;
+		Boolean comparedFlag = false;
+		for (int i = 0; i < count_Sample; i++) {
+			String compared = masiveRefDateTime[i];
+			for (int j = i; j < count_Sample; j++) {
+				System.out.println(j+"  "+masiveRefDateTime[j]);
+				if (!compared.equals(masiveRefDateTime[j])) {
+					comparedFlag = true;
+					return comparedFlag;
+				}
+			}
+		}
+		return comparedFlag;
+	}
+	
+	public static List<IzpitvanPokazatel> get_List_Izpitvan_pokazatel_From_Request(Request request) {
+		List<IzpitvanPokazatel> list_izp_pok = IzpitvanPokazatelDAO
+				.getListIzpitvan_pokazatelFromColumnByVolume("request", request);
+
+		return list_izp_pok;
+	}
+	
+	public static String generateStringListIzpitvanPokazatelFromrequest (Request request){
+	String strTamplate = "";
+	
+	for (IzpitvanPokazatel izpitvanPokazayel : get_List_Izpitvan_pokazatel_From_Request(request)) {
+		strTamplate = strTamplate + izpitvanPokazayel.getPokazatel().getName_pokazatel() + "\n";
+	}
+	int cout_str = strTamplate.length();
+	
+	return strTamplate.substring(0, cout_str - 1);
+	}
 	
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;

@@ -532,7 +532,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		if (tamplateRequest != null) {
 			List<String> list_String_I_P_Tamplate = new ArrayList<String>();
-			List<IzpitvanPokazatel> listIzpitvanPokazatel = RequestViewAplication.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest);
+			List<IzpitvanPokazatel> listIzpitvanPokazatel = RequestViewFunction.get_List_Izpitvan_pokazatel_From_Request(tamplateRequest);
 			String[][] masiveStrIzpitPokazatel = new String [listIzpitvanPokazatel.size()][2];
 			
 			int s = 0;
@@ -1245,7 +1245,7 @@ public class RequestViewForReadDoc extends JFrame {
 		request = createRequestObject(basicRequest);
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
-		String date_time_reference = RequestViewAplication.GenerateStringRefDateTime(masiveSampleValue);
+		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSampleValue);
 
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);

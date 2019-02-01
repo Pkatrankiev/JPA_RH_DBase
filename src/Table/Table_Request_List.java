@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -53,6 +54,8 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
+import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -68,7 +71,9 @@ import WindowView.Login;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
+import WindowViewAplication.DocxMainpulator;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
@@ -176,7 +181,18 @@ public class Table_Request_List extends JDialog {
 						}
 						
 
-					} 
+					} else{
+						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+						String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
+
+						Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
+								choiseRequest,  RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest (choiseRequest), RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
+						
+						StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
+							
+//						DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+//								"Z-" + choiseRequest.getRecuest_code() + "_" + choiseRequest.getDate_request(), substitutionData);
+					}
 					}
 					
 				}
@@ -396,11 +412,11 @@ public class Table_Request_List extends JDialog {
 				// request.getDate_request();
 				tableRequest[i][izp_Prod_Colum] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
 				tableRequest[i][obk_Izp_Colum] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-				tableRequest[i][izp_Pok_Colum] = RequestViewAplication.CreateStringListIzpPokaz(request, list_All_I_P);
+				tableRequest[i][izp_Pok_Colum] = RequestViewFunction.CreateStringListIzpPokaz(request, list_All_I_P);
 				tableRequest[i][razmer_Colum] = request.getRazmernosti().getName_razmernosti();
 				tableRequest[i][cunt_Smpl_Colum] = request.getCounts_samples();
 				tableRequest[i][dscr_Smpl_Colum] = request.getDescription_sample_group();
-				tableRequest[i][ref_Date_Colum] = RequestViewAplication.GenerateStringRefDateTime(masiveSample);
+				tableRequest[i][ref_Date_Colum] = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSample);
 				tableRequest[i][exec_Date_Colum] = formatToTabDate(request.getDate_execution(), false);
 				tableRequest[i][rcpt_Date_Colum] = formatToTabDate(request.getDate_reception(), false);
 				tableRequest[i][user_Colum] = request.getUsers().getName_users() + " "

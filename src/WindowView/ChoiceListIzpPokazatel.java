@@ -292,7 +292,6 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				// panel.repaint();
 				int k = 0;
 				for (String string : list_izpitvan_pokazatel) {
-					System.out.println("//////////- " + string);
 					choice[k].select(string);
 				}
 				dispose();

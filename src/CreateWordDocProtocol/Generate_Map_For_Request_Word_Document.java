@@ -2,66 +2,111 @@ package CreateWordDocProtocol;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
 
 public class Generate_Map_For_Request_Word_Document {
 
 	public static Map<String, String> GenerateMapForRequestWordDocument(Request request, String list_izpitvan_pokazatel,
 			String[][] sample_description, String date_time_reference) {
+		
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		substitutionData.put("$$request_code$$", request.getRecuest_code());
 
 		substitutionData.put("$$request_date$$", request.getDate_request());
-//		substitutionData.put("$$request_date$$", RequestViewAplication.DateNaw(true));
+
 		String str = "";
 		if (request.getInd_num_doc() != null)
 			str = request.getInd_num_doc().getName();
 
 		substitutionData.put("$$ind_num_doc$$", str);
+		
 		substitutionData.put("$$izpitvan_produkt$$", request.getIzpitvan_produkt().getName_zpitvan_produkt());
 
-		String strObect = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-		String str1 = strObect, str2 = "";
-		System.out.println("strObect " + strObect.length());
-		int max = 50;
-		if (strObect.length() >= max) {
-			int i = max;
-			while (i > 0) {
-				if (strObect.substring(i - 1, i).equals(" ")) {
-					str1 = strObect.substring(0, i);
-					str2 = strObect.substring(i, strObect.length());
-					i = 0;
-				}
-				i--;
-			}
-		}
-		substitutionData.put("$$obekt_na_izpitvane_1$$", str1);
-		substitutionData.put("$$obekt_na_izpitvane_2$$", str2);
+		
+		String[] obekt_na_izpitvane = generate_obekt_na_izpitvane_Masive_String(request);
+		
+		substitutionData.put("$$obekt_na_izpitvane_1$$", obekt_na_izpitvane[0]);
+		substitutionData.put("$$obekt_na_izpitvane_2$$", obekt_na_izpitvane[1]);
 
-		str1 = "";
-		str2 = "";
-		String izpit_pokaz = list_izpitvan_pokazatel.replaceAll("\n", " ");
-		izpit_pokaz = izpit_pokaz + " / " + request.getRazmernosti().getName_razmernosti();
-		str1 = izpit_pokaz;
-		max = 50;
-		String txt = izpit_pokaz;
+		String metody = generate_Metody_String(request);
+		substitutionData.put("$$metody$$", metody);
+		
+		String[] pokazatel_razmernost = generate_pokazatel_razmernost_Masive_String(request, list_izpitvan_pokazatel);
+		
+		substitutionData.put("$$pokazatel_razmernost_1$$", pokazatel_razmernost[0]);
+		substitutionData.put("$$pokazatel_razmernost_2$$", pokazatel_razmernost[1]);
+
+		
+		String[] count_description_sample_group = generate_count_description_sample_group_Masive_String(request,
+				sample_description);
+		
+		substitutionData.put("$$counts_sample$$", count_description_sample_group[0]);
+		substitutionData.put("$$description_sample_group$$", count_description_sample_group[1]);
+		substitutionData.put("$$description_sample_1$$", count_description_sample_group[2]);
+		substitutionData.put("$$description_sample_2$$", count_description_sample_group[3]);
+		
+		substitutionData.put("$$date_time_reception$$", request.getDate_reception());
+		substitutionData.put("$$date_execution$$", request.getDate_execution());
+		substitutionData.put("$$date_time_request$$", date_time_reference);
+	
+		String[] zabelejki = generate_zabelejki_Masive_String(request);
+		
+		substitutionData.put("$$zabelejki_1$$", zabelejki[0]);
+		substitutionData.put("$$zabelejki_2$$", zabelejki[1]);
+		
+		if(request.getUsers()!=null){
+			substitutionData.put("$$user$$",
+					request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
+			}
+		
+		return substitutionData;
+
+		
+		}
+
+
+	private static String[] generate_zabelejki_Masive_String(Request request) {
+		String txt;
+		String[] zabelejki = new String[2];
+		String str_1 = "";
+		String str_2 = "";
+		
+		
+		String zabel_str = RequestViewAplication.getStringZabelejkiFormRequest(request);
+		
+		int max = 70;
+		str_1 = zabel_str;
+		txt = zabel_str;
 		if (txt.length() >= max) {
 			int i = max;
 			while (i > 0) {
 				if (txt.substring(i - 1, i).equals(" ")) {
-					str1 = txt.substring(0, i);
-					str2 = txt.substring(i, txt.length());
+					str_1 = txt.substring(0, i);
+					str_2 = txt.substring(i, txt.length());
 					i = 0;
 				}
 				i--;
 			}
 		}
-		substitutionData.put("$$pokazatel_razmernost_1$$", str1);
-		substitutionData.put("$$pokazatel_razmernost_2$$", str2);
+		
+		zabelejki[0] = str_1;
+		zabelejki[1] = str_2;
+		return zabelejki;
+	}
 
-		str2 = "";
+
+	private static String[] generate_count_description_sample_group_Masive_String(Request request,
+			String[][] sample_description) {
+		String txt;
+		String[] count_description_sample_group = new String[4];
+		String str_1 = "";
+		String str_2 = "";
+		int max;
 		int count = request.getCounts_samples();
 		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ");
 		
@@ -75,7 +120,7 @@ public class Generate_Map_For_Request_Word_Document {
 					period_fl = true;
 			}
 		}
-		descrip_sam_gr_str = count + getWordOFNumber(count) + "проби, " + descrip_sam_gr_str+ " на "+sample_description[0][5]+ "г.  ";
+		descrip_sam_gr_str = count + getWordOFNumber(count)  + descrip_sam_gr_str+ " на "+sample_description[0][5]+ "г.  ";
 		String samp_str = "";
 
 		for (int i = 0; i < count; i++) {
@@ -93,8 +138,8 @@ public class Generate_Map_For_Request_Word_Document {
 			int i = max;
 			while (i > 0) {
 				if (txt.substring(i - 1, i).equals(" ")) {
-					str1 = txt.substring(0, i);
-					str2 = txt.substring(i, txt.length());
+					str_1 = txt.substring(0, i);
+					str_2 = txt.substring(i, txt.length());
 					i = 0;
 				}
 				i--;
@@ -102,10 +147,11 @@ public class Generate_Map_For_Request_Word_Document {
 		}
 
 		max = 80;
-		String counts_sample_str = str1;
+		String counts_sample_str = str_1;
+		
 		String[] desk_samp_str = new String[3];
 
-		desk_samp_str[0] = str2;
+		desk_samp_str[0] = str_2;
 		
 		desk_samp_str[1] = "";
 		desk_samp_str[2] = "";
@@ -126,42 +172,75 @@ public class Generate_Map_For_Request_Word_Document {
 			}
 		}
 
-		substitutionData.put("$$counts_sample$$", counts_sample_str);
-		substitutionData.put("$$description_sample_group$$", desk_samp_str[0]);
-		substitutionData.put("$$description_sample_1$$", desk_samp_str[1]);
-		substitutionData.put("$$description_sample_2$$", desk_samp_str[2]);
-		substitutionData.put("$$date_time_reception$$", request.getDate_reception());
-		substitutionData.put("$$date_execution$$", request.getDate_execution());
-		substitutionData.put("$$date_time_request$$", date_time_reference);
-		if(request.getUsers()!=null){
-		substitutionData.put("$$user$$",
-				request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
-		}
-		
-		String zabel_str = RequestViewAplication.getStringZabelejkiFormRequest(request);
-		str2 = "";
+		count_description_sample_group[0] = counts_sample_str;
+		count_description_sample_group[1] = desk_samp_str[0];
+		count_description_sample_group[2] = desk_samp_str[1];
+		count_description_sample_group[3] = desk_samp_str[2];
+		return count_description_sample_group;
+	}
 
-		max = 70;
-		str1 = zabel_str;
-		txt = zabel_str;
-		if (txt.length() >= max) {
-			int i = max;
+
+	private static String[] generate_pokazatel_razmernost_Masive_String(Request request,
+		String list_izpitvan_pokazatel) {
+		String[] pokazatel_razmernost = new String[2];
+		String str_1 = "";
+		String str_2 = "";
+		String izpit_pokaz = list_izpitvan_pokazatel.replaceAll("\n", " ");
+		izpit_pokaz = izpit_pokaz + " / " + request.getRazmernosti().getName_razmernosti();
+		str_1 = izpit_pokaz;
+		int max_1 = 50;
+		String txt = izpit_pokaz;
+		if (txt.length() >= max_1) {
+			int i = max_1;
 			while (i > 0) {
 				if (txt.substring(i - 1, i).equals(" ")) {
-					str1 = txt.substring(0, i);
-					str2 = txt.substring(i, txt.length());
+					str_1 = txt.substring(0, i);
+					str_2 = txt.substring(i, txt.length());
 					i = 0;
 				}
 				i--;
 			}
 		}
-		substitutionData.put("$$zabelejki_1$$", str1);
-		substitutionData.put("$$zabelejki_2$$", str2);
-		return substitutionData;
+		pokazatel_razmernost[0] = str_1;
+		pokazatel_razmernost[1] = str_2;
+		return pokazatel_razmernost;
+	}
 
-		
+
+	private static String[] generate_obekt_na_izpitvane_Masive_String(Request request) {
+		String[] obekt_na_izpitvane = new String[2];
+		String strObect = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+		String str1 = strObect, str2 = "";
+		System.out.println("strObect " + strObect.length());
+		int max = 50;
+		if (strObect.length() >= max) {
+			int i = max;
+			while (i > 0) {
+				if (strObect.substring(i - 1, i).equals(" ")) {
+					str1 = strObect.substring(0, i);
+					str2 = strObect.substring(i, strObect.length());
+					i = 0;
+				}
+				i--;
+			}
 		}
+		obekt_na_izpitvane[0] = str1;
+		obekt_na_izpitvane[1] = str2;
+		return obekt_na_izpitvane;
+	}
 
+	private static String generate_Metody_String(Request request) {
+		String metody = "";
+		for (IzpitvanPokazatel izpitvanPokazayel : RequestViewFunction.get_List_Izpitvan_pokazatel_From_Request(request)) {
+			metody = metody + izpitvanPokazayel.getMetody().getName_metody() + "\n";
+		}
+		
+	
+		
+		
+		return metody;
+	}
+	
 	public static String getWordOFNumber(int num) {
 		String str = "";
 		String str2 = "";

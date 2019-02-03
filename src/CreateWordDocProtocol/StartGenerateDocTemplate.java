@@ -95,12 +95,13 @@ public class StartGenerateDocTemplate {
 		// prochitane na redovete v tablicata
 		List<Object> rows = AplicationDocTemplate.getAllElementFromObject(tempTable, Tr.class);
 
-		 TblBorders border = tempTable.getTblPr().getTblBorders();
+		 
 		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, "Код на пробата");
 		Tr headerRow_2 = AplicationDocTemplate.getRowEqualsText(rows, "1");
 		Tr templateRow_pokazatel = AplicationDocTemplate.getRowEqualsText(rows, "$$request_pokazarel$$");
 		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_column_table_result[0]);
-
+		
+		TblBorders border = tempTable.getTblPr().getTblBorders();
 		tempTable.getContent().remove(templateRow);
 		tempTable.getContent().remove(templateRow_pokazatel);
 		Tbl basicTable = tempTable;

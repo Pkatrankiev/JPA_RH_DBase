@@ -17,7 +17,7 @@ public class Generate_Map_For_Request_Word_Document {
 
 		substitutionData.put("$$request_code$$", request.getRecuest_code());
 
-		substitutionData.put("$$request_date$$", request.getDate_request());
+		substitutionData.put("$$request_date$$", RequestViewFunction.DateNaw(false));
 
 		String str = "";
 		if (request.getInd_num_doc() != null)

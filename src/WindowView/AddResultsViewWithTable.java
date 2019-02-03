@@ -379,7 +379,7 @@ public class AddResultsViewWithTable extends JDialog {
 			result.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
 		}
 		result.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
-		result.setDate_redac(RequestViewAplication.DateNaw(false));
+		result.setDate_redac(RequestViewFunction.DateNaw(false));
 		result.setInProtokol((Boolean) dataTable[i][in_Prot_Colum]);
 		result.setMda(Double.parseDouble((String) dataTable[i][mda_Colum].toString()));
 		result.setQuantity(Double.parseDouble((String) dataTable[i][qunt_Colum].toString()));

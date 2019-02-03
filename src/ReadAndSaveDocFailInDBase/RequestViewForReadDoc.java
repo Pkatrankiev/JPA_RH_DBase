@@ -1277,7 +1277,7 @@ public class RequestViewForReadDoc extends JFrame {
 				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
 			}
 		}
-		String str_templ = RequestViewAplication.DateNaw(true);
+		String str_templ = RequestViewFunction.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
 				izpitvan_produkt, razmernosti, zabelejki, curent_user, obekt_na_izpitvane_request);

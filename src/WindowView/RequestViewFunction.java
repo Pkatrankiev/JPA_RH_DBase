@@ -2,7 +2,9 @@ package WindowView;
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.PeriodDAO;
@@ -27,7 +30,8 @@ import DBase_Class.Sample;
 import WindowViewAplication.DocxMainpulator;
 
 public class RequestViewFunction {
-
+	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
+	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME(); 
 	public static void enterRequestCode( JTextField txtField_RequestCode, JLabel lblError, Boolean corectRequestCode ) {
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));
 		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
@@ -346,7 +350,11 @@ for (int i = 0; i < countSample; i++) {
 	volSampleView[i][1] = sample.get(i).getObekt_na_izpitvane().getName_obekt_na_izpitvane();
 	volSampleView[i][2] = sample.get(i).getDescription_sample();
 	volSampleView[i][3] = sample.get(i).getDate_time_reference();
-	volSampleView[i][4] = sample.get(i).getPeriod().getValue();
+	String str = "";
+	if (sample.get(i).getPeriod()!=null) {
+		str = sample.get(i).getPeriod().getValue();
+	}
+	volSampleView[i][4] = str;
 	volSampleView[i][5] = sample.get(i).getGodina_period()+"";
 
 }
@@ -386,6 +394,17 @@ return volSampleView;
 	int cout_str = strTamplate.length();
 	
 	return strTamplate.substring(0, cout_str - 1);
+	}
+	
+	public static String DateNaw(Boolean whiteTime) {
+		String dateNaw = null;
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
+		if (whiteTime)
+			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+
+		dateNaw = sdf.format(Calendar.getInstance().getTime());
+
+		return dateNaw;
 	}
 	
 	public static String[] getStringMassiveI_N_D() {

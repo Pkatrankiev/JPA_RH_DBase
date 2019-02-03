@@ -26,13 +26,7 @@ import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
 
 public class AplicationDocTemplate {
-	public static Map<String, String> getMap() {
-
-		Map<String, String> repl1 = new HashMap<String, String>();
-
-		repl1.put("gamma", "123456789");
-		return repl1;
-	}
+	
 
 	// zarejdame dokumenta
 	public static WordprocessingMLPackage getTemplate(String name) throws Docx4JException, FileNotFoundException {
@@ -47,7 +41,7 @@ public class AplicationDocTemplate {
 	}
 
 	// izvlichame vsichki elementi
-	private static List<Object> getAllElementFromObject(Object obj, Class<?> toSearch) {
+	public static List<Object> getAllElementFromObject(Object obj, Class<?> toSearch) {
 		List<Object> result = new ArrayList<Object>();
 		if (obj instanceof JAXBElement)
 			obj = ((JAXBElement<?>) obj).getValue();
@@ -97,6 +91,15 @@ public class AplicationDocTemplate {
 
 	}
 
+	// iztrivane na tablica
+		public static void removeTable(WordprocessingMLPackage template, Tbl table) {
+			Body body = template.getMainDocumentPart().getJaxbElement().getBody();
+			body.getContent().remove(table.getParent());
+				}
+
+			
+
+	
 	// popalvane na paragraph
 	public static void replaceParagraph(P paragraph, Map<String, String> replacements) {
 		List<?> textElements = getAllElementFromObject(paragraph, Text.class);
@@ -112,7 +115,7 @@ public class AplicationDocTemplate {
 	}
 
 	// zamestvame
-	public static void replacePlaceholder(WordprocessingMLPackage template, Map<String, String> replacements) {
+	public static void replaceBasicValueInDoc(WordprocessingMLPackage template, Map<String, String> replacements) {
 		List<?> texts = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
 
 		for (Object text : texts) {
@@ -132,64 +135,25 @@ public class AplicationDocTemplate {
 
 		try {
 			template.save(f);
+			
 		} catch (Docx4JException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
 
-	static Tbl MapTable(WordprocessingMLPackage template, ArrayList<Map<String, String>> listValue,
-			String[] colummVariable, List<P> listParag) {
-		Tbl tempTable = null;
-		try {
-			tempTable = replaceTable(colummVariable, listValue, template, listParag);
-		} catch (Docx4JException | JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return tempTable;
-	}
 
-	// popalvane na tablica
-	public static Tbl replaceTable(String[] placeholders, List<Map<String, String>> textToAdd,
-			WordprocessingMLPackage template, List<P> listParag) throws Docx4JException, JAXBException {
-
-		List<Object> tables = getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
-		System.out.println("ddddddddddddddddddddd");
-		// 1. find the table
-		Tbl tempTable = getTemplateTable(tables, placeholders[0]);
-		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
-//		Tbl newTempTable = new Tbl();
-		Tr headerRow1 = (Tr) rows.get(0);
-		Tr headerRow2 = (Tr) rows.get(1);
-		Tr headerRow3 = (Tr) rows.get(2);
-		Tr templateRow = (Tr) rows.get(3);
-		tempTable.getContent().remove(templateRow);
-		Boolean fl = true;
-		tempTable.getContent().remove(headerRow3);
-		if (fl) {
-
-			addRowToTable(tempTable, headerRow3, getMap());
-		}
-		int k = 0;
-		for (Map<String, String> replacements : textToAdd) {
-			if (k == 10) {
-
-				System.out.println("tttttttttttttttttttttttttttttttttttttttttttttt");
+	public static Tr getRowEqualsText(List<Object> rows, String templateKey) {
+		for (Object row : rows) {
+			List<Object> text = getAllElementFromObject(row, Text.class);
+			for (Object str : text) {
+				Text textElement = (Text) str;
+				if (textElement.getValue() != null && textElement.getValue().equals(templateKey))
+					return (Tr) row;
 			}
-			if (0 == (k % 5) && k != 0) {
-
-				addRowToTable(tempTable, headerRow1, replacements);
-				addRowToTable(tempTable, headerRow2, replacements);
-
-			}
-
-			addRowToTable(tempTable, templateRow, replacements);
-
-			k++;
-
 		}
-		return tempTable;
+		
+		return null;
 	}
 
 	// popalwane na nova tablica
@@ -197,7 +161,7 @@ public class AplicationDocTemplate {
 			List<Map<String, String>> textToAdd) throws Docx4JException, JAXBException {
 
 		tempTable = creatTable(template);
-		addRowToTable(tempTable, templateRow.get(0), getMap());
+//		addRowToTable(tempTable, templateRow.get(0), getMap());
 
 		// first row is header, second row is content
 
@@ -267,16 +231,14 @@ public class AplicationDocTemplate {
 		List<Tr> listTempRow = new ArrayList<Tr>();
 
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
-//		Tbl newTempTable = new Tbl();
-		listTempRow.add((Tr) rows.get(0));
-		listTempRow.add((Tr) rows.get(1));
-		listTempRow.add((Tr) rows.get(2));
-		listTempRow.add((Tr) rows.get(3));
+		for (int i = 0; i < rows.size(); i++) {
+			listTempRow.add((Tr) rows.get(i));
+		}
 		return listTempRow;
 	}
 
 	// dobavqne na nov red kym tablicata
-	private static void addRowToTable(Tbl reviewtable, Tr templateRow, Map<String, String> replacements) {
+	public static void addRowToTable(Tbl reviewtable, Tr templateRow, Map<String, String> replacements) {
 		Tr workingRow = (Tr) XmlUtils.deepCopy(templateRow);
 		List<?> textElements = getAllElementFromObject(workingRow, Text.class);
 		for (Object object : textElements) {
@@ -290,7 +252,7 @@ public class AplicationDocTemplate {
 		reviewtable.getContent().add(workingRow);
 	}
 
-	private static Tbl getTemplateTable(List<Object> tables, String templateKey) throws Docx4JException, JAXBException {
+	public static Tbl getTemplateTable(List<Object> tables, String templateKey) throws Docx4JException, JAXBException {
 		for (Iterator<Object> iterator = tables.iterator(); iterator.hasNext();) {
 			Object tbl = iterator.next();
 			List<?> textElements = getAllElementFromObject(tbl, Text.class);

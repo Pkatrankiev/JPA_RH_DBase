@@ -36,8 +36,7 @@ import WindowViewAplication.DocxMainpulator;
 
 public class RequestViewAplication {
 
-	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME(); 
+	
 	
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;
@@ -195,16 +194,7 @@ public class RequestViewAplication {
 
 	
 	
-	public static String DateNaw(Boolean whiteTime) {
-		String dateNaw = null;
-		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
-		if (whiteTime)
-			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
-
-		dateNaw = sdf.format(Calendar.getInstance().getTime());
-
-		return dateNaw;
-	}
+	
 
 	public static MaskFormatter createFormatter(String s) {
 		MaskFormatter formatter = null;

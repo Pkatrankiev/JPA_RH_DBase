@@ -319,7 +319,7 @@ public class RequestView extends JDialog  {
 		txtFld_Date_Request = new JTextField();
 		txtFld_Date_Request.setColumns(8);
 		
-		txtFld_Date_Request.setText(RequestViewAplication.DateNaw(false));
+		txtFld_Date_Request.setText(RequestViewFunction.DateNaw(false));
 		txtFld_Date_Request.addKeyListener(new KeyListener() {
 
 			@Override
@@ -992,7 +992,7 @@ public class RequestView extends JDialog  {
 		p.add(lbl_date_reception, gbc_lbl_date_reception);
 
 	
-		txtFld_date_reception = new JTextField(RequestViewAplication.DateNaw(false));
+		txtFld_date_reception = new JTextField(RequestViewFunction.DateNaw(false));
 		txtFld_date_reception.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1362,7 +1362,7 @@ public class RequestView extends JDialog  {
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
-		String str_templ = RequestViewAplication.DateNaw(true);
+		String str_templ = RequestViewFunction.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
 				izpitvan_produkt, razmernosti, zabelejki, null, obekt_na_izpitvane_request);

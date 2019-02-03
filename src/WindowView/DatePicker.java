@@ -351,8 +351,8 @@ public class DatePicker {
 			if (calDay.get(Calendar.DAY_OF_WEEK) == 7 || calDay.get(Calendar.DAY_OF_WEEK) == 1)
 				button[x].setForeground(Color.red);
 
-			if (RequestViewAplication.DateNaw(false).equals(sdfDay.format(calDay.getTime()))) {
-				System.out.println(RequestViewAplication.DateNaw(false) + " " + sdfDay.format(calDay.getTime()));
+			if (RequestViewFunction.DateNaw(false).equals(sdfDay.format(calDay.getTime()))) {
+				System.out.println(RequestViewFunction.DateNaw(false) + " " + sdfDay.format(calDay.getTime()));
 				button[x].setBackground(Color.CYAN);
 			}
 		}

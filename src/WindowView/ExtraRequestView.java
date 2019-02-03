@@ -356,7 +356,7 @@ public class ExtraRequestView extends JDialog {
 		txtFld_Date_Request = new JTextField();
 		txtFld_Date_Request.setColumns(8);
 
-		txtFld_Date_Request.setText(RequestViewAplication.DateNaw(false));
+		txtFld_Date_Request.setText(RequestViewFunction.DateNaw(false));
 		txtFld_Date_Request.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1256,7 +1256,7 @@ public class ExtraRequestView extends JDialog {
 		p.add(lbl_date_reception, gbc_lbl_date_reception);
 
 		// TODO txtFld_date_reception (дата на приемане)
-		txtFld_date_reception = new JTextField(RequestViewAplication.DateNaw(false));
+		txtFld_date_reception = new JTextField(RequestViewFunction.DateNaw(false));
 		txtFld_date_reception.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1641,7 +1641,7 @@ public class ExtraRequestView extends JDialog {
 
 	private Request createAndSaveRequestTamplate() {
 		Request recuest = createRequestObject();
-		String str_templ = RequestViewAplication.DateNaw(true);
+		String str_templ = RequestViewFunction.DateNaw(true);
 
 		recuest.setRecuest_code("templ" + str_templ);
 		recuest.setDate_request("");

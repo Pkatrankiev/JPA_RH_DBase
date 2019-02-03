@@ -152,27 +152,5 @@ public class Main_Aplication {
 		win.WindowNew();
 	}
 
-	public static String alignExpon(double basic, double foll) {
-		NumberFormat frm = new DecimalFormat("0.00E00");
-		NumberFormat frm_foll = new DecimalFormat("0.00");
-		String str_bas = frm.format(basic);
-		double expon = Double.valueOf("1.0" + str_bas.substring(str_bas.indexOf("E")));
-		foll = foll / expon;
-		String str_foll = frm_foll.format(foll) + str_bas.substring(str_bas.indexOf("E"));
-		if (!str_foll.contains("E-")) { // don't blast a negative sign
-			str_foll = str_foll.replace("E", "E+");
-		}
-		str_foll = str_foll.replace(",", ".");
-		return str_foll;
-	}
 
-	private static String formatter(double number) {
-		DecimalFormat formatter = new DecimalFormat("0.00E00");
-		String fnumber = formatter.format(number);
-		if (!fnumber.contains("E-")) { // don't blast a negative sign
-			fnumber = fnumber.replace("E", "E+");
-		}
-		fnumber = fnumber.replace(",", ".");
-		return fnumber;
-	}
 }

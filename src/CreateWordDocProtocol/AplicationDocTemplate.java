@@ -113,6 +113,20 @@ public class AplicationDocTemplate {
 
 		}
 	}
+	
+	// popalvane na paragraph
+		public static void replaceTable(Tbl paragraph, Map<String, String> replacements) {
+			List<?> textElements = getAllElementFromObject(paragraph, Text.class);
+			for (Object text : textElements) {
+
+				// Text text = (Text) object;
+				String replacementValue = replacements.get(((Text) text).getValue());
+				System.out.println(text.toString() + "  " + replacementValue);
+				if (replacementValue != null)
+					((Text) text).setValue(replacementValue);
+
+			}
+		}
 
 	// zamestvame
 	public static void replaceBasicValueInDoc(WordprocessingMLPackage template, Map<String, String> replacements) {
@@ -142,7 +156,13 @@ public class AplicationDocTemplate {
 		}
 	}
 
-
+	public static Map<String, String> createEmptiMap(String str) {
+	    Map<String,String> myMap = new HashMap<String,String>();
+	    myMap.put(str, "");
+	    return myMap;
+	}
+	
+	
 	public static Tr getRowEqualsText(List<Object> rows, String templateKey) {
 		for (Object row : rows) {
 			List<Object> text = getAllElementFromObject(row, Text.class);
@@ -157,8 +177,8 @@ public class AplicationDocTemplate {
 	}
 
 	// popalwane na nova tablica
-	public static void replaceInNewTable(WordprocessingMLPackage template, Tbl tempTable, List<Tr> templateRow,
-			List<Map<String, String>> textToAdd) throws Docx4JException, JAXBException {
+	public static void replaceInNewTable(WordprocessingMLPackage template, Tbl tempTable, Tr templateRow,
+			Map<String, String> textToAdd) throws Docx4JException, JAXBException {
 
 		tempTable = creatTable(template);
 //		addRowToTable(tempTable, templateRow.get(0), getMap());
@@ -166,14 +186,17 @@ public class AplicationDocTemplate {
 		// first row is header, second row is content
 
 		int k = 0;
-		for (Map<String, String> replacements : textToAdd) {
+		for (int i = 0; i < 5; i++) {
+			
+//		}
+//		for (Map<String, String> replacements : textToAdd) {
 
-			if (0 == (k % 5) && k != 0) {
-				addRowToTable(tempTable, templateRow.get(0), replacements);
-				addRowToTable(tempTable, templateRow.get(1), replacements);
-			}
+//			if (0 == (k % 5) && k != 0) {
+//				addRowToTable(tempTable, templateRow.get(0), replacements);
+//				addRowToTable(tempTable, templateRow.get(1), replacements);
+//			}
 
-			addRowToTable(tempTable, templateRow.get(3), replacements);
+			addRowToTable(tempTable, templateRow, textToAdd);
 
 			k++;
 
@@ -293,5 +316,9 @@ public class AplicationDocTemplate {
 		wordMLPackage.getMainDocumentPart().addObject(paragraph);
 
 	}
+	public static void addTable(WordprocessingMLPackage wordMLPackage, Tbl table) {
 
+		wordMLPackage.getMainDocumentPart().addObject(table);
+
+	}
 }

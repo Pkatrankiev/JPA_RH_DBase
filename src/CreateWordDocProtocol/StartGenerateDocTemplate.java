@@ -3,6 +3,7 @@ package CreateWordDocProtocol;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -13,13 +14,17 @@ import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
 import org.apache.log4j.*;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.docx4j.jaxb.Context;
+import org.docx4j.model.properties.table.BorderBottom;
+import org.docx4j.model.properties.table.BorderLeft;
+import org.docx4j.model.properties.table.BorderRight;
+import org.docx4j.model.properties.table.BorderTop;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.StyleDefinitionsPart;
 import org.docx4j.wml.*;
-import org.docx4j.wml.P;
-import org.docx4j.wml.Tbl;
-import org.docx4j.wml.Tr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
 
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
@@ -41,12 +46,11 @@ public class StartGenerateDocTemplate {
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData) {
 		BasicConfigurator.configure();
-		int max_tableRow=100;
+	
 		nameTaplateProtokol = TEMPLATE_DIRECTORY_ROOT + nameTaplateProtokol;
 		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$sample_metod$$", "$$nuclide$$",
 				"$$razmernost$$", "$$value$$", "$$norma$$" };
-		ArrayList<Map<String, String>> listValue = new ArrayList<Map<String, String>>();
-		Map<String, String> repl = new HashMap<String, String>();
+				
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		
 		int count_Result_In_Protokol = get_count_Result_In_Protokol(smple_list);
@@ -72,10 +76,7 @@ public class StartGenerateDocTemplate {
 		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "##$$%%");
 		
-//		ArrayList<P> listParag = new ArrayList<P>();
-//		listParag.add(pargraphTemplateProtokol);
-//		listParag.add(pargraphTemplateZ);
-//		listParag.add(pargraphTemplateT);
+
 		AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
 
 		// izvlichane na tablicite ot documenta
@@ -83,10 +84,12 @@ public class StartGenerateDocTemplate {
 
 		// find the table
 		Tbl tempTable = null;
-		
+		Tbl podpisiTable = null;
+		Tbl zabTable = null;
 		try {
 			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_column_table_result[0]);
-			
+			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Извършили изпитването:");
+			zabTable = AplicationDocTemplate.getTemplateTable(tables, "$$%%");
 			
 		} catch (Docx4JException | JAXBException e3) {
 			e3.printStackTrace();
@@ -101,10 +104,15 @@ public class StartGenerateDocTemplate {
 		Tr templateRow_pokazatel = AplicationDocTemplate.getRowEqualsText(rows, "$$request_pokazarel$$");
 		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_column_table_result[0]);
 		
-		TblBorders border = tempTable.getTblPr().getTblBorders();
+	
+		
+     
+		
+		
+		
 		tempTable.getContent().remove(templateRow);
 		tempTable.getContent().remove(templateRow_pokazatel);
-		Tbl basicTable = tempTable;
+		
 		AplicationDocTemplate.removeTable(template,(Tbl) tables.get(2));
 		AplicationDocTemplate.removeTable(template,(Tbl) tables.get(3));
 		
@@ -125,65 +133,51 @@ public class StartGenerateDocTemplate {
 			for (Sample sample : smple_list) {
 				result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 				for (Results result : result_list) {
+					if(coutRow<7) {
 					if(result.getInProtokol()) {
 					repl_results = generateResultsMap(sample, result, masive_column_table_result);
 					AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
 					coutRow++;
 					}
-					if(coutRow>7) {
-						coutRow=0;
-						
-						AplicationDocTemplate.addParagraph(template,pargraphTemplateNewPage);
-						AplicationDocTemplate.addParagraph(template, pargraphTemplateProtokol);
-						AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
-						
-						tempTable = AplicationDocTemplate.creatTable(template);
-						tempTable.getTblPr().setTblBorders(border);
-						AplicationDocTemplate.addRowToTable(tempTable, headerRow_1, repl_results);
-						
-//						AplicationDocTemplate.addParagraph(template, pargraphTemplateText);
-//						ObjectFactory factory = Context.getWmlObjectFactory();
-//						
-//						P br = factory.createP(); // this Br element is used break the current and go for next line
-//						AplicationDocTemplate.addParagraph(template, br);
-//						tempTable = basicTable;
-//						template.getMainDocumentPart().addObject(tempTable);
-//						count_Result_In_Protokol = count_Result_In_Protokol-coutRow;
-//						maxCounRow = countRowInFirstPege(count_Result_In_Protokol);
 					}
 				}
 
 			}
-		}
+			
+					
+				AplicationDocTemplate.addParagraph(template,pargraphTemplateNewPage);
+				AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow,  AplicationDocTemplate.createEmptiMap( "#$%"));
+				
+				AplicationDocTemplate.addParagraph(template, pargraphTemplateProtokol);
+				AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
+				
+				AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+				AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow,  AplicationDocTemplate.createEmptiMap("##$$%%"));
+				
+				AplicationDocTemplate.addParagraph(template, pargraphTemplateText);
+				
+				AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+				AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow,  AplicationDocTemplate.createEmptiMap("##$$%%"));
+				
+				  // Copying a existing table 
+				ObjectFactory factory = Context.getWmlObjectFactory();
+				Tbl new_table =  AplicationDocTemplate.creatTable(template); // Create a new CTTbl for the new table 
+				new_table.setTblPr(tempTable.getTblPr()); // Copy the template table's CTTbl 
 
-//		try {
-//			AplicationDocTemplate.getListRowFromTamplate(tempTable);
-//		} catch (Docx4JException | JAXBException e1) {
-//
-//			e1.printStackTrace();
-//		}
-		
-//		P p = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
+				AplicationDocTemplate.addRowToTable(new_table, headerRow_1, repl_results);
+				AplicationDocTemplate.addRowToTable(new_table, headerRow_2, repl_results);
+				for (int i = 0; i < 5; i++) {
+											
+					AplicationDocTemplate.addRowToTable(new_table, templateRow, repl_results);
+					
+					}		
+				
 
-//		try {
-////			GenerateWordDocTemplate.insertParag(template, "##$$%%", pargraphTemplateT );
-//			AplicationDocTemplate.insertTable(template, "##$$%%", tempTable);
-//			AplicationDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateZ);
-//			AplicationDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateD);
-//			AplicationDocTemplate.insertParagraph(template, "##$$%%", pargraphTemplateT);
-//
-//		} catch (Exception e2) {
-//
-//			e2.printStackTrace();
-//		}
-
-//		try {
-//			
-//			GenerateWordDocTemplate.replaceInNewTable(template, tempTable, listRow, listValue	);
-//		} catch (Docx4JException | JAXBException e1) {
-//		 
-//			e1.printStackTrace();
-//		}
+			}
+		AplicationDocTemplate.addTable(template, zabTable);
+			AplicationDocTemplate.addTable(template, podpisiTable);
+			AplicationDocTemplate.replaceTable(zabTable,  AplicationDocTemplate.createEmptiMap("$$%%"));
+			
 
 		try {
 			String newNameProtokol = recuest.getRecuest_code()+"_"+ RequestViewFunction.DateNaw(false)+".docx";
@@ -212,6 +206,27 @@ public class StartGenerateDocTemplate {
 		return max_tableRow;
 	}
 
+	private static void addBorders(Tbl table) {
+	    table.setTblPr(new TblPr());
+	    CTBorder border = new CTBorder();
+	    border.setColor("auto");
+	    border.setSz(new BigInteger("4"));
+	    border.setSpace(new BigInteger("0"));
+	    border.setVal(STBorder.SINGLE);
+	 
+	    TblBorders borders = new TblBorders();
+	    borders.setBottom(border);
+	    borders.setLeft(border);
+	    borders.setRight(border);
+	    borders.setTop(border);
+	    borders.setInsideH(border);
+	    borders.setInsideV(border);
+	    table.getTblPr().setTblBorders(borders);
+	}
+	
+
+	
+	
 	public static int get_count_Result_In_Protokol(List<Sample> smple_list) {
 		int count_Result_In_Protokol = 0;
 		for (Sample sample : smple_list) {

@@ -165,26 +165,45 @@ public class ReadGamaFile {
 	
 	public static Results[] getMasivResultsWithAktiv(){
 		String[][] masiveActiveResults = getMasivNuclideAktiv();
-		Results[] masiveResults = new Results[masiveActiveResults.length];
-		for (int i = 0; i < masiveResults.length; i++) {
-			masiveResults[i] = new Results();
-			masiveResults[i].setNuclide(NuclideDAO.getValueNuclideBySymbol(masiveActiveResults[i][0]));
-			masiveResults[i].setValue_result(Double.parseDouble(masiveActiveResults[i][1]));
-			masiveResults[i].setUncertainty(Double.parseDouble(masiveActiveResults[i][2]));
-			masiveResults[i].setMda(Double.parseDouble(masiveActiveResults[i][3]));
-			masiveResults[i].setUser_measur(getUserFromFile());
-			masiveResults[i].setDate_measur(date_mesur);
-			masiveResults[i].setDate_chim_oper("");
-			if(quantity.length()>0){
-				masiveResults[i].setQuantity(Double.parseDouble(quantity));	
-				masiveResults[i].setDimension(DimensionDAO.getValueDimensionByName(dimension));
-				masiveResults[i].setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/"+dimension));
-			}else{
-				masiveResults[i].setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
-			}
-			masiveResults[i].setSigma(Integer.parseInt(sigma.trim().substring(0, sigma.indexOf("."))));
+		List<Results> listResults = new ArrayList<Results>();
+	
+		
+		for (int i = 0; i < masiveActiveResults.length; i++) {
+			try {
+				Double.parseDouble(masiveActiveResults[i][1]);
+			
+				Results results = new Results();
+				results.setNuclide(NuclideDAO.getValueNuclideBySymbol(masiveActiveResults[i][0]));
+				results.setValue_result(Double.parseDouble(masiveActiveResults[i][1]));
+				results.setUncertainty(Double.parseDouble(masiveActiveResults[i][2]));
+				results.setMda(Double.parseDouble(masiveActiveResults[i][3]));
+				results.setUser_measur(getUserFromFile());
+				results.setDate_measur(date_mesur);
+				results.setDate_chim_oper("");
+				if(quantity.length()>0){
+					results.setQuantity(Double.parseDouble(quantity));	
+					results.setDimension(DimensionDAO.getValueDimensionByName(dimension));
+					results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/"+dimension));
+				}else{
+					results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
+				}
+				results.setSigma(Integer.parseInt(sigma.trim().substring(0, sigma.indexOf("."))));
+				listResults.add(results);
+			
+			} catch (NumberFormatException e) {
+				
+				
+						}
+		
 		}
-		return masiveResults;
+	
+			Results [] masiveResultsnew = new Results[listResults.size()];
+			for (int j = 0; j < masiveResultsnew.length; j++) {
+				masiveResultsnew[j]=listResults.get(j);
+			}
+					
+				
+		return masiveResultsnew;
 		}
 
 	
@@ -294,7 +313,7 @@ public class ReadGamaFile {
 					}
 				}
 			} else {
-				if (flagNuclidy == 3) {
+				if (flagNuclidy == 3 || flagNuclidy == 5 || flagNuclidy == 7) {
 					countLineToNuclide++;
 					if (countLineToNuclide > 2) {
 						if (stringLine[j].length != 0) {

@@ -205,7 +205,7 @@ public class RequestDAO {
 			System.out.println("Num Ind_num_doc:" + listId.size());
 			max = listId.size();
 			ran = min + (int) (Math.random() * ((max - min) + 1));
-			Ind_num_doc ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(ran);
+			Ind_num_doc ind_num_doc = Ind_num_docDAO.getValueInd_num_docById(ran);
 			System.out.println("Name Ind_num_doc:" + ind_num_doc.getName());
 
 			// Get random Izpitvan_produkt object
@@ -303,7 +303,7 @@ public class RequestDAO {
 		System.out.println("Num Ind_num_doc:" + listId.size());
 		max = listId.size();
 		ran = min + (int) (Math.random() * ((max - min) + 1));
-		Ind_num_doc ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(ran);
+		Ind_num_doc ind_num_doc = Ind_num_docDAO.getValueInd_num_docById(ran);
 		System.out.println("Name Ind_num_doc:" + ind_num_doc.getName());
 
 		// Get random Izpitvan_produkt object

@@ -538,7 +538,7 @@ public class SetDBfromWordDoc {
 
 		int sigma = 2;
 		if (section) {
-			ind_num_doc = Ind_num_docDAO.getValueInternal_applicantById(4);
+			ind_num_doc = Ind_num_docDAO.getValueInd_num_docById(4);
 			internal_aplicant = Internal_applicantDAO.getValueInternal_applicantById(1);
 		}
 		Razmernosti razmernost_recuest = RazmernostiDAO.getValueRazmernostiByName(razmernost[0]);

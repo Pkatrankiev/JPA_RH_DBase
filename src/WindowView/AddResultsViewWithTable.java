@@ -141,13 +141,10 @@ public class AddResultsViewWithTable extends JDialog {
 
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
-		// listDimension = DimensionDAO.getInListAllValueDimension();
-		// listRazmernost = RazmernostiDAO.getInListAllValueRazmernosti();
 		list_Users = UsersDAO.getInListAllValueUsers();
 		list_UsersNameFamily = UsersDAO.getListStringAllName_FamilyUsers(null);
 		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsers(PostDAO.getValuePostByName("ОИР"));
 		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsers(PostDAO.getValuePostByName("ОРХО"));
-		// listNuclide = NuclideDAO.getInListAllValueNuclide();
 		listSample = new ArrayList<Sample>();
 
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
@@ -286,9 +283,9 @@ public class AddResultsViewWithTable extends JDialog {
 
 			}
 		}
-		System.out.println(listCodeNuclide.size());
+	
 		List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
-		System.out.println(deDupStringList.size() + "  " + listCodeNuclide.size());
+		
 		if (deDupStringList.size() != listCodeNuclide.size()) {
 			corectCheck = false;
 		}
@@ -335,22 +332,19 @@ public class AddResultsViewWithTable extends JDialog {
 				listResultsForSave.add(results);
 			}
 		}
-		System.out.println(ListResultsFromDBase.size());
+		
 		for (Results results : ListResultsFromDBase) {
-		System.out.println(results.getNuclide().getSymbol_nuclide());
+		
 			listResultsForSave.add(results);
 		}
-		System.out.println("За изтриване:");
+	
 		for (Results results : listResultsForDelete) {
-			System.out.println(results.getNuclide().getSymbol_nuclide()+" "+results.getId_results());
+			
 			JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
 					JOptionPane.YES_NO_OPTION);
 			ResultsDAO.deleteResultsById(results.getId_results());
 		}
-		System.out.println("За запис:");
-		for (Results results : listResultsForSave) {
-			System.out.println(results.getNuclide().getSymbol_nuclide());
-		}
+;
 		
 		return listResultsForSave;
 	}
@@ -469,7 +463,7 @@ public class AddResultsViewWithTable extends JDialog {
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
 					ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
-					System.out.println(ReadGamaFile.getListNuclideMDA());
+					
 					if (ReadGamaFile.getListNuclideMDA() > 0) {
 						flagIncertedFile = true;
 					} else {
@@ -544,20 +538,22 @@ public class AddResultsViewWithTable extends JDialog {
 		masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Results[] masiveResultsActivFromFile = ReadGamaFile.getMasivResultsWithAktiv();
 		Results[] masiveResultsMDAFromFile = ReadGamaFile.getMasivResultsMDA(listSimbolBasicNuclide);
-
+		System.out.print(masiveResultsActivFromFile.length);
 		int countBigMasive = masiveResultsActivFromFile.length + masiveResultsMDAFromFile.length;
 		Object[][] tableResult = new Object[countBigMasive][tbl_Colum];
 
 		int k = 0;
 		for (int i = 0; i < masiveResultsActivFromFile.length; i++) {
 			tableResult[i] = rowWithValueResultsFromFile(masiveResultsActivFromFile[i]);
-			k = i;
-		}
-		if (k == 0)
-			k = -1;
-		for (int i = 0; i < masiveResultsMDAFromFile.length; i++) {
+//			k = i;
 			k++;
+		}
+//		if (k == 0)
+//			k = -1;
+		for (int i = 0; i < masiveResultsMDAFromFile.length; i++) {
+//			k++;
 			tableResult[k] = rowWithValueResultsFromFile(masiveResultsMDAFromFile[i]);
+			k++;
 
 		}
 
@@ -997,7 +993,7 @@ public class AddResultsViewWithTable extends JDialog {
 					boolean hasFocus, int row, int col) {
 
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-
+System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ table.getValueAt(row, 3).toString());
 				String s1 = table.getValueAt(row, 1).toString();
 				String s2 = table.getValueAt(row, 3).toString();
 
@@ -1180,9 +1176,7 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 
 					public int getRowCount() {
-						for (int i = 0; i < dataTable.length; i++) {
-							System.out.println(i);
-						}
+						
 						return dataTable.length;
 					}
 

@@ -54,7 +54,7 @@ public class Ind_num_docDAO {
 
 	@GET
 	@QueryParam("{id}")
-	public static Ind_num_doc getValueInternal_applicantById(@QueryParam("id") int id) {
+	public static Ind_num_doc getValueInd_num_docById(@QueryParam("id") int id) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -79,7 +79,7 @@ public class Ind_num_docDAO {
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
 		if (query.getResultList().isEmpty()) {
-			list = (Ind_num_doc) getValueInternal_applicantById(1);
+			list = (Ind_num_doc) getValueInd_num_docById(1);
 		} else
 			list = (Ind_num_doc) query.getSingleResult();
 		entitymanager.close();

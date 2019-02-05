@@ -51,9 +51,9 @@ public class Main_Aplication {
 
 		// MesejePanel();
 
-//		StartMainWindow();
+		StartMainWindow();
 		
-		startcreateProtokolDocx();
+//		startcreateProtokolDocx();
 
 	}
 

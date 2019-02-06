@@ -481,4 +481,96 @@ public class DatePicker {
 		return corDate;
 	}
 
+	public static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
+		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
+		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
+		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
+		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+		String globalSeparator = GlobalVariable.getSeparator();
+		SimpleDateFormat sdf;
+		String sss = "";
+		SimpleDateFormat table_sdf;
+		char separator = '.';
+		char separ = globalSeparator.charAt(0);
+		if (origin_date.contains("-")) {
+			separator = '-';
+		}
+		if (separator != separ) {
+			sss = FORMAT_DATE_TIME;
+			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
+			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
+		}
+
+		if (inTime) {
+			sss = TAB_FORMAT_DATE_TIME;
+			sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
+			table_sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+
+		} else {
+			sss = TAB_FORMAT_DATE;
+			sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
+			table_sdf = new SimpleDateFormat(FORMAT_DATE);
+		}
+
+		Date date = new Date();
+
+		try {
+			date = sdf.parse(origin_date);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		date = sdf.parse(origin_date);
+		return table_sdf.format(date);
+	}
+
+	public static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
+		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
+		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
+		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
+		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+		String globalSeparator = GlobalVariable.getSeparator();
+		SimpleDateFormat sdf;
+		String sss = "";
+		SimpleDateFormat table_sdf;
+		char separator = '.';
+		char separ = globalSeparator.charAt(0);
+		if (origin_date.contains("-")) {
+			separator = '-';
+		}
+
+		if (!origin_date.substring(0, 3).contains(".")) {
+			return origin_date;
+		}
+
+		if (separator != separ) {
+			sss = FORMAT_DATE_TIME;
+			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
+			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
+		}
+
+		if (inTime) {
+			sss = FORMAT_DATE_TIME;
+			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
+
+		} else {
+			sss = FORMAT_DATE;
+			sdf = new SimpleDateFormat(FORMAT_DATE);
+			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
+		}
+
+		Date date = new Date();
+
+		try {
+			date = sdf.parse(origin_date);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		date = sdf.parse(origin_date);
+		return table_sdf.format(date);
+	}
 }

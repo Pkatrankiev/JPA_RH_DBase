@@ -407,7 +407,7 @@ public class Table_Request_List extends JDialog {
 					}
 				}
 				}
-				tableRequest[i][rqst_Date_Colum] = formatToTabDate(request.getDate_request(), false);
+				tableRequest[i][rqst_Date_Colum] = DatePicker.formatToTabDate(request.getDate_request(), false);
 				// tableRequest[i][rqst_Date_Colum ] =
 				// request.getDate_request();
 				tableRequest[i][izp_Prod_Colum] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
@@ -417,8 +417,8 @@ public class Table_Request_List extends JDialog {
 				tableRequest[i][cunt_Smpl_Colum] = request.getCounts_samples();
 				tableRequest[i][dscr_Smpl_Colum] = request.getDescription_sample_group();
 				tableRequest[i][ref_Date_Colum] = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSample);
-				tableRequest[i][exec_Date_Colum] = formatToTabDate(request.getDate_execution(), false);
-				tableRequest[i][rcpt_Date_Colum] = formatToTabDate(request.getDate_reception(), false);
+				tableRequest[i][exec_Date_Colum] = DatePicker.formatToTabDate(request.getDate_execution(), false);
+				tableRequest[i][rcpt_Date_Colum] = DatePicker.formatToTabDate(request.getDate_reception(), false);
 				tableRequest[i][user_Colum] = request.getUsers().getName_users() + " "
 						+ request.getUsers().getFamily_users();
 				String zab = "";
@@ -453,98 +453,7 @@ public class Table_Request_List extends JDialog {
 		return tableHeader;
 	}
 
-	private static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
-		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
-		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
-		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
-		String globalSeparator = GlobalVariable.getSeparator();
-		SimpleDateFormat sdf;
-		String sss = "";
-		SimpleDateFormat table_sdf;
-		char separator = '.';
-		char separ = globalSeparator.charAt(0);
-		if (origin_date.contains("-")) {
-			separator = '-';
-		}
-		if (separator != separ) {
-			sss = FORMAT_DATE_TIME;
-			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
-			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
-		}
 
-		if (inTime) {
-			sss = TAB_FORMAT_DATE_TIME;
-			sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
-			table_sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
-
-		} else {
-			sss = TAB_FORMAT_DATE;
-			sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
-			table_sdf = new SimpleDateFormat(FORMAT_DATE);
-		}
-
-		Date date = new Date();
-
-		try {
-			date = sdf.parse(origin_date);
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-		date = sdf.parse(origin_date);
-		return table_sdf.format(date);
-	}
-
-	private static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
-		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
-		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
-		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
-		String globalSeparator = GlobalVariable.getSeparator();
-		SimpleDateFormat sdf;
-		String sss = "";
-		SimpleDateFormat table_sdf;
-		char separator = '.';
-		char separ = globalSeparator.charAt(0);
-		if (origin_date.contains("-")) {
-			separator = '-';
-		}
-
-		if (!origin_date.substring(0, 3).contains(".")) {
-			return origin_date;
-		}
-
-		if (separator != separ) {
-			sss = FORMAT_DATE_TIME;
-			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
-			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
-		}
-
-		if (inTime) {
-			sss = FORMAT_DATE_TIME;
-			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
-			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
-
-		} else {
-			sss = FORMAT_DATE;
-			sdf = new SimpleDateFormat(FORMAT_DATE);
-			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
-		}
-
-		Date date = new Date();
-
-		try {
-			date = sdf.parse(origin_date);
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-		date = sdf.parse(origin_date);
-		return table_sdf.format(date);
-	}
 
 	private static void EditColumnUser(Object value, int row) {
 		String valueStr = value + "";
@@ -630,7 +539,7 @@ public class Table_Request_List extends JDialog {
 
 	private static void updateRequestObject(JTable table, int row, Request request) {
 		try {
-			request.setDate_request(reformatFromTabDate(table.getValueAt(row, rqst_Date_Colum) + "", false));
+			request.setDate_request(DatePicker.reformatFromTabDate(table.getValueAt(row, rqst_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
@@ -645,7 +554,7 @@ public class Table_Request_List extends JDialog {
 		request.setCounts_samples((int) table.getValueAt(row, cunt_Smpl_Colum));
 		request.setDescription_sample_group(table.getValueAt(row, dscr_Smpl_Colum) + "");
 		try {
-			request.setDate_execution(reformatFromTabDate(table.getValueAt(row, exec_Date_Colum) + "", false));
+			request.setDate_execution(DatePicker.reformatFromTabDate(table.getValueAt(row, exec_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
@@ -653,7 +562,7 @@ public class Table_Request_List extends JDialog {
 		}
 		;
 		try {
-			request.setDate_reception(reformatFromTabDate(table.getValueAt(row, rcpt_Date_Colum) + "", false));
+			request.setDate_reception(DatePicker.reformatFromTabDate(table.getValueAt(row, rcpt_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);

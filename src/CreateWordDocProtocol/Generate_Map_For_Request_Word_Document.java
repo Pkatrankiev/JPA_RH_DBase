@@ -46,6 +46,7 @@ public class Generate_Map_For_Request_Word_Document {
 		try {
 			maxDate = DatePicker.reformatFromTabDate(maxDate,false);
 			minDate = DatePicker.reformatFromTabDate(minDate,false);
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +118,6 @@ public class Generate_Map_For_Request_Word_Document {
 		
 		substitutionData.put ("$$date_measur$$", minDate + " - " +  maxDate);
 
-		
 		if (request.getUsers() != null) {
 			substitutionData.put("$$user$$",
 					request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());

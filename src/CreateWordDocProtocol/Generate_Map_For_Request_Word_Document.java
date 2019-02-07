@@ -126,9 +126,7 @@ public class Generate_Map_For_Request_Word_Document {
 		return substitutionData;
 
 	}
-
-	
-	
+		
 	private static String[] generate_zabelejki_Masive_String(Request request) {
 		String txt;
 		String[] zabelejki = new String[2];

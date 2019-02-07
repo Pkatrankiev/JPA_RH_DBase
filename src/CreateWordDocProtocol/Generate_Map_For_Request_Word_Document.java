@@ -191,6 +191,7 @@ public class Generate_Map_For_Request_Word_Document {
 
 		max = 45;
 		txt = descrip_sam_gr_str + "\n " + samp_str;
+
 		if (txt.length() >= max) {
 			int i = max;
 			while (i > 0) {
@@ -205,11 +206,11 @@ public class Generate_Map_For_Request_Word_Document {
 
 		max = 80;
 		String counts_sample_str = str_1;
-
+		
 		String[] desk_samp_str = new String[3];
 
 		desk_samp_str[0] = str_2;
-
+		
 		desk_samp_str[1] = "";
 		desk_samp_str[2] = "";
 		for (int k = 0; k < 3; k++) {
@@ -235,6 +236,86 @@ public class Generate_Map_For_Request_Word_Document {
 		count_description_sample_group[3] = desk_samp_str[2];
 		return count_description_sample_group;
 	}
+
+//	private static String[] generate_description_sample_group_Masive_String(Request request,
+//			String[][] sample_description) {
+//		String txt;
+//		String[] count_description_sample_group = new String[2];
+//		String str_1 = "";
+//		String str_2 = "";
+//		int max;
+//		int count = request.getCounts_samples();
+//		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ");
+//		
+//		Boolean period_fl = false;
+//		for (int k = 0; k < count; k++) {
+//			String check_period_str = sample_description[k][4];
+//			for (int i = 0; i < count; i++) {
+//				if (!sample_description[i][4].equals(check_period_str))
+//					period_fl = true;
+//			}
+//		}
+//		if(period_fl||!sample_description[0][4].equals("")) {
+//		 	descrip_sam_gr_str =  descrip_sam_gr_str+ " на "+sample_description[0][5]+ "г.  ";
+//		}
+//		String samp_str = "";
+//
+//		for (int i = 0; i < count; i++) {
+//			samp_str = samp_str + sample_description[i][0] + " / ";
+//			samp_str = samp_str + sample_description[i][1] + ", ";
+//			samp_str = samp_str + sample_description[i][2] + ", ";
+//	
+//			if (period_fl)
+//				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
+//		}
+//
+//		max = 45;
+//		txt = descrip_sam_gr_str + "\n " + samp_str;
+//>>>>>>> branch 'master' of https://github.com/Pkatrankiev/JPA_RH_DBase.git
+//		if (txt.length() >= max) {
+//			int i = max;
+//			while (i > 0) {
+//				if (txt.substring(i - 1, i).equals(" ")) {
+//					str_1 = txt.substring(0, i);
+//					str_2 = txt.substring(i, txt.length());
+//					i = 0;
+//				}
+//				i--;
+//			}
+//		}
+//
+//		max = 80;
+//		String counts_sample_str = str_1;
+//
+//		String[] desk_samp_str = new String[3];
+//
+//		desk_samp_str[0] = str_2;
+//
+//		desk_samp_str[1] = "";
+//		desk_samp_str[2] = "";
+//		for (int k = 0; k < 3; k++) {
+//			if (desk_samp_str[k].length() >= max) {
+//				int i = max;
+//				while (i > 0) {
+//
+//					if (desk_samp_str[k].substring(i - 1, i).equals(" ")) {
+//						String ss = desk_samp_str[k];
+//						desk_samp_str[k] = ss.substring(0, i);
+//						if (k < 2)
+//							desk_samp_str[k + 1] = ss.substring(i, ss.length());
+//						i = 0;
+//					}
+//					i--;
+//				}
+//			}
+//		}
+//
+//		count_description_sample_group[0] = counts_sample_str;
+//		count_description_sample_group[1] = desk_samp_str[0];
+//		count_description_sample_group[2] = desk_samp_str[1];
+//		count_description_sample_group[3] = desk_samp_str[2];
+//		return count_description_sample_group;
+//	}
 
 	private static String[] generate_description_sample_group_protokol(Request request, String[][] sample_description) {
 		String txt;
@@ -316,6 +397,7 @@ public class Generate_Map_For_Request_Word_Document {
 		return count_description_sample_group;
 	}
 
+	
 	private static String[] generate_pokazatel_razmernost_Masive_String(Request request,
 			String list_izpitvan_pokazatel) {
 		String[] pokazatel_razmernost = new String[2];

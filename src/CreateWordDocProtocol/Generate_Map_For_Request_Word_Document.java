@@ -13,7 +13,7 @@ import java.util.Map;
 
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
-import Aplication.TeSeI_DAO;
+import Aplication.TSI_DAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -125,7 +125,7 @@ public class Generate_Map_For_Request_Word_Document {
 			substitutionData.put("$$user$$",
 					request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
 		}
-		String strrr = TeSeI_DAO.getValueTSIById(1).getName();
+		String strrr = TSI_DAO.getValueTSIById(1).getName();
 		System.out.println(strrr);
 		return substitutionData;
 

@@ -86,9 +86,7 @@ public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()){
-			setValueRazmernosti(name);	
-		}
+		
 		Razmernosti list = (Razmernosti) query.getSingleResult();
 		entitymanager.close();
 		emfactory.close();

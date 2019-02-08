@@ -133,13 +133,13 @@ public class StartGenerateDocTemplate {
 			for (Sample sample : smple_list) {
 				result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 				for (Results result : result_list) {
-					if(coutRow<7) {
+//					if(coutRow<10) {
 					if(result.getInProtokol()) {
 					repl_results = generateResultsMap(sample, result, masive_column_table_result);
 					AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
 					coutRow++;
 					}
-					}
+//					}
 				}
 
 			}

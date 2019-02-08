@@ -84,7 +84,8 @@ public class DimensionDAO {
 		if (query.getResultList().isEmpty()) {
 			setValueDimension(name);
 		}
-		Dimension list = (Dimension) query.getSingleResult();
+		
+		Dimension list = (Dimension) query.getResultList().get(0);
 		entitymanager.close();
 		emfactory.close();
 

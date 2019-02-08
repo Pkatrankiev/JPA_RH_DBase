@@ -27,7 +27,7 @@ public class ReadGamaFile {
 	private static String cod_sample;
 	private static String user_mesure;
 	private static String quantity = "";
-	private static String dimension;
+	private static String dimension="";
 	private static String uncertainy;
 	private static String T_S_I;
 	private static String sysError;

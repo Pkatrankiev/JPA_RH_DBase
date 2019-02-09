@@ -210,7 +210,7 @@ public class RequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
+				txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
@@ -667,20 +667,9 @@ public class RequestViewForReadDoc extends JFrame {
 					final JFrame f = new JFrame();
 					DateChoice date_time_reception = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reception.setVisible(true);
-					if (choice_Period.getSelectedItem().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period();
-					} else {
-						if (DateChoice.get_str_period().equals("")) {
-							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
-						} else {
-							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза "
-									+ choice_Period.getSelectedItem();
+					str_Descript_grup_Sample =   RequestViewFunction.generateTxtInDescriptGrupSample( choice_Period,txtFld_Count_Sample.getText());
+					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 
-						}
-					}
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
 					textRefDate = DateChoice.get_date_time_reference();
@@ -718,23 +707,9 @@ public class RequestViewForReadDoc extends JFrame {
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				if (choice_Period.getSelectedItem().equals("")) {
-					str_Descript_grup_Sample = "";
-					str_Descript_grup_Sample = DateChoice.get_str_period();
-				} else {
-					if (DateChoice.get_str_period().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = "за м." + choice_Period.getSelectedItem();
-					} else {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза м."
-								+ choice_Period.getSelectedItem();
-
-					}
-				}
+				str_Descript_grup_Sample =   RequestViewFunction.generateTxtInDescriptGrupSample( choice_Period,txtFld_Count_Sample.getText());
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
-
-			}
+	}
 		});
 
 		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
@@ -766,7 +741,7 @@ public class RequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				// String str = txtFld_Count_Sample.getText();
 
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 0, 20)) {

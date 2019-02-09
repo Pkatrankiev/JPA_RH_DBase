@@ -44,8 +44,6 @@ import DBase_Class.Sample;
 import WindowView.DatePicker;
 import WindowView.Login;
 import WindowView.RequestMiniFrame;
-import WindowView.RequestMiniFrame4;
-import WindowView.RequestMiniFrame3;
 import WindowView.RequestView;
 import WindowView.RequestViewAplication;
 import WindowView.TranscluentWindow;

@@ -28,6 +28,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import DBase_Class.TSI;
 import OldClases.test;
 import WindowView.MainWindows;
 import WindowView.ReadGamaFile;
@@ -47,11 +48,13 @@ public class Main_Aplication {
 
 		// ReaderWordDoc.readMyDocument(fileName);
 
-		// ChangeObjectsInClass();
+//		 ChangeObjectsInClass();
 
 		// MesejePanel();
 
 		StartMainWindow();
+		
+		
 		
 //		startcreateProtokolDocx();
 
@@ -106,32 +109,15 @@ public class Main_Aplication {
 	}
 
 	private static void ChangeObjectsInClass() {
-		List_izpitvan_pokazatel pokaz = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(8);
-
-		List<Results> listResult = ResultsDAO.getListResultsFromColumnByVolume("pokazatel", pokaz);
+		
+		List<Results> listResult = ResultsDAO.getInListAllValueResults();
+		TSI obTSI = TSI_DAO.getValueTSIById(9);
 
 		for (Results object : listResult) {
-			Request request = object.getSample().getRequest();
-			List<IzpitvanPokazatel> izpitPok = IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelByRequest(request);
-			System.out.println("***********************************************");
-			System.out.println(izpitPok.size());
-			for (IzpitvanPokazatel izpitvanPokazatel : izpitPok) {
-				System.out.println("///////////////////////////////////////////////");
-				System.out.println(izpitvanPokazatel.getPokazatel().getId_pokazatel());
-				if (izpitvanPokazatel.getPokazatel().getId_pokazatel() == pokaz.getId_pokazatel()) {
-					System.out.println("-------------------------------------------------");
-					System.out.println(pokaz.getId_pokazatel());
-					Metody metody_new = izpitvanPokazatel.getMetody();
-					Results res = ResultsDAO.getValueResultsById(object.getId_results());
-					System.out.println(metody_new.getId_metody() + "   " + res.getId_results());
-					res.setMetody(metody_new);
-					ResultsDAO.updateResults(res);
-				}
-			}
-
+			object.setTsi(obTSI);
+			ResultsDAO.updateResults(object);
 		}
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(listResult.size());
+	
 	}
 
 	private static void StartMainWindow() {

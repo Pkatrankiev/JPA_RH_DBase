@@ -322,7 +322,7 @@ public class ExtraRequestView extends JDialog {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
+				txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
@@ -802,7 +802,7 @@ public class ExtraRequestView extends JDialog {
 					final JFrame f = new JFrame();
 					DateChoice date_time_reference = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reference.setVisible(true);
-					str_Descript_grup_Sample = generateTxtInDescriptGrupSample(choice_Period);
+					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period,txtFld_Count_Sample.getText());
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
 					textRefDate = DateChoice.get_date_time_reference();
@@ -856,7 +856,7 @@ public class ExtraRequestView extends JDialog {
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				str_Descript_grup_Sample = generateTxtInDescriptGrupSample(choice_Period);
+				str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period,txtFld_Count_Sample.getText());
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 
 			}
@@ -865,31 +865,7 @@ public class ExtraRequestView extends JDialog {
 		});
 	}
 
-	private String  generateTxtInDescriptGrupSample(Choice choice_Period) {
-		String txtInDescriptGrupSample="";
-		String strMesec = "";
-		String strChoice_Period = choice_Period.getSelectedItem();
-		
-		if (strChoice_Period.equals("")) {
-			txtInDescriptGrupSample = "";
-			txtInDescriptGrupSample = DateChoice.get_str_period();
-		} else {
-			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
-			if(id_Period<13){
-				strMesec = "м.";
-			}
-			if (DateChoice.get_str_period().equals("")) {
-				txtInDescriptGrupSample = "";
-				txtInDescriptGrupSample = " за "+strMesec + strChoice_Period;
-			} else {
-				txtInDescriptGrupSample = "";
-				
-				txtInDescriptGrupSample = DateChoice.get_str_period() + " за "+strMesec
-						+ strChoice_Period;
-			}
-		}
-		return txtInDescriptGrupSample;
-	}
+	
 	
 	
 	private void Section_Text_Count_Sample(final JPanel p, Border border) {
@@ -922,7 +898,7 @@ public class ExtraRequestView extends JDialog {
 			@Override
 			public void keyReleased(KeyEvent event) {
 				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				// String str = txtFld_Count_Sample.getText();
 
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {

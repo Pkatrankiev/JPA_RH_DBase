@@ -189,27 +189,41 @@ public class RequestViewFunction {
 		txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
 	}
 	
-	public static String  generateTxtInDescriptGrupSample(Choice choice_Period) {
+	public static String  generateTxtInDescriptGrupSample(Choice choice_Period, String sampleCount) {
 		String txtInDescriptGrupSample="";
 		String strMesec = "";
 		String strChoice_Period = choice_Period.getSelectedItem();
-		
+		String prob = "пробa";
+		String sbor = "—борна";
+		int count = 1;
+		try {
+			 count = Integer.parseInt(sampleCount);
+
+		} catch (NumberFormatException e) {
+			
+		}
+		if(count>1) {
+			 prob = "проби";
+			 sbor = "—борни";
+		}
 		if (strChoice_Period.equals("")) {
 			txtInDescriptGrupSample = "";
-			txtInDescriptGrupSample = DateChoice.get_str_period();
+			if(DateChoice.get_str_period_sample().length()>0) {
+				txtInDescriptGrupSample =  sbor+" "+prob;
+			}
+			txtInDescriptGrupSample = txtInDescriptGrupSample + " "+DateChoice.get_str_period_sample();
 		} else {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
 			if(id_Period<13){
 				strMesec = "м.";
 			}
-			if (DateChoice.get_str_period().equals("")) {
+			if (DateChoice.get_str_period_sample().equals("")) {
 				txtInDescriptGrupSample = "";
-				txtInDescriptGrupSample = " за "+strMesec + strChoice_Period;
+				txtInDescriptGrupSample = sbor+" "+prob +" за "+strMesec + strChoice_Period;
 			} else {
 				txtInDescriptGrupSample = "";
 				
-				txtInDescriptGrupSample = DateChoice.get_str_period() + " за "+strMesec
-						+ strChoice_Period;
+				txtInDescriptGrupSample = sbor+" "+prob +" за "+ strMesec+ strChoice_Period + " "+ DateChoice.get_str_period_sample() ;
 			}
 		}
 		return txtInDescriptGrupSample;
@@ -234,6 +248,8 @@ public class RequestViewFunction {
 		return arr;
 	}
 
+	
+	
 	public static String GenerateStringRefDateTimeFromRequest(Request request) {
 		List<Sample> sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		

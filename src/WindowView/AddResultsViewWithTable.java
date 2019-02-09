@@ -31,6 +31,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
+import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -67,6 +68,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -119,8 +122,9 @@ public class AddResultsViewWithTable extends JDialog {
 	private static String[] masuveSimbolNuclide;
 	private static String[] values_Razmernosti;
 	private static String[] values_Dimension;
+	private static String[] masiveTSI;
 	private static Object[][] dataTable;
-	private static int tbl_Colum = 13;
+	private static int tbl_Colum = 14;
 	private static int nuclide_Colum = 0;
 	private static int actv_value_Colum = 1;
 	private static int uncrt_Colum = 2;
@@ -129,11 +133,12 @@ public class AddResultsViewWithTable extends JDialog {
 	private static int sigma_Colum = 5;
 	private static int qunt_Colum = 6;
 	private static int dimen_Colum = 7;
-	private static int dateHimObr_Colum = 8;
-	private static int dateAnaliz_Colum = 9;
-	private static int in_Prot_Colum = 10;
-	private static int check_Colum = 11;
-	private static int rsult_Id_Colum = 12;
+	private static int TSI_Colum = 8;
+	private static int dateHimObr_Colum = 9;
+	private static int dateAnaliz_Colum = 10;
+	private static int in_Prot_Colum = 11;
+	private static int check_Colum = 12;
+	private static int rsult_Id_Colum = 13;
 
 	private Font font = new Font("Tahoma", Font.PLAIN, 12);
 	private JPanel basic_panel;
@@ -149,8 +154,9 @@ public class AddResultsViewWithTable extends JDialog {
 
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
 		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
+		masiveTSI = TSI_DAO.getMasiveStringAllValueTSI();
 
-		setSize(960, (countRowTabResults * rowWidth) + 340);
+		setSize(1100, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -164,9 +170,9 @@ public class AddResultsViewWithTable extends JDialog {
 		basic_panel.setBounds(new Rectangle(5, 0, 0, 0));
 		scrollPane.setViewportView(basic_panel);
 		GridBagLayout gbl_basic_panel = new GridBagLayout();
-		gbl_basic_panel.columnWidths = new int[] { 91, 111, 147, 138, 182, 197, 0 };
+		gbl_basic_panel.columnWidths = new int[] { 91, 111, 147, 138, 166, 182, 197, 0 };
 		gbl_basic_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_basic_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_basic_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_basic_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		basic_panel.setLayout(gbl_basic_panel);
@@ -183,13 +189,15 @@ public class AddResultsViewWithTable extends JDialog {
 
 		ChoiceOIR_Section(basic_panel);
 
-		CreadTableButton(basic_panel);
+		btnDataFromDBase(basic_panel);
+
+		btnOpenFile(basic_panel);
 
 		BasicValueFileSection(basic_panel);
 
-		ButtonTableFromFile(basic_panel);
+		btnTabFromFile(basic_panel);
 
-		addRowButtonSection(basic_panel);
+		btnAddRow(basic_panel);
 
 		DobivSection(basic_panel);
 
@@ -200,7 +208,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	}
 
-	private  Results[] creadMasiveFromResultsObjects_ChoiseSample(Sample sample) {
+	private Results[] creadMasiveFromResultsObjects_ChoiseSample(Sample sample) {
 		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 		List<Results> choiceResults = new ArrayList<Results>();
 		List_izpitvan_pokazatel pokazatel = getPokazatelObjectFromChoicePokazatel();
@@ -219,7 +227,7 @@ public class AddResultsViewWithTable extends JDialog {
 		return masiveResults;
 	}
 
-	private  List<Results> creadListResultsObjects_ChoiseSample(Sample sample) {
+	private List<Results> creadListResultsObjects_ChoiseSample(Sample sample) {
 		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 		List<Results> choiceResults = new ArrayList<Results>();
 		List_izpitvan_pokazatel pokazatel = getPokazatelObjectFromChoicePokazatel();
@@ -229,10 +237,10 @@ public class AddResultsViewWithTable extends JDialog {
 				choiceResults.add(result);
 			}
 		}
-	
+
 		return choiceResults;
 	}
-	
+
 	private void ButtonPanell() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -241,14 +249,14 @@ public class AddResultsViewWithTable extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateIzpitvanPokazatelObjectInDBase();
-				List<Results> listResultsForSave = creadListFromResultObjectForSave(getSampleObjectFromChoiceSampleCode());
+				List<Results> listResultsForSave = creadListFromResultObjectForSave(
+						getSampleObjectFromChoiceSampleCode());
 				for (Results results : listResultsForSave) {
 					saveResultsObjectInDBase(results);
 				}
-				
+
 			}
 
-			
 		});
 		// okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -264,13 +272,17 @@ public class AddResultsViewWithTable extends JDialog {
 		// cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 	}
+
 	private void updateIzpitvanPokazatelObjectInDBase() {
-		IzpitvanPokazatel izpivanPokazatel = IzpitvanPokazatelDAO.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(choiseRequest, getPokazatelObjectFromChoicePokazatel());
+		IzpitvanPokazatel izpivanPokazatel = IzpitvanPokazatelDAO
+				.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(choiseRequest,
+						getPokazatelObjectFromChoicePokazatel());
 		Metody mm = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
 		izpivanPokazatel.getId_pokazatel();
 		izpivanPokazatel.setMetody(mm);
-		IzpitvanPokazatelDAO.updateIzpitvanPokazatel( izpivanPokazatel);
+		IzpitvanPokazatelDAO.updateIzpitvanPokazatel(izpivanPokazatel);
 	}
+
 	private static Boolean checkDuplicateCodeNuclide(Object[][] dataTable) {
 		Boolean corectCheck = true;
 		List<String> listCodeNuclide = new ArrayList<String>();
@@ -283,9 +295,9 @@ public class AddResultsViewWithTable extends JDialog {
 
 			}
 		}
-	
+
 		List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
-		
+
 		if (deDupStringList.size() != listCodeNuclide.size()) {
 			corectCheck = false;
 		}
@@ -296,7 +308,7 @@ public class AddResultsViewWithTable extends JDialog {
 		return corectCheck;
 	}
 
-	private  List<Results> creadListFromResultObjectForSave(Sample sample) {
+	private List<Results> creadListFromResultObjectForSave(Sample sample) {
 		Boolean fl;
 		List<Results> listResultsForSave = new ArrayList<Results>();
 		List<Results> listResultsForDelete = new ArrayList<Results>();
@@ -307,8 +319,8 @@ public class AddResultsViewWithTable extends JDialog {
 				String s2 = dataTable[i][actv_value_Colum].toString();
 				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) > 0)) {
 					listResultsFromTable.add(creadResultObject(sample, i));
-				}else{
-					if(dataTable[i][rsult_Id_Colum] != null){
+				} else {
+					if (dataTable[i][rsult_Id_Colum] != null) {
 						listResultsForDelete.add(ResultsDAO.getValueResultsById((int) dataTable[i][rsult_Id_Colum]));
 					}
 				}
@@ -316,36 +328,36 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		List<Results> ListResultsFromDBase = creadListResultsObjects_ChoiseSample(sample);
 		Iterator<Results> itr = null;
-		for (Results results:listResultsFromTable) {
-			
+		for (Results results : listResultsFromTable) {
+
 			itr = ListResultsFromDBase.iterator();
-			fl=false;
+			fl = false;
 			while (itr.hasNext()) {
 				String codeNulide = itr.next().getNuclide().getSymbol_nuclide();
 				if (codeNulide.equals(results.getNuclide().getSymbol_nuclide())) {
 					itr.remove();
 					listResultsForSave.add(results);
-					fl=true;
+					fl = true;
 				}
 			}
-			if(!fl){
+			if (!fl) {
 				listResultsForSave.add(results);
 			}
 		}
-		
+
 		for (Results results : ListResultsFromDBase) {
-		
+
 			listResultsForSave.add(results);
 		}
-	
+
 		for (Results results : listResultsForDelete) {
-			
+
 			JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
 					JOptionPane.YES_NO_OPTION);
 			ResultsDAO.deleteResultsById(results.getId_results());
 		}
-;
-		
+		;
+
 		return listResultsForSave;
 	}
 
@@ -375,22 +387,22 @@ public class AddResultsViewWithTable extends JDialog {
 		result.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
 		result.setDate_redac(RequestViewFunction.DateNaw(false));
 		result.setInProtokol((Boolean) dataTable[i][in_Prot_Colum]);
-		result.setMda(Double.parseDouble((String) dataTable[i][mda_Colum].toString()));
-		result.setQuantity(Double.parseDouble((String) dataTable[i][qunt_Colum].toString()));
+		result.setMda(Double.parseDouble( dataTable[i][mda_Colum].toString()));
+		result.setQuantity(Double.parseDouble( dataTable[i][qunt_Colum].toString()));
 		result.setSigma((int) dataTable[i][sigma_Colum]);
-		result.setUncertainty(Double.parseDouble((String) dataTable[i][uncrt_Colum].toString()));
-		result.setValue_result(Double.parseDouble((String) dataTable[i][actv_value_Colum].toString()));
-
+		result.setUncertainty(Double.parseDouble( dataTable[i][uncrt_Colum].toString()));
+		result.setValue_result(Double.parseDouble( dataTable[i][actv_value_Colum].toString()));
+		result.setTsi(TSI_DAO.getValueTSIByName(dataTable[i][TSI_Colum].toString()));
 		if ((dataTable[i][dimen_Colum].equals(""))) {
 			result.setDimension(null);
 		} else {
-			result.setDimension(DimensionDAO.getValueDimensionByName((String) dataTable[i][dimen_Colum]));
+			result.setDimension(DimensionDAO.getValueDimensionByName( dataTable[i][dimen_Colum].toString()));
 		}
 		result.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()));
-		result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) dataTable[i][nuclide_Colum]));
+		result.setNuclide(NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString()));
 		result.setPokazatel(
 				List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem()));
-		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) dataTable[i][razm_Colum]));
+		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(dataTable[i][razm_Colum].toString()));
 		result.setSample(sample);
 		String choiceUser = choiceORHO.getSelectedItem();
 		for (Users user : list_Users) {
@@ -447,78 +459,13 @@ public class AddResultsViewWithTable extends JDialog {
 		GridBagConstraints gbc_txtBasicValueResult = new GridBagConstraints();
 		gbc_txtBasicValueResult.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtBasicValueResult.insets = new Insets(0, 0, 5, 5);
-		gbc_txtBasicValueResult.gridwidth = 4;
+		gbc_txtBasicValueResult.gridwidth = 3;
 		gbc_txtBasicValueResult.gridx = 1;
 		gbc_txtBasicValueResult.gridy = 5;
 		panel.add(txtBasicValueResult, gbc_txtBasicValueResult);
 
 		txtBasicValueResult.setColumns(10);
 
-		JButton btnBasicDataFile = new JButton("Отвори");
-		btnBasicDataFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser f = new JFileChooser();
-				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				f.showOpenDialog(null);
-				try {
-					txtBasicValueResult.setText((f.getSelectedFile()).toString());
-					ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
-					
-					if (ReadGamaFile.getListNuclideMDA() > 0) {
-						flagIncertedFile = true;
-					} else {
-						flagIncertedFile = false;
-					}
-				} catch (NullPointerException e2) {
-
-				}
-
-			}
-		});
-		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
-		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
-		gbc_btnBasicDataFile.insets = new Insets(0, 0, 5, 0);
-		gbc_btnBasicDataFile.gridx = 5;
-		gbc_btnBasicDataFile.gridy = 5;
-		basic_panel.add(btnBasicDataFile, gbc_btnBasicDataFile);
-
-	}
-
-	private void ButtonTableFromFile(JPanel panel) {
-
-		JButton btnTabFromFile = new JButton("Данни от файл");
-		btnTabFromFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (flagIncertedFile) {
-					if (choiceMetody.getSelectedItem() != null) {
-						if (MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()).getId_metody() == 9) {
-							TranscluentWindow round = new TranscluentWindow();
-							final Thread thread = new Thread(new Runnable() {
-								@Override
-								public void run() {
-
-									readFromGenie2kFile();
-									ViewTableInPanel(panel, round);
-								}
-							});
-							thread.start();
-
-						}
-					} else {
-						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-
-		});
-		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
-		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
-		gbc_btnTabFromFile.insets = new Insets(0, 0, 5, 0);
-		gbc_btnTabFromFile.gridx = 5;
-		gbc_btnTabFromFile.gridy = 6;
-		basic_panel.add(btnTabFromFile, gbc_btnTabFromFile);
 	}
 
 	private void readFromGenie2kFile() {
@@ -565,7 +512,7 @@ public class AddResultsViewWithTable extends JDialog {
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 4;
+		gbc_lblNewLabel_2.gridx = 5;
 		gbc_lblNewLabel_2.gridy = 3;
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
@@ -573,7 +520,7 @@ public class AddResultsViewWithTable extends JDialog {
 		GridBagConstraints gbc_choiceOIR = new GridBagConstraints();
 		gbc_choiceOIR.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choiceOIR.insets = new Insets(0, 0, 5, 0);
-		gbc_choiceOIR.gridx = 5;
+		gbc_choiceOIR.gridx = 6;
 		gbc_choiceOIR.gridy = 3;
 		panel.add(choiceOIR, gbc_choiceOIR);
 
@@ -587,6 +534,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 		lblNameMetod = new JLabel();
 		Dimension dim = new Dimension(550, 14);
+
 		lblNameMetod.setPreferredSize(dim);
 		lblNameMetod.setMinimumSize(dim);
 		lblNameMetod.setMaximumSize(dim);
@@ -594,7 +542,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 		GridBagConstraints gbc_lblNameMetod = new GridBagConstraints();
 		gbc_lblNameMetod.anchor = GridBagConstraints.WEST;
-		gbc_lblNameMetod.gridwidth = 3;
+		gbc_lblNameMetod.gridwidth = 4;
 		gbc_lblNameMetod.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNameMetod.gridx = 3;
 		gbc_lblNameMetod.gridy = 4;
@@ -652,7 +600,7 @@ public class AddResultsViewWithTable extends JDialog {
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_1.gridx = 4;
+		gbc_lblNewLabel_1.gridx = 5;
 		gbc_lblNewLabel_1.gridy = 1;
 		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
@@ -660,7 +608,7 @@ public class AddResultsViewWithTable extends JDialog {
 		GridBagConstraints gbc_choiceORHO = new GridBagConstraints();
 		gbc_choiceORHO.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choiceORHO.insets = new Insets(0, 0, 5, 0);
-		gbc_choiceORHO.gridx = 5;
+		gbc_choiceORHO.gridx = 6;
 		gbc_choiceORHO.gridy = 1;
 		panel.add(choiceORHO, gbc_choiceORHO);
 
@@ -723,12 +671,33 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void SampleCodeSection(JPanel panel) {
+
 		JLabel lblSmplCode = new JLabel("№ на проба");
 		GridBagConstraints gbc_lblSmplCode = new GridBagConstraints();
 		gbc_lblSmplCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSmplCode.gridx = 2;
 		gbc_lblSmplCode.gridy = 0;
 		panel.add(lblSmplCode, gbc_lblSmplCode);
+
+		JLabel lbl_OI_Sample = new JLabel();
+		GridBagConstraints gbc_lbl_OI_Sample = new GridBagConstraints();
+		gbc_lbl_OI_Sample.anchor = GridBagConstraints.WEST;
+		gbc_lbl_OI_Sample.gridwidth = 2;
+		gbc_lbl_OI_Sample.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_OI_Sample.gridx = 3;
+		gbc_lbl_OI_Sample.gridy = 1;
+		basic_panel.add(lbl_OI_Sample, gbc_lbl_OI_Sample);
+		lbl_OI_Sample.setVisible(false);
+
+		JLabel lblSampleDescript = new JLabel();
+		GridBagConstraints gbc_lblSampleDescript = new GridBagConstraints();
+		gbc_lblSampleDescript.anchor = GridBagConstraints.WEST;
+		gbc_lblSampleDescript.gridwidth = 2;
+		gbc_lblSampleDescript.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSampleDescript.gridx = 3;
+		gbc_lblSampleDescript.gridy = 3;
+		basic_panel.add(lblSampleDescript, gbc_lblSampleDescript);
+		lblSampleDescript.setVisible(false);
 
 		choiceSmplCode = new Choice();
 		GridBagConstraints gbc_choiceSmplCode = new GridBagConstraints();
@@ -737,33 +706,36 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_choiceSmplCode.gridx = 2;
 		gbc_choiceSmplCode.gridy = 1;
 		panel.add(choiceSmplCode, gbc_choiceSmplCode);
+		choiceSmplCode.setEnabled(false);
+		choiceSmplCodeListener(lbl_OI_Sample, lblSampleDescript);
+
+	}
+
+	public void choiceSmplCodeListener(JLabel lbl_OI_Sample, JLabel lblSampleDescript) {
+
+		// Add item listener
+		choiceSmplCode.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				visibleSampleInfoLbl(lbl_OI_Sample, lblSampleDescript);
+
+			}
+
+		});
 
 		choiceSmplCode.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				String rquestCode = txtRqstCode.getText();
 
-				if (choiseRequest != null) {
-					if (listSample.isEmpty()) {
-						listSample = SampleDAO.getListSampleFromColumnByVolume("request", choiseRequest);
-						for (Sample samp : listSample) {
-							choiceSmplCode.add(samp.getSample_code());
-						}
-					}
+				visibleSampleInfoLbl(lbl_OI_Sample, lblSampleDescript);
 
-				}
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// for (Sample samp : listSample) {
-				// if
-				// (samp.getSample_code().equals(choiceSmplCode.getSelectedItem()))
-				// {
-				// sample = samp;
-				// }
-				// }
-				// choiceSmplCode.getSelectedItem();
+				visibleSampleInfoLbl(lbl_OI_Sample, lblSampleDescript);
+
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -771,7 +743,51 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 
 		});
+	}
 
+	public void visibleSampleInfoLbl(JLabel lbl_OI_Sample, JLabel lblSampleDescript) {
+		if (choiceSmplCode.getSelectedItem() != "") {
+			if (getName_IO_Sample(choiceSmplCode.getSelectedItem()).length() > 41) {
+				lbl_OI_Sample.setText(getName_IO_Sample(choiceSmplCode.getSelectedItem()).substring(0, 50));
+			} else {
+				lbl_OI_Sample.setText(getName_IO_Sample(choiceSmplCode.getSelectedItem()));
+			}
+			if (get_Sample_Descrip(choiceSmplCode.getSelectedItem()).length() > 41) {
+				lblSampleDescript.setText(get_Sample_Descrip(choiceSmplCode.getSelectedItem()).substring(0, 50));
+			} else {
+				lblSampleDescript.setText(get_Sample_Descrip(choiceSmplCode.getSelectedItem()));
+			}
+			lbl_OI_Sample.setVisible(true);
+			lblSampleDescript.setVisible(true);
+		}
+	}
+
+	public String get_Sample_Descrip(String name_IO_Sample) {
+		{
+
+			String strChoiseSamp = choiceSmplCode.getSelectedItem();
+			for (Sample samp : listSample) {
+				if (samp.getSample_code().equals(strChoiseSamp)) {
+					name_IO_Sample = samp.getDescription_sample();
+
+				}
+			}
+		}
+		return name_IO_Sample;
+	}
+
+	public String getName_IO_Sample(String name_IO_Sample) {
+		{
+
+			String strChoiseSamp = choiceSmplCode.getSelectedItem();
+			for (Sample samp : listSample) {
+				if (samp.getSample_code().equals(strChoiseSamp)) {
+					name_IO_Sample = samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+
+				}
+			}
+		}
+		return name_IO_Sample;
 	}
 
 	private void RequestCodeSection(JPanel panel) {
@@ -803,6 +819,11 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(txtRqstCode, gbc_txtRqstCode);
 		txtRqstCode.setColumns(10);
 
+		txtRqstCodeListener(lblError);
+
+	}
+
+	public void txtRqstCodeListener(JLabel lblError) {
 		txtRqstCode.addKeyListener(new KeyListener() {
 
 			@Override
@@ -813,7 +834,7 @@ public class AddResultsViewWithTable extends JDialog {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtRqstCode.setText(RequestViewAplication.checkFormatString(txtRqstCode.getText()));
+				txtRqstCode.setText(RequestViewFunction.checkFormatString(txtRqstCode.getText()));
 				if (!RequestDAO.checkRequestCode(txtRqstCode.getText())) {
 					txtRqstCode.setForeground(Color.red);
 					lblError.setVisible(true);
@@ -828,6 +849,16 @@ public class AddResultsViewWithTable extends JDialog {
 					lblError.setVisible(false);
 					listPokazatel = IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelByRequest(choiseRequest);
 					txtRqstCode.setEditable(false);
+					if (choiseRequest != null) {
+						if (listSample.isEmpty()) {
+							listSample = SampleDAO.getListSampleFromColumnByVolume("request", choiseRequest);
+							for (Sample samp : listSample) {
+								choiceSmplCode.add(samp.getSample_code());
+							}
+						}
+
+					}
+					choiceSmplCode.setEnabled(true);
 					validate();
 					repaint();
 
@@ -839,7 +870,6 @@ public class AddResultsViewWithTable extends JDialog {
 
 			}
 		});
-
 	}
 
 	private List<Metody> getListMetodyFormMetody_To_Pokaztel() {
@@ -876,8 +906,63 @@ public class AddResultsViewWithTable extends JDialog {
 		Dimension_Column.setCellRenderer(renderer);
 	}
 
-	private void CreadTableButton(JPanel panel) {
+	private void setUp_TSI(TableColumn tSI_column) {
+		JComboBox<?> comboBox = new JComboBox<Object>(masiveTSI);
+		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setToolTipText("Натисни за избор");
+		tSI_column.setCellRenderer(renderer);
+
+	}
+
+	private void btnDataFromDBase(JPanel panel) {
 		JButton btnCreadTable = new JButton("Данни от базата");
+		btnCreadTableListener(panel, btnCreadTable);
+		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
+		gbc_btnCreadTable.gridwidth = 2;
+		gbc_btnCreadTable.anchor = GridBagConstraints.EAST;
+		gbc_btnCreadTable.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreadTable.gridx = 0;
+		gbc_btnCreadTable.gridy = 6;
+		panel.add(btnCreadTable, gbc_btnCreadTable);
+	}
+
+	private void btnOpenFile(JPanel panel) {
+		JButton btnOpenFile = new JButton("Отвори");
+		btnOpenFileListener(btnOpenFile);
+		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
+		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
+		gbc_btnBasicDataFile.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBasicDataFile.gridx = 4;
+		gbc_btnBasicDataFile.gridy = 5;
+		basic_panel.add(btnOpenFile, gbc_btnBasicDataFile);
+
+	}
+
+	public void btnOpenFileListener(JButton btnOpenFile) {
+		btnOpenFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser f = new JFileChooser();
+				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				f.showOpenDialog(null);
+				try {
+					txtBasicValueResult.setText((f.getSelectedFile()).toString());
+					ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
+
+					if (ReadGamaFile.getListNuclideMDA() > 0) {
+						flagIncertedFile = true;
+					} else {
+						flagIncertedFile = false;
+					}
+				} catch (NullPointerException e2) {
+
+				}
+
+			}
+		});
+	}
+
+	public void btnCreadTableListener(JPanel panel, JButton btnCreadTable) {
 		btnCreadTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (choiceMetody.getSelectedItem() != null) {
@@ -917,15 +1002,6 @@ public class AddResultsViewWithTable extends JDialog {
 				}
 			}
 		});
-
-		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
-		gbc_btnCreadTable.gridwidth = 2;
-		gbc_btnCreadTable.anchor = GridBagConstraints.EAST;
-		gbc_btnCreadTable.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCreadTable.gridx = 0;
-		gbc_btnCreadTable.gridy = 6;
-		panel.add(btnCreadTable, gbc_btnCreadTable);
-
 	}
 
 	private String[] getMasiveSimbolNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
@@ -973,7 +1049,7 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		scrollTablePane = new JScrollPane();
 		GridBagConstraints gbc_scrollTablePane = new GridBagConstraints();
-		gbc_scrollTablePane.gridwidth = 6;
+		gbc_scrollTablePane.gridwidth = 7;
 		gbc_scrollTablePane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollTablePane.fill = GridBagConstraints.BOTH;
 		gbc_scrollTablePane.gridx = 0;
@@ -993,7 +1069,8 @@ public class AddResultsViewWithTable extends JDialog {
 					boolean hasFocus, int row, int col) {
 
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ table.getValueAt(row, 3).toString());
+				System.out.println("Row " + row + " " + table.getValueAt(row, 1).toString() + "  "
+						+ table.getValueAt(row, 3).toString());
 				String s1 = table.getValueAt(row, 1).toString();
 				String s2 = table.getValueAt(row, 3).toString();
 
@@ -1023,23 +1100,66 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 		panel.validate();
 		panel.repaint();
 
-		setSize(960, (countRowTabResults * rowWidth) + 340);
+		setSize(1100, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		validate();
 		repaint();
 
 	}
 
-	private void addRowButtonSection(JPanel basic_panel) {
+	private void btnTabFromFile(JPanel basic_panel) {
 
-		JLabel lblNewLabel = new JLabel(" ");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 8;
-		basic_panel.add(lblNewLabel, gbc_lblNewLabel);
+		JButton btnTabFromFile = new JButton("Данни от файл");
+		btnTabFromFileListener(basic_panel, btnTabFromFile);
+		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
+		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
+		gbc_btnTabFromFile.insets = new Insets(0, 0, 5, 5);
+		gbc_btnTabFromFile.gridx = 3;
+		gbc_btnTabFromFile.gridy = 6;
+		basic_panel.add(btnTabFromFile, gbc_btnTabFromFile);
+	}
 
+	private void btnAddRow(JPanel basic_panel) {
 		JButton btnAddRow = new JButton("нов Нуклид");
+		btmAddRowListener(basic_panel, btnAddRow);
+		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
+		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
+		gbc_btnAddRow.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddRow.gridx = 6;
+		gbc_btnAddRow.gridy = 8;
+		basic_panel.add(btnAddRow, gbc_btnAddRow);
+	}
+
+	public void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile) {
+		btnTabFromFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (flagIncertedFile) {
+					if (choiceMetody.getSelectedItem() != null) {
+						if (MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()).getId_metody() == 9) {
+							TranscluentWindow round = new TranscluentWindow();
+							final Thread thread = new Thread(new Runnable() {
+								@Override
+								public void run() {
+
+									readFromGenie2kFile();
+									ViewTableInPanel(basic_panel, round);
+								}
+							});
+							thread.start();
+
+						}
+					} else {
+						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
+		});
+	}
+
+	public void btmAddRowListener(JPanel basic_panel, JButton btnAddRow) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TranscluentWindow round = new TranscluentWindow();
@@ -1056,12 +1176,6 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 			}
 
 		});
-		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
-		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
-		gbc_btnAddRow.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddRow.gridx = 5;
-		gbc_btnAddRow.gridy = 8;
-		basic_panel.add(btnAddRow, gbc_btnAddRow);
 	}
 
 	private void AddNewRowIn_dataTable() {
@@ -1163,7 +1277,7 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 							}
 
 							if (col == nuclide_Colum || col == razm_Colum || col == dimen_Colum
-									|| col == in_Prot_Colum) {
+									|| col == in_Prot_Colum || col == TSI_Colum) {
 								dataTable[row][col] = value;
 								fireTableCellUpdated(row, col);
 							}
@@ -1176,7 +1290,7 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 					}
 
 					public int getRowCount() {
-						
+
 						return dataTable.length;
 					}
 
@@ -1187,6 +1301,7 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 				setUp_Nuclide(table.getColumnModel().getColumn(nuclide_Colum));
 				setUp_Razmernosti(table.getColumnModel().getColumn(razm_Colum));
 				setUp_Dimension(table.getColumnModel().getColumn(dimen_Colum));
+				setUp_TSI(table.getColumnModel().getColumn(TSI_Colum));
 
 				table.getColumnModel().getColumn(rsult_Id_Colum).setWidth(0);
 				table.getColumnModel().getColumn(rsult_Id_Colum).setMinWidth(0);
@@ -1194,13 +1309,14 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 				table.getColumnModel().getColumn(rsult_Id_Colum).setPreferredWidth(0);
 
 			}
+
 		});
 		return table;
 	}
 
 	private static String[] getTabHeader() {
 		String[] tableHeader = { "Нуклид", "Активност", "Неопределеност", "МДА", "Размерност", "Сигма", "Количество",
-				"Мярка", "ДатаХимОбр", "ДатаАнализ", "В протокол", "Проверка", "Id_Result" };
+				"Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "В протокол", "Проверка", "Id_Result" };
 		return tableHeader;
 	}
 
@@ -1208,7 +1324,8 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 	private static Class[] getTypes() {
 
 		Class[] types = { String.class, String.class, String.class, String.class, String.class, String.class,
-				String.class, String.class, String.class, String.class, Boolean.class, String.class, Integer.class };
+				String.class, String.class, String.class, String.class, String.class, Boolean.class, String.class,
+				Integer.class };
 
 		return types;
 	}
@@ -1255,9 +1372,10 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 		rowFromTableResult[sigma_Colum] = result.getSigma();
 		rowFromTableResult[qunt_Colum] = result.getQuantity();
 		rowFromTableResult[dimen_Colum] = result.getDimension().getName_dimension();
+		rowFromTableResult[TSI_Colum] = result.getTsi().getName();
 		rowFromTableResult[dateHimObr_Colum] = result.getDate_chim_oper();
 		rowFromTableResult[dateAnaliz_Colum] = result.getDate_measur();
-		rowFromTableResult[in_Prot_Colum] = true;
+		rowFromTableResult[in_Prot_Colum] = false;
 		rowFromTableResult[check_Colum] = "Провери";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
@@ -1274,6 +1392,7 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 		rowFromTableResult[qunt_Colum] = 0.0;
 		rowFromTableResult[dimen_Colum] = "";
 		rowFromTableResult[dimen_Colum] = values_Dimension[0];
+		rowFromTableResult[TSI_Colum] = "";
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
 		rowFromTableResult[in_Prot_Colum] = false;
@@ -1296,6 +1415,7 @@ System.out.println("Row " +row+ " "+table.getValueAt(row, 1).toString()+"  "+ ta
 			if (results.getDimension() != null) {
 				rowFromTableResult[dimen_Colum] = results.getDimension().getName_dimension();
 			}
+			rowFromTableResult[TSI_Colum] = results.getTsi().getName();
 			rowFromTableResult[dateHimObr_Colum] = results.getDate_chim_oper();
 			rowFromTableResult[dateAnaliz_Colum] = results.getDate_measur();
 			rowFromTableResult[in_Prot_Colum] = results.getInProtokol();

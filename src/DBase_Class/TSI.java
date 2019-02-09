@@ -33,7 +33,7 @@ import javax.persistence.Table;
 			 super( );
 			 }
 
-			public int getId_post() {
+			public int getId_TSI() {
 				return Id_tsi;
 			}
 

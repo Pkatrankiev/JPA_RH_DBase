@@ -34,7 +34,7 @@ public class DateChoice extends JDialog {
 	 * Create the dialog.
 	 */
 	public DateChoice(Frame parent, String date_time_reception) {
-		super(parent, "Избор на референтна дата и време", true);
+		super(parent, "РР·Р±РѕСЂ РЅР° СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° Рё РІСЂРµРјРµ", true);
 		setBounds(100, 100, 550, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,7 +48,7 @@ public class DateChoice extends JDialog {
 		
 		
 		{
-			JLabel lbl_date_time_reception = new JLabel("Референтна дата (средата на периода)");
+			JLabel lbl_date_time_reception = new JLabel("Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° (СЃСЂРµРґР°С‚Р° РЅР° РїРµСЂРёРѕРґР°)");
 			GridBagConstraints gbc_lbl_date_time_reception = new GridBagConstraints();
 			gbc_lbl_date_time_reception.gridwidth = 2;
 			gbc_lbl_date_time_reception.insets = new Insets(0, 0, 0, 5);
@@ -101,7 +101,7 @@ public class DateChoice extends JDialog {
 		
 		// StartDate of date_time_reception
 		{
-			JLabel lblNewLabel = new JLabel("Начална дата");
+			JLabel lblNewLabel = new JLabel("РќР°С‡Р°Р»РЅР° РґР°С‚Р°");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -178,7 +178,7 @@ public class DateChoice extends JDialog {
 			txtStartDate.setColumns(10);
 		}
 		{
-			JButton btnStartData = new JButton("Начална дата");
+			JButton btnStartData = new JButton("РќР°С‡Р°Р»РЅР° РґР°С‚Р°");
 			btnStartData.setMaximumSize(new Dimension(105, 23));
 			btnStartData.setMinimumSize(new Dimension (105, 23));
 			btnStartData.setPreferredSize(new Dimension (105, 23));
@@ -208,7 +208,7 @@ public class DateChoice extends JDialog {
 		
 		// EndDate of date_time_reception
 		{
-			JLabel lblNewLabel_1 = new JLabel("Крайна дата");
+			JLabel lblNewLabel_1 = new JLabel("РљСЂР°Р№РЅР° РґР°С‚Р°");
 			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -286,7 +286,7 @@ public class DateChoice extends JDialog {
 			txtEndDate.setColumns(10);
 		}
 		{
-			JButton btnEndData = new JButton("Крайна дата");
+			JButton btnEndData = new JButton("РљСЂР°Р№РЅР° РґР°С‚Р°");
 			btnEndData.setPreferredSize(new Dimension(105, 23));
 			btnEndData.setMinimumSize(new Dimension(105, 23));
 			btnEndData.setMaximumSize(new Dimension(105, 23));
@@ -348,19 +348,12 @@ public class DateChoice extends JDialog {
 			}
 		}
 	}
-	public static String get_str_period() {
-		// TODO Auto-generated method stub
-		String str="";
-		System.out.println("*"+txtEndDate.getText()+"*");
-		if(!txtEndDate.getText().equals(""))
-		str = "Сборна проба за периода: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
-		return str;
-	}
+	
 	public static String get_str_period_sample() {
 		// TODO Auto-generated method stub
 		String str="";
 		if(!txtEndDate.getText().equals(""))
-		str = "за период: "+txtStartDate.getText().substring(0, 10)+"г. - "+ txtEndDate.getText().substring(0, 10) +"г.";
+		str = "Р·Р° РїРµСЂРёРѕРґР°: "+txtStartDate.getText().substring(0, 10)+" Г· "+ txtEndDate.getText().substring(0, 10) ;
 		return str;
 	}
 	public static String get_date_time_reference() {

@@ -336,7 +336,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				txtField_RequestCode.setText(RequestViewAplication.checkFormatString(txtField_RequestCode.getText()));
+				txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
 					lblError.setText("Заявка с този номер вече съществува");
@@ -807,14 +807,14 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 					date_time_reference.setVisible(true);
 					if (choice_Period.getSelectedItem().equals("")) {
 						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period();
+						str_Descript_grup_Sample = DateChoice.get_str_period_sample();
 					} else {
-						if (DateChoice.get_str_period().equals("")) {
+						if (DateChoice.get_str_period_sample().equals("")) {
 							str_Descript_grup_Sample = "";
 							str_Descript_grup_Sample = "за " + choice_Period.getSelectedItem();
 						} else {
 							str_Descript_grup_Sample = "";
-							str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза "
+							str_Descript_grup_Sample = DateChoice.get_str_period_sample() + "\nза "
 									+ choice_Period.getSelectedItem();
 
 						}
@@ -847,6 +847,14 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 
 	private void Section_Choice_Period(final JPanel p) {
 
+		JLabel lbl_Period = new JLabel("Периодичност");
+		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
+		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
+		gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_Period.gridx = 1;
+		gbc_lbl_Period.gridy = 13;
+		p.add(lbl_Period, gbc_lbl_Period);
+		
 		choice_Period = new Choice();
 		choice_Period.setFont(font);
 		choice_Period.setPreferredSize(new Dimension(100, 20));
@@ -856,37 +864,17 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		gbc_choice_Period.gridx = 2;
 		gbc_choice_Period.gridy = 13;
 		p.add(choice_Period, gbc_choice_Period);
-		String[] arr4 = RequestViewFunction.getStringMassivePeriod();
-		for (String string : arr4) {
-			choice_Period.add(string);
-		}
+		
+		RequestViewFunction.setDataIn_Choice_Period(choice_Period);
 
-		JLabel lbl_Period = new JLabel("Периодичност");
-		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
-		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Period.gridx = 1;
-		gbc_lbl_Period.gridy = 13;
-		p.add(lbl_Period, gbc_lbl_Period);
+		
 
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				if (choice_Period.getSelectedItem().equals("")) {
-					str_Descript_grup_Sample = "";
-					str_Descript_grup_Sample = DateChoice.get_str_period();
-				} else {
-					if (DateChoice.get_str_period().equals("")) {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = "за м." + choice_Period.getSelectedItem();
-					} else {
-						str_Descript_grup_Sample = "";
-						str_Descript_grup_Sample = DateChoice.get_str_period() + "\nза м."
-								+ choice_Period.getSelectedItem();
-
-					}
-				}
+				str_Descript_grup_Sample =   RequestViewFunction.generateTxtInDescriptGrupSample( choice_Period,txtFld_Count_Sample.getText());
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
+
 
 			}
 		});
@@ -922,7 +910,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent event) {
 				System.out.println("Data = " + txtFld_Count_Sample.getText());
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				// String str = txtFld_Count_Sample.getText();
 
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {

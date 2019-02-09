@@ -292,22 +292,7 @@ public class RequestViewAplication {
 		return str;
 	}
 
-	public static String checkFormatString(String code) {
 
-		String newCode = code;
-
-		System.out.println(code);
-		for (int i = 0; i < code.length(); i++) {
-			try {
-				Integer.parseInt(code.substring(i, i + 1));
-
-			} catch (NumberFormatException e) {
-				newCode = code.replace(code.substring(i, i + 1), "");
-			}
-		}
-
-		return newCode;
-	}
 
 	// List_Izpitvan_Pokazatel
 	

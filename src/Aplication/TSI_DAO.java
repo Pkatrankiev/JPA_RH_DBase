@@ -9,6 +9,8 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Dimension;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.TSI;
 
 public class TSI_DAO {
@@ -44,13 +46,14 @@ static String name_DBase = "JPA_RH_DBase";
 	
 	@GET
 	@QueryParam("{id}")
-	public static TSI getValueTSIById(@QueryParam("id") int id) {
+	public static TSI getValueTSIById(@QueryParam("id_tsi") int id) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		TSI ind_num_doc = (TSI) entitymanager.find(TSI.class, id);
+		TSI ind_num_doc = entitymanager.find(TSI.class, id);
 
+		
 		entitymanager.close();
 		emfactory.close();
 
@@ -91,5 +94,14 @@ static String name_DBase = "JPA_RH_DBase";
 		return listTSI.get(9);
 	}
 	
-
+	public static String[] getMasiveStringAllValueTSI(){
+		 List<TSI> list = getListAllValueTSI();
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (TSI tsi : list) {
+			values[i] = tsi.getName();
+			i++;
+		}
+		return values;
+	}
 }

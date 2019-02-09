@@ -685,7 +685,7 @@ public class RequestView extends JDialog  {
 					final JFrame f = new JFrame();
 					DateChoice date_time_reference = new DateChoice(f, txt_fid_date_time_reference.getText());
 					date_time_reference.setVisible(true);
-					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period);
+					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period,txtFld_Count_Sample.getText());
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
 					textRefDate = DateChoice.get_date_time_reference();
@@ -714,6 +714,7 @@ public class RequestView extends JDialog  {
 
 		
 	private void Section_Choice_Period(final JPanel p) {
+		
 		JLabel lbl_Period = new JLabel("Периодичност");
 		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
 		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
@@ -737,7 +738,8 @@ public class RequestView extends JDialog  {
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				str_Descript_grup_Sample =   RequestViewFunction.generateTxtInDescriptGrupSample( choice_Period);
+				str_Descript_grup_Sample =   RequestViewFunction.generateTxtInDescriptGrupSample( choice_Period,
+						txtFld_Count_Sample.getText());
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 
 			}
@@ -810,7 +812,7 @@ public class RequestView extends JDialog  {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-				txtFld_Count_Sample.setText(RequestViewAplication.checkFormatString(txtFld_Count_Sample.getText()));
+				txtFld_Count_Sample.setText(RequestViewFunction.checkFormatString(txtFld_Count_Sample.getText()));
 				
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 1, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);

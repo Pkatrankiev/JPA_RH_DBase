@@ -394,7 +394,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 							public void keyReleased(KeyEvent event) {
 
 								txtFld_Year[k]
-										.setText(RequestViewAplication.checkFormatString(txtFld_Year[k].getText()));
+										.setText(RequestViewFunction.checkFormatString(txtFld_Year[k].getText()));
 								if (RequestDAO.checkRequestCode(txtFld_Year[k].getText())) {
 									txtFld_Year[k].setForeground(Color.red);
 									corectYear[k] = false;

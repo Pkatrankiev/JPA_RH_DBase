@@ -69,8 +69,8 @@ public class StartGenerateDocTemplate {
 		// zamestvane na elementite v parvata stranica na documanta
 		AplicationDocTemplate.replaceBasicValueInDoc(template, substitutionData);
 
-		P pargraphTemplateProtokol = AplicationDocTemplate.getTemplateParagraph(template, "Ïğîòîêîë îò èçïèòâàíå");
-		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, "ĞÅÇÓËÒÀÒÈ ÎÒ ÈÇÏÈÒÂÀÍÅÒÎ");
+		P pargraphTemplateProtokol = AplicationDocTemplate.getTemplateParagraph(template, "ĞŸÑ€Ğ¾Ñ‚Ğ¾ĞºĞ¾Ğ» Ğ¾Ñ‚ Ğ¸Ğ·Ğ¿Ğ¸Ñ‚Ğ²Ğ°Ğ½Ğµ");
+		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, "Ğ Ğ•Ğ—Ğ£Ğ›Ğ¢ĞĞ¢Ğ˜ ĞĞ¢ Ğ˜Ğ—ĞŸĞ˜Ğ¢Ğ’ĞĞĞ•Ğ¢Ğ");
 		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
 		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
@@ -88,7 +88,7 @@ public class StartGenerateDocTemplate {
 		Tbl zabTable = null;
 		try {
 			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_column_table_result[0]);
-			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Èçâúğøèëè èçïèòâàíåòî:");
+			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Ğ˜Ğ·Ğ²ÑŠÑ€ÑˆĞ¸Ğ»Ğ¸ Ğ¸Ğ·Ğ¿Ğ¸Ñ‚Ğ²Ğ°Ğ½ĞµÑ‚Ğ¾:");
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, "$$%%");
 			
 		} catch (Docx4JException | JAXBException e3) {
@@ -99,7 +99,7 @@ public class StartGenerateDocTemplate {
 		List<Object> rows = AplicationDocTemplate.getAllElementFromObject(tempTable, Tr.class);
 
 		 
-		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, "Êîä íà ïğîáàòà");
+		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, "ĞšĞ¾Ğ´ Ğ½Ğ° Ğ¿Ñ€Ğ¾Ğ±Ğ°Ñ‚Ğ°");
 		Tr headerRow_2 = AplicationDocTemplate.getRowEqualsText(rows, "1");
 		Tr templateRow_pokazatel = AplicationDocTemplate.getRowEqualsText(rows, "$$request_pokazarel$$");
 		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_column_table_result[0]);
@@ -125,7 +125,7 @@ public class StartGenerateDocTemplate {
 		int maxCounRow = countRowInFirstPege(count_Result_In_Protokol);
 		int coutRow = 0;
 		if (pokazatel_list.size() == 1) {
-			if (pokaz.indexOf("ãàìà") > 0 || pokaz.indexOf("àëôà") > 0) {
+			if (pokaz.indexOf("Ğ³Ğ°Ğ¼Ğ°") > 0 || pokaz.indexOf("Ğ°Ğ»Ñ„Ğ°") > 0) {
 				repl_request_pokazarel.put("$$request_pokazarel$$", pokaz);
 				AplicationDocTemplate.addRowToTable(tempTable, templateRow_pokazatel, repl_request_pokazarel);
 				coutRow++;
@@ -254,10 +254,10 @@ public class StartGenerateDocTemplate {
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();
-		if (pokaz.indexOf("ãàìà") > 0 || pokaz.indexOf("àëôà") > 0) {
-			substitutionData.put(masive_column_table_result[2], result.getNuclide().getSymbol_nuclide());
+		if (pokaz.indexOf("Ğ³Ğ°Ğ¼Ğ°") > 0 || pokaz.indexOf("Ğ°Ğ»Ñ„Ğ°") > 0) {
+			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
 		} else {
-			substitutionData.put(masive_column_table_result[2], pokaz);
+			substitutionData.put(masive_column_table_result[2], superscript(pokaz));
 		}
 		// "$$razmernost$$"
 		substitutionData.put(masive_column_table_result[3], result.getRtazmernosti().getName_razmernosti());
@@ -265,7 +265,7 @@ public class StartGenerateDocTemplate {
 		// "$$value$$"
 		String str_VAlue = "";
 		if (result.getValue_result() != 0) {
-			str_VAlue = formatter(result.getValue_result()) + " ± "
+			str_VAlue = formatter(result.getValue_result()) + " Â± "
 					+ alignExpon(result.getValue_result(), result.getUncertainty());
 		} else {
 			str_VAlue = "<" + formatter(result.getMda());
@@ -278,6 +278,21 @@ public class StartGenerateDocTemplate {
 		return substitutionData;
 	}
 
+	 public static String superscript(String str) {
+	 	    str = str.replaceAll("0", "â°");
+	 	    str = str.replaceAll("1", "Â¹");
+	 	    str = str.replaceAll("2", "Â²");
+	 	    str = str.replaceAll("3", "Â³");
+	 	    str = str.replaceAll("4", "â´");
+	 	    str = str.replaceAll("5", "âµ");
+	 	    str = str.replaceAll("6", "â¶");
+	 	    str = str.replaceAll("7", "â·");
+	 	    str = str.replaceAll("8", "â¸");
+	 	    str = str.replaceAll("9", "â¹");  
+	 	    str = str.replaceAll("/", "â¸");  
+	 	    
+	 	    return str;
+	 	}
 	public static String alignExpon(double basic, double foll) {
 		NumberFormat frm = new DecimalFormat("0.00E00");
 		NumberFormat frm_foll = new DecimalFormat("0.00");

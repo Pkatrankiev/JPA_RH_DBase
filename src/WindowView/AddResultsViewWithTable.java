@@ -44,6 +44,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import Table.Table_Request_List;
 import Table.Table_Results_List;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -75,6 +76,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -1222,7 +1225,11 @@ public class AddResultsViewWithTable extends JDialog {
 
 				}
 				if (table.getSelectedColumn() == check_Colum) {
-					// **************************
+					Double actv_value = (Double) table.getValueAt(table.getSelectedRow(), actv_value_Colum);
+					Double mda = (Double) table.getValueAt(table.getSelectedRow(), mda_Colum);
+					Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(table.getValueAt(table.getSelectedRow(), nuclide_Colum).toString());
+					Sample samp = getSampleObjectFromChoiceSampleCode();
+					checkValueFrame(nuclide,samp,actv_value,mda);
 				}
 			}
 
@@ -1314,6 +1321,43 @@ public class AddResultsViewWithTable extends JDialog {
 		return table;
 	}
 
+	protected void checkValueFrame(Nuclide nuclide, Sample samp, Double actv_value, Double mda) {
+		List<Sample> listAllSamp = SampleDAO.getInListAllValueSample();
+		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
+		
+		for (Sample sample : listAllSamp) {
+			System.out.println("++++199"+sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane()+" "+samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+			if(sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane().equals(samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane())
+					&&sample.getDescription_sample().equals(samp.getDescription_sample())) {
+				for(Results result : ResultsDAO.getListResultsFromColumnByVolume("sample", sample)) {
+					System.out.println("++++12"+result.getNuclide().getSymbol_nuclide()+" "+nuclide.getSymbol_nuclide());
+				if(result.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
+					int value = Integer.parseInt(sample.getRequest().getRecuest_code());
+					CheckResultClass checkResultObject = new CheckResultClass(result.getValue_result(), result.getMda(), value);
+					System.out.println("++++16"+checkResultObject.getRequestCode()+" "+checkResultObject.getMda()+" "+checkResultObject.getValue());
+					listCheckResultObject.add(checkResultObject);
+				}
+			}
+		}
+		
+		}
+		 Collections.sort(listCheckResultObject, CheckResultClass.StuNameComparator);
+		 
+			TranscluentWindow round = new TranscluentWindow();
+			
+			 final Thread thread = new Thread(new Runnable() {
+			     @Override
+			     public void run() {
+			    	 
+			    	 JFrame f = new JFrame();
+			 		new  CheckViewValueDialogFrame(f,round, listCheckResultObject);
+		    	
+			     }
+			    });
+			    thread.start();
+	}
+	 
+		    
 	private static String[] getTabHeader() {
 		String[] tableHeader = { "Нуклид", "Активност", "Неопределеност", "МДА", "Размерност", "Сигма", "Количество",
 				"Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "В протокол", "Проверка", "Id_Result" };

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.font.TextAttribute;
+import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Iterator;
@@ -49,8 +51,11 @@ public class Main_Aplication {
 		// ReaderWordDoc.readMyDocument(fileName);
 
 //		 ChangeObjectsInClass();
-
-		// MesejePanel();
+		
+		
+//		testScript () ;
+		
+//		 MesejePanel();
 
 		StartMainWindow();
 		
@@ -74,18 +79,66 @@ public class Main_Aplication {
 		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 
+	private static void testScript () {
+		  String as ="asd4 5/78Ajj";	      
+	     
+	      JOptionPane.showMessageDialog(null, "Грешни:" + superscript1(as)+" "+ superscript2(as)+" "+ superscript3(as)+" ");
+	}
+	
+	 public static String superscript1(String str) {
+ 	    str = str.replaceAll("0", "⁰");
+ 	    str = str.replaceAll("1", "¹");
+ 	    str = str.replaceAll("2", "²");
+ 	    str = str.replaceAll("3", "³");
+ 	    str = str.replaceAll("4", "⁴");
+ 	    str = str.replaceAll("5", "⁵");
+ 	    str = str.replaceAll("6", "⁶");
+ 	    str = str.replaceAll("7", "⁷");
+ 	    str = str.replaceAll("8", "⁸");
+ 	    str = str.replaceAll("9", "⁹");  
+ 	   str = str.replaceAll("/", "⸍");  
+ 	    return str;
+ 	}
+	 public static String superscript2(String str) {
+	 	    str = str.replaceAll("0", "⁰");
+	 	    str = str.replaceAll("1", "¹");
+	 	    str = str.replaceAll("2", "²");
+	 	    str = str.replaceAll("3", "³");
+	 	    str = str.replaceAll("4", "⁴");
+	 	    str = str.replaceAll("5", "⁵");
+	 	    str = str.replaceAll("6", "⁶");
+	 	    str = str.replaceAll("7", "⁷");
+	 	    str = str.replaceAll("8", "⁸");
+	 	    str = str.replaceAll("9", "⁹");  
+	 	   str = str.replaceAll("/", "⸍");  
+	 	    return str;
+	 	}
+	 public static String superscript3(String str) {
+	 	    str = str.replaceAll("0", "⁰");
+	 	    str = str.replaceAll("1", "¹");
+	 	    str = str.replaceAll("2", "²");
+	 	    str = str.replaceAll("3", "³");
+	 	    str = str.replaceAll("4", "⁴");
+	 	    str = str.replaceAll("5", "⁵");
+	 	    str = str.replaceAll("6", "⁶");
+	 	    str = str.replaceAll("7", "⁷");
+	 	    str = str.replaceAll("8", "⁸");
+	 	    str = str.replaceAll("9", "⁹");  
+	 	   str = str.replaceAll("/", "⸍");  
+	 	    return str;
+	 	}
 	private static void MesejePanel() {
 		String[][] str = new String[4][];
 		str[0] = new String[] { "Pie", "2.2", "12" };
 		str[1] = new String[] { "Cracker", "4", "15" };
 		str[2] = new String[] { "Pop tarts", "1", "4" };
 		str[3] = new String[] { "Sun Chips", "5", "2" };
-		Object[] options1 = { "��", "�����" };
+		Object[] options1 = { "Да", "Отказ" };
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.add(createTextPanel("�� ���������"));
+		panel.add(createTextPanel("За изтриване"));
 		panel.add(test.creadJPanel(str));
-		panel.add(createTextPanel("�� �����"));
+		panel.add(createTextPanel("За запис"));
 		panel.add(test.creadJPanel(str));
 		int result = JOptionPane.showOptionDialog(null, panel, "Enter a Number", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options1, null);

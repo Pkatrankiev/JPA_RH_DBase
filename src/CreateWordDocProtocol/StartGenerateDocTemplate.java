@@ -293,7 +293,8 @@ public class StartGenerateDocTemplate {
 	 	    
 	 	    return str;
 	 	}
-	public static String alignExpon(double basic, double foll) {
+
+	 public static String alignExpon(double basic, double foll) {
 		NumberFormat frm = new DecimalFormat("0.00E00");
 		NumberFormat frm_foll = new DecimalFormat("0.00");
 		String str_bas = frm.format(basic);

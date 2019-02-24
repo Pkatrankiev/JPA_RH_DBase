@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TSI;
 import OldClases.test;
+import WindowView.AddResultsViewWithTable;
 import WindowView.MainWindows;
 import WindowView.ReadGamaFile;
 import WindowView.ReaderWordDoc;
@@ -57,13 +60,13 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-		StartMainWindow();
+//		StartMainWindow();
 		
+		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 		
-		
-//		startcreateProtokolDocx();
-
 	}
+
+	 
 
 	private static void startcreateProtokolDocx() {
 
@@ -86,17 +89,28 @@ public class Main_Aplication {
 	}
 	
 	 public static String superscript1(String str) {
- 	    str = str.replaceAll("0", "⁰");
- 	    str = str.replaceAll("1", "¹");
- 	    str = str.replaceAll("2", "²");
- 	    str = str.replaceAll("3", "³");
- 	    str = str.replaceAll("4", "⁴");
- 	    str = str.replaceAll("5", "⁵");
- 	    str = str.replaceAll("6", "⁶");
- 	    str = str.replaceAll("7", "⁷");
- 	    str = str.replaceAll("8", "⁸");
- 	    str = str.replaceAll("9", "⁹");  
- 	   str = str.replaceAll("/", "⸍");  
+		 
+		 AttributedString as = new AttributedString(str);
+	     
+	        as.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUB, 1, 5);
+		 
+//		 Font font = new  Font("Tahoma", Font.PLAIN, 11);
+//				 Map<TextAttribute,?> attributes = font.getAttributes();
+//				 Map<TextAttribute,Object> newAttributes = new HashMap<TextAttribute,Object>(attributes);
+//				 newAttributes.put(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUPER);
+//				 font = font.deriveFont(newAttributes);
+//		 
+// 	    str = str.replaceAll("0", "⁰");
+// 	    str = str.replaceAll("1", "¹");
+// 	    str = str.replaceAll("2", "²");
+// 	    str = str.replaceAll("3", "³");
+// 	    str = str.replaceAll("4", "⁴");
+// 	    str = str.replaceAll("5", "⁵");
+// 	    str = str.replaceAll("6", "⁶");
+// 	    str = str.replaceAll("7", "⁷");
+// 	    str = str.replaceAll("8", "⁸");
+// 	    str = str.replaceAll("9", "⁹");  
+// 	   str = str.replaceAll("/", "⸍");  
  	    return str;
  	}
 	 public static String superscript2(String str) {

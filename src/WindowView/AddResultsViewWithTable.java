@@ -1225,8 +1225,8 @@ public class AddResultsViewWithTable extends JDialog {
 
 				}
 				if (table.getSelectedColumn() == check_Colum) {
-					Double actv_value = (Double) table.getValueAt(table.getSelectedRow(), actv_value_Colum);
-					Double mda = (Double) table.getValueAt(table.getSelectedRow(), mda_Colum);
+					double actv_value = Double.parseDouble((table.getValueAt(table.getSelectedRow(), actv_value_Colum)).toString());
+					double mda = Double.parseDouble((table.getValueAt(table.getSelectedRow(), mda_Colum)).toString());
 					Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(table.getValueAt(table.getSelectedRow(), nuclide_Colum).toString());
 					Sample samp = getSampleObjectFromChoiceSampleCode();
 					checkValueFrame(nuclide,samp,actv_value,mda);
@@ -1321,7 +1321,7 @@ public class AddResultsViewWithTable extends JDialog {
 		return table;
 	}
 
-	protected void checkValueFrame(Nuclide nuclide, Sample samp, Double actv_value, Double mda) {
+	public static void checkValueFrame(Nuclide nuclide, Sample samp, Double actv_value, Double mda) {
 		List<Sample> listAllSamp = SampleDAO.getInListAllValueSample();
 		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
 		
@@ -1343,18 +1343,19 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		 Collections.sort(listCheckResultObject, CheckResultClass.StuNameComparator);
 		 
-			TranscluentWindow round = new TranscluentWindow();
-			
-			 final Thread thread = new Thread(new Runnable() {
-			     @Override
-			     public void run() {
-			    	 
-			    	 JFrame f = new JFrame();
-			 		new  CheckViewValueDialogFrame(f,round, listCheckResultObject);
-		    	
-			     }
-			    });
-			    thread.start();
+//			TranscluentWindow round = new TranscluentWindow();
+			 JFrame f = new JFrame();
+		    	new  CheckViewValueDialogFrame(f, listCheckResultObject,actv_value, mda);
+//			 final Thread thread = new Thread(new Runnable() {
+//			     @Override
+//			     public void run() {
+//			    	 
+//			    	
+//			    
+//		    	
+//			     }
+//			    });
+//			    thread.start();
 	}
 	 
 		    

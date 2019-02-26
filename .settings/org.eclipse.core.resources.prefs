@@ -6,3 +6,5 @@ encoding//src/CreateWordDocProtocol/AplicationDocTemplate.java=UTF-8
 encoding//src/CreateWordDocProtocol/StartGenerateDocTemplate.java=UTF-8
 encoding//src/ReadAndSaveDocFailInDBase/SetDBfromWordDoc.java=UTF-8
 encoding//src/WindowView/DateChoice.java=UTF-8
+encoding/<project>=Cp1251
+separateDerivedEncodings=true

@@ -1,8 +1,11 @@
 package WindowView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import Aplication.DimensionDAO;
 import Aplication.NuclideDAO;
 import Aplication.RazmernostiDAO;
+import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Results;
+import DBase_Class.TSI;
 import DBase_Class.Users;
 
 public class ReadGamaFile {
@@ -54,6 +59,7 @@ public class ReadGamaFile {
 		return dimension;
 	}
 
+	
 	public static String getUncertainy() {
 		return uncertainy;
 	}
@@ -180,6 +186,7 @@ public class ReadGamaFile {
 				results.setUser_measur(getUserFromFile());
 				results.setDate_measur(date_mesur);
 				results.setDate_chim_oper("");
+				results.setTsi(getTSIObjectFromFileString(T_S_I));
 				if(quantity.length()>0){
 					results.setQuantity(Double.parseDouble(quantity));	
 					results.setDimension(DimensionDAO.getValueDimensionByName(dimension));
@@ -229,6 +236,7 @@ public class ReadGamaFile {
 			masiveResultsMDA[k].setUser_measur(getUserFromFile());
 			masiveResultsMDA[k].setDate_measur(date_mesur);
 			masiveResultsMDA[k].setDate_chim_oper("");
+			masiveResultsMDA[k].setTsi(getTSIObjectFromFileString(T_S_I));
 			if (quantity.length() > 0) {
 				masiveResultsMDA[k].setQuantity(Double.parseDouble(quantity));
 				masiveResultsMDA[k].setDimension(DimensionDAO.getValueDimensionByName(dimension));
@@ -248,14 +256,23 @@ public class ReadGamaFile {
 		return newMasiveResultsMDA;
 	}
 
+	private static TSI getTSIObjectFromFileString(String t_s_i) {
+		return TSI_DAO.getValueTSIByNumberFromName(t_s_i.substring(1,3).trim());
+		
+	}
+
 	private static String[] CreadMasiveFromReadFile(String FILENAME) {
 		BufferedReader br = null;
 		FileReader fr = null;
 		String[] stringArray = new String[1000];
 		try {
 			// br = new BufferedReader(new FileReader(FILENAME));
-			fr = new FileReader(FILENAME);
-			br = new BufferedReader(fr);
+//			fr = new FileReader(FILENAME);
+//			br = new BufferedReader(fr);
+			File fileDir = new File(FILENAME);
+
+	        br = new BufferedReader(
+	           new InputStreamReader(new FileInputStream(fileDir),"Cp1251"));
 			String sCurrentLine;
 			int i = 0;
 			while ((sCurrentLine = br.readLine()) != null) {
@@ -307,7 +324,9 @@ public class ReadGamaFile {
 				countLineToNuclide++;
 				if (countLineToNuclide > 2) {
 					if (stringLine[j].length != 0) {
+						if(stringArray[j].substring(25, 40).trim().indexOf("*")<0){
 						listNuclideAkv.add(stringArray[j]);
+						}
 					} else {
 						flagNuclidy++;
 					}

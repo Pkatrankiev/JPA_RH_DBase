@@ -60,9 +60,9 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-//		StartMainWindow();
+		StartMainWindow();
 		
-		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
+//		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 		
 	}
 

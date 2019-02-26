@@ -750,12 +750,12 @@ public class AddResultsViewWithTable extends JDialog {
 
 	public void visibleSampleInfoLbl(JLabel lbl_OI_Sample, JLabel lblSampleDescript) {
 		if (choiceSmplCode.getSelectedItem() != "") {
-			if (getName_IO_Sample(choiceSmplCode.getSelectedItem()).length() > 41) {
+			if (getName_IO_Sample(choiceSmplCode.getSelectedItem()).length() > 50) {
 				lbl_OI_Sample.setText(getName_IO_Sample(choiceSmplCode.getSelectedItem()).substring(0, 50));
 			} else {
 				lbl_OI_Sample.setText(getName_IO_Sample(choiceSmplCode.getSelectedItem()));
 			}
-			if (get_Sample_Descrip(choiceSmplCode.getSelectedItem()).length() > 41) {
+			if (get_Sample_Descrip(choiceSmplCode.getSelectedItem()).length() > 50) {
 				lblSampleDescript.setText(get_Sample_Descrip(choiceSmplCode.getSelectedItem()).substring(0, 50));
 			} else {
 				lblSampleDescript.setText(get_Sample_Descrip(choiceSmplCode.getSelectedItem()));

@@ -1,16 +1,16 @@
 package CreateWordDocProtocol;
 
-import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigInteger;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
 
 import javax.xml.bind.JAXBException;
 import org.apache.log4j.*;
@@ -43,7 +43,7 @@ public class StartGenerateDocTemplate {
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
 	private static final String destinationDir = "DIRECTORY/";
 
-	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
+	public static void GenerateProtokolWordDoc( String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData) {
 		BasicConfigurator.configure();
 	
@@ -85,8 +85,13 @@ public class StartGenerateDocTemplate {
 		// find the table
 		Tbl tempTable = null;
 		Tbl podpisiTable = null;
+		Tbl sertifikatTable = null;
 		Tbl zabTable = null;
 		try {
+			sertifikatTable = AplicationDocTemplate.getTemplateTable(tables, "$$sert$$");
+			if(recuest.getAccreditation()){
+				AplicationDocTemplate.removeTable(template, sertifikatTable);
+				}
 			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_column_table_result[0]);
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Извършили изпитването:");
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, "$$%%");
@@ -94,7 +99,7 @@ public class StartGenerateDocTemplate {
 		} catch (Docx4JException | JAXBException e3) {
 			e3.printStackTrace();
 		}
-
+		
 		// prochitane na redovete v tablicata
 		List<Object> rows = AplicationDocTemplate.getAllElementFromObject(tempTable, Tr.class);
 
@@ -113,8 +118,8 @@ public class StartGenerateDocTemplate {
 		tempTable.getContent().remove(templateRow);
 		tempTable.getContent().remove(templateRow_pokazatel);
 		
-		AplicationDocTemplate.removeTable(template,(Tbl) tables.get(2));
-		AplicationDocTemplate.removeTable(template,(Tbl) tables.get(3));
+		AplicationDocTemplate.removeTable(template, podpisiTable);
+		AplicationDocTemplate.removeTable(template, zabTable);
 		
 		Map<String, String> repl_request_pokazarel = new HashMap<String, String>();
 		List<Results> result_list = new ArrayList<>();
@@ -206,23 +211,7 @@ public class StartGenerateDocTemplate {
 		return max_tableRow;
 	}
 
-	private static void addBorders(Tbl table) {
-	    table.setTblPr(new TblPr());
-	    CTBorder border = new CTBorder();
-	    border.setColor("auto");
-	    border.setSz(new BigInteger("4"));
-	    border.setSpace(new BigInteger("0"));
-	    border.setVal(STBorder.SINGLE);
-	 
-	    TblBorders borders = new TblBorders();
-	    borders.setBottom(border);
-	    borders.setLeft(border);
-	    borders.setRight(border);
-	    borders.setTop(border);
-	    borders.setInsideH(border);
-	    borders.setInsideV(border);
-	    table.getTblPr().setTblBorders(borders);
-	}
+
 	
 
 	
@@ -242,12 +231,13 @@ public class StartGenerateDocTemplate {
 
 	private static Map<String, String> generateResultsMap(Sample sample, Results result,
 			String[] masive_column_table_result) {
-
+		List<String> listDokladMDA = new ArrayList<String>();
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		// "$$sample_code$$"
 		substitutionData.put(masive_column_table_result[0],
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
+		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
 
 		// "$$sample_metod$$"
 		substitutionData.put(masive_column_table_result[1], result.getMetody().getCode_metody());
@@ -255,7 +245,11 @@ public class StartGenerateDocTemplate {
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();
 		if (pokaz.indexOf("гама") > 0 || pokaz.indexOf("алфа") > 0) {
-			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
+//			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
+			String[] nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
+			substitutionData.put("$$num$$",nuclide[0] );
+			substitutionData.put("$$cod$$",nuclide[1] );
+			
 		} else {
 			substitutionData.put(masive_column_table_result[2], superscript(pokaz));
 		}
@@ -264,12 +258,21 @@ public class StartGenerateDocTemplate {
 
 		// "$$value$$"
 		String str_VAlue = "";
+		
 		if (result.getValue_result() != 0) {
 			str_VAlue = formatter(result.getValue_result()) + " ± "
 					+ alignExpon(result.getValue_result(), result.getUncertainty());
+			if(string_zab.indexOf("10%")>0){
+				str_VAlue=str_VAlue+"*";
+			}
+			if(string_zab.indexOf("Да се докладва МДА")>0){
+				listDokladMDA.add("<" + formatter(result.getMda()));
+			}
 		} else {
 			str_VAlue = "<" + formatter(result.getMda());
 		}
+		
+		
 		substitutionData.put(masive_column_table_result[4], str_VAlue);
 
 		// "$$norma$$"
@@ -278,18 +281,35 @@ public class StartGenerateDocTemplate {
 		return substitutionData;
 	}
 
-	 public static String superscript(String str) {
-	 	    str = str.replaceAll("0", "⁰");
-	 	    str = str.replaceAll("1", "¹");
-	 	    str = str.replaceAll("2", "²");
-	 	    str = str.replaceAll("3", "³");
-	 	    str = str.replaceAll("4", "⁴");
-	 	    str = str.replaceAll("5", "⁵");
-	 	    str = str.replaceAll("6", "⁶");
+	 private static String[] getNumberFromNuclide(String symbol_nuclide) {
+		String[] str = new String[]{"",""};
+		
+		 for (int i = 0; i < symbol_nuclide.length(); i++) {
+			char temp = symbol_nuclide.charAt(i);
+		
+		     if(Character.isDigit(temp) ||( temp == '/'))
+		     {
+		        str[0] = str[0]+temp;
+		     }else{
+		    	 str[1] = str[1]+temp;
+		     }
+		}
+		return str;
+	}
+
+	public static String superscript(String str) {
+		
+	 	    str = str.replaceAll("0", "\u2070");
+	 	    str = str.replaceAll("1", "\u00B9");
+	 	    str = str.replaceAll("2", "\u00B2");
+	 	    str = str.replaceAll("3", "\u00B3");
+	 	    str = str.replaceAll("4", "\u2074");
+	 	    str = str.replaceAll("5", "\u2075");
+	 	    str = str.replaceAll("6", "\u2076");
 	 	    str = str.replaceAll("7", "⁷");
-	 	    str = str.replaceAll("8", "⁸");
-	 	    str = str.replaceAll("9", "⁹");  
-	 	    str = str.replaceAll("/", "⸍");  
+	 	    str = str.replaceAll("8", "\u2078");
+	 	    str = str.replaceAll("9", "\u2079");  
+	 	    str = str.replaceAll("/", "ᐟ");  
 	 	    
 	 	    return str;
 	 	}

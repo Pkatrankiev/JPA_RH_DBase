@@ -44,8 +44,10 @@ public class Generate_Map_For_Request_Word_Document {
 			
 		}
 		}
-		String maxDate = Collections.max(date);
-		String minDate = Collections.min(date);
+		String maxDate="", minDate = "";
+		if(date.size()>0){
+		 maxDate = Collections.max(date);
+		 minDate = Collections.min(date);
 		try {
 			maxDate = DatePicker.reformatFromTabDate(maxDate,false);
 			minDate = DatePicker.reformatFromTabDate(minDate,false);
@@ -54,7 +56,7 @@ public class Generate_Map_For_Request_Word_Document {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		}
 
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
@@ -79,14 +81,14 @@ public class Generate_Map_For_Request_Word_Document {
 
 		if (request.getExtra_module() != null) {
 			if (request.getExtra_module().getInternal_applicant() != null) {
-				substitutionData.put("$$zaqvitel$$", "ДП “РАО”"+", "
+				substitutionData.put("$$zaqvitel$$", "Р”Рџ вЂњР РђРћвЂќ"+", "
 						+ request.getExtra_module().getInternal_applicant().getInternal_applicant_organization());
 			} else {
 				substitutionData.put("$$zaqvitel$$",
 						request.getExtra_module().getExternal_applicant().getExternal_applicant_name());
 			}
 		} else {
-			substitutionData.put("$$zaqvitel$$", "Държавно предприятие “Радиоактивни отпадъци”");
+			substitutionData.put("$$zaqvitel$$", "Р”СЉСЂР¶Р°РІРЅРѕ РїСЂРµРґРїСЂРёСЏС‚РёРµ вЂњР Р°РґРёРѕР°РєС‚РёРІРЅРё РѕС‚РїР°РґСЉС†РёвЂќ");
 		}
 
 		String metody = generate_Metody_String(request);
@@ -118,8 +120,9 @@ public class Generate_Map_For_Request_Word_Document {
 
 		substitutionData.put("$$zabelejki_1$$", zabelejki[0]);
 		substitutionData.put("$$zabelejki_2$$", zabelejki[1]);
+		substitutionData.put("$$zabelejki$$", zabelejki[2]);
 		
-		substitutionData.put ("$$date_measur$$", minDate + " - " +  maxDate);
+		substitutionData.put ("$$date_measur$$", minDate + " Г· " +  maxDate);
 
 		if (request.getUsers() != null) {
 			substitutionData.put("$$user$$",
@@ -133,7 +136,8 @@ public class Generate_Map_For_Request_Word_Document {
 		
 	private static String[] generate_zabelejki_Masive_String(Request request) {
 		String txt;
-		String[] zabelejki = new String[2];
+		String[] zabelejki = new String[3];
+		
 		String str_1 = "";
 		String str_2 = "";
 
@@ -156,6 +160,7 @@ public class Generate_Map_For_Request_Word_Document {
 
 		zabelejki[0] = str_1;
 		zabelejki[1] = str_2;
+		zabelejki[2] = zabel_str;
 		return zabelejki;
 	}
 
@@ -178,8 +183,8 @@ public class Generate_Map_For_Request_Word_Document {
 					period_fl = true;
 			}
 		}
-		descrip_sam_gr_str = count + getWordOFNumber(count) + descrip_sam_gr_str + " на " + sample_description[0][5]
-				+ "г.  ";
+		descrip_sam_gr_str = count + getWordOFNumber(count) + descrip_sam_gr_str + " РЅР° " + sample_description[0][5]
+				+ "Рі.  ";
 		String samp_str = "";
 
 		for (int i = 0; i < count; i++) {
@@ -188,7 +193,7 @@ public class Generate_Map_For_Request_Word_Document {
 			samp_str = samp_str + sample_description[i][2] + ", ";
 
 			if (period_fl)
-				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
+				samp_str = samp_str + "Р·Р° " + sample_description[i][4] + " РЅР° " + sample_description[i][5] + "Рі.";
 		}
 
 		max = 45;
@@ -258,7 +263,7 @@ public class Generate_Map_For_Request_Word_Document {
 			}
 		}
 		if (period_fl || !sample_description[0][4].equals("")) {
-			descrip_sam_gr_str = descrip_sam_gr_str + " на " + sample_description[0][5] + "г.  ";
+			descrip_sam_gr_str = descrip_sam_gr_str + " РЅР° " + sample_description[0][5] + "Рі.  ";
 		}
 		String samp_str = "";
 
@@ -271,7 +276,7 @@ public class Generate_Map_For_Request_Word_Document {
 				samp_str = samp_str + "; ";
 			}
 			if (period_fl)
-				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
+				samp_str = samp_str + "Р·Р° " + sample_description[i][4] + " РЅР° " + sample_description[i][5] + "Рі.";
 		}
 
 //		max = 45;
@@ -373,7 +378,9 @@ public class Generate_Map_For_Request_Word_Document {
 		String metody = "";
 		for (IzpitvanPokazatel izpitvanPokazayel : RequestViewFunction
 				.get_List_Izpitvan_pokazatel_From_Request(request)) {
-			metody = metody + izpitvanPokazayel.getMetody().getName_metody() + "\n";
+			
+			metody = metody + izpitvanPokazayel.getMetody().getName_metody()+", "
+			+izpitvanPokazayel.getMetody().getCode_metody() + "\n";
 		}
 
 		return metody;
@@ -384,62 +391,62 @@ public class Generate_Map_For_Request_Word_Document {
 		String str2 = "";
 		if (num > 12) {
 			num = num - 10;
-			str2 = "надесет";
+			str2 = "РЅР°РґРµСЃРµС‚";
 		}
 
 		switch (num) {
 		case 1:
-			str = "един";
+			str = "РµРґРёРЅ";
 			break;
 
 		case 2:
-			str = "двa";
+			str = "РґРІa";
 			break;
 
 		case 3:
-			str = "три";
+			str = "С‚СЂРё";
 			break;
 
 		case 4:
-			str = "четири";
+			str = "С‡РµС‚РёСЂРё";
 			break;
 
 		case 5:
-			str = "пет";
+			str = "РїРµС‚";
 			break;
 
 		case 6:
-			str = "шест";
+			str = "С€РµСЃС‚";
 			break;
 
 		case 7:
-			str = "седем";
+			str = "СЃРµРґРµРј";
 			break;
 
 		case 8:
-			str = "осем";
+			str = "РѕСЃРµРј";
 			break;
 
 		case 9:
-			str = "девет";
+			str = "РґРµРІРµС‚";
 			break;
 
 		case 10:
-			str = "десет";
+			str = "РґРµСЃРµС‚";
 			break;
 
 		case 11:
-			str = "единадесет";
+			str = "РµРґРёРЅР°РґРµСЃРµС‚";
 			break;
 
 		case 12:
-			str = "дванадесет";
+			str = "РґРІР°РЅР°РґРµСЃРµС‚";
 			break;
 		}
 		if (num == 1) {
-			return "(" + str + ") брой ";
+			return "(" + str + ") Р±СЂРѕР№ ";
 		} else
-			return "(" + str + str2 + ") броя ";
+			return "(" + str + str2 + ") Р±СЂРѕСЏ ";
 	}
 
 }

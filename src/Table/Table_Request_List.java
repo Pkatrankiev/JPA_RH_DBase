@@ -142,8 +142,8 @@ public class Table_Request_List extends JDialog {
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
-				if (table.getSelectedColumn() == izp_Pok_Colum && loginUser != null
-						&& loginUser.getIsAdmin() && table.getSelectedRow() != -1) {
+				if (table.getSelectedColumn() == izp_Pok_Colum && loginUser != null && loginUser.getIsAdmin()
+						&& table.getSelectedRow() != -1) {
 					int rowPokazatel = table.rowAtPoint(e.getPoint());
 					EditColumnPokazatel(table, rowPokazatel);
 
@@ -151,53 +151,61 @@ public class Table_Request_List extends JDialog {
 				}
 
 				if (e.getClickCount() == 2 && loginUser != null && table.getSelectedRow() != -1) {
-					if(loginUser.getIsAdmin()){
-					if (table.getSelectedColumn() == cunt_Smpl_Colum || table.getSelectedColumn() == ref_Date_Colum) {
-						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
-						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-						 JFrame f = new JFrame();
+					if (loginUser.getIsAdmin()) {
+						if (table.getSelectedColumn() == cunt_Smpl_Colum
+								|| table.getSelectedColumn() == ref_Date_Colum) {
+							String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+							JFrame f = new JFrame();
 							TranscluentWindow round = new TranscluentWindow();
-							
-							 final Thread thread = new Thread(new Runnable() {
-							     @Override
-							     public void run() {
-							    	 
-							    	 JFrame f = new JFrame();
-							    		new Table_Sample_List(f,round, choiseRequest);
-							     }
-							    });
-							    thread.start();
-					}
-					}else{
-						
+
+							final Thread thread = new Thread(new Runnable() {
+								@Override
+								public void run() {
+
+									JFrame f = new JFrame();
+									new Table_Sample_List(f, round, choiseRequest);
+								}
+							});
+							thread.start();
+						}
+					} else {
+
 						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 						if (parent.getName().equals("tamplete")) {
-						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-						 JFrame f = new JFrame();
-						if (choiseRequest.getExtra_module() != null) {
-							new ExtraRequestView(f, loginUser, choiseRequest, round);
+							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+							JFrame f = new JFrame();
+							if (choiseRequest.getExtra_module() != null) {
+								new ExtraRequestView(f, loginUser, choiseRequest, round);
+							} else {
+								new RequestView(f, loginUser, choiseRequest, round);
+							}
+
 						} else {
-							new RequestView(f, loginUser, choiseRequest, round);
+							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+							String date_time_reference = RequestViewFunction
+									.GenerateStringRefDateTimeFromRequest(choiseRequest);
+
+							Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
+									.GenerateMapForRequestWordDocument(choiseRequest,
+											RequestViewFunction
+													.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
+											RequestViewFunction.generateMasiveSampleDescriptionFromRequest(
+													choiseRequest),
+											date_time_reference);
+
+							StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest,
+									substitutionData);
+
+							// DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+							// "Z-" + choiseRequest.getRecuest_code() + "_" +
+							// choiseRequest.getDate_request(),
+							// substitutionData);
 						}
-						
-
-					} else{
-						choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-						String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
-
-						Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
-								choiseRequest,  RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest (choiseRequest), RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-						
-						StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
-							
-//						DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-//								"Z-" + choiseRequest.getRecuest_code() + "_" + choiseRequest.getDate_request(), substitutionData);
 					}
-					}
-					
+
 				}
 
-				
 			}
 		});
 
@@ -230,7 +238,7 @@ public class Table_Request_List extends JDialog {
 					public boolean isCellEditable(int row, int column) {
 						if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
 							if (Login.getCurentUser().getIsAdmin()) {
-								if (column == ref_Date_Colum){
+								if (column == ref_Date_Colum) {
 									return false;
 								}
 								return true;
@@ -277,8 +285,8 @@ public class Table_Request_List extends JDialog {
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(razmer_Colum));
 				setUp_Users(table, table.getColumnModel().getColumn(user_Colum));
 				setUp_Zabelejki(table, table.getColumnModel().getColumn(zab_Colum));
-				
-//				table.getColumnModel().getColumn(user_Id_Colum).se
+
+				// table.getColumnModel().getColumn(user_Id_Colum).se
 
 				JPanel panel_Btn = new JPanel();
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -376,9 +384,9 @@ public class Table_Request_List extends JDialog {
 
 	private Object[][] getDataTable(Request tamplateRequest) {
 		List<Request> listRequest = new ArrayList<Request>();
-		if(tamplateRequest==null){
-		listRequest = RequestDAO.getInListAllValueRequest();
-		}else{
+		if (tamplateRequest == null) {
+			listRequest = RequestDAO.getInListAllValueRequest();
+		} else {
 			listRequest.add(tamplateRequest);
 		}
 
@@ -393,19 +401,21 @@ public class Table_Request_List extends JDialog {
 				String[][] masiveSample = RequestViewAplication.getMasiveSampleFromListSampleFromRequest(request,
 						listSample);
 				tableRequest[i][rqst_code_Colum] = request.getRecuest_code();
-				
+
 				if (request.getInd_num_doc() != null) {
 					tableRequest[i][id_ND_Colum] = request.getInd_num_doc().getName();
 				} else {
-					if(request.getExtra_module()!=null){
-						if(request.getExtra_module().getInternal_applicant()!=null){
-							tableRequest[i][id_ND_Colum] = request.getExtra_module().getInternal_applicant().getInternal_applicant_organization();	
-						}else{
-							if(request.getExtra_module().getExternal_applicant()!=null){
-								tableRequest[i][id_ND_Colum] = request.getExtra_module().getExternal_applicant().getExternal_applicant_name();	
+					if (request.getExtra_module() != null) {
+						if (request.getExtra_module().getInternal_applicant() != null) {
+							tableRequest[i][id_ND_Colum] = request.getExtra_module().getInternal_applicant()
+									.getInternal_applicant_organization();
+						} else {
+							if (request.getExtra_module().getExternal_applicant() != null) {
+								tableRequest[i][id_ND_Colum] = request.getExtra_module().getExternal_applicant()
+										.getExternal_applicant_name();
 							}
+						}
 					}
-				}
 				}
 				tableRequest[i][rqst_Date_Colum] = DatePicker.formatToTabDate(request.getDate_request(), false);
 				// tableRequest[i][rqst_Date_Colum ] =
@@ -416,7 +426,8 @@ public class Table_Request_List extends JDialog {
 				tableRequest[i][razmer_Colum] = request.getRazmernosti().getName_razmernosti();
 				tableRequest[i][cunt_Smpl_Colum] = request.getCounts_samples();
 				tableRequest[i][dscr_Smpl_Colum] = request.getDescription_sample_group();
-				tableRequest[i][ref_Date_Colum] = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSample);
+				tableRequest[i][ref_Date_Colum] = RequestViewFunction
+						.GenerateStringRefDateTimeFromMasiveSample(masiveSample);
 				tableRequest[i][exec_Date_Colum] = DatePicker.formatToTabDate(request.getDate_execution(), false);
 				tableRequest[i][rcpt_Date_Colum] = DatePicker.formatToTabDate(request.getDate_reception(), false);
 				tableRequest[i][user_Colum] = request.getUsers().getName_users() + " "
@@ -452,8 +463,6 @@ public class Table_Request_List extends JDialog {
 				"Срок на изпълнение", "Време на приемане", "Приел заявката", "Забележка", "Id User" };
 		return tableHeader;
 	}
-
-
 
 	private static void EditColumnUser(Object value, int row) {
 		String valueStr = value + "";
@@ -554,7 +563,8 @@ public class Table_Request_List extends JDialog {
 		request.setCounts_samples((int) table.getValueAt(row, cunt_Smpl_Colum));
 		request.setDescription_sample_group(table.getValueAt(row, dscr_Smpl_Colum) + "");
 		try {
-			request.setDate_execution(DatePicker.reformatFromTabDate(table.getValueAt(row, exec_Date_Colum) + "", false));
+			request.setDate_execution(
+					DatePicker.reformatFromTabDate(table.getValueAt(row, exec_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
@@ -562,7 +572,8 @@ public class Table_Request_List extends JDialog {
 		}
 		;
 		try {
-			request.setDate_reception(DatePicker.reformatFromTabDate(table.getValueAt(row, rcpt_Date_Colum) + "", false));
+			request.setDate_reception(
+					DatePicker.reformatFromTabDate(table.getValueAt(row, rcpt_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);

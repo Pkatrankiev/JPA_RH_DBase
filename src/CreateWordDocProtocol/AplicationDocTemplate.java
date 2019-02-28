@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import org.docx4j.TextUtils;
@@ -34,7 +36,8 @@ public class AplicationDocTemplate {
 		try {
 			template = WordprocessingMLPackage.load(new FileInputStream(new File(name)));
 		} catch (FileNotFoundException | Docx4JException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return template;
@@ -60,15 +63,20 @@ public class AplicationDocTemplate {
 
 	// izvlichane na paragraph za nov red
 	public static P getTemplateParagraph(WordprocessingMLPackage template, String value) {
+		System.out.println("6555555555555*****"+template);
 		List<Object> paragraph = getAllElementFromObject(template.getMainDocumentPart(), P.class);
 		P tempParagraph = null;
+		System.out.println("66666666666*****"+paragraph.size());
+		
+		int k =0;
 		for (Object parag : paragraph) {
+			System.out.println(k+"*****************************************"+parag.toString());
 			String paragText = parag.toString();
 			if (paragText.startsWith(value)) {
 				tempParagraph = (P) parag;
 				// template.getContentType().
 			}
-
+k++;
 		}
 		return tempParagraph;
 

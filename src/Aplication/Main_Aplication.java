@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.StartGenerateDocTemplate;
 import DBase_Class.IzpitvanPokazatel;
@@ -60,7 +61,9 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-		StartMainWindow();
+//		StartMainWindow();
+		
+		startcreateProtokolDocx() ;
 		
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 		
@@ -70,7 +73,7 @@ public class Main_Aplication {
 
 	private static void startcreateProtokolDocx() {
 
-		String codeRequest = "3796";
+		String codeRequest = "3831";
 		
 		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
 		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
@@ -78,8 +81,8 @@ public class Main_Aplication {
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-
-		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
+		GenerateDocRazpredFormul.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
+//		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 
 	private static void testScript () {

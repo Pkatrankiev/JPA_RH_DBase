@@ -61,7 +61,7 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-//		StartMainWindow();
+		StartMainWindow();
 		
 		startcreateProtokolDocx() ;
 		
@@ -73,7 +73,7 @@ public class Main_Aplication {
 
 	private static void startcreateProtokolDocx() {
 
-		String codeRequest = "3831";
+		String codeRequest = "3833";
 		
 		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
 		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
@@ -81,7 +81,7 @@ public class Main_Aplication {
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-		GenerateDocRazpredFormul.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
+		GenerateDocRazpredFormul.GenerateProtokolWordDoc("Razpred.docx", choiseRequest, substitutionData);
 //		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 

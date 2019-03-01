@@ -48,8 +48,8 @@ public class GenerateDocRazpredFormul {
 		BasicConfigurator.configure();
 	
 		nameTaplateProtokol = TEMPLATE_DIRECTORY_ROOT + nameTaplateProtokol;
-		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$ob_izp_sam$$", "$$pokazat$$",
-				"$$date_execution$$"};
+		String[] masive_key_table_row = new String[] { "$$sample_code$$", "$$ob_izp_sam$$", "$$pokazat$$",
+				"$$date_exec$$"};
 				
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		
@@ -71,10 +71,10 @@ public class GenerateDocRazpredFormul {
 		AplicationDocTemplate.replaceBasicValueInDoc(template, substitutionData);
 
 		P pargraphTemplateProtokol = AplicationDocTemplate.getTemplateParagraph(template, "$$pp$$");
-		AplicationDocTemplate.removeTemplateParagraph(template, "№ Р –");
+		AplicationDocTemplate.removeTemplateParagraph(template, "$$pp$$");
+		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
+		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
 		
-         System.out.println("------"+pargraphTemplateProtokol);
-		AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
 
 		// izvlichane na tablicite ot documenta
 		List<Object> tables = AplicationDocTemplate.getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
@@ -82,14 +82,11 @@ public class GenerateDocRazpredFormul {
 		// find the table
 		Tbl tempTable = null;
 		Tbl podpisiTable = null;
-		Tbl sertifikatTable = null;
-		Tbl zabTable = null;
+		Tbl new_table = null;
+		
 		try {
-			sertifikatTable = AplicationDocTemplate.getTemplateTable(tables, "$$sert$$");
-			if(recuest.getAccreditation()){
-				AplicationDocTemplate.removeTable(template, sertifikatTable);
-				}
-			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_column_table_result[0]);
+		
+			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_key_table_row[0]);
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Прегледали:");
 		
 		} catch (Docx4JException | JAXBException e3) {
@@ -102,7 +99,7 @@ public class GenerateDocRazpredFormul {
 		 
 		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, "Код на пробата");
 		
-		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_column_table_result[0]);
+		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_key_table_row[0]);
 		
 	
 		
@@ -114,53 +111,62 @@ public class GenerateDocRazpredFormul {
 		
 		
 		AplicationDocTemplate.removeTable(template, podpisiTable);
-		AplicationDocTemplate.removeTable(template, zabTable);
+		
 		
 		Map<String, String> repl_request_pokazarel = new HashMap<String, String>();
 		List<Results> result_list = new ArrayList<>();
 		Map<String, String> repl_results = new HashMap<String, String>();
 
-		Boolean tableEqualsRequestPokazatel = false;
+		Boolean newTableCreate = true;
 		String pokaz = pokazatel_list.get(0).getPokazatel().getName_pokazatel();
 		int maxCounRow = countRowInFirstPege(count_Result_In_Protokol);
 		int coutRow = 0;
-		if (pokazatel_list.size() == 1) {
+		
 			
 			for (Sample sample : smple_list) {
 				result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
-				for (Results result : result_list) {
-//					if(coutRow<10) {
-					if(result.getInProtokol()) {
-					repl_results = generateResultsMap(sample, result, masive_column_table_result);
+				
+					
+				for (IzpitvanPokazatel pokazatel : pokazatel_list) {
+					if(coutRow<9) {
+					repl_results = generateMapRowTable(sample, pokazatel, masive_key_table_row);
 					AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
-					coutRow++;
+									
+					}else{
+						if(newTableCreate){
+							 // Copying a existing table 
+							AplicationDocTemplate.addParagraph(template,pargraphTemplateNewPage);
+							AplicationDocTemplate.replaceParagraph(pargraphTemplateNewPage,  AplicationDocTemplate.createEmptiMap("#$%"));
+							
+							AplicationDocTemplate.addParagraph(template, pargraphTemplateProtokol);
+							
+							AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol,  AplicationDocTemplate.createEmptiMap("$$pp$$"));
+							AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
+							
+							new_table =  AplicationDocTemplate.creatTable(template); // Create a new CTTbl for the new table 
+							new_table.setTblPr(tempTable.getTblPr()); // Copy the template table's CTTbl 
+							AplicationDocTemplate.addRowToTable(new_table, headerRow_1, repl_results);
+							newTableCreate = false;
+						}
+							repl_results = generateMapRowTable(sample, pokazatel, masive_key_table_row);
+							AplicationDocTemplate.addRowToTable(new_table, templateRow, repl_results);
+						
 					}
-//					}
+					coutRow++;
 				}
-
+				
 			}
 			
+			if(coutRow<12)
+				for (int i = coutRow; i < 10; i++) {
+					repl_results = generateEmptiMapRowTable( masive_key_table_row);
+					AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
 					
-				
-				
-				  // Copying a existing table 
-				ObjectFactory factory = Context.getWmlObjectFactory();
-				Tbl new_table =  AplicationDocTemplate.creatTable(template); // Create a new CTTbl for the new table 
-				new_table.setTblPr(tempTable.getTblPr()); // Copy the template table's CTTbl 
+				}
+									
 
-				AplicationDocTemplate.addRowToTable(new_table, headerRow_1, repl_results);
-				
-				for (int i = 0; i < 5; i++) {
-											
-					AplicationDocTemplate.addRowToTable(new_table, templateRow, repl_results);
-					
-					}		
-				
-
-			}
-		AplicationDocTemplate.addTable(template, zabTable);
 			AplicationDocTemplate.addTable(template, podpisiTable);
-			AplicationDocTemplate.replaceTable(zabTable,  AplicationDocTemplate.createEmptiMap("$$%%"));
+			
 			
 
 		try {
@@ -208,59 +214,65 @@ public class GenerateDocRazpredFormul {
 		return count_Result_In_Protokol;
 	}
 
-	private static Map<String, String> generateResultsMap(Sample sample, Results result,
-			String[] masive_column_table_result) {
+	private static Map<String, String> generateMapRowTable(Sample sample, IzpitvanPokazatel pokazatel, String[] masive_key_table_row) {
 		List<String> listDokladMDA = new ArrayList<String>();
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		// "$$sample_code$$"
-		substitutionData.put(masive_column_table_result[0],
+		substitutionData.put(masive_key_table_row[0],
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
-		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
+		
 
-		// "$$sample_metod$$"
-		substitutionData.put(masive_column_table_result[1], result.getMetody().getCode_metody());
+		// "$$ob_izp_sam$$"
+		substitutionData.put(masive_key_table_row[1], sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane());
 
-		// "$$nuclide$$"
-		String pokaz = result.getPokazatel().getName_pokazatel();
-		if (pokaz.indexOf("гама") > 0 || pokaz.indexOf("алфа") > 0) {
-//			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
-			String[] nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
-			substitutionData.put("$$num$$",nuclide[0] );
-			substitutionData.put("$$cod$$",nuclide[1] );
+		// "$$pokazat$$"
+		String strMinipokazatel = generateSimpliStrOnPokazatel(pokazatel.getPokazatel().getName_pokazatel());
+		String[] str = getNumberFromNuclide(strMinipokazatel);
+			substitutionData.put("$$num$$",str[0]);
+			substitutionData.put("$$pokazat$$",str[1]);
 			
-		} else {
-			substitutionData.put(masive_column_table_result[2], superscript(pokaz));
-		}
-		// "$$razmernost$$"
-		substitutionData.put(masive_column_table_result[3], result.getRtazmernosti().getName_razmernosti());
+		
+		// "$$date_execution$$"
+		substitutionData.put(masive_key_table_row[3], pokazatel.getRequest().getDate_execution());
+		
+		
 
-		// "$$value$$"
-		String str_VAlue = "";
-		
-		if (result.getValue_result() != 0) {
-			str_VAlue = formatter(result.getValue_result()) + " ± "
-					+ alignExpon(result.getValue_result(), result.getUncertainty());
-			if(string_zab.indexOf("10%")>0){
-				str_VAlue=str_VAlue+"*";
-			}
-			if(string_zab.indexOf("Да се докладва МДА")>0){
-				listDokladMDA.add("<" + formatter(result.getMda()));
-			}
-		} else {
-			str_VAlue = "<" + formatter(result.getMda());
-		}
-		
-		
-		substitutionData.put(masive_column_table_result[4], str_VAlue);
+		return substitutionData;
+	}
+	
+	private static Map<String, String> generateEmptiMapRowTable( String[] masive_key_table_row) {
+		List<String> listDokladMDA = new ArrayList<String>();
+		Map<String, String> substitutionData = new HashMap<String, String>();
 
-		// "$$norma$$"
-		substitutionData.put(masive_column_table_result[5], "-");
+		// "$$sample_code$$"
+		substitutionData.put(masive_key_table_row[0],"");
+		
+
+		// "$$ob_izp_sam$$"
+		substitutionData.put(masive_key_table_row[1], "");
+
+		// "$$pokazat$$"
+		
+			substitutionData.put("$$num$$","");
+			substitutionData.put("$$pokazat$$","");
+			
+		
+		// "$$date_execution$$"
+		substitutionData.put(masive_key_table_row[3], "");
+		
+		
 
 		return substitutionData;
 	}
 
-	 private static String[] getNumberFromNuclide(String symbol_nuclide) {
+	 private static String generateSimpliStrOnPokazatel(String name_pokazatel) {
+		 name_pokazatel = name_pokazatel.replaceAll("Съдържание на","").trim();
+		 name_pokazatel = name_pokazatel.replaceAll("излъчващи","").trim();
+		return name_pokazatel;
+	}
+
+	private static String[] getNumberFromNuclide(String symbol_nuclide) {
 		String[] str = new String[]{"",""};
 		
 		 for (int i = 0; i < symbol_nuclide.length(); i++) {

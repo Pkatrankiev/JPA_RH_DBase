@@ -84,6 +84,7 @@ public class MainWindows {
 		// menu.setLayout(new BorderLayout());
 		menu.add(createRequenseMenu());
 		menu.add(createDataMenu());
+		menu.add(createWordDocMenu());
 		menu.add(createLoginMenu(win), BorderLayout.EAST);
 
 		return menu;
@@ -113,6 +114,17 @@ public class MainWindows {
 		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
 
 		return dataMenu;
+	}
+	
+	private JMenu createWordDocMenu() {
+		JMenu docMenu = new JMenu("Документи");
+		docMenu.setMnemonic(KeyEvent.VK_W);
+		docMenu.add(new MenuData_EnableRequestList());
+		docMenu.add(new MenuData_EnableSampleList());
+		docMenu.add(new MenuData_EnableResultsList());
+		
+
+		return docMenu;
 	}
 
 	private JButton createLoginMenu(Frame win) {

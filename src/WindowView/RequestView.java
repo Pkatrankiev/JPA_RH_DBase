@@ -1347,8 +1347,19 @@ public class RequestView extends JDialog  {
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
 		
-		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
+		TranscluentWindow round = new TranscluentWindow();
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+		 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
+				
+		    	     	
+		     }
+		    });
+		    thread.start();
+	
+		
 	}
 
 	private Request createRequestTamplate() {

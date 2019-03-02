@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 import Table.Table_Sample_List;
+import WindowView.ExtraRequestView;
+import WindowView.FrameChoiceGenerateWordDoc;
 import WindowView.TranscluentWindow;
 
 public class MenuDoc_CreateProtokol extends AbstractMenuAction{
@@ -19,18 +21,10 @@ public class MenuDoc_CreateProtokol extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		 JFrame f = new JFrame();
-			TranscluentWindow round = new TranscluentWindow();
+		
+			    	JFrame f = new JFrame();
+			    	 new FrameChoiceGenerateWordDoc(f, "Генериране на Протокол") ;
 			
-			 final Thread thread = new Thread(new Runnable() {
-			     @Override
-			     public void run() {
-			    	 
-			    	 JFrame f = new JFrame();
-			    		
-			     }
-			    });
-			    thread.start();
 	}
 
 }

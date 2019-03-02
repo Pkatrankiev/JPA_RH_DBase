@@ -32,6 +32,7 @@ import WindowViewAplication.DocxMainpulator;
 public class RequestViewFunction {
 	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
 	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME(); 
+
 	public static void enterRequestCode( JTextField txtField_RequestCode, JLabel lblError, Boolean corectRequestCode ) {
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));
 		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
@@ -325,11 +326,17 @@ public class RequestViewFunction {
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
 				.GenerateMapForRequestWordDocument(request, list_izpitvan_pokazatel, smple_vol, date_time_reference);
 
-		DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData);
-
-		// StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx",
-		// requestString, substitutionData);
+		TranscluentWindow round = new TranscluentWindow();
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+		 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
+				    	     	
+		     }
+		    });
+		    thread.start();
+		
 	}
 	
 	public static String CreateStringListIzpPokaz(Request request, List<IzpitvanPokazatel> list_All_I_P) {

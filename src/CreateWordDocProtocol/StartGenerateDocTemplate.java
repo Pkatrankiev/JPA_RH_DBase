@@ -35,6 +35,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import WindowView.RequestViewFunction;
+import WindowView.TranscluentWindow;
 import WindowViewAplication.DocxMainpulator;
 
 public class StartGenerateDocTemplate {
@@ -44,7 +45,7 @@ public class StartGenerateDocTemplate {
 	private static final String destinationDir = "DIRECTORY/";
 
 	public static void GenerateProtokolWordDoc( String nameTaplateProtokol, Request recuest,
-			Map<String, String> substitutionData) {
+			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
 	
 		nameTaplateProtokol = TEMPLATE_DIRECTORY_ROOT + nameTaplateProtokol;
@@ -187,7 +188,7 @@ public class StartGenerateDocTemplate {
 		try {
 			String newNameProtokol = recuest.getRecuest_code()+"_"+ RequestViewFunction.DateNaw(false)+".docx";
 			AplicationDocTemplate.writeDocxToStream(template, destinationDir+newNameProtokol);
-			
+			round.StopWindow();
 			DocxMainpulator.openWordDoc(destinationDir + newNameProtokol);
 			
 		} catch (IOException e) {

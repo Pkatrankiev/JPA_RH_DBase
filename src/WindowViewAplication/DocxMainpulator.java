@@ -24,6 +24,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+import WindowView.TranscluentWindow;
+
 public class DocxMainpulator {
 
 	private static final String MAIN_DOCUMENT_PATH = "word/document.xml";
@@ -32,7 +34,7 @@ public class DocxMainpulator {
 
 	// Generates .docx document from given template and the substitution data
 	public static Boolean generateAndSend_Request_Docx(String templateName, String destinationName,
-			Map<String, String> substitutionData) {
+			Map<String, String> substitutionData, TranscluentWindow round) {
 
 		String templateLocation = TEMPLATE_DIRECTORY_ROOT + templateName;
 		String userTempDir = UUID.randomUUID().toString();
@@ -54,7 +56,7 @@ public class DocxMainpulator {
 		
 			// Clean temp data
 			deleteTempData(new File(userTempDir));
-
+			round.StopWindow();
 			openWordDoc(destinationDir + destinationName + ".docx");
 
 		} catch (IOException ioe) {

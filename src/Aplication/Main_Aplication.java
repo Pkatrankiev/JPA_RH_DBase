@@ -63,7 +63,7 @@ public class Main_Aplication {
 
 		StartMainWindow();
 		
-		startcreateProtokolDocx() ;
+//		startcreateProtokolDocx() ;
 		
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 		
@@ -81,7 +81,7 @@ public class Main_Aplication {
 		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-		GenerateDocRazpredFormul.GenerateProtokolWordDoc("Razpred.docx", choiseRequest, substitutionData);
+		GenerateDocRazpredFormul.GenerateProtokolWordDoc("Razpred.docx", choiseRequest, substitutionData, null);
 //		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 

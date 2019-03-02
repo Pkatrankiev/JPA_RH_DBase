@@ -24,6 +24,9 @@ import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
+import Menu.MenuDoc_CreateProtokol;
+import Menu.MenuDoc_CreateRazpredFormu;
+import Menu.MenuDoc_CreateRequest;
 import Menu.MenuRequense_NewExtraRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
@@ -119,9 +122,9 @@ public class MainWindows {
 	private JMenu createWordDocMenu() {
 		JMenu docMenu = new JMenu("Документи");
 		docMenu.setMnemonic(KeyEvent.VK_W);
-		docMenu.add(new MenuData_EnableRequestList());
-		docMenu.add(new MenuData_EnableSampleList());
-		docMenu.add(new MenuData_EnableResultsList());
+		docMenu.add(new MenuDoc_CreateProtokol());
+		docMenu.add(new MenuDoc_CreateRequest());
+		docMenu.add(new MenuDoc_CreateRazpredFormu());
 		
 
 		return docMenu;

@@ -181,26 +181,6 @@ public class Table_Request_List extends JDialog {
 								new RequestView(f, loginUser, choiseRequest, round);
 							}
 
-						} else {
-							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-							String date_time_reference = RequestViewFunction
-									.GenerateStringRefDateTimeFromRequest(choiseRequest);
-
-							Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document
-									.GenerateMapForRequestWordDocument(choiseRequest,
-											RequestViewFunction
-													.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
-											RequestViewFunction.generateMasiveSampleDescriptionFromRequest(
-													choiseRequest),
-											date_time_reference);
-
-							StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest,
-									substitutionData);
-
-							// DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
-							// "Z-" + choiseRequest.getRecuest_code() + "_" +
-							// choiseRequest.getDate_request(),
-							// substitutionData);
 						}
 					}
 

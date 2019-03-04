@@ -29,7 +29,6 @@ public class MetodyDAO {
 		setValueMetody("ÎÏĞÅÄÅËßÍÅ ÍÀ ÑÚÄÚĞÆÀÍÈÅÒÎ ÍÀ 241Pu ÑËÅÄ ÀËÔÀ-ÑÏÅÊÒĞÎÌÅÒĞÈß", "Ì.ËÈ-ĞÕ – 07 ĞÅÄÀÊÖÈß 02",true);
 		
 	}
-
 	// Metody
 
 	public static void setValueMetody(String name, String code, Boolean inAcredit) {
@@ -51,7 +50,7 @@ public class MetodyDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Metody e");
+		Query query = entitymanager.createQuery("SELECT e FROM Metody e ORDER BY e.code ASC");
 		List<Metody> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -83,14 +82,13 @@ public class MetodyDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()) {
-			setValueMetody("uknou", name,true);
-		}
-		Metody list = (Metody) query.getSingleResult();
+	
+		List<Metody> list = query.getResultList();
+		
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return list.get(0);
 	}
 
 	@GET

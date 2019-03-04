@@ -129,7 +129,7 @@ public class ResultsDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Results e");
+		Query query = entitymanager.createQuery("SELECT e FROM Results e ORDER BY e.nuclide ASC");
 
 		List<Results> list = query.getResultList();
 		entitymanager.close();
@@ -290,7 +290,7 @@ public class ResultsDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text";
+		String hql = "SELECT e FROM Results e WHERE e."+column_name+" = :text ORDER BY e.nuclide ASC";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", volume_check);

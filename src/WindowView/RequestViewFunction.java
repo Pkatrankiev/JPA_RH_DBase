@@ -21,13 +21,13 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
+import CreateWordDocProtocol.DocxMainpulator;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Sample;
-import WindowViewAplication.DocxMainpulator;
 
 public class RequestViewFunction {
 	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();

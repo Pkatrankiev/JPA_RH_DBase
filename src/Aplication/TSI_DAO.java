@@ -35,7 +35,7 @@ static String name_DBase = "JPA_RH_DBase";
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM TSI e");
+		Query query = entitymanager.createQuery("SELECT e FROM TSI e ORDER BY e.name ASC");
 		@SuppressWarnings("unchecked")
 		List<TSI> list = query.getResultList();
 		entitymanager.close();

@@ -29,6 +29,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.DocxMainpulator;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -51,7 +52,7 @@ import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 import WindowView.SampleViewAdd;
 import WindowView.TranscluentWindow;
-import WindowViewAplication.DocxMainpulator;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;

@@ -40,6 +40,7 @@ import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
 import Aplication.GlobalVariable;
+import CreateWordDocProtocol.DocxMainpulator;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
@@ -67,7 +68,6 @@ import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 import WindowView.SampleViewAdd;
 import WindowView.TranscluentWindow;
-import WindowViewAplication.DocxMainpulator;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;

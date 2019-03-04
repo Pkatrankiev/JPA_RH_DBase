@@ -58,7 +58,7 @@ public class UsersDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Users e");
+		Query query = entitymanager.createQuery("SELECT e FROM Users e ORDER BY e.name ASC");
 		List<Users> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -162,7 +162,7 @@ public class UsersDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Users e WHERE e." + column_name + " = :text";
+		String hql = "SELECT e FROM Users e WHERE e." + column_name + " = :text ORDER BY e.name ASC";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", volume_check);
@@ -174,7 +174,7 @@ public class UsersDAO {
 		return list;
 	}
 	
-	public static List<String> getListStringAllName_FamilyUsers(Post post) {
+	public static List<String> getListStringAllName_FamilyUsersByPost(Post post) {
 		List<Users> list = new ArrayList<>();
 		if(post==null){
 			 list = getInListAllValueUsers();

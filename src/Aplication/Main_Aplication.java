@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.StartGenerateDocTemplate;
+import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;

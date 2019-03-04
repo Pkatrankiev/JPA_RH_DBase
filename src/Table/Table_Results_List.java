@@ -105,17 +105,18 @@ public class Table_Results_List extends JDialog {
 			public void mouseReleased(MouseEvent e) {}
 
 			public void mousePressed(MouseEvent e) {
+				DefaultTableModel model =(DefaultTableModel) table.getModel();
 				if (table.getSelectedColumn() == rqst_code_Colum ) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
+					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
 				
 				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
+					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
 							}
 			}
 		});
@@ -493,21 +494,22 @@ public class Table_Results_List extends JDialog {
 	}
 
 	private static void udateResultObject(JTable table, int row, Results result) {
-		result.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(table.getValueAt(row, mtd_Izp_Colum) + ""));
-		result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) table.getValueAt(row, nuclide_Colum)));
-		result.setValue_result((Double) table.getValueAt(row, actv_value_Colum));
-		result.setUncertainty((Double) table.getValueAt(row, uncrt_Colum));
-		result.setSigma((Integer) table.getValueAt(row, sigma_Colum));
-		result.setMda((Double) table.getValueAt(row, mda_Colum));
-		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(row, razm_Colum)));
-		result.setQuantity((Double) table.getValueAt(row, qunt_Colum));
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		result.setMetody(MetodyDAO.getValueList_MetodyByName(model.getValueAt(row, mtd_Izp_Colum) + ""));
+		result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) model.getValueAt(row, nuclide_Colum)));
+		result.setValue_result((Double) model.getValueAt(row, actv_value_Colum));
+		result.setUncertainty((Double) model.getValueAt(row, uncrt_Colum));
+		result.setSigma((Integer) model.getValueAt(row, sigma_Colum));
+		result.setMda((Double) model.getValueAt(row, mda_Colum));
+		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) model.getValueAt(row, razm_Colum)));
+		result.setQuantity((Double) model.getValueAt(row, qunt_Colum));
 
-		if ((table.getValueAt(row, dimen_Colum).equals(""))) {
+		if ((model.getValueAt(row, dimen_Colum).equals(""))) {
 			result.setDimension(null);
 		} else {
-			result.setDimension(DimensionDAO.getValueDimensionByName((String) table.getValueAt(row, dimen_Colum)));
+			result.setDimension(DimensionDAO.getValueDimensionByName((String) model.getValueAt(row, dimen_Colum)));
 		}
-		result.setInProtokol((Boolean) table.getValueAt(row, in_Prot_Colum));
+		result.setInProtokol((Boolean) model.getValueAt(row, in_Prot_Colum));
 		ResultsDAO.updateResults(result);
 	}
 
@@ -526,6 +528,7 @@ public class Table_Results_List extends JDialog {
 				listWhithChangeRow.add(row);
 			}
 		}
+		System.out.println(row);
 	}
 
 	

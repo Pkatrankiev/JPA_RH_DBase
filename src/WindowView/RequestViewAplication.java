@@ -19,6 +19,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.DocxMainpulator;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
@@ -32,7 +33,6 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
-import WindowViewAplication.DocxMainpulator;
 
 public class RequestViewAplication {
 

@@ -90,7 +90,7 @@ public class Izpitvan_produktDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e");
+		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e ORDER BY e.name ASC");
 		List<Izpitvan_produkt> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

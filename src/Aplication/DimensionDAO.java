@@ -43,7 +43,7 @@ public class DimensionDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Dimension e");
+		Query query = entitymanager.createQuery("SELECT e FROM Dimension e  ORDER BY e.name ASC");
 		List<Dimension> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

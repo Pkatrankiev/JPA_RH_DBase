@@ -11,12 +11,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
+import Aplication.SampleDAO;
+import CreateWordDocProtocol.CreateListForMultiTable;
+import CreateWordDocProtocol.DocxMainpulator;
 import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.StartGenerateDocTemplate;
+import CreateWordDocProtocol.GenerateDocProtokol;
+import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
-import WindowViewAplication.DocxMainpulator;
+import DBase_Class.Sample;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -28,6 +33,8 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.awt.event.ActionEvent;
 
@@ -155,7 +162,9 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
 		switch (nameFrame) {
 		case "Генериране на Протокол":
-			StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData, round);
+			GenerateDocProtokol.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData, round);
+			
+		
 			break;
 		case "Генериране на Заявка":
 			DocxMainpulator.generateAndSend_Request_Docx("temp.docx",

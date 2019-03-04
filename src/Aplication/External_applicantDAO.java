@@ -87,7 +87,7 @@ public class External_applicantDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM External_applicant e");
+		Query query = entitymanager.createQuery("SELECT e FROM External_applicant e ORDER BY e.external_applicant_name ASC");
 		List<External_applicant> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

@@ -150,9 +150,9 @@ public class AddResultsViewWithTable extends JDialog {
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
 		list_Users = UsersDAO.getInListAllValueUsers();
-		list_UsersNameFamily = UsersDAO.getListStringAllName_FamilyUsers(null);
-		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsers(PostDAO.getValuePostByName("ОИР"));
-		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsers(PostDAO.getValuePostByName("ОРХО"));
+		list_UsersNameFamily = UsersDAO.getListStringAllName_FamilyUsersByPost(null);
+		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР"));
+		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО"));
 		listSample = new ArrayList<Sample>();
 
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();

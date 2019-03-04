@@ -54,8 +54,9 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.DocxMainpulator;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.StartGenerateDocTemplate;
+import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -73,7 +74,6 @@ import WindowView.RequestView;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
-import WindowViewAplication.DocxMainpulator;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
@@ -137,7 +137,8 @@ public class Table_Request_List extends JDialog {
 				if (table.getSelectedColumn() == rqst_code_Colum && table.getSelectedRow() != -1) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+					DefaultTableModel model =(DefaultTableModel) table.getModel();
+					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
@@ -149,12 +150,12 @@ public class Table_Request_List extends JDialog {
 
 					AddInUpdateList(rowPokazatel);
 				}
-
+				DefaultTableModel model =(DefaultTableModel) table.getModel();
 				if (e.getClickCount() == 2 && loginUser != null && table.getSelectedRow() != -1) {
 					if (loginUser.getIsAdmin()) {
 						if (table.getSelectedColumn() == cunt_Smpl_Colum
 								|| table.getSelectedColumn() == ref_Date_Colum) {
-							String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+							String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
 							TranscluentWindow round = new TranscluentWindow();
@@ -170,8 +171,8 @@ public class Table_Request_List extends JDialog {
 							thread.start();
 						}
 					} else {
-
-						String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+						
+						String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 						if (parent.getName().equals("tamplete")) {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
@@ -465,7 +466,8 @@ public class Table_Request_List extends JDialog {
 
 	private static List<String> ReadListPokazatelInCell(JTable table, int row) {
 		List<String> list = new ArrayList<String>();
-		String strPokazatel = table.getValueAt(row, izp_Pok_Colum).toString().trim();
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		String strPokazatel = model.getValueAt(row, izp_Pok_Colum).toString().trim();
 		String str = "";
 		while (!strPokazatel.isEmpty()) {
 			str = strPokazatel.substring(0, strPokazatel.indexOf(";") + 1);
@@ -496,12 +498,13 @@ public class Table_Request_List extends JDialog {
 
 	private static void updateData(JTable table, List<String> listStrRequestCode, TranscluentWindow round) {
 		List<Request> list_request = RequestDAO.getInListAllValueRequest();
-		int countRows = table.getRowCount();
-
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		int countRows = model.getRowCount();
+		
 		for (String strRequestCode : listStrRequestCode) {
 
 			for (int row = 0; row < countRows; row++) {
-				if (strRequestCode.equals(table.getValueAt(row, rqst_code_Colum))) {
+				if (strRequestCode.equals(model.getValueAt(row, rqst_code_Colum))) {
 					Request request = searchRequestFromListRequest(list_request, strRequestCode);
 
 					// Request request =
@@ -527,24 +530,25 @@ public class Table_Request_List extends JDialog {
 	}
 
 	private static void updateRequestObject(JTable table, int row, Request request) {
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
 		try {
-			request.setDate_request(DatePicker.reformatFromTabDate(table.getValueAt(row, rqst_Date_Colum) + "", false));
+			request.setDate_request(DatePicker.reformatFromTabDate(model.getValueAt(row, rqst_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		request.setInd_num_doc(Ind_num_docDAO.getValueIByName(table.getValueAt(row, id_ND_Colum) + ""));
+		request.setInd_num_doc(Ind_num_docDAO.getValueIByName(model.getValueAt(row, id_ND_Colum) + ""));
 		request.setIzpitvan_produkt(
-				Izpitvan_produktDAO.getValueIzpitvan_produktByName(table.getValueAt(row, izp_Prod_Colum) + ""));
+				Izpitvan_produktDAO.getValueIzpitvan_produktByName(model.getValueAt(row, izp_Prod_Colum) + ""));
 		request.setObekt_na_izpitvane_request(Obekt_na_izpitvane_requestDAO
-				.getValueObekt_na_izpitvane_requestByName(table.getValueAt(row, obk_Izp_Colum) + ""));
-		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(table.getValueAt(row, razmer_Colum) + ""));
-		request.setCounts_samples((int) table.getValueAt(row, cunt_Smpl_Colum));
-		request.setDescription_sample_group(table.getValueAt(row, dscr_Smpl_Colum) + "");
+				.getValueObekt_na_izpitvane_requestByName(model.getValueAt(row, obk_Izp_Colum) + ""));
+		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(model.getValueAt(row, razmer_Colum) + ""));
+		request.setCounts_samples((int) model.getValueAt(row, cunt_Smpl_Colum));
+		request.setDescription_sample_group(model.getValueAt(row, dscr_Smpl_Colum) + "");
 		try {
 			request.setDate_execution(
-					DatePicker.reformatFromTabDate(table.getValueAt(row, exec_Date_Colum) + "", false));
+					DatePicker.reformatFromTabDate(model.getValueAt(row, exec_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
@@ -553,14 +557,14 @@ public class Table_Request_List extends JDialog {
 		;
 		try {
 			request.setDate_reception(
-					DatePicker.reformatFromTabDate(table.getValueAt(row, rcpt_Date_Colum) + "", false));
+					DatePicker.reformatFromTabDate(model.getValueAt(row, rcpt_Date_Colum) + "", false));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		request.setUsers(UsersDAO.getValueUsersById((int) table.getValueAt(row, user_Id_Colum)));
-		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(table.getValueAt(row, zab_Colum) + ""));
+		request.setUsers(UsersDAO.getValueUsersById((int) model.getValueAt(row, user_Id_Colum)));
+		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(model.getValueAt(row, zab_Colum) + ""));
 
 		RequestDAO.updateObjectRequest(request);
 	}

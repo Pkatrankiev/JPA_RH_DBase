@@ -74,18 +74,12 @@ public class NuclideDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Nuclide e");
+		Query query = entitymanager.createQuery("SELECT e FROM Nuclide e ORDER BY e.symbol ASC");
+		@SuppressWarnings("unchecked")
 		List<Nuclide> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-
-		for (Nuclide e : list) {
-			System.out.println("Num:" + ((Nuclide) e).getId_nuclide() + "  NAME_BG :"
-					+ ((Nuclide) e).getName_bg_nuclide() + "  NAME_EN :" + ((Nuclide) e).getName_en_nuclide()
-					+ "  Symbol :" + ((Nuclide) e).getSymbol_nuclide() + "  Half-Life :"
-					+ ((Nuclide) e).getHalf_life_nuclide() + "  Genesis :" + ((Nuclide) e).getGenesis_nuclide()
-					+ "  Favorite :" + ((Nuclide) e).getFavorite_nuclide());
-		}
+		
 		return list;
 	}
 

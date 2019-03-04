@@ -162,7 +162,7 @@ public class RequestDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Request e");
+		Query query = entitymanager.createQuery("SELECT e FROM Request e ORDER BY e.recuest_code ASC");
 
 		List<Request> list = query.getResultList();
 		entitymanager.close();
@@ -422,7 +422,7 @@ public class RequestDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Request e WHERE e." + column_name + " = :text";
+		String hql = "SELECT e FROM Request e WHERE e." + column_name + " = :text ORDER BY e.recuest_code ASC";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", volume_check);
@@ -441,7 +441,7 @@ public class RequestDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Request e WHERE e." + column_name + " REGEXP '" + volume_check + "";
+		String hql = "SELECT e FROM Request e WHERE e." + column_name + " REGEXP '" + volume_check + " ORDER BY e.recuest_code ASC";
 
 		Query query = entitymanager.createQuery(hql);
 		// query.setParameter("text", volume_check);

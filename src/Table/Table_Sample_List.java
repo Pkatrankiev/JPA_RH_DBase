@@ -93,10 +93,12 @@ public class Table_Sample_List extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
+				DefaultTableModel model =(DefaultTableModel) table.getModel();
 				if (table.getSelectedColumn() == rqst_code_Colum) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+					
+					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					System.out.println(row + " " + choiseRequest.getRecuest_code());
 					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
@@ -106,7 +108,7 @@ public class Table_Sample_List extends JDialog {
 
 					int row = table.getSelectedRow();
 					int col = table.getSelectedColumn();
-					String reqCodeStr = table.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
 					if (reqCodeStr.startsWith("templ")) {
 						// choiseRequest =
 						// RequestDAO.getRequestFromColumnByVolume("recuest_code",
@@ -285,6 +287,7 @@ public class Table_Sample_List extends JDialog {
 				listChangedSampleId.add((Integer) dataTable[row][smpl_Id_Colum]);
 			}
 		}
+		System.out.println(row);
 	}
 
 	private static Object[][] getDataTable(Request templateRequest) {
@@ -328,11 +331,13 @@ public class Table_Sample_List extends JDialog {
 	}
 
 	private static void updateData(JTable table, List<Integer> listChangedSampleId, TranscluentWindow round) {
-		int countRows = table.getRowCount();
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		int countRows = model.getRowCount();
+		
 		for (Integer sampleId : listChangedSampleId) {
 
 			for (int row = 0; row < countRows; row++) {
-				if (sampleId == table.getValueAt(row, smpl_Id_Colum)) {
+				if (sampleId == model.getValueAt(row, smpl_Id_Colum)) {
 					Sample sample = SampleDAO.getValueSampleById(sampleId);
 
 					updateSampleObject(table, row, sample);
@@ -344,20 +349,21 @@ public class Table_Sample_List extends JDialog {
 	}
 
 	private static void updateSampleObject(JTable table, int row, Sample sample) {
-		sample.setDate_time_reference(table.getValueAt(row, date_time_ref_Colum) + "");
-		sample.setDescription_sample(table.getValueAt(row, smpl_descrip_Colum) + "");
-		sample.setGodina_period((int) table.getValueAt(row, yar_Colum));
-		sample.setSample_code(table.getValueAt(row, smpl_code_Colum) + "");
+		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		sample.setDate_time_reference(model.getValueAt(row, date_time_ref_Colum) + "");
+		sample.setDescription_sample(model.getValueAt(row, smpl_descrip_Colum) + "");
+		sample.setGodina_period((int) model.getValueAt(row, yar_Colum));
+		sample.setSample_code(model.getValueAt(row, smpl_code_Colum) + "");
 		sample.setObekt_na_izpitvane(Obekt_na_izpitvane_sampleDAO
-				.getValueObekt_na_izpitvane_sampleByName(table.getValueAt(row, O_I_S_Colum) + ""));
-		String strPeriod = table.getValueAt(row, period_Colum) + "";
+				.getValueObekt_na_izpitvane_sampleByName(model.getValueAt(row, O_I_S_Colum) + ""));
+		String strPeriod = model.getValueAt(row, period_Colum) + "";
 		if (strPeriod.equals("")) {
 			sample.setPeriod(null);
 		} else {
 			sample.setPeriod(PeriodDAO.getValuePeriodByPeriod(strPeriod));
 		}
 		sample.setRequest(
-				RequestDAO.getRequestFromColumnByVolume("recuest_code", table.getValueAt(row, rqst_code_Colum) + ""));
+				RequestDAO.getRequestFromColumnByVolume("recuest_code", model.getValueAt(row, rqst_code_Colum) + ""));
 
 		SampleDAO.updateSample(sample);
 	}

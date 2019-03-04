@@ -53,7 +53,7 @@ public class AplicantDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Aplicant e");
+		Query query = entitymanager.createQuery("SELECT e FROM Aplicant e ORDER BY e.name ASC");
 		List<Aplicant> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -95,7 +95,7 @@ public class AplicantDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Aplicant e WHERE e.name = :text";
+		String hql = "SELECT e FROM Aplicant e WHERE e.name = :text ORDER BY e.name ASC";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
@@ -115,7 +115,7 @@ public class AplicantDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Aplicant e WHERE e.family = :text";
+		String hql = "SELECT e FROM Aplicant e WHERE e.family = :text ORDER BY e.family ASC";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", family);

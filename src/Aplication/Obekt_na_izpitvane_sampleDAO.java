@@ -46,7 +46,8 @@ public class Obekt_na_izpitvane_sampleDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_sample e");
+		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_sample e ORDER BY e.name ASC");
+		@SuppressWarnings("unchecked")
 		List<Obekt_na_izpitvane_sample> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

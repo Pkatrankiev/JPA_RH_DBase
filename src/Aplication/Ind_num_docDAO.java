@@ -45,7 +45,7 @@ public class Ind_num_docDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Ind_num_doc e");
+		Query query = entitymanager.createQuery("SELECT e FROM Ind_num_doc e ORDER BY e.name ASC");
 		List<Ind_num_doc> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

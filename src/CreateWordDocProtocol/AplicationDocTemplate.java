@@ -105,9 +105,6 @@ k++;
 			body.getContent().remove(table.getParent());
 				}
 
-			
-
-	
 	// popalvane na paragraph
 	public static void replaceParagraph(P paragraph, Map<String, String> replacements) {
 		List<?> textElements = getAllElementFromObject(paragraph, Text.class);
@@ -324,6 +321,8 @@ k++;
 		wordMLPackage.getMainDocumentPart().addObject(paragraph);
 
 	}
+	
+
 	public static void addTable(WordprocessingMLPackage wordMLPackage, Tbl table) {
 
 		wordMLPackage.getMainDocumentPart().addObject(table);

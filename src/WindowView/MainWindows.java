@@ -18,6 +18,7 @@ import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import CreateWordDocProtocol.DocxMainpulator;
 import Menu.MenuData_AddResultsFrame;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableResultsList;
@@ -32,7 +33,6 @@ import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
 import Table.Table_Request_List;
-import WindowViewAplication.DocxMainpulator;
 import javafx.beans.binding.When;
 
 public class MainWindows {

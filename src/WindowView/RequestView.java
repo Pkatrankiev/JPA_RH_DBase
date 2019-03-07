@@ -1351,7 +1351,7 @@ public class RequestView extends JDialog  {
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+		    	 DocxMainpulator.generateAndSend_Request_Docx("Zaqvka.docx",
 		 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
 				
 		    	     	

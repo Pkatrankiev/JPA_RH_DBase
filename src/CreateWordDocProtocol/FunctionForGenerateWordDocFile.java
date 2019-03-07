@@ -156,7 +156,7 @@ public class FunctionForGenerateWordDocFile {
 		}
 		return str;
 	}
-
+	
 	public static String superscript(String str) {
 
 		str = str.replaceAll("0", "\u2070");

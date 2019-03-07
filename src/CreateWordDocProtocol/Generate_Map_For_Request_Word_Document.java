@@ -183,8 +183,8 @@ public class Generate_Map_For_Request_Word_Document {
 					period_fl = true;
 			}
 		}
-		descrip_sam_gr_str = count + getWordOFNumber(count) + descrip_sam_gr_str + " на " + sample_description[0][5]
-				+ "г.  ";
+		descrip_sam_gr_str = count + getWordOFNumber(count) + descrip_sam_gr_str ;
+//				+ " на " + sample_description[0][5]	+ "г.  ";
 		String samp_str = "";
 
 		for (int i = 0; i < count; i++) {
@@ -193,54 +193,54 @@ public class Generate_Map_For_Request_Word_Document {
 			samp_str = samp_str + sample_description[i][2] + ", ";
 
 			if (period_fl)
-				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
+				samp_str = samp_str + "за " + sample_description[i][4];
 		}
 
 		max = 45;
 		txt = descrip_sam_gr_str + "\n " + samp_str;
+//
+//		if (txt.length() >= max) {
+//			int i = max;
+//			while (i > 0) {
+//				if (txt.substring(i - 1, i).equals(" ")) {
+//					str_1 = txt.substring(0, i);
+//					str_2 = txt.substring(i, txt.length());
+//					i = 0;
+//				}
+//				i--;
+//			}
+//		}
+//
+//		max = 80;
+//		String counts_sample_str = str_1;
+//		
+//		String[] desk_samp_str = new String[3];
+//
+//		desk_samp_str[0] = str_2;
+//		
+//		desk_samp_str[1] = "";
+//		desk_samp_str[2] = "";
+//		for (int k = 0; k < 3; k++) {
+//			if (desk_samp_str[k].length() >= max) {
+//				int i = max;
+//				while (i > 0) {
+//
+//					if (desk_samp_str[k].substring(i - 1, i).equals(" ")) {
+//						String ss = desk_samp_str[k];
+//						desk_samp_str[k] = ss.substring(0, i);
+//						if (k < 2)
+//							desk_samp_str[k + 1] = ss.substring(i, ss.length());
+//						i = 0;
+//					}
+//					i--;
+//				}
+//			}
+//		}
 
-		if (txt.length() >= max) {
-			int i = max;
-			while (i > 0) {
-				if (txt.substring(i - 1, i).equals(" ")) {
-					str_1 = txt.substring(0, i);
-					str_2 = txt.substring(i, txt.length());
-					i = 0;
-				}
-				i--;
-			}
-		}
-
-		max = 80;
-		String counts_sample_str = str_1;
-		
-		String[] desk_samp_str = new String[3];
-
-		desk_samp_str[0] = str_2;
-		
-		desk_samp_str[1] = "";
-		desk_samp_str[2] = "";
-		for (int k = 0; k < 3; k++) {
-			if (desk_samp_str[k].length() >= max) {
-				int i = max;
-				while (i > 0) {
-
-					if (desk_samp_str[k].substring(i - 1, i).equals(" ")) {
-						String ss = desk_samp_str[k];
-						desk_samp_str[k] = ss.substring(0, i);
-						if (k < 2)
-							desk_samp_str[k + 1] = ss.substring(i, ss.length());
-						i = 0;
-					}
-					i--;
-				}
-			}
-		}
-
-		count_description_sample_group[0] = counts_sample_str;
-		count_description_sample_group[1] = desk_samp_str[0];
-		count_description_sample_group[2] = desk_samp_str[1];
-		count_description_sample_group[3] = desk_samp_str[2];
+		count_description_sample_group[0] = txt;
+		count_description_sample_group[1] = "";
+		count_description_sample_group[2] = "";
+		count_description_sample_group[3] = "";
 		return count_description_sample_group;
 	}
 
@@ -276,7 +276,8 @@ public class Generate_Map_For_Request_Word_Document {
 				samp_str = samp_str + "; ";
 			}
 			if (period_fl)
-				samp_str = samp_str + "за " + sample_description[i][4] + " на " + sample_description[i][5] + "г.";
+				samp_str = samp_str + "за " + sample_description[i][4] 
+						+ " на " + sample_description[i][5] + "г.";
 		}
 
 //		max = 45;
@@ -356,21 +357,22 @@ public class Generate_Map_For_Request_Word_Document {
 		String[] obekt_na_izpitvane = new String[2];
 		String strObect = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 		String str1 = strObect, str2 = "";
-		System.out.println("strObect " + strObect.length());
-		int max = 50;
-		if (strObect.length() >= max) {
-			int i = max;
-			while (i > 0) {
-				if (strObect.substring(i - 1, i).equals(" ")) {
-					str1 = strObect.substring(0, i);
-					str2 = strObect.substring(i, strObect.length());
-					i = 0;
-				}
-				i--;
-			}
-		}
+//		System.out.println("strObect " + strObect.length());
+//		int max = 50;
+//		if (strObect.length() >= max) {
+//			int i = max;
+//			while (i > 0) {
+//				if (strObect.substring(i - 1, i).equals(" ")) {
+//					str1 = strObect.substring(0, i);
+//					str2 = strObect.substring(i, strObect.length());
+//					i = 0;
+//				}
+//				i--;
+//			}
+//		}
 		obekt_na_izpitvane[0] = str1;
 		obekt_na_izpitvane[1] = str2;
+		
 		return obekt_na_izpitvane;
 	}
 
@@ -379,8 +381,10 @@ public class Generate_Map_For_Request_Word_Document {
 		for (IzpitvanPokazatel izpitvanPokazayel : RequestViewFunction
 				.get_List_Izpitvan_pokazatel_From_Request(request)) {
 			
+			if(izpitvanPokazayel.getMetody()!=null){
 			metody = metody + izpitvanPokazayel.getMetody().getName_metody()+", "
 			+izpitvanPokazayel.getMetody().getCode_metody() + "\n";
+			}
 		}
 
 		return metody;
@@ -444,9 +448,9 @@ public class Generate_Map_For_Request_Word_Document {
 			break;
 		}
 		if (num == 1) {
-			return "(" + str + ") брой ";
+			return " (" + str + ") брой ";
 		} else
-			return "(" + str + str2 + ") броя ";
+			return " (" + str + str2 + ") броя ";
 	}
 
 }

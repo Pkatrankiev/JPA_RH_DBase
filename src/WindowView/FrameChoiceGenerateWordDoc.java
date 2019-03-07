@@ -167,7 +167,7 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 		
 			break;
 		case "Генериране на Заявка":
-			DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+			DocxMainpulator.generateAndSend_Request_Docx("Zaqvka.docx",
 					"Z-" + choiseRequest.getRecuest_code() + "_" + choiseRequest.getDate_request(), substitutionData, round);
 			break;
 		case "Генериране на Разпределителен формуляр":

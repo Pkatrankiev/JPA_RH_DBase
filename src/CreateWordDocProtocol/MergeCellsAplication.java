@@ -19,7 +19,10 @@ public class MergeCellsAplication {
 	    List<Tc> tcList = new ArrayList<Tc>();  
 	    if (objList == null) {  
 	        return tcList;  
-	    }  
+	    }    
+	    
+	    
+	    
 	    for (Object tcObj : objList) {  
 	        if (tcObj instanceof Tc) {  
 	            Tc objTc = (Tc) tcObj;  

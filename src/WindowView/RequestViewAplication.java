@@ -171,7 +171,7 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static String getStringZabelejkiFormRequest(Request request) {
+	public static String getStringZabelejkiFromRequest(Request request) {
 		String zabel_str = "";
 		if (request.getZabelejki() != null) {
 			zabel_str = request.getZabelejki().getName_zabelejki();

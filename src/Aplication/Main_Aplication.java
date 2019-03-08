@@ -9,6 +9,7 @@ import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 
 import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
+import CreateWordDocProtocol.TestSuperScript;
 import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
@@ -61,9 +63,14 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-		StartMainWindow();
+//		StartMainWindow();
 		
-//		startcreateProtokolDocx() ;
+		try {
+			startcreateProtokolDocx() ;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 		
@@ -71,17 +78,17 @@ public class Main_Aplication {
 
 	 
 
-	private static void startcreateProtokolDocx() {
+	private static void startcreateProtokolDocx() throws ParseException {
 
-		String codeRequest = "3833";
-		
-		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
-		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
-
-		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
-				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
-				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-		GenerateDocRazpredFormul.GenerateProtokolWordDoc("Razpred.docx", choiseRequest, substitutionData, null);
+//		String codeRequest = "3833";
+//		
+//		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
+//		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
+//
+//		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
+//				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
+//				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
+		TestSuperScript.GenerateProtokolWordDoc("test.docx",  null);
 //		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 

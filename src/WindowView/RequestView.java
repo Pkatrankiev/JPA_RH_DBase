@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -1173,7 +1174,12 @@ public class RequestView extends JDialog  {
 
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
-					createPreviewRequestWordDoc();
+					try {
+						createPreviewRequestWordDoc();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 			}
@@ -1338,7 +1344,7 @@ public class RequestView extends JDialog  {
 
 	}
 
-	private void createPreviewRequestWordDoc() {
+	private void createPreviewRequestWordDoc() throws ParseException {
 		request = createRequestObject();
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);

@@ -25,7 +25,7 @@ import WindowView.RequestViewFunction;
 public class Generate_Map_For_Request_Word_Document {
 
 	public static Map<String, String> GenerateMapForRequestWordDocument(Request request, String list_izpitvan_pokazatel,
-			String[][] sample_description, String date_time_reference) {
+			String[][] sample_description, String date_time_reference)  {
 		List<String> date = new ArrayList<String>();
 		
 		List<Sample> list_Sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
@@ -114,7 +114,12 @@ public class Generate_Map_For_Request_Word_Document {
 
 		substitutionData.put("$$date_time_reception$$", request.getDate_reception());
 		substitutionData.put("$$date_execution$$", request.getDate_execution());
-		substitutionData.put("$$date_time_request$$", date_time_reference);
+		try {
+			substitutionData.put("$$date_time_request$$", DatePicker.formatToProtokolDate(date_time_reference));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		String[] zabelejki = generate_zabelejki_Masive_String(request);
 
@@ -141,7 +146,7 @@ public class Generate_Map_For_Request_Word_Document {
 		String str_1 = "";
 		String str_2 = "";
 
-		String zabel_str = RequestViewAplication.getStringZabelejkiFormRequest(request);
+		String zabel_str = RequestViewAplication.getStringZabelejkiFromRequest(request);
 
 		int max = 70;
 		str_1 = zabel_str;
@@ -262,9 +267,7 @@ public class Generate_Map_For_Request_Word_Document {
 					period_fl = true;
 			}
 		}
-		if (period_fl || !sample_description[0][4].equals("")) {
-			descrip_sam_gr_str = descrip_sam_gr_str + " на " + sample_description[0][5] + "г.  ";
-		}
+		
 		String samp_str = "";
 
 		for (int i = 0; i < count; i++) {
@@ -276,8 +279,7 @@ public class Generate_Map_For_Request_Word_Document {
 				samp_str = samp_str + "; ";
 			}
 			if (period_fl)
-				samp_str = samp_str + "за " + sample_description[i][4] 
-						+ " на " + sample_description[i][5] + "г.";
+				samp_str = samp_str + "за " + sample_description[i][4];
 		}
 
 //		max = 45;

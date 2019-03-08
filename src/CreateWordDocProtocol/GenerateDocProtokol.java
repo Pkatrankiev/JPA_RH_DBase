@@ -25,10 +25,12 @@ import org.docx4j.wml.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
 
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.NuclideDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -41,8 +43,9 @@ public class GenerateDocProtokol {
 			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
 
+		List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
 		nameTaplateProtokol = FunctionForGenerateWordDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
-		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$sample_metod$$", "$$nuclide$$",
+		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$sample_metod$$", "$$cod$$",
 				"$$razmernost$$", "$$value$$", "$$norma$$" };
 
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
@@ -66,6 +69,11 @@ public class GenerateDocProtokol {
 		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО");
 		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
+		P pargraphTemplateSuperScript = AplicationDocTemplate.getTemplateParagraph(template, "$$$###");
+		// izvlichane tekst ot paragrafa
+		List<Object> txtWithSuperScript = AplicationDocTemplate.getAllElementFromObject(pargraphTemplateSuperScript, Text.class);
+		
+		AplicationDocTemplate.removeTemplateParagraph(template, "$$$###");
 		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "##$$%%");
 

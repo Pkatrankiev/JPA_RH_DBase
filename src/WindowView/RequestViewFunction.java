@@ -2,6 +2,7 @@ package WindowView;
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -295,7 +296,7 @@ public class RequestViewFunction {
 
 	}
 	
-	public static void OpenRequestInWordDokTamplate(String requestString) {
+	public static void OpenRequestInWordDokTamplate(String requestString) throws ParseException {
 		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", requestString);
 		// String list_izpitvan_pokazatel = CreateStringListIzpPokaz(request);
 

@@ -574,4 +574,47 @@ public class DatePicker {
 		date = sdf.parse(origin_date);
 		return table_sdf.format(date);
 	}
+	
+	public static String formatToProtokolDate(String origin_date) throws ParseException {
+		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+		String DOC_FORMAT_DATE_TIME = GlobalVariable.getDOC_FORMAT_DATE_TIME();
+		String globalSeparator = GlobalVariable.getSeparator();
+		SimpleDateFormat sdf;
+		String sss = "";
+		SimpleDateFormat table_sdf;
+		char separator = '.';
+		char separ = globalSeparator.charAt(0);
+		if (origin_date.contains("-")) {
+			separator = '-';
+		}
+
+		if (!origin_date.substring(0, 3).contains(".")) {
+			return origin_date;
+		}
+
+		if (separator != separ) {
+			sss = FORMAT_DATE_TIME;
+			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
+			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
+		}
+
+		
+			sss = FORMAT_DATE_TIME;
+			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+			table_sdf = new SimpleDateFormat(DOC_FORMAT_DATE_TIME);
+
+		
+
+		Date date = new Date();
+
+		try {
+			date = sdf.parse(origin_date);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		date = sdf.parse(origin_date);
+		return table_sdf.format(date);
+	}
 }

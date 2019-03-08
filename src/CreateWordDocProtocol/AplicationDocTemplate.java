@@ -119,7 +119,7 @@ k++;
 		}
 	}
 	
-	// popalvane na paragraph
+	// popalvane na tablica
 		public static void replaceTable(Tbl paragraph, Map<String, String> replacements) {
 			List<?> textElements = getAllElementFromObject(paragraph, Text.class);
 			for (Object text : textElements) {
@@ -241,6 +241,25 @@ k++;
 		}
 		if (addPoint != -1)
 			b.getEGBlockLevelElts().add(addPoint, parag);
+		else {
+			// didn't find paragraph to insert after...
+		}
+	}
+	
+	// vmakvane na paragraph sled opredelen text
+	@SuppressWarnings("deprecation")
+	static void insertTextInParagraph(P parag, String afterText, Text text) throws Exception {
+		List<Object> listText = getAllElementFromObject(parag, Text.class);
+		int addPoint = -1, count = 0;
+		for (Object o : listText) {
+			if (o instanceof Text && getElementText(o).startsWith(afterText)) {
+				addPoint = count + 1;
+				break;
+			}
+			count++;
+		}
+		if (addPoint != -1)
+			parag.getParagraphContent().add(addPoint, text);
 		else {
 			// didn't find paragraph to insert after...
 		}

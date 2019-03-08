@@ -9,6 +9,7 @@ import java.util.Map;
 
 import Aplication.ResultsDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Nuclide;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 
@@ -57,12 +58,13 @@ public class FunctionForGenerateWordDocFile {
 		String pokaz = result.getPokazatel().getName_pokazatel();
 		if (pokaz.indexOf("гама") > 0 || pokaz.indexOf("алфа") > 0) {
 //			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
-			String[] nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
+			String[] nuclide = new String[] { "", "" };
+			 nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
 			substitutionData.put("$$num$$", nuclide[0]);
 			substitutionData.put("$$cod$$", nuclide[1]);
 
 		} else {
-			substitutionData.put(masive_column_table_result[2], superscript(pokaz));
+			substitutionData.put(masive_column_table_result[2], pokaz);
 		}
 		// "$$razmernost$$"
 		substitutionData.put(masive_column_table_result[3], result.getRtazmernosti().getName_razmernosti());
@@ -105,7 +107,8 @@ public class FunctionForGenerateWordDocFile {
 
 		// "$$pokazat$$"
 		String strMinipokazatel = generateSimpliStrOnPokazatel(pokazatel.getPokazatel().getName_pokazatel());
-		String[] str = getNumberFromNuclide(strMinipokazatel);
+		String[] str = new String[] { "", "" };
+		str = getNumberFromNuclide(strMinipokazatel);
 		substitutionData.put("$$num$$", str[0]);
 		substitutionData.put("$$pokazat$$", str[1]);
 
@@ -142,6 +145,30 @@ public class FunctionForGenerateWordDocFile {
 		return name_pokazatel;
 	}
 
+	@SuppressWarnings("unused")
+	private static String[] setSuperScribeNuclideInText(String text, List<Nuclide> list_Nuclide) {
+		String[] str = new String[] { text, "","", "" };
+		String[] masiveStr = text.split(" ");
+		Boolean nucl_available = false;
+		
+		for (int i = 0; i < masiveStr.length; i++) {
+		for (Nuclide nuclide : list_Nuclide) {
+			if(nuclide.getSymbol_nuclide().equals(masiveStr[i])){
+				nucl_available = true;
+				for (int j = 0; j < i; j++) {
+					str[0] = str[0]+ masiveStr[j];
+				}
+				for (int j = i+1; j < masiveStr.length; j++) {
+					str[3] = str[3]+ masiveStr[j];
+				}
+				
+			}
+		}	
+		}
+		return str;
+	
+	}
+	
 	private static String[] getNumberFromNuclide(String symbol_nuclide) {
 		String[] str = new String[] { "", "" };
 

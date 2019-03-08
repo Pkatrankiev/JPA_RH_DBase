@@ -33,6 +33,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +123,12 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 							 final Thread thread = new Thread(new Runnable() {
 							     @Override
 							     public void run() {
-							      		greateWordDocChoiseWithTextFrame(nameFrame, textField.getText(), round);
+							      		try {
+											greateWordDocChoiseWithTextFrame(nameFrame, textField.getText(), round);
+										} catch (ParseException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
 									
 							    	     	
 							     }
@@ -153,7 +159,7 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 		setVisible(true);
 	}
 
-	private void greateWordDocChoiseWithTextFrame(String nameFrame, String codeRequest, TranscluentWindow round) {
+	private void greateWordDocChoiseWithTextFrame(String nameFrame, String codeRequest, TranscluentWindow round) throws ParseException {
 		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
 		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
 

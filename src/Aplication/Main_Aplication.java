@@ -88,7 +88,7 @@ public class Main_Aplication {
 //		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 //				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
 //				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-		TestSuperScript.GenerateProtokolWordDoc("test.docx",  null);
+		TestSuperScript.GenerateProtokolWordDoc("test.docx");
 //		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 

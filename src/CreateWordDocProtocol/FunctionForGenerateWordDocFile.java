@@ -169,7 +169,7 @@ public class FunctionForGenerateWordDocFile {
 	
 	}
 	
-	private static String[] getNumberFromNuclide(String symbol_nuclide) {
+	static String[] getNumberFromNuclide(String symbol_nuclide) {
 		String[] str = new String[] { "", "" };
 
 		for (int i = 0; i < symbol_nuclide.length(); i++) {

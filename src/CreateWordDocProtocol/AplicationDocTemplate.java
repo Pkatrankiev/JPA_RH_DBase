@@ -112,7 +112,7 @@ k++;
 
 			// Text text = (Text) object;
 			String replacementValue = replacements.get(((Text) text).getValue());
-			System.out.println(text.toString() + "  " + replacementValue);
+			System.out.println(((Text) text).getValue() + "  " + replacementValue);
 			if (replacementValue != null)
 				((Text) text).setValue(replacementValue);
 
@@ -246,7 +246,7 @@ k++;
 		}
 	}
 	
-	// vmakvane na paragraph sled opredelen text
+	// vmakvane na Text sled opredelen text
 	@SuppressWarnings("deprecation")
 	static void insertTextInParagraph(P parag, String afterText, Text text) throws Exception {
 		List<Object> listText = getAllElementFromObject(parag, Text.class);

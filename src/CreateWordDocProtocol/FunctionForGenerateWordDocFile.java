@@ -4,11 +4,14 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Aplication.ResultsDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -16,7 +19,7 @@ import DBase_Class.Sample;
 public class FunctionForGenerateWordDocFile {
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
 	private static final String destinationDir = "DIRECTORY/";
-
+	private static List<String> listDokladMDA = new ArrayList<String>();
 	public static int countRowInFirstPege(int count_Result_In_Protokol) {
 		int max_tableRow = 100;
 		if (count_Result_In_Protokol > 7 && count_Result_In_Protokol <= 10) {
@@ -28,6 +31,9 @@ public class FunctionForGenerateWordDocFile {
 		}
 		return max_tableRow;
 	}
+	
+	
+	
 
 	public static int get_count_Result_In_Protokol(List<Sample> smple_list) {
 		int count_Result_In_Protokol = 0;
@@ -43,7 +49,7 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	static Map<String, String> generateResultsMap(Sample sample, Results result, String[] masive_column_table_result) {
-		List<String> listDokladMDA = new ArrayList<String>();
+		
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		// "$$sample_code$$"
@@ -60,11 +66,18 @@ public class FunctionForGenerateWordDocFile {
 //			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
 			String[] nuclide = new String[] { "", "" };
 			 nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
-			substitutionData.put("$$num$$", nuclide[0]);
-			substitutionData.put("$$cod$$", nuclide[1]);
+			 substitutionData.put("$$s_txt$$", "");
+			substitutionData.put("$$n_nucl$$", nuclide[0]);
+			substitutionData.put("$$c_nucl$$", nuclide[1]);
 
 		} else {
-			substitutionData.put(masive_column_table_result[2], pokaz);
+			
+			String[] nuclide = new String[] { "", "" };
+			 nuclide = getNumberFromNuclide(pokaz.replaceAll("Съдържание на", "").trim());
+			 substitutionData.put("$$s_txt$$", "Съдържание на");
+			substitutionData.put("$$n_nucl$$", nuclide[0]);
+			substitutionData.put("$$c_nucl$$", nuclide[1]);
+			
 		}
 		// "$$razmernost$$"
 		substitutionData.put(masive_column_table_result[3], result.getRtazmernosti().getName_razmernosti());
@@ -184,22 +197,6 @@ public class FunctionForGenerateWordDocFile {
 		return str;
 	}
 	
-	public static String superscript(String str) {
-
-		str = str.replaceAll("0", "\u2070");
-		str = str.replaceAll("1", "\u00B9");
-		str = str.replaceAll("2", "\u00B2");
-		str = str.replaceAll("3", "\u00B3");
-		str = str.replaceAll("4", "\u2074");
-		str = str.replaceAll("5", "\u2075");
-		str = str.replaceAll("6", "\u2076");
-		str = str.replaceAll("7", "⁷");
-		str = str.replaceAll("8", "\u2078");
-		str = str.replaceAll("9", "\u2079");
-		str = str.replaceAll("/", "ᐟ");
-
-		return str;
-	}
 
 	public static String alignExpon(double basic, double foll) {
 		NumberFormat frm = new DecimalFormat("0.00E00");
@@ -230,6 +227,13 @@ public class FunctionForGenerateWordDocFile {
 		}
 		fnumber = fnumber.replace(",", ".");
 		return fnumber;
+	}
+	
+	static List<Metody> ClearDuplicateObjectFromListMetody(List<Metody> listIdMetody) {
+		Set<Metody> newListIdMetody = new LinkedHashSet<>(listIdMetody);
+		listIdMetody.clear();
+		listIdMetody.addAll(newListIdMetody);
+		return listIdMetody;
 	}
 
 }

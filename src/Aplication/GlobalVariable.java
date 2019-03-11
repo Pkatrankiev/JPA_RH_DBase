@@ -11,7 +11,7 @@ public class GlobalVariable {
 	private static String FORMAT_DATE_TIME ="dd-MM-yyyy HH:mm";
 	private static String TAB_FORMAT_DATE = "yyyy-MM-dd";
 	private static String TAB_FORMAT_DATE_TIME ="yyyy-MM-dd HH:mm";
-	private static String DOC_FORMAT_DATE_TIME ="yyyy-MM-dd / HH:mm";
+	private static String DOC_FORMAT_DATE_TIME ="dd.MM.yyyy / HH:mm";
 	
 	public static String getFORMAT_DATE() {
 		return FORMAT_DATE.replaceAll("-", separator);

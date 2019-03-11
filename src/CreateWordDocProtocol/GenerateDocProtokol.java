@@ -71,7 +71,7 @@ public class GenerateDocProtokol {
 		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
 		P pargraphTemplateSuperScript = AplicationDocTemplate.getTemplateParagraph(template, "$$$###");
 		// izvlichane tekst ot paragrafa
-		List<Object> txtWithSuperScript = AplicationDocTemplate.getAllElementFromObject(pargraphTemplateSuperScript, Text.class);
+//		List<Object> txtWithSuperScript = AplicationDocTemplate.getAllElementFromObject(pargraphTemplateSuperScript, Text.class);
 		
 		AplicationDocTemplate.removeTemplateParagraph(template, "$$$###");
 		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");

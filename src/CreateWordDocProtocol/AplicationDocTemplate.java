@@ -70,9 +70,11 @@ public class AplicationDocTemplate {
 		
 		int k =0;
 		for (Object parag : paragraph) {
-			System.out.println(k+"*****************************************"+parag.toString());
 			String paragText = parag.toString();
-			if (paragText.startsWith(value)) {
+			System.out.println(k+"************* "+parag.toString()+" indexOf "+paragText.indexOf(value)+" - value "+value);
+			
+			if (paragText.indexOf(value)>=0) {
+				System.out.println(k+"??????????? "+parag.toString());
 				tempParagraph = (P) parag;
 				// template.getContentType().
 			}
@@ -88,7 +90,7 @@ k++;
 		P tempParagraph = null;
 		for (Object parag : paragraph) {
 			String paragText = parag.toString();
-			if (paragText.startsWith(value)) {
+			if (paragText.indexOf(value)>=0) {
 				tempParagraph = (P) parag;
 
 				((ContentAccessor) tempParagraph.getParent()).getContent().remove(tempParagraph);
@@ -298,6 +300,21 @@ k++;
 
 		reviewtable.getContent().add(workingRow);
 	}
+	
+	// dobavqne na nov paragraf v dokumenta
+		public static void addparagToDoc(WordprocessingMLPackage template, P parag, Map<String, String> replacements) {
+			P workingPara = (P) XmlUtils.deepCopy(parag);
+			List<?> textElements = getAllElementFromObject(workingPara, Text.class);
+			for (Object object : textElements) {
+
+				Text text = (Text) object;
+				String replacementValue = (String) replacements.get(text.getValue());
+				if (replacementValue != null)
+					text.setValue(replacementValue);
+			}
+
+			template.getMainDocumentPart().addObject(workingPara);
+		}
 
 	public static Tbl getTemplateTable(List<Object> tables, String templateKey) throws Docx4JException, JAXBException {
 		for (Iterator<Object> iterator = tables.iterator(); iterator.hasNext();) {

@@ -174,7 +174,8 @@ public class RequestViewAplication {
 	public static String getStringZabelejkiFromRequest(Request request) {
 		String zabel_str = "";
 		if (request.getZabelejki() != null) {
-			zabel_str = request.getZabelejki().getName_zabelejki();
+			if(request.getZabelejki().getName_zabelejki().indexOf("$02$")<0)
+			zabel_str = request.getZabelejki().getName_zabelejki().substring(4);
 		}
 
 		return zabel_str;

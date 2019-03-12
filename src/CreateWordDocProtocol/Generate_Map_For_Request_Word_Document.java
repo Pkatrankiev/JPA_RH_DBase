@@ -192,7 +192,7 @@ public class Generate_Map_For_Request_Word_Document {
 		String samp_str = "";
 
 		for (int i = 0; i < count; i++) {
-			samp_str = samp_str + "-" + sample_description[i][0] + " / ";
+			samp_str = samp_str + sample_description[i][0] + " / ";
 			samp_str = samp_str + sample_description[i][1];
 			if (sample_description[i][2].length() > 0) {
 				samp_str = samp_str + ", " + sample_description[i][2] + "; ";
@@ -225,16 +225,7 @@ public class Generate_Map_For_Request_Word_Document {
 
 	private static String generate_Metody_String(Request request) {
 		String metody = "";
-		List<IzpitvanPokazatel> listIzpPok = RequestViewFunction
-				.get_List_Izpitvan_pokazatel_From_Request(request);
-		
-		List<Metody> listIdMetody =	new ArrayList<Metody>();
-		for (IzpitvanPokazatel izpitvanPokazayel : listIzpPok) {
-			listIdMetody.add(izpitvanPokazayel.getMetody());
-		}
-			
-		for (Metody metod : FunctionForGenerateWordDocFile.ClearDuplicateObjectFromListMetody(listIdMetody)) {
-
+			for (Metody metod :  FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(request)) {
 			if (metod != null) {
 				metody = metody + metod.getName_metody() + ", "
 						+ metod.getCode_metody() + "\n";
@@ -243,11 +234,6 @@ public class Generate_Map_For_Request_Word_Document {
 		return metody;
 	}
 
-
-	
-	
-	
-	
 	public static String getWordOFNumber(int num) {
 		String str = "";
 		String str2 = "";

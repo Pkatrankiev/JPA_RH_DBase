@@ -43,14 +43,14 @@ public class GenerateDocProtokol {
 			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
 
-		List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
+//		List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
 		nameTaplateProtokol = FunctionForGenerateWordDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
 		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$sample_metod$$", "$$cod$$",
 				"$$razmernost$$", "$$value$$", "$$norma$$" };
 
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<Sample> new_smple_list;
-		int count_Result_In_Protokol = FunctionForGenerateWordDocFile.get_count_Result_In_Protokol(smple_list);
+//		int count_Result_In_Protokol = FunctionForGenerateWordDocFile.get_count_Result_In_Protokol(smple_list);
 
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
@@ -69,14 +69,17 @@ public class GenerateDocProtokol {
 		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО");
 		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
-		P pargraphTemplateSuperScript = AplicationDocTemplate.getTemplateParagraph(template, "$$$###");
+//		P pargraphTemplateSuperScript = AplicationDocTemplate.getTemplateParagraph(template, "$$$###");
 		// izvlichane tekst ot paragrafa
 //		List<Object> txtWithSuperScript = AplicationDocTemplate.getAllElementFromObject(pargraphTemplateSuperScript, Text.class);
+//		AplicationDocTemplate.removeTemplateParagraph(template, "$$$###");
 		
-		AplicationDocTemplate.removeTemplateParagraph(template, "$$$###");
 		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "##$$%%");
 
+		P pargraphTemplateMDA = AplicationDocTemplate.getTemplateParagraph(template, "$$MDA$$");
+		AplicationDocTemplate.removeTemplateParagraph(template, "$$MDA$$");
+		
 		AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
 
 		// izvlichane na tablicite ot documenta
@@ -117,7 +120,7 @@ public class GenerateDocProtokol {
 		Map<String, String> repl_request_pokazarel = new HashMap<String, String>();
 		List<Results> result_list = new ArrayList<>();
 		Map<String, String> repl_results = new HashMap<String, String>();
-		int[] numberMergeCells = new int[smple_list.size() + 1];
+//		int[] numberMergeCells = new int[smple_list.size() + 1];
 		Boolean sendOnePokazatel = false;
 		int coutRow = 2;
 		List<int[]> list = createMsasiveRowTable(smple_list, pokazatel_list,coutRow);
@@ -133,19 +136,21 @@ public class GenerateDocProtokol {
 			}
 		}
 		System.out.println("smple_list.size()= " + smple_list.size());
+		FunctionForGenerateWordDocFile.clearListDokladMDA();
 		int idexSample = 0;
 		for (Sample sample : smple_list) {
 			result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			
 			idexSample++;
-			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
+//			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
+			for (Results result : result_list) {
 				if (!sendOnePokazatel) {
 					if (CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
-							repl_request_pokazarel, pokazatel.getPokazatel().getName_pokazatel())) {
+							repl_request_pokazarel, result.getPokazatel().getName_pokazatel())) {
 						coutRow++;
 					}
 				}
-				for (Results result : result_list) {
+				
 					int[] masive = list.get(0);
 					System.out.println("masive[masive.length-1]= " + masive[masive.length - 1] + "coutRow= " + coutRow);
 					if (coutRow < masive[masive.length - 1]) {
@@ -156,7 +161,7 @@ public class GenerateDocProtokol {
 							coutRow++;
 						}
 					} else {
-						mergeCelsInTAble(tempTable, list.get(0));
+						mergeCelsInTAble(tempTable, list.get(0),recuest);
 //						 create new table
 						Tbl new_table = newTable(substitutionData, template, pargraphTemplateProtokol,
 								pargraphTemplateText, pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable,
@@ -167,7 +172,7 @@ public class GenerateDocProtokol {
 						list = createMsasiveRowTable(new_smple_list, pokazatel_list, coutRow );
 					}
 				}
-			}
+//			}
 			System.out.println("Sample i= " + sample.getSample_code() + "; list.get(0).length= " + list.get(0).length);
 		}
 
@@ -177,7 +182,15 @@ public class GenerateDocProtokol {
 //					
 //					}		
 
-		mergeCelsInTAble(tempTable, list.get(0));
+		mergeCelsInTAble(tempTable, list.get(0),recuest);
+		System.out.println("///////////////////// size list MDA "+FunctionForGenerateWordDocFile.getListDokladMDA().size());
+		if(recuest.getZabelejki()!=null && recuest.getZabelejki().getName_zabelejki().indexOf("$02$")>=0){
+			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {
+				System.out.println("??????????? "+result.getMda());
+				AplicationDocTemplate.addparagToDoc(template, pargraphTemplateMDA, FunctionForGenerateWordDocFile.generateMapMDA(result));
+			}
+		}
+		
 		AplicationDocTemplate.addTable(template, zabTable);
 		AplicationDocTemplate.addTable(template, podpisiTable);
 		AplicationDocTemplate.replaceTable(zabTable, AplicationDocTemplate.createEmptiMap("$$%%"));
@@ -221,13 +234,19 @@ public class GenerateDocProtokol {
 		return list;
 	}
 
-	private static void mergeCelsInTAble(Tbl tempTable, int[] numberMergeCells) {
+	private static void mergeCelsInTAble(Tbl tempTable, int[] numberMergeCells,Request recuest) {
 		for (int i = 0; i < numberMergeCells.length - 1; i++) {
 			MergeCellsAplication.mergeCellsVertically(tempTable, 0, numberMergeCells[i], numberMergeCells[i + 1]);
 			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[i], numberMergeCells[i + 1]);
 			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[i], numberMergeCells[i + 1]);
 		}
+		
+		if(FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size()==1){
+			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
+		}
 	}
+	
+	
 
 	private static Tbl newTable(Map<String, String> substitutionData, WordprocessingMLPackage template,
 			P pargraphTemplateProtokol, P pargraphTemplateText, P pargraphTemplateNewPage, P pargraphTemplateNewRow,
@@ -247,7 +266,7 @@ public class GenerateDocProtokol {
 		AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow, AplicationDocTemplate.createEmptiMap("##$$%%"));
 
 		// Copying a existing table
-		ObjectFactory factory = Context.getWmlObjectFactory();
+//		ObjectFactory factory = Context.getWmlObjectFactory();
 		Tbl new_table = AplicationDocTemplate.creatTable(template); // Create a new CTTbl for the new table
 		new_table.setTblPr(tempTable.getTblPr()); // Copy the template table's CTTbl
 

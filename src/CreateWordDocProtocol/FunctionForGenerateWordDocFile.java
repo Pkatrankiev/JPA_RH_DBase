@@ -13,13 +13,15 @@ import Aplication.ResultsDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
+import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import WindowView.RequestViewFunction;
 
 public class FunctionForGenerateWordDocFile {
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
 	private static final String destinationDir = "DIRECTORY/";
-	private static List<String> listDokladMDA = new ArrayList<String>();
+	private static List<Results> listDokladMDA = new ArrayList<Results>();
 	public static int countRowInFirstPege(int count_Result_In_Protokol) {
 		int max_tableRow = 100;
 		if (count_Result_In_Protokol > 7 && count_Result_In_Protokol <= 10) {
@@ -31,8 +33,6 @@ public class FunctionForGenerateWordDocFile {
 		}
 		return max_tableRow;
 	}
-	
-	
 	
 
 	public static int get_count_Result_In_Protokol(List<Sample> smple_list) {
@@ -92,7 +92,7 @@ public class FunctionForGenerateWordDocFile {
 				str_VAlue = str_VAlue + "*";
 			}
 			if (string_zab.indexOf("Да се докладва МДА") > 0) {
-				listDokladMDA.add("<" + formatter(result.getMda()));
+				listDokladMDA.add(result);
 			}
 		} else {
 			str_VAlue = "<" + formatter(result.getMda());
@@ -106,9 +106,22 @@ public class FunctionForGenerateWordDocFile {
 		return substitutionData;
 	}
 
+	static List<Metody> createCleanFromDuplicateListMetody(Request request) {
+		List<IzpitvanPokazatel> listIzpPok = RequestViewFunction
+				.get_List_Izpitvan_pokazatel_From_Request(request);
+		
+		List<Metody> listIdMetody =	new ArrayList<Metody>();
+		for (IzpitvanPokazatel izpitvanPokazayel : listIzpPok) {
+			listIdMetody.add(izpitvanPokazayel.getMetody());
+		}
+		
+		List<Metody> newlistIdMetody = FunctionForGenerateWordDocFile.ClearDuplicateObjectFromListMetody(listIdMetody);
+		return newlistIdMetody;
+	}
+	
 	static Map<String, String> generateMapRowTable(Sample sample, IzpitvanPokazatel pokazatel,
 			String[] masive_key_table_row) {
-		List<String> listDokladMDA = new ArrayList<String>();
+	
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		// "$$sample_code$$"
@@ -132,7 +145,7 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	static Map<String, String> generateEmptiMapRowTable(String[] masive_key_table_row) {
-		List<String> listDokladMDA = new ArrayList<String>();
+
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		// "$$sample_code$$"
@@ -157,7 +170,30 @@ public class FunctionForGenerateWordDocFile {
 		name_pokazatel = name_pokazatel.replaceAll("излъчващи", "").trim();
 		return name_pokazatel;
 	}
-
+	
+	static Map<String, String> generateMapMDA(Results result ){
+		Map<String, String> substitutionData = new HashMap<String, String>();
+		substitutionData.put("$$sample_code$$", result.getSample().getRequest().getRecuest_code() + "-" + result.getSample().getSample_code());
+		
+		String[] nuclide = new String[] { "", "" };
+		nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
+		 substitutionData.put("$$s_txt$$", "");
+		substitutionData.put("$$n_nucl$$", nuclide[0]);
+		substitutionData.put("$$c_nucl$$", nuclide[1]);
+		
+		substitutionData.put("$$<MDA$$", "<" + formatter(result.getMda()));
+		substitutionData.put("$$razmernost$$", result.getRtazmernosti().getName_razmernosti());
+		return substitutionData;
+		}
+	
+	static void clearListDokladMDA(){
+	listDokladMDA.clear();
+	}
+	
+	static List<Results>  getListDokladMDA(){
+		return listDokladMDA;
+		}
+	
 	@SuppressWarnings("unused")
 	private static String[] setSuperScribeNuclideInText(String text, List<Nuclide> list_Nuclide) {
 		String[] str = new String[] { text, "","", "" };

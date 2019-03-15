@@ -137,7 +137,7 @@ public class GenerateDocProtokol {
 		}
 		System.out.println("smple_list.size()= " + smple_list.size());
 		FunctionForGenerateWordDocFile.clearListDokladMDA();
-		int idexSample = 0;
+		int idexSample = -1;
 		for (Sample sample : smple_list) {
 			result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			
@@ -170,6 +170,11 @@ public class GenerateDocProtokol {
 						coutRow = 1;
 						new_smple_list = createListForLastSample(idexSample, smple_list);
 						list = createMsasiveRowTable(new_smple_list, pokazatel_list, coutRow );
+						
+						repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
+								masive_column_table_result);
+						AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
+						coutRow++;
 					}
 				}
 //			}
@@ -183,6 +188,7 @@ public class GenerateDocProtokol {
 //					}		
 
 		mergeCelsInTAble(tempTable, list.get(0),recuest);
+		
 		System.out.println("///////////////////// size list MDA "+FunctionForGenerateWordDocFile.getListDokladMDA().size());
 		if(recuest.getZabelejki()!=null && recuest.getZabelejki().getName_zabelejki().indexOf("$02$")>=0){
 			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {

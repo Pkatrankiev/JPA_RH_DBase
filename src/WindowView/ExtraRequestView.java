@@ -31,7 +31,7 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.OtclonenieDAO;
+import Aplication.DopalnIziskvDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -142,15 +142,15 @@ public class ExtraRequestView extends JDialog {
 
 		GridBagLayout gbl_p_1 = new GridBagLayout();
 		gbl_p_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p_1.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p_1.columnWidths = new int[] { 15, 190, 110, 100, 110, 160, 15 };
-		gbl_p_1.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		gbl_p_1.rowHeights = new int[] { 181, 25, 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 11, 0, 0, 17, 0 };
 		p_1.setLayout(gbl_p_1);
 
 		// TODO Section_Header_Request (Титул на заявката)
-		Section_Header_Request(p_1);
+//		Section_Header_Request(p_1);
 
 		Border border = UIManager.getBorder("TextField.border");
 
@@ -183,7 +183,7 @@ public class ExtraRequestView extends JDialog {
 
 		// TODO txtArea_Descript_grup_Sample (описание на групата проби)
 		Text_Area_Description_Sample_Grup(tamplateRequest, p_1, border);
-
+//
 		// TODO Section_Date_Time_Reference (референтна дата час)
 		Section_Date_Time_Reference(p_1, border);
 
@@ -204,7 +204,7 @@ public class ExtraRequestView extends JDialog {
 
 		// TODO Section_choice_Aplicant (Съгласувано с клиента)
 		Section_Choise_AplicantNameFamily(tamplateRequest, p_1);
-
+//
 		// TODO Section_date_reception (дата на приемане)
 		Section_Date_Reception(p_1, border);
 
@@ -1152,7 +1152,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_lbl_DopalnDogovorenosti.anchor = GridBagConstraints.WEST;
 		gbc_lbl_DopalnDogovorenosti.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_DopalnDogovorenosti.gridx = 1;
-		gbc_lbl_DopalnDogovorenosti.gridy = 24;
+		gbc_lbl_DopalnDogovorenosti.gridy = 28;
 		p.add(lbl_DopalnDogovorenosti, gbc_lbl_DopalnDogovorenosti);
 
 		txtArea_DopalnDogovorenosti = new JTextArea("");
@@ -1163,7 +1163,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_txtArea_DopalnDogovorenosti.insets = new Insets(0, 0, 5, 5);
 		gbc_txtArea_DopalnDogovorenosti.fill = GridBagConstraints.BOTH;
 		gbc_txtArea_DopalnDogovorenosti.gridx = 1;
-		gbc_txtArea_DopalnDogovorenosti.gridy = 25;
+		gbc_txtArea_DopalnDogovorenosti.gridy = 29;
 		p.add(txtArea_DopalnDogovorenosti, gbc_txtArea_DopalnDogovorenosti);
 	}
 
@@ -1173,7 +1173,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_lbl_AplicantNameFamily.anchor = GridBagConstraints.EAST;
 		gbc_lbl_AplicantNameFamily.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_AplicantNameFamily.gridx = 1;
-		gbc_lbl_AplicantNameFamily.gridy = 26;
+		gbc_lbl_AplicantNameFamily.gridy = 30;
 		p.add(lbl_AplicantNameFamily, gbc_lbl_AplicantNameFamily);
 
 		choice_AplicantNameFamily = new Choice();
@@ -1197,7 +1197,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_choice_AplicantNameFamily.gridwidth = 2;
 		gbc_choice_AplicantNameFamily.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_AplicantNameFamily.gridx = 2;
-		gbc_choice_AplicantNameFamily.gridy = 26;
+		gbc_choice_AplicantNameFamily.gridy = 30;
 		p.add(choice_AplicantNameFamily, gbc_choice_AplicantNameFamily);
 
 		Button_Add_AplicantNameFamily(p, array_AplicantNameFamily);
@@ -1215,10 +1215,9 @@ public class ExtraRequestView extends JDialog {
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.anchor = GridBagConstraints.NORTHWEST;
-		gbc_button.gridheight = 2;
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 4;
-		gbc_button.gridy = 26;
+		gbc_button.gridy = 30;
 		p.add(button, gbc_button);
 	}
 
@@ -1229,7 +1228,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_lbl_date_reception.gridwidth = 2;
 		gbc_lbl_date_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_date_reception.gridx = 1;
-		gbc_lbl_date_reception.gridy = 28;
+		gbc_lbl_date_reception.gridy = 32;
 		p.add(lbl_date_reception, gbc_lbl_date_reception);
 
 		// TODO txtFld_date_reception (дата на приемане)
@@ -1262,7 +1261,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_txtFld_date_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_reception.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_reception.gridx = 3;
-		gbc_txtFld_date_reception.gridy = 28;
+		gbc_txtFld_date_reception.gridy = 32;
 		p.add(txtFld_date_reception, gbc_txtFld_date_reception);
 
 		JButton btn_date_reception = Button_Date_Rception(border);
@@ -1272,7 +1271,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_btn_date_reception.gridwidth = 2;
 		gbc_btn_date_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_date_reception.gridx = 4;
-		gbc_btn_date_reception.gridy = 28;
+		gbc_btn_date_reception.gridy = 32;
 		p.add(btn_date_reception, gbc_btn_date_reception);
 	}
 
@@ -1305,14 +1304,14 @@ public class ExtraRequestView extends JDialog {
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 29;
+		gbc_lblNewLabel_3.gridy = 33;
 		p.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
 		JLabel lbl_User = new JLabel(user.getName_users() + " " + user.getFamily_users());
 		GridBagConstraints gbc_lbl_User = new GridBagConstraints();
 		gbc_lbl_User.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_User.gridx = 2;
-		gbc_lbl_User.gridy = 29;
+		gbc_lbl_User.gridy = 33;
 		p.add(lbl_User, gbc_lbl_User);
 	}
 
@@ -1334,10 +1333,10 @@ public class ExtraRequestView extends JDialog {
 		gbc_choice_otclon.gridwidth = 4;
 		gbc_choice_otclon.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_otclon.gridx = 1;
-		gbc_choice_otclon.gridy = 21;
+		gbc_choice_otclon.gridy = 25;
 		p.add(choice_otclon, gbc_choice_otclon);
 
-		ArrayList<String> arrayOtclon = RequestViewAplication.getStringOtclon();
+		ArrayList<String> arrayOtclon = RequestViewAplication.getStringDopIzis();
 		for (String string : arrayOtclon) {
 			choice_otclon.add(string);
 		}
@@ -1348,7 +1347,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_btn_add_otclon.gridheight = 2;
 		gbc_btn_add_otclon.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_add_otclon.gridx = 5;
-		gbc_btn_add_otclon.gridy = 21;
+		gbc_btn_add_otclon.gridy = 25;
 		p.add(btn_add_otclon, gbc_btn_add_otclon);
 	}
 
@@ -1368,7 +1367,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_lbl_note.anchor = GridBagConstraints.WEST;
 		gbc_lbl_note.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_note.gridx = 1;
-		gbc_lbl_note.gridy = 22;
+		gbc_lbl_note.gridy = 26;
 		p.add(lbl_note, gbc_lbl_note);
 
 		txtArea_dopIzis = new JTextArea(" ");
@@ -1379,7 +1378,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_txtArea_dopIzis.insets = new Insets(0, 0, 5, 5);
 		gbc_txtArea_dopIzis.fill = GridBagConstraints.BOTH;
 		gbc_txtArea_dopIzis.gridx = 1;
-		gbc_txtArea_dopIzis.gridy = 23;
+		gbc_txtArea_dopIzis.gridy = 27;
 		p.add(txtArea_dopIzis, gbc_txtArea_dopIzis);
 	}
 
@@ -1395,7 +1394,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_btn_save.anchor = GridBagConstraints.WEST;
 		gbc_btn_save.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_save.gridx = 5;
-		gbc_btn_save.gridy = 31;
+		gbc_btn_save.gridy = 35;
 		p.add(btn_save, gbc_btn_save);
 	}
 
@@ -1418,7 +1417,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_btn_save.anchor = GridBagConstraints.EAST;
 		gbc_btn_save.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_save.gridx = 4;
-		gbc_btn_save.gridy = 31;
+		gbc_btn_save.gridy = 35;
 		p.add(btn_save, gbc_btn_save);
 	}
 
@@ -1443,7 +1442,7 @@ public class ExtraRequestView extends JDialog {
 		gbc_btn_Preview.anchor = GridBagConstraints.WEST;
 		gbc_btn_Preview.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_Preview.gridx = 3;
-		gbc_btn_Preview.gridy = 31;
+		gbc_btn_Preview.gridy = 35;
 		p.add(btn_Preview, gbc_btn_Preview);
 	}
 
@@ -1602,7 +1601,7 @@ public class ExtraRequestView extends JDialog {
 		extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
 		extra_module.setReturn_samples(rdbtn_Yes.isSelected());
 		extra_module.setAplicant(AplicantDAO.getAplicantByNameFamily(choice_AplicantNameFamily.getSelectedItem()));
-		extra_module.setOtclonenie(OtclonenieDAO.getValueOtclonByName(choice_otclon.getSelectedItem()));
+		extra_module.setDoplIzisk(DopalnIziskvDAO.getValueDopalnIziskvByName(choice_otclon.getSelectedItem()));
 		extra_module.setExternal_applicant(externalAplic);
 		extra_module.setInternal_applicant(internalAplic);
 		return extra_module;

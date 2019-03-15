@@ -41,7 +41,6 @@ public class CreateListForMultiTable {
 			numberMergeCells[count_numberMergeCells] = coutRow;
 			count_numberMergeCells++;
 			List<Results> result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
-//			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
 				if (!sendOnePokazatel) {
 					coutRow++;
 				}
@@ -56,7 +55,7 @@ public class CreateListForMultiTable {
 					}
 
 				}
-//			}
+
 		}
 		numberMergeCells[count_numberMergeCells] = coutRow;
 
@@ -64,11 +63,11 @@ public class CreateListForMultiTable {
 
 	}
 
-	@SuppressWarnings("null")
+	@SuppressWarnings({ "null", "unused" })
 	public static List<int[]> addRowPokazatelIfGamaOrAlpha(int[] numberMergeCells) {
 		List<int[]> listNumberSampleCount = new ArrayList<int[]>();
 		System.out.println("numberMergeCells.length= " + numberMergeCells.length);
-		for (int i = numberMergeCells.length - 1; i >= 0; i--) {
+		int i = numberMergeCells.length - 1;
 			if (numberMergeCells[i] < maxRowInOneTableOnePage) {
 				listNumberSampleCount.add(numberMergeCells);
 				return listNumberSampleCount;
@@ -78,19 +77,22 @@ public class CreateListForMultiTable {
 				System.out.println("numberMergeCells[" + i + "]= " + numberMergeCells[i]);
 				int countRowInLastTable = 0;
 				int k = 0, m = 0;
-				while (countRowInLastTable < 4 && i - k > 0) {
+				do  {
 					k++;
 					countRowInLastTable = numberMergeCells[i] - numberMergeCells[i - k];
 					System.out.println("i= " + i + "; k= " + k + "; countRowInLastTable= " + countRowInLastTable);
-
-				}
-				System.out.println("i= " + i + "; k= " + k);
+				}	
+				while(countRowInLastTable < 4 && i - k >= 0);
+			
+				System.out.println("i= " + i + "; k= " + k+"i-k="+(i-k)+"");
 				int[] masive1 = new int[i - k + 1];
 				int[] masive2 = new int[k];
 				for (int j = 0; j < numberMergeCells.length; j++) {
 					if (j <= i - k) {
+						System.out.println("masive1  j= " + j);
 						masive1[j] = numberMergeCells[j];
 					} else {
+						System.out.println("masive2   j= " + j);
 						masive2[m] = numberMergeCells[j];
 						m++;
 					}
@@ -127,9 +129,8 @@ public class CreateListForMultiTable {
 				return listNumberSampleCount;
 
 			}
-		}
-
-		return null;
+		
+	
 
 	}
 

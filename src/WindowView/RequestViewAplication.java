@@ -13,7 +13,7 @@ import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.OtclonenieDAO;
+import Aplication.DopalnIziskvDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -27,7 +27,7 @@ import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
-import DBase_Class.Otclonenie;
+import DBase_Class.DopalnIziskv;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
@@ -135,11 +135,11 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static ArrayList<String> getStringOtclon() {
-		List<Otclonenie> list = OtclonenieDAO.getInListAllValueOtclon();
+	public static ArrayList<String> getStringDopIzis() {
+		List<DopalnIziskv> list = DopalnIziskvDAO.getInListAllValueDopalnIziskv();
 		ArrayList<String> masive_Otclon = new ArrayList<String>();
-		for (Otclonenie e : list) {
-			masive_Otclon.add(e.getName_otclon());
+		for (DopalnIziskv e : list) {
+			masive_Otclon.add(e.getName_dopIzis());
 		}
 		return masive_Otclon;
 	}
@@ -174,7 +174,8 @@ public class RequestViewAplication {
 	public static String getStringZabelejkiFromRequest(Request request) {
 		String zabel_str = "";
 		if (request.getZabelejki() != null) {
-			if(request.getZabelejki().getName_zabelejki().indexOf("$02$")<0)
+			System.out.println(request.getZabelejki().getName_zabelejki().indexOf("$02$"));
+			if(request.getZabelejki().getName_zabelejki().indexOf("$02$")>=0)
 			zabel_str = request.getZabelejki().getName_zabelejki().substring(4);
 		}
 

@@ -30,13 +30,13 @@ public class Extra_module implements Serializable {
 	@ManyToOne
 	private Internal_applicant internal_applicant;
 	@ManyToOne
-	private Otclonenie otclonenie;
+	private DopalnIziskv doplIzis;
 	
 	
 	public Extra_module(External_applicant external_applicant, 
 			Internal_applicant internal_applicant,
 			Aplicant aplicant,
-			Otclonenie otclonenie,
+			DopalnIziskv doplIzisk,
 			Boolean return_samples,
 			String additional_requirements,
 			String additional_arrangements){
@@ -45,7 +45,7 @@ public class Extra_module implements Serializable {
 		this.external_applicant = external_applicant;
 		this.internal_applicant = internal_applicant;
 		this.aplicant = aplicant;
-		this.otclonenie = otclonenie;
+		this.doplIzis = doplIzisk;
 		this.return_samples = return_samples;
 		this.additional_requirements = additional_requirements;
 		this.additional_arrangements = additional_arrangements;
@@ -95,11 +95,11 @@ public class Extra_module implements Serializable {
 		return serialVersionUID;
 	}
 	
-	public Otclonenie getOtclonenie() {
-		return otclonenie;
+	public DopalnIziskv getDoplIzisk() {
+		return doplIzis;
 	}
-	public void setOtclonenie(Otclonenie otclonenie) {
-		this.otclonenie = otclonenie;
+	public void setDoplIzisk(DopalnIziskv doplIzisk) {
+		this.doplIzis = doplIzisk;
 	}
 	public Aplicant getAplicant() {
 		return aplicant;

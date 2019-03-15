@@ -95,7 +95,7 @@ public class FunctionForGenerateWordDocFile {
 				listDokladMDA.add(result);
 			}
 		} else {
-			str_VAlue = "<" + formatter(result.getMda());
+			str_VAlue = "< " + formatter(result.getMda());
 		}
 
 		substitutionData.put(masive_column_table_result[4], str_VAlue);
@@ -181,7 +181,7 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put("$$n_nucl$$", nuclide[0]);
 		substitutionData.put("$$c_nucl$$", nuclide[1]);
 		
-		substitutionData.put("$$<MDA$$", "<" + formatter(result.getMda()));
+		substitutionData.put("$$MDA$$", "< " + formatter(result.getMda()));
 		substitutionData.put("$$razmernost$$", result.getRtazmernosti().getName_razmernosti());
 		return substitutionData;
 		}

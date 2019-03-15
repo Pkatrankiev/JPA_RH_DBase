@@ -30,7 +30,7 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.OtclonenieDAO;
+import Aplication.DopalnIziskvDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -1340,11 +1340,11 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		gbc_choice_otclon.gridy = 21;
 		p.add(choice_otclon, gbc_choice_otclon);
 
-		ArrayList<String> arrayOtclon = RequestViewAplication.getStringOtclon();
-		for (String string : arrayOtclon) {
+		ArrayList<String> arrayDopIzis = RequestViewAplication.getStringDopIzis();
+		for (String string : arrayDopIzis) {
 			choice_otclon.add(string);
 		}
-		JButton btn_add_otclon = Button_Add_Otclon(arrayOtclon);
+		JButton btn_add_otclon = Button_Add_Otclon(arrayDopIzis);
 
 		GridBagConstraints gbc_btn_add_otclon = new GridBagConstraints();
 		gbc_btn_add_otclon.anchor = GridBagConstraints.NORTHWEST;
@@ -1614,7 +1614,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
 		extra_module.setReturn_samples(rdbtn_Yes.isSelected());
 		extra_module.setAplicant(AplicantDAO.getAplicantByNameFamily(choice_AplicantNameFamily.getSelectedItem()));
-		extra_module.setOtclonenie(OtclonenieDAO.getValueOtclonByName(choice_otclon.getSelectedItem()));
+		extra_module.setDoplIzisk(DopalnIziskvDAO.getValueDopalnIziskvByName(choice_otclon.getSelectedItem()));
 		extra_module.setExternal_applicant(externalAplic);
 		extra_module.setInternal_applicant(internalAplic);
 		return extra_module;

@@ -9,19 +9,19 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Otclonenie;
+import DBase_Class.DopalnIziskv;
 
 
-public class OtclonenieDAO {
+public class DopalnIziskvDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
-	public static void setValueOtclon(String value) {
+	public static void setValueDopalnIziskv(String value) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Otclonenie valueEnt = new Otclonenie();
-		valueEnt.setName_otclon(value);
+		DopalnIziskv valueEnt = new DopalnIziskv();
+		valueEnt.setName_dopIzis(value);
 		
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
@@ -29,13 +29,13 @@ public class OtclonenieDAO {
 		emfactory.close();
 	}
 
-	public static List<Otclonenie> getInListAllValueOtclon() {
+	public static List<DopalnIziskv> getInListAllValueDopalnIziskv() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Otclonenie e");
 		@SuppressWarnings("unchecked")
-		List<Otclonenie> list = query.getResultList();
+		List<DopalnIziskv> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
 		return list;
@@ -43,12 +43,12 @@ public class OtclonenieDAO {
 
 	@GET
 	@QueryParam("{id}")
-	public static Otclonenie getValueOtclonById(@QueryParam("id") int id) {
+	public static DopalnIziskv getValueDopalnIziskvById(@QueryParam("id") int id) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		Otclonenie otclon = (Otclonenie) entitymanager.find(Otclonenie.class, id);
+		DopalnIziskv otclon = (DopalnIziskv) entitymanager.find(DopalnIziskv.class, id);
 
 		entitymanager.close();
 		emfactory.close();
@@ -56,12 +56,12 @@ public class OtclonenieDAO {
 		return otclon;
 	}
 
-	public static String[] getMasiveStringAllValueOtclon() {
-		List<Otclonenie> list = getInListAllValueOtclon();
+	public static String[] getMasiveStringAllValueDopalnIziskv() {
+		List<DopalnIziskv> list = getInListAllValueDopalnIziskv();
 		String[] values = new String[list.size()];
 		int i = 0;
-		for (Otclonenie otclon : list) {
-			values[i] = otclon.getName_otclon();
+		for (DopalnIziskv otclon : list) {
+			values[i] = otclon.getName_dopIzis();
 			i++;
 		}
 		return values;
@@ -69,7 +69,7 @@ public class OtclonenieDAO {
 
 	@SuppressWarnings("unchecked")
 	@GET
-	public static Otclonenie getValueOtclonByName(String name) {
+	public static DopalnIziskv getValueDopalnIziskvByName(String name) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -78,10 +78,10 @@ public class OtclonenieDAO {
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
 		
-		List<Otclonenie> list = query.getResultList();
+		List<DopalnIziskv> list = query.getResultList();
 		
 		if (list.isEmpty()){
-			setValueOtclon(name);
+			setValueDopalnIziskv(name);
 		 list = query.getResultList();
 		}
 	
@@ -91,8 +91,8 @@ public class OtclonenieDAO {
 		return list.get(0);
 	}
 
-	public static void saveOtclonWitchCheck(String value) {
-		String[] masive_Otclon = getMasiveStringAllValueOtclon();
+	public static void saveDopalnIziskvWitchCheck(String value) {
+		String[] masive_Otclon = getMasiveStringAllValueDopalnIziskv();
 		Boolean fl_Otclon = false;
 		for (String string : masive_Otclon) {
 			if (string.equals(value)) {
@@ -100,7 +100,7 @@ public class OtclonenieDAO {
 			}
 		}
 		if(!fl_Otclon){
-			setValueOtclon( value);
+			setValueDopalnIziskv( value);
 	}
 	}
 }

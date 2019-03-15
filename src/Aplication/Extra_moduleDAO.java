@@ -13,7 +13,7 @@ import DBase_Class.Aplicant;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
-import DBase_Class.Otclonenie;
+import DBase_Class.DopalnIziskv;
 import DBase_Class.Sample;
 
 public class Extra_moduleDAO {
@@ -23,7 +23,7 @@ public class Extra_moduleDAO {
 	
 	public static void setValueExtra_module(External_applicant external_applicant, 
 			Internal_applicant internal_applicant, 
-			Otclonenie otclonenie,
+			DopalnIziskv otclonenie,
 			Aplicant aplicant,
 			Boolean return_samples,
 			String additional_requirements,
@@ -38,7 +38,7 @@ public class Extra_moduleDAO {
 		xtra_module.setInternal_applicant(internal_applicant);
 		xtra_module.setReturn_samples(return_samples);
 		xtra_module.setAplicant(aplicant);
-		xtra_module.setOtclonenie(otclonenie);
+		xtra_module.setDoplIzisk(otclonenie);
 		xtra_module.setAdditional_requirements(additional_requirements);
 		xtra_module.setAdditional_arrangements(additional_arrangements);
 		
@@ -123,7 +123,7 @@ public class Extra_moduleDAO {
 						System.out.println("getInternal_applicant "+fl);
 					}
 					}
-			if( extra_module.getOtclonenie().getId_otclon() != extraModule.getOtclonenie().getId_otclon()){
+			if( extra_module.getDoplIzisk().getId_dopIzis() != extraModule.getDoplIzisk().getId_dopIzis()){
 				fl=false;
 				System.out.println("getOtclonenie "+fl);
 					}

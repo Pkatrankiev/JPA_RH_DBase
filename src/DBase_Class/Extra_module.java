@@ -23,6 +23,7 @@ public class Extra_module implements Serializable {
 	private String additional_arrangements;
 	private Boolean return_samples;
 	
+	
 	@ManyToOne
 	private Aplicant aplicant;
 	@ManyToOne

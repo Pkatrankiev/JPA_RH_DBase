@@ -152,6 +152,7 @@ public class RequestView extends JDialog {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
+		
 		JScrollPane scrollpane = new JScrollPane();
 		
 		getContentPane().add(scrollpane, BorderLayout.NORTH);

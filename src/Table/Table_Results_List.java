@@ -64,6 +64,7 @@ public class Table_Results_List extends JDialog {
 	private static List<Integer> listWhithChangeRow;
 	private static Object[][] dataTable;
 
+	
 	private static int tbl_Colum = 15;
 	private static int rqst_code_Colum = 0;
 	private static int smpl_code_Colum = 1;

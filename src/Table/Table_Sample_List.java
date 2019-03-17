@@ -69,6 +69,7 @@ public class Table_Sample_List extends JDialog {
 	private static int yar_Colum = 8;
 	private static int smpl_Id_Colum = 9;
 
+	
 	public Table_Sample_List(JFrame parent, TranscluentWindow round, Request templateRequest) {
 		super(parent, "Списък на Пробите", true);
 

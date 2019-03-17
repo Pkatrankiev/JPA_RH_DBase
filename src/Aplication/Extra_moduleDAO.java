@@ -29,6 +29,7 @@ public class Extra_moduleDAO {
 			String additional_requirements,
 			String additional_arrangements){
 		
+		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();

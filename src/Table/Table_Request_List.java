@@ -117,6 +117,7 @@ public class Table_Request_List extends JDialog {
 		int counRow = data.length;
 
 		dataTable = data;
+		
 		listStrRequestCode = new ArrayList<String>();
 		values_Id_Num_Doc = Ind_num_docDAO.getMasiveStringAllValueValueInd_num_doc();
 		values_I_P = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();

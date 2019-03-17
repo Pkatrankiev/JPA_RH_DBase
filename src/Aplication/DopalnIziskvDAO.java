@@ -29,6 +29,7 @@ public class DopalnIziskvDAO {
 		emfactory.close();
 	}
 
+	
 	public static List<DopalnIziskv> getInListAllValueDopalnIziskv() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

@@ -118,6 +118,7 @@ public class ChoiceListIzpPokazatel extends JDialog {
 					btnPlus.setVisible(false);
 				}
 				
+				
 //				// 'i' obhojda wsichki nalichni elementi
 //				for (int i = 0; i < countCoice; i++) {
 //					ArrayList<String> new_list = bsic_list;

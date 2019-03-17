@@ -134,28 +134,28 @@ public class Table_Request_List extends JDialog {
 
 			public void mousePressed(MouseEvent e) {
 				Users loginUser = Login.getCurentUser();
-				if (table.getSelectedColumn() == rqst_code_Colum && table.getSelectedRow() != -1) {
+				if (table.getSelectedColumn() == rqst_code_Colum && getSelectedModelRow(table) != -1) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
 					DefaultTableModel model =(DefaultTableModel) table.getModel();
-					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
 				if (table.getSelectedColumn() == izp_Pok_Colum && loginUser != null && loginUser.getIsAdmin()
-						&& table.getSelectedRow() != -1) {
+						&& getSelectedModelRow(table) != -1) {
 					int rowPokazatel = table.rowAtPoint(e.getPoint());
 					EditColumnPokazatel(table, rowPokazatel);
 
 					AddInUpdateList(rowPokazatel);
 				}
 				DefaultTableModel model =(DefaultTableModel) table.getModel();
-				if (e.getClickCount() == 2 && loginUser != null && table.getSelectedRow() != -1) {
+				if (e.getClickCount() == 2 && loginUser != null && getSelectedModelRow(table) != -1) {
 					if (loginUser.getIsAdmin()) {
 						if (table.getSelectedColumn() == cunt_Smpl_Colum
 								|| table.getSelectedColumn() == ref_Date_Colum) {
-							String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+							String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
 							TranscluentWindow round = new TranscluentWindow();
@@ -172,13 +172,13 @@ public class Table_Request_List extends JDialog {
 						}
 					} else {
 						
-						String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+						String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 						if (parent.getName().equals("tamplete")) {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
 							if (choiseRequest.getExtra_module() != null) {
-								new ExtraRequestView(f, loginUser, choiseRequest, round);
-							} else {
+//								new ExtraRequestView(f, loginUser, choiseRequest, round);
+//							} else {
 								new RequestView(f, loginUser, choiseRequest, round);
 							}
 
@@ -186,8 +186,10 @@ public class Table_Request_List extends JDialog {
 					}
 
 				}
-
+				
+				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
 			}
+			
 		});
 
 		new TableFilterHeader(table, AutoChoices.ENABLED);
@@ -445,6 +447,9 @@ public class Table_Request_List extends JDialog {
 		return tableHeader;
 	}
 
+	private int getSelectedModelRow(JTable table) {
+	return  table.convertRowIndexToModel(table.getSelectedRow());
+	}
 	private static void EditColumnUser(Object value, int row) {
 		String valueStr = value + "";
 		dataTable[row][user_Id_Colum] = UsersDAO.getValueUsersByName(valueStr.substring(0, valueStr.indexOf(" ")))

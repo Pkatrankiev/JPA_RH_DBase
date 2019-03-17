@@ -75,6 +75,8 @@ public class Extra_moduleDAO {
 		List<Extra_module>  list = getInListAllValueExtra_module();
 		Boolean fl = true;
 		for (Extra_module extraModule : list) {
+			extra_module.getAdditional_arrangements();
+			extraModule.getAdditional_arrangements();
 			fl=true;
 			if(!extra_module.getAdditional_arrangements().equals(extraModule.getAdditional_arrangements())){
 				fl=false;

@@ -109,15 +109,16 @@ public class Table_Results_List extends JDialog {
 				if (table.getSelectedColumn() == rqst_code_Colum ) {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
-					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
+					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum ).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
 				
-				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum ).toString();
+				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
+					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum ).toString();
 							}
+				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
 			}
 		});
 
@@ -531,5 +532,7 @@ public class Table_Results_List extends JDialog {
 		System.out.println(row);
 	}
 
-	
+	private int getSelectedModelRow(JTable table) {
+		return  table.convertRowIndexToModel(table.getSelectedRow());
+		}
 }

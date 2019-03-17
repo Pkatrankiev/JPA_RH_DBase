@@ -69,8 +69,8 @@ public class Table_InternalApplicant_List extends JDialog {
 			public void mouseEntered(MouseEvent e) {}
 
 			public void mousePressed(MouseEvent e) {
-				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-					int id_Aplic = (int) table.getValueAt(table.getSelectedRow(), aplic_Id_Colum);
+				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
+					int id_Aplic = (int) table.getValueAt(getSelectedModelRow(table), aplic_Id_Colum);
 					int_Aplic = Internal_applicantDAO.getValueInternal_applicantById(id_Aplic);
 					if(parent.getName().equals("ExtraRequest")){
 						setVisible(false);
@@ -242,5 +242,9 @@ public class Table_InternalApplicant_List extends JDialog {
 			}
 		}
 	}
+
+	private int getSelectedModelRow(JTable table) {
+		return  table.convertRowIndexToModel(table.getSelectedRow());
+		}
 
 }

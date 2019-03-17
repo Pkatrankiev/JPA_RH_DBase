@@ -98,17 +98,17 @@ public class Table_Sample_List extends JDialog {
 					int row = table.rowAtPoint(e.getPoint());
 					int col = table.columnAtPoint(e.getPoint());
 					
-					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					System.out.println(row + " " + choiseRequest.getRecuest_code());
 					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
-				if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
 
-					int row = table.getSelectedRow();
+					int row = getSelectedModelRow(table);
 					int col = table.getSelectedColumn();
-					String reqCodeStr = model.getValueAt(table.getSelectedRow(), rqst_code_Colum).toString();
+					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					if (reqCodeStr.startsWith("templ")) {
 						// choiseRequest =
 						// RequestDAO.getRequestFromColumnByVolume("recuest_code",
@@ -139,6 +139,7 @@ public class Table_Sample_List extends JDialog {
 						startEditChoiceRequest(reqCodeStr);
 					}
 				}
+				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
 			}
 
 			
@@ -399,4 +400,7 @@ public class Table_Sample_List extends JDialog {
 		
 	}
 
+	private int getSelectedModelRow(JTable table) {
+		return  table.convertRowIndexToModel(table.getSelectedRow());
+		}
 }

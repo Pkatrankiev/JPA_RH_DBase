@@ -82,6 +82,8 @@ import java.awt.Dimension;
 import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
+
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.border.EmptyBorder;
@@ -128,7 +130,7 @@ public class RequestView extends JDialog {
 	private Boolean corectDateReception = true;
 	private Boolean section = true;
 	private Boolean firstReadSampleDescription = true;
-	private Extra_module xtra_module = null;
+	private Extra_module xtra_module2 = null;
 	private Users curent_user;
 	private Request request = null;
 	private String fondHeatText = "Tahoma";
@@ -142,20 +144,27 @@ public class RequestView extends JDialog {
 
 	public RequestView(JFrame parent, Users user, Request tamplateRequest, TranscluentWindow round) {
 		super(parent, "JScrollPane Demonstration", true);
-		setSize(850, 760);
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenHeight = screenSize.height;
+		int screenWidth = screenSize.width;
+		setSize(870, screenHeight);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
 		JScrollPane scrollpane = new JScrollPane();
-		getContentPane().add(scrollpane, BorderLayout.CENTER);
+		
+		getContentPane().add(scrollpane, BorderLayout.NORTH);
 		curent_user = user;
 		p_1 = new JPanel();
 		scrollpane.setViewportView(p_1);
-
+		p_1.setAlignmentY(JPanel.TOP_ALIGNMENT);
 		GridBagLayout gbl_p_1 = new GridBagLayout();
 		gbl_p_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-		gbl_p_1.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gbl_p_1.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		gbl_p_1.columnWidths = new int[] { 11, 175, 110, 108, 110, 175, 11 };
-		gbl_p_1.rowHeights = new int[] { 27, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0,
+		gbl_p_1.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0 };
 		p_1.setLayout(gbl_p_1);
 
@@ -225,10 +234,10 @@ public class RequestView extends JDialog {
 		Section_Choice_Zab(tamplateRequest, p_1);
 
 		// TODO Section_Text_Aria_DopIzisk (Допълнителни Изисквания)
-		Section_DopalnIziskv(p_1, border);
+		Section_DopalnIziskv(tamplateRequest,p_1, border);
 
 		// TODO Section_Text_Aria_DopDogovor (Допълнителни Договорености)
-		Section_Text_Aria_DopalnDogovorenosti(p_1, border);
+		Section_Text_Aria_DopalnDogovorenosti(tamplateRequest,p_1, border);
 
 		// TODO Button_Save ( Запис )
 		Button_Save(p_1);
@@ -253,6 +262,7 @@ public class RequestView extends JDialog {
 		JLabel lblNewLabel_2 = new JLabel("ЗАЯВКА ЗА ИЗПИТВАНЕ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.anchor = GridBagConstraints.NORTH;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridwidth = 3;
 		gbc_lblNewLabel_2.gridx = 2;
@@ -265,7 +275,7 @@ public class RequestView extends JDialog {
 		JLabel lblNewLabel_1 = new JLabel("Ф 704-2");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 5;
 		gbc_lblNewLabel_1.gridy = 0;
@@ -363,6 +373,7 @@ public class RequestView extends JDialog {
 	private void Text_Area_Aplicant(Request tamplateRequest, final JPanel p, Border border) {
 
 		if (tamplateRequest != null) {
+			if(tamplateRequest.getExtra_module()!=null) {
 			internalAplic = tamplateRequest.getExtra_module().getInternal_applicant();
 			if (internalAplic != null) {
 				strAplicant = getStringFromIntraAplicant(internalAplic);
@@ -371,6 +382,7 @@ public class RequestView extends JDialog {
 				if (externalAplic != null) {
 					strAplicant = getStringFromExtAplicant(externalAplic);
 				}
+			}
 			}
 		}
 		JLabel lblNewLabel_4 = new JLabel("Заявител: ");
@@ -1261,11 +1273,13 @@ public class RequestView extends JDialog {
 			array_AplicantNameFamily.add(string);
 		}
 		if (tamplateRequest != null) {
+			if(tamplateRequest.getExtra_module()!=null) {
 			String str = tamplateRequest.getExtra_module().getAplicant().getName_aplicant() + " "
 					+ tamplateRequest.getExtra_module().getAplicant().getFamily_aplicant();
 			choice_AplicantNameFamily.select(str);
 		}
-
+		}
+		
 		GridBagConstraints gbc_choice_AplicantNameFamily = new GridBagConstraints();
 		gbc_choice_AplicantNameFamily.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_AplicantNameFamily.gridwidth = 2;
@@ -1314,7 +1328,7 @@ public class RequestView extends JDialog {
 		choice_Zab.setPreferredSize(new Dimension(4, 18));
 
 		if (tamplateRequest != null) {
-			if (tamplateRequest.getInd_num_doc() != null) {
+			if (tamplateRequest.getZabelejki() != null) {
 				choice_Zab.select(tamplateRequest.getZabelejki().getName_zabelejki());
 			} else {
 				choice_Zab.select("");
@@ -1322,7 +1336,7 @@ public class RequestView extends JDialog {
 		}
 
 		GridBagConstraints gbc_choice_Zab = new GridBagConstraints();
-		gbc_choice_Zab.fill = GridBagConstraints.BOTH;
+		gbc_choice_Zab.fill = GridBagConstraints.HORIZONTAL;
 		gbc_choice_Zab.gridwidth = 4;
 		gbc_choice_Zab.insets = new Insets(0, 0, 5, 5);
 		gbc_choice_Zab.gridx = 1;
@@ -1355,14 +1369,14 @@ public class RequestView extends JDialog {
 			}
 		});
 		GridBagConstraints gbc_btn_add_Zab = new GridBagConstraints();
-		gbc_btn_add_Zab.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btn_add_Zab.anchor = GridBagConstraints.WEST;
 		gbc_btn_add_Zab.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_add_Zab.gridx = 5;
 		gbc_btn_add_Zab.gridy = 22;
 		p.add(btn_add_Zab, gbc_btn_add_Zab);
 	}
 
-	private void Section_DopalnIziskv(final JPanel p, Border border) {
+	private void Section_DopalnIziskv(Request tamplateRequest, final JPanel p, Border border) {
 		JLabel lbl_note = new JLabel("Допълнителни изисквания на клиента:");
 		GridBagConstraints gbc_lbl_note = new GridBagConstraints();
 		gbc_lbl_note.anchor = GridBagConstraints.WEST;
@@ -1383,12 +1397,18 @@ public class RequestView extends JDialog {
 		gbc_choice_dopIzis.gridy = 24;
 		p_1.add(choice_dopIzis, gbc_choice_dopIzis);
 
-		ArrayList<String> arrayOtclon = RequestViewAplication.getStringDopIzis();
-		for (String string : arrayOtclon) {
+		ArrayList<String> arrayDopIzis = RequestViewAplication.getStringDopIzis();
+		for (String string : arrayDopIzis) {
 			choice_dopIzis.add(string);
 		}
 
-		JButton button_dopIzin = Button_Add_dopIzis(arrayOtclon);
+		if (tamplateRequest != null) {
+			if(tamplateRequest.getExtra_module()!=null && tamplateRequest.getExtra_module().getDoplIzisk()!=null) {
+				choice_dopIzis.select(tamplateRequest.getExtra_module().getDoplIzisk().getName_dopIzis());
+					}
+		}
+
+		JButton button_dopIzin = Button_Add_dopIzis(arrayDopIzis);
 
 		GridBagConstraints gbc_button_dopIzis = new GridBagConstraints();
 		gbc_button_dopIzis.anchor = GridBagConstraints.WEST;
@@ -1427,7 +1447,7 @@ public class RequestView extends JDialog {
 
 	}
 
-	private void Section_Text_Aria_DopalnDogovorenosti(final JPanel p, Border border) {
+	private void Section_Text_Aria_DopalnDogovorenosti(Request tamplateRequest, final JPanel p, Border border) {
 
 		JLabel lbl_DopalnDogovorenosti = new JLabel("Допълнителни договорености:");
 		GridBagConstraints gbc_lbl_DopalnDogovorenosti = new GridBagConstraints();
@@ -1437,13 +1457,20 @@ public class RequestView extends JDialog {
 		gbc_lbl_DopalnDogovorenosti.gridy = 25;
 		p.add(lbl_DopalnDogovorenosti, gbc_lbl_DopalnDogovorenosti);
 
-		txtArea_DopalnDogovorenosti = new JTextArea("");
+		String strDopalnDogovorenosti = "";
+		if (tamplateRequest != null) {
+			if(tamplateRequest.getExtra_module()!=null && tamplateRequest.getExtra_module().getAdditional_requirements()!=null) {
+				strDopalnDogovorenosti = tamplateRequest.getExtra_module().getAdditional_requirements();
+		}
+		}
+		
+		txtArea_DopalnDogovorenosti = new JTextArea(strDopalnDogovorenosti);
 		txtArea_DopalnDogovorenosti.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtArea_DopalnDogovorenosti.setBorder(border);
 		GridBagConstraints gbc_txtArea_DopalnDogovorenosti = new GridBagConstraints();
 		gbc_txtArea_DopalnDogovorenosti.gridwidth = 4;
 		gbc_txtArea_DopalnDogovorenosti.insets = new Insets(0, 0, 5, 5);
-		gbc_txtArea_DopalnDogovorenosti.fill = GridBagConstraints.BOTH;
+		gbc_txtArea_DopalnDogovorenosti.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtArea_DopalnDogovorenosti.gridx = 2;
 		gbc_txtArea_DopalnDogovorenosti.gridy = 25;
 		p.add(txtArea_DopalnDogovorenosti, gbc_txtArea_DopalnDogovorenosti);
@@ -1614,29 +1641,7 @@ public class RequestView extends JDialog {
 		return saveCheck;
 	}
 
-	private void saveRequestSamplePokazatelTable(String rec) {
-
-		switch (rec) {
-		case "RequestObject":
-			request = createRequestObject();
-			break;
-		case "RequestTamplate":
-			request = createRequestTamplate();
-			break;
-
-		}
-
-		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
-
-		RequestDAO.saveRequestFromRequest(request);
-
-		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
-			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
-		}
-		saveSample(masiveSampleValue);
-	}
+	
 
 	private Request createRequestObject() {
 		Request recuest = null;
@@ -1651,10 +1656,10 @@ public class RequestView extends JDialog {
 		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-		xtra_module = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
+		Extra_module extra_mod = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
 
 		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
-				chckbx_accreditation.isSelected(), section, xtra_module, count_Sample,
+				chckbx_accreditation.isSelected(), section, extra_mod, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_reception.getText(),
 				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
 				obekt_na_izpitvane_request);
@@ -1683,28 +1688,7 @@ public class RequestView extends JDialog {
 		thread.start();
 
 	}
-
-	private Request createRequestTamplate() {
-		Request recuest = null;
-		Ind_num_doc ind_num_doc = null;
-		if (!choice_ind_num_doc.getSelectedItem().equals(" "))
-			ind_num_doc = Ind_num_docDAO.getValueIByName(choice_ind_num_doc.getSelectedItem());
-
-		Izpitvan_produkt izpitvan_produkt = Izpitvan_produktDAO
-				.getValueIzpitvan_produktByName(choice_izpitvan_produkt.getSelectedItem());
-		Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
-		Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiByName(choice_Zab.getSelectedItem());
-		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
-				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
-		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-
-		String str_templ = RequestViewFunction.DateNaw(true);
-		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
-				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
-				izpitvan_produkt, razmernosti, zabelejki, null, obekt_na_izpitvane_request);
-		return recuest;
-
-	}
+	
 
 	private void saveSample() {
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
@@ -1797,6 +1781,7 @@ public class RequestView extends JDialog {
 		if (!dopDogov.equals("") || aplic != null || dopIzis != null || externalAplic != null
 				|| internalAplic != null) {
 			extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
+			extra_module.setAdditional_arrangements("");
 			extra_module.setReturn_samples(rdbtn_Yes.isSelected());
 			extra_module.setAplicant(aplic);
 			extra_module.setDoplIzisk(dopIzis);

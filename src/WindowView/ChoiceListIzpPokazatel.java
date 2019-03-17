@@ -32,6 +32,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 public class ChoiceListIzpPokazatel extends JDialog {
 
@@ -49,7 +50,9 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		// dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-		setBounds(100, 100, 500, 350);
+		
+		setSize(430, 300);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
 		JScrollPane scrollPane = new JScrollPane((Component) null);
@@ -57,19 +60,19 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		scrollPane.setBorder(null);
 
 		final JPanel panel = new JPanel();
+		panel.setAlignmentY(Component.TOP_ALIGNMENT);
 		panel.setBorder(null);
 		panel.setSize(400, 280);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 12, 299, 20, 20 };
+		gbl_panel.columnWidths = new int[] { 10, 299, 37, 37 };
 		gbl_panel.rowHeights = new int[] { 25, 25, 25, 25, 25, 25, 25, 25 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+//		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
+//		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblFirst = new JLabel("Изберете Показател");
 		GridBagConstraints gbc_lblFirst = new GridBagConstraints();
 		gbc_lblFirst.insets = new Insets(0, 0, 5, 0);
-		gbc_lblFirst.gridwidth = 3;
 		gbc_lblFirst.gridx = 1;
 		gbc_lblFirst.gridy = 0;
 		panel.add(lblFirst, gbc_lblFirst);
@@ -94,6 +97,10 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		}
 		// TODO btnMinus (премахване на елемент)
 		final JButton btnMinus = new JButton("-");
+		btnMinus.setPreferredSize(new Dimension(37, 23));
+		btnMinus.setMargin(new Insets(0, 1, 1, 1));
+//		btnMinus.setMinimumSize(new Dimension(37, 24));
+//		btnMinus.setMaximumSize(new Dimension(37, 24));
 		btnMinus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Data /- = " + countCoice);
@@ -111,26 +118,26 @@ public class ChoiceListIzpPokazatel extends JDialog {
 					btnPlus.setVisible(false);
 				}
 				
-				// 'i' obhojda wsichki nalichni elementi
-				for (int i = 0; i < countCoice; i++) {
-					ArrayList<String> new_list = bsic_list;
-					
-					// 'k' obhojda izbranite stoinosti v nalichnite elementi
-					for (int k = 0; k < countCoice; k++) {
-						if (k != i)
-							new_list.remove(choice[k].getSelectedItem());
-					}
-					choice[i].removeAll();
-					for (String string : new_list) {
-
-						choice[i].add(string);
-					}
-				}
+//				// 'i' obhojda wsichki nalichni elementi
+//				for (int i = 0; i < countCoice; i++) {
+//					ArrayList<String> new_list = bsic_list;
+//					
+//					// 'k' obhojda izbranite stoinosti v nalichnite elementi
+//					for (int k = 0; k < countCoice; k++) {
+//						if (k != i)
+//							new_list.remove(choice[k].getSelectedItem());
+//					}
+//					choice[i].removeAll();
+//					for (String string : new_list) {
+//
+//						choice[i].add(string);
+//					}
+//				}
 				
 
-				for (int i = 0; i < countCoice; i++) {
-					choice[i].add(choice[countCoice + 1].getSelectedItem());
-				}
+//				for (int i = 0; i < countCoice; i++) {
+//					choice[i].add(choice[countCoice + 1].getSelectedItem());
+//				}
 				
 				panel.repaint();
 				panel.revalidate();
@@ -151,15 +158,19 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		// TODO btnPlus (добавяне на елемент)
 		countCoice = 0;
 		btnPlus = new JButton("+");
+		btnPlus.setMargin(new Insets(0, 1, 1, 1));
+		btnPlus.setPreferredSize(new Dimension(37, 23));
+//		btnPlus.setMinimumSize(new Dimension(37, 25));
+//		btnPlus.setMaximumSize(new Dimension(37, 25));
 		btnPlus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				countCoice++;
 				choice[countCoice] = new Choice();
 
 				ArrayList<String> new_list1 = bsic_list;
-				for (int i = 0; i < countCoice; i++) {
-					new_list1.remove(choice[i].getSelectedItem());
-				}
+//				for (int i = 0; i < countCoice; i++) {
+//					new_list1.remove(choice[i].getSelectedItem());
+//				}
 
 				for (String string : new_list1) {
 
@@ -182,21 +193,21 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				} else {
 					btnPlus.setVisible(false);
 				}
-				// 'i' obhojda wsichki nalichni elementi
-				for (int i = 0; i < countCoice; i++) {
-					ArrayList<String> new_list2 = bsic_list;
-					
-					// 'k' obhojda izbranite stoinosti v nalichnite elementi
-					for (int k = 0; k < countCoice; k++) {
-						if (k != i)
-							new_list2.remove(choice[k].getSelectedItem());
-					}
-					choice[i].removeAll();
-					for (String string : new_list2) {
-
-						choice[i].add(string);
-					}
-				}
+//				// 'i' obhojda wsichki nalichni elementi
+//				for (int i = 0; i < countCoice; i++) {
+//					ArrayList<String> new_list2 = bsic_list;
+//					
+//					// 'k' obhojda izbranite stoinosti v nalichnite elementi
+//					for (int k = 0; k < countCoice; k++) {
+//						if (k != i)
+//							new_list2.remove(choice[k].getSelectedItem());
+//					}
+//					choice[i].removeAll();
+//					for (String string : new_list2) {
+//
+//						choice[i].add(string);
+//					}
+//				}
 				
 				panel.repaint();
 				panel.revalidate();
@@ -243,21 +254,21 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				} else {
 					btnPlus.setVisible(false);
 				}
-				// 'i' obhojda wsichki nalichni elementi
-				for (int i = 0; i < countCoice; i++) {
-					ArrayList<String> new_list3 = bsic_list;
-					
-					// 'k' obhojda izbranite stoinosti v nalichnite elementi
-					for (int k = 0; k < countCoice; k++) {
-						if (k != i)
-							new_list3.remove(choice[k].getSelectedItem());
-					}
-					choice[i].removeAll();
-					for (String str1 : new_list3) {
-
-						choice[i].add(str1);
-					}
-				}
+//				// 'i' obhojda wsichki nalichni elementi
+//				for (int i = 0; i < countCoice; i++) {
+//					ArrayList<String> new_list3 = bsic_list;
+//					
+//					// 'k' obhojda izbranite stoinosti v nalichnite elementi
+//					for (int k = 0; k < countCoice; k++) {
+//						if (k != i)
+//							new_list3.remove(choice[k].getSelectedItem());
+//					}
+//					choice[i].removeAll();
+//					for (String str1 : new_list3) {
+//
+//						choice[i].add(str1);
+//					}
+//				}
 				
 				panel.revalidate();
 				panel.repaint();
@@ -323,4 +334,5 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		return arr;
 	}
 
+	
 }

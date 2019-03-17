@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,6 +39,7 @@ import DBase_Class.Sample;
 import DBase_Class.TSI;
 import OldClases.test;
 import WindowView.AddResultsViewWithTable;
+import WindowView.ChoiceListIzpPokazatel;
 import WindowView.MainWindows;
 import WindowView.ReadGamaFile;
 import WindowView.ReaderWordDoc;
@@ -63,7 +65,7 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-		StartMainWindow();
+//		StartMainWindow();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -73,9 +75,11 @@ public class Main_Aplication {
 //		}
 		
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
+		JFrame f = new JFrame();
 		
+		 new ChoiceListIzpPokazatel(f, null) ;
 	}
-
+	 
 	 
 
 	private static void startcreateProtokolDocx() throws ParseException {

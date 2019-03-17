@@ -33,7 +33,7 @@ public class DopalnIziskvDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Otclonenie e");
+		Query query = entitymanager.createQuery("SELECT e FROM DopalnIziskv e  ORDER BY e.name ASC");
 		@SuppressWarnings("unchecked")
 		List<DopalnIziskv> list = query.getResultList();
 		entitymanager.close();
@@ -74,7 +74,7 @@ public class DopalnIziskvDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		String hql = "SELECT e FROM Otclonenie e WHERE e.name = :text";
+		String hql = "SELECT e FROM DopalnIziskv e WHERE e.name = :text";
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
 		

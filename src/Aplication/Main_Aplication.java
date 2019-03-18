@@ -65,7 +65,7 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-//		StartMainWindow();
+		StartMainWindow();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -75,8 +75,18 @@ public class Main_Aplication {
 //		}
 		
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
-		JFrame f = new JFrame();
+	
 		
+//		ChoiceListIzpPokazatel();
+	
+	
+	}
+
+
+
+
+	private static void ChoiceListIzpPokazatel() {
+		JFrame f = new JFrame();
 		 new ChoiceListIzpPokazatel(f, null) ;
 	}
 	 

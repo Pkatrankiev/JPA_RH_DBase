@@ -302,14 +302,18 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				// panel.removeAll();
 				// panel.revalidate();
 				// panel.repaint();
+				if (list_izpitvan_pokazatel != null) {
 				int k = 0;
 				for (String string : list_izpitvan_pokazatel) {
 					choice[k].select(string);
+					k++;
+				}
 				}
 				dispose();
+				
 			}
 		});
-		cancelButton.setActionCommand("Cancel");
+//		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
 		dialog.addWindowListener(new WindowAdapter() {

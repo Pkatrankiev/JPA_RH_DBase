@@ -177,11 +177,9 @@ public class Table_Request_List extends JDialog {
 						if (parent.getName().equals("tamplete")) {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
-							if (choiseRequest.getExtra_module() != null) {
-//								new ExtraRequestView(f, loginUser, choiseRequest, round);
-//							} else {
+							
 								new RequestView(f, loginUser, choiseRequest, round);
-							}
+							
 
 						}
 					}

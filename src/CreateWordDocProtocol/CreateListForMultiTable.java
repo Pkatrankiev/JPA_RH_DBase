@@ -29,7 +29,7 @@ public class CreateListForMultiTable {
 		Boolean sendOnePokazatel = false;
 		int[] numberMergeCells = new int[smple_list.size() + 1];
 		int count_numberMergeCells = 0;
-
+		
 		if (pokazatel_list.size() == 1) {
 			Boolean fl = PokazatelIfGamaOrAlpha(pokaz);
 			if (fl) {

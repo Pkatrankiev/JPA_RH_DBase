@@ -121,12 +121,13 @@ public class GenerateDocProtokol {
 		List<Results> result_list = new ArrayList<>();
 		Map<String, String> repl_results = new HashMap<String, String>();
 //		int[] numberMergeCells = new int[smple_list.size() + 1];
-		Boolean sendOnePokazatel = false;
+		
 		int coutRow = 2;
 		List<int[]> list = createMsasiveRowTable(smple_list, pokazatel_list,coutRow);
 
 		
 		String pokaz = pokazatel_list.get(0).getPokazatel().getName_pokazatel();
+		Boolean sendOnePokazatel = false;
 		if (pokazatel_list.size() == 1) {
 			Boolean fl = CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
 					repl_request_pokazarel, pokaz);
@@ -142,14 +143,13 @@ public class GenerateDocProtokol {
 			result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			
 			idexSample++;
+			
+		
+			
+			
 //			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
 			for (Results result : result_list) {
-				if (!sendOnePokazatel) {
-					if (CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
-							repl_request_pokazarel, result.getPokazatel().getName_pokazatel())) {
-						coutRow++;
-					}
-				}
+				
 				
 					int[] masive = list.get(0);
 					System.out.println("masive[masive.length-1]= " + masive[masive.length - 1] + "coutRow= " + coutRow);
@@ -168,6 +168,10 @@ public class GenerateDocProtokol {
 								headerRow_1, headerRow_2, repl_results);
 						tempTable = new_table;
 						coutRow = 1;
+						if(result_list.size()==1){
+							coutRow = 2;
+						}
+						
 						new_smple_list = createListForLastSample(idexSample, smple_list);
 						list = createMsasiveRowTable(new_smple_list, pokazatel_list, coutRow );
 						
@@ -190,7 +194,7 @@ public class GenerateDocProtokol {
 		mergeCelsInTAble(tempTable, list.get(0),recuest);
 		
 		System.out.println("///////////////////// size list MDA "+FunctionForGenerateWordDocFile.getListDokladMDA().size());
-		if(recuest.getZabelejki()!=null && recuest.getZabelejki().getName_zabelejki().indexOf("$02$")>=0){
+		if(recuest.getExtra_module()!=null &&recuest.getExtra_module().getDoplIzisk().getName_dopIzis().indexOf("$02$")>=0){
 			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {
 				System.out.println("??????????? "+result.getMda());
 				AplicationDocTemplate.addparagToDoc(template, pargraphTemplateMDA, FunctionForGenerateWordDocFile.generateMapMDA(result));

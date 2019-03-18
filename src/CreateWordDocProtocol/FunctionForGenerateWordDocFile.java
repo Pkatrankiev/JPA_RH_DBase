@@ -56,7 +56,15 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put(masive_column_table_result[0],
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
 		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
-
+		String string_doplIzis ="";
+		if(sample.getRequest().getExtra_module()!=null){
+		 string_doplIzis = sample.getRequest().getExtra_module().getDoplIzisk().getName_dopIzis();
+		}
+		String string_doplDogov ="";
+		if(sample.getRequest().getExtra_module()!=null && sample.getRequest().getExtra_module().getAdditional_requirements()!=null){
+			string_doplDogov = sample.getRequest().getExtra_module().getAdditional_requirements();
+		}
+		
 		// "$$sample_metod$$"
 		substitutionData.put(masive_column_table_result[1], result.getMetody().getCode_metody());
 
@@ -91,7 +99,7 @@ public class FunctionForGenerateWordDocFile {
 			if (string_zab.indexOf("10%") > 0) {
 				str_VAlue = str_VAlue + "*";
 			}
-			if (string_zab.indexOf("Да се докладва МДА") > 0) {
+			if (string_doplIzis.indexOf("Да се докладва МДА") > 0) {
 				listDokladMDA.add(result);
 			}
 		} else {
@@ -101,6 +109,10 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put(masive_column_table_result[4], str_VAlue);
 
 		// "$$norma$$"
+		
+		if(string_doplDogov.indexOf("$03$") > 0){
+		
+		}
 		substitutionData.put(masive_column_table_result[5], "-");
 
 		return substitutionData;

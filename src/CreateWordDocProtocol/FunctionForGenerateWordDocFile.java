@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import Aplication.NaredbiDAO;
 import Aplication.ResultsDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;
+import DBase_Class.Naredbi;
 import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -49,7 +51,7 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	static Map<String, String> generateResultsMap(Sample sample, Results result, String[] masive_column_table_result) {
-		
+		List<Naredbi> list_Naredbi = NaredbiDAO.getInListAllValueNaredbi();
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		// "$$sample_code$$"
@@ -109,7 +111,13 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put(masive_column_table_result[4], str_VAlue);
 
 		// "$$norma$$"
-		
+		@SuppressWarnings("unused")
+		int id_naredba = 0;
+		for (Naredbi naredbi : list_Naredbi) {
+			if(string_doplDogov.equals(naredbi.getName_request())){
+				id_naredba = naredbi.getId_naredbi();
+			}
+		}
 		if(string_doplDogov.indexOf("$03$") > 0){
 		
 		}

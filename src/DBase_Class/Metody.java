@@ -11,7 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-@NamedQuery(name="metodyList", query="SELECT r FROM Metody r")
+@NamedQuery(name="getListAllMetody", query="SELECT e FROM Metody e ORDER BY e.code ASC")
+@NamedQuery(name="findMetodyByName", query="SELECT e FROM Metody e WHERE e.code = :text")
+@NamedQuery(name="getList_MetodyByInAcredit", query="SELECT e FROM Metody e WHERE e.inAcredit = :text")
 
 public class Metody implements Serializable {
 

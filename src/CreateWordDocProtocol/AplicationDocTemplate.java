@@ -63,20 +63,17 @@ public class AplicationDocTemplate {
 
 	// izvlichane na paragraph za nov red
 	public static P getTemplateParagraph(WordprocessingMLPackage template, String value) {
-		System.out.println("6555555555555*****"+template);
 		List<Object> paragraph = getAllElementFromObject(template.getMainDocumentPart(), P.class);
 		P tempParagraph = null;
-		System.out.println("66666666666*****"+paragraph.size());
 		
 		int k =0;
 		for (Object parag : paragraph) {
 			String paragText = parag.toString();
-			System.out.println(k+"************* "+parag.toString()+" indexOf "+paragText.indexOf(value)+" - value "+value);
 			
 			if (paragText.indexOf(value)>=0) {
 				System.out.println(k+"??????????? "+parag.toString());
 				tempParagraph = (P) parag;
-				// template.getContentType().
+				return tempParagraph;
 			}
 k++;
 		}
@@ -169,6 +166,11 @@ k++;
 	    return myMap;
 	}
 	
+	public static Map<String, String> createReplaceMap(String key, String str) {
+	    Map<String,String> myMap = new HashMap<String,String>();
+	    myMap.put(key, str);
+	    return myMap;
+	}
 	
 	public static Tr getRowEqualsText(List<Object> rows, String templateKey) {
 		for (Object row : rows) {

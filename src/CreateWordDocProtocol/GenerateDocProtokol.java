@@ -30,6 +30,7 @@ import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Naredbi;
 import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -38,7 +39,21 @@ import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
 public class GenerateDocProtokol {
-
+	
+	private static String  strKeyTemplateProtokol = "Протокол от изпитване";
+	private static String  strKeyTemplateText = "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО";
+	private static String  strKeyTemplateNewPage= "#$%";
+	private static String  strKeyTemplateZabel = "$$zab$$";
+	
+	private static String  strKeyTemplateNewRow = "##$$%%";
+	private static String  strKeyTemplateMDA = "$$MDA$$";
+	private static String  strKeyUser = "$$sert$$";
+	private static String  strKeyPodpisiTable =  "Извършили изпитването:";
+	private static String  strKeyzabTable = "$$%%";
+	private static String  strKeyHeaderRow_1 = "Код на пробата";
+	private static String  strKeyHeaderRow_2 = "1";
+	private static String  strKeyRow_pokazatel = "$$request_pokazarel$$";
+	
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
@@ -65,20 +80,20 @@ public class GenerateDocProtokol {
 		// zamestvane na elementite v parvata stranica na documanta
 		AplicationDocTemplate.replaceBasicValueInDoc(template, substitutionData);
 
-		P pargraphTemplateProtokol = AplicationDocTemplate.getTemplateParagraph(template, "Протокол от изпитване");
-		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО");
-		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
-		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
-//		P pargraphTemplateSuperScript = AplicationDocTemplate.getTemplateParagraph(template, "$$$###");
-		// izvlichane tekst ot paragrafa
-//		List<Object> txtWithSuperScript = AplicationDocTemplate.getAllElementFromObject(pargraphTemplateSuperScript, Text.class);
-//		AplicationDocTemplate.removeTemplateParagraph(template, "$$$###");
+		P pargraphTemplateProtokol = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateProtokol);
+		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateText );
 		
-		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, "##$$%%");
-		AplicationDocTemplate.removeTemplateParagraph(template, "##$$%%");
-
-		P pargraphTemplateMDA = AplicationDocTemplate.getTemplateParagraph(template, "$$MDA$$");
-		AplicationDocTemplate.removeTemplateParagraph(template, "$$MDA$$");
+		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateNewPage);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateNewPage);
+		
+		P pargraphTemplateZabel = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateZabel);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateZabel);
+		
+		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateNewRow);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateNewRow);
+		
+		P pargraphTemplateMDA = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateMDA);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateMDA);
 		
 		AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
 
@@ -91,13 +106,13 @@ public class GenerateDocProtokol {
 		Tbl sertifikatTable = null;
 		Tbl zabTable = null;
 		try {
-			sertifikatTable = AplicationDocTemplate.getTemplateTable(tables, "$$sert$$");
+			sertifikatTable = AplicationDocTemplate.getTemplateTable(tables, strKeyUser);
 			if (recuest.getAccreditation()) {
 				AplicationDocTemplate.removeTable(template, sertifikatTable);
 			}
 			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_column_table_result[0]);
-			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Извършили изпитването:");
-			zabTable = AplicationDocTemplate.getTemplateTable(tables, "$$%%");
+			podpisiTable = AplicationDocTemplate.getTemplateTable(tables,strKeyPodpisiTable);
+			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
 		} catch (Docx4JException | JAXBException e3) {
 			e3.printStackTrace();
@@ -106,9 +121,9 @@ public class GenerateDocProtokol {
 		// prochitane na redovete v tablicata
 		List<Object> rows = AplicationDocTemplate.getAllElementFromObject(tempTable, Tr.class);
 
-		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, "Код на пробата");
-		Tr headerRow_2 = AplicationDocTemplate.getRowEqualsText(rows, "1");
-		Tr templateRow_pokazatel = AplicationDocTemplate.getRowEqualsText(rows, "$$request_pokazarel$$");
+		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, strKeyHeaderRow_1);
+		Tr headerRow_2 = AplicationDocTemplate.getRowEqualsText(rows, strKeyHeaderRow_2);
+		Tr templateRow_pokazatel = AplicationDocTemplate.getRowEqualsText(rows, strKeyRow_pokazatel);
 		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_column_table_result[0]);
 
 		tempTable.getContent().remove(templateRow);
@@ -147,8 +162,7 @@ public class GenerateDocProtokol {
 		
 			
 			
-//			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
-			for (Results result : result_list) {
+				for (Results result : result_list) {
 				
 				
 					int[] masive = list.get(0);
@@ -162,6 +176,7 @@ public class GenerateDocProtokol {
 						}
 					} else {
 						mergeCelsInTAble(tempTable, list.get(0),recuest);
+						
 //						 create new table
 						Tbl new_table = newTable(substitutionData, template, pargraphTemplateProtokol,
 								pargraphTemplateText, pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable,
@@ -181,29 +196,33 @@ public class GenerateDocProtokol {
 						coutRow++;
 					}
 				}
-//			}
-			System.out.println("Sample i= " + sample.getSample_code() + "; list.get(0).length= " + list.get(0).length);
-		}
+			}
 
-//				for (int i = 0; i < 5; i++) {
-//											
-//					AplicationDocTemplate.addRowToTable(new_table, templateRow, repl_results);
-//					
-//					}		
+		
 
 		mergeCelsInTAble(tempTable, list.get(0),recuest);
 		
-		System.out.println("///////////////////// size list MDA "+FunctionForGenerateWordDocFile.getListDokladMDA().size());
-		if(recuest.getExtra_module()!=null &&recuest.getExtra_module().getDoplIzisk().getName_dopIzis().indexOf("$02$")>=0){
+		if(!FunctionForGenerateWordDocFile.getStringDopIzisk(smple_list.get(0)).equals("")){
 			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {
-				System.out.println("??????????? "+result.getMda());
 				AplicationDocTemplate.addparagToDoc(template, pargraphTemplateMDA, FunctionForGenerateWordDocFile.generateMapMDA(result));
 			}
 		}
+		String string_zab = smple_list.get(0).getRequest().getZabelejki().getName_zabelejki();
+		if( FunctionForGenerateWordDocFile.isZabContain10pecent (string_zab)){
+			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel, 
+					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel,  "* "+string_zab));
+		}
+		
+
+		Naredbi naredba = FunctionForGenerateWordDocFile.getNaredba();
+		if(naredba!=null){
+			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel, 
+					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* "+naredba.getName_protokol())); 
+	}
 		
 		AplicationDocTemplate.addTable(template, zabTable);
 		AplicationDocTemplate.addTable(template, podpisiTable);
-		AplicationDocTemplate.replaceTable(zabTable, AplicationDocTemplate.createEmptiMap("$$%%"));
+		AplicationDocTemplate.replaceTable(zabTable, AplicationDocTemplate.createEmptiMap(strKeyzabTable));
 
 		try {
 			String newNameProtokol = recuest.getRecuest_code() + "_" + RequestViewFunction.DateNaw(false) + ".docx";
@@ -253,6 +272,7 @@ public class GenerateDocProtokol {
 		
 		if(FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size()==1){
 			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
+			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
 		}
 	}
 	

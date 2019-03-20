@@ -10,10 +10,12 @@ import java.util.Map;
 import java.util.Set;
 
 import Aplication.NaredbiDAO;
+import Aplication.NormiDAO;
 import Aplication.ResultsDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Naredbi;
+import DBase_Class.Normi;
 import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -24,7 +26,9 @@ public class FunctionForGenerateWordDocFile {
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
 	private static final String destinationDir = "DIRECTORY/";
 	private static List<Results> listDokladMDA = new ArrayList<Results>();
-	public static int countRowInFirstPege(int count_Result_In_Protokol) {
+	private static Naredbi naredba = null;
+	
+ 	public static int countRowInFirstPege(int count_Result_In_Protokol) {
 		int max_tableRow = 100;
 		if (count_Result_In_Protokol > 7 && count_Result_In_Protokol <= 10) {
 			max_tableRow = count_Result_In_Protokol - 2;
@@ -57,23 +61,14 @@ public class FunctionForGenerateWordDocFile {
 		// "$$sample_code$$"
 		substitutionData.put(masive_column_table_result[0],
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
-		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
-		String string_doplIzis ="";
-		if(sample.getRequest().getExtra_module()!=null){
-		 string_doplIzis = sample.getRequest().getExtra_module().getDoplIzisk().getName_dopIzis();
-		}
-		String string_doplDogov ="";
-		if(sample.getRequest().getExtra_module()!=null && sample.getRequest().getExtra_module().getAdditional_requirements()!=null){
-			string_doplDogov = sample.getRequest().getExtra_module().getAdditional_requirements();
-		}
+				
 		
 		// "$$sample_metod$$"
 		substitutionData.put(masive_column_table_result[1], result.getMetody().getCode_metody());
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();
-		if (pokaz.indexOf("гама") > 0 || pokaz.indexOf("алфа") > 0) {
-//			substitutionData.put(masive_column_table_result[2], superscript(result.getNuclide().getSymbol_nuclide()));
+		if (pokaz.indexOf("гама") >= 0 || pokaz.indexOf("алфа") >= 0) {
 			String[] nuclide = new String[] { "", "" };
 			 nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
 			 substitutionData.put("$$s_txt$$", "");
@@ -92,38 +87,109 @@ public class FunctionForGenerateWordDocFile {
 		// "$$razmernost$$"
 		substitutionData.put(masive_column_table_result[3], result.getRtazmernosti().getName_razmernosti());
 
+		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
+		
+		String string_doplIzis =  getStringDopIzisk(sample);
+		
+		
+		String string_doplDogov = getStringDopDogov(sample);
+		
 		// "$$value$$"
+		String str_VAlue = createValueForMap(result, string_zab, string_doplIzis);
+		substitutionData.put(masive_column_table_result[4], str_VAlue);
+	
+
+		// "$$norma$$"
+		naredba = getNaredba(list_Naredbi, string_zab, string_doplDogov);
+		String norm = createNormaforMap(result, naredba);
+		substitutionData.put(masive_column_table_result[5],norm);
+		
+		return substitutionData;
+	}
+
+
+	static String getStringDopDogov(Sample sample) {
+		String string_doplDogov ="";
+		if(sample.getRequest().getExtra_module()!=null && sample.getRequest().getExtra_module().getAdditional_requirements()!=null){
+			string_doplDogov = sample.getRequest().getExtra_module().getAdditional_requirements();
+		}
+		return string_doplDogov;
+	}
+
+
+	static String getStringDopIzisk(Sample sample) {
+		String string_doplIzis = "";
+		if(sample.getRequest().getExtra_module()!=null && sample.getRequest().getExtra_module().getDoplIzisk()!=null){
+		 string_doplIzis = sample.getRequest().getExtra_module().getDoplIzisk().getName_dopIzis();
+		}
+		return string_doplIzis;
+	}
+	
+	static Boolean isZabContain10pecent (String string_zab){
+	if (string_zab.indexOf("10%") >= 0)  return true;
+	return false;
+	}
+	
+	private static String createValueForMap(Results result, String string_zab, String string_doplIzis) {
 		String str_VAlue = "";
 
 		if (result.getValue_result() != 0) {
 			str_VAlue = formatter(result.getValue_result()) + " ± "
 					+ alignExpon(result.getValue_result(), result.getUncertainty());
-			if (string_zab.indexOf("10%") > 0) {
+			if (isZabContain10pecent (string_zab)) {
 				str_VAlue = str_VAlue + "*";
 			}
-			if (string_doplIzis.indexOf("Да се докладва МДА") > 0) {
+			
+			if (string_doplIzis.indexOf("Да се докладва МДА") >= 0) {
+				
 				listDokladMDA.add(result);
 			}
 		} else {
 			str_VAlue = "< " + formatter(result.getMda());
 		}
+		return str_VAlue;
+	}
 
-		substitutionData.put(masive_column_table_result[4], str_VAlue);
+	private static String createNormaforMap(Results result, Naredbi naredba) {
+		String norm = "-";
+		if(naredba!=null){
+			List<Normi> listNormi = NormiDAO.getList_NormiByNaredbi(naredba);
+			for (Normi normi : listNormi) {
+				System.out.println("result.getNuclide   "+result.getNuclide().getSymbol_nuclide()+"nuclide "+normi.getNuclide().getSymbol_nuclide());
+				if(result.getNuclide().getSymbol_nuclide().equals(normi.getNuclide().getSymbol_nuclide())){
+					norm = formatter(normi.getValue_norma())+ "*";
+					break;
+				}
+			}
+		}
+		return norm;
+	}
 
-		// "$$norma$$"
-		@SuppressWarnings("unused")
-		int id_naredba = 0;
+
+	private static Naredbi getNaredba(List<Naredbi> list_Naredbi, String string_zab, String string_doplDogov) {
+		
+		int id_naredba =0;
+		if(string_doplDogov.indexOf("лимитни") >= 0){
+			
 		for (Naredbi naredbi : list_Naredbi) {
 			if(string_doplDogov.equals(naredbi.getName_request())){
 				id_naredba = naredbi.getId_naredbi();
+				
 			}
 		}
-		if(string_doplDogov.indexOf("$03$") > 0){
-		
+	}
+		if (string_zab.indexOf("лимитни") >= 0) {
+			for (Naredbi naredbi : list_Naredbi) {
+				if(string_zab.equals(naredbi.getName_request())){
+					id_naredba = naredbi.getId_naredbi();
+					break;
+				}
+			}
 		}
-		substitutionData.put(masive_column_table_result[5], "-");
-
-		return substitutionData;
+		if(id_naredba>0){
+			return	NaredbiDAO.getValueNaredbiById(id_naredba);
+		}
+		return null;
 	}
 
 	static List<Metody> createCleanFromDuplicateListMetody(Request request) {
@@ -213,6 +279,11 @@ public class FunctionForGenerateWordDocFile {
 	static List<Results>  getListDokladMDA(){
 		return listDokladMDA;
 		}
+	
+	static Naredbi  getNaredba(){
+		return naredba;
+		}
+	
 	
 	@SuppressWarnings("unused")
 	private static String[] setSuperScribeNuclideInText(String text, List<Nuclide> list_Nuclide) {

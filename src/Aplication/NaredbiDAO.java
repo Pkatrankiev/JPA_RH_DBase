@@ -38,7 +38,7 @@ public class NaredbiDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createNamedQuery("getListAllMetody");
+		Query query = entitymanager.createNamedQuery("getListAllNaredbi");
 		List<Naredbi> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -96,7 +96,7 @@ public class NaredbiDAO {
 		}
 
 		@SuppressWarnings("unchecked")
-		public static Naredbi getValueList_NaredbiByRazmernost(String name) {
+		public static Naredbi getValueList_NaredbiByRazmernost(Razmernosti name) {
 
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManager entitymanager = emfactory.createEntityManager();

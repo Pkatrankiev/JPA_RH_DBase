@@ -61,7 +61,7 @@ public class NormiDAO {
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static Normi getValueList_NormiByNaredbi(String name) {
+		public static List<Normi> getList_NormiByNaredbi(Naredbi name) {
 
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManager entitymanager = emfactory.createEntityManager();
@@ -75,11 +75,11 @@ public class NormiDAO {
 			entitymanager.close();
 			emfactory.close();
 
-			return list.get(0);
+			return list;
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static Normi getValueList_NormiByNuclide(String name) {
+		public static Normi getValueList_NormiByNuclide(Nuclide name) {
 
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManager entitymanager = emfactory.createEntityManager();

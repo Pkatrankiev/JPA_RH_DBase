@@ -44,6 +44,7 @@ import WindowView.MainWindows;
 import WindowView.ReadGamaFile;
 import WindowView.ReaderWordDoc;
 import WindowView.RequestViewFunction;
+import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
 
@@ -65,7 +66,9 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-		StartMainWindow();
+//		StartMainWindow();
+		
+		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -90,8 +93,21 @@ public class Main_Aplication {
 		 new ChoiceListIzpPokazatel(f, null) ;
 	}
 	 
-	 
-	
+	private static void AddResultsViewWithTable() {
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 JFrame f = new JFrame();
+		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
+		 			    	
+		     }
+		    });
+		    thread.start();
+			
+	}
 
 	private static void startcreateProtokolDocx() throws ParseException {
 

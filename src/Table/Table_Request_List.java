@@ -54,7 +54,7 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.Internal_applicant;

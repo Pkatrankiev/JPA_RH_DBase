@@ -91,10 +91,21 @@ public class Extra_moduleDAO {
 				fl=false;	
 				System.out.println("Return_samples "+fl);
 					}
-			if( extra_module.getAplicant().getId_aplicant() != extraModule.getAplicant().getId_aplicant()){
-				fl=false;
-				System.out.println("Aplicant "+fl);
-					}
+
+			if(extra_module.getAplicant()!=null && extraModule.getAplicant()!=null){
+				
+				if(extra_module.getAplicant().getId_aplicant() != extraModule.getAplicant().getId_aplicant()){
+					fl=false;
+					System.out.println("External_applicant "+fl);
+						}
+				}else{
+					if(extra_module.getAplicant()==null && extraModule.getAplicant()==null){
+					
+				}else{
+					fl=false;
+					System.out.println("External_applicant "+fl);
+				}
+				}
 			
 			
 			if(extra_module.getExternal_applicant()!=null && extraModule.getExternal_applicant()!=null){

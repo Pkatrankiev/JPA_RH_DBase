@@ -40,7 +40,7 @@ import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
 import Aplication.GlobalVariable;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
@@ -1633,7 +1633,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+		    	 GenerateRequestWordDoc.generateAndSend_Request_Docx("temp.docx",
 		 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
 		     }
 		    });

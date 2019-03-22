@@ -66,9 +66,9 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-//		StartMainWindow();
+		StartMainWindow();
 		
-		AddResultsViewWithTable();
+//		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;

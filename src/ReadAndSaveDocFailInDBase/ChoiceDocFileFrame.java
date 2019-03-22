@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -80,7 +80,7 @@ public class ChoiceDocFileFrame extends JFrame {
 				 String FILENAME = textField.getText();
 //			String filePath = 	FILENAME.replaceAll("\\", "\")	;		 
 				 try {
-					DocxMainpulator.openWordDoc(FILENAME);
+					GenerateRequestWordDoc.openWordDoc(FILENAME);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

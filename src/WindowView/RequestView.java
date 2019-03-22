@@ -43,7 +43,7 @@ import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
 import Aplication.GlobalVariable;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Aplicant;
 import DBase_Class.DopalnIziskv;
@@ -443,7 +443,7 @@ public class RequestView extends JDialog {
 				TranscluentWindow round = new TranscluentWindow();
 				Internal_applicant tamplateInternalAplic = null;
 				externalAplic = null;
-				if (tamplateRequest != null) {
+				if (tamplateRequest != null && tamplateRequest.getExtra_module()!= null) {
 					tamplateInternalAplic = tamplateRequest.getExtra_module().getInternal_applicant();
 				}
 				if (internalAplic != null) {
@@ -1269,13 +1269,15 @@ public class RequestView extends JDialog {
 
 		masive_AplicantNameFamily = AplicantDAO.getMasiveStringAllName_FamilyAplicant();
 		ArrayList<String> array_AplicantNameFamily = new ArrayList<String>();
+		array_AplicantNameFamily.add("");
 		for (String string : masive_AplicantNameFamily) {
 			choice_AplicantNameFamily.add(string);
 			array_AplicantNameFamily.add(string);
 		}
+		String str = "";
 		if (tamplateRequest != null) {
-			if(tamplateRequest.getExtra_module()!=null) {
-			String str = tamplateRequest.getExtra_module().getAplicant().getName_aplicant() + " "
+			if(tamplateRequest.getExtra_module()!=null && tamplateRequest.getExtra_module().getAplicant()!=null) {
+			str = tamplateRequest.getExtra_module().getAplicant().getName_aplicant() + " "
 					+ tamplateRequest.getExtra_module().getAplicant().getFamily_aplicant();
 			choice_AplicantNameFamily.select(str);
 		}
@@ -1524,7 +1526,8 @@ public class RequestView extends JDialog {
 	}
 
 	private Request createAndSaveRequest() {
-		Request recuest = createRequestObject();
+		Extra_module extra_mod = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
+		Request recuest = createRequestObject(extra_mod);
 
 		RequestDAO.saveRequestFromRequest(recuest);
 		return recuest;
@@ -1641,10 +1644,8 @@ public class RequestView extends JDialog {
 
 		return saveCheck;
 	}
-
 	
-
-	private Request createRequestObject() {
+	private Request createRequestObject(Extra_module extra_mod) {
 		Request recuest = null;
 		Ind_num_doc ind_num_doc = null;
 		if (!choice_ind_num_doc.getSelectedItem().equals(" "))
@@ -1657,7 +1658,8 @@ public class RequestView extends JDialog {
 		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
 				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-		Extra_module extra_mod = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
+		
+		
 
 		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, extra_mod, count_Sample,
@@ -1669,7 +1671,8 @@ public class RequestView extends JDialog {
 	}
 
 	private void createPreviewRequestWordDoc() throws ParseException {
-		request = createRequestObject();
+		Extra_module extra_mod = createExtraModuleForPreview();
+		request = createRequestObject(extra_mod);
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
 		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSampleValue);
@@ -1681,7 +1684,7 @@ public class RequestView extends JDialog {
 		final Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				DocxMainpulator.generateAndSend_Request_Docx("Zaqvka.docx",
+				GenerateRequestWordDoc.generateAndSend_Request_Docx("Zaqvka.docx",
 						"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
 
 			}
@@ -1690,7 +1693,6 @@ public class RequestView extends JDialog {
 
 	}
 	
-
 	private void saveSample() {
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
@@ -1779,6 +1781,26 @@ public class RequestView extends JDialog {
 		Extra_module extra_module = new Extra_module();
 		Aplicant aplic = AplicantDAO.getAplicantByNameFamily(choice_AplicantNameFamily.getSelectedItem());
 		DopalnIziskv dopIzis = DopalnIziskvDAO.getValueDopalnIziskvByName(choice_dopIzis.getSelectedItem());
+		if (!dopDogov.equals("") || aplic != null || dopIzis.getId_dopIzis() != 1 || externalAplic != null
+				|| internalAplic != null) {
+			extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
+			extra_module.setAdditional_arrangements("");
+			extra_module.setReturn_samples(rdbtn_Yes.isSelected());
+			extra_module.setAplicant(aplic);
+			extra_module.setDoplIzisk(dopIzis);
+			extra_module.setExternal_applicant(externalAplic);
+			extra_module.setInternal_applicant(internalAplic);
+		}
+		return extra_module;
+	}
+	
+	private Extra_module createExtraModuleForPreview() {
+		String dopDogov = txtArea_DopalnDogovorenosti.getText();
+		
+		Extra_module extra_module = new Extra_module();
+		Aplicant aplic = AplicantDAO.getAplicantByNameFamily(choice_AplicantNameFamily.getSelectedItem());
+		
+		DopalnIziskv dopIzis = DopalnIziskvDAO.getValueDopalnIziskvByName(choice_dopIzis.getSelectedItem());
 		if (!dopDogov.equals("") || aplic != null || dopIzis != null || externalAplic != null
 				|| internalAplic != null) {
 			extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
@@ -1791,7 +1813,7 @@ public class RequestView extends JDialog {
 		}
 		return extra_module;
 	}
-
+	
 	private External_applicant GetAndSaveExternalAplicant() {
 		if (externalAplic != null) {
 			int id_externalAplic = External_applicantDAO.setValueExternal_applicantWhithCheck(externalAplic);

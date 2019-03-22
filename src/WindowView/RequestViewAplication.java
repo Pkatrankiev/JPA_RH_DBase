@@ -19,7 +19,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
@@ -171,17 +171,41 @@ public class RequestViewAplication {
 		return arr;
 	}
 
-	public static String getStringZabelejkiFromRequest(Request request) {
+	public static String getStringZabelejkiForRequest(Request request) {
 		String zabel_str = "";
 		if (request.getZabelejki() != null) {
-			System.out.println(request.getZabelejki().getName_zabelejki().indexOf("$02$"));
-			if(request.getZabelejki().getName_zabelejki().indexOf("$02$")>=0)
-			zabel_str = request.getZabelejki().getName_zabelejki().substring(4);
+			zabel_str = request.getZabelejki().getName_zabelejki();
 		}
-
+		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
+			if(zabel_str!=""){
+				zabel_str = zabel_str + "; ";
+			}
+			zabel_str = zabel_str + request.getExtra_module().getDoplIzisk().getName_dopIzis();
+		}
+		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements()!="") {
+			if(zabel_str!=""){
+				zabel_str = zabel_str + "; ";
+			}
+			zabel_str = zabel_str + request.getExtra_module().getAdditional_requirements();
+		}
 		return zabel_str;
 	}
 
+	public static List<String> getStringZabelejkiForProtokol(Request request) {
+		List<String>  zabel_str = new ArrayList<String>() ;
+		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki()!=5) {
+			zabel_str.add(request.getZabelejki().getName_zabelejki());
+		}
+		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
+			zabel_str.add( request.getExtra_module().getDoplIzisk().getName_dopIzis());
+		}
+		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements()!="") {
+			
+			zabel_str.add( request.getExtra_module().getAdditional_requirements());
+		}
+		return zabel_str;
+	}
+	
 	public static ArrayList<String> getStringZabelejki() {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
 		ArrayList<String> arr = new ArrayList<String>();
@@ -193,10 +217,6 @@ public class RequestViewAplication {
 		}
 		return arr;
 	}
-
-	
-	
-	
 
 	public static MaskFormatter createFormatter(String s) {
 		MaskFormatter formatter = null;
@@ -312,4 +332,6 @@ public class RequestViewAplication {
 		}
 		return underMaximum;
 	}
+
+	
 }

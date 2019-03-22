@@ -137,8 +137,6 @@ public class ResultsDAO {
 		
 		return list;
 	}
-
-	
 	
 	public static void setBasicValueResults() {
 

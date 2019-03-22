@@ -229,7 +229,7 @@ public class GenerateDocProtokol {
 			AplicationDocTemplate.writeDocxToStream(template,
 					FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 			round.StopWindow();
-			DocxMainpulator.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {
 

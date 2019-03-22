@@ -101,7 +101,7 @@ public class TestSuperScript {
 			AplicationDocTemplate.writeDocxToStream(template,
 					FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 
-			DocxMainpulator.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {
 

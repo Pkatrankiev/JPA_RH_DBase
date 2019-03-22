@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 15 март 2019 в 15:18
+-- Generation Time: 22 март 2019 в 14:59
 -- Версия на сървъра: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -45,7 +45,9 @@ INSERT INTO `aplicant` (`ID_APLICANT`, `FAMILY`, `NAME`) VALUES
 (4, 'Стойков', 'Петър'),
 (5, 'Силвестров', 'Владимир'),
 (6, 'Караиванов', 'Николай'),
-(7, 'Петров', 'Иван');
+(7, 'Петров', 'Иван'),
+(8, '', ''),
+(9, 'Герасимов', 'Людмил');
 
 -- --------------------------------------------------------
 
@@ -74,6 +76,31 @@ INSERT INTO `dimension` (`ID_DIMENSION`, `NAME`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура на таблица `dobiv`
+--
+
+CREATE TABLE `dobiv` (
+  `ID_RECUEST` int(11) NOT NULL,
+  `ACCREDITATION` tinyint(1) DEFAULT '0',
+  `COUNTS_SAMPLES` int(11) DEFAULT NULL,
+  `DATE_EXECUTION` varchar(255) DEFAULT NULL,
+  `DATE_RECEPTION` varchar(255) DEFAULT NULL,
+  `DATE_REQUEST` varchar(255) DEFAULT NULL,
+  `DESCRIPTION_SAMPLE_GROUP` varchar(255) DEFAULT NULL,
+  `RECUEST_CODE` varchar(255) DEFAULT NULL,
+  `SECTION` tinyint(1) DEFAULT '0',
+  `EXTRA_MODULE_ID_EXTRA_MODULE` int(11) DEFAULT NULL,
+  `IND_NUM_DOC_ID_IND_NUM_DOC` int(11) DEFAULT NULL,
+  `IZPITVAN_PRODUKT_ID_IZPITVAN_PRODUKT` int(11) DEFAULT NULL,
+  `OBEKT_NA_IZPITVANE_REQUEST_ID_OBEKT_NA_IZPITVANE` int(11) DEFAULT NULL,
+  `RAZMERNOSTI_ID_RAZMERNOSTI` int(11) DEFAULT NULL,
+  `USERS_ID_USERS` int(11) DEFAULT NULL,
+  `ZABELEJKI_ID_ZABELEJKI` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура на таблица `dopalniziskv`
 --
 
@@ -81,6 +108,16 @@ CREATE TABLE `dopalniziskv` (
   `ID_DOPIZIS` int(11) NOT NULL,
   `NAME` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `dopalniziskv`
+--
+
+INSERT INTO `dopalniziskv` (`ID_DOPIZIS`, `NAME`) VALUES
+(1, ''),
+(2, 'Да се докладва МДА на 14С за всяка проба'),
+(3, 'Да се докладва МДА на 3H за всяка от пробите'),
+(4, 'Да се докладва МДА на 60Co и 137Cs за всяка от пробите');
 
 -- --------------------------------------------------------
 
@@ -106,7 +143,7 @@ INSERT INTO `external_applicant` (`ID_EXTERNAL_APPLICANT`, `EXTERNAL_APPLICANT_A
 (3, 'гр.Колодуй2', 'ном:2345', 'ДП РАО1', '0888123456'),
 (5, '', '', 'ЦНРД', '12-34'),
 (6, '', '', 'ЦНРД', '88-88'),
-(7, '', '', 'FFFF', '555');
+(7, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -122,30 +159,36 @@ CREATE TABLE `extra_module` (
   `APLICANT_ID_APLICANT` int(11) DEFAULT NULL,
   `EXTERNAL_APPLICANT_ID_EXTERNAL_APPLICANT` int(11) DEFAULT NULL,
   `INTERNAL_APPLICANT_ID_INTERNAL_APPLICANT` int(11) DEFAULT NULL,
-  `DOPIZIS_ID_DOPIZIS` int(11) DEFAULT NULL
+  `DOPLIZIS_ID_DOPIZIS` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Схема на данните от таблица `extra_module`
 --
 
-INSERT INTO `extra_module` (`ID_EXTRA_MODULE`, `ADDITIONAL_ARRANGEMENTS`, `ADDITIONAL_REQUIREMENTS`, `RETURN_SAMPLES`, `APLICANT_ID_APLICANT`, `EXTERNAL_APPLICANT_ID_EXTERNAL_APPLICANT`, `INTERNAL_APPLICANT_ID_INTERNAL_APPLICANT`, `DOPIZIS_ID_DOPIZIS`) VALUES
-(1, ' ', '', 1, 1, NULL, 5, 1),
-(2, ' ', '', 1, 1, NULL, 7, 1),
-(3, ' ', '', 1, 1, NULL, 5, 2),
-(18, ' ', '', 1, 2, NULL, 5, 2),
-(21, ' ', '', 1, 1, 6, NULL, 1),
-(22, ' ', '', 1, 2, NULL, 8, 2),
-(23, ' ', '', 1, 1, 7, NULL, 1),
+INSERT INTO `extra_module` (`ID_EXTRA_MODULE`, `ADDITIONAL_ARRANGEMENTS`, `ADDITIONAL_REQUIREMENTS`, `RETURN_SAMPLES`, `APLICANT_ID_APLICANT`, `EXTERNAL_APPLICANT_ID_EXTERNAL_APPLICANT`, `INTERNAL_APPLICANT_ID_INTERNAL_APPLICANT`, `DOPLIZIS_ID_DOPIZIS`) VALUES
+(1, '', '', 1, 1, NULL, 5, 1),
+(2, '', '', 1, 1, NULL, 7, 1),
+(3, '', '', 1, 1, NULL, 5, 1),
+(18, '', '', 1, 2, NULL, 5, 1),
+(21, '', '', 1, 1, 6, NULL, 1),
+(22, '', '', 1, 2, NULL, 8, 1),
+(23, '', '', 1, 1, 7, NULL, 1),
 (30, '', '', 1, 3, NULL, 15, 1),
-(31, ' ', '', 1, 1, NULL, 18, 1),
-(32, ' ', '', 1, 2, NULL, 16, 1),
-(33, ' ', '', 0, 2, NULL, 16, 1),
-(34, ' ', '', 0, 4, NULL, 19, 1),
-(35, ' ', '', 0, 5, NULL, 20, 1),
-(36, ' ', '', 1, 2, NULL, 21, 2),
-(37, ' ', '', 0, 6, NULL, 22, 1),
-(38, ' ', '', 0, 7, NULL, 23, 1);
+(31, '', '', 1, 1, NULL, 18, 1),
+(32, '', '', 1, 2, NULL, 16, 1),
+(33, '', '', 0, 2, NULL, 16, 1),
+(34, '', 'Да се докладват съответните лимитни стойности от НРЗ от 20.02.2018', 0, 4, NULL, 19, 3),
+(35, '', 'Да се докладват съответните лимитни стойности от НРЗ от 20.02.2018', 0, 5, NULL, 20, 3),
+(36, '', '', 1, 2, NULL, 21, 1),
+(37, '', '', 0, 6, NULL, 22, 1),
+(38, '', '', 0, 7, NULL, 23, 1),
+(39, '', '', 1, 5, 7, NULL, 2),
+(40, '', '', 1, 5, 7, NULL, 3),
+(41, '', 'Да се докладват съответните лимитни стойности от НРЗ от 20.02.2018', 1, NULL, NULL, 19, 3),
+(42, '', 'Да се докладват съответните лимитни стойности от НРЗ от 20.02.2018', 1, NULL, NULL, 20, 3),
+(43, '', '', 1, 9, NULL, 24, 1),
+(44, '', '', 0, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -164,7 +207,7 @@ CREATE TABLE `ind_num_doc` (
 --
 
 INSERT INTO `ind_num_doc` (`ID_IND_NUM_DOC`, `CONTENT`, `NAME`) VALUES
-(1, 'няма информация', 'няма информация'),
+(1, '', ''),
 (2, 'Охарактеризиране на шламове и утайки в СП,,ИЕ 1÷4 блок', 'ПП12-ИЕ.РНК.ПН.007/00'),
 (3, 'Проект 5f. Осигуряване проследимост на пробите от БНС и БВС на СК-1 и СК-2', 'ОП08-ИЕ.ФХК.ПР.002/00'),
 (4, 'Обем и организация на радиохимичния и технологичен контрол', 'ОП01-ИЕ.РНК.ИН.001/01'),
@@ -206,7 +249,8 @@ INSERT INTO `internal_applicant` (`ID_INTERNAL_APPLICANT`, `INTERNAL_APPLICANT_A
 (20, 'гр. Козлодуй', 'СП \"ИЕ 1-4 блок\" Козлодуй', ''),
 (21, '', 'с-р ОРДК', '35-24'),
 (22, '', 'Направление ИО', '25-94'),
-(23, '', 'сектор ПИ', '');
+(23, '', 'сектор ПИ', ''),
+(24, '', 'Сектор „Дезактивация”', '29-77');
 
 -- --------------------------------------------------------
 
@@ -332,7 +376,10 @@ INSERT INTO `izpitvanpokazatel` (`ID_POKAZATEL`, `METODY_ID_METODY`, `POKAZATEL_
 (308, NULL, 1, 122),
 (309, 1, 2, 123),
 (310, 3, 8, 124),
-(311, 3, 8, 125);
+(311, 3, 8, 125),
+(316, 9, 1, 130),
+(317, NULL, 1, 131),
+(318, NULL, 1, 132);
 
 -- --------------------------------------------------------
 
@@ -447,6 +494,50 @@ INSERT INTO `metody_to_pokazatel` (`ID_METODY_TO_POKAZATEL`, `METODY_ID_METODY`,
 (11, 12, 10),
 (12, 1, 2),
 (13, 9, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `naredbi`
+--
+
+CREATE TABLE `naredbi` (
+  `ID_NAREDBI` int(11) NOT NULL,
+  `NAME_PROTOKOL` varchar(255) DEFAULT NULL,
+  `NAME_REQUEST` varchar(255) DEFAULT NULL,
+  `RAZMERNOST_ID_RAZMERNOSTI` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `naredbi`
+--
+
+INSERT INTO `naredbi` (`ID_NAREDBI`, `NAME_PROTOKOL`, `NAME_REQUEST`, `RAZMERNOST_ID_RAZMERNOSTI`) VALUES
+(1, '', '', 1),
+(2, 'Наредба за радиационна защита, обн., ДВ, бр. 16 от 20.02.2018 г., Приложение № 2, Таблица № 5', 'Да се докладват съответните лимитни стойности от НРЗ от 20.02.2018', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `normi`
+--
+
+CREATE TABLE `normi` (
+  `ID_NORMI` int(11) NOT NULL,
+  `VALUE_NORMA` double DEFAULT NULL,
+  `NAREDBI_ID_NAREDBI` int(11) DEFAULT NULL,
+  `NUCLIDE_ID_NUCLIDE` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `normi`
+--
+
+INSERT INTO `normi` (`ID_NORMI`, `VALUE_NORMA`, `NAREDBI_ID_NAREDBI`, `NUCLIDE_ID_NUCLIDE`) VALUES
+(1, 7600, 2, 47),
+(2, 14, 2, 6),
+(3, 40, 2, 17),
+(4, 11, 2, 31);
 
 -- --------------------------------------------------------
 
@@ -758,7 +849,8 @@ INSERT INTO `obekt_na_izpitvane_request` (`ID_OBEKT_NA_IZPITVANE`, `NAME`) VALUE
 (172, 'Сондажни кладенци около хранилище за РАО'),
 (173, 'Сондажни кладенци около площадка за временно съхранение на РАО и ХЗЗМ  '),
 (174, ' СК-1 - БТВ-1 ,БТВ-2 ,БТВ-3 '),
-(175, 'Очистваща система на СПИ');
+(175, 'Очистваща система на СПИ'),
+(176, 'Блок 1, пом 301/1 вторични РАО');
 
 -- --------------------------------------------------------
 
@@ -920,14 +1012,14 @@ INSERT INTO `obekt_na_izpitvane_sample` (`ID_OBEKT_NA_IZPITVANE`, `NAME`, `OBECT
 (141, 'РШ-162', NULL),
 (142, 'СК1-юг', NULL),
 (143, 'КШ-18/1', NULL),
-(144, 'ТГ-1 (ТГ-1-W)', NULL),
-(145, 'ТГ-2 (ТГ-2-W)', NULL),
-(146, 'ТГ-3 (ТГ-3-W)', NULL),
-(147, 'ТГ-4 (ТГ-4-W)', NULL),
-(148, 'ТГ-5 (ТГ-5-W)', NULL),
-(149, 'ТГ-6 (ТГ-6-W)', NULL),
-(150, 'ТГ-7 (ТГ-7-W)', NULL),
-(151, 'ТГ-8 (ТГ-8-W)', NULL),
+(144, 'ТГ-1', NULL),
+(145, 'ТГ-2', NULL),
+(146, 'ТГ-3', NULL),
+(147, 'ТГ-4', NULL),
+(148, 'ТГ-5', NULL),
+(149, 'ТГ-6', NULL),
+(150, 'ТГ-7', NULL),
+(151, 'ТГ-8', NULL),
 (152, 'Спец корпус-2-999999', NULL),
 (153, '2017', NULL),
 (154, '3198-1/3198-1, Бетон от демонтирана плоча на ТГ-7, m=1829.25 g;\r', NULL),
@@ -980,18 +1072,11 @@ INSERT INTO `obekt_na_izpitvane_sample` (`ID_OBEKT_NA_IZPITVANE`, `NAME`, `OBECT
 (202, '345', NULL),
 (203, '349', NULL),
 (204, 'Вентилация + DNOx', NULL),
-(205, 'ТГ-1 (ТГ-1-T)', NULL),
-(206, 'ТГ-2 (ТГ-2-T)', NULL),
-(207, 'ТГ-3 (ТГ-3-T)', NULL),
-(208, 'ТГ-4 (ТГ-4-T)', NULL),
-(209, 'ТГ-5 (ТГ-5-T)', NULL),
-(210, 'ТГ-6 (ТГ-6-T)', NULL),
-(211, 'ТГ-7 (ТГ-7-T)', NULL),
-(212, 'ТГ-8 (ТГ-8-T)', NULL),
 (213, 'РШ-136', NULL),
 (214, 'Cʷ12 (012)', NULL),
 (215, 'Очистваща система на СПИ', NULL),
-(216, 'Cʷ1 (001)', NULL);
+(216, 'Cʷ1 (001)', NULL),
+(217, 'Блок 1, пом 301/1 вторични РАО', NULL);
 
 -- --------------------------------------------------------
 
@@ -1180,8 +1265,8 @@ INSERT INTO `request` (`ID_RECUEST`, `ACCREDITATION`, `COUNTS_SAMPLES`, `DATE_EX
 (85, 0, 1, '15.03.2017', '27.02.2017', '27.02.2017', ' Бетон от демонтирана плоча на ТГ-7', '3198', 0, 30, 1, 1, 26, 2, 1, 1),
 (88, 0, 3, '11.01.2019', '02.01.2019', '02.01.2019', 'Период за вземане на пробите: 01.12.2018г. - 31.12.2018г.\nза м.Декември', '3783', 1, NULL, 4, 3, 107, 5, 2, 5),
 (89, 0, 4, '11.01.2019', '14.12.2018', '14.12.2018', 'Сборни проби воден десорбат за прериода: 04.12.2018г. - 02.01.2019г., за м.Декември', '3775', 1, NULL, 4, 5, 1, 1, 3, 5),
-(90, 0, 4, '14.01.2019', '14.01.2019', '14.12.2018', 'Сборни водни проби за периода: 04.12.2018г. - 02.01.2018г.за м. Декември', '3776', 1, NULL, 4, 5, 1, 5, 3, 9),
-(91, 0, 5, '31.01.2019', '16.01.2019', '16.01.2019', 'за Февруари', '3000', 1, NULL, 4, 4, 12, 4, 3, 9),
+(90, 0, 4, '14.01.2019', '14.01.2019', '14.12.2018', 'Сборни водни проби за периода: 04.12.2018г. - 02.01.2018г.за м. Декември', '3776', 1, 39, 4, 5, 1, 5, 3, 5),
+(91, 0, 5, '31.01.2019', '16.01.2019', '16.01.2019', 'за Февруари', '3000', 1, 39, 4, 4, 12, 4, 3, 5),
 (92, 0, 2, '11.01.2019', '02.01.2019', '02.01.2019', 'Аерозолни филтри за периода: 04.12.2018г. - 02.01.2019г., за м. Декември', '3782', 1, NULL, 4, 5, 1, 5, 3, 5),
 (94, 0, 1, '11.01.2019', '31.12.2018', '31.12.2018', 'Аерозолен филтър, период: 30.11.2018г. - 28.12.2018г.', '3781', 1, 32, NULL, 5, 121, 5, 3, 5),
 (95, 0, 1, '28.03.2019', '07.01.2019', '07.01.2019', 'Сборна проба аерозолен филтър за период: 28.09.2018г. - 28.12.2018г. за 4-то тримесечие', '3787', 1, 33, NULL, 5, 121, 5, 3, 5),
@@ -1196,25 +1281,28 @@ INSERT INTO `request` (`ID_RECUEST`, `ACCREDITATION`, `COUNTS_SAMPLES`, `DATE_EX
 (104, 0, 2, '08.03.2019', '31.10.2018', '07.01.2019', 'Сборни проби аерозолни филтри за периода: 02.10.2018г. - 02.01.2019г. за 4-то тримесечие', '3786', 1, NULL, 4, 5, 1, 5, 3, 5),
 (105, 0, 2, '28.02.2019', '01.02.2019', '01.02.2019', 'Сборни водни проби с V=1l, за периода: 01.01.2019г. - 31.01.2019г. за м.Януари', '3805', 1, NULL, 4, 3, 51, 5, 3, 5),
 (106, 0, 1, '12.02.2019', '04.02.2019', '04.02.2019', 'Сборна водна проба за периода: 01.01.2019г. - 31.01.2019г. за м.Януари', '3807', 1, NULL, 4, 3, 16, 5, 3, 5),
-(107, 0, 4, '12.02.2019', '06.02.2019', '11.01.2019', 'Сборни проби воден десорбат за периода: 02.01.2019г. - 29.01.2019г. за м.Януари', '3792', 1, NULL, 4, 5, 1, 3, 3, 10),
-(108, 0, 4, '22.02.2019', '11.01.2019', '11.01.2019', 'Сборни водни проби за периода: 02.01.2019г. - 29.01.2019г. за м.Януари', '3793', 1, NULL, 4, 5, 1, 5, 3, 9),
+(107, 0, 4, '12.02.2019', '06.02.2019', '11.01.2019', 'Сборни проби воден десорбат за периода: 02.01.2019г. - 29.01.2019г. за м.Януари', '3792', 1, 40, 4, 5, 1, 3, 3, 5),
+(108, 0, 4, '22.02.2019', '11.01.2019', '11.01.2019', 'Сборни водни проби за периода: 02.01.2019г. - 29.01.2019г. за м.Януари', '3793', 1, 39, 4, 5, 1, 5, 3, 5),
 (109, 0, 4, '01.03.2019', '08.02.2019', '05.02.2019', 'Аерозолни филтри за периода: 03.01.2019г. - 01.02.2019г. за м.Януари', '3811', 1, NULL, 4, 6, 17, 1, 3, 5),
-(110, 0, 2, '01.03.2019', '20.02.2019', '26.02.2019', ' По два аерозолни филтри: вентилация + DNOx', '3828', 1, 36, NULL, 5, 130, 5, 3, 5),
+(110, 0, 2, '01.03.2019', '20.02.2019', '26.02.2019', ' По два аерозолни филтри: вентилация + DNOx', '3828', 1, 36, NULL, 5, 130, 5, 3, 1),
 (111, 1, 8, '12.03.2019', '21.02.2019', '21.02.2019', 'Дънни утайки,  за м. Февруари', '3832', 1, NULL, 5, 2, 20, 6, 3, 1),
 (112, 0, 11, '12.03.2019', '21.02.2019', '21.02.2019', 'Водни проби за м.Февруари, всяка с V=0.5l', '3831', 1, NULL, 5, 4, 12, 4, 3, 5),
 (113, 0, 3, '08.03.2019', '11.02.2019', '25.02.2019', 'Водни  проби за м.Февруари', '3833', 1, NULL, 5, 4, 114, 4, 3, 5),
-(114, 0, 4, '12.03.2019', '07.02.2019', '28.02.2019', 'Сборни проби воден десорбат за м.Февруари за периода: 29.01.2019 ÷ 26.02.2019', '3836', 1, NULL, 5, 5, 1, 3, 3, 10),
-(115, 0, 4, '12.03.2019', '07.02.2019', '28.02.2019', 'Сборни водни проби за м.Февруари за периода: 29.01.2019 ÷ 26.02.2019', '3837', 1, NULL, 5, 5, 1, 5, 3, 9),
+(114, 0, 4, '12.03.2019', '07.02.2019', '28.02.2019', 'Сборни проби воден десорбат за м.Февруари за периода: 29.01.2019 ÷ 26.02.2019', '3836', 1, 40, 5, 5, 1, 3, 3, 5),
+(115, 0, 4, '12.03.2019', '07.02.2019', '28.02.2019', 'Сборни водни проби за м.Февруари за периода: 29.01.2019 ÷ 26.02.2019', '3837', 1, 39, 5, 5, 1, 5, 3, 5),
 (116, 0, 2, '12.03.2019', '28.02.2019', '28.02.2019', 'Сборни водни проби за м.Февруари за периода: 01.02.2019 ÷ 28.02.2019,  V=1.0 l  ', '3838', 1, NULL, 5, 3, 51, 5, 3, 5),
 (117, 0, 1, '12.03.2019', '28.02.2019', '28.02.2019', 'Сборна водна проба за м.Февруари за периода: 01.02.2019 ÷ 28.02.2019', '3839', 1, NULL, 5, 3, 16, 5, 3, 5),
 (118, 0, 3, '31.12.2019', '06.02.2019', '06.02.2019', ' Проби разтворен шлам', '3812', 1, 37, NULL, 2, 174, 2, 3, 5),
 (119, 1, 3, '31.12.2019', '06.02.2019', '06.02.2019', ' ', '3813', 1, 37, NULL, 2, 174, 2, 3, 5),
 (120, 1, 3, '31.12.2019', '06.02.2019', '03.02.2019', '  Проби разтворен шлам', '3814', 1, 37, NULL, 2, 174, 2, 3, 5),
-(121, 0, 4, '12.03.2019', '05.03.2019', '06.03.2019', 'Аерозолни филтри за м.Февруари за периода: 01.02.2019 ÷ 28.02.2019', '3841', 1, NULL, 5, 6, 17, 1, 3, 5),
-(122, 0, 2, '15.03.2019', '06.03.2019', '06.03.2019', 'Аерозолни филтри за м.Февруари за периода: 01.02.2019 ÷ 28.02.2019', '3842', 1, NULL, 5, 5, 1, 5, 3, 5),
+(121, 0, 4, '12.03.2019', '05.03.2019', '06.03.2019', 'Аерозолни филтри за м. Февруари за периода: 01.02.2019 ÷ 28.02.2019', '3841', 1, NULL, 5, 6, 17, 1, 3, 5),
+(122, 0, 2, '15.03.2019', '06.03.2019', '06.03.2019', 'Аерозолни филтри за м. Февруари за периода: 01.02.2019 ÷ 28.02.2019', '3842', 1, NULL, 5, 5, 1, 5, 3, 5),
 (123, 0, 3, '30.04.2019', '30.05.2018', '10.01.2019', ' Пепел от очистващата система на СПИ с m ~ 5g', '3791', 1, 38, NULL, 2, 175, 2, 2, 5),
-(124, 0, 9, '12.04.2019', '06.03.2019', '07.03.2019', 'Водни проби от сондажи за м.март с V=1l', '3843', 1, NULL, 5, 4, 173, 4, 3, 10),
-(125, 0, 14, '12.04.2019', '07.03.2019', '07.03.2019', 'водни проби от сондажи за м.март', '3844', 1, NULL, 5, 4, 114, 4, 3, 10);
+(124, 0, 9, '12.04.2019', '06.03.2019', '07.03.2019', 'водни проби от сондажи за м. март', '3843', 1, 41, 5, 4, 173, 4, 3, 5),
+(125, 0, 14, '12.04.2019', '07.03.2019', '07.03.2019', 'водни проби от сондажи за м. март', '3844', 1, 41, 5, 4, 114, 4, 3, 5),
+(130, 0, 2, '29.03.2019', '18.03.2019', '19.03.2019', ' Водни проби', '3856', 1, 43, 1, 2, 176, 4, 3, 5),
+(131, 0, 9, '12.04.2019', '21.03.2019', '21.03.2019', 'Водни проби  за м. март, всяка с V=0.5l', '3857', 1, NULL, 5, 4, 12, 4, 3, 5),
+(132, 0, 8, '12.04.2019', '21.03.2019', '21.03.2019', 'Водни проби за м. март, всяка с V=0.5l', '3858', 1, NULL, 5, 4, 20, 4, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -1840,7 +1928,23 @@ INSERT INTO `results` (`ID_RESULTS`, `BASIC_VALUE`, `DATE_CHIM_OPER`, `DATE_MEAS
 (647, '', '07.03.2019', '11.03.2019', '13.03.2019', 1, 5.11, 0.009, 2, 0, 0, 3, 3, 47, 8, 4, 304, 5, 3, NULL, NULL, 7),
 (648, '', '07.03.2019', '11.03.2019', '13.03.2019', 1, 5.12, 0.009, 2, 0, 0, 3, 3, 47, 8, 4, 305, 5, 3, NULL, NULL, 7),
 (649, '', '07.03.2019', '11.03.2019', '13.03.2019', 1, 5.07, 0.009, 2, 0, 0, 3, 3, 47, 8, 4, 306, 5, 3, NULL, NULL, 7),
-(650, '', '07.03.2019', '11.03.2019', '13.03.2019', 1, 5.16, 0.009, 2, 0, 0, 3, 3, 47, 8, 4, 307, 5, 3, NULL, NULL, 7);
+(650, '', '07.03.2019', '11.03.2019', '13.03.2019', 1, 5.16, 0.009, 2, 0, 0, 3, 3, 47, 8, 4, 307, 5, 3, NULL, NULL, 7),
+(651, '', '19.03.2019', '19.3.2019', '21.03.2019', 1, 12.8, 0.02, 2, 194, 2280, 3, 9, 9, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(652, '', '19.03.2019', '19.3.2019', '21.03.2019', 1, 11.3, 0.02, 2, 10.4, 112, 3, 9, 22, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(653, '', '19.03.2019', '19.3.2019', '21.03.2019', 1, 13.1, 0.02, 2, 8.32, 64.9, 3, 9, 31, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(654, '', '19.03.2019', '19.3.2019', '21.03.2019', 1, 21.2, 0.02, 2, 5.61, 21.6, 3, 9, 45, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(655, '', '19.03.2019', '19.3.2019', '21.03.2019', 0, 18.1, 0.02, 2, 0, 0, 3, 9, 5, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(656, '', '19.03.2019', '19.3.2019', '21.03.2019', 0, 17.6, 0.02, 2, 0, 0, 3, 9, 24, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(657, '', '19.03.2019', '19.3.2019', '21.03.2019', 0, 12.6, 0.02, 2, 0, 0, 3, 9, 30, 1, 4, 326, 7, 3, NULL, NULL, 4),
+(658, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 1, 19, 0.02, 2, 384, 4530, 3, 9, 9, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(659, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 1, 24.1, 0.02, 2, 5.63, 35.8, 3, 9, 17, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(660, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 1, 26.3, 0.02, 2, 112, 1280, 3, 9, 31, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(661, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 1, 100, 0.02, 2, 20.4, 118, 3, 9, 45, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(662, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 0, 27.5, 0.02, 2, 0, 0, 3, 9, 5, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(663, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 0, 41.6, 0.02, 2, 0, 0, 3, 9, 24, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(664, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.3.2019', '21.03.2019', 0, 20.1, 0.02, 2, 0, 0, 3, 9, 30, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(665, 'C:\\GENIE2K\\REPFILES\\3856-2.RPT', '19.03.2019', '19.03.2019', '21.03.2019', 1, 11.2, 0.02, 2, 0, 0, 3, 9, 22, 1, 4, 327, 7, 3, NULL, NULL, 2),
+(666, '', '19.03.2019', '19.03.2019', '21.03.2019', 1, 14.6, 0.02, 2, 0, 0, 3, 9, 17, 1, 4, 326, 7, 3, NULL, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -2076,14 +2180,14 @@ INSERT INTO `sample` (`ID_SAMPLE`, `DATE_TIME_REFERENCE`, `DESCRIPTION_SAMPLE`, 
 (245, '18.01.2019 00:00', '', 2019, '4', 139, 1, 109),
 (246, '30.12.2018 12:00', 'за периода: 28.12.2018 ÷ 01.01.2019, V= 4080.0m3', 2018, '1', 204, NULL, 110),
 (247, '01.02.2019 12:00', 'за периода: 15.01.2019 ÷ 18.02.2019, V= 7560.0m3', 2018, '2', 204, NULL, 110),
-(248, '21.02.2019 14:00', 'm= 805.80g', 2019, '1', 205, 2, 111),
-(249, '21.02.2019 14:00', 'm= 888.63g', 2019, '2', 206, 2, 111),
-(250, '21.02.2019 14:00', 'm= 863.44g', 2019, '3', 207, 2, 111),
-(251, '21.02.2019 14:00', 'm= 803.67g', 2019, '4', 208, 2, 111),
-(252, '21.02.2019 14:00', 'm= 832.73g', 2019, '5', 209, 2, 111),
-(253, '21.02.2019 14:00', 'm= 891.53g', 2019, '6', 210, 2, 111),
-(254, '21.02.2019 14:00', 'm= 823.75g', 2019, '7', 211, 2, 111),
-(255, '21.02.2019 14:00', 'm= 881.71g', 2019, '8', 212, 2, 111),
+(248, '21.02.2019 14:00', 'm= 805.80g', 2019, '1', 144, 2, 111),
+(249, '21.02.2019 14:00', 'm= 888.63g', 2019, '2', 145, 2, 111),
+(250, '21.02.2019 14:00', 'm= 863.44g', 2019, '3', 146, 2, 111),
+(251, '21.02.2019 14:00', 'm= 803.67g', 2019, '4', 147, 2, 111),
+(252, '21.02.2019 14:00', 'm= 832.73g', 2019, '5', 148, 2, 111),
+(253, '21.02.2019 14:00', 'm= 891.53g', 2019, '6', 149, 2, 111),
+(254, '21.02.2019 14:00', 'm= 823.75g', 2019, '7', 150, 2, 111),
+(255, '21.02.2019 14:00', 'm= 881.71g', 2019, '8', 151, 2, 111),
 (256, '21.02.2019 12:00', '', 2019, '1', 127, 2, 112),
 (257, '21.02.2019 12:00', '', 2019, '2', 128, 2, 112),
 (258, '21.02.2019 12:00', '', 2019, '3', 129, 2, 112),
@@ -2149,7 +2253,26 @@ INSERT INTO `sample` (`ID_SAMPLE`, `DATE_TIME_REFERENCE`, `DESCRIPTION_SAMPLE`, 
 (318, '07.03.2019 12:00', '', 2019, '11', 166, 3, 125),
 (319, '07.03.2019 12:00', '', 2019, '12', 167, 3, 125),
 (320, '07.03.2019 12:00', '', 2019, '13', 168, 3, 125),
-(321, '07.03.2019 12:00', '', 2019, '14', 169, 3, 125);
+(321, '07.03.2019 12:00', '', 2019, '14', 169, 3, 125),
+(326, '07.03.2019 12:00', 'север', 2019, '1', 217, NULL, 130),
+(327, '07.03.2019 12:00', 'юг', 2019, '2', 217, NULL, 130),
+(328, '21.03.2019 10:00', '', 2019, '1', 127, 3, 131),
+(329, '21.03.2019 10:00', '', 2019, '2', 128, 3, 131),
+(330, '21.03.2019 10:00', '', 2019, '3', 129, 3, 131),
+(331, '21.03.2019 10:00', '', 2019, '4', 130, 3, 131),
+(332, '21.03.2019 10:00', '', 2019, '5', 140, 3, 131),
+(333, '21.03.2019 10:00', '', 2019, '6', 131, 3, 131),
+(334, '21.03.2019 10:00', '', 2019, '7', 141, 3, 131),
+(335, '21.03.2019 10:00', '', 2019, '8', 142, 3, 131),
+(336, '21.03.2019 10:00', '', 2019, '9', 143, 3, 131),
+(337, '21.03.2019 13:00', '', 2019, '1', 144, 3, 132),
+(338, '21.03.2019 13:00', '', 2019, '2', 145, 3, 132),
+(339, '21.03.2019 13:00', '', 2019, '3', 146, 3, 132),
+(340, '21.03.2019 13:00', '', 2019, '4', 147, 3, 132),
+(341, '21.03.2019 13:00', '', 2019, '5', 148, 3, 132),
+(342, '21.03.2019 13:00', '', 2019, '6', 149, 3, 132),
+(343, '21.03.2019 13:00', '', 2019, '7', 150, 3, 132),
+(344, '21.03.2019 13:00', '', 2019, '8', 151, 3, 132);
 
 -- --------------------------------------------------------
 
@@ -2225,13 +2348,9 @@ CREATE TABLE `zabelejki` (
 --
 
 INSERT INTO `zabelejki` (`ID_ZABELEJKI`, `NAME`) VALUES
-(1, '$01$ Към неопределеността е добавена 10% систематична грешка.'),
+(1, 'Към неопределеността е добавена 10% систематична грешка.'),
 (5, ''),
-(8, 'Наредба за радиационна защита, обн., ДВ, бр. 16 от 20.02.2018 г., Приложение № 2, Таблица № 5'),
-(9, '$02$ Да се докладва МДА на 14С за всяка проба'),
-(10, '$02$ Да се докладва МДА на 3H за всяка от пробите'),
-(11, '$03$ Да се докладват съответните лимитни стойности от НРЗ от 20.02.2018'),
-(12, '$02$ Да се докладва МДА на 60Co и 137Cs за всяка от пробите');
+(8, 'Наредба за радиационна защита, обн., ДВ, бр. 16 от 20.02.2018 г., Приложение № 2, Таблица № 5');
 
 --
 -- Indexes for dumped tables
@@ -2251,6 +2370,19 @@ ALTER TABLE `dimension`
   ADD UNIQUE KEY `NAME` (`NAME`);
 
 --
+-- Indexes for table `dobiv`
+--
+ALTER TABLE `dobiv`
+  ADD PRIMARY KEY (`ID_RECUEST`),
+  ADD KEY `FK_DOBIV_USERS_ID_USERS` (`USERS_ID_USERS`),
+  ADD KEY `FK_DOBIV_IND_NUM_DOC_ID_IND_NUM_DOC` (`IND_NUM_DOC_ID_IND_NUM_DOC`),
+  ADD KEY `FK_DOBIV_RAZMERNOSTI_ID_RAZMERNOSTI` (`RAZMERNOSTI_ID_RAZMERNOSTI`),
+  ADD KEY `DOBIVOBEKTNAIZPITVANEREQUEST_ID_OBEKT_NA_IZPITVANE` (`OBEKT_NA_IZPITVANE_REQUEST_ID_OBEKT_NA_IZPITVANE`),
+  ADD KEY `FK_DOBIV_EXTRA_MODULE_ID_EXTRA_MODULE` (`EXTRA_MODULE_ID_EXTRA_MODULE`),
+  ADD KEY `FK_DOBIV_IZPITVAN_PRODUKT_ID_IZPITVAN_PRODUKT` (`IZPITVAN_PRODUKT_ID_IZPITVAN_PRODUKT`),
+  ADD KEY `FK_DOBIV_ZABELEJKI_ID_ZABELEJKI` (`ZABELEJKI_ID_ZABELEJKI`);
+
+--
 -- Indexes for table `dopalniziskv`
 --
 ALTER TABLE `dopalniziskv`
@@ -2267,10 +2399,10 @@ ALTER TABLE `external_applicant`
 --
 ALTER TABLE `extra_module`
   ADD PRIMARY KEY (`ID_EXTRA_MODULE`),
+  ADD KEY `FK_EXTRA_MODULE_DOPLIZIS_ID_DOPIZIS` (`DOPLIZIS_ID_DOPIZIS`),
   ADD KEY `FK_EXTRA_MODULE_APLICANT_ID_APLICANT` (`APLICANT_ID_APLICANT`),
   ADD KEY `EXTRAMODULEEXTERNALAPPLICANT_ID_EXTERNAL_APPLICANT` (`EXTERNAL_APPLICANT_ID_EXTERNAL_APPLICANT`),
-  ADD KEY `EXTRAMODULEINTERNALAPPLICANT_ID_INTERNAL_APPLICANT` (`INTERNAL_APPLICANT_ID_INTERNAL_APPLICANT`),
-  ADD KEY `FK_EXTRA_MODULE_DOPIZIS_ID_DOPIZIS` (`DOPIZIS_ID_DOPIZIS`) USING BTREE;
+  ADD KEY `EXTRAMODULEINTERNALAPPLICANT_ID_INTERNAL_APPLICANT` (`INTERNAL_APPLICANT_ID_INTERNAL_APPLICANT`);
 
 --
 -- Indexes for table `ind_num_doc`
@@ -2318,6 +2450,21 @@ ALTER TABLE `metody_to_pokazatel`
   ADD PRIMARY KEY (`ID_METODY_TO_POKAZATEL`),
   ADD KEY `FK_METODY_TO_POKAZATEL_METODY_ID_METODY` (`METODY_ID_METODY`),
   ADD KEY `FK_METODY_TO_POKAZATEL_POKAZATEL_ID_POKAZATEL` (`POKAZATEL_ID_POKAZATEL`);
+
+--
+-- Indexes for table `naredbi`
+--
+ALTER TABLE `naredbi`
+  ADD PRIMARY KEY (`ID_NAREDBI`),
+  ADD KEY `FK_NAREDBI_RAZMERNOST_ID_RAZMERNOSTI` (`RAZMERNOST_ID_RAZMERNOSTI`);
+
+--
+-- Indexes for table `normi`
+--
+ALTER TABLE `normi`
+  ADD PRIMARY KEY (`ID_NORMI`),
+  ADD KEY `FK_NORMI_NAREDBI_ID_NAREDBI` (`NAREDBI_ID_NAREDBI`),
+  ADD KEY `FK_NORMI_NUCLIDE_ID_NUCLIDE` (`NUCLIDE_ID_NUCLIDE`);
 
 --
 -- Indexes for table `nuclide`
@@ -2428,19 +2575,25 @@ ALTER TABLE `zabelejki`
 -- AUTO_INCREMENT for table `aplicant`
 --
 ALTER TABLE `aplicant`
-  MODIFY `ID_APLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_APLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `dimension`
 --
 ALTER TABLE `dimension`
-  MODIFY `ID_DIMENSION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_DIMENSION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `dobiv`
+--
+ALTER TABLE `dobiv`
+  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dopalniziskv`
 --
 ALTER TABLE `dopalniziskv`
-  MODIFY `ID_DOPIZIS` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_DOPIZIS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `external_applicant`
@@ -2452,7 +2605,7 @@ ALTER TABLE `external_applicant`
 -- AUTO_INCREMENT for table `extra_module`
 --
 ALTER TABLE `extra_module`
-  MODIFY `ID_EXTRA_MODULE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `ID_EXTRA_MODULE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `ind_num_doc`
@@ -2464,13 +2617,13 @@ ALTER TABLE `ind_num_doc`
 -- AUTO_INCREMENT for table `internal_applicant`
 --
 ALTER TABLE `internal_applicant`
-  MODIFY `ID_INTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ID_INTERNAL_APPLICANT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `izpitvanpokazatel`
 --
 ALTER TABLE `izpitvanpokazatel`
-  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
+  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
 
 --
 -- AUTO_INCREMENT for table `izpitvan_produkt`
@@ -2497,6 +2650,18 @@ ALTER TABLE `metody_to_pokazatel`
   MODIFY `ID_METODY_TO_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `naredbi`
+--
+ALTER TABLE `naredbi`
+  MODIFY `ID_NAREDBI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `normi`
+--
+ALTER TABLE `normi`
+  MODIFY `ID_NORMI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `nuclide`
 --
 ALTER TABLE `nuclide`
@@ -2512,13 +2677,13 @@ ALTER TABLE `nuclide_to_pokazatel`
 -- AUTO_INCREMENT for table `obekt_na_izpitvane_request`
 --
 ALTER TABLE `obekt_na_izpitvane_request`
-  MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `obekt_na_izpitvane_sample`
 --
 ALTER TABLE `obekt_na_izpitvane_sample`
-  MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+  MODIFY `ID_OBEKT_NA_IZPITVANE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `otclonenie`
@@ -2548,19 +2713,19 @@ ALTER TABLE `razmernosti`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=651;
+  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=667;
 
 --
 -- AUTO_INCREMENT for table `sample`
 --
 ALTER TABLE `sample`
-  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=322;
+  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
 
 --
 -- AUTO_INCREMENT for table `tsi`
@@ -2585,13 +2750,25 @@ ALTER TABLE `zabelejki`
 --
 
 --
+-- Ограничения за таблица `dobiv`
+--
+ALTER TABLE `dobiv`
+  ADD CONSTRAINT `DOBIVOBEKTNAIZPITVANEREQUEST_ID_OBEKT_NA_IZPITVANE` FOREIGN KEY (`OBEKT_NA_IZPITVANE_REQUEST_ID_OBEKT_NA_IZPITVANE`) REFERENCES `obekt_na_izpitvane_request` (`ID_OBEKT_NA_IZPITVANE`),
+  ADD CONSTRAINT `FK_DOBIV_EXTRA_MODULE_ID_EXTRA_MODULE` FOREIGN KEY (`EXTRA_MODULE_ID_EXTRA_MODULE`) REFERENCES `extra_module` (`ID_EXTRA_MODULE`),
+  ADD CONSTRAINT `FK_DOBIV_IND_NUM_DOC_ID_IND_NUM_DOC` FOREIGN KEY (`IND_NUM_DOC_ID_IND_NUM_DOC`) REFERENCES `ind_num_doc` (`ID_IND_NUM_DOC`),
+  ADD CONSTRAINT `FK_DOBIV_IZPITVAN_PRODUKT_ID_IZPITVAN_PRODUKT` FOREIGN KEY (`IZPITVAN_PRODUKT_ID_IZPITVAN_PRODUKT`) REFERENCES `izpitvan_produkt` (`ID_IZPITVAN_PRODUKT`),
+  ADD CONSTRAINT `FK_DOBIV_RAZMERNOSTI_ID_RAZMERNOSTI` FOREIGN KEY (`RAZMERNOSTI_ID_RAZMERNOSTI`) REFERENCES `razmernosti` (`ID_RAZMERNOSTI`),
+  ADD CONSTRAINT `FK_DOBIV_USERS_ID_USERS` FOREIGN KEY (`USERS_ID_USERS`) REFERENCES `users` (`ID_USERS`),
+  ADD CONSTRAINT `FK_DOBIV_ZABELEJKI_ID_ZABELEJKI` FOREIGN KEY (`ZABELEJKI_ID_ZABELEJKI`) REFERENCES `zabelejki` (`ID_ZABELEJKI`);
+
+--
 -- Ограничения за таблица `extra_module`
 --
 ALTER TABLE `extra_module`
   ADD CONSTRAINT `EXTRAMODULEEXTERNALAPPLICANT_ID_EXTERNAL_APPLICANT` FOREIGN KEY (`EXTERNAL_APPLICANT_ID_EXTERNAL_APPLICANT`) REFERENCES `external_applicant` (`ID_EXTERNAL_APPLICANT`),
   ADD CONSTRAINT `EXTRAMODULEINTERNALAPPLICANT_ID_INTERNAL_APPLICANT` FOREIGN KEY (`INTERNAL_APPLICANT_ID_INTERNAL_APPLICANT`) REFERENCES `internal_applicant` (`ID_INTERNAL_APPLICANT`),
   ADD CONSTRAINT `FK_EXTRA_MODULE_APLICANT_ID_APLICANT` FOREIGN KEY (`APLICANT_ID_APLICANT`) REFERENCES `aplicant` (`ID_APLICANT`),
-  ADD CONSTRAINT `FK_EXTRA_MODULE_OTCLONENIE_ID_OTCLON` FOREIGN KEY (`DOPIZIS_ID_DOPIZIS`) REFERENCES `otclonenie` (`ID_OTCLON`);
+  ADD CONSTRAINT `FK_EXTRA_MODULE_DOPLIZIS_ID_DOPIZIS` FOREIGN KEY (`DOPLIZIS_ID_DOPIZIS`) REFERENCES `dopalniziskv` (`ID_DOPIZIS`);
 
 --
 -- Ограничения за таблица `izpitvanpokazatel`
@@ -2607,6 +2784,19 @@ ALTER TABLE `izpitvanpokazatel`
 ALTER TABLE `metody_to_pokazatel`
   ADD CONSTRAINT `FK_METODY_TO_POKAZATEL_METODY_ID_METODY` FOREIGN KEY (`METODY_ID_METODY`) REFERENCES `metody` (`ID_METODY`),
   ADD CONSTRAINT `FK_METODY_TO_POKAZATEL_POKAZATEL_ID_POKAZATEL` FOREIGN KEY (`POKAZATEL_ID_POKAZATEL`) REFERENCES `list_izpitvan_pokazatel` (`ID_POKAZATEL`);
+
+--
+-- Ограничения за таблица `naredbi`
+--
+ALTER TABLE `naredbi`
+  ADD CONSTRAINT `FK_NAREDBI_RAZMERNOST_ID_RAZMERNOSTI` FOREIGN KEY (`RAZMERNOST_ID_RAZMERNOSTI`) REFERENCES `razmernosti` (`ID_RAZMERNOSTI`);
+
+--
+-- Ограничения за таблица `normi`
+--
+ALTER TABLE `normi`
+  ADD CONSTRAINT `FK_NORMI_NAREDBI_ID_NAREDBI` FOREIGN KEY (`NAREDBI_ID_NAREDBI`) REFERENCES `naredbi` (`ID_NAREDBI`),
+  ADD CONSTRAINT `FK_NORMI_NUCLIDE_ID_NUCLIDE` FOREIGN KEY (`NUCLIDE_ID_NUCLIDE`) REFERENCES `nuclide` (`ID_NUCLIDE`);
 
 --
 -- Ограничения за таблица `nuclide_to_pokazatel`

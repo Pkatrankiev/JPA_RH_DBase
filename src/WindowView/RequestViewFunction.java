@@ -22,7 +22,7 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.IzpitvanPokazatel;
@@ -217,7 +217,7 @@ public class RequestViewFunction {
 		} else {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
 			if(id_Period<13){
-				strMesec = "ì.";
+				strMesec = "ì. ";
 			}
 			if (DateChoice.get_str_period_sample().equals("")) {
 				txtInDescriptGrupSample = "";
@@ -331,7 +331,7 @@ public class RequestViewFunction {
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 DocxMainpulator.generateAndSend_Request_Docx("temp.docx",
+		    	 GenerateRequestWordDoc.generateAndSend_Request_Docx("temp.docx",
 		 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
 				    	     	
 		     }

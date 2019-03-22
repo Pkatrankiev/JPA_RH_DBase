@@ -15,7 +15,7 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import CreateWordDocProtocol.CreateListForMultiTable;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.GenerateDocProtokol;
@@ -173,11 +173,11 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 		
 			break;
 		case "Генериране на Заявка":
-			DocxMainpulator.generateAndSend_Request_Docx("Zaqvka.docx",
+			GenerateRequestWordDoc.generateAndSend_Request_Docx("Zaqvka.docx",
 					"Z-" + choiseRequest.getRecuest_code() + "_" + choiseRequest.getDate_request(), substitutionData, round);
 			break;
 		case "Генериране на Разпределителен формуляр":
-			GenerateDocRazpredFormul.GenerateProtokolWordDoc("Razpred.docx", choiseRequest, substitutionData, round);
+			GenerateDocRazpredFormul.GenerateRazpFormWordDoc("Razpred.docx", choiseRequest, substitutionData, round);
 			break;
 		default:
 			break;

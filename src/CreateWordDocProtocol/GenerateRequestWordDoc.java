@@ -1,8 +1,6 @@
 package CreateWordDocProtocol;
 
 import java.awt.Desktop;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -15,7 +13,6 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Deque;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -23,10 +20,9 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
-
 import WindowView.TranscluentWindow;
 
-public class DocxMainpulator {
+public class GenerateRequestWordDoc {
 
 	private static final String MAIN_DOCUMENT_PATH = "word/document.xml";
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
@@ -68,6 +64,7 @@ public class DocxMainpulator {
 	}
 
 	// Unzipps specified ZIP file to specified directory
+	@SuppressWarnings("resource")
 	private static void unzip(File zipfile, File directory) throws IOException {
 
 		ZipFile zfile = new ZipFile(zipfile);
@@ -91,6 +88,7 @@ public class DocxMainpulator {
 	}
 
 	// Substitutes keys found in target file with corresponding data
+	@SuppressWarnings("unchecked")
 	private static void changeData(File targetFile, Map<String, String> substitutionData) throws IOException {
 
 		BufferedReader br = null;
@@ -107,7 +105,7 @@ public class DocxMainpulator {
 			throw e;
 		}
 
-		Iterator substitutionDataIterator = substitutionData.entrySet().iterator();
+		Iterator<?> substitutionDataIterator = substitutionData.entrySet().iterator();
 		while (substitutionDataIterator.hasNext()) {
 			Map.Entry<String, String> pair = (Map.Entry<String, String>) substitutionDataIterator.next();
 			if (docxTemplate.contains(pair.getKey())) {
@@ -130,6 +128,7 @@ public class DocxMainpulator {
 	}
 
 	// Zipps specified directory and all its subdirectories
+	@SuppressWarnings({ "unused", "resource" })
 	private static void zip(File directory, File zipfile) throws IOException {
 
 		File dir = new File("TEMPLATES/");
@@ -166,6 +165,7 @@ public class DocxMainpulator {
 	}
 
 	// Move generate file from sourceFolder to destinationFolder
+	@SuppressWarnings("unused")
 	private static void moveFile(File destinationFolder, String destinationName, File sourceFolder) {
 
 		if (!destinationFolder.exists()) {
@@ -205,7 +205,7 @@ public class DocxMainpulator {
 		try {
 			deleteTempData(new File(userTempDir));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -281,11 +281,7 @@ public class DocxMainpulator {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// System.out.println("Donenot.");
-		// }
+		
 		System.out.println(destinationDir);
 	}
 

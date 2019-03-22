@@ -37,7 +37,7 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import Aplication.GlobalVariable;
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
@@ -1358,7 +1358,7 @@ private void createPreviewRequestWordDoc() throws ParseException {
 	 final Thread thread = new Thread(new Runnable() {
 	     @Override
 	     public void run() {
-	    	 DocxMainpulator.generateAndSend_Request_Docx("Zaqvka.docx",
+	    	 GenerateRequestWordDoc.generateAndSend_Request_Docx("Zaqvka.docx",
 	 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
 			
 	    	     	

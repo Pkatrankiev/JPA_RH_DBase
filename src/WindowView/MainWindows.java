@@ -18,7 +18,7 @@ import java.awt.Frame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import CreateWordDocProtocol.DocxMainpulator;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import Menu.MenuData_AddResultsFrame;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableResultsList;
@@ -56,7 +56,7 @@ public class MainWindows {
 		win.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				DocxMainpulator.deleteTempDataDir();
+				GenerateRequestWordDoc.deleteTempDataDir();
 				win.setVisible(false);
 				win.dispose();
 				System.exit(0);

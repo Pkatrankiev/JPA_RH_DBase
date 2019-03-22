@@ -22,6 +22,29 @@ import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 
 public class Generate_Map_For_Request_Word_Document {
+	
+	private static String key_request_code = "$$request_code$$";
+	private static String key_ind_num_doc = "$$ind_num_doc$$";
+	private static String key_request_date  = "$$request_date$$";
+	private static String key_izpitvan_produkt = "$$izpitvan_produkt$$";
+	private static String key_obekt_na_izpitvane_1 = "$$obekt_na_izpitvane_1$$";
+	private static String key_obekt_na_izpitvane_protokol = "$$obekt_na_izpitvane_protokol$$";
+	private static String key_zaqvitel = "$$zaqvitel$$";
+	private static String key_metody = "$$metody$$";
+	private static String key_pokazatel_razmernost_1 = "$$pokazatel_razmernost_1$$";
+	private static String key_counts_sample = "$$counts_sample$$";
+	private static String key_description_sample_group = "$$description_sample_group$$";
+	private static String key_description_sample_group_protokol = "$$description_sample_group_protokol$$";
+	private static String key_description_sample_protokol = "$$description_sample_protokol$$";
+	private static String key_date_time_reception = "$$date_time_reception$$";
+	private static String key_date_execution = "$$date_execution$$";
+	private static String key_date_time_request = "$$date_time_request$$";
+	private static String key_request_zab = "$$req_zab$$";
+	private static String key_date_measur = "$$date_measur$$";
+	private static String key_user = "$$user$$";
+//	private static String 
+//	private static String 
+	
 
 	public static Map<String, String> GenerateMapForRequestWordDocument(Request request, String list_izpitvan_pokazatel,
 			String[][] sample_description, String date_time_reference) {
@@ -59,72 +82,70 @@ public class Generate_Map_For_Request_Word_Document {
 
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
-		substitutionData.put("$$request_code$$", request.getRecuest_code());
+		substitutionData.put(key_request_code, request.getRecuest_code());
 
-		substitutionData.put("$$request_date$$", RequestViewFunction.DateNaw(false));
+		substitutionData.put(key_request_date, RequestViewFunction.DateNaw(false));
 
 		String str = "";
 		if (request.getInd_num_doc() != null)
 			str = request.getInd_num_doc().getName();
 
-		substitutionData.put("$$ind_num_doc$$", str);
+		substitutionData.put(key_ind_num_doc, str);
 
-		substitutionData.put("$$izpitvan_produkt$$", request.getIzpitvan_produkt().getName_zpitvan_produkt());
+		substitutionData.put(key_izpitvan_produkt, request.getIzpitvan_produkt().getName_zpitvan_produkt());
 
 		String obekt_na_izpitvane = generate_obekt_na_izpitvane_Masive_String(request);
 
-		substitutionData.put("$$obekt_na_izpitvane_1$$", obekt_na_izpitvane);
+		substitutionData.put(key_obekt_na_izpitvane_1, obekt_na_izpitvane);
 
-		substitutionData.put("$$obekt_na_izpitvane_protokol$$", obekt_na_izpitvane);
+		substitutionData.put(key_obekt_na_izpitvane_protokol, obekt_na_izpitvane);
 
 		if (request.getExtra_module() != null) {
 			if (request.getExtra_module().getInternal_applicant() != null) {
-				substitutionData.put("$$zaqvitel$$", "ДП “РАО”" + ", "
+				substitutionData.put(key_zaqvitel, "ДП “РАО”" + ", "
 						+ request.getExtra_module().getInternal_applicant().getInternal_applicant_organization());
 			} else {
-				substitutionData.put("$$zaqvitel$$",
+				substitutionData.put(key_zaqvitel,
 						request.getExtra_module().getExternal_applicant().getExternal_applicant_name());
 			}
 		} else {
-			substitutionData.put("$$zaqvitel$$", "Държавно предприятие “Радиоактивни отпадъци”");
+			substitutionData.put(key_zaqvitel, "Държавно предприятие “Радиоактивни отпадъци”");
 		}
 
-		String metody = generate_Metody_String(request);
-		substitutionData.put("$$metody$$", metody);
+		String str_metody = generate_Metody_String(request);
+		substitutionData.put(key_metody, str_metody);
 
 		String pokazatel_razmernost = generate_pokazatel_razmernost_Masive_String(request, list_izpitvan_pokazatel);
 
-		substitutionData.put("$$pokazatel_razmernost_1$$", pokazatel_razmernost);
+		substitutionData.put(key_pokazatel_razmernost_1, pokazatel_razmernost);
 
 		// Описание на пробите за изпитване
 		String[] count_description_sample_group = generate_count_description_sample_group_Masive_String(request,
 				sample_description);
 
-		substitutionData.put("$$counts_sample$$", count_description_sample_group[0]);
-		substitutionData.put("$$description_sample_group$$", count_description_sample_group[1]);
+		substitutionData.put(key_counts_sample, count_description_sample_group[0]);
+		substitutionData.put(key_description_sample_group, count_description_sample_group[1]);
 
 		String[] description_sample_group = generate_description_sample_group_protokol(request, sample_description);
 
-		substitutionData.put("$$description_sample_group_protokol$$", description_sample_group[0]);
-		substitutionData.put("$$description_sample_protokol$$", description_sample_group[1]);
+		substitutionData.put(key_description_sample_group_protokol, description_sample_group[0]);
+		substitutionData.put(key_description_sample_protokol, description_sample_group[1]);
 
-		substitutionData.put("$$date_time_reception$$", request.getDate_reception());
-		substitutionData.put("$$date_execution$$", request.getDate_execution());
+		substitutionData.put(key_date_time_reception, request.getDate_reception());
+		substitutionData.put(key_date_execution, request.getDate_execution());
 		try {
-			substitutionData.put("$$date_time_request$$", DatePicker.formatToProtokolDate(date_time_reference));
+			substitutionData.put(key_date_time_request, DatePicker.formatToProtokolDate(date_time_reference));
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 		}
 
-		String zabelejki = RequestViewAplication.getStringZabelejkiFromRequest(request);
-
-		substitutionData.put("$$s_zab$$", zabelejki);
-	
-		substitutionData.put("$$date_measur$$", minDate + " ÷ " + maxDate);
+		String request_zabelejki = RequestViewAplication.getStringZabelejkiForRequest(request);
+		substitutionData.put(key_request_zab, request_zabelejki);
+				substitutionData.put(key_date_measur, minDate + " ÷ " + maxDate);
 
 		if (request.getUsers() != null) {
-			substitutionData.put("$$user$$",
+			substitutionData.put(key_user,
 					request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
 		}
 		String strrr = TSI_DAO.getValueTSIById(1).getName();
@@ -132,9 +153,6 @@ public class Generate_Map_For_Request_Word_Document {
 		return substitutionData;
 
 	}
-
-	
-		
 	
 
 	private static String[] generate_count_description_sample_group_Masive_String(Request request,
@@ -157,18 +175,21 @@ public class Generate_Map_For_Request_Word_Document {
 		descrip_sam_gr_str = count + getWordOFNumber(count) + descrip_sam_gr_str;
 
 		String samp_str = "";
-
 		for (int i = 0; i < count; i++) {
 			samp_str = samp_str + sample_description[i][0] + " / ";
-			samp_str = samp_str + sample_description[i][1] + ", ";
-			samp_str = samp_str + sample_description[i][2] + ", ";
-
+			samp_str = samp_str + sample_description[i][1];
+			if (sample_description[i][2].length() > 0) {
+				samp_str = samp_str + ", " + sample_description[i][2] + "; ";
+			} else {
+				samp_str = samp_str + "; ";
+			}
+		
 			if (period_fl)
 				samp_str = samp_str + "за " + sample_description[i][4];
 		}
 
 		count_description_sample_group[0] = descrip_sam_gr_str;
-		count_description_sample_group[1] = samp_str;
+		count_description_sample_group[1] = samp_str.substring(0, samp_str.length()-2);
 
 		return count_description_sample_group;
 	}
@@ -204,7 +225,7 @@ public class Generate_Map_For_Request_Word_Document {
 		}
 
 		count_description_sample_group[0] = descrip_sam_gr_str;
-		count_description_sample_group[1] = samp_str;
+		count_description_sample_group[1] = samp_str.substring(0, samp_str.length()-2);
 
 		return count_description_sample_group;
 	}

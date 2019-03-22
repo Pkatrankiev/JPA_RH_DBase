@@ -43,7 +43,7 @@ import WindowView.TranscluentWindow;
 public class GenerateDocRazpredFormul {
 
 	public static int maxRowInTableOnePage = 10;
-	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
+	public static void GenerateRazpFormWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
 
@@ -162,7 +162,7 @@ public class GenerateDocRazpredFormul {
 					+ ".docx";
 			AplicationDocTemplate.writeDocxToStream(template, FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 			round.StopWindow();
-			DocxMainpulator.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {
 

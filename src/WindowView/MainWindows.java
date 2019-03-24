@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import CreateWordDocProtocol.GenerateRequestWordDoc;
-import Menu.MenuData_AddResultsFrame;
+import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
@@ -28,6 +28,7 @@ import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
+import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_NewExtraRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
@@ -98,9 +99,10 @@ public class MainWindows {
 		sequenseMenu.setMnemonic(KeyEvent.VK_Z);
 		
 		sequenseMenu.add(new MenuRequense_NewRequense());
-		sequenseMenu.add(new MenuRequense_NewExtraRequense());
+//		sequenseMenu.add(new MenuRequense_NewExtraRequense());
 		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
-		sequenseMenu.add(new MenuData_AddResultsFrame());
+		sequenseMenu.add(new MenuRequense_AddDobiveFrame());
+		sequenseMenu.add(new MenuRequense_AddResultsFrame());
 		sequenseMenu.addSeparator();
 		sequenseMenu.add(new MenuRequense_RequenseList());
 		return sequenseMenu;

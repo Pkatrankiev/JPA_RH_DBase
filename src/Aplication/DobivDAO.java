@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
@@ -15,6 +17,7 @@ import DBase_Class.Metody;
 
 
 import DBase_Class.Nuclide;
+import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
@@ -186,7 +189,43 @@ public class DobivDAO {
 
 			return list;
 		}
+		
+		public static void updateDobiv(Dobiv dobiv) {
 
+			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManager entitymanager = emfactory.createEntityManager();
+			entitymanager.getTransaction().begin();
+		
+			entitymanager.find(Dobiv.class, dobiv.getId_dobiv());
+			entitymanager.merge(dobiv);
+
+
+			try {
+				entitymanager.getTransaction().commit();
+			} catch (javax.persistence.RollbackException e) {
+				JOptionPane.showMessageDialog(null, "Прблем при обновяване на добив: "+dobiv.getCode_Standart()+" "+dobiv.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			entitymanager.close();
+			emfactory.close();
+		}
+		
+		public static void deleteDobivById(int id) {
+			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManager entitymanager = emfactory.createEntityManager();
+			EntityTransaction updateTranzaction = entitymanager.getTransaction();
+			updateTranzaction.begin();
+			Query query = entitymanager.createQuery(" delete from Dobiv where id =:id");
+			query.setParameter("id", id);
+			
+	        query.executeUpdate();
+	        updateTranzaction.commit();
+					
+			entitymanager.close();
+			emfactory.close();
+			}
+			
 		
 
 

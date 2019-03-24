@@ -6,17 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import DBase_Class.Users;
-import Table.Table_Results_List;
+import WindowView.AddDobivViewWithTable;
 import WindowView.AddResultsViewWithTable;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
-public class MenuData_AddResultsFrame extends AbstractMenuAction{
+public class MenuRequense_AddDobiveFrame extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
 
-	public MenuData_AddResultsFrame() {
-		super("Въвеждане на Резултати");
+	public MenuRequense_AddDobiveFrame() {
+		super("Въвеждане на Добив");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,7 +33,7 @@ public class MenuData_AddResultsFrame extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new AddResultsViewWithTable(f,round, loginDlg);
+		 		new AddDobivViewWithTable(f,round, loginDlg);
 		 			    	
 		     }
 		    });

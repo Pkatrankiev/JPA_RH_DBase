@@ -306,7 +306,7 @@ public class ResultsDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 	
-		entitymanager.find(Request.class, results.getId_results());
+		entitymanager.find(Results.class, results.getId_results());
 		entitymanager.merge(results);
 
 

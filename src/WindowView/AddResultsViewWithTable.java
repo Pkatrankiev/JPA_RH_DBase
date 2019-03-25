@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import Aplication.AplicantDAO;
@@ -1203,25 +1204,23 @@ public class AddResultsViewWithTable extends JDialog {
 		JTable table = new JTable();// new DefaultTableModel(rowData,
 									// columnNames));
 
+		JTableHeader header = table.getTableHeader(); 
+		header.addMouseListener(new TableHeaderMouseListener(table));
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
-
+			
 			public void mousePressed(MouseEvent e) {
 				int row = table.rowAtPoint(e.getPoint());
 				int col = table.columnAtPoint(e.getPoint());
+				System.out.println("TableRow="+row+" TableColumn="+col);
 				if (SwingUtilities.isRightMouseButton(e)) {
-					String date = "";
-					if (col == dateAnaliz_Colum) {
-						date = table.getValueAt(table.getSelectedRow(), dateAnaliz_Colum).toString();
+					if (col == dateAnaliz_Colum || col == dateHimObr_Colum){
+					String date_choice = getDateFromDatePicker(table, col);
+					table.setValueAt(date_choice, row, col);
 					}
-					if (col == dateHimObr_Colum) {
-						date = table.getValueAt(table.getSelectedRow(), dateHimObr_Colum).toString();
-					}
-					final JFrame f = new JFrame();
-					DatePicker dPicer = new DatePicker(f, false, date);
-					table.setValueAt(dPicer.setPickedDate(false), row, col);
 
 				}
 				if (table.getSelectedColumn() == check_Colum) {
@@ -1232,6 +1231,8 @@ public class AddResultsViewWithTable extends JDialog {
 					checkValueFrame(nuclide,samp,actv_value,mda);
 				}
 			}
+
+		
 
 		});
 
@@ -1320,7 +1321,21 @@ public class AddResultsViewWithTable extends JDialog {
 		});
 		return table;
 	}
-
+	
+	private static String getDateFromDatePicker(JTable table, int col) {
+		String date = "";
+		if (col == dateAnaliz_Colum) {
+			date = table.getValueAt(table.getSelectedRow(), dateAnaliz_Colum).toString();
+		}
+		if (col == dateHimObr_Colum) {
+			date = table.getValueAt(table.getSelectedRow(), dateHimObr_Colum).toString();
+		}
+		final JFrame f = new JFrame();
+		DatePicker dPicer = new DatePicker(f, false, date);
+		String date_choice = dPicer.setPickedDate(false);
+		return date_choice;
+	}
+	
 	public static void checkValueFrame(Nuclide nuclide, Sample samp, Double actv_value, Double mda) {
 		List<Sample> listAllSamp = SampleDAO.getInListAllValueSample();
 		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
@@ -1475,5 +1490,23 @@ public class AddResultsViewWithTable extends JDialog {
 		return rowFromTableResult;
 
 	}
-
+	
+	public class TableHeaderMouseListener extends MouseAdapter {
+		
+		private JTable table;
+		
+		public TableHeaderMouseListener(JTable table) {
+			this.table = table;
+		}
+		
+		public void mouseClicked(MouseEvent event) {
+			Point point = event.getPoint();
+			int column = table.columnAtPoint(point);
+			String date_choice = getDateFromDatePicker(table, column);
+			
+			JOptionPane.showMessageDialog(table, "Column header #" + column + " is clicked");
+			
+			// do your real thing here...
+		}
+	}
 }

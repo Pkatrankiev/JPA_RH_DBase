@@ -76,6 +76,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -111,6 +112,8 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<String> list_UsersNameFamilyOIR;
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<IzpitvanPokazatel> listPokazatel;
+	
+	private JFileChooser f = new JFileChooser();
 
 	private static Request choiseRequest;
 
@@ -946,7 +949,7 @@ public class AddResultsViewWithTable extends JDialog {
 	public void btnOpenFileListener(JButton btnOpenFile) {
 		btnOpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser f = new JFileChooser();
+				
 				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				f.showOpenDialog(null);
 				try {
@@ -1502,11 +1505,16 @@ public class AddResultsViewWithTable extends JDialog {
 		public void mouseClicked(MouseEvent event) {
 			Point point = event.getPoint();
 			int column = table.columnAtPoint(point);
+			if (column == dateAnaliz_Colum || column == dateHimObr_Colum){
 			String date_choice = getDateFromDatePicker(table, column);
+			for (int i = 0; i < dataTable.length; i++) {
+				table.setValueAt(date_choice, i, column);
+			}
+			}
 			
-			JOptionPane.showMessageDialog(table, "Column header #" + column + " is clicked");
-			
-			// do your real thing here...
 		}
 	}
+
+
+
 }

@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -166,7 +167,6 @@ public class GenerateDocProtokol {
 				
 				
 					int[] masive = list.get(0);
-					System.out.println("masive[masive.length-1]= " + masive[masive.length - 1] + "coutRow= " + coutRow);
 					if (coutRow < masive[masive.length - 1]) {
 						if (result.getInProtokol()) {
 							repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
@@ -187,13 +187,22 @@ public class GenerateDocProtokol {
 							coutRow = 2;
 						}
 						
-						new_smple_list = createListForLastSample(idexSample, smple_list);
+						new_smple_list = createListForLastSample(idexSample+1, smple_list);
+						for (int i = 0; i < new_smple_list.size(); i++) {
+							System.out.println(new_smple_list.get(i).getSample_code());
+						}
 						list = createMsasiveRowTable(new_smple_list, pokazatel_list, coutRow );
-						
+						for (int i = 0; i < list.size(); i++) {
+							for (int j = 0; j < list.get(i).length; j++) {
+								System.out.println(list.get(i).length+" "+list.get(i)[j]);
+							}
+						}
+						if (result.getInProtokol()) {
 						repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
 								masive_column_table_result);
 						AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
 						coutRow++;
+						}
 					}
 				}
 			}
@@ -219,8 +228,9 @@ public class GenerateDocProtokol {
 			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel, 
 					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* "+naredba.getName_protokol())); 
 	}
-		
+		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
 		AplicationDocTemplate.addTable(template, zabTable);
+		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
 		AplicationDocTemplate.addTable(template, podpisiTable);
 		AplicationDocTemplate.replaceTable(zabTable, AplicationDocTemplate.createEmptiMap(strKeyzabTable));
 
@@ -269,8 +279,14 @@ public class GenerateDocProtokol {
 			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[i], numberMergeCells[i + 1]);
 			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[i], numberMergeCells[i + 1]);
 		}
-		
-		if(FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size()==1){
+		int max =0;
+		for (int i = 1; i < numberMergeCells.length; i++) {
+			if(max<=numberMergeCells[i]-numberMergeCells[i-1]){
+				max=numberMergeCells[i]-numberMergeCells[i-1];
+			}
+		}
+		System.out.println("max= "+max);
+		if(FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size()==1 && max<3){
 			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
 			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
 		}

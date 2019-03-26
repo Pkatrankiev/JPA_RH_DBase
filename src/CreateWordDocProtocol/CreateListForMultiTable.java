@@ -66,40 +66,50 @@ public class CreateListForMultiTable {
 	@SuppressWarnings({ "null", "unused" })
 	public static List<int[]> addRowPokazatelIfGamaOrAlpha(int[] numberMergeCells) {
 		List<int[]> listNumberSampleCount = new ArrayList<int[]>();
-		System.out.println("numberMergeCells.length= " + numberMergeCells.length);
-		int i = numberMergeCells.length - 1;
-			if (numberMergeCells[i] < maxRowInOneTableOnePage) {
+		int countMergeCells = numberMergeCells.length - 1;
+			if (numberMergeCells[countMergeCells] < maxRowInOneTableOnePage) {
 				listNumberSampleCount.add(numberMergeCells);
+				
+				System.out.println("numberMergeCells.length= " + numberMergeCells.length);
+				for (int i = 0; i < numberMergeCells.length; i++) {
+					System.out.println("masive0["+i+"]= " + numberMergeCells[i]);
+				}
+				
+				
 				return listNumberSampleCount;
 			}
 
-			if (numberMergeCells[i] < maxRowInFullTableOnePage) {
-				System.out.println("numberMergeCells[" + i + "]= " + numberMergeCells[i]);
+			if (numberMergeCells[countMergeCells] < maxRowInFullTableOnePage) {
 				int countRowInLastTable = 0;
 				int k = 0, m = 0;
 				do  {
 					k++;
-					countRowInLastTable = numberMergeCells[i] - numberMergeCells[i - k];
-					System.out.println("i= " + i + "; k= " + k + "; countRowInLastTable= " + countRowInLastTable);
+					countRowInLastTable = numberMergeCells[countMergeCells] - numberMergeCells[countMergeCells - k];
 				}	
-				while(countRowInLastTable < 4 && i - k >= 0);
-			
-				System.out.println("i= " + i + "; k= " + k+"i-k="+(i-k)+"");
-				int[] masive1 = new int[i - k + 1];
+				while(countRowInLastTable <= 4 && countMergeCells - k >= 0);
+				int[] masive1 = new int[countMergeCells - k + 1];
 				int[] masive2 = new int[k];
 				for (int j = 0; j < numberMergeCells.length; j++) {
-					if (j <= i - k) {
-						System.out.println("masive1  j= " + j);
+					if (j <= countMergeCells - k) {
 						masive1[j] = numberMergeCells[j];
 					} else {
-						System.out.println("masive2   j= " + j);
 						masive2[m] = numberMergeCells[j];
 						m++;
 					}
 				}
 				listNumberSampleCount.add(masive1);
 				listNumberSampleCount.add(masive2);
-				System.out.println("masive1= " + masive1.length + " " + "masive2= " + masive2.length);
+				
+				
+				System.out.println("masive1= " + masive1.length + " masive2= " + masive2.length);
+				for (int i = 0; i < masive1.length; i++) {
+					System.out.println("masive1["+i+"]= " + masive1[i]);
+				}
+				for (int i = 0; i < masive2.length; i++) {
+					System.out.println("masive2["+i+"]= " + masive2[i]);
+				}
+				
+				
 				return listNumberSampleCount;
 			} else {
 				List<Integer> list1 = new ArrayList<Integer>();

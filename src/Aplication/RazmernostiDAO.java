@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Dimension;
 import DBase_Class.External_applicant;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Nuclide;
@@ -77,7 +78,7 @@ public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
 
 	@GET
 	public static Razmernosti getValueRazmernostiByName(String name) {
-
+		Razmernosti razmt;
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -86,12 +87,16 @@ public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
+		if (query.getResultList().isEmpty()) {
+			razmt =getValueRazmernostiById(9) ;
+		}else{
+			razmt = (Razmernosti) query.getResultList().get(0);
+		}
 		
-		Razmernosti list = (Razmernosti) query.getSingleResult();
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return razmt;
 	}
 
 	public static String[] getMasiveStringAllValueRazmernosti(){

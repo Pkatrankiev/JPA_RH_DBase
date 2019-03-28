@@ -344,36 +344,38 @@ public class ReadGamaFile {
 				} else {
 					if (stringLine[j].length > 0) {
 						switch (stringLine[j][0]) {
-						case "Описание":
+						case "РћРїРёСЃР°РЅРёРµ":
 							cod_sample = stringLine[j][3];
 							break;
-						case "Извършил":
+						case "РР·РІСЉСЂС€РёР»":
 							user_mesure = stringLine[j][3];
 							break;
-						case "Количество":
+						case "РљРѕР»РёС‡РµСЃС‚РІРѕ":
 							quantity = stringLine[j][3];
 							if (stringLine[j].length > 4) {
 								dimension = stringLine[j][4];
+								dimension = dimension.replaceAll("2", "ВІ");
+								dimension = dimension.replaceAll("3","Ві");
 							}
 							break;
-						case "Неопределеност":
+						case "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚":
 							uncertainy = stringLine[j][1];
 							break;
-						case "Kалибровка":
+						case "KР°Р»РёР±СЂРѕРІРєР°":
 							T_S_I = stringLine[j][3];
 							break;
-						case "Нуклид": {
+						case "РќСѓРєР»РёРґ": {
 							flagNuclidy++;
 							countLineToNuclide = 0;
 						}
 							break;
-						case "Систематична":
+						case "РЎРёСЃС‚РµРјР°С‚РёС‡РЅР°":
 							sysError = stringLine[j][2];
 							break;
-						case "Неопределеността":
+						case "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚С‚Р°":
 							sigma = stringLine[j][4];
 							break;
-						case "Начало":
+						case "РќР°С‡Р°Р»Рѕ":
 							date_mesur = stringLine[j][3];
 							break;
 

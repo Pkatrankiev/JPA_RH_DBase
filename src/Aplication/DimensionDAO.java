@@ -72,7 +72,7 @@ public class DimensionDAO {
 
 	@GET
 	public static Dimension getValueDimensionByName(String name) {
-
+		Dimension dim;
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -82,14 +82,14 @@ public class DimensionDAO {
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
 		if (query.getResultList().isEmpty()) {
-			setValueDimension(name);
+			dim =getValueDimensionById(9) ;
+		}else{
+		dim = (Dimension) query.getResultList().get(0);
 		}
-		
-		Dimension list = (Dimension) query.getResultList().get(0);
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return dim;
 	}
 
 	public static String[] getMasiveStringAllValueDimension(){

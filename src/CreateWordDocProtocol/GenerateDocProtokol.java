@@ -140,7 +140,11 @@ public class GenerateDocProtokol {
 		
 		int coutRow = 2;
 		List<int[]> list = createMsasiveRowTable(smple_list, pokazatel_list,coutRow);
-
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.get(i).length; j++) {
+				System.out.println(list.get(i).length+" "+list.get(i)[j]);
+			}
+		}
 		
 		String pokaz = pokazatel_list.get(0).getPokazatel().getName_pokazatel();
 		Boolean sendOnePokazatel = false;
@@ -159,15 +163,9 @@ public class GenerateDocProtokol {
 			result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			
 			idexSample++;
-			
-		
-			
-			
-				for (Results result : result_list) {
-				
-				
-					int[] masive = list.get(0);
-					if (coutRow < masive[masive.length - 1]) {
+			for (Results result : result_list) {
+				int[] masive = list.get(0);
+					if (coutRow <= masive[masive.length - 1]) {
 						if (result.getInProtokol()) {
 							repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
 									masive_column_table_result);
@@ -229,8 +227,11 @@ public class GenerateDocProtokol {
 					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* "+naredba.getName_protokol())); 
 	}
 		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow, AplicationDocTemplate.createEmptiMap("##$$%%"));
 		AplicationDocTemplate.addTable(template, zabTable);
+		
 		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow, AplicationDocTemplate.createEmptiMap("##$$%%"));
 		AplicationDocTemplate.addTable(template, podpisiTable);
 		AplicationDocTemplate.replaceTable(zabTable, AplicationDocTemplate.createEmptiMap(strKeyzabTable));
 
@@ -286,7 +287,7 @@ public class GenerateDocProtokol {
 			}
 		}
 		System.out.println("max= "+max);
-		if(FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size()==1 && max<3){
+		if(FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size()==1 && max<2){
 			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
 			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[0], numberMergeCells[numberMergeCells.length-1]);
 		}

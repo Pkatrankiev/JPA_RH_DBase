@@ -105,8 +105,12 @@ public class Generate_Map_For_Request_Word_Document {
 				substitutionData.put(key_zaqvitel, "ДП “РАО”" + ", "
 						+ request.getExtra_module().getInternal_applicant().getInternal_applicant_organization());
 			} else {
+				if (request.getExtra_module().getExternal_applicant() != null){
 				substitutionData.put(key_zaqvitel,
 						request.getExtra_module().getExternal_applicant().getExternal_applicant_name());
+				}else{
+					substitutionData.put(key_zaqvitel, "Държавно предприятие “Радиоактивни отпадъци”");
+				}
 			}
 		} else {
 			substitutionData.put(key_zaqvitel, "Държавно предприятие “Радиоактивни отпадъци”");

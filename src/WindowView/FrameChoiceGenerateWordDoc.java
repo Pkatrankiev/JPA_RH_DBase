@@ -45,6 +45,10 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 	private JTextField textField;
 	private static Boolean corectRequestCode = true;
 
+	private String fileRequestDoc = "Zaqvka_new.docx";
+	private String fileRazpredDoc = "Razpred.docx";
+	private String fileProtDoc = "Protokol.docx";
+	
 	public FrameChoiceGenerateWordDoc(JFrame parent, String nameFrame) {
 		super(parent, nameFrame, true);
 		setSize(280, 160);
@@ -168,16 +172,16 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
 		switch (nameFrame) {
 		case "Генериране на Протокол":
-			GenerateDocProtokol.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData, round);
+			GenerateDocProtokol.GenerateProtokolWordDoc(fileProtDoc, choiseRequest, substitutionData, round);
 			
 		
 			break;
 		case "Генериране на Заявка":
-			GenerateRequestWordDoc.generateAndSend_Request_Docx("Zaqvka.docx",
+			GenerateRequestWordDoc.generateAndSend_Request_Docx(fileRequestDoc,
 					"Z-" + choiseRequest.getRecuest_code() + "_" + choiseRequest.getDate_request(), substitutionData, round);
 			break;
 		case "Генериране на Разпределителен формуляр":
-			GenerateDocRazpredFormul.GenerateRazpFormWordDoc("Razpred.docx", choiseRequest, substitutionData, round);
+			GenerateDocRazpredFormul.GenerateRazpFormWordDoc(fileRazpredDoc, choiseRequest, substitutionData, round);
 			break;
 		default:
 			break;

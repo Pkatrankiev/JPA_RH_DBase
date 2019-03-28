@@ -82,11 +82,12 @@ public class CreateListForMultiTable {
 			if (numberMergeCells[countMergeCells] < maxRowInFullTableOnePage) {
 				int countRowInLastTable = 0;
 				int k = 0, m = 0;
+				
 				do  {
 					k++;
 					countRowInLastTable = numberMergeCells[countMergeCells] - numberMergeCells[countMergeCells - k];
-				}	
-				while(countRowInLastTable <= 4 && countMergeCells - k >= 0);
+				}while(countRowInLastTable <= 4 && countMergeCells - k >= 0);
+				
 				int[] masive1 = new int[countMergeCells - k + 1];
 				int[] masive2 = new int[k];
 				for (int j = 0; j < numberMergeCells.length; j++) {

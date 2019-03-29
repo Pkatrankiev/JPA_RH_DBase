@@ -10,22 +10,17 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Razmernosti;
-import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
-import DBase_Class.Nuclide;
 import DBase_Class.Zabelejki;
-import DBase_Class.Obekt_na_izpitvane_request;
 
 public class ResultsDAO {
 
-	private static final String internal_applicant = null;
 	static String name_DBase = "JPA_RH_DBase";
 
 	public static void setValueResults(
@@ -125,6 +120,7 @@ public class ResultsDAO {
 		emfactory.close();
 		}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Results> getInListAllValueResults() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -138,136 +134,6 @@ public class ResultsDAO {
 		return list;
 	}
 	
-	public static void setBasicValueResults() {
-
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		int min = 1;
-		int max = 1;
-		int ran = 1;
-
-		// Get pokazatel list
-		List<IzpitvanPokazatel> list_pokazatel = entitymanager.createQuery("SELECT e FROM Izpitvan_pokazatel e").getResultList();
-		System.out.println("Num pokazatel:" + list_pokazatel.size());
-		
-		Metody metody = null;
-		for (int samNum = 1; samNum <= list_pokazatel.size(); samNum++) {
-			
-			int ranval = 1 + (int) (Math.random() * ((5 - 1) + 1));
-			List_izpitvan_pokazatel pokazatel = null;
-			System.out.println();
-			System.out.println("***********************************************************");
-			System.out.println("Num pokazatel:" + ranval);
-			for (int i = 1; i <= ranval; i++) {
-
-				
-				// Get random Nuclide object
-				Query query = entitymanager.createQuery("SELECT e FROM Nuclide e");
-				List<Nuclide> listNuc = query.getResultList();
-				System.out.println("Num Nuclide:" + listNuc.size());
-				min = 1;
-				max = listNuc.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Nuclide nuclide = NuclideDAO.getValueSNuclideById(ran);
-				System.out.println("Name nuclide:" + nuclide.getSymbol_nuclide());
-
-				// Get random Razmernosti object
-				List<Razmernosti> listR = entitymanager.createQuery("SELECT e FROM Razmernosti e").getResultList();
-				System.out.println("Num Razmernosti:" + listR.size());
-				max = listR.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiById(ran);
-				System.out.println("Name Razmernosti:" + razmernosti.getName_razmernosti());
-
-				// Get random Zabelejki object
-				List<Zabelejki> listZ = entitymanager.createQuery("SELECT e FROM Zabelejki e").getResultList();
-				System.out.println("Num Zabelejki:" + listZ.size());
-				max = listZ.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiById(ran);
-				System.out.println("Name Zabelejki:" + zabelejki.getName_zabelejki());
-
-				// Get random User_chim_oper object
-				List<Users> listU_C_O = entitymanager.createQuery("SELECT e FROM Users e").getResultList();
-				System.out.println("Num Users:" + listU_C_O.size());
-				max = listU_C_O.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Users users_chim_oper = UsersDAO.getValueUsersById(ran);
-				System.out.println("Name Users:" + users_chim_oper.getName_users());
-
-				// Get random User_measur object
-				List<Users> listU_M = entitymanager.createQuery("SELECT e FROM Users e").getResultList();
-				System.out.println("Num Users:" + listU_M.size());
-				max = listU_M.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Users users_measur = UsersDAO.getValueUsersById(ran);
-				System.out.println("Name Users:" + users_measur.getName_users());
-
-				// Get random User_redac object
-				List<Users> listU_R = entitymanager.createQuery("SELECT e FROM Users e").getResultList();
-				System.out.println("Num Users:" + listU_R.size());
-				max = listU_R.size();
-				ran = min + (int) (Math.random() * ((max - min) + 1));
-				Users users_redac = UsersDAO.getValueUsersById(ran);
-				System.out.println("Name Users:" + users_redac.getName_users());
-
-				// Get random value_result
-				max = 99999;
-				Double value_result = 10 + (Math.random() * ((max - min) + 1));
-				System.out.println("value_result:" + value_result);
-
-				// Get random uncertainty
-				max = 9999;
-				Double uncertainty = 10 + (Math.random() * ((max - min) + 1));
-				System.out.println("uncertainty :" + uncertainty);
-
-				// Get random mda
-				max = 59999;
-				Double mda = 10 + (Math.random() * ((max - min) + 1));
-				System.out.println("mda :" + mda);
-
-				// Get random sigma
-				max = 2;
-				int sigma = 1 + (int) (Math.random() * ((max - 1) + 1));
-				System.out.println("sigma :" + sigma);
-
-				// Get random date
-				int dat[][] = new int [3][2];
-				for (int n = 0; n < 3; n++) {
-				int m = 1 + (int) (Math.random() * ((12 - 1) + 1));	
-				int d = 1 + (int) (Math.random() * ((30 - 1) + 1));
-				dat[n][0]=d;
-				dat[n][1]=m;
-				
-				}
-				setValueResults(
-						nuclide, 
-						pokazatel, 
-						metody,
-						null,
-						razmernosti, 
-						"undefinition", 
-						value_result, 
-						sigma, 
-						uncertainty,
-						mda, 
-						zabelejki, 
-						users_chim_oper, 
-						dat[0][0]+"."+dat[0][1]+".2017", 
-						users_measur, 
-						dat[1][0]+"."+dat[1][1]+".2017", 
-						users_redac,
-						dat[2][0]+"."+dat[2][1]+".2017",
-						true); 
-			}
-		}
-		entitymanager.close();
-		emfactory.close();
-
-	}
-
 	@GET
 	@QueryParam("{id}")
 	public static Results getValueResultsById(@QueryParam("id") int id) {
@@ -282,6 +148,7 @@ public class ResultsDAO {
 		return request;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Results> getListResultsFromColumnByVolume(String column_name, Object volume_check) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -292,6 +159,25 @@ public class ResultsDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", volume_check);
+		
+		List<Results>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Results> getListResultsFromCurentSampleInProtokol(Sample samp) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Results e WHERE e.inProtokol = 1 AND e.sample = :text ORDER BY e.nuclide ASC";
+		
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", samp);
 		
 		List<Results>  list =  query.getResultList();
 		entitymanager.close();

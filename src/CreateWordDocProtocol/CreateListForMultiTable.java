@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.docx4j.jaxb.Context;
-import org.docx4j.wml.ObjectFactory;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Tr;
 
@@ -16,7 +14,7 @@ import DBase_Class.Sample;
 
 public class CreateListForMultiTable {
 
-	public static int maxRowInOneTableOnePage = 15;
+	public static int maxRowInOneTableOnePage = 13;
 	public static int maxRowInFullTableOnePage = 25;
 
 	public CreateListForMultiTable() {
@@ -55,27 +53,79 @@ public class CreateListForMultiTable {
 					}
 
 				}
-
+				
 		}
 		numberMergeCells[count_numberMergeCells] = coutRow;
-
+		
+		for (int i = 0; i < numberMergeCells.length; i++) {
+			System.out.println("numberMergeCells["+i+"]= " + numberMergeCells[i]);
+		}
+		
+	
 		return numberMergeCells;
 
 	}
 
-	@SuppressWarnings({ "null", "unused" })
+	
+		
+	public static int lastIndexSampleForFirstTab(List<Sample> listAllSamp) {
+		List<Sample> listSampl = new ArrayList<Sample>();
+		int[] countResultsInSample = new int[listAllSamp.size()];
+		int countAllResults=0;
+		for (int i = 0; i < countResultsInSample.length; i++) {
+			countResultsInSample[i] = ResultsDAO.getListResultsFromCurentSampleInProtokol(listAllSamp.get(i)).size();
+			countAllResults=countAllResults+countResultsInSample[i];
+			}
+		for (int i = 0; i < countResultsInSample.length; i++) {
+			System.out.println("countResultsInSample["+i+"] "+countResultsInSample[i]);
+		}
+		System.out.println("countAllResults "+countAllResults);
+		if (countAllResults < maxRowInOneTableOnePage) {
+			return listAllSamp.size()-1;
+			}
+
+			if (countAllResults < maxRowInFullTableOnePage) {
+				
+				int countRowInLastTable = 0;	
+				int index_countResultsInSample  = countResultsInSample.length;
+				
+				System.out.println("index_countResultsInSample "+index_countResultsInSample);
+				
+				do  {
+					index_countResultsInSample--;
+					countRowInLastTable = countRowInLastTable + countResultsInSample[index_countResultsInSample];
+				}while(countRowInLastTable < 4 && index_countResultsInSample >= 0);
+				
+				System.out.println("countRowInLastTable "+countRowInLastTable);
+				System.out.println("index_countResultsInSample "+index_countResultsInSample);
+				for (int j = 0; j < countResultsInSample.length; j++) {
+					if (j < index_countResultsInSample) {
+						listSampl.add(listAllSamp.get(j));
+					} 
+				}
+				return listSampl.size()-1;
+			} else {
+				
+				int countRowInFirstTable = 0;
+				for (int j = 0; j < countResultsInSample.length; j++) {
+					countRowInFirstTable = countRowInFirstTable + countResultsInSample[j];
+					if (countRowInFirstTable <= maxRowInFullTableOnePage) {
+						listSampl.add(listAllSamp.get(j));
+					}
+				}
+			return listSampl.size()-1;
+
+			}
+		
+	
+
+	}
+	
 	public static List<int[]> addRowPokazatelIfGamaOrAlpha(int[] numberMergeCells) {
 		List<int[]> listNumberSampleCount = new ArrayList<int[]>();
 		int countMergeCells = numberMergeCells.length - 1;
 			if (numberMergeCells[countMergeCells] < maxRowInOneTableOnePage) {
 				listNumberSampleCount.add(numberMergeCells);
-				
-				System.out.println("numberMergeCells.length= " + numberMergeCells.length);
-				for (int i = 0; i < numberMergeCells.length; i++) {
-					System.out.println("masive0["+i+"]= " + numberMergeCells[i]);
-				}
-				
-				
 				return listNumberSampleCount;
 			}
 
@@ -100,17 +150,7 @@ public class CreateListForMultiTable {
 				}
 				listNumberSampleCount.add(masive1);
 				listNumberSampleCount.add(masive2);
-				
-				
-				System.out.println("masive1= " + masive1.length + " masive2= " + masive2.length);
-				for (int i = 0; i < masive1.length; i++) {
-					System.out.println("masive1["+i+"]= " + masive1[i]);
-				}
-				for (int i = 0; i < masive2.length; i++) {
-					System.out.println("masive2["+i+"]= " + masive2[i]);
-				}
-				
-				
+		
 				return listNumberSampleCount;
 			} else {
 				List<Integer> list1 = new ArrayList<Integer>();

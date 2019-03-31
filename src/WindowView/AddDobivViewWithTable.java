@@ -66,7 +66,7 @@ public class AddDobivViewWithTable extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private static JTextField txtBasicValueResult;
-	private JTextField txtStandartCode;
+	private static JTextField txtStandartCode;
 	private JLabel lblNameMetod;
 	// private static Sample sample1 = null;
 	// private List_izpitvan_pokazatel pokazatel = null;
@@ -109,7 +109,7 @@ public class AddDobivViewWithTable extends JDialog {
 //	private Font font = new Font("Tahoma", Font.PLAIN, 12);
 	private JPanel basic_panel;
 	private JScrollPane scrollTablePane;
-	private JTextField textFieldDobivDescrip;
+	private static JTextField textFieldDobivDescrip;
 
 	public AddDobivViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Добив", true);
@@ -844,12 +844,10 @@ public class AddDobivViewWithTable extends JDialog {
 
 	private static Dobiv creadDobivsObject(int i, Dobiv dobiv) {
 
+		dobiv.setCode_Standart(txtStandartCode.getText());
+		dobiv.setDescription(textFieldDobivDescrip.getText());
 		dobiv.setBasic_value(txtBasicValueResult.getText());
-		if (dataTable[i][dateHimObr_Colum] == null) {
-			dobiv.setDate_chim_oper("");
-		} else {
-			dobiv.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
-		}
+		dobiv.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
 		dobiv.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
 		dobiv.setDate_redac(RequestViewFunction.DateNaw(false));
 		dobiv.setUncertainty(Double.parseDouble(dataTable[i][uncrt_Colum].toString()));
@@ -864,7 +862,7 @@ public class AddDobivViewWithTable extends JDialog {
 				dobiv.setUser_chim_oper(user);
 			}
 		}
-		choiceUser = choiceOIR.getSelectedItem();
+		   choiceOIR.getSelectedItem();
 		for (Users user : list_Users) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
 					&& choiceUser.substring(choiceUser.indexOf(" ") + 1).equals(user.getFamily_users())) {

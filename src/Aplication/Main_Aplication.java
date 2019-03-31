@@ -38,6 +38,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TSI;
 import OldClases.test;
+import WindowView.AddDobivViewWithTable;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceListIzpPokazatel;
 import WindowView.MainWindows;
@@ -66,9 +67,9 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-		StartMainWindow();
+//		StartMainWindow();
 		
-//		AddResultsViewWithTable();
+		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -101,7 +102,7 @@ public class Main_Aplication {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
+		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
 		 			    	
 		     }
 		    });

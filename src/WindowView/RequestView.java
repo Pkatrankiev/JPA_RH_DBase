@@ -252,6 +252,7 @@ public class RequestView extends JDialog {
 		round.StopWindow();
 		getContentPane().add(scrollpane, BorderLayout.NORTH);
 		setVisible(true);
+		
 
 	}
 

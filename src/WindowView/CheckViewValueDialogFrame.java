@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 
+import Aplication.DobivDAO;
 import Aplication.RequestDAO;
 import DBase_Class.Request;
 
@@ -53,11 +54,24 @@ public class CheckViewValueDialogFrame extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JButton okButton = new JButton("OK");
+		JButton cancellButton = new JButton("Отказ");
+		cancellButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				setVisible(false);
+			}
+		});
+
+		buttonPane.add(cancellButton);
+//		getRootPane().setDefaultButton(cancellButton);
 		
+		JButton okButton = new JButton("Покажи");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
+//		getRootPane().setDefaultButton(okButton);
+		JLabel l = new JLabel();
+				buttonPane.add(l);
+//		getRootPane().setDefaultButton(l);
 	
 		JScrollPane scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -71,8 +85,10 @@ public class CheckViewValueDialogFrame extends JDialog {
 		panel_ValueLabel.setPreferredSize(new Dimension(210, 20));
 		PanelValue.add(panel_ValueLabel);
 		panel_ValueLabel.setLayout(new BoxLayout(panel_ValueLabel, BoxLayout.X_AXIS));
-
 		JLabel lblStrReuqestCode = new JLabel("№ заявка");
+		if(check_mda==null){
+		lblStrReuqestCode.setText("Стандарт");	
+		}
 		
 		lblStrReuqestCode.setMaximumSize(new Dimension(70, 16));
 		lblStrReuqestCode.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -88,13 +104,15 @@ public class CheckViewValueDialogFrame extends JDialog {
 		lblStringValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStringValue.setPreferredSize(new Dimension(70, 20));
 
+		if(check_mda!=null){
 		JLabel lblStringMDA = new JLabel("MDA");
 		lblStringMDA.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblStringMDA.setMaximumSize(new Dimension(70, 16));
 		panel_ValueLabel.add(lblStringMDA);
 		lblStringMDA.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStringMDA.setPreferredSize(new Dimension(70, 20));
-
+		
+		}
 		
 		NumberFormat frm = new DecimalFormat("0.00E00");
 
@@ -112,14 +130,24 @@ public class CheckViewValueDialogFrame extends JDialog {
 		  value = checkResultClass.getValue();
 		  mda = checkResultClass.getMda();
 		  yData_Value[i] =value;
-		  yData_MDA[i] = mda;
 		  str_code = checkResultClass.getRequestCode()+"";
-		  str_value = frm.format(value);
+		  if(check_mda!=null){
+		  yData_MDA[i] = mda;
 		  str_mda = frm.format(mda);
+		  
+		  }else{
+			  str_code = DobivDAO.getDobivById(checkResultClass.getRequestCode()).getCode_Standart();  
+		  }
+		  
+		 
+		  str_value = frm.format(value);
+		 
 			}else {
 				if(i==listCheckResultObject.size()+1) {
 					 str_value = frm.format(check_actv_value);
+					 if(check_mda!=null){
 					  str_mda = frm.format(check_mda);	
+					 }
 					  col = Color.RED;
 				}
 			}
@@ -150,9 +178,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 				@Override
 				public void mouseReleased(MouseEvent e) {}
 
-				public void mousePressed(MouseEvent e) {
-				
-				}
+				public void mousePressed(MouseEvent e) {}
 			});
 			
 			
@@ -164,7 +190,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 			lblString_Value[i].setHorizontalAlignment(SwingConstants.CENTER);
 			lblString_Value[i].setPreferredSize(new Dimension(70, 20));
 
-			
+			if(check_mda!=null){
 			lblString_MDA[i] = new JLabel(str_mda);
 			lblString_MDA[i].setForeground(col);
 			lblString_MDA[i].setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -172,24 +198,31 @@ public class CheckViewValueDialogFrame extends JDialog {
 			panel_Value[i].add(lblString_MDA[i]);
 			lblString_MDA[i].setHorizontalAlignment(SwingConstants.CENTER);
 			lblString_MDA[i].setPreferredSize(new Dimension(70, 20));
-
+			}
 			
 		}
 		  yData_Value[listCheckResultObject.size()] = check_actv_value;
+		  if(check_mda!=null){
 		  yData_MDA[listCheckResultObject.size()] = check_mda;
+		  }
 		JPanel panelGraphic = new JPanel();
 		scrollPane.setViewportView(panelGraphic);
 		panelGraphic.setLayout(new BoxLayout(panelGraphic, BoxLayout.Y_AXIS));
 
 		JPanel panel_Graph_Value = new JPanel();
 		panel_Graph_Value.setLayout(new BoxLayout(panel_Graph_Value, BoxLayout.X_AXIS));
-		JPointGraph2D chart = new JPointGraph2D(yData_Value, "Активност");
+		JPointGraph2D chart ;
+		if(check_mda!=null){
+			chart = new JPointGraph2D(yData_Value, "Активност");
+		}else{
+				chart = new JPointGraph2D(yData_Value, "Добив");	
+			}
 		chart.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), Color.GRAY, null, null));
 		chart.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		chart.setLineColor(new Color(0, 28, 28));
 		panel_Graph_Value.add(chart);
 		panelGraphic.add(panel_Graph_Value);
-
+		if(check_mda!=null){
 		JPanel panel_Graph_MDA = new JPanel();
 		panel_Graph_MDA.setLayout(new BoxLayout(panel_Graph_MDA, BoxLayout.X_AXIS));
 		chart_1 = new JPointGraph2D(yData_MDA, "MDA");
@@ -198,14 +231,14 @@ public class CheckViewValueDialogFrame extends JDialog {
 		chart_1.setLineColor(new Color(0, 28, 28));
 		panel_Graph_MDA.add(chart_1);
 		panelGraphic.add(panel_Graph_MDA);
-		
-		JButton falseButton = new JButton();
-		falseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelGraphic.revalidate();
-				panelGraphic.repaint();
-			}
-		});
+		}
+//		JButton falseButton = new JButton();
+//		falseButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				panelGraphic.revalidate();
+//				panelGraphic.repaint();
+//			}
+//		});
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 //				setVisible(false);	
@@ -214,13 +247,14 @@ public class CheckViewValueDialogFrame extends JDialog {
 			}
 		});
 		
+				
 		panelGraphic.revalidate();
 		panelGraphic.repaint();
 //		round.StopWindow();
 		setVisible(true);
 		SwingUtilities.getWindowAncestor( this ).repaint(); 
 		okButton.getModel().setPressed(true);
-		falseButton.doClick();	
+//		falseButton.doClick();	
 
 	}
 

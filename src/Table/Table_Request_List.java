@@ -449,6 +449,7 @@ public class Table_Request_List extends JDialog {
 	private int getSelectedModelRow(JTable table) {
 	return  table.convertRowIndexToModel(table.getSelectedRow());
 	}
+	
 	private static void EditColumnUser(Object value, int row) {
 		String valueStr = value + "";
 		dataTable[row][user_Id_Colum] = UsersDAO.getValueUsersByName(valueStr.substring(0, valueStr.indexOf(" ")))

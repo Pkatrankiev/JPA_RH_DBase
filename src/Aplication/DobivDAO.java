@@ -226,7 +226,14 @@ public class DobivDAO {
 			emfactory.close();
 			}
 			
+		public static Boolean checkDobivCode(String check_code) {
+			Boolean available = false;
 		
+			if (getList_DobivByCode_Standart(check_code).size() != 0)
+				System.out.println(getList_DobivByCode_Standart(check_code).size());
+				available = true;
+			return available;
+		}
 
 
 }

@@ -167,7 +167,6 @@ public class FunctionForGenerateWordDocFile {
 
 		int id_naredba = 0;
 		if (string_doplDogov.indexOf("лимитни") >= 0) {
-
 			for (Naredbi naredbi : list_Naredbi) {
 				if (string_doplDogov.equals(naredbi.getName_request())) {
 					id_naredba = naredbi.getId_naredbi();

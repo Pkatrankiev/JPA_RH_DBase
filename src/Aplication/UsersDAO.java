@@ -183,8 +183,12 @@ public class UsersDAO {
 		}
 		List<String> values = new ArrayList<>();
 		for (Users user : list) {
-			values. add( user.getName_users() + " " + user.getFamily_users());
+			values. add(getStringName_FamilyUser(user));
 		}
 		return values;
+	}
+	
+	public static String getStringName_FamilyUser(Users user){
+		return user.getName_users() + " " + user.getFamily_users();
 	}
 }

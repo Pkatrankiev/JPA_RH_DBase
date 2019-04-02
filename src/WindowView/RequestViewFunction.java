@@ -141,7 +141,6 @@ public class RequestViewFunction {
 		choice_obekt_na_izpitvane_request.select(str);
 	}
 	
-	
 	public static void setDataIn_Choice_Razmernost(Choice choice_Razmernost, Request tamplateRequest) {
 		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
 		for (String string : arr3) {
@@ -250,8 +249,6 @@ public class RequestViewFunction {
 		return arr;
 	}
 
-	
-	
 	public static String GenerateStringRefDateTimeFromRequest(Request request) {
 		List<Sample> sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		
@@ -268,9 +265,11 @@ public class RequestViewFunction {
 		if (compaRefDateTime(masiveReffDateTime)) {
 			date_time_reference = "";
 			for (int i = 0; i < masiveReffDateTime.length; i++) {
-				date_time_reference = date_time_reference + masiveSampleCode[i] + " / " + masiveReffDateTime[i]
-						+ ";  ";
-			}
+				
+				date_time_reference = date_time_reference +request.getRecuest_code()+"-"+ masiveSampleCode[i] + " / " + masiveReffDateTime[i]
+						+ "   ";
+						}
+			date_time_reference = date_time_reference.substring(0, date_time_reference.length()-3);
 		}
 
 		return date_time_reference;

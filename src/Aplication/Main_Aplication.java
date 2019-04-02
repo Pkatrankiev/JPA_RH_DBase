@@ -67,9 +67,9 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
-//		StartMainWindow();
+		StartMainWindow();
 		
-		AddResultsViewWithTable();
+//		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -103,7 +103,7 @@ public class Main_Aplication {
 		    	 
 		    	 JFrame f = new JFrame();
 		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
-		 			    	
+//		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 	
 		     }
 		    });
 		    thread.start();

@@ -80,6 +80,7 @@ public class Obekt_na_izpitvane_sampleDAO {
 		return obekt_na_izpitvane;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleByName(String name) {
 
@@ -88,16 +89,13 @@ public class Obekt_na_izpitvane_sampleDAO {
 		entitymanager.getTransaction().begin();
 
 		String hql = "SELECT e FROM Obekt_na_izpitvane_sample e WHERE e.name = :text";
-
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", name);
-		if (query.getResultList().isEmpty()) {
-			setValueObekt_na_izpitvane_sample(name);
-		}
-		Obekt_na_izpitvane_sample list = (Obekt_na_izpitvane_sample) query.getSingleResult();
+		List<Obekt_na_izpitvane_sample> list = query.getResultList();
+		
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return list.get(0);
 	}
 }

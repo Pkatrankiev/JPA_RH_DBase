@@ -1702,7 +1702,7 @@ public class RequestView extends JDialog {
 			if (!masiveSampleValue[i][4].equals(""))
 				period = PeriodDAO.getValuePeriodByPeriod(masiveSampleValue[i][4]);
 			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
-					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
+					.getValueObekt_na_izpitvane_sampleOrSaveByName(masiveSampleValue[i][1]);
 
 			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5, masiveSampleValue[i][0].length()),
 					masiveSampleValue[i][2], masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,
@@ -1718,7 +1718,7 @@ public class RequestView extends JDialog {
 			if (!masiveSampleValue[i][4].equals(""))
 				period = PeriodDAO.getValuePeriodByPeriod(masiveSampleValue[i][4]);
 			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
-					.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
+					.getValueObekt_na_izpitvane_sampleOrSaveByName(masiveSampleValue[i][1]);
 
 			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5, masiveSampleValue[i][0].length()),
 					masiveSampleValue[i][2], masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,

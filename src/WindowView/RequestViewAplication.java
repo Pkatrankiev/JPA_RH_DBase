@@ -173,20 +173,18 @@ public class RequestViewAplication {
 
 	public static String getStringZabelejkiForRequest(Request request) {
 		String zabel_str = "";
-		if (request.getZabelejki() != null) {
-			zabel_str = request.getZabelejki().getName_zabelejki();
+		if (request.getZabelejki() != null&&request.getZabelejki().getId_zabelejki()!=5) {
+			zabel_str = request.getZabelejki().getName_zabelejki()+ "; ";
 		}
 		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
-			if(zabel_str!=""){
-				zabel_str = zabel_str + "; ";
-			}
-			zabel_str = zabel_str + request.getExtra_module().getDoplIzisk().getName_dopIzis();
+			zabel_str = zabel_str + request.getExtra_module().getDoplIzisk().getName_dopIzis()+ "; ";
 		}
-		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements()!="") {
-			if(zabel_str!=""){
-				zabel_str = zabel_str + "; ";
-			}
-			zabel_str = zabel_str + request.getExtra_module().getAdditional_requirements();
+		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements().trim().length()>0) {
+			zabel_str = zabel_str + request.getExtra_module().getAdditional_requirements()+ "; ";
+		}
+		int str_l =zabel_str.length();
+		if(str_l>2){
+			zabel_str = zabel_str.substring(str_l-2, str_l);
 		}
 		return zabel_str;
 	}

@@ -98,4 +98,28 @@ public class Obekt_na_izpitvane_sampleDAO {
 
 		return list.get(0);
 	}
+	@SuppressWarnings("unchecked")
+	@GET
+	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleOrSaveByName(String name) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Obekt_na_izpitvane_sample e WHERE e.name = :text";
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", name);
+		List<Obekt_na_izpitvane_sample> list = query.getResultList();
+		
+		if (list.isEmpty()){
+			setValueObekt_na_izpitvane_sample(name);
+		 list = query.getResultList();
+		}
+		
+		entitymanager.close();
+		emfactory.close();
+
+		return list.get(0);
+	}
+	
 }

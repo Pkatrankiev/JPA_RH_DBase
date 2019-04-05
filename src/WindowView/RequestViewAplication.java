@@ -176,16 +176,20 @@ public class RequestViewAplication {
 		if (request.getZabelejki() != null&&request.getZabelejki().getId_zabelejki()!=5) {
 			zabel_str = request.getZabelejki().getName_zabelejki()+ "; ";
 		}
+		System.out.println("1--"+zabel_str);
 		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
 			zabel_str = zabel_str + request.getExtra_module().getDoplIzisk().getName_dopIzis()+ "; ";
 		}
+		System.out.println("2--"+zabel_str);
 		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements().trim().length()>0) {
 			zabel_str = zabel_str + request.getExtra_module().getAdditional_requirements()+ "; ";
 		}
+		System.out.println("3--"+zabel_str);
 		int str_l =zabel_str.length();
 		if(str_l>2){
-			zabel_str = zabel_str.substring(str_l-2, str_l);
+			zabel_str = zabel_str.substring(0,str_l-2);
 		}
+		System.out.println(str_l+"4--"+zabel_str);
 		return zabel_str;
 	}
 

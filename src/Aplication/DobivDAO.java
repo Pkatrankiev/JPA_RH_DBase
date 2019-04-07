@@ -25,7 +25,7 @@ import DBase_Class.Users;
 public class DobivDAO {
 	static String name_DBase = "JPA_RH_DBase";
 
-	public static void setValueDobiv(
+		public static void setValueDobiv(
 			String code_Standart,
 			Metody metody,
 			Izpitvan_produkt izpitvan_produkt,

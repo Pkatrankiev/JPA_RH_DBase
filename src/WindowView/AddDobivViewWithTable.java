@@ -48,6 +48,7 @@ import javax.swing.table.TableColumn;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.MetodyDAO;
+import Aplication.Metody_to_NiclideForDobiveDAO;
 import Aplication.Metody_to_PokazatelDAO;
 import Aplication.NuclideDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
@@ -58,6 +59,7 @@ import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.Metody;
+import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
@@ -79,6 +81,7 @@ public class AddDobivViewWithTable extends JDialog {
 	private static Choice choiceMetody;
 	private static Metody selectedMetod = null;
 
+	private static List<Dobiv> listChoisedDobiv;
 	private static List<Users> list_Users;
 	private static List<String> list_UsersNameFamilyOIR;
 	private static List<String> list_UsersNameFamilyORHO;
@@ -94,7 +97,6 @@ public class AddDobivViewWithTable extends JDialog {
 	Boolean flagNotReadListPokazatel = true;
 	Boolean flagNotReadListMetody = true;
 	boolean flagIncertedFile;
-	private static List<Dobiv> listChoisedDobiv;
 
 	private static JTable tabDobivs;
 	private static String[] masuveSimbolBasikNuclide;
@@ -494,17 +496,11 @@ public class AddDobivViewWithTable extends JDialog {
 
 	private List<String> getListSimbolBasikNulideToMetod(Metody metod) {
 		List<String> listSimbolBasikNulide = new ArrayList<String>();
-		List<Metody_to_Pokazatel> listPokazToMetod = Metody_to_PokazatelDAO
-				.getListMetody_to_PokazatelFromColumnByVolume("metody", metod);
-		for (Metody_to_Pokazatel metody_to_Pokazatel : listPokazToMetod) {
-			List<Nuclide_to_Pokazatel> listNuclideToPokaz = Nuclide_to_PokazatelDAO
-					.getListNuclide_to_PokazatelFromColumnByVolume("pokazatel", metody_to_Pokazatel.getPokazatel());
-			for (Nuclide_to_Pokazatel nuclide_to_Pokazatel : listNuclideToPokaz) {
-				if (nuclide_to_Pokazatel.getNuclide().getFavorite_nuclide()) {
-					listSimbolBasikNulide.add(nuclide_to_Pokazatel.getNuclide().getSymbol_nuclide());
+		 List<Metody_to_NiclideForDobive> listMetody_NuclideForDobive = Metody_to_NiclideForDobiveDAO
+					.getListMetody_to_NiclideForDobiveByMetody(metod);
+			for (Metody_to_NiclideForDobive nuclide_to_Metod : listMetody_NuclideForDobive) {
+				listSimbolBasikNulide.add(nuclide_to_Metod.getNuclide().getSymbol_nuclide());
 				}
-			}
-		}
 		return listSimbolBasikNulide;
 	}
 

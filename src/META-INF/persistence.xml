@@ -33,6 +33,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Naredbi</class>
 		<class>DBase_Class.Normi</class>
 		<class>DBase_Class.Dobiv</class>
+		<class>DBase_Class.Metody_to_NiclideForDobive</class>
 	
 		<properties>						
 			<property name="javax.persistence.jdbc.url"

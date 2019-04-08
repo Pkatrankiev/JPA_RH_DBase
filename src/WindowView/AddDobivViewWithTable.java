@@ -48,6 +48,7 @@ import javax.swing.table.TableColumn;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.MetodyDAO;
+import Aplication.Metody_to_NiclideForDobiveDAO;
 //import Aplication.Metody_to_NiclideForDobiveDAO;
 import Aplication.Metody_to_PokazatelDAO;
 import Aplication.NuclideDAO;
@@ -59,6 +60,7 @@ import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.Metody;
+import DBase_Class.Metody_to_NiclideForDobive;
 //import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
@@ -496,11 +498,10 @@ public class AddDobivViewWithTable extends JDialog {
 
 	private List<String> getListSimbolBasikNulideToMetod(Metody metod) {
 		List<String> listSimbolBasikNulide = new ArrayList<String>();
-//		 List<Metody_to_NiclideForDobive> listMetody_NuclideForDobive = Metody_to_NiclideForDobiveDAO
-//					.getListMetody_to_NiclideForDobiveByMetody(metod);
-//			for (Metody_to_NiclideForDobive nuclide_to_Metod : listMetody_NuclideForDobive) {
-//				listSimbolBasikNulide.add(nuclide_to_Metod.getNuclide().getSymbol_nuclide());
-//				}
+		 List<Metody_to_NiclideForDobive> listMetody_NuclideForDobive = Metody_to_NiclideForDobiveDAO.getListMetody_to_NiclideForDobiveByMetody(metod);
+			for (Metody_to_NiclideForDobive nuclide_to_Metod : listMetody_NuclideForDobive) {
+				listSimbolBasikNulide.add(nuclide_to_Metod.getNuclide().getSymbol_nuclide());
+				}
 		return listSimbolBasikNulide;
 	}
 

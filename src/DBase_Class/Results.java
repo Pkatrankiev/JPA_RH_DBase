@@ -56,6 +56,8 @@ public class Results implements Serializable {
 	private Dimension dimension;
 	@ManyToOne
 	private TSI tsi;
+	@ManyToOne
+	private Dobiv dobiv;
 
 	public Results( 
 			Nuclide nuclide, 
@@ -78,7 +80,8 @@ public class Results implements Serializable {
 			Boolean inProtokol,
 			Double quantity,
 			Dimension dimension,
-			TSI tsi
+			TSI tsi,
+			Dobiv dobiv
 			) {
 		
 		super();
@@ -104,6 +107,7 @@ public class Results implements Serializable {
 		this.dimension = dimension;
 		this.quantity = quantity;
 		this.tsi = tsi;
+		this.dobiv = dobiv;
 		
 		
 	}
@@ -295,5 +299,14 @@ public class Results implements Serializable {
 		this.tsi = tsi;
 	}
 
+	public Dobiv getDobiv() {
+		return dobiv;
+	}
+
+	public void setDobiv(Dobiv dobiv) {
+		this.dobiv = dobiv;
+	}
+
+	
 }
 

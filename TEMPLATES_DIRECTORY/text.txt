@@ -1,0 +1,1 @@
+ALTER TABLE results ADD DOBIV_ID_DOBIV int (11);

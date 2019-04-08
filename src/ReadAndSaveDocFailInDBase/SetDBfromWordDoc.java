@@ -617,7 +617,7 @@ public class SetDBfromWordDoc {
 					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp,
 							razmernost_recuest, basic_value, results_value_result[i][p][k], sigma,
 							results_uncertainty[i][p][k], results_MDA[i][p][k], note, user_chim_oper, date_chim,
-							user_measur, date_measur, user_redac, date_redac, inProtokol, quantity, dimension,null);
+							user_measur, date_measur, user_redac, date_redac, inProtokol, quantity, dimension,null,null);
 					ResultsDAO.setValueResults(resul);
 				}
 

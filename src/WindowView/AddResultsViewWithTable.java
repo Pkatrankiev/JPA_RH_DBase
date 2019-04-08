@@ -1344,15 +1344,12 @@ public class AddResultsViewWithTable extends JDialog {
 		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
 		
 		for (Sample sample : listAllSamp) {
-			System.out.println("++++199"+sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane()+" "+samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane());
 			if(sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane().equals(samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane())
 					&&sample.getDescription_sample().equals(samp.getDescription_sample())) {
 				for(Results result : ResultsDAO.getListResultsFromColumnByVolume("sample", sample)) {
-					System.out.println("++++12"+result.getNuclide().getSymbol_nuclide()+" "+nuclide.getSymbol_nuclide());
 				if(result.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
 					int value = Integer.parseInt(sample.getRequest().getRecuest_code());
 					CheckResultClass checkResultObject = new CheckResultClass(result.getValue_result(), result.getMda(), value);
-					System.out.println("++++16"+checkResultObject.getRequestCode()+" "+checkResultObject.getMda()+" "+checkResultObject.getValue());
 					listCheckResultObject.add(checkResultObject);
 				}
 			}

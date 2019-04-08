@@ -187,9 +187,9 @@ public class ReadGamaFile {
 				results.setDate_measur(date_mesur);
 				results.setDate_chim_oper("");
 				results.setTsi(getTSIObjectFromFileString(T_S_I));
-				if(quantity.length()>0){
-					results.setQuantity(Double.parseDouble(quantity));	
-					results.setDimension(DimensionDAO.getValueDimensionByName(dimension));
+				results.setQuantity(Double.parseDouble(quantity));
+				results.setDimension(DimensionDAO.getValueDimensionByName(dimension));
+				if(dimension.length()>0){
 					results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/"+dimension));
 				}else{
 					results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
@@ -237,10 +237,12 @@ public class ReadGamaFile {
 			masiveResultsMDA[k].setDate_measur(date_mesur);
 			masiveResultsMDA[k].setDate_chim_oper("");
 			masiveResultsMDA[k].setTsi(getTSIObjectFromFileString(T_S_I));
-			if (quantity.length() > 0) {
-				masiveResultsMDA[k].setQuantity(Double.parseDouble(quantity));
-				masiveResultsMDA[k].setDimension(DimensionDAO.getValueDimensionByName(dimension));
+			masiveResultsMDA[k].setQuantity(Double.parseDouble(quantity));
+			masiveResultsMDA[k].setDimension(DimensionDAO.getValueDimensionByName(dimension));
+			if (dimension.length() > 0) {
+				
 				masiveResultsMDA[k].setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/" + dimension));
+				
 			} else {
 				masiveResultsMDA[k].setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
 			}
@@ -352,6 +354,7 @@ public class ReadGamaFile {
 							break;
 						case "Количество":
 							quantity = stringLine[j][3];
+							dimension ="";
 							if (stringLine[j].length > 4) {
 								dimension = stringLine[j][4];
 								dimension = dimension.replaceAll("2", "²");

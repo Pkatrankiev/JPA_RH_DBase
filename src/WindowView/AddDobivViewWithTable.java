@@ -47,6 +47,7 @@ import javax.swing.table.TableColumn;
 
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.Izpitvan_produktDAO;
 import Aplication.MetodyDAO;
 import Aplication.Metody_to_NiclideForDobiveDAO;
 //import Aplication.Metody_to_NiclideForDobiveDAO;
@@ -782,6 +783,7 @@ public class AddDobivViewWithTable extends JDialog {
 				List<Dobiv> listDobivsForSave = creadListFromDobivObjectForSave();
 				for (Dobiv dobiv : listDobivsForSave) {
 					saveDobivsObjectInDBase(dobiv);
+					System.out.println("**********************"+dobiv.getId_dobiv());
 				}
 
 			}
@@ -836,7 +838,7 @@ public class AddDobivViewWithTable extends JDialog {
 			for (int i = 0; i < dataTable.length; i++) {
 				String s1 = dataTable[i][uncrt_Colum].toString().toString();
 				String s2 = dataTable[i][actv_value_Colum].toString();
-				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) > 0)) {
+				if ((Double.parseDouble((String) s1)!=0 || (Double.parseDouble((String) s2)) != 0)) {
 					listDobivsFromTable.add(creadDobivObject(i));
 				} else {
 					if (dataTable[i][dobiv_Id_Colum] != null) {
@@ -893,16 +895,16 @@ public class AddDobivViewWithTable extends JDialog {
 	private static Dobiv creadDobivsObject(int i, Dobiv dobiv) {
 
 		dobiv.setCode_Standart(txtStandartCode.getText());
+		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()));
+		dobiv.setIzpitvan_produkt(Izpitvan_produktDAO.getValueIzpitvan_produktByName(choiceIzpitProd.getSelectedItem()));
 		dobiv.setDescription(textFieldDobivDescrip.getText());
-		dobiv.setBasic_value(txtBasicValueResult.getText());
+		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString()));
+		dobiv.setValue_result(Double.parseDouble(dataTable[i][actv_value_Colum].toString()));
+		dobiv.setUncertainty(Double.parseDouble(dataTable[i][uncrt_Colum].toString()));
+		dobiv.setTsi(TSI_DAO.getValueTSIByName(dataTable[i][TSI_Colum].toString()));
 		dobiv.setDate_chim_oper(dataTable[i][dateHimObr_Colum].toString());
 		dobiv.setDate_measur(dataTable[i][dateAnaliz_Colum].toString());
 		dobiv.setDate_redac(RequestViewFunction.DateNaw(false));
-		dobiv.setUncertainty(Double.parseDouble(dataTable[i][uncrt_Colum].toString()));
-		dobiv.setValue_result(Double.parseDouble(dataTable[i][actv_value_Colum].toString()));
-		dobiv.setTsi(TSI_DAO.getValueTSIByName(dataTable[i][TSI_Colum].toString()));
-		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()));
-		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString()));
 		String choiceUser = choiceORHO.getSelectedItem();
 		for (Users user : list_Users) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
@@ -910,7 +912,7 @@ public class AddDobivViewWithTable extends JDialog {
 				dobiv.setUser_chim_oper(user);
 			}
 		}
-		choiceOIR.getSelectedItem();
+		choiceUser = choiceOIR.getSelectedItem();
 		for (Users user : list_Users) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
 					&& choiceUser.substring(choiceUser.indexOf(" ") + 1).equals(user.getFamily_users())) {
@@ -918,6 +920,8 @@ public class AddDobivViewWithTable extends JDialog {
 			}
 		}
 		dobiv.setUser_redac(user);
+		dobiv.setBasic_value(txtBasicValueResult.getText());
+		
 		return dobiv;
 	}
 
@@ -948,7 +952,7 @@ public class AddDobivViewWithTable extends JDialog {
 		DobivDAO.updateDobiv(dobiv);
 		;
 	}
-
+	
 	public static void setUp_Nuclide(TableColumn Nuclide_Column) {
 		JComboBox<?> comboBox = new JComboBox<Object>(masuveSimbolBasikNuclide);
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));

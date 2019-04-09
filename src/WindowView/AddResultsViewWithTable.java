@@ -21,6 +21,7 @@ import javax.swing.table.TableColumn;
 
 import Aplication.AplicantDAO;
 import Aplication.DimensionDAO;
+import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
@@ -34,6 +35,7 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
+import DBase_Class.Dobiv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
@@ -104,6 +106,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static Choice choiceOIR;
 	private static Choice choiceORHO;
 	private static Choice choiceMetody;
+	private static JComboBox<String> choiceDobiv;
 	private Choice choiceSmplCode;
 	private Metody selectedMetod = null;
 	private static List<Sample> listSample;
@@ -427,6 +430,9 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		result.setUser_redac(user);
 		result.setZabelejki(null);
+		if(!choiceDobiv.getSelectedItem().toString().isEmpty()){
+		result.setDobiv(DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString()).get(0));
+		}
 		return result;
 	}
 
@@ -440,7 +446,7 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_lblDobiv.gridy = 9;
 		panel.add(lblDobiv, gbc_lblDobiv);
 
-		JComboBox<?> choiceDobiv = new JComboBox<Object>();
+		choiceDobiv = new JComboBox<String>();
 		choiceDobiv.setLightWeightPopupEnabled(false);
 		choiceDobiv.setBackground(Color.WHITE);
 
@@ -451,8 +457,16 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_choiceDobiv.gridx = 1;
 		gbc_choiceDobiv.gridy = 9;
 		panel.add(choiceDobiv, gbc_choiceDobiv);
+					
 	}
-
+	private void setValueInChoiceDobiv(){
+		choiceDobiv.removeAllItems();
+		choiceDobiv.addItem("");
+		List<Dobiv> listDobivFromMetod = DobivDAO.getListDobivByMetody(selectedMetod);
+	for (Dobiv str : listDobivFromMetod) {
+		choiceDobiv.addItem(str.getCode_Standart());
+	}
+	}
 	private void BasicValueFileSection(JPanel panel) {
 		JLabel lblBasicValueRsltsFile = new JLabel("Ïתע המ פאיכא");
 		GridBagConstraints gbc_lblBasicValueRsltsFile = new GridBagConstraints();
@@ -591,6 +605,7 @@ public class AddResultsViewWithTable extends JDialog {
 				if (choiceMetody.getSelectedItem() != null) {
 					selectedMetod = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
 					lblNameMetod.setText(selectedMetod.getName_metody());
+					setValueInChoiceDobiv();
 				}
 			}
 

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Dobiv;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
@@ -41,7 +42,8 @@ public class ResultsDAO {
 			String date_measur, 
 			Users user_redac,
 			String date_redac,
-			Boolean inProtokol) {
+			Boolean inProtokol,
+			Dobiv dobiv) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -71,6 +73,7 @@ public class ResultsDAO {
 		valueEnt.setUser_redac(user_redac);
 		valueEnt.setDate_redac(date_redac);
 		valueEnt.setInProtokol(inProtokol);
+		valueEnt.setDobiv(dobiv);
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();

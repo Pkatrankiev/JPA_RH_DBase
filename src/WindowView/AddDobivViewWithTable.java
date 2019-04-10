@@ -72,7 +72,7 @@ import WindowViewAplication.AutoSuggestor;
 
 public class AddDobivViewWithTable extends JDialog {
 
-	private static Users user = null;
+	private static Users user_Redac = null;
 
 	private final JPanel contentPanel = new JPanel();
 	private static JTextField txtBasicValueResult;
@@ -125,6 +125,9 @@ public class AddDobivViewWithTable extends JDialog {
 		list_Users = UsersDAO.getInListAllValueUsers();
 		// list_UsersNameFamily =
 		// UsersDAO.getListStringAllName_FamilyUsersByPost(null);
+		
+		user_Redac = user;
+		
 		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("Œ»–"));
 		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("Œ–’Œ"));
 		listMetody = MetodyDAO.getInListAllValueMetody();
@@ -448,8 +451,7 @@ public class AddDobivViewWithTable extends JDialog {
 		btnCreadTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (choiceMetody.getSelectedItem() != null) {
-
-					List<String> listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
+						List<String> listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
 					masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
 					List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
 							txtStandartCode.getText());
@@ -919,7 +921,7 @@ public class AddDobivViewWithTable extends JDialog {
 				dobiv.setUser_measur(user);
 			}
 		}
-		dobiv.setUser_redac(user);
+		dobiv.setUser_redac(user_Redac);
 		dobiv.setBasic_value(txtBasicValueResult.getText());
 		
 		return dobiv;

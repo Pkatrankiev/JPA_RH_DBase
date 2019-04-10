@@ -94,7 +94,7 @@ import javax.swing.JTable;
 
 public class AddResultsViewWithTable extends JDialog {
 
-	private static Users user = null;
+	private static Users user_Redac = null;
 
 	private final JPanel contentPanel = new JPanel();
 	private static JTextField txtBasicValueResult;
@@ -162,6 +162,8 @@ public class AddResultsViewWithTable extends JDialog {
 		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("Œ–’Œ"));
 		listSample = new ArrayList<Sample>();
 
+		user_Redac = user;
+		
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
 		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
 		masiveTSI = TSI_DAO.getMasiveStringAllValueTSI();
@@ -428,7 +430,7 @@ public class AddResultsViewWithTable extends JDialog {
 				result.setUser_measur(user);
 			}
 		}
-		result.setUser_redac(user);
+		result.setUser_redac(user_Redac);
 		result.setZabelejki(null);
 		if(!choiceDobiv.getSelectedItem().toString().isEmpty()){
 		result.setDobiv(DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString()).get(0));

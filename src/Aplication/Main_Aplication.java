@@ -25,6 +25,7 @@ import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.TestSuperScript;
 import CreateWordDocProtocol.GenerateDocProtokol;
+import DBase_Class.Dobiv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
@@ -37,6 +38,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TSI;
+import DBase_Class.Users;
 import OldClases.test;
 import WindowView.AddDobivViewWithTable;
 import WindowView.AddResultsViewWithTable;
@@ -67,6 +69,8 @@ public class Main_Aplication {
 		
 //		 MesejePanel();
 
+//		updateUserRedac();
+		
 		StartMainWindow();
 		
 //		AddResultsViewWithTable();
@@ -92,6 +96,16 @@ public class Main_Aplication {
 	private static void ChoiceListIzpPokazatel() {
 		JFrame f = new JFrame();
 		 new ChoiceListIzpPokazatel(f, null) ;
+	}
+	
+	
+	private static void updateUserRedac() {
+		Users user = UsersDAO.getValueUsersById(3);
+		List<Results> list = ResultsDAO.getInListAllValueResults();
+		for (Results dobiv : list) {
+			dobiv.setUser_redac(user);
+			ResultsDAO.updateResults(dobiv);
+		}
 	}
 	 
 	private static void AddResultsViewWithTable() {

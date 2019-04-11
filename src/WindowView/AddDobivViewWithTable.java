@@ -256,7 +256,17 @@ public class AddDobivViewWithTable extends JDialog {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				setTextInMetodLabel();
-
+				selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+				listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
+				List<Nuclide> listNuclideToMetod = getListNuclideToMetod(selectedMetod);
+				
+				
+				masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
+				masive_NuclideToPokazatel = createMasiveStringSimbolNuklide(listNuclideToMetod);
+				
+				if(masuveSimbolBasikNuclide.length >masive_NuclideToPokazatel.length){
+					viewAddRowButton = true;
+				}
 			}
 
 		});
@@ -271,10 +281,8 @@ public class AddDobivViewWithTable extends JDialog {
 			public void mouseExited(MouseEvent e) {
 				setTextInMetodLabel();
 				selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-				listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
-				masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
-				List<Nuclide> list = getListNuclideToMetod(selectedMetod);
-				masive_NuclideToPokazatel = createMasiveStringSimbolNuklide(list);
+			
+//				masive_NuclideToPokazatel = createMasiveStringSimbolNuklide(listNuclideToMetod);
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -299,6 +307,7 @@ public class AddDobivViewWithTable extends JDialog {
 	protected List<Nuclide> getListNuclideToMetod(Metody metod) {
 		List<Nuclide> listnuclide = new ArrayList<Nuclide>();
 		List<Metody_to_Pokazatel> listMet_Pokaz = Metody_to_PokazatelDAO.getListMetody_to_PokazatelByMetody(metod);
+		
 		for (Metody_to_Pokazatel metody_to_Pokazatel : listMet_Pokaz) {
 				List<Nuclide_to_Pokazatel> listPokazatel = Nuclide_to_PokazatelDAO.getListNuclide_to_PokazatelByPokazatel(metody_to_Pokazatel.getPokazatel());
 			for (Nuclide_to_Pokazatel nuclide_to_Pokazatel : listPokazatel) {
@@ -306,6 +315,7 @@ public class AddDobivViewWithTable extends JDialog {
 			}
 		
 		}
+		
 				return listnuclide;
 		
 	}

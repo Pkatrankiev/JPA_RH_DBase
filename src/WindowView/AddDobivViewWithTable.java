@@ -60,6 +60,7 @@ import Aplication.SampleDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
 //import DBase_Class.Metody_to_NiclideForDobive;
@@ -90,8 +91,9 @@ public class AddDobivViewWithTable extends JDialog {
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<Metody> listMetody;
 	private static List<String> listStandartCodeAllDobiv = new ArrayList<String>();
+	private static List<String> listSimbolBasikNulide;
 
-	// private static Request choiseRequest;
+	private static JButton btnAddRow;
 
 	int newCountResults = 0;
 	int countRowTabDobivs = 0;
@@ -99,10 +101,12 @@ public class AddDobivViewWithTable extends JDialog {
 	int rowWidth = 20;
 	Boolean flagNotReadListPokazatel = true;
 	Boolean flagNotReadListMetody = true;
+	Boolean viewAddRowButton = false;
 	boolean flagIncertedFile;
 
 	private static JTable tabDobivs;
 	private static String[] masuveSimbolBasikNuclide;
+	private static String[] masive_NuclideToPokazatel;
 	private static String[] masiveTSI;
 	private static Object[][] dataTable;
 	private static int tbl_Colum = 8;
@@ -266,6 +270,11 @@ public class AddDobivViewWithTable extends JDialog {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setTextInMetodLabel();
+				selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+				listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
+				masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
+				List<Nuclide> list = getListNuclideToMetod(selectedMetod);
+				masive_NuclideToPokazatel = createMasiveStringSimbolNuklide(list);
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -276,9 +285,34 @@ public class AddDobivViewWithTable extends JDialog {
 
 	}
 
+	protected String[] createMasiveStringSimbolNuklide(List<Nuclide> list) {
+		String[] masiv = new String[list.size()];
+		int i=0;
+		for (Nuclide nuclide : list) {
+			masiv[i] = nuclide.getSymbol_nuclide();
+			i++;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Nuclide> getListNuclideToMetod(Metody metod) {
+		List<Nuclide> listnuclide = new ArrayList<Nuclide>();
+		List<Metody_to_Pokazatel> listMet_Pokaz = Metody_to_PokazatelDAO.getListMetody_to_PokazatelByMetody(metod);
+		for (Metody_to_Pokazatel metody_to_Pokazatel : listMet_Pokaz) {
+				List<Nuclide_to_Pokazatel> listPokazatel = Nuclide_to_PokazatelDAO.getListNuclide_to_PokazatelByPokazatel(metody_to_Pokazatel.getPokazatel());
+			for (Nuclide_to_Pokazatel nuclide_to_Pokazatel : listPokazatel) {
+				listnuclide.add(nuclide_to_Pokazatel.getNuclide());
+			}
+		
+		}
+				return listnuclide;
+		
+	}
+
 	private void setTextInMetodLabel() {
 		if (choiceMetody.getSelectedItem() != null) {
-			selectedMetod = MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem());
+			selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 			lblNameMetod.setText(selectedMetod.getName_metody());
 		}
 	}
@@ -451,8 +485,7 @@ public class AddDobivViewWithTable extends JDialog {
 		btnCreadTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (choiceMetody.getSelectedItem() != null) {
-						List<String> listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
-					masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
+						
 					List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
 							txtStandartCode.getText());
 					Dobiv[] masiveDobivForMetod = creadMasiveFromDobivsObjects_StandartCode(selectedMetod,
@@ -477,8 +510,8 @@ public class AddDobivViewWithTable extends JDialog {
 							Object[][] ss = getDataTable(masiveDobivForMetod, listSimbolBasikNulide);
 							dataTable = new Object[ss.length][tbl_Colum];
 							dataTable = ss;
-
-							ViewTableInPanel(panel, round);
+							Boolean isNewRow = false;
+							ViewTableInPanel(panel, round, isNewRow);
 						}
 					});
 					thread.start();
@@ -586,7 +619,7 @@ public class AddDobivViewWithTable extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	private void ViewTableInPanel(JPanel panel, TranscluentWindow round) {
+	private void ViewTableInPanel(JPanel panel, TranscluentWindow round, Boolean isNewRow) {
 		round.StopWindow();
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
@@ -605,7 +638,7 @@ public class AddDobivViewWithTable extends JDialog {
 		scrollTablePane.setViewportView(panelTable);
 		panelTable.setLayout(new BorderLayout(0, 0));
 
-		tabDobivs = CreateTableDobivs();
+		tabDobivs = CreateTableDobivs(isNewRow);
 		countRowTabDobivs = dataTable.length;
 		tabDobivs.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 			@Override
@@ -651,7 +684,10 @@ public class AddDobivViewWithTable extends JDialog {
 
 	}
 
-	public JTable CreateTableDobivs() {
+	public JTable CreateTableDobivs(Boolean isNewRow) {
+		
+		btnAddRow.setVisible(viewAddRowButton);
+		
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
 		Class[] types = getTypes();
@@ -761,7 +797,7 @@ public class AddDobivViewWithTable extends JDialog {
 
 				table.setModel(dtm);
 
-				setUp_Nuclide(table.getColumnModel().getColumn(nuclide_Colum));
+				setUp_Nuclide(table.getColumnModel().getColumn(nuclide_Colum),isNewRow);
 				setUp_TSI(table.getColumnModel().getColumn(TSI_Colum));
 
 				table.getColumnModel().getColumn(dobiv_Id_Colum).setWidth(0);
@@ -897,7 +933,7 @@ public class AddDobivViewWithTable extends JDialog {
 	private static Dobiv creadDobivsObject(int i, Dobiv dobiv) {
 
 		dobiv.setCode_Standart(txtStandartCode.getText());
-		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()));
+		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 		dobiv.setIzpitvan_produkt(Izpitvan_produktDAO.getValueIzpitvan_produktByName(choiceIzpitProd.getSelectedItem()));
 		dobiv.setDescription(textFieldDobivDescrip.getText());
 		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString()));
@@ -955,8 +991,11 @@ public class AddDobivViewWithTable extends JDialog {
 		;
 	}
 	
-	public static void setUp_Nuclide(TableColumn Nuclide_Column) {
+	public static void setUp_Nuclide(TableColumn Nuclide_Column, Boolean isNewRow) {
 		JComboBox<?> comboBox = new JComboBox<Object>(masuveSimbolBasikNuclide);
+		if(isNewRow){
+			comboBox = new JComboBox<Object>(masive_NuclideToPokazatel);
+			}
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -1020,7 +1059,7 @@ public class AddDobivViewWithTable extends JDialog {
 	}
 
 	private void btnAddRow(JPanel basic_panel) {
-		JButton btnAddRow = new JButton("нов Нуклид");
+		btnAddRow = new JButton("нов Нуклид");
 		btmAddRowListener(basic_panel, btnAddRow);
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
 		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
@@ -1028,6 +1067,7 @@ public class AddDobivViewWithTable extends JDialog {
 		gbc_btnAddRow.gridx = 6;
 		gbc_btnAddRow.gridy = 8;
 		basic_panel.add(btnAddRow, gbc_btnAddRow);
+		btnAddRow.setVisible(false);
 	}
 
 	public void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile) {
@@ -1035,7 +1075,7 @@ public class AddDobivViewWithTable extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (flagIncertedFile) {
 					if (choiceMetody.getSelectedItem() != null) {
-						if (MetodyDAO.getValueList_MetodyByName(choiceMetody.getSelectedItem()).getId_metody() == 9) {
+						if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getId_metody() == 9) {
 							// TranscluentWindow round = new
 							// TranscluentWindow();
 							// final Thread thread = new Thread(new Runnable() {
@@ -1069,7 +1109,8 @@ public class AddDobivViewWithTable extends JDialog {
 					public void run() {
 
 						AddNewRowIn_dataTable();
-						ViewTableInPanel(basic_panel, round);
+						Boolean isNewRow = true;
+						ViewTableInPanel(basic_panel, round, isNewRow);
 					}
 				});
 				thread.start();

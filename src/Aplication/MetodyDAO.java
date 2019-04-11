@@ -66,13 +66,13 @@ public class MetodyDAO {
 	@SuppressWarnings("unchecked")
 	@GET
 	@PersistenceContext
-	public static Metody getValueList_MetodyByName(String name) {
+	public static Metody getValueList_MetodyByCode(String name) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
-		Query query = entitymanager.createNamedQuery("findMetodyByName");
+		Query query = entitymanager.createNamedQuery("findMetodyByCode");
 		query.setParameter("text", name);
 	
 		List<Metody> list = query.getResultList();

@@ -66,12 +66,12 @@ public class Nuclide_to_PokazatelDAO {
 		emfactory.close();
 	}
 
-	@GET
+	@SuppressWarnings("unchecked")
 	public static List<Nuclide_to_Pokazatel> getInListAllNuclide_to_Pokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Nuclide_to_Pokazatel e");
+		Query query = entitymanager.createNamedQuery("getInListAllNuclide_to_Pokazatel");
 		List<Nuclide_to_Pokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -94,16 +94,13 @@ public class Nuclide_to_PokazatelDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Nuclide_to_Pokazatel> getListNuclide_to_PokazatelFromColumnByVolume(String column_name,
-			Object volume_check) {
+	public static List<Nuclide_to_Pokazatel> getListNuclide_to_PokazatelByPokazatel(List_izpitvan_pokazatel volume_check) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-
-		String hql = "SELECT e FROM Nuclide_to_Pokazatel e WHERE e." + column_name + " = :text";
-
-		Query query = entitymanager.createQuery(hql);
+		
+		Query query = entitymanager.createNamedQuery("findNuclideToPokazatelByPokazatel");
 		query.setParameter("text", volume_check);
 
 		List<Nuclide_to_Pokazatel> list = query.getResultList();
@@ -113,6 +110,23 @@ public class Nuclide_to_PokazatelDAO {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<Nuclide_to_Pokazatel> getListNuclide_to_PokazatelByNuclide(Nuclide volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		Query query = entitymanager.createNamedQuery("findNuclide_to_PokazatelByNuclide");
+		query.setParameter("text", volume_check);
+
+		List<Nuclide_to_Pokazatel> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
 	public static void deleteNuclide_to_Pokazatel(Nuclide_to_Pokazatel pokazatel) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

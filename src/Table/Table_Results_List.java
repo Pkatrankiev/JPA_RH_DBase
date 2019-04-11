@@ -497,7 +497,7 @@ public class Table_Results_List extends JDialog {
 
 	private static void udateResultObject(JTable table, int row, Results result) {
 		DefaultTableModel model =(DefaultTableModel) table.getModel();
-		result.setMetody(MetodyDAO.getValueList_MetodyByName(model.getValueAt(row, mtd_Izp_Colum) + ""));
+		result.setMetody(MetodyDAO.getValueList_MetodyByCode(model.getValueAt(row, mtd_Izp_Colum) + ""));
 		result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) model.getValueAt(row, nuclide_Colum)));
 		result.setValue_result((Double) model.getValueAt(row, actv_value_Colum));
 		result.setUncertainty((Double) model.getValueAt(row, uncrt_Colum));

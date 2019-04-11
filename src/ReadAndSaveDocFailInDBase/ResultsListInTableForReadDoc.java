@@ -297,7 +297,7 @@ public class ResultsListInTableForReadDoc {
 		List<List_izpitvan_pokazatel> listIzpitPokazatel = new ArrayList<List_izpitvan_pokazatel>();
 		for (int i = 0; i < numRows; i++) {
 			Results result = ResultsDAO.getValueResultsById((int) table.getValueAt(i, rsult_Id_Colum ));
-			result.setMetody((Metody) MetodyDAO.getValueList_MetodyByName(table.getValueAt(i, mtd_Izp_Colum ) + ""));
+			result.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(table.getValueAt(i, mtd_Izp_Colum ) + ""));
 			result.setPokazatel((List_izpitvan_pokazatel) List_izpitvan_pokazatelDAO
 					.getValueIzpitvan_pokazatelByName(table.getValueAt(i, izp_Pok_Colum ) + ""));
 			result.setNuclide(NuclideDAO.getValueNuclideBySymbol((String) table.getValueAt(i, nuclide_Colum )));
@@ -335,7 +335,7 @@ public class ResultsListInTableForReadDoc {
 		for (int i = 0; i < unique.size(); i++) {
 						IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(
 					List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(masiveIzpitPokazatel[i][0]), request,
-					MetodyDAO.getValueList_MetodyByName(masiveIzpitPokazatel[i][1]));
+					MetodyDAO.getValueList_MetodyByCode(masiveIzpitPokazatel[i][1]));
 					}
 
 	}

@@ -95,16 +95,30 @@ public class Metody_to_PokazatelDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Metody_to_Pokazatel> getListMetody_to_PokazatelFromColumnByVolume(String column_name,
-			Object volume_check) {
+	public static List<Metody_to_Pokazatel> getListMetody_to_PokazatelByPokazatel(List_izpitvan_pokazatel volume_check) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM Metody_to_Pokazatel e WHERE e." + column_name + " = :text";
+		Query query = entitymanager.createNamedQuery("findMetody_to_PokazatelByPokazatel");
+		query.setParameter("text", volume_check);
 
-		Query query = entitymanager.createQuery(hql);
+		List<Metody_to_Pokazatel> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Metody_to_Pokazatel> getListMetody_to_PokazatelByMetody(Metody volume_check) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createNamedQuery("findMetody_to_PokazatelByMetody");
 		query.setParameter("text", volume_check);
 
 		List<Metody_to_Pokazatel> list = query.getResultList();

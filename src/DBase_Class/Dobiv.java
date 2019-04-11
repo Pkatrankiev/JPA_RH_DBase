@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table
 @NamedQuery(name="getListAllDobiv", query="SELECT e FROM Dobiv e ORDER BY e.code_Standart ASC")
 @NamedQuery(name="findNDobivByCode_Standart", query="SELECT e FROM Dobiv e WHERE e.code_Standart = :text")
-@NamedQuery(name="findDobivByMetody", query="SELECT e FROM Dobiv e WHERE e.metody = :text")
+@NamedQuery(name="findDobivByMetody", query="SELECT e FROM Dobiv e WHERE e.metody = :text ORDER BY e.Id_dobiv DESC")
 @NamedQuery(name="findDobivByIzpitvan_produkt", query="SELECT e FROM Dobiv e WHERE e.izpitvan_produkt = :text")
 @NamedQuery(name="findDobivByNuclide", query="SELECT e FROM Dobiv e WHERE e.nuclide = :text")
 public class Dobiv implements Serializable {

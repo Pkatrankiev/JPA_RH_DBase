@@ -9,10 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 	import javax.persistence.ManyToOne;
-	import javax.persistence.Table;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 	@Entity
 	@Table
+	@NamedQuery(name="findNuclideToPokazatelByPokazatel", query="SELECT e FROM Nuclide_to_Pokazatel e WHERE e.pokazatel = :text ORDER BY e.nuclide ASC")
+	@NamedQuery(name="findNuclide_to_PokazatelByNuclide", query="SELECT e FROM Nuclide_to_Pokazatel e WHERE e.nuclide = :text ORDER BY e.nuclide ASC")
+	@NamedQuery(name="getInListAllNuclide_to_Pokazatel", query="SELECT e FROM Nuclide_to_Pokazatel e")
 	public class Nuclide_to_Pokazatel implements Serializable {
 
 		private static final long serialVersionUID = 1L;

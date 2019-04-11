@@ -11,11 +11,9 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Dobiv;
-import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
-import DBase_Class.Metody_to_Pokazatel;
+
 import DBase_Class.Nuclide;
 
 public class Metody_to_NiclideForDobiveDAO {
@@ -103,7 +101,6 @@ public class Metody_to_NiclideForDobiveDAO {
 		return list;
 	}
 
-	@SuppressWarnings("static-access")
 	public  void updateMetody_to_NiclideForDobive(Metody_to_NiclideForDobive metody_to_NiclideForDobive) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

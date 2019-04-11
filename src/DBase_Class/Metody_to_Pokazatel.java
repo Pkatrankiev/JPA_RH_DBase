@@ -5,10 +5,13 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table
+@NamedQuery(name="findMetody_to_PokazatelByMetody", query="SELECT e FROM Metody_to_Pokazatel e WHERE e.metody = :text")
+@NamedQuery(name="findMetody_to_PokazatelByPokazatel", query="SELECT e FROM Metody_to_Pokazatel e WHERE e.pokazatel = :text")
 public class Metody_to_Pokazatel implements Serializable {
 
 	private static final long serialVersionUID = 1L;

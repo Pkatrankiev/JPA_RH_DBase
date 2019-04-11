@@ -598,7 +598,7 @@ public class SetDBfromWordDoc {
 
 		/** --------------------------------------------------------------- **/
 		for (int p = 0; p <= max_num_pokazatel[0]; p++) {
-			Metody metody_sample = MetodyDAO.getValueList_MetodyByName(metody[0][p]);
+			Metody metody_sample = MetodyDAO.getValueList_MetodyByCode(metody[0][p]);
 
 			IzpitvanPokazatel izpitvan_pokazatel = new IzpitvanPokazatel(pokazatel_sample[0][p], request,
 					metody_sample);

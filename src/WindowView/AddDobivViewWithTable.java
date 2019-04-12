@@ -92,6 +92,7 @@ public class AddDobivViewWithTable extends JDialog {
 	private static List<Metody> listMetody;
 	private static List<String> listStandartCodeAllDobiv = new ArrayList<String>();
 	private static List<String> listSimbolBasikNulide;
+	private static List<Nuclide> listNuclideToMetod;
 
 	private static JButton btnAddRow;
 
@@ -106,7 +107,7 @@ public class AddDobivViewWithTable extends JDialog {
 
 	private static JTable tabDobivs;
 	private static String[] masuveSimbolBasikNuclide;
-	private static String[] masive_NuclideToPokazatel;
+	private static String[] masive_NuclideToMetod;
 	private static String[] masiveTSI;
 	private static Object[][] dataTable;
 	private static int tbl_Colum = 8;
@@ -250,23 +251,13 @@ public class AddDobivViewWithTable extends JDialog {
 		for (Metody metod : listMetody) {
 			choiceMetody.add(metod.getCode_metody());
 		}
-
+		createAllListsForNuclide();
 		choiceMetody.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				setTextInMetodLabel();
-				selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-				listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
-				List<Nuclide> listNuclideToMetod = getListNuclideToMetod(selectedMetod);
-				
-				
-				masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
-				masive_NuclideToPokazatel = createMasiveStringSimbolNuklide(listNuclideToMetod);
-				
-				if(masuveSimbolBasikNuclide.length >masive_NuclideToPokazatel.length){
-					viewAddRowButton = true;
-				}
+				createAllListsForNuclide();
 			}
 
 		});
@@ -300,7 +291,7 @@ public class AddDobivViewWithTable extends JDialog {
 			masiv[i] = nuclide.getSymbol_nuclide();
 			i++;
 		}
-		return null;
+		return masiv;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -481,7 +472,7 @@ public class AddDobivViewWithTable extends JDialog {
 	private void btnDataFromDBase(JPanel panel) {
 
 		JButton btnCreadTable = new JButton("Данни от базата");
-		btnCreadTableListener(panel, btnCreadTable);
+		btnCreadTableListenerFromDBase(panel, btnCreadTable);
 		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
 		gbc_btnCreadTable.gridwidth = 2;
 		gbc_btnCreadTable.anchor = GridBagConstraints.EAST;
@@ -491,11 +482,10 @@ public class AddDobivViewWithTable extends JDialog {
 		panel.add(btnCreadTable, gbc_btnCreadTable);
 	}
 
-	public void btnCreadTableListener(JPanel panel, JButton btnCreadTable) {
+	public void btnCreadTableListenerFromDBase(JPanel panel, JButton btnCreadTable) {
 		btnCreadTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (choiceMetody.getSelectedItem() != null) {
-						
 					List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
 							txtStandartCode.getText());
 					Dobiv[] masiveDobivForMetod = creadMasiveFromDobivsObjects_StandartCode(selectedMetod,
@@ -634,6 +624,12 @@ public class AddDobivViewWithTable extends JDialog {
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
 		}
+		
+		if(listSimbolBasikNulide.size() < listNuclideToMetod.size()){
+			btnAddRow.setVisible(true);
+		}else{
+			btnAddRow.setVisible(false);
+		}
 		scrollTablePane = new JScrollPane();
 		GridBagConstraints gbc_scrollTablePane = new GridBagConstraints();
 		gbc_scrollTablePane.gridwidth = 7;
@@ -656,8 +652,6 @@ public class AddDobivViewWithTable extends JDialog {
 					boolean hasFocus, int row, int col) {
 
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-				System.out.println("Row " + row + " " + table.getValueAt(row, actv_value_Colum).toString());
-				System.out.println(table.getValueAt(row, uncrt_Colum).toString());
 				String s1 = table.getValueAt(row, actv_value_Colum).toString();
 				String s2 = table.getValueAt(row, uncrt_Colum).toString();
 
@@ -696,7 +690,7 @@ public class AddDobivViewWithTable extends JDialog {
 
 	public JTable CreateTableDobivs(Boolean isNewRow) {
 		
-		btnAddRow.setVisible(viewAddRowButton);
+	
 		
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
@@ -766,9 +760,6 @@ public class AddDobivViewWithTable extends JDialog {
 					}
 
 					public void setValueAt(Object value, int row, int col) {
-						System.out.println("SetVal - Row " + row + " col " + col + "  val  " + value);
-						System.out.println("SetVal - Row " + row + " " + dataTable[row][col].toString());
-
 						if (!dataTable[row][col].equals(value)) {
 							if (col == dateHimObr_Colum || col == dateAnaliz_Colum) {
 								if (!DatePicker.incorrectDate((String) value, false)) {
@@ -1004,7 +995,7 @@ public class AddDobivViewWithTable extends JDialog {
 	public static void setUp_Nuclide(TableColumn Nuclide_Column, Boolean isNewRow) {
 		JComboBox<?> comboBox = new JComboBox<Object>(masuveSimbolBasikNuclide);
 		if(isNewRow){
-			comboBox = new JComboBox<Object>(masive_NuclideToPokazatel);
+			comboBox = new JComboBox<Object>(masive_NuclideToMetod);
 			}
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -1131,16 +1122,31 @@ public class AddDobivViewWithTable extends JDialog {
 	}
 
 	private void AddNewRowIn_dataTable() {
+		listNuclideToMetod = getListNuclideToMetod(selectedMetod);
+		masive_NuclideToMetod = createMasiveStringSimbolNuklide(listNuclideToMetod);
+		
 		int countDataTable = dataTable.length;
 		Object[][] newTable = new Object[countDataTable + 1][tbl_Colum];
 		for (int i = 0; i < countDataTable; i++) {
 			newTable[i] = dataTable[i];
 		}
-		newTable[countDataTable] = rowWithoutValueDobivs(masuveSimbolBasikNuclide[0]);
+		for (Nuclide nuk : listNuclideToMetod) {
+			System.out.println(nuk.getSymbol_nuclide());
+		}
+		System.out.println(masive_NuclideToMetod[0]);
+		newTable[countDataTable] = rowWithoutValueDobivs(masive_NuclideToMetod[0]);
 		dataTable = new Object[newTable.length][tbl_Colum];
 		for (int i = 0; i < newTable.length; i++) {
 			dataTable[i] = newTable[i];
 		}
+	}
+
+	private void createAllListsForNuclide() {
+		selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+		listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
+		masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
+		listNuclideToMetod = getListNuclideToMetod(selectedMetod);
+		masive_NuclideToMetod = createMasiveStringSimbolNuklide(listNuclideToMetod);
 	}
 
 	public static void checkValueFrame(Nuclide nuclide, Metody curentMetod, Double actv_value) {

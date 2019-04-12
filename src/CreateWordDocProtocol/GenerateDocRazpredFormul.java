@@ -43,6 +43,9 @@ import WindowView.TranscluentWindow;
 public class GenerateDocRazpredFormul {
 
 	public static int maxRowInTableOnePage = 10;
+	private static String strKeyTemplateNewRow = "##$$%%";
+	
+	
 	public static void GenerateRazpFormWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
@@ -73,6 +76,8 @@ public class GenerateDocRazpredFormul {
 		AplicationDocTemplate.removeTemplateParagraph(template, "$$pp$$");
 		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, "#$%");
 		AplicationDocTemplate.removeTemplateParagraph(template, "#$%");
+		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateNewRow);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateNewRow);
 
 		// izvlichane na tablicite ot documenta
 		List<Object> tables = AplicationDocTemplate.getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
@@ -154,7 +159,9 @@ public class GenerateDocRazpredFormul {
 				AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
 
 			}
-	
+		
+		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow, AplicationDocTemplate.createEmptiMap("##$$%%"));
 		AplicationDocTemplate.addTable(template, podpisiTable);
 
 		try {

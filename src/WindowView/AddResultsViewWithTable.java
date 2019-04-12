@@ -118,6 +118,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<String> listSimbolBasikNulide;
 	private static List<IzpitvanPokazatel> listPokazatel;
 	private static List<Dobiv> listDobivFromMetod = new ArrayList<Dobiv>();
+	private static List<Nuclide_to_Pokazatel> listNucToPok;
 	
 	private static JButton btnAddRow;
 
@@ -629,10 +630,8 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 					lblNameMetod.setText(selectedMetod.getName_metody());
-					List<Nuclide_to_Pokazatel> listNucToPok = getListNuklideToPokazatel();
-					if(listNucToPok.size()>1){
-						viewAddRowButton = true;
-					}
+					listNucToPok = getListNuklideToPokazatel();
+					
 					listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 					masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);
 				}
@@ -933,15 +932,15 @@ public class AddResultsViewWithTable extends JDialog {
 		return listMetody;
 	}
 
-	public static void setUp_Nuclide(TableColumn Nuclide_Column, Boolean isNewRow) {
+	public static void setUp_Nuclide(TableColumn nuclide_Column, Boolean isNewRow) {
 		JComboBox<?> comboBox = new JComboBox<Object>(masuveSimbolNuclide);
 		if(isNewRow){
 		comboBox = new JComboBox<Object>(masive_NuclideToPokazatel);
 		}
-		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
+		nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
-		Nuclide_Column.setCellRenderer(renderer);
+		nuclide_Column.setCellRenderer(renderer);
 	}
 
 	public static void setUp_Razmernosti(TableColumn Razmernosti_Column) {
@@ -1271,7 +1270,11 @@ public class AddResultsViewWithTable extends JDialog {
 
 	public JTable CreateTableResults(Boolean isNewRow) {
 		
-		btnAddRow.setVisible(viewAddRowButton);
+		if(1< listNucToPok.size()){
+			btnAddRow.setVisible(true);
+		}else{
+			btnAddRow.setVisible(false);
+		}
 		
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
@@ -1291,7 +1294,6 @@ public class AddResultsViewWithTable extends JDialog {
 			public void mousePressed(MouseEvent e) {
 				int row = table.rowAtPoint(e.getPoint());
 				int col = table.columnAtPoint(e.getPoint());
-				System.out.println("TableRow=" + row + " TableColumn=" + col);
 				if (SwingUtilities.isRightMouseButton(e)) {
 					if (col == dateAnaliz_Colum || col == dateHimObr_Colum) {
 						String date_choice = getDateFromDatePicker(table, col);
@@ -1381,7 +1383,7 @@ public class AddResultsViewWithTable extends JDialog {
 				};
 
 				table.setModel(dtm);
-
+				
 				setUp_Nuclide(table.getColumnModel().getColumn(nuclide_Colum),isNewRow);
 				
 				setUp_Razmernosti(table.getColumnModel().getColumn(razm_Colum));

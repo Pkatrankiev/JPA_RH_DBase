@@ -71,9 +71,9 @@ public class Main_Aplication {
 
 //		updateUserRedac();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
-//		AddResultsViewWithTable();
+		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;

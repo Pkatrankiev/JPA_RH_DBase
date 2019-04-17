@@ -626,7 +626,7 @@ public class AddDobivViewWithTable extends JDialog {
 		return masiveSimbolNuclide;
 	}
 
-	private List<String> getListSimbolBasikNulideToMetod(Metody metod) {
+	static List<String> getListSimbolBasikNulideToMetod(Metody metod) {
 		List<String> listSimbolBasikNulide = new ArrayList<String>();
 		List<Metody_to_NiclideForDobive> listMetody_NuclideForDobive = Metody_to_NiclideForDobiveDAO
 				.getListMetody_to_NiclideForDobiveByMetody(metod);

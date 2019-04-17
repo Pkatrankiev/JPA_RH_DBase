@@ -116,6 +116,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<String> list_UsersNameFamilyOIR;
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<String> listSimbolBasikNulide;
+	private static List<String> listSimbolBasikNulideToMetod;
 	private static List<IzpitvanPokazatel> listPokazatel;
 	private static List<Dobiv> listDobivFromMetod = new ArrayList<Dobiv>();
 	private static List<Nuclide_to_Pokazatel> listNucToPok;
@@ -269,6 +270,7 @@ public class AddResultsViewWithTable extends JDialog {
 		JButton okButton = new JButton("Запис");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (checkDataResult()) {
 				updateIzpitvanPokazatelObjectInDBase();
 				List<Results> listResultsForSave = creadListFromResultObjectForSave(
 						getSampleObjectFromChoiceSampleCode());
@@ -276,6 +278,7 @@ public class AddResultsViewWithTable extends JDialog {
 					saveResultsObjectInDBase(results);
 				}
 
+			}
 			}
 
 		});
@@ -558,7 +561,25 @@ public class AddResultsViewWithTable extends JDialog {
 		for (String str : list_UsersNameFamilyOIR) {
 			choiceOIR.addItem(str);
 		}
+		choiceOIR.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
 
+				choiceOIR.setBackground(Color.WHITE);
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+		});
 	}
 
 	private void MetodSection(JPanel panel) {
@@ -594,13 +615,14 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_choiceMetody.gridx = 1;
 		gbc_choiceMetody.gridy = 4;
 		panel.add(choiceMetody, gbc_choiceMetody);
-		
+		choiceMetody.add(" ");
+		choiceMetody.select(" ");
 		choiceMetody.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				setValueInChoiceDobiv();
-
+				listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
 			}
 
 		});
@@ -608,9 +630,10 @@ public class AddResultsViewWithTable extends JDialog {
 		choiceMetody.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-
+				choiceMetody.setBackground(Color.WHITE);
 				if (choicePokazatel.getSelectedItem() != null) {
 					if (flagNotReadListMetody) {
+						choiceMetody.removeAll();
 						for (Metody metod : getListMetodyFormMetody_To_Pokaztel()) {
 							choiceMetody.add(metod.getCode_metody());
 							flagNotReadListMetody = false;
@@ -627,6 +650,7 @@ public class AddResultsViewWithTable extends JDialog {
 					lblNameMetod.setText(selectedMetod.getName_metody());
 					if(listDobivFromMetod.isEmpty()){
 					setValueInChoiceDobiv();
+					listSimbolBasikNulideToMetod =	AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
 					}
 					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 					lblNameMetod.setText(selectedMetod.getName_metody());
@@ -640,7 +664,7 @@ public class AddResultsViewWithTable extends JDialog {
 			public void mousePressed(MouseEvent e) {
 
 			}
-
+			
 		});
 
 	}
@@ -665,6 +689,27 @@ public class AddResultsViewWithTable extends JDialog {
 		for (String str : list_UsersNameFamilyORHO) {
 			choiceORHO.addItem(str);
 		}
+		
+		choiceORHO.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+				choiceORHO.setBackground(Color.WHITE);
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+		});
+		
 
 	}
 
@@ -691,14 +736,15 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_choicePokazatel.gridx = 1;
 		gbc_choicePokazatel.gridy = 3;
 		panel.add(choicePokazatel, gbc_choicePokazatel);
-
+		choicePokazatel.add("");
 		choicePokazatel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-
+				choicePokazatel.setBackground(Color.WHITE);
 				if (choiseRequest != null) {
 					if (getSampleObjectFromChoiceSampleCode() != null) {
 						if (flagNotReadListPokazatel)
+							choicePokazatel.removeAll();
 							for (IzpitvanPokazatel pokazat : listPokazatel) {
 								choicePokazatel.add(pokazat.getPokazatel().getName_pokazatel());
 								flagNotReadListPokazatel = false;
@@ -874,6 +920,28 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	public void txtRqstCodeListener(JLabel lblError) {
+		
+		txtRqstCode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+				txtRqstCode.setBackground(Color.WHITE);
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+		});
+		
+		
 		txtRqstCode.addKeyListener(new KeyListener() {
 
 			@Override
@@ -1568,6 +1636,119 @@ public class AddResultsViewWithTable extends JDialog {
 
 	}
 
+	private Boolean checkDataResult() {
+		Boolean saveCheck = true;
+		String str_Error = "";
+
+		if (txtRqstCode.getText().trim().isEmpty()) {
+			txtRqstCode.setBackground(Color.RED);
+		str_Error = str_Error + "код на заявката" + "\n";
+		 saveCheck = false;
+		 }
+
+		if (choicePokazatel.getSelectedItem().trim().isEmpty()) {
+			choicePokazatel.setBackground(Color.RED);
+			str_Error = str_Error + "изпитван показател" + "\n";
+			saveCheck = false;
+		}
+
+		if (choiceMetody.getSelectedItem().trim().isEmpty() ) {
+			choiceMetody.setBackground(Color.RED);
+			str_Error = str_Error + "метод" + "\n";
+			
+			saveCheck = false;
+		}
+
+		if (choiceOIR.getSelectedItem().trim().isEmpty()) {
+			choiceOIR.setBackground(Color.RED);
+			str_Error = str_Error + "извършил анализа" + "\n";
+			saveCheck = false;
+		}
+
+		if (choiceORHO.getSelectedItem().trim().isEmpty()) {
+			choiceORHO.setBackground(Color.RED);
+			str_Error = str_Error + "изв. хим. обработка" + "\n";
+			saveCheck = false;
+		}
+		
+		if (!listSimbolBasikNulideToMetod.isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
+			choiceDobiv.setBackground(Color.RED);
+			str_Error = str_Error + "добив" + "\n";
+			saveCheck = false;
+		}
+
+		if (!strCurrentDataInDataTable(dataTable).trim().isEmpty()) {
+			str_Error = str_Error + strCurrentDataInDataTable(dataTable);
+			System.out.println(str_Error);
+			saveCheck = false;
+		}
+
+		if (!saveCheck) {
+			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, str_Error, "Грешни данни за следните полета:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		return saveCheck;
+	}
+
+	
+	
+	private static String strCurrentDataInDataTable(Object[][] dataTable) {
+		String errDuplic ="";
+		String errTSI ="";
+		
+		String errDateAnaliz ="";
+		String errRazm ="";
+		String errQunt ="";
+		String errDim = "";
+		List<String> listCodeNuclide = new ArrayList<String>();
+		if (dataTable != null) {
+			for (int i = 0; i < dataTable.length; i++) {
+				String s1 = dataTable[i][mda_Colum].toString().toString();
+				String s2 = dataTable[i][actv_value_Colum].toString();
+				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) != 0)) {
+					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
+					if (dataTable[i][razm_Colum].toString().trim().isEmpty()) {
+						errRazm = "размерност " + "\n";
+					}
+					String razm = dataTable[i][razm_Colum].toString();
+					String qunt = dataTable[i][qunt_Colum].toString();
+					if (!razm.trim().isEmpty() && !razm.replace("Bq", "").isEmpty()) {
+						if(qunt.trim().isEmpty() || Double.parseDouble(qunt)<=0){
+							errQunt = "количество " + "\n";
+						}
+						
+						if(dataTable[i][dimen_Colum].toString().trim().isEmpty() ){
+							errDim = "мярка " + "\n";
+						}
+						
+					}
+					
+					if (dataTable[i][TSI_Colum].toString().trim().isEmpty()) {
+						errTSI = "Т С И " + "\n";
+					}
+										
+					
+					if (DatePicker.incorrectDate(dataTable[i][dateAnaliz_Colum].toString().trim(), false)) {
+						errDateAnaliz = "дата на анализ" + "\n";
+					}
+
+				}
+			}
+
+			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
+			
+			if (deDupStringList.size() != listCodeNuclide.size()) {
+				errDuplic = "повтарящи се нуклиди" + "\n";
+			}
+		} else {
+			errDuplic =  "невъведени данни"+ "\n";
+		}
+		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim);
+	}
+
+	
+	
 	public class TableHeaderMouseListener extends MouseAdapter {
 
 		private JTable table;

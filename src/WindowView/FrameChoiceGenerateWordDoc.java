@@ -167,6 +167,7 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
 		switch (nameFrame) {
 		case "Генериране на Протокол":
+			
 			GenerateDocProtokol.GenerateProtokolWordDoc(fileProtDoc, choiseRequest, substitutionData, round);
 			
 		

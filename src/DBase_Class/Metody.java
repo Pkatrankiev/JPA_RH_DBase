@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @NamedQuery(name="getListAllMetody", query="SELECT e FROM Metody e ORDER BY e.code ASC")
 @NamedQuery(name="findMetodyByCode", query="SELECT e FROM Metody e WHERE e.code = :text")
 @NamedQuery(name="getList_MetodyByInAcredit", query="SELECT e FROM Metody e WHERE e.inAcredit = :text")
+@NamedQuery(name="getList_MetodyByActing", query="SELECT e FROM Metody e WHERE e.acting = :text ORDER BY e.code ASC")
 
 public class Metody implements Serializable {
 
@@ -26,12 +27,14 @@ public class Metody implements Serializable {
 	private String name;
 	private String code;
 	private Boolean inAcredit;
+	private Boolean acting;
 
-	public Metody(Integer id, String name, String code, Boolean inAcredit) {
+	public Metody(Integer id, String name, String code, Boolean inAcredit, Boolean acting) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.inAcredit = inAcredit;
+		this.acting = acting;
 	}
 
 	public Metody (){
@@ -68,6 +71,14 @@ public class Metody implements Serializable {
 
 	public void setCode_metody(String code) {
 		this.code = code;
+	}
+
+	public Boolean getActing_metody() {
+		return acting;
+	}
+
+	public void setActing_metody(Boolean acting) {
+		this.acting = acting;
 	}
 
 	public static long getSerialversionuid() {

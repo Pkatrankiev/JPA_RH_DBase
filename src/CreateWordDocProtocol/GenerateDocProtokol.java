@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBException;
 import org.apache.log4j.*;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
@@ -22,6 +23,7 @@ import DBase_Class.Naredbi;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import WindowView.RequestView;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
@@ -43,6 +45,8 @@ public class GenerateDocProtokol {
 
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
+		
+		
 		BasicConfigurator.configure();
 
 		// List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
@@ -139,8 +143,7 @@ public class GenerateDocProtokol {
 		FunctionForGenerateWordDocFile.clearListDokladMDA();
 
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
-		System.out.println("lastSampleIndex " + lastSampleIndex);
-
+		
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
 		int idexSample = 0;
 
@@ -148,10 +151,7 @@ public class GenerateDocProtokol {
 
 			if (idexSample > lastSampleIndex) {
 				masiveMergeRow[idexSample] = coutRow++;
-				for (int i = 0; i < masiveMergeRow.length; i++) {
-					System.out.println("masiveMergeRow [" + i + "] " + masiveMergeRow[i]);
-				}
-
+				
 				mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
 				tempTable = newTable(substitutionData, template, pargraphTemplateProtokol, pargraphTemplateText,
 						pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable, headerRow_1, headerRow_2,
@@ -174,6 +174,7 @@ public class GenerateDocProtokol {
 
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
 			for (Results result : result_list) {
+				
 				repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
 						masive_column_table_result);
 				AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
@@ -215,6 +216,11 @@ public class GenerateDocProtokol {
 			AplicationDocTemplate.writeDocxToStream(template,
 					FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 			round.StopWindow();
+			
+			if(recuest.getInd_num_doc()==null || recuest.getInd_num_doc().getId_ind_num_doc()==1 ){
+				JOptionPane.showMessageDialog(null, "Изпринтете два оригинала на този протокол", "Внимание",
+						JOptionPane.INFORMATION_MESSAGE);	
+			}
 			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {

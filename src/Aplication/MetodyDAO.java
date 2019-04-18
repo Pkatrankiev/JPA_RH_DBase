@@ -83,8 +83,10 @@ public class MetodyDAO {
 		return list.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
-	public static Metody getList_MetodyByInAcredit(Boolean inAcredit) {
+	@PersistenceContext
+	public static List<Metody> getList_MetodyByInAcredit(Boolean inAcredit) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -93,7 +95,26 @@ public class MetodyDAO {
 		Query query = entitymanager.createNamedQuery("getList_MetodyByInAcredit");
 		query.setParameter("text", inAcredit);
 		
-		Metody list = (Metody) query.getSingleResult();
+		List<Metody> list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GET
+	@PersistenceContext
+	public static List<Metody> getList_MetodyByActing(Boolean acting) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createNamedQuery("getList_MetodyByActing");
+		query.setParameter("text", acting);
+		
+		List<Metody> list = query.getResultList();;
 		entitymanager.close();
 		emfactory.close();
 

@@ -1,28 +1,19 @@
 package WindowView;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import DBase_Class.Request;
 import java.awt.Dimension;
 
 public class RequestMiniFrame extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
-
 	
-	
-		public RequestMiniFrame(JFrame parent, Request request) {
+	private static final long serialVersionUID = 1L;
+	public RequestMiniFrame(JFrame parent, Request request) {
 			super(parent, "", true);
 			setBounds(100, 100, 450, 200);
 			

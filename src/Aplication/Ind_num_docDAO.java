@@ -10,8 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Ind_num_doc;
-import DBase_Class.Internal_applicant;
-import DBase_Class.Izpitvan_produkt;
 
 public class Ind_num_docDAO {
 
@@ -41,6 +39,7 @@ public class Ind_num_docDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Ind_num_doc> getInListAllValueInd_num_doc() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

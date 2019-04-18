@@ -1,8 +1,6 @@
 package WindowView;
 
 import java.awt.Color;
-import java.util.concurrent.CountDownLatch;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

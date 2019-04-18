@@ -1,4 +1,4 @@
-package WindowView;
+package OldClases;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -21,7 +21,9 @@ import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
 class BalloonToolTip extends JToolTip {
-	  private HierarchyListener listener;
+	 
+	private static final long serialVersionUID = 1L;
+	private HierarchyListener listener;
 	  @Override public void updateUI() {
 	    removeHierarchyListener(listener);
 	    super.updateUI();

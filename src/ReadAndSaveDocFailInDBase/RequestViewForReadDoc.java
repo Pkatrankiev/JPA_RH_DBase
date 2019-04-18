@@ -1238,6 +1238,7 @@ public class RequestViewForReadDoc extends JFrame {
 		
 	}
 
+	@SuppressWarnings("unused")
 	private Request createRequestTamplate() {
 		Request recuest = null;
 		Ind_num_doc ind_num_doc = null;

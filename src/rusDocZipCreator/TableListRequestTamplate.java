@@ -1,49 +1,29 @@
 package rusDocZipCreator;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import javax.swing.JScrollPane;
 
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.JButton;
 
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.table.AbstractTableModel;
-
-import javax.swing.table.DefaultTableCellRenderer;
-
-import javax.swing.table.TableCellRenderer;
-
-import javax.swing.table.TableColumn;
-
-import WindowView.RequestViewAplication;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Component;
 
-import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 
-import javax.swing.DefaultCellEditor;
 
-import java.text.MessageFormat;
 
 public class TableListRequestTamplate extends JDialog {
-	private boolean DEBUG = true;
-	private static JFrame frame;
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel panel_Main;
 	private static int index = 0;
 

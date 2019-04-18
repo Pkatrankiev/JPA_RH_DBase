@@ -9,8 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Razmernosti;
 import DBase_Class.Zabelejki;
 
 public class ZabelejkiDAO {
@@ -41,6 +39,7 @@ public class ZabelejkiDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Zabelejki> getInListAllValueZabelejki() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

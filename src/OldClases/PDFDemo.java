@@ -44,10 +44,10 @@ class PDF {
   protected PrintWriter out;
 
   /** The list of pages */
-  protected ArrayList pages;
+  protected ArrayList<Page> pages;
 
   /** The list of object xrefs */
-  protected ArrayList xrefs;
+  protected ArrayList<Long> xrefs;
 
   /** The root object */
   PDFObject rootObj = new RootObject(this);
@@ -77,8 +77,8 @@ class PDF {
   public PDF(PrintWriter o) {
     out = o;
 
-    pages = new ArrayList();
-    xrefs = new ArrayList();
+    pages = new ArrayList<Page>();
+    xrefs = new ArrayList<Long>();
 
   }
 
@@ -283,11 +283,11 @@ abstract class PDFDict extends PDFObject {
    * leading slash, since they always have it. Values can
    * be /names, (strings), or whatever.
    */
-  protected Hashtable dict;
+  protected Hashtable<String, String> dict;
 
   PDFDict(PDF m) {
     super(m);
-    dict = new Hashtable();
+    dict = new Hashtable<String, String>();
   }
 
   /** Write the object to the Output Writer. The default implementation
@@ -315,7 +315,7 @@ abstract class PDFDict extends PDFObject {
 
   protected void printDict() {
     master.println("<<");
-    Enumeration e = dict.keys();
+    Enumeration<String> e = dict.keys();
     while (e.hasMoreElements()) {
       master.print("\t/");
       String key = (String)e.nextElement();
@@ -398,7 +398,7 @@ class MoveTo extends PDFObject {
 }
 /** Represent one Page of a PDF file. */
 class Page extends PDFDict {
-  protected ArrayList objects = new ArrayList();
+  protected ArrayList<PDFObject> objects = new ArrayList<PDFObject>();
 
   public Page(PDF m) {
     super(m);

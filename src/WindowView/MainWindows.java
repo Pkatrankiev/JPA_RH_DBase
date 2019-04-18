@@ -29,12 +29,9 @@ import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
 import Menu.MenuRequense_AddDobiveFrame;
-import Menu.MenuRequense_NewExtraRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
-import Table.Table_Request_List;
-import javafx.beans.binding.When;
 
 public class MainWindows {
 

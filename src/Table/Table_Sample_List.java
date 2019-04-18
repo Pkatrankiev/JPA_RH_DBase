@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
@@ -17,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,31 +24,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import Aplication.Ind_num_docDAO;
-import Aplication.Izpitvan_produktDAO;
-import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
-import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
-import Aplication.UsersDAO;
-import Aplication.ZabelejkiDAO;
-import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import WindowView.DatePicker;
 import WindowView.Login;
 import WindowView.RequestMiniFrame;
-import WindowView.RequestView;
-import WindowView.RequestViewAplication;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
 public class Table_Sample_List extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private static String[] values_Period;
 	private static String[] values_O_I_S;
 	private static Object[][] dataTable;
@@ -97,17 +86,17 @@ public class Table_Sample_List extends JDialog {
 				DefaultTableModel model =(DefaultTableModel) table.getModel();
 				if (table.getSelectedColumn() == rqst_code_Colum) {
 					int row = table.rowAtPoint(e.getPoint());
-					int col = table.columnAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
 					
 					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					System.out.println(row + " " + choiseRequest.getRecuest_code());
-					RequestMiniFrame frame = new RequestMiniFrame(new JFrame(), choiseRequest);
+					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
 				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
 
-					int row = getSelectedModelRow(table);
+					getSelectedModelRow(table);
 					int col = table.getSelectedColumn();
 					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					if (reqCodeStr.startsWith("templ")) {
@@ -146,7 +135,7 @@ public class Table_Sample_List extends JDialog {
 			
 		});
 
-		TableFilterHeader tfh = new TableFilterHeader(table, AutoChoices.ENABLED);
+		new TableFilterHeader(table, AutoChoices.ENABLED);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -280,7 +269,7 @@ public class Table_Sample_List extends JDialog {
 		Period_Column.setCellRenderer(renderer);
 	}
 
-	@SuppressWarnings("rawtypes")
+	
 	private static void AddInUpdateList(int row) {
 		if (listChangedSampleId.isEmpty()) {
 			listChangedSampleId.add((Integer) dataTable[row][smpl_Id_Colum]);
@@ -376,6 +365,7 @@ public class Table_Sample_List extends JDialog {
 		return tableHeader;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static Class[] getTypes() {
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
 				String.class, String.class, String.class, Integer.class };

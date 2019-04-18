@@ -158,10 +158,10 @@ public class RequestViewFunction {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
 			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
+			new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
-			for (String string : choiceLP.getChoiceL_P()) {
+			for (String string : ChoiceL_I_P.getChoiceL_P()) {
 				strTamplate = strTamplate + string + "\n";
 			}
 			int cout_str = strTamplate.length();
@@ -177,11 +177,11 @@ public class RequestViewFunction {
 			System.out.println(list_I_P.size());
 		}
 		final JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false);
+		new ChoiceL_I_P(f, list_I_P, false);
 
 		String str = "";
 		txtArea_list_izpitvan_pokazatel.setText("");
-		for (String string : choiceLP.getChoiceL_P()) {
+		for (String string : ChoiceL_I_P.getChoiceL_P()) {
 			str = str + string + "\n";
 		}
 

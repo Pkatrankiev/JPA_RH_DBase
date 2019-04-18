@@ -27,19 +27,10 @@ public class HTMLTextStylingContentHandler
 
     private final IDocumentHandler documentHandler;
 
-    // current a href + content parsing
-    private String aHref;
-
-    private StringBuilder aContent;
-
-    private boolean ignoreCharacters;
-
     public  HTMLTextStylingContentHandler( IDocumentHandler visitor )
     {
         this.documentHandler = visitor;
-        this.aHref = null;
-        this.aContent = new StringBuilder();
-        this.ignoreCharacters = false;
+        new StringBuilder();
     }
 
    
@@ -48,7 +39,6 @@ public class HTMLTextStylingContentHandler
     public  void startElement( String uri, String localName, String name, Attributes attributes )
         throws SAXException
     {
-        ignoreCharacters = false;
         try
         {
                  
@@ -77,7 +67,6 @@ public class HTMLTextStylingContentHandler
     public  void endElement( String uri, String localName, String name )
         throws SAXException
     {
-        ignoreCharacters = false;
         try
         {
            if ( SUB_ELT.equals( name ) )

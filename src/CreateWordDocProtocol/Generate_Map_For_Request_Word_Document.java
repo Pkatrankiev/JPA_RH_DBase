@@ -4,15 +4,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.TSI_DAO;
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;

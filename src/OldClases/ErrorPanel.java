@@ -1,4 +1,4 @@
-package WindowView;
+package OldClases;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -6,9 +6,10 @@ import java.awt.CardLayout;
 
 public class ErrorPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
+	
+	private static final long serialVersionUID = 1L;
+
+	
 	public ErrorPanel() {
 		setLayout(new CardLayout(0, 0));
 		

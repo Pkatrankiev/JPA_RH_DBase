@@ -14,13 +14,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
-import DBase_Class.Nuclide;
-import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
-import DBase_Class.Results;
 import DBase_Class.Sample;
 
 public class IzpitvanPokazatelDAO {
@@ -77,6 +73,7 @@ public class IzpitvanPokazatelDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public static List<IzpitvanPokazatel> getInListAllValueIzpitvan_pokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -105,6 +102,7 @@ public class IzpitvanPokazatelDAO {
 		return izpitvan_pokazatel;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public static List<IzpitvanPokazatel> getValueIzpitvan_pokazatelByRequest(Request request) {
 
@@ -138,6 +136,7 @@ public class IzpitvanPokazatelDAO {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@GET
 	public static List<IzpitvanPokazatel> getValueIzpitvan_pokazatelByPokazatel(List_izpitvan_pokazatel pokazatel) {
 
@@ -156,6 +155,7 @@ public class IzpitvanPokazatelDAO {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void setBasikValueIzpitvan_pokazatel() {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -172,7 +172,6 @@ public class IzpitvanPokazatelDAO {
 
 		for (int samNum = 1; samNum <= listSample.size(); samNum++) {
 
-			Sample sample = SampleDAO.getValueSampleById(samNum);
 			int ranval = 1 + (int) (Math.random() * 2);
 			System.out.println();
 			System.out.println("***********************************************************");
@@ -217,6 +216,7 @@ public class IzpitvanPokazatelDAO {
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", volume_check);
 
+		@SuppressWarnings("unchecked")
 		List<IzpitvanPokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

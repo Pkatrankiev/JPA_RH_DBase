@@ -16,7 +16,7 @@ public class DbConnection {
 	}
 
 	
-	public static EntityManager DbConnection() {
+	public static EntityManager getDbConnection() {
 
 		EntityManager entitymanager = DbEmfactory().createEntityManager();
 		entitymanager.getTransaction().begin();

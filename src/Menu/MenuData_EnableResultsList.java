@@ -1,10 +1,7 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.JFrame;
-
-import Table.Table_Request_List;
 import Table.Table_Results_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;

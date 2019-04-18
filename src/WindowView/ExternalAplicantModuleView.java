@@ -11,9 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DBase_Class.External_applicant;
-import DBase_Class.Extra_module;
-import DBase_Class.Request;
-import DBase_Class.Users;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -21,17 +18,15 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
-import Aplication.External_applicantDAO;
-
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import java.awt.Dimension;
 
 public class ExternalAplicantModuleView extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private String fondHeatText = "Tahoma";
 	private Font font = new Font(fondHeatText, Font.PLAIN, 11);
@@ -44,8 +39,7 @@ public class ExternalAplicantModuleView extends JDialog {
 	private String strAdress = "";
 	private String strDogovor = "";
 	private String strTel = "";
-	private int id_ExternalAplicBDate;
-
+	
 	public ExternalAplicantModuleView(JFrame parent, External_applicant tamplateExternalAplic,
 			TranscluentWindow round) {
 		super(parent, "", true);
@@ -68,7 +62,7 @@ public class ExternalAplicantModuleView extends JDialog {
 			strDogovor = tamplateExternalAplic.getExternal_applicant_contract_number();
 			strTel = tamplateExternalAplic.getExternal_applicant_telephone();
 			external_Aplic = tamplateExternalAplic;
-			id_ExternalAplicBDate = tamplateExternalAplic.getId_external_applicant();
+			tamplateExternalAplic.getId_external_applicant();
 		}
 
 		{

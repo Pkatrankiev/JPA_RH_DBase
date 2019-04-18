@@ -32,7 +32,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.print.CancelablePrintJob;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
@@ -41,15 +40,21 @@ import java.awt.event.ActionEvent;
 
 public class SampleViewAdd extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JScrollPane scrollPane;
 	private JPanel panel_Label;
 	private JPanel[] panel;
 	private static JLabel[] lbl_sample_code;
+	@SuppressWarnings("rawtypes")
 	private static JComboBox[] comboBox_OI;
 	private static JPanel[] edit_comboBox_OI;
 	private static JTextArea[] txtArea_Sample_Descr;
 	private static JTextField[] txtFld_Ref_date;
 	private static JPanel[] edit_Ref_date;
+	@SuppressWarnings("rawtypes")
 	private static JComboBox[] comboBox_Period;
 	private static JTextField[] txtFld_Year;
 	private static Boolean[] corectYear;
@@ -157,7 +162,7 @@ public class SampleViewAdd extends JDialog {
 						panel[i].add(lbl_sample_code[i]);
 					}
 					{
-						comboBox_OI[i] = new JComboBox();
+						comboBox_OI[i] = new JComboBox<Object>();
 						comboBox_OI[i] .setFont(font);
 						comboBox_OI[i].setPreferredSize(new Dimension(200, 20));
 
@@ -198,7 +203,7 @@ public class SampleViewAdd extends JDialog {
 								Boolean fl = false;
 								final JFrame f = new JFrame();
 
-								AddInChoice choiceO_I_R = new AddInChoice(f, comBox_O_I_S,
+								new AddInChoice(f, comBox_O_I_S,
 										(String) comboBox_OI[l].getSelectedItem());
 
 								String str = AddInChoice.getChoice();
@@ -219,11 +224,7 @@ public class SampleViewAdd extends JDialog {
 
 								}
 								comboBox_OI[l].setSelectedItem(str);
-
-								for (int j = 0; j < countSample; j++) {
-									String string = comBox_Period[j];
-
-								}
+							
 							}
 
 						});
@@ -364,7 +365,7 @@ public class SampleViewAdd extends JDialog {
 					});
 
 					{
-						comboBox_Period[i] = new JComboBox(comBox_Period);
+						comboBox_Period[i] = new JComboBox<Object>(comBox_Period);
 						comboBox_Period[i] .setFont(font);
 						comboBox_Period[i].setPreferredSize(new Dimension(100, 20));
 

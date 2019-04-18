@@ -18,7 +18,6 @@ public class MenuData_EnableSampleList extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		 JFrame f = new JFrame();
 			TranscluentWindow round = new TranscluentWindow();
 			
 			 final Thread thread = new Thread(new Runnable() {

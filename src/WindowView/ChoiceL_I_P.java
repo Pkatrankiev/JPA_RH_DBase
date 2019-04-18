@@ -10,9 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Aplication.List_izpitvan_pokazatelDAO;
-import Aplication.RequestDAO;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Request;
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;
@@ -32,9 +30,7 @@ import java.awt.event.ActionEvent;
 
 public class ChoiceL_I_P extends JDialog {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	static ArrayList<String> bsic_list = RequestViewAplication.getStringListLIP();
 	static int countL_I_P = bsic_list.size();

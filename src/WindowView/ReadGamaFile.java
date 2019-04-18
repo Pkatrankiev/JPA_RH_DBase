@@ -23,12 +23,8 @@ import DBase_Class.Users;
 public class ReadGamaFile {
 
 	private static int countLine;
-	private static int countMDAMasive;
 	private static List<String> listNuclideAkv;
 	private static List<String> listNuclideMDA;
-	private static List<String[]> listObjectNuclideAkv;
-	private static List<String[]> listObjectNuclideMDA;
-
 	private static String cod_sample;
 	private static String user_mesure;
 	private static String quantity = "";
@@ -83,18 +79,90 @@ public class ReadGamaFile {
 	public static int getListNuclideMDA() {
 		return listNuclideMDA.size();
 	}
+		
 
-	public static void ReadGamaFile(String FILENAME) {
+	public static void getReadGamaFile(String FILENAME) {
 
 		String[] stringArray = CreadMasiveFromReadFile(FILENAME);
-		creadDataFromTextLine(stringArray);
-		listObjectNuclideAkv = new ArrayList<String[]>();
-		listObjectNuclideMDA = new ArrayList<String[]>();
+		int flagNuclidy = 0;
+		int countLineToNuclide = 0;
 
+		String[][] stringLine = new String[countLine][];
+		listNuclideAkv = new ArrayList<String>();
+		listNuclideMDA = new ArrayList<String>();
+
+		for (int j = 0; j < countLine; j++) {
+			stringLine[j] = StringUtils.split(stringArray[j]);
+			if (flagNuclidy == 1) {
+				countLineToNuclide++;
+				if (countLineToNuclide > 2) {
+					if (stringLine[j].length != 0) {
+						if(stringArray[j].substring(25, 40).trim().indexOf("*")<0){
+						listNuclideAkv.add(stringArray[j]);
+						}
+					} else {
+						flagNuclidy++;
+					}
+				}
+			} else {
+				if (flagNuclidy == 3 || flagNuclidy == 5 || flagNuclidy == 7) {
+					countLineToNuclide++;
+					if (countLineToNuclide > 2) {
+						if (stringLine[j].length != 0) {
+							listNuclideMDA.add(stringArray[j]);
+						} else {
+							flagNuclidy++;
+						}
+					}
+				} else {
+					if (stringLine[j].length > 0) {
+						switch (stringLine[j][0]) {
+						case "Описание":
+							cod_sample = stringLine[j][3];
+							break;
+						case "Извършил":
+							user_mesure = stringLine[j][3];
+							break;
+						case "Количество":
+							quantity = stringLine[j][3];
+							dimension ="";
+							if (stringLine[j].length > 4) {
+								dimension = stringLine[j][4];
+								dimension = dimension.replaceAll("2", "²");
+								dimension = dimension.replaceAll("3","³");
+							}
+							break;
+						case "Неопределеност":
+							uncertainy = stringLine[j][1];
+							break;
+						case "Kалибровка":
+							T_S_I = stringLine[j][3];
+							break;
+						case "Нуклид": {
+							flagNuclidy++;
+							countLineToNuclide = 0;
+						}
+							break;
+						case "Систематична":
+							sysError = stringLine[j][2];
+							break;
+						case "Неопределеността":
+							sigma = stringLine[j][4];
+							break;
+						case "Начало":
+							date_mesur = stringLine[j][3];
+							break;
+
+						}
+					}
+				}
+			}
+		}
 	}
+		
+	
 
 	private static String transformNuclideSimbol(String firstSimbol){
-		String newSimbol = null;
 		String strNumber = firstSimbol.substring(firstSimbol.indexOf("-")+1);
 		String strSimbol = firstSimbol.substring(0,firstSimbol.indexOf("-"));
 		return transformLastSimbolInSmal(strNumber)+transformLastSimbolInSmal(strSimbol);
@@ -110,12 +178,9 @@ public class ReadGamaFile {
 		return firstSimbol.substring(0,firstSimbol.length()-1)+ch;
 		}return firstSimbol;
 	}
-	
-	
+		
 	public static String[][] getMasivNuclideAktiv() {
 		String[][] str = new String[listNuclideAkv.size()][4];
-		String strNuclSim;
-		String newSim;
 		for (int i = 0; i < listNuclideAkv.size(); i++) {
 		
 			str[i][0] = transformNuclideSimbol(listNuclideAkv.get(i).substring(4, 16).trim());// nuclide simbol
@@ -131,7 +196,6 @@ public class ReadGamaFile {
 		return str;
 
 	}
-
 	
 	public static String[][] getMasivNuclideMDA() {
 		String[][] listActiveNuclide = getMasivNuclideAktiv();
@@ -163,11 +227,9 @@ public class ReadGamaFile {
 			newStr[i][0] = str1[i][0];
 			newStr[i][1] = str1[i][1];
 		}
-		countMDAMasive = newStr.length;
 		return newStr;
 
 	}
-
 	
 	public static Results[] getMasivResultsWithAktiv(){
 		String[][] masiveActiveResults = getMasivNuclideAktiv();
@@ -212,7 +274,6 @@ public class ReadGamaFile {
 				
 		return masiveResultsnew;
 		}
-
 	
 	public static Results[] getMasivResultsMDA(List<String> listSimbolBasicNuclide) {
 		String[][] masiveNuclideMDA = getMasivNuclideMDA();
@@ -312,81 +373,8 @@ public class ReadGamaFile {
 		return user;
 	}
 
-	private static void creadDataFromTextLine(String[] stringArray) {
-		int flagNuclidy = 0;
-		int countLineToNuclide = 0;
+	
 
-		String[][] stringLine = new String[countLine][];
-		listNuclideAkv = new ArrayList<String>();
-		listNuclideMDA = new ArrayList<String>();
-
-		for (int j = 0; j < countLine; j++) {
-			stringLine[j] = StringUtils.split(stringArray[j]);
-			if (flagNuclidy == 1) {
-				countLineToNuclide++;
-				if (countLineToNuclide > 2) {
-					if (stringLine[j].length != 0) {
-						if(stringArray[j].substring(25, 40).trim().indexOf("*")<0){
-						listNuclideAkv.add(stringArray[j]);
-						}
-					} else {
-						flagNuclidy++;
-					}
-				}
-			} else {
-				if (flagNuclidy == 3 || flagNuclidy == 5 || flagNuclidy == 7) {
-					countLineToNuclide++;
-					if (countLineToNuclide > 2) {
-						if (stringLine[j].length != 0) {
-							listNuclideMDA.add(stringArray[j]);
-						} else {
-							flagNuclidy++;
-						}
-					}
-				} else {
-					if (stringLine[j].length > 0) {
-						switch (stringLine[j][0]) {
-						case "Описание":
-							cod_sample = stringLine[j][3];
-							break;
-						case "Извършил":
-							user_mesure = stringLine[j][3];
-							break;
-						case "Количество":
-							quantity = stringLine[j][3];
-							dimension ="";
-							if (stringLine[j].length > 4) {
-								dimension = stringLine[j][4];
-								dimension = dimension.replaceAll("2", "²");
-								dimension = dimension.replaceAll("3","³");
-							}
-							break;
-						case "Неопределеност":
-							uncertainy = stringLine[j][1];
-							break;
-						case "Kалибровка":
-							T_S_I = stringLine[j][3];
-							break;
-						case "Нуклид": {
-							flagNuclidy++;
-							countLineToNuclide = 0;
-						}
-							break;
-						case "Систематична":
-							sysError = stringLine[j][2];
-							break;
-						case "Неопределеността":
-							sigma = stringLine[j][4];
-							break;
-						case "Начало":
-							date_mesur = stringLine[j][3];
-							break;
-
-						}
-					}
-				}
-			}
-		}
-	}
+		
 
 }

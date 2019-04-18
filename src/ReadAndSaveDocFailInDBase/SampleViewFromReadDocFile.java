@@ -41,15 +41,19 @@ import java.awt.event.ActionEvent;
 
 public class SampleViewFromReadDocFile extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private static JScrollPane scrollPane;
 	private JPanel panel_Label;
 	private JPanel[] panel;
 	private static JLabel[] lbl_sample_code;
+	@SuppressWarnings("rawtypes")
 	private static JComboBox[] comboBox_OI;
 	private static JPanel[] edit_comboBox_OI;
 	private static JTextArea[] txtArea_Sample_Descr;
 	private static JTextField[] txtFld_Ref_date;
 	private static JPanel[] edit_Ref_date;
+	@SuppressWarnings("rawtypes")
 	private static JComboBox[] comboBox_Period;
 	private static JTextField[] txtFld_Year;
 	private static Boolean[] corectYear;

@@ -10,13 +10,8 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Aplicant;
-import DBase_Class.Izpitvan_produkt;
-import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
-import DBase_Class.Request;
 import DBase_Class.Users;
-import DBase_Class.Zabelejki;
 
 public class UsersDAO {
 
@@ -54,6 +49,7 @@ public class UsersDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Users> getInListAllValueUsers() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

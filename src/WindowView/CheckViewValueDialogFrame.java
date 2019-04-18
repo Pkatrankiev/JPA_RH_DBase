@@ -28,8 +28,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 
 import Aplication.DobivDAO;
-import Aplication.RequestDAO;
-import DBase_Class.Request;
 
 import javax.swing.border.BevelBorder;
 

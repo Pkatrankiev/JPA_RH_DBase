@@ -1,6 +1,5 @@
 package Aplication;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Nuclide;
-import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 
 public class PeriodDAO {
@@ -36,6 +33,7 @@ public class PeriodDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Period> getInListAllValuePeriod() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -101,6 +99,7 @@ public static Period getPeriodById(@QueryParam("id") int id) {
 	return nuclide;
 }
 	
+	@SuppressWarnings("unchecked")
 	@GET
 	public static Period getValuePeriodByPeriod(String period) {
 

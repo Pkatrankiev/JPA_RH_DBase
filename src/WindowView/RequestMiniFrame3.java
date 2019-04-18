@@ -11,6 +11,8 @@ import java.awt.Insets;
 
 public class RequestMiniFrame3 extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+
 	public RequestMiniFrame3(Request request) {
 		
 		String codeRequest = request.getRecuest_code();

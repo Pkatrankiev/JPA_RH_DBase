@@ -10,9 +10,7 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.External_applicant;
 import DBase_Class.Internal_applicant;
-import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Request;
 
 public class Internal_applicantDAO {
@@ -61,6 +59,7 @@ public class Internal_applicantDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Internal_applicant e");
+		@SuppressWarnings("unchecked")
 		List<Internal_applicant> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();

@@ -9,8 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Dimension;
-import DBase_Class.Izpitvan_produkt;
 import DBase_Class.TSI;
 
 public class TSI_DAO {

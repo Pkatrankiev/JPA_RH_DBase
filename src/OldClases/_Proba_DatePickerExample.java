@@ -1,4 +1,4 @@
-package WindowView;
+package OldClases;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -9,9 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import WindowView.DatePicker;
+
 	public class _Proba_DatePickerExample extends JFrame
 	{ 
-	 //add JPanel to the contentPane
+	
+		private static final long serialVersionUID = 1L;
+	//add JPanel to the contentPane
 	 private JPanel contentPane;
 	 //declare variable
 	 private JTextField txtDate;

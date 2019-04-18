@@ -1,33 +1,21 @@
 package Table;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
-import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,15 +26,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import Aplication.DimensionDAO;
-import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
-import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
-import Aplication.MetodyDAO;
-import Aplication.NuclideDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -54,20 +37,14 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
-import CreateWordDocProtocol.GenerateRequestWordDoc;
-import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.GenerateDocProtokol;
-import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import WindowView.ChoiceL_I_P;
 import WindowView.DatePicker;
-import WindowView.ExtraRequestView;
 import WindowView.Login;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
@@ -79,6 +56,8 @@ import net.coderazzi.filters.gui.TableFilterHeader;
 
 public class Table_Request_List extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private static Request choiseRequest;
 	private static String[] values_I_P;
 	private static String[] values_O_I_R;
@@ -114,8 +93,6 @@ public class Table_Request_List extends JDialog {
 		@SuppressWarnings("rawtypes")
 		Class[] types = getTypes();
 		Object[][] data = getDataTable(tamplateRequest);
-		int counRow = data.length;
-
 		dataTable = data;
 		
 		listStrRequestCode = new ArrayList<String>();
@@ -136,8 +113,8 @@ public class Table_Request_List extends JDialog {
 			public void mousePressed(MouseEvent e) {
 				Users loginUser = Login.getCurentUser();
 				if (table.getSelectedColumn() == rqst_code_Colum && getSelectedModelRow(table) != -1) {
-					int row = table.rowAtPoint(e.getPoint());
-					int col = table.columnAtPoint(e.getPoint());
+					table.rowAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
 					DefaultTableModel model =(DefaultTableModel) table.getModel();
 					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
@@ -158,7 +135,7 @@ public class Table_Request_List extends JDialog {
 								|| table.getSelectedColumn() == ref_Date_Colum) {
 							String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-							JFrame f = new JFrame();
+							new JFrame();
 							TranscluentWindow round = new TranscluentWindow();
 
 							final Thread thread = new Thread(new Runnable() {
@@ -205,10 +182,15 @@ public class Table_Request_List extends JDialog {
 			public void run() {
 				DefaultTableModel dtm = new DefaultTableModel(dataTable, columnNames) {
 
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					@SuppressWarnings("rawtypes")
 					private Class[] types2 = types;
 
-					@Override
-					public Class getColumnClass(int columnIndex) {
+					
+					public Class<?> getColumnClass(int columnIndex) {
 						return this.types2[columnIndex];
 					}
 
@@ -311,7 +293,7 @@ public class Table_Request_List extends JDialog {
 	}
 
 	public static void setUp_Razmernosti(JTable table, TableColumn Razmernosti_Column) {
-		JComboBox comboBox = new JComboBox(values_Razmernosti);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -320,7 +302,7 @@ public class Table_Request_List extends JDialog {
 
 	public static void setUp_I_P_Column(JTable table, TableColumn I_P_Column) {
 
-		JComboBox comboBox = new JComboBox(values_I_P);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_I_P);
 		I_P_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -329,7 +311,7 @@ public class Table_Request_List extends JDialog {
 
 	public static void setUp_O_I_R_Column(JTable table, TableColumn O_I_R_Column) {
 
-		JComboBox comboBox = new JComboBox(values_O_I_R);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_O_I_R);
 		O_I_R_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -337,7 +319,7 @@ public class Table_Request_List extends JDialog {
 	}
 
 	public static void setUp_Users(JTable table, TableColumn users_Column) {
-		JComboBox comboBox = new JComboBox(value_users);
+		JComboBox<?> comboBox = new JComboBox<Object>(value_users);
 		users_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -345,7 +327,7 @@ public class Table_Request_List extends JDialog {
 	}
 
 	public static void setUp_Id_Num_Doc(JTable table, TableColumn id_Num_Doc_Column) {
-		JComboBox comboBox = new JComboBox(values_Id_Num_Doc);
+		JComboBox<?> comboBox = new JComboBox<Object>(values_Id_Num_Doc);
 		id_Num_Doc_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -353,7 +335,7 @@ public class Table_Request_List extends JDialog {
 	}
 
 	public static void setUp_Zabelejki(JTable table, TableColumn zabel_Column) {
-		JComboBox comboBox = new JComboBox(value_Zabelejki);
+		JComboBox<?> comboBox = new JComboBox<Object>(value_Zabelejki);
 		zabel_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -482,6 +464,7 @@ public class Table_Request_List extends JDialog {
 		return list;
 	}
 
+	@SuppressWarnings("static-access")
 	public static String CreateStringListIzpPokaz(ChoiceL_I_P choiceLP) {
 
 		String list_izpitvan_pokazatel = "";

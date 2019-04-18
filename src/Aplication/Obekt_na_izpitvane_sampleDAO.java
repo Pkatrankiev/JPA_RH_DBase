@@ -9,9 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.External_applicant;
-import DBase_Class.Izpitvan_produkt;
-import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 
 public class Obekt_na_izpitvane_sampleDAO {

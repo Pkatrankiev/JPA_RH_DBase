@@ -10,7 +10,8 @@ public class TablesToWord {
    public static void main(String[] args)throws Exception {
 
       //Blank Document
-      XWPFDocument document = new XWPFDocument();
+      @SuppressWarnings("resource")
+	XWPFDocument document = new XWPFDocument();
 
       //Write the Document in file system
       FileOutputStream out = new FileOutputStream(new File("create_table.docx"));

@@ -2,19 +2,12 @@ package Aplication;
 
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
@@ -56,6 +49,7 @@ public class Izpitvan_produktDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public Response getAll() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -73,6 +67,7 @@ public class Izpitvan_produktDAO {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e");
+		@SuppressWarnings("unchecked")
 		List<Izpitvan_produkt> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
@@ -85,6 +80,7 @@ public class Izpitvan_produktDAO {
 		return values;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Izpitvan_produkt> getInListAllValueIzpitvan_produkt() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

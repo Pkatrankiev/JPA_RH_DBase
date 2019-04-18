@@ -12,21 +12,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import org.apache.commons.lang3.ArrayUtils;
-
-import Aplication.Izpitvan_produktDAO;
-import DBase_Class.Izpitvan_produkt;
 
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -36,14 +28,14 @@ import java.awt.Dimension;
 
 public class ChoiceListIzpPokazatel extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	JButton btnPlus;
 	static Choice[] choice = new Choice[7];
 	GridBagConstraints[] gbc_choice = new GridBagConstraints[7];
 	static int countCoice = 0;
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public ChoiceListIzpPokazatel(JFrame parent, String[] list_izpitvan_pokazatel) {
 		super(parent, "", true);
 		final JDialog dialog = new JDialog();

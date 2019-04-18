@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Metody;
 import DBase_Class.Naredbi;
 import DBase_Class.Razmernosti;
 

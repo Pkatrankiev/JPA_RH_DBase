@@ -67,6 +67,7 @@ public class Metody_to_PokazatelDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public static List<Metody_to_Pokazatel> getInListAllMetody_to_Pokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

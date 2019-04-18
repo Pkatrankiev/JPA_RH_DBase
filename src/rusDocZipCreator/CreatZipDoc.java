@@ -1,15 +1,6 @@
 package rusDocZipCreator;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.StringTokenizer;
-
-import javax.xml.crypto.Data;
-
-import java.io.FileOutputStream;
-
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -20,6 +11,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 public class CreatZipDoc {
 	 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		
        try{

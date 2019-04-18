@@ -190,25 +190,9 @@ k++;
 			Map<String, String> textToAdd) throws Docx4JException, JAXBException {
 
 		tempTable = creatTable(template);
-//		addRowToTable(tempTable, templateRow.get(0), getMap());
 
-		// first row is header, second row is content
-
-		int k = 0;
 		for (int i = 0; i < 5; i++) {
-			
-//		}
-//		for (Map<String, String> replacements : textToAdd) {
-
-//			if (0 == (k % 5) && k != 0) {
-//				addRowToTable(tempTable, templateRow.get(0), replacements);
-//				addRowToTable(tempTable, templateRow.get(1), replacements);
-//			}
-
 			addRowToTable(tempTable, templateRow, textToAdd);
-
-			k++;
-
 		}
 	}
 
@@ -269,7 +253,7 @@ k++;
 		}
 	}
 
-	static String getElementText(Object jaxbElem) throws Exception {
+	public static String getElementText(Object jaxbElem) throws Exception {
 		StringWriter sw = new StringWriter();
 		TextUtils.extractText(jaxbElem, sw);
 		return sw.toString();

@@ -23,6 +23,8 @@ import java.awt.Dimension;
 
 public class DateChoice extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private static JTextField txtStartDate;
 	private static JTextField txtEndDate;

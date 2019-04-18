@@ -1,22 +1,17 @@
 package OldClases;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 
 public class testScrol extends JDialog {
 
-	/**
-	 * Launch the application.
-	 */
+	
+	private static final long serialVersionUID = 1L;
+
+	
 	public static void main(String[] args) {
 		try {
 			testScrol dialog = new testScrol();

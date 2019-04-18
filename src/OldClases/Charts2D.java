@@ -9,21 +9,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Arc2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,7 +23,10 @@ import javax.swing.JPanel;
 
 public class Charts2D extends JFrame {
 
-  public Charts2D() {
+ 
+	private static final long serialVersionUID = 1L;
+
+public Charts2D() {
     super("2D Charts");
     setSize(720, 280);
     getContentPane().setLayout(new GridLayout(1, 3, 10, 0));
@@ -70,7 +65,12 @@ public class Charts2D extends JFrame {
 
 class JChart2D extends JPanel {
  
-  protected JLabel titleLabel;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+protected JLabel titleLabel;
 
   protected ChartPanel chartPanel;
 
@@ -160,7 +160,12 @@ class JChart2D extends JPanel {
 
 
   class ChartPanel extends JComponent {
-    int xMargin = 25;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	int xMargin = 25;
 
     int yMargin = 25;
     

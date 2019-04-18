@@ -7,13 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
 
 
 import DBase_Class.External_applicant;
-import DBase_Class.Izpitvan_produkt;
 
 public class External_applicantDAO {
 	
@@ -83,6 +80,7 @@ public class External_applicantDAO {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<External_applicant> getInListAllExternalApplicant() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

@@ -9,10 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Dimension;
-import DBase_Class.External_applicant;
-import DBase_Class.Izpitvan_produkt;
-import DBase_Class.Nuclide;
 import DBase_Class.Razmernosti;
 
 public class RazmernostiDAO {
@@ -43,6 +39,7 @@ public class RazmernostiDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Razmernosti> getInListAllValueRazmernosti() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

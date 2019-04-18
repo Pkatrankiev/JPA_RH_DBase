@@ -14,7 +14,6 @@ import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
 import DBase_Class.DopalnIziskv;
-import DBase_Class.Sample;
 
 public class Extra_moduleDAO {
 

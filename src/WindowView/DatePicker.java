@@ -7,21 +7,12 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
-
 import Aplication.GlobalVariable;
 
 public class DatePicker {
@@ -38,7 +29,7 @@ public class DatePicker {
 	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
 	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 	
-	private String oldDate;
+//	private String oldDate;
 	
 	// create object of JLabel with alignment
 	JLabel l = new JLabel("", JLabel.CENTER);
@@ -211,7 +202,7 @@ public class DatePicker {
     	}
 
 	private void getTimeModule(JPanel panel) {
-		Date data_time = null;
+//		Date data_time = null;
 		final SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
 		String time = hour + ":00";
 		try {
@@ -419,9 +410,9 @@ public class DatePicker {
 				}
 				Duration duration = Duration.between(locStartDate, locEndDate);
 
-				long startDateInSec = getSecondDuration(locStartDate);
+				getSecondDuration(locStartDate);
 				long refTimeInSec = duration.getSeconds() / 2;
-				long qw = startDateInSec + refTimeInSec;
+//				long qw = startDateInSec + refTimeInSec;
 				refDate = locStartDate.plusSeconds(refTimeInSec);
 				if (refTimeInSec < 0) {
 					meanStrPeriod = "Некоректен период";
@@ -437,11 +428,9 @@ public class DatePicker {
 	}
 
 	public static Boolean incorrectTime(String time, JTextField label) {
-		Boolean corDate = false;
 		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
-		Date data_time = null;
 		try {
-			data_time = sdf_time.parse(time);
+			sdf_time.parse(time);
 			label.setForeground(Color.BLACK);
 			return true;
 		} catch (ParseException e) {
@@ -488,7 +477,6 @@ public class DatePicker {
 		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 		String globalSeparator = GlobalVariable.getSeparator();
 		SimpleDateFormat sdf;
-		String sss = "";
 		SimpleDateFormat table_sdf;
 		char separator = '.';
 		char separ = globalSeparator.charAt(0);
@@ -496,18 +484,15 @@ public class DatePicker {
 			separator = '-';
 		}
 		if (separator != separ) {
-			sss = FORMAT_DATE_TIME;
 			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
 			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
 		}
 
 		if (inTime) {
-			sss = TAB_FORMAT_DATE_TIME;
 			sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
 			table_sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 
 		} else {
-			sss = TAB_FORMAT_DATE;
 			sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
 			table_sdf = new SimpleDateFormat(FORMAT_DATE);
 		}
@@ -533,7 +518,6 @@ public class DatePicker {
 		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 		String globalSeparator = GlobalVariable.getSeparator();
 		SimpleDateFormat sdf;
-		String sss = "";
 		SimpleDateFormat table_sdf;
 		char separator = '.';
 		char separ = globalSeparator.charAt(0);
@@ -546,18 +530,15 @@ public class DatePicker {
 		}
 
 		if (separator != separ) {
-			sss = FORMAT_DATE_TIME;
 			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
 			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
 		}
 
 		if (inTime) {
-			sss = FORMAT_DATE_TIME;
 			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
 
 		} else {
-			sss = FORMAT_DATE;
 			sdf = new SimpleDateFormat(FORMAT_DATE);
 			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE);
 		}
@@ -580,7 +561,6 @@ public class DatePicker {
 		String DOC_FORMAT_DATE_TIME = GlobalVariable.getDOC_FORMAT_DATE_TIME();
 		String globalSeparator = GlobalVariable.getSeparator();
 		SimpleDateFormat sdf;
-		String sss = "";
 		SimpleDateFormat table_sdf;
 		char separator = '.';
 		char separ = globalSeparator.charAt(0);
@@ -593,13 +573,11 @@ public class DatePicker {
 		}
 
 		if (separator != separ) {
-			sss = FORMAT_DATE_TIME;
 			FORMAT_DATE_TIME = FORMAT_DATE_TIME.replace(separ, separator);
 			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
 		}
 
 		
-			sss = FORMAT_DATE_TIME;
 			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 			table_sdf = new SimpleDateFormat(DOC_FORMAT_DATE_TIME);
 

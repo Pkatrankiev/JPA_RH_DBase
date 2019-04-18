@@ -3,39 +3,22 @@ package CreateWordDocProtocol;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBException;
 import org.apache.log4j.*;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.docx4j.jaxb.Context;
-import org.docx4j.model.properties.table.BorderBottom;
-import org.docx4j.model.properties.table.BorderLeft;
-import org.docx4j.model.properties.table.BorderRight;
-import org.docx4j.model.properties.table.BorderTop;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.StyleDefinitionsPart;
 import org.docx4j.wml.*;
-import org.docx4j.wml.TcPrInner.HMerge;
-import org.docx4j.wml.TcPrInner.VMerge;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTVMerge;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 
 import Aplication.IzpitvanPokazatelDAO;
-import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
-import DBase_Class.Results;
 import DBase_Class.Sample;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
@@ -107,17 +90,17 @@ public class GenerateDocRazpredFormul {
 
 		AplicationDocTemplate.removeTable(template, podpisiTable);
 
-		Map<String, String> repl_request_pokazarel = new HashMap<String, String>();
-		List<Results> result_list = new ArrayList<>();
+		new HashMap<String, String>();
+		new ArrayList<>();
 		Map<String, String> repl_results = new HashMap<String, String>();
 
 		Boolean newTableCreate = true;
-		String pokaz = pokazatel_list.get(0).getPokazatel().getName_pokazatel();
-		int maxCounRow = FunctionForGenerateWordDocFile.countRowInFirstPege(count_Result_In_Protokol);
+		pokazatel_list.get(0).getPokazatel().getName_pokazatel();
+		FunctionForGenerateWordDocFile.countRowInFirstPege(count_Result_In_Protokol);
 		int coutRow = 0;
 
 		for (Sample sample : smple_list) {
-			result_list = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
+			ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 
 			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
 				if (coutRow < maxRowInTableOnePage) {

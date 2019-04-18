@@ -1,19 +1,11 @@
 package Aplication;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -21,32 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import CreateWordDocProtocol.GenerateDocRazpredFormul;
-import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
-import CreateWordDocProtocol.TestSuperScript;
-import CreateWordDocProtocol.GenerateDocProtokol;
-import DBase_Class.Dobiv;
 import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Izpitvan_produkt;
-import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
-import DBase_Class.Metody_to_Pokazatel;
-import DBase_Class.Nuclide;
-import DBase_Class.Nuclide_to_Pokazatel;
-import DBase_Class.Razmernosti;
-import DBase_Class.Request;
 import DBase_Class.Results;
-import DBase_Class.Sample;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import OldClases.TestSuperScript;
 import OldClases.test;
-import WindowView.AddDobivViewWithTable;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceListIzpPokazatel;
 import WindowView.MainWindows;
-import WindowView.ReadGamaFile;
-import WindowView.ReaderWordDoc;
-import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
@@ -93,12 +68,14 @@ public class Main_Aplication {
 
 
 
+	@SuppressWarnings("unused")
 	private static void ChoiceListIzpPokazatel() {
 		JFrame f = new JFrame();
 		 new ChoiceListIzpPokazatel(f, null) ;
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private static void updateUserRedac() {
 		Users user = UsersDAO.getValueUsersById(3);
 		List<Results> list = ResultsDAO.getInListAllValueResults();
@@ -108,6 +85,7 @@ public class Main_Aplication {
 		}
 	}
 	 
+	@SuppressWarnings("unused")
 	private static void AddResultsViewWithTable() {
 		TranscluentWindow round = new TranscluentWindow();
 		
@@ -124,6 +102,7 @@ public class Main_Aplication {
 			
 	}
 
+	@SuppressWarnings("unused")
 	private static void startcreateProtokolDocx() throws ParseException {
 
 //		String codeRequest = "3833";
@@ -138,6 +117,7 @@ public class Main_Aplication {
 //		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 
+	@SuppressWarnings("unused")
 	private static void testScript () {
 		  String as ="asd4 5/78Ajj";	      
 	     
@@ -197,6 +177,7 @@ public class Main_Aplication {
 	 	   str = str.replaceAll("/", "⸍");  
 	 	    return str;
 	 	}
+	@SuppressWarnings("unused")
 	private static void MesejePanel() {
 		String[][] str = new String[4][];
 		str[0] = new String[] { "Pie", "2.2", "12" };
@@ -223,6 +204,7 @@ public class Main_Aplication {
 		return panel2;
 	}
 
+	@SuppressWarnings("unused")
 	private static void TestIzpitvanPokazatelClass() {
 		List<IzpitvanPokazatel> list = IzpitvanPokazatelDAO.getInListAllValueIzpitvan_pokazatel();
 		for (IzpitvanPokazatel izpitvanPokazatel : list) {
@@ -231,6 +213,7 @@ public class Main_Aplication {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void ChangeObjectsInClass() {
 		
 		List<Results> listResult = ResultsDAO.getInListAllValueResults();

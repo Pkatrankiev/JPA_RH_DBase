@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -46,7 +45,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import Aplication.DobivDAO;
-import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.MetodyDAO;
 import Aplication.Metody_to_NiclideForDobiveDAO;
@@ -55,23 +53,21 @@ import Aplication.Metody_to_PokazatelDAO;
 import Aplication.NuclideDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
 import Aplication.PostDAO;
-import Aplication.RequestDAO;
-import Aplication.SampleDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
-import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
-//import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
-import DBase_Class.Sample;
 import DBase_Class.Users;
 import WindowViewAplication.AutoSuggestor;
 
 public class AddDobivViewWithTable extends JDialog {
+
+	
+	private static final long serialVersionUID = 1L;
 
 	private static Users user_Redac = null;
 
@@ -321,7 +317,7 @@ public class AddDobivViewWithTable extends JDialog {
 		return masiv;
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	protected List<Nuclide> getListNuclideToMetod(Metody metod) {
 		List<Nuclide> listnuclide = new ArrayList<Nuclide>();
 		List<Metody_to_Pokazatel> listMet_Pokaz = Metody_to_PokazatelDAO.getListMetody_to_PokazatelByMetody(metod);
@@ -489,7 +485,7 @@ public class AddDobivViewWithTable extends JDialog {
 			words.add(dobiv.getCode_Standart());
 		}
 
-		AutoSuggestor autoSuggestor = new AutoSuggestor(txtStandartCode, this, words, Color.WHITE.brighter(),
+		new AutoSuggestor(txtStandartCode, this, words, Color.WHITE.brighter(),
 				Color.BLUE, Color.RED, 0.79f);
 
 		txtDobivCodeListener(lblError);
@@ -1185,7 +1181,7 @@ public class AddDobivViewWithTable extends JDialog {
 				f.showOpenDialog(null);
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
-					ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
+					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
 
 					if (ReadGamaFile.getListNuclideMDA() > 0) {
 						flagIncertedFile = true;

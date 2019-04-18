@@ -20,7 +20,10 @@ import javax.swing.JPanel;
 
 public class JPointGraph2D extends JPanel {
 	 
-	  protected JLabel titleLabel;
+	 
+	private static final long serialVersionUID = 1L;
+
+	protected JLabel titleLabel;
 
 	  protected ChartPanel chartPanel;
 
@@ -118,7 +121,12 @@ public class JPointGraph2D extends JPanel {
 
 
 	  class ChartPanel extends JComponent {
-		  double xMargin = 25;
+		  /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		double xMargin = 25;
 
 		  double yMargin = 25;
 	    

@@ -1,4 +1,4 @@
-package WindowView;
+package OldClases;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -7,7 +7,9 @@ import java.util.Vector;
 
  public class JTableX extends JTable
  {
-     protected RowEditorModel rm;
+     
+	private static final long serialVersionUID = 1L;
+	protected RowEditorModel rm;
 
      public JTableX()
      {
@@ -40,7 +42,7 @@ import java.util.Vector;
          rm = null;
      }
 
-     public JTableX(final Vector rowData, final Vector columnNames)
+     public JTableX(final Vector<?> rowData, final Vector<?> columnNames)
      {
          super(rowData, columnNames);
          rm = null;
@@ -82,10 +84,10 @@ import java.util.Vector;
  	
  	public class RowEditorModel
  	 {
- 	      private Hashtable data;
+ 	      private Hashtable<Integer, TableCellEditor> data;
  	      public RowEditorModel()
  	      {
- 	          data = new Hashtable();
+ 	          data = new Hashtable<Integer, TableCellEditor>();
  	      }
  	     public void addEditorForRow(int row, TableCellEditor e )
  	     {

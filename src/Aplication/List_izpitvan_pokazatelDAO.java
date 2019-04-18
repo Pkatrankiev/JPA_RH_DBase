@@ -9,10 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
-import DBase_Class.Users;
 
 public class List_izpitvan_pokazatelDAO {
 	
@@ -46,6 +43,7 @@ public static void setBasikValuePokazatel(){
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<List_izpitvan_pokazatel> getInListAllValuePokazatel() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

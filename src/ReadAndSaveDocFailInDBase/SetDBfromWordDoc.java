@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Aplication.DimensionDAO;
 import Aplication.Extra_moduleDAO;
@@ -27,7 +26,6 @@ import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.Dimension;
-import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
@@ -37,7 +35,6 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Obekt_na_izpitvane_request;
-import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
@@ -45,10 +42,6 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
-import Table.Table_Request_List;
-import WindowView.ExtraRequestView;
-import WindowView.Login;
-import WindowView.ReaderWordDoc;
 import WindowView.TranscluentWindow;
 
 public class SetDBfromWordDoc {
@@ -59,9 +52,7 @@ public class SetDBfromWordDoc {
 		String celsTranfer[][][] = ReaderWordDoc.readMyDocument(fileName);
 		String cellVolume;
 
-		String[] columnNames = null;
-		Object[][] data;
-		NumberFormat frm = new DecimalFormat("#0.00000");
+		new DecimalFormat("#0.00000");
 		String recuest_code = "";
 		String date_time_reception = null;
 		String obekt_na_izpitvane_request = null;
@@ -69,20 +60,15 @@ public class SetDBfromWordDoc {
 		String  date_time_reference = null;
 		String date_redac = null;
 		String date_measur = null;
-		String aplicant_name = null;
-		String aplicant_family = null;
 		String date_execution = null;
 		String date_chim = null;
 		String zabelejka_recuest = null;
 		Boolean accreditation = false;
 		String NewSector = "";
 		Boolean section = false;
-		Boolean flag_note = false;
 		Izpitvan_produkt izpitvan_produkt = null;
 		String description_sample_group = null;
 
-		External_applicant external_aplicant = null;
-		Internal_applicant internal_aplicant = null;
 		Extra_module extra_mod = null;
 		Ind_num_doc ind_num_doc = null;
 		Zabelejki note = null;
@@ -343,7 +329,6 @@ public class SetDBfromWordDoc {
 			}
 
 			num_pokazatel = 0;
-			Boolean flag2 = false;
 			for (int row = row_sample_start[num_samples]; row < end_num; row++) {
 				cellVolume = newTab[row][2];
 
@@ -365,7 +350,6 @@ public class SetDBfromWordDoc {
 				cellVolume = cellVolume.replaceAll(":", "").trim();
 				str_pokazatel_sample[num_samples][num_pokazatel] = cellVolume;
 				if (i == row) {
-					flag2 = true;
 					row_pokazatel_start[num_samples][num_pokazatel] = row;
 					num_pokazatel++;
 				}
@@ -496,7 +480,6 @@ public class SetDBfromWordDoc {
 				for (int k = 0; k <= max_num_results[i][j]; k++) {
 					if (results_value[i][j][k] != null) {
 						if (results_value[i][j][k].contains("*")) {
-							flag_note = true;
 						}
 						results_value_str = results_value[i][j][k].replace("Е", "E");
 						if (results_value_str.startsWith("<")) {
@@ -539,7 +522,7 @@ public class SetDBfromWordDoc {
 		int sigma = 2;
 		if (section) {
 			ind_num_doc = Ind_num_docDAO.getValueInd_num_docById(4);
-			internal_aplicant = Internal_applicantDAO.getValueInternal_applicantById(1);
+			Internal_applicantDAO.getValueInternal_applicantById(1);
 		}
 		Razmernosti razmernost_recuest = RazmernostiDAO.getValueRazmernostiByName(razmernost[0]);
 		Dimension dimension = null;
@@ -605,7 +588,7 @@ public class SetDBfromWordDoc {
 			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(izpitvan_pokazatel);
 
 			for (int i = 0; i < counts_samples; i++) {
-				Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
+				RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
 
 				Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
 						Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,
@@ -639,13 +622,14 @@ public class SetDBfromWordDoc {
 			
 		}else{
 			
-		    	 RequestViewForReadDoc reqView = new RequestViewForReadDoc(request, date_time_reference2);
+		    	 new RequestViewForReadDoc(request, date_time_reference2);
 		 		 
 		}	
 		   
 
 	}
 
+	@SuppressWarnings("unused")
 	private static String formatter(double number) {
 		DecimalFormat formatter = new DecimalFormat("0.00E00");
 		String fnumber = formatter.format(number);

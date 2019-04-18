@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Aplication.AplicantDAO;
-import WindowView.AddInChoice;
 import WindowView.AddInChoiceNameFamily;
 
 import java.awt.Choice;
@@ -21,6 +20,8 @@ import java.awt.Dimension;
 
 public class ChoiceTest extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 private ArrayList<String> array_AplicantNameFamily;
 private Choice choice;
@@ -64,8 +65,6 @@ private Choice choice;
 			JButton btnNewButton = new JButton("New button");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-
-					Boolean fl_Aplicant = ChoiceFrame(array_AplicantNameFamily, choice);
 							
 				}
 			});
@@ -87,6 +86,7 @@ private Choice choice;
 				buttonPane.add(cancelButton);
 			}
 		}
+		@SuppressWarnings("unused")
 		private Boolean ChoiceFrame(ArrayList<String> array_list, Choice choice_obekt) {
 			Boolean fl= false;
 			final JFrame f = new JFrame();

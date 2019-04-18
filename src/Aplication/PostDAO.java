@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Post;
 
 public class PostDAO {
@@ -38,6 +37,7 @@ public class PostDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Post> getInListAllValuePost() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

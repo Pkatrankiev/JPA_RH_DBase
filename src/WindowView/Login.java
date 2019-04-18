@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 
 public class Login extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
 	private JButton cancelButton;
@@ -37,7 +38,7 @@ public class Login extends JDialog {
 
 	public Login(Frame parent, TranscluentWindow round) {
 		super(parent, "Логване", true);
-		int idUser = 0;
+//		int idUser = 0;
 //		TranscluentWindow pro = new TranscluentWindow();
 //		pro.StartWindow();
 		users_list = UsersDAO.getInListAllValueUsers();
@@ -65,7 +66,7 @@ public class Login extends JDialog {
 				words.add(user.getNikName_users());
 			}
 
-			AutoSuggestor autoSuggestor = new AutoSuggestor(txt_nik_name, this, words, Color.WHITE.brighter(),
+			new AutoSuggestor(txt_nik_name, this, words, Color.WHITE.brighter(),
 					Color.BLUE, Color.RED, 0.99f);
 
 			{

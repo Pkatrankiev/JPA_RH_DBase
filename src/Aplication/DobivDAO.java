@@ -17,8 +17,6 @@ import DBase_Class.Metody;
 
 
 import DBase_Class.Nuclide;
-import DBase_Class.Request;
-import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
 

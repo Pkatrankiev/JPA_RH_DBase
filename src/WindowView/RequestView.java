@@ -17,11 +17,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JScrollPane;
@@ -42,7 +39,6 @@ import Aplication.ZabelejkiDAO;
 import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
-import Aplication.GlobalVariable;
 import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Aplicant;
@@ -51,16 +47,13 @@ import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
-import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 
@@ -69,19 +62,16 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
-import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Font;
 
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.JTextArea;
 import java.awt.Dimension;
 import java.awt.Choice;
 import javax.swing.JButton;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 import javax.swing.JCheckBox;
@@ -124,18 +114,14 @@ public class RequestView extends JDialog {
 	// private ;
 	private String[][] masiveSampleValue = null;
 	private Boolean corectRequestCode = true;
-	private Boolean corectDateRequest = true;
-	private Boolean corectRefDate = true;
-	private Boolean corectDateExecution = true;
-	private Boolean corectDateReception = true;
 	private Boolean section = true;
-	private Boolean firstReadSampleDescription = true;
-	private Extra_module xtra_module2 = null;
+//	private Boolean firstReadSampleDescription = true;
+//	private Extra_module xtra_module2 = null;
 	private Users curent_user;
 	private Request request = null;
 	private String fondHeatText = "Tahoma";
 	private Font font = new Font("Tahoma", Font.PLAIN, 11);
-	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+//	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 	private External_applicant externalAplic = null;
 	private Internal_applicant internalAplic = null;
 	private String[] masive_AplicantNameFamily;
@@ -147,7 +133,7 @@ public class RequestView extends JDialog {
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenHeight = screenSize.height;
-		int screenWidth = screenSize.width;
+//		int screenWidth = screenSize.width;
 		setSize(870, screenHeight);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -257,10 +243,7 @@ public class RequestView extends JDialog {
 	}
 
 	private void Section_Header_Request(final JPanel p) {
-		String text1 = "<html>ƒ⁄–∆¿¬ÕŒ œ–≈ƒœ–»ﬂ“»≈ ì–¿ƒ»Œ¿ “»¬Õ» Œ“œ¿ƒ⁄÷»ì<br><br><br> À¿¡Œ–¿“Œ–»ﬂ «¿ »«œ»“¬¿Õ≈<br>"
-				+ "C≈ “Œ– –¿ƒ»Œ’»Ã»ﬂ<br>" + "À» ñ –’ <br>" + "„.  ÓÁÎÓ‰ÛÈ<br>"
-				+ "ÚÂÎ.: (0973) 7 24 01  e-mail: LI-RH_DPRAO@mail.bg</html>";
-
+		
 		JLabel lblNewLabel_2 = new JLabel("«¿ﬂ¬ ¿ «¿ »«œ»“¬¿Õ≈");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -357,11 +340,9 @@ public class RequestView extends JDialog {
 
 				if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
 					txtFld_Date_Request.setForeground(Color.RED);
-					corectDateRequest = false;
 				} else {
 					txtFld_Date_Request.setForeground(Color.BLACK);
 					txtFld_Date_Request.setBorder(border);
-					corectDateRequest = true;
 				}
 			}
 
@@ -722,7 +703,7 @@ public class RequestView extends JDialog {
 	private void Button_Pokazatel(final JPanel p, Border border) {
 		JButton btn_list_izpitvan_pokazatel = new JButton("»Á·Ó Ì‡ ÔÓÍ‡Á‡ÚÂÎ");
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
-			@SuppressWarnings("static-access")
+//			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 
 				RequestViewFunction.generateTextIn_Text_Area_List_Izpitvan_Pokazatel(txtArea_list_izpitvan_pokazatel,
@@ -782,11 +763,9 @@ public class RequestView extends JDialog {
 
 				if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), true)) {
 					txt_fid_date_time_reference.setForeground(Color.RED);
-					corectRefDate = false;
 				} else {
 					txt_fid_date_time_reference.setForeground(Color.BLACK);
 					txt_fid_date_time_reference.setBorder(border);
-					corectRefDate = true;
 				}
 			}
 
@@ -896,9 +875,9 @@ public class RequestView extends JDialog {
 				try {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
-						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
+//						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+//						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
 						String period = choice_Period.getSelectedItem();
 
 						try {
@@ -1109,11 +1088,9 @@ public class RequestView extends JDialog {
 
 				if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
 					txtFld_date_execution.setForeground(Color.RED);
-					corectDateExecution = false;
 				} else {
 					txtFld_date_execution.setForeground(Color.BLACK);
 					txtFld_date_execution.setBorder(border);
-					corectDateExecution = true;
 				}
 			}
 
@@ -1185,11 +1162,9 @@ public class RequestView extends JDialog {
 
 				if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
 					txtFld_date_reception.setForeground(Color.RED);
-					corectDateReception = false;
 
 				} else {
 					txtFld_date_reception.setForeground(Color.BLACK);
-					corectDateReception = true;
 					txtFld_date_reception.setBorder(border);
 				}
 			}
@@ -1635,9 +1610,18 @@ public class RequestView extends JDialog {
 			str_DateTimeRequest = "‰‡Ú‡ Ì‡ ÔËÂÏ‡ÌÂ" + "\n";
 			saveCheck = false;
 		}
+		
+		String str_checkZabToInObhvat = "";
+		if (choice_Zab.getSelectedItem().indexOf("10%")>0 && !chckbx_accreditation.isSelected()) {
+			chckbx_accreditation.setBorder(new LineBorder(Color.RED));
+			str_checkZabToInObhvat = "ËÁ‚˙Ì Ó·ı‚‡Ú" + "\n";
+			saveCheck = false;
+		}
+		
 		if (!saveCheck) {
 			String str = str_RequestCode + str_RequestDate + str_Izpit_Prod + str_Obekt_Izpit + str_L_I_P
-					+ str_corectRefDate + str_SampleDescription + str_DateExecution + str_DateTimeRequest;
+					+ str_corectRefDate + str_SampleDescription + str_DateExecution + str_DateTimeRequest
+					+ str_checkZabToInObhvat;
 			System.out.println(str);
 			JOptionPane.showMessageDialog(RequestView.this, str, "√Â¯ÌË ‰‡ÌÌË Á‡ ÒÎÂ‰ÌËÚÂ ÔÓÎÂÚ‡:",
 					JOptionPane.ERROR_MESSAGE);
@@ -1710,23 +1694,7 @@ public class RequestView extends JDialog {
 
 		}
 	}
-
-	private void saveSample(String[][] masiveSampleValue) {
-
-		for (int i = 0; i < masiveSampleValue.length; i++) {
-			Period period = null;
-			if (!masiveSampleValue[i][4].equals(""))
-				period = PeriodDAO.getValuePeriodByPeriod(masiveSampleValue[i][4]);
-			Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO
-					.getValueObekt_na_izpitvane_sampleOrSaveByName(masiveSampleValue[i][1]);
-
-			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5, masiveSampleValue[i][0].length()),
-					masiveSampleValue[i][2], masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,
-					Integer.valueOf(masiveSampleValue[i][5]));
-
-		}
-	}
-
+	
 	private void SaveIzpitvanPokazatel() {
 		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {

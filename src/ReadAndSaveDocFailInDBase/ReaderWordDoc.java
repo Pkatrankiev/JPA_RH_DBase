@@ -1,4 +1,4 @@
-package WindowView;
+package ReadAndSaveDocFailInDBase;
 
 import java.io.FileInputStream;
 
@@ -76,6 +76,7 @@ public class ReaderWordDoc {
 
 	}
 
+	@SuppressWarnings("resource")
 	public static void readParagraphs(HWPFDocument doc) throws Exception {
 
 		WordExtractor we = new WordExtractor(doc);
@@ -110,7 +111,7 @@ public class ReaderWordDoc {
 
 		HeaderStories headerStore = new HeaderStories(doc);
 
-		String header = headerStore.getHeader(pageNumber);
+		headerStore.getHeader(pageNumber);
 
 //		System.out.println("Header Is: " + header);
 
@@ -122,7 +123,7 @@ public class ReaderWordDoc {
 
 		HeaderStories headerStore = new HeaderStories(doc);
 
-		String footer = headerStore.getFooter(pageNumber);
+		headerStore.getFooter(pageNumber);
 
 //		System.out.println("Footer Is: " + footer);
 
@@ -134,30 +135,15 @@ public class ReaderWordDoc {
 
 		DocumentSummaryInformation summaryInfo = doc.getDocumentSummaryInformation();
 
-		String category = summaryInfo.getCategory();
+		summaryInfo.getCategory();
 
-		String company = summaryInfo.getCompany();
+		summaryInfo.getCompany();
 
-		int lineCount = summaryInfo.getLineCount();
+		summaryInfo.getLineCount();
 
-		int sectionCount = summaryInfo.getSectionCount();
+		summaryInfo.getSectionCount();
 
-		int slideCount = summaryInfo.getSlideCount();
-
-
-
-//		System.out.println("---------------------------");
-//
-//		System.out.println("Category: " + category);
-//
-//		System.out.println("Company: " + company);
-//
-//		System.out.println("Line Count: " + lineCount);
-//
-//		System.out.println("Section Count: " + sectionCount);
-//
-//		System.out.println("Slide Count: " + slideCount);
-
+		summaryInfo.getSlideCount();
 
 
 	}
@@ -168,11 +154,7 @@ public class ReaderWordDoc {
 
 		Boolean endTab = true;
 
-
-
 		Boolean isTableHeat = false;
-
-
 
 		ArrayList<String> paragraphList = new ArrayList<String>();
 
@@ -184,10 +166,6 @@ public class ReaderWordDoc {
 
 		int numtab = 0;
 
-		int numPargraf = 0;
-
-		String[] paragrafList;
-
 		String cels[][][] = new String[5][100][20];
 
 		int maxrow[] = new int[5];
@@ -197,8 +175,6 @@ public class ReaderWordDoc {
 
 
 		for (int i = 0; i < range.numParagraphs(); i++)
-
-
 
 		{
 

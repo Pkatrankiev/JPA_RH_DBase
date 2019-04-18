@@ -8,9 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -29,7 +27,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import Aplication.DimensionDAO;
-import Aplication.IzpitvanPokazatelDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
@@ -37,17 +34,11 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
-import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
-import WindowView.ExtraRequestView;
-import WindowView.Login;
 import WindowView.RequestMiniFrame;
-import WindowView.RequestView;
-import WindowView.RequestViewAplication;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -108,8 +99,8 @@ public class Table_Results_List extends JDialog {
 			public void mousePressed(MouseEvent e) {
 				DefaultTableModel model =(DefaultTableModel) table.getModel();
 				if (table.getSelectedColumn() == rqst_code_Colum ) {
-					int row = table.rowAtPoint(e.getPoint());
-					int col = table.columnAtPoint(e.getPoint());
+					table.rowAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
 					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum ).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
@@ -117,7 +108,7 @@ public class Table_Results_List extends JDialog {
 				}
 				
 				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
-					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum ).toString();
+					model.getValueAt(getSelectedModelRow(table), rqst_code_Colum ).toString();
 							}
 				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
 			}
@@ -316,6 +307,7 @@ public class Table_Results_List extends JDialog {
 		return tableSampleNew;
 	}
 
+	@SuppressWarnings("unused")
 	private Object[][] getDataTableDAO() {
 		List<Request> listAllRequest = RequestDAO.getInListAllValueRequest();
 		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();

@@ -9,8 +9,6 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.External_applicant;
-import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Obekt_na_izpitvane_request;
 
 public class Obekt_na_izpitvane_requestDAO {
@@ -60,6 +58,7 @@ public static void setBasicValueObekt_na_izpitvane(){
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static String [] getMasiveStringAllValueObekt_na_izpitvane() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();

@@ -1,22 +1,17 @@
-package CreateWordDocProtocol;
+package OldClases;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.BasicConfigurator;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
-import org.docx4j.openpackaging.parts.WordprocessingML.StyleDefinitionsPart;
 import org.docx4j.wml.Body;
 import org.docx4j.wml.BooleanDefaultTrue;
 import org.docx4j.wml.CTVerticalAlignRun;
@@ -24,23 +19,14 @@ import org.docx4j.wml.P;
 import org.docx4j.wml.R;
 import org.docx4j.wml.RPr;
 import org.docx4j.wml.STVerticalAlignRun;
-import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Text;
-import org.docx4j.wml.Tr;
-import org.docx4j.wml.U;
 
-import Aplication.IzpitvanPokazatelDAO;
 import Aplication.NuclideDAO;
-import Aplication.ResultsDAO;
-import Aplication.SampleDAO;
-import DBase_Class.IzpitvanPokazatel;
+import CreateWordDocProtocol.AplicationDocTemplate;
+import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
+import CreateWordDocProtocol.GenerateRequestWordDoc;
 import DBase_Class.Nuclide;
-import DBase_Class.Request;
-import DBase_Class.Results;
-import DBase_Class.Sample;
-import WindowView.DatePicker;
 import WindowView.RequestViewFunction;
-import WindowView.TranscluentWindow;
 
 public class TestSuperScript {
 
@@ -55,19 +41,19 @@ public class TestSuperScript {
 		}
 		String textString = "Текст1 текст2 60Co текст3 137Cs текст4";
 		List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
-		Map<String, String> substitutionData = GenerateMapForRequestWordDocument();
+		GenerateMapForRequestWordDocument();
 
-		P pargraphText = AplicationDocTemplate.getTemplateParagraph(template, "Sgfsg");
+		AplicationDocTemplate.getTemplateParagraph(template, "Sgfsg");
 
 		P pargraphTemplateSuperScript = AplicationDocTemplate.getTemplateParagraph(template, "$$3$$");
-		P pargraphTemplateNuclide = AplicationDocTemplate.getTemplateParagraph(template, "$$6$$");
+		AplicationDocTemplate.getTemplateParagraph(template, "$$6$$");
 		AplicationDocTemplate.removeTemplateParagraph(template, "$$6$$");
 		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, "$$8$$");
 //		pargraphTemplateText.set
 //		AplicationDocTemplate.removeTemplateParagraph(template, "$$8$$");
 //		AplicationDocTemplate.replaceBasicValueInDoc(template, substitutionData);
 
-		Text text = getText(pargraphTemplateSuperScript, "$$4$$");
+		getText(pargraphTemplateSuperScript, "$$4$$");
 
 		org.docx4j.wml.ObjectFactory factory = Context.getWmlObjectFactory();
 

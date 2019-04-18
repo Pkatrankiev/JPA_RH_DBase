@@ -1,13 +1,8 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.JFrame;
-
-import Table.Table_Sample_List;
-import WindowView.ExtraRequestView;
 import WindowView.FrameChoiceGenerateWordDoc;
-import WindowView.TranscluentWindow;
 
 public class MenuDoc_CreateProtokol extends AbstractMenuAction{
 	

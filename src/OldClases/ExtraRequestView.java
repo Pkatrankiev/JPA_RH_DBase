@@ -1,4 +1,4 @@
-package WindowView;
+package OldClases;
 
 import java.awt.BorderLayout;
 
@@ -57,6 +57,17 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import WindowView.AddInChoice;
+import WindowView.AddInChoiceNameFamily;
+import WindowView.ChoiceL_I_P;
+import WindowView.DateChoice;
+import WindowView.DatePicker;
+import WindowView.ExternalAplicantModuleView;
+import WindowView.InternalAplicantModuleView;
+import WindowView.RequestViewAplication;
+import WindowView.RequestViewFunction;
+import WindowView.SampleViewAdd;
+import WindowView.TranscluentWindow;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -237,6 +248,7 @@ public class ExtraRequestView extends JDialog {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void Section_Header_Request(final JPanel p) {
 		String text1 = "<html>ƒ⁄–∆¿¬ÕŒ œ–≈ƒœ–»ﬂ“»≈ ì–¿ƒ»Œ¿ “»¬Õ» Œ“œ¿ƒ⁄÷»ì<br><br><br> À¿¡Œ–¿“Œ–»ﬂ «¿ »«œ»“¬¿Õ≈<br>"
 				+ "C≈ “Œ– –¿ƒ»Œ’»Ã»ﬂ<br>" + "À» ñ –’ <br>" + "„.  ÓÁÎÓ‰ÛÈ<br>"
@@ -699,10 +711,10 @@ public class ExtraRequestView extends JDialog {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
 			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
+			new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
-			for (String string : choiceLP.getChoiceL_P()) {
+			for (String string : ChoiceL_I_P.getChoiceL_P()) {
 				strTamplate = strTamplate + string + "\n";
 			}
 			int cout_str = strTamplate.length();
@@ -970,7 +982,7 @@ public class ExtraRequestView extends JDialog {
 					try {
 						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+						LocalDate.parse(ref_Date_Time, sdf);
 						String period = choice_Period.getSelectedItem();
 						int count_Sample = 0;
 						try {
@@ -1619,7 +1631,7 @@ public class ExtraRequestView extends JDialog {
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 JFrame f = new JFrame();
+		    	 new JFrame();
 		    	 GenerateRequestWordDoc.generateAndSend_Request_Docx("temp.docx",
 		 				"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
 				
@@ -1729,11 +1741,11 @@ public class ExtraRequestView extends JDialog {
 			System.out.println(list_I_P.size());
 		}
 		final JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false);
+		new ChoiceL_I_P(f, list_I_P, false);
 
 		String str = "";
 		txtArea_list_izpitvan_pokazatel.setText("");
-		for (String string : choiceLP.getChoiceL_P()) {
+		for (String string : ChoiceL_I_P.getChoiceL_P()) {
 			str = str + string + "\n";
 		}
 

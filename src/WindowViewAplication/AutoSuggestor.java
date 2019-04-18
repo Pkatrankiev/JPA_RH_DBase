@@ -75,7 +75,10 @@ public class AutoSuggestor {
 	    private void addKeyBindingToRequestFocusInPopUpWindow() {
 	        textField.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true), "Down released");
 	        textField.getActionMap().put("Down released", new AbstractAction() {
-	            @Override
+	            
+				private static final long serialVersionUID = 1L;
+
+				@Override
 	            public void actionPerformed(ActionEvent ae) {//focuses the first label on popwindow
 	                for (int i = 0; i < suggestionsPanel.getComponentCount(); i++) {
 	                    if (suggestionsPanel.getComponent(i) instanceof SuggestionLabel) {
@@ -91,7 +94,11 @@ public class AutoSuggestor {
 	        });
 	        suggestionsPanel.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true), "Down released");
 	        suggestionsPanel.getActionMap().put("Down released", new AbstractAction() {
-	            int lastFocusableIndex = 0;
+	            /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				int lastFocusableIndex = 0;
 
 	            @Override
 	            public void actionPerformed(ActionEvent ae) {//allows scrolling of labels in pop window (I know very hacky for now :))

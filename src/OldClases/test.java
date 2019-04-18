@@ -4,17 +4,16 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.BoxLayout;
-import javax.swing.SwingConstants;
-import java.awt.Component;
 
 public class test extends JPanel {
 
 	
+	
+	private static final long serialVersionUID = 1L;
 	public test() {
 		setLayout(new BorderLayout(0, 0));
 		

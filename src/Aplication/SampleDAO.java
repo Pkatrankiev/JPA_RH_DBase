@@ -10,8 +10,6 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Request;
@@ -69,6 +67,7 @@ public class SampleDAO {
 		emfactory.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Sample> getInListAllValueSample() {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -79,16 +78,6 @@ public class SampleDAO {
 		entitymanager.close();
 		emfactory.close();
 
-//		System.out.format("55", "Num", "заявка", "код", "описание", "референтна дата",
-//				"обект на изпитване", "показател");
-//		System.out.println();
-//		for (Sample e : list) {
-//			System.out.format("22", ((Sample) e).getId_sample(),
-//					((Sample) e).getRequest().getRecuest_code(), "-", ((Sample) e).getSample_code(),
-//					((Sample) e).getDescription_sample(), ((Sample) e).getDate_time_reference(),
-//					((Sample) e).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
-//			System.out.println();
-//		}
 		return list;
 	}
 
@@ -134,6 +123,7 @@ public class SampleDAO {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Sample> getListSampleFromColumnByVolume(String column_name, Object volume_check) {
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

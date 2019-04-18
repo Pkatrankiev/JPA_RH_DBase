@@ -700,10 +700,10 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
 			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
+			new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
-			for (String string : choiceLP.getChoiceL_P()) {
+			for (String string : ChoiceL_I_P.getChoiceL_P()) {
 				strTamplate = strTamplate + string + "\n";
 			}
 			int cout_str = strTamplate.length();
@@ -977,12 +977,12 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
 				try {
-					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
+					Integer.valueOf(txtField_RequestCode.getText());
 					try {
 						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
 						String ref_Date_Time = txt_fid_date_time_reference.getText();
-						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
-						String period = choice_Period.getSelectedItem();
+						LocalDate.parse(ref_Date_Time, sdf);
+						choice_Period.getSelectedItem();
 						try {
 							int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
 							// String ref_Date =
@@ -1740,11 +1740,11 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			System.out.println(list_I_P.size());
 		}
 		final JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false);
+		new ChoiceL_I_P(f, list_I_P, false);
 
 		String str = "";
 		txtArea_list_izpitvan_pokazatel.setText("");
-		for (String string : choiceLP.getChoiceL_P()) {
+		for (String string : ChoiceL_I_P.getChoiceL_P()) {
 			str = str + string + "\n";
 		}
 

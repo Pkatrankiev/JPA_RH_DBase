@@ -3,9 +3,7 @@ package WindowView;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 
-import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,9 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
-import org.docx4j.model.datastorage.XPathEnhancerParser.step_return;
-
-import Aplication.AplicantDAO;
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -44,15 +39,10 @@ import DBase_Class.Metody;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
-import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
-import Table.Table_Request_List;
-import Table.Table_Results_List;
-import net.coderazzi.filters.gui.AutoChoices;
-import net.coderazzi.filters.gui.TableFilterHeader;
 
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -67,8 +57,6 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JCheckBox;
-import java.awt.Panel;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -80,21 +68,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
-import java.awt.Window;
 import java.awt.Point;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 public class AddResultsViewWithTable extends JDialog {
+
+	
+	private static final long serialVersionUID = 1L;
 
 	private static Users user_Redac = null;
 
@@ -102,8 +89,6 @@ public class AddResultsViewWithTable extends JDialog {
 	private static JTextField txtBasicValueResult;
 	private JTextField txtRqstCode;
 	private JLabel lblNameMetod;
-	// private static Sample sample1 = null;
-	// private List_izpitvan_pokazatel pokazatel = null;
 	private static Choice choicePokazatel;
 	private static Choice choiceOIR;
 	private static Choice choiceORHO;
@@ -159,14 +144,12 @@ public class AddResultsViewWithTable extends JDialog {
 	private static int check_Colum = 12;
 	private static int rsult_Id_Colum = 13;
 
-	private Font font = new Font("Tahoma", Font.PLAIN, 12);
 	private JPanel basic_panel;
 	private JScrollPane scrollTablePane;
 
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
 		list_Users = UsersDAO.getInListAllValueUsers();
-//		list_UsersNameFamily = UsersDAO.getListStringAllName_FamilyUsersByPost(null);
 		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР"));
 		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО"));
 		listSample = new ArrayList<Sample>();
@@ -1069,7 +1052,7 @@ public class AddResultsViewWithTable extends JDialog {
 				f.showOpenDialog(null);
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
-					ReadGamaFile.ReadGamaFile(f.getSelectedFile().toString());
+					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
 
 					if (ReadGamaFile.getListNuclideMDA() > 0) {
 						flagIncertedFile = true;

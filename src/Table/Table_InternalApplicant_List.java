@@ -20,7 +20,6 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import Aplication.Internal_applicantDAO;
 import DBase_Class.Internal_applicant;

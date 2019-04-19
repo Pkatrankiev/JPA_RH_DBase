@@ -23,7 +23,7 @@ import DBase_Class.Naredbi;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
-import WindowView.RequestView;
+import GlobalVariable.GlobalPathForDocFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
@@ -50,7 +50,7 @@ public class GenerateDocProtokol {
 		BasicConfigurator.configure();
 
 		// List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
-		nameTaplateProtokol = FunctionForGenerateWordDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
+		nameTaplateProtokol = GlobalPathForDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
 		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$sample_metod$$", "$$cod$$",
 				"$$razmernost$$", "$$value$$", "$$norma$$" };
 
@@ -174,7 +174,6 @@ public class GenerateDocProtokol {
 
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
 			for (Results result : result_list) {
-				
 				repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
 						masive_column_table_result);
 				AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
@@ -214,14 +213,14 @@ public class GenerateDocProtokol {
 		try {
 			String newNameProtokol = recuest.getRecuest_code() + "_" + RequestViewFunction.DateNaw(false) + ".docx";
 			AplicationDocTemplate.writeDocxToStream(template,
-					FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+					GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 			round.StopWindow();
 			
 			if(recuest.getInd_num_doc()==null || recuest.getInd_num_doc().getId_ind_num_doc()==1 ){
 				JOptionPane.showMessageDialog(null, "Изпринтете два оригинала на този протокол", "Внимание",
 						JOptionPane.INFORMATION_MESSAGE);	
 			}
-			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {
 

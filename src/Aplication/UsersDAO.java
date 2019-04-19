@@ -12,13 +12,17 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Post;
 import DBase_Class.Users;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class UsersDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setBasicValueUsers(){
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -31,7 +35,8 @@ public class UsersDAO {
 //	Users
 	public static void setValueUsers(String name, String family, String nikName, String pass, Boolean isAdmin, Post post) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -51,7 +56,8 @@ public class UsersDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Users> getInListAllValueUsers() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Users e ORDER BY e.name ASC");
@@ -76,7 +82,8 @@ public class UsersDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Users getValueUsersById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -91,7 +98,8 @@ public class UsersDAO {
 	@GET
 	public static Users getValueUsersByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -110,7 +118,8 @@ public class UsersDAO {
 	@GET
 	public static Users getValueUsersByFamily(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -135,7 +144,8 @@ public class UsersDAO {
 	@GET
 	public static Users getValueUsersByNicName(String nic_name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -154,7 +164,8 @@ public class UsersDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Users> getListUsersFromColumnByVolume(String column_name, Object volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

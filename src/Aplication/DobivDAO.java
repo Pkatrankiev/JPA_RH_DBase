@@ -19,9 +19,12 @@ import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class DobivDAO {
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 		public static void setValueDobiv(
 			String code_Standart,
@@ -40,7 +43,8 @@ public class DobivDAO {
 			String date_redac,
 			String basic_value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Dobiv valueEnt = new Dobiv();
@@ -71,7 +75,8 @@ public class DobivDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Dobiv> getListAllDobiv() {
 		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getListAllDobiv");
@@ -84,7 +89,8 @@ public class DobivDAO {
 		@GET
 		@QueryParam("{id}")
 		public static Dobiv getDobivById(@QueryParam("id") int id) {
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			Dobiv naredbi = entitymanager.find(Dobiv.class, id);
@@ -98,7 +104,8 @@ public class DobivDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Dobiv> getList_DobivByCode_Standart(String name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -118,7 +125,8 @@ public class DobivDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Dobiv> getListDobivByMetody(Metody name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -136,7 +144,8 @@ public class DobivDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Dobiv> getListDobivByIzpitvan_produkt(Izpitvan_produkt name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -154,7 +163,8 @@ public class DobivDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Dobiv> getListDobivByNuclide(Nuclide name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -172,7 +182,8 @@ public class DobivDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Dobiv> getListResultsFromColumnByVolume(String column_name, Object volume_check) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 
@@ -190,7 +201,8 @@ public class DobivDAO {
 		
 		public static void updateDobiv(Dobiv dobiv) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 		
@@ -210,7 +222,8 @@ public class DobivDAO {
 		}
 		
 		public static void deleteDobivById(int id) {
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			EntityTransaction updateTranzaction = entitymanager.getTransaction();
 			updateTranzaction.begin();

@@ -10,14 +10,19 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.TSI;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class TSI_DAO {
-static String name_DBase = "JPA_RH_DBase";
+//static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	
 
 	
 	public static void setValueTSI(String name, String descript) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		TSI valueEnt = new TSI();
@@ -30,7 +35,8 @@ static String name_DBase = "JPA_RH_DBase";
 	}
 
 	public static List<TSI> getListAllValueTSI() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM TSI e ORDER BY e.name ASC");
@@ -45,7 +51,8 @@ static String name_DBase = "JPA_RH_DBase";
 	@GET
 	@QueryParam("{id}")
 	public static TSI getValueTSIById(@QueryParam("id_tsi") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -61,7 +68,8 @@ static String name_DBase = "JPA_RH_DBase";
 	@GET
 	public static TSI getValueTSIByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

@@ -10,10 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Post;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class PostDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setBasikValuePost() {
 		setValuePost("--");
@@ -26,7 +29,8 @@ public class PostDAO {
 	// Pokazatel
 	public static void setValuePost(String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Post post = new Post();
@@ -39,7 +43,8 @@ public class PostDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Post> getInListAllValuePost() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Post e");
@@ -56,7 +61,8 @@ public class PostDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Post getValuePostById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Post post = (Post) entitymanager.find(Post.class, id);
@@ -70,7 +76,8 @@ public class PostDAO {
 	@GET
 	public static Post getValuePostByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

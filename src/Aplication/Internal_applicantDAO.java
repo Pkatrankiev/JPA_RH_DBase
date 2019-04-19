@@ -12,10 +12,13 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Internal_applicant;
 import DBase_Class.Request;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Internal_applicantDAO {
 	
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setBasikValueInternal_applicant(){
 		setValueInternal_applicant("няма информация", "няма информация", "няма информация");
@@ -43,7 +46,8 @@ public class Internal_applicantDAO {
 	
 	public static void setValueInternal_applicant(Internal_applicant valueEnt){
 	
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 				
@@ -55,7 +59,8 @@ public class Internal_applicantDAO {
 	}
 	
 	public static List<Internal_applicant> getInListAllInternal_applicant() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Internal_applicant e");
@@ -76,7 +81,8 @@ public class Internal_applicantDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Internal_applicant getValueInternal_applicantById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 	
@@ -91,7 +97,8 @@ public class Internal_applicantDAO {
 
 	public static Internal_applicant getValueInternal_applicantByName(String internal_applicant_organization) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -130,7 +137,8 @@ public class Internal_applicantDAO {
 	
 	public static void updateObjectInternal_applicant(Internal_applicant valueEnt) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

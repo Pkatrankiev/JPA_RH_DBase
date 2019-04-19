@@ -10,10 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Obekt_na_izpitvane_request;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Obekt_na_izpitvane_requestDAO {
 
-static String name_DBase = "JPA_RH_DBase";
+//static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 	
 public static void setBasicValueObekt_na_izpitvane(){
 	setValueObekt_na_izpitvane("Вентилационна тръба-1 и Вентилационна тръба-2");
@@ -29,7 +32,8 @@ public static void setBasicValueObekt_na_izpitvane(){
 //	Obekt_na_izpitvane
 	public static void setValueObekt_na_izpitvane(String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Obekt_na_izpitvane_request valueEnt = new Obekt_na_izpitvane_request();
@@ -42,7 +46,8 @@ public static void setBasicValueObekt_na_izpitvane(){
 	}
 
 	public static List<Obekt_na_izpitvane_request> getInListAllValueObekt_na_izpitvane() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e ORDER BY e.name ASC");
@@ -60,7 +65,8 @@ public static void setBasicValueObekt_na_izpitvane(){
 	
 	@SuppressWarnings("unchecked")
 	public static String [] getMasiveStringAllValueObekt_na_izpitvane() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e");
@@ -80,7 +86,8 @@ public static void setBasicValueObekt_na_izpitvane(){
 	@GET
 	@QueryParam("{id}")
 public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();
 	Obekt_na_izpitvane_request  obekt_na_izpitvane = (Obekt_na_izpitvane_request) entitymanager.find(Obekt_na_izpitvane_request.class, id);
@@ -95,7 +102,8 @@ public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryPa
 	@GET
 	public static Obekt_na_izpitvane_request getValueObekt_na_izpitvane_requestByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

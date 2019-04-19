@@ -10,10 +10,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Ind_num_doc;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Ind_num_docDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	
 
 	public static void setBasikValueInd_num_doc() {
 		setValueInd_num_doc("няма информация", "няма информация");
@@ -26,7 +30,8 @@ public class Ind_num_docDAO {
 
 	public static void setValueInd_num_doc(String value, String content) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Ind_num_doc valueEnt = new Ind_num_doc();
@@ -41,7 +46,8 @@ public class Ind_num_docDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Ind_num_doc> getInListAllValueInd_num_doc() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Ind_num_doc e ORDER BY e.name ASC");
@@ -54,7 +60,8 @@ public class Ind_num_docDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Ind_num_doc getValueInd_num_docById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -69,7 +76,8 @@ public class Ind_num_docDAO {
 	@GET
 	public static Ind_num_doc getValueIByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

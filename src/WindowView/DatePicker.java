@@ -13,7 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.*;
-import Aplication.GlobalVariable;
+
+import GlobalVariable.GlobalFormatDate;
 
 public class DatePicker {
 
@@ -26,8 +27,8 @@ public class DatePicker {
 	final Calendar cal_time = Calendar.getInstance();
 	private Font font = new Font("Tahoma", Font.PLAIN, 14);
 
-	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+	private static String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
+	private static String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
 	
 //	private String oldDate;
 	
@@ -471,11 +472,11 @@ public class DatePicker {
 	}
 
 	public static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
-		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
-		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
-		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
-		String globalSeparator = GlobalVariable.getSeparator();
+		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
+		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
+		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
+		String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
+		String globalSeparator = GlobalFormatDate.getSeparator();
 		SimpleDateFormat sdf;
 		SimpleDateFormat table_sdf;
 		char separator = '.';
@@ -512,11 +513,11 @@ public class DatePicker {
 
 	
 	public static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
-		String TAB_FORMAT_DATE = GlobalVariable.getTAB_FORMAT_DATE();
-		String TAB_FORMAT_DATE_TIME = GlobalVariable.getTAB_FORMAT_DATE_TIME();
-		String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
-		String globalSeparator = GlobalVariable.getSeparator();
+		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
+		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
+		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
+		String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
+		String globalSeparator = GlobalFormatDate.getSeparator();
 		SimpleDateFormat sdf;
 		SimpleDateFormat table_sdf;
 		char separator = '.';
@@ -557,9 +558,9 @@ public class DatePicker {
 	}
 	
 	public static String formatToProtokolDate(String origin_date) throws ParseException {
-		String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
-		String DOC_FORMAT_DATE_TIME = GlobalVariable.getDOC_FORMAT_DATE_TIME();
-		String globalSeparator = GlobalVariable.getSeparator();
+		String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
+		String DOC_FORMAT_DATE_TIME = GlobalFormatDate.getDOC_FORMAT_DATE_TIME();
+		String globalSeparator = GlobalFormatDate.getSeparator();
 		SimpleDateFormat sdf;
 		SimpleDateFormat table_sdf;
 		char separator = '.';

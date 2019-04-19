@@ -11,10 +11,13 @@ import javax.ws.rs.QueryParam;
 
 
 import DBase_Class.External_applicant;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class External_applicantDAO {
 	
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	
 	public static void setBasikValueExternal_applicant(){
@@ -31,7 +34,8 @@ public class External_applicantDAO {
 			String external_applicant_telephone,
 			String external_applicant_contract_number){
 	
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 	
@@ -52,7 +56,8 @@ public class External_applicantDAO {
 	
 	public static void setValueExternal_applicant(External_applicant valueEnt){
 	
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 			
@@ -82,7 +87,8 @@ public class External_applicantDAO {
 	
 	@SuppressWarnings("unchecked")
 	public static List<External_applicant> getInListAllExternalApplicant() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM External_applicant e ORDER BY e.external_applicant_name ASC");
@@ -105,7 +111,8 @@ public class External_applicantDAO {
 		@GET
 		@QueryParam("{id}")
 	public static External_applicant getValueExternal_applicantById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		External_applicant  external_applicant = (External_applicant) entitymanager.find(External_applicant.class, id);

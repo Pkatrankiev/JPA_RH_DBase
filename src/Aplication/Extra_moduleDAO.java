@@ -13,11 +13,14 @@ import DBase_Class.Aplicant;
 import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Internal_applicant;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 import DBase_Class.DopalnIziskv;
 
 public class Extra_moduleDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 	
 	
 	public static void setValueExtra_module(External_applicant external_applicant, 
@@ -29,7 +32,8 @@ public class Extra_moduleDAO {
 			String additional_arrangements){
 		
 		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Extra_module xtra_module = new Extra_module();
@@ -50,7 +54,8 @@ public class Extra_moduleDAO {
 	
 	public static void setValueExtra_module(Extra_module xtra_module){
 		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -157,7 +162,8 @@ public class Extra_moduleDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getInListAllValueExtra_module(){
 	
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Extra_module e");
@@ -171,7 +177,8 @@ public class Extra_moduleDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Extra_module getValueExtra_moduleById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();
 	
@@ -186,7 +193,8 @@ public class Extra_moduleDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getExtra_moduleFromColumnByVolume(String column_name, Object volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

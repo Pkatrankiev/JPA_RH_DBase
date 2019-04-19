@@ -2,15 +2,19 @@ package WindowView;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenu;
@@ -19,6 +23,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import CreateWordDocProtocol.GenerateRequestWordDoc;
+import GlobalVariable.GlobalPathForIcons;
 import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableResultsList;
@@ -39,11 +44,16 @@ public class MainWindows {
 	private Login loginDlg;
 	private TranscluentWindow round;
 	public void WindowNew() {
+		
+		
+		
 		final JFrame win = new JFrame();
 		
 		GetVisibleLAF(win);
 
 		win.setTitle("my RHA");
+		
+		win.setIconImage(Toolkit.getDefaultToolkit().getImage(GlobalPathForIcons.get_destination_winIcon()));
 		win.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		win.setSize(900, 600);
 		win.setLocationRelativeTo(null);
@@ -63,6 +73,8 @@ public class MainWindows {
 		win.setVisible(true);
 
 	}
+
+	
 
 	private void GetVisibleLAF(final JFrame win) {
 		try {

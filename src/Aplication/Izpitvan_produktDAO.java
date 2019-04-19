@@ -12,13 +12,16 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import DBase_Class.Izpitvan_produkt;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Izpitvan_produktDAO {
 
 	// @PersistenceContext(name = "JPA_RH_DBase")
 	// private static EntityManager eManager;
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setBasikValueIzpitvan_produkt() {
 		setValueIzpitvan_produkt("Строителен материал");
@@ -34,7 +37,8 @@ public class Izpitvan_produktDAO {
 	@POST
 	public static void setValueIzpitvan_produkt(String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -52,7 +56,8 @@ public class Izpitvan_produktDAO {
 	@SuppressWarnings("unchecked")
 	@GET
 	public Response getAll() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getAllValueIzpitvan_produkt");
@@ -63,7 +68,8 @@ public class Izpitvan_produktDAO {
 	}
 
 	public static String[] getMasiveStringAllValueIzpitvan_produkt() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e");
@@ -82,7 +88,8 @@ public class Izpitvan_produktDAO {
 	
 	@SuppressWarnings("unchecked")
 	public static List<Izpitvan_produkt> getInListAllValueIzpitvan_produkt() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -102,7 +109,8 @@ public class Izpitvan_produktDAO {
 	@QueryParam("{id}")
 	public static Izpitvan_produkt getValueIzpitvan_produktById(@QueryParam("Id_izpitvan_produkt") int id) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 
 		entitymanager.getTransaction().begin();
@@ -118,7 +126,8 @@ public class Izpitvan_produktDAO {
 	@GET
 	public static Izpitvan_produkt getValueIzpitvan_produktByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

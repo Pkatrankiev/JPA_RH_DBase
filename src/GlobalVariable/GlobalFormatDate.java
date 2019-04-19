@@ -1,10 +1,9 @@
-package Aplication;
+package GlobalVariable;
 
-public class GlobalVariable {
+public class GlobalFormatDate {
 	
 	
 	private static String separator = ".";
-	
 	private static String DB_FORMAT_DATE = "dd-MM-yyyy";
 	private static String DB_FORMAT_DATE_TIME ="dd-MM-yyyy HH:mm";
 	private static String FORMAT_DATE = "dd-MM-yyyy";
@@ -38,6 +37,7 @@ public class GlobalVariable {
 	public static String getSeparator() {
 		return separator;
 	}
+	
 	
 	
 }

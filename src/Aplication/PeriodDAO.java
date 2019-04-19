@@ -10,16 +10,21 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Period;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class PeriodDAO {
 
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	
 
 //	Nuclide
 	public static void setValuePeriod(int period, String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -35,7 +40,8 @@ public class PeriodDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Period> getInListAllValuePeriod() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Period e");
@@ -88,7 +94,8 @@ public class PeriodDAO {
 	@GET
 	@QueryParam("{id}")
 public static Period getPeriodById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();
 	Period  nuclide = (Period) entitymanager.find(Period.class, id);
@@ -103,7 +110,8 @@ public static Period getPeriodById(@QueryParam("id") int id) {
 	@GET
 	public static Period getValuePeriodByPeriod(String period) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

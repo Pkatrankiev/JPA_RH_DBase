@@ -17,6 +17,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -56,6 +58,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import GlobalVariable.GlobalFormatDate;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -121,7 +124,7 @@ public class RequestView extends JDialog {
 	private Request request = null;
 	private String fondHeatText = "Tahoma";
 	private Font font = new Font("Tahoma", Font.PLAIN, 11);
-//	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
+	private String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
 	private External_applicant externalAplic = null;
 	private Internal_applicant internalAplic = null;
 	private String[] masive_AplicantNameFamily;
@@ -871,13 +874,14 @@ public class RequestView extends JDialog {
 		JButton btn_SampleDescription = new JButton("Описание на пробите");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 
+			
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int requestCode = Integer.valueOf(txtField_RequestCode.getText()); // kod
 					try {
-//						DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
-						String ref_Date_Time = txt_fid_date_time_reference.getText();
-//						LocalDate data_time = LocalDate.parse(ref_Date_Time, sdf); // ref
+						
+						String ref_Date_Time = txt_fid_date_time_reference.getText();   // refDate
+						LocalDate.parse(ref_Date_Time, DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)); //check refDate
 						String period = choice_Period.getSelectedItem();
 
 						try {

@@ -10,10 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Razmernosti;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class RazmernostiDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setBasicValueRazmernosti(){
 		setValueRazmernosti("Bq");
@@ -27,7 +30,8 @@ public class RazmernostiDAO {
 
 	public static void setValueRazmernosti(String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Razmernosti valueEnt = new Razmernosti();
@@ -41,7 +45,8 @@ public class RazmernostiDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Razmernosti> getInListAllValueRazmernosti() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Razmernosti e");
@@ -60,7 +65,8 @@ public class RazmernostiDAO {
 	@GET
 	@QueryParam("{id}")
 public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();
 	
@@ -76,7 +82,8 @@ public static Razmernosti getValueRazmernostiById(@QueryParam("id") int id) {
 	@GET
 	public static Razmernosti getValueRazmernostiByName(String name) {
 		Razmernosti razmt;
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

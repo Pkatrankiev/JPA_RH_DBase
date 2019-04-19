@@ -26,12 +26,13 @@ import CreateWordDocProtocol.AplicationDocTemplate;
 import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
 import CreateWordDocProtocol.GenerateRequestWordDoc;
 import DBase_Class.Nuclide;
+import GlobalVariable.GlobalPathForDocFile;
 import WindowView.RequestViewFunction;
 
 public class TestSuperScript {
 
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol) {
-		nameTaplateProtokol = FunctionForGenerateWordDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
+		nameTaplateProtokol = GlobalPathForDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
 		try {
@@ -85,9 +86,9 @@ public class TestSuperScript {
 		try {
 			String newNameProtokol = "Test_" + RequestViewFunction.DateNaw(false) + ".docx";
 			AplicationDocTemplate.writeDocxToStream(template,
-					FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+					GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
-			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {
 

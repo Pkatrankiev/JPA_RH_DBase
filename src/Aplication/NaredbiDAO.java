@@ -11,13 +11,17 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Naredbi;
 import DBase_Class.Razmernosti;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class NaredbiDAO {
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setValueNaredbi(Razmernosti razmernost, String name_request, String name_protokol) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Naredbi valueEnt = new Naredbi();
@@ -34,7 +38,8 @@ public class NaredbiDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Naredbi> getInListAllValueNaredbi() {
 		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getListAllNaredbi");
@@ -47,7 +52,8 @@ public class NaredbiDAO {
 		@GET
 		@QueryParam("{id}")
 		public static Naredbi getValueNaredbiById(@QueryParam("id") int id) {
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			Naredbi naredbi = entitymanager.find(Naredbi.class, id);
@@ -61,7 +67,8 @@ public class NaredbiDAO {
 		@SuppressWarnings("unchecked")
 		public static Naredbi getValueList_NaredbiByName_request(String name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -79,7 +86,8 @@ public class NaredbiDAO {
 		@SuppressWarnings("unchecked")
 		public static Naredbi getValueList_NaredbiByName_protokol(String name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -97,7 +105,8 @@ public class NaredbiDAO {
 		@SuppressWarnings("unchecked")
 		public static Naredbi getValueList_NaredbiByRazmernost(Razmernosti name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			

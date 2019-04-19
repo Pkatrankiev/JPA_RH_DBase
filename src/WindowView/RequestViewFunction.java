@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import Aplication.GlobalVariable;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.PeriodDAO;
@@ -29,10 +28,11 @@ import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Sample;
+import GlobalVariable.GlobalFormatDate;
 
 public class RequestViewFunction {
-	private static String FORMAT_DATE = GlobalVariable.getFORMAT_DATE();
-	private static String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME(); 
+	private static String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
+	private static String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME(); 
 
 	public static void enterRequestCode( JTextField txtField_RequestCode, JLabel lblError, Boolean corectRequestCode ) {
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));

@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
+import GlobalVariable.GlobalPathForIcons;
+
 public class TranscluentWindow {
 	private JWindow frame;
 
@@ -18,7 +20,7 @@ public class TranscluentWindow {
 				JPanel pan = new JPanel();
 				pan.setOpaque(false);
 				frame.setContentPane(pan);
-				ImageIcon pic = new ImageIcon("ajax-loader (3).gif");
+				ImageIcon pic = new ImageIcon(GlobalPathForIcons.get_destination_ajaxLoader());
 				frame.getContentPane().add(new JLabel(pic));
 				frame.pack();
 				frame.setLocationRelativeTo(null);

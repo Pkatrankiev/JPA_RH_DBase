@@ -20,6 +20,7 @@ import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Sample;
+import GlobalVariable.GlobalPathForDocFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
@@ -33,7 +34,7 @@ public class GenerateDocRazpredFormul {
 			Map<String, String> substitutionData, TranscluentWindow round) {
 		BasicConfigurator.configure();
 
-		nameTaplateProtokol = FunctionForGenerateWordDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
+		nameTaplateProtokol = GlobalPathForDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
 		String[] masive_key_table_row = new String[] { "$$sample_code$$", "$$ob_izp_sam$$", "$$pokazat$$",
 				"$$date_exec$$" };
 
@@ -150,9 +151,9 @@ public class GenerateDocRazpredFormul {
 		try {
 			String newNameProtokol = "P_" + recuest.getRecuest_code() + "_" + RequestViewFunction.DateNaw(false)
 					+ ".docx";
-			AplicationDocTemplate.writeDocxToStream(template, FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			AplicationDocTemplate.writeDocxToStream(template, GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 			round.StopWindow();
-			GenerateRequestWordDoc.openWordDoc(FunctionForGenerateWordDocFile.get_destinationDir() + newNameProtokol);
+			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
 		} catch (IOException e) {
 

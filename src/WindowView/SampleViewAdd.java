@@ -19,6 +19,7 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Sample;
+import GlobalVariable.GlobalPathForIcons;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -180,7 +181,7 @@ public class SampleViewAdd extends JDialog {
 						edit_comboBox_OI[i] = new JPanel();
 						edit_comboBox_OI[i] .setFont(font);
 						edit_comboBox_OI[i].setPreferredSize(new Dimension(21, 20));
-						ImageIcon pic = new ImageIcon("add-icon.gif");
+						ImageIcon pic = new ImageIcon(GlobalPathForIcons.get_destination_addIcon());
 						edit_comboBox_OI[i].add(new JLabel(pic), BorderLayout.CENTER);
 						edit_comboBox_OI[i].setBackground(Color.WHITE);
 						panel[i].add(edit_comboBox_OI[i]);
@@ -316,7 +317,7 @@ public class SampleViewAdd extends JDialog {
 					edit_Ref_date[i] = new JPanel();
 					edit_Ref_date[i] .setFont(font);
 					edit_Ref_date[i].setPreferredSize(new Dimension(21, 20));
-					ImageIcon pic = new ImageIcon("Modify.gif");
+					ImageIcon pic = new ImageIcon(GlobalPathForIcons.get_destination_ModifyIcon());
 					edit_Ref_date[i].add(new JLabel(pic), BorderLayout.CENTER);
 					edit_Ref_date[i].setBackground(Color.WHITE);
 					panel[i].add(edit_Ref_date[i]);

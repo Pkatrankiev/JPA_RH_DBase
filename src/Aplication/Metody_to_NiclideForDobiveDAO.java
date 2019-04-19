@@ -15,14 +15,18 @@ import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
 
 import DBase_Class.Nuclide;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Metody_to_NiclideForDobiveDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setValueMetody_to_NiclideForDobive(Nuclide nuclide, Metody metody) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Metody_to_NiclideForDobive metody_to_NiclideForDobive = new Metody_to_NiclideForDobive();
@@ -39,7 +43,8 @@ public class Metody_to_NiclideForDobiveDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Metody_to_NiclideForDobive> getListAllMetody_to_NiclideForDobive() {
 	
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();
 	
@@ -53,7 +58,8 @@ public class Metody_to_NiclideForDobiveDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Metody_to_NiclideForDobive getMetody_to_NiclideForDobiveById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -68,7 +74,8 @@ public class Metody_to_NiclideForDobiveDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Metody_to_NiclideForDobive> getListMetody_to_NiclideForDobiveByMetody(Metody name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -86,7 +93,8 @@ public class Metody_to_NiclideForDobiveDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Metody_to_NiclideForDobive> getListDobivByNuclide(Nuclide name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -103,7 +111,8 @@ public class Metody_to_NiclideForDobiveDAO {
 
 	public  void updateMetody_to_NiclideForDobive(Metody_to_NiclideForDobive metody_to_NiclideForDobive) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 	
@@ -123,7 +132,8 @@ public class Metody_to_NiclideForDobiveDAO {
 	}
 	
 	public static void deleteMetody_to_NiclideForDobiveById(int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		EntityTransaction updateTranzaction = entitymanager.getTransaction();
 		updateTranzaction.begin();

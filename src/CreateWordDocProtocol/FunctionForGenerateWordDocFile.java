@@ -23,8 +23,6 @@ import DBase_Class.Sample;
 import WindowView.RequestViewFunction;
 
 public class FunctionForGenerateWordDocFile {
-	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
-	private static final String destinationDir = "DIRECTORY/";
 	private static List<Results> listDokladMDA = new ArrayList<Results>();
 	private static Naredbi naredba = null;
 
@@ -333,13 +331,7 @@ public class FunctionForGenerateWordDocFile {
 		return str_foll;
 	}
 
-	public static String get_TEMPLATE_DIRECTORY_ROOT() {
-		return TEMPLATE_DIRECTORY_ROOT;
-	}
-
-	public static String get_destinationDir() {
-		return destinationDir;
-	}
+	
 
 	private static String formatter(double number) {
 		DecimalFormat formatter = new DecimalFormat("0.00E00");

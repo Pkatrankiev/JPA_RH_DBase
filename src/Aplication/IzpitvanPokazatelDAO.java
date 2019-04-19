@@ -18,15 +18,20 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Sample;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class IzpitvanPokazatelDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	
 
 	public static void setValueIzpitvanPokazatel(List_izpitvan_pokazatel list_izpitvan_pokazatel, Request request,
 			Metody metody) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		IzpitvanPokazatel izpitvanPokazatel = new IzpitvanPokazatel();
@@ -43,7 +48,8 @@ public class IzpitvanPokazatelDAO {
 
 	public static void updateObjectIzpitvanPokazatel(IzpitvanPokazatel izpitvan_pokazatel) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -63,7 +69,8 @@ public class IzpitvanPokazatelDAO {
 
 	public static void setValueIzpitvanPokazatel(IzpitvanPokazatel pokazatal) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -76,7 +83,8 @@ public class IzpitvanPokazatelDAO {
 	@SuppressWarnings("unchecked")
 	@GET
 	public static List<IzpitvanPokazatel> getInListAllValueIzpitvan_pokazatel() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM IzpitvanPokazatel e");
@@ -90,7 +98,8 @@ public class IzpitvanPokazatelDAO {
 	@GET
 	@QueryParam("{id}")
 	public static IzpitvanPokazatel getValueIzpitvan_pokazatelById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -106,7 +115,8 @@ public class IzpitvanPokazatelDAO {
 	@GET
 	public static List<IzpitvanPokazatel> getValueIzpitvan_pokazatelByRequest(Request request) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -140,7 +150,8 @@ public class IzpitvanPokazatelDAO {
 	@GET
 	public static List<IzpitvanPokazatel> getValueIzpitvan_pokazatelByPokazatel(List_izpitvan_pokazatel pokazatel) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -158,7 +169,8 @@ public class IzpitvanPokazatelDAO {
 	@SuppressWarnings("unchecked")
 	public static void setBasikValueIzpitvan_pokazatel() {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -207,7 +219,8 @@ public class IzpitvanPokazatelDAO {
 	public static List<IzpitvanPokazatel> getListIzpitvan_pokazatelFromColumnByVolume(String column_name,
 			Object volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -226,7 +239,8 @@ public class IzpitvanPokazatelDAO {
 
 	public static void setObjectInIzpitvan_pokazatelById(int id, Object updateObject,
 			String colum) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		EntityTransaction updateTranzaction = entitymanager.getTransaction();
 		updateTranzaction.begin();
@@ -243,7 +257,8 @@ public class IzpitvanPokazatelDAO {
 
 	public static void updateIzpitvanPokazatel(IzpitvanPokazatel pokazatel) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -279,7 +294,8 @@ public class IzpitvanPokazatelDAO {
 	}
 
 	public static void deleteIzpitvanPokazatel(IzpitvanPokazatel pokazatel) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -299,7 +315,8 @@ public class IzpitvanPokazatelDAO {
 	}
 
 	public static void deleteIzpitvanPokazatelByRequest(Request request) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		String strInfo = "";

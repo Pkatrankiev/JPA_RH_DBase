@@ -10,10 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.List_izpitvan_pokazatel;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class List_izpitvan_pokazatelDAO {
 	
-static String name_DBase = "JPA_RH_DBase";
+//static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 	
 public static void setBasikValuePokazatel(){
 	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди:");
@@ -30,7 +33,8 @@ public static void setBasikValuePokazatel(){
 //	Pokazatel
 	public static void setValueList_pokazatel(String name) {
 		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		List_izpitvan_pokazatel pokazatal = new List_izpitvan_pokazatel();
@@ -45,7 +49,8 @@ public static void setBasikValuePokazatel(){
 
 	@SuppressWarnings("unchecked")
 	public static List<List_izpitvan_pokazatel> getInListAllValuePokazatel() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM List_izpitvan_pokazatel e");
@@ -64,7 +69,8 @@ public static void setBasikValuePokazatel(){
 	@GET
 	@QueryParam("{id}")
 	public static List_izpitvan_pokazatel getValueIzpitvan_pokazatelById(@QueryParam("id") int id) {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();
 	entitymanager.getTransaction().begin();
 	
@@ -79,7 +85,8 @@ public static void setBasikValuePokazatel(){
 	@GET
 	public static List_izpitvan_pokazatel getValueIzpitvan_pokazatelByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

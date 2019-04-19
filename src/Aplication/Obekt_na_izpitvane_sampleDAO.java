@@ -10,10 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Obekt_na_izpitvane_sample;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Obekt_na_izpitvane_sampleDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+	
 
 	public static void setBasicValueObekt_na_izpitvane_sample() {
 		setValueObekt_na_izpitvane_sample("Вентилационна тръба-1");
@@ -27,7 +30,7 @@ public class Obekt_na_izpitvane_sampleDAO {
 	// Obekt_na_izpitvane
 	public static void setValueObekt_na_izpitvane_sample(String value) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Obekt_na_izpitvane_sample valueEnt = new Obekt_na_izpitvane_sample();
@@ -40,7 +43,7 @@ public class Obekt_na_izpitvane_sampleDAO {
 	}
 
 	public static List<Obekt_na_izpitvane_sample> getInListAllValueObekt_na_izpitvane_sample() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_sample e ORDER BY e.name ASC");
@@ -65,7 +68,7 @@ public class Obekt_na_izpitvane_sampleDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Obekt_na_izpitvane_sample obekt_na_izpitvane = (Obekt_na_izpitvane_sample) entitymanager
@@ -81,7 +84,7 @@ public class Obekt_na_izpitvane_sampleDAO {
 	@GET
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -99,7 +102,7 @@ public class Obekt_na_izpitvane_sampleDAO {
 	@GET
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleOrSaveByName(String name) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

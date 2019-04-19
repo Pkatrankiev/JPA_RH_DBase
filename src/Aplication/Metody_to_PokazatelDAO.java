@@ -13,15 +13,19 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_Pokazatel;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 
 public class Metody_to_PokazatelDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setValueMetody_to_Pokazatel(List_izpitvan_pokazatel izpitvanPokazatel, Metody metody) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Metody_to_Pokazatel metody_to_Pokazatel = new Metody_to_Pokazatel();
@@ -37,7 +41,8 @@ public class Metody_to_PokazatelDAO {
 	
 	public static void setValueMetody_to_Pokazatel(Metody_to_Pokazatel pokazatal) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -49,7 +54,8 @@ public class Metody_to_PokazatelDAO {
 	
 	public static void updateObjectMetody_to_Pokazatel(Metody_to_Pokazatel metody_to_Pokazatel) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -70,7 +76,8 @@ public class Metody_to_PokazatelDAO {
 	@SuppressWarnings("unchecked")
 	@GET
 	public static List<Metody_to_Pokazatel> getInListAllMetody_to_Pokazatel() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Metody_to_Pokazatel e");
@@ -83,7 +90,8 @@ public class Metody_to_PokazatelDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Metody_to_Pokazatel getMetody_to_PokazatelById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -98,7 +106,8 @@ public class Metody_to_PokazatelDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Metody_to_Pokazatel> getListMetody_to_PokazatelByPokazatel(List_izpitvan_pokazatel volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -115,7 +124,8 @@ public class Metody_to_PokazatelDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Metody_to_Pokazatel> getListMetody_to_PokazatelByMetody(Metody volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -130,7 +140,8 @@ public class Metody_to_PokazatelDAO {
 	}
 
 	public static void deleteMetody_to_Pokazatel(Metody_to_Pokazatel pokazatel) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

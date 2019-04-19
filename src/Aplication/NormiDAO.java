@@ -12,14 +12,19 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.Naredbi;
 import DBase_Class.Normi;
 import DBase_Class.Nuclide;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 
 public class NormiDAO {
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	
 
 	public static void setValueNormi(Naredbi naredbi, Nuclide nuclide, Double value_norma) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Normi valueEnt = new Normi();
@@ -36,7 +41,8 @@ public class NormiDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Normi> getInListAllValueNormi() {
 		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getListAllNormi");
@@ -49,7 +55,8 @@ public class NormiDAO {
 		@GET
 		@QueryParam("{id}")
 		public static Normi getValueNaredbiById(@QueryParam("id") int id) {
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			Normi naredbi = entitymanager.find(Normi.class, id);
@@ -63,7 +70,8 @@ public class NormiDAO {
 		@SuppressWarnings("unchecked")
 		public static List<Normi> getList_NormiByNaredbi(Naredbi name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -81,7 +89,8 @@ public class NormiDAO {
 		@SuppressWarnings("unchecked")
 		public static Normi getValueList_NormiByNuclide(Nuclide name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			
@@ -99,7 +108,8 @@ public class NormiDAO {
 		@SuppressWarnings("unchecked")
 		public static Normi getValueList_NormiByValue_norna(String name) {
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = emfactory.createEntityManager();
 			entitymanager.getTransaction().begin();
 			

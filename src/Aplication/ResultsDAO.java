@@ -19,10 +19,13 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class ResultsDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static void setValueResults(
 			Nuclide nuclide, 
@@ -45,7 +48,8 @@ public class ResultsDAO {
 			Boolean inProtokol,
 			Dobiv dobiv) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -83,7 +87,8 @@ public class ResultsDAO {
 
 	public static void setValueResults(Results valueEnt) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -94,7 +99,8 @@ public class ResultsDAO {
 	}
 	
 	public static void setVolumeInColumInResultsById(int id, Object ob_volume,String colum_name) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		EntityTransaction updateTranzaction = entitymanager.getTransaction();
 		updateTranzaction.begin();
@@ -109,7 +115,8 @@ public class ResultsDAO {
 		}
 	
 	public static void deleteResultsById(int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		EntityTransaction updateTranzaction = entitymanager.getTransaction();
 		updateTranzaction.begin();
@@ -125,7 +132,8 @@ public class ResultsDAO {
 	
 	@SuppressWarnings("unchecked")
 	public static List<Results> getInListAllValueResults() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Results e ORDER BY e.nuclide ASC");
@@ -140,7 +148,8 @@ public class ResultsDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Results getValueResultsById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Results request = (Results) entitymanager.find(Results.class, id);
@@ -154,7 +163,8 @@ public class ResultsDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Results> getListResultsFromColumnByVolume(String column_name, Object volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -173,7 +183,8 @@ public class ResultsDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Results> getListResultsFromCurentSampleInProtokol(Sample samp) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -191,7 +202,8 @@ public class ResultsDAO {
 
 	public static void updateResults(Results results) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 	

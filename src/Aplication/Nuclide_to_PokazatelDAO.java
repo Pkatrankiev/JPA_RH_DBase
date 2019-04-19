@@ -13,14 +13,19 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Nuclide_to_PokazatelDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	
 
 	public static void setValueNuclide_to_Pokazatel(List_izpitvan_pokazatel izpitvanPokazatel, Nuclide nuclide) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Nuclide_to_Pokazatel nuclide_to_Pokazatel = new Nuclide_to_Pokazatel();
@@ -36,7 +41,8 @@ public class Nuclide_to_PokazatelDAO {
 	
 	public static void setValueNuclide_to_Pokazatel(Nuclide_to_Pokazatel pokazatal) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -48,7 +54,8 @@ public class Nuclide_to_PokazatelDAO {
 	
 	public static void updateObjectNuclide_to_Pokazatel(Nuclide_to_Pokazatel nuclide_to_Pokazatel) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -68,7 +75,8 @@ public class Nuclide_to_PokazatelDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Nuclide_to_Pokazatel> getInListAllNuclide_to_Pokazatel() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getInListAllNuclide_to_Pokazatel");
@@ -81,7 +89,8 @@ public class Nuclide_to_PokazatelDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Nuclide_to_Pokazatel getNuclide_to_PokazatelById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -96,7 +105,8 @@ public class Nuclide_to_PokazatelDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Nuclide_to_Pokazatel> getListNuclide_to_PokazatelByPokazatel(List_izpitvan_pokazatel volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -113,7 +123,8 @@ public class Nuclide_to_PokazatelDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Nuclide_to_Pokazatel> getListNuclide_to_PokazatelByNuclide(Nuclide volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -128,7 +139,8 @@ public class Nuclide_to_PokazatelDAO {
 	}
 	
 	public static void deleteNuclide_to_Pokazatel(Nuclide_to_Pokazatel pokazatel) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

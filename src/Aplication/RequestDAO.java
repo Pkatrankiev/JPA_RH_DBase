@@ -21,11 +21,14 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import GlobalVariable.GlobalVariableForSQL_DBase;
 import DBase_Class.Obekt_na_izpitvane_request;
 
 public class RequestDAO {
 
-	static String name_DBase = "JPA_RH_DBase";
+//	static String name_DBase = "JPA_RH_DBase";
+//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
 
 	public static Request setValueRequest(String recuest_code, String date_request, Boolean accreditation,
 			Boolean section, Extra_module xtra_module, int counts_samples, String description_sample_group,
@@ -64,7 +67,8 @@ public class RequestDAO {
 			Izpitvan_produkt izpitvan_produkt, Razmernosti razmernosti, Zabelejki zabelejki, Users users,
 			Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -104,7 +108,8 @@ public class RequestDAO {
 	
 	public static void updateObjectRequest(Request request) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -124,7 +129,8 @@ public class RequestDAO {
 
 	public static void saveRequestFromRequest(Request valueEnt) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -144,7 +150,8 @@ public class RequestDAO {
 	@SuppressWarnings("unchecked")
 	public static Boolean checkRequestCode(String check_code) {
 		Boolean available = false;
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Request e WHERE e.recuest_code= :code");
@@ -159,7 +166,8 @@ public class RequestDAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<Request> getInListAllValueRequest() {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Request e ORDER BY e.recuest_code ASC");
@@ -174,7 +182,8 @@ public class RequestDAO {
 	@SuppressWarnings("unchecked")
 	public static void saveBasicValueRequest() {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -272,7 +281,8 @@ public class RequestDAO {
 	@SuppressWarnings("unchecked")
 	public static Request settBasicValueRequest() {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -371,7 +381,8 @@ public class RequestDAO {
 	@GET
 	@QueryParam("{id}")
 	public static Request getValueRequestById(@QueryParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Request request = (Request) entitymanager.find(Request.class, id);
@@ -400,7 +411,8 @@ public class RequestDAO {
 	}
 
 	public static void setIzpitvan_produktInRequestById(int id, Izpitvan_produkt izpitvan_produkt) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		EntityTransaction updateTranzaction = entitymanager.getTransaction();
 		updateTranzaction.begin();
@@ -418,7 +430,8 @@ public class RequestDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Request> getListRequestFromColumnByVolume(String column_name, Object volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
@@ -437,7 +450,8 @@ public class RequestDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Request> getListRequestFromColumnByContainsString(String column_name, String volume_check) {
 
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 

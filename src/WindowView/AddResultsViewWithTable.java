@@ -255,6 +255,7 @@ public class AddResultsViewWithTable extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (checkDataResult()) {
 				updateIzpitvanPokazatelObjectInDBase();
+				
 				List<Results> listResultsForSave = creadListFromResultObjectForSave(
 						getSampleObjectFromChoiceSampleCode());
 				for (Results results : listResultsForSave) {
@@ -334,21 +335,19 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 		}
 		List<Results> ListResultsFromDBase = creadListResultsObjects_ChoiseSample(sample);
-		Iterator<Results> itr = null;
 		for (Results results : listResultsFromTable) {
 
-			itr = ListResultsFromDBase.iterator();
-			fl = false;
-			while (itr.hasNext()) {
-				String codeNulide = itr.next().getNuclide().getSymbol_nuclide();
-				if (codeNulide.equals(results.getNuclide().getSymbol_nuclide())) {
-					itr.remove();
-					listResultsForSave.add(results);
-					fl = true;
-				}
-			}
+			fl = isAlivablNuclide(ListResultsFromDBase, results);
+			
 			if (!fl) {
 				listResultsForSave.add(results);
+			}
+			
+			Results newResult = setIdResultsIfAlivablNuclide(ListResultsFromDBase,results);
+			if(newResult==null){
+				listResultsForSave.add(results);
+			}else{
+				listResultsForSave.add(newResult);
 			}
 		}
 
@@ -359,8 +358,6 @@ public class AddResultsViewWithTable extends JDialog {
 
 		for (Results results : listResultsForDelete) {
 
-			JOptionPane.showMessageDialog(null, "Налични са повтарящи се Нуклиди", "Проблем с база данни:",
-					JOptionPane.YES_NO_OPTION);
 			ResultsDAO.deleteResultsById(results.getId_results());
 		}
 		;
@@ -368,6 +365,35 @@ public class AddResultsViewWithTable extends JDialog {
 		return listResultsForSave;
 	}
 
+	private Boolean isAlivablNuclide(List<Results> ListResultsFromDBase, Results results) {
+		Boolean fl;
+		Iterator<Results> itr;
+		itr = ListResultsFromDBase.iterator();
+		fl = false;
+		while (itr.hasNext()) {
+			String codeNulide = itr.next().getNuclide().getSymbol_nuclide();
+			if (codeNulide.equals(results.getNuclide().getSymbol_nuclide())) {
+				itr.remove();
+//					listResultsForSave.add(results);
+				fl = true;
+			}
+		}
+		return fl;
+	}
+
+	private Results setIdResultsIfAlivablNuclide(List<Results> ListResultsFromDBase, Results results) {
+		Results newResults = null;
+		
+		for(Results res: ListResultsFromDBase){
+			String codeNulide = res.getNuclide().getSymbol_nuclide();
+			if (codeNulide.equals(results.getNuclide().getSymbol_nuclide())) {
+				results.setId_results(res.getId_results());
+				return results;
+			}
+		}
+		return newResults;
+	}
+	
 	private static void saveResultsObjectInDBase(Results result) {
 
 		ResultsDAO.updateResults(result);

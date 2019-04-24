@@ -42,7 +42,7 @@ public class Main_Aplication {
 		
 //		testScript () ;
 		
-//		 MesejePanel();
+	
 
 //		updateUserRedac();
 		
@@ -177,32 +177,9 @@ public class Main_Aplication {
 	 	   str = str.replaceAll("/", "⸍");  
 	 	    return str;
 	 	}
-	@SuppressWarnings("unused")
-	private static void MesejePanel() {
-		String[][] str = new String[4][];
-		str[0] = new String[] { "Pie", "2.2", "12" };
-		str[1] = new String[] { "Cracker", "4", "15" };
-		str[2] = new String[] { "Pop tarts", "1", "4" };
-		str[3] = new String[] { "Sun Chips", "5", "2" };
-		Object[] options1 = { "Да", "Отказ" };
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.add(createTextPanel("За изтриване"));
-		panel.add(test.creadJPanel(str));
-		panel.add(createTextPanel("За запис"));
-		panel.add(test.creadJPanel(str));
-		int result = JOptionPane.showOptionDialog(null, panel, "Enter a Number", JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.ERROR_MESSAGE, null, options1, null);
-		System.out.println(result);
-	}
 
-	private static JPanel createTextPanel(String str) {
-		JPanel panel2 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel2.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
-		panel2.add(new JLabel(str));
-		return panel2;
-	}
+
+	
 
 	@SuppressWarnings("unused")
 	private static void TestIzpitvanPokazatelClass() {

@@ -20,7 +20,7 @@ import javax.swing.JToolTip;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
-class BalloonToolTip extends JToolTip {
+class BalloonToolTip4 extends JToolTip {
 	 
 	private static final long serialVersionUID = 1L;
 	private HierarchyListener listener;

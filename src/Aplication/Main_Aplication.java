@@ -6,6 +6,7 @@ import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.text.ParseException;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -17,11 +18,13 @@ import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import OldClases.Foo;
 import OldClases.TestSuperScript;
 import OldClases.test;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceListIzpPokazatel;
 import WindowView.MainWindows;
+import WindowView.MesejePanel;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
@@ -48,6 +51,9 @@ public class Main_Aplication {
 		
 		StartMainWindow();
 		
+//		test();
+		
+		
 //		AddResultsViewWithTable();
 		
 //		try {
@@ -64,10 +70,23 @@ public class Main_Aplication {
 	
 	
 	}
+	private static void test() {
+		TranscluentWindow round = new TranscluentWindow();	
+		Foo foo = new Foo();
+		Thread thread = new Thread(foo);
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int value = foo.getValue();
+		round.StopWindow();
+System.out.println(value);
+	}
 
-
-
-
+	
 	@SuppressWarnings("unused")
 	private static void ChoiceListIzpPokazatel() {
 		JFrame f = new JFrame();
@@ -208,5 +227,11 @@ public class Main_Aplication {
 		MainWindows win = new MainWindows();
 		win.WindowNew();
 	}
-
+	
 }
+
+
+
+	
+
+

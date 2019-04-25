@@ -45,6 +45,8 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import OldClases.Foo;
+import Table.Table_Request_List;
 
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -121,10 +123,11 @@ public class AddResultsViewWithTable extends JDialog {
 	int countRowTabResults = 0;
 	int addCount = 0;
 	int rowWidth = 20;
-	int meseje=1;
+	int meseje = 1;
 	Boolean flagNotReadListPokazatel = true;
 	Boolean flagNotReadListMetody = true;
 	Boolean viewAddRowButton = false;
+	Boolean flagThread = true;
 	boolean flagIncertedFile;
 
 	private static JTable tabResults;
@@ -258,31 +261,48 @@ public class AddResultsViewWithTable extends JDialog {
 
 		JButton okButton = new JButton("Запис");
 		okButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (checkDataResult()) {
 					updateIzpitvanPokazatelObjectInDBase();
+
+					Sample samp = getSampleObjectFromChoiceSampleCode();
 					
 					TranscluentWindow round = new TranscluentWindow();
 					final Thread thread = new Thread(new Runnable() {
 						@Override
 						public void run() {
-							Sample samp = getSampleObjectFromChoiceSampleCode();
+							
 							ListResultsFromDBase = creadListResultsObjects_ChoiseSample(samp);
-							resultListForSave = creadResultListForSave(samp);
-							resultListForDelete = creadResultListForDelete(samp, round);
-						
+							resultListForDelete = AddResultsViewWithTable.creadResultListForDelete(samp);
+							resultListForSave = AddResultsViewWithTable.creadResultListForSave(samp);
+							flagThread=false;
 						}
 					});
-				
 					thread.start();
-					try {
-						thread.join();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 					
-					if ( MesejePanel.MesejePanel(resultListForSave, resultListForDelete) == 0) {
+					 while (flagThread);
+//					round.StopWindow();
+					 System.out.println("-----------------**************");
+					new MesejePanel(resultListForSave, resultListForDelete);
+
+					// MesejePanel foo = new MesejePanel(samp);
+					// Thread thread = new Thread(round);
+					// thread.start();
+					// try {
+					// thread.join();
+					// } catch (InterruptedException e) {
+					// // TODO Auto-generated catch block
+					// e.printStackTrace();
+					// }
+					// int value = foo.getValue();
+					// round.StopWindow();
+					// System.out.println(value);
+
+					int k = MesejePanel.getResultMeseje();
+					flagThread = true;
+					System.out.println("-----------------" + k);
+					if (k == 0) {
 						for (Results results : resultListForSave) {
 							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
 							if (idresultInBase != 0) {
@@ -295,14 +315,13 @@ public class AddResultsViewWithTable extends JDialog {
 						for (Results results : resultListForDelete) {
 							ResultsDAO.deleteResultsById(results.getId_results());
 						}
-						
+
 						listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 						Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
 								getSampleObjectFromChoiceSampleCode());
 						startViewtablePanel(panel, masiveResultsForChoiceSample);
 					}
-					
-					
+
 				}
 			}
 
@@ -332,7 +351,7 @@ public class AddResultsViewWithTable extends JDialog {
 		IzpitvanPokazatelDAO.updateIzpitvanPokazatel(izpivanPokazatel);
 	}
 
-	private List<Results> creadResultListForSave(Sample sample) {
+	public static List<Results> creadResultListForSave(Sample sample) {
 		List<Results> listResultsForSave = new ArrayList<Results>();
 		for (int i = 0; i < dataTable.length; i++) {
 			String s1 = dataTable[i][mda_Colum].toString();
@@ -346,7 +365,7 @@ public class AddResultsViewWithTable extends JDialog {
 		return listResultsForSave;
 	}
 
-	private List<Results> creadResultListForDelete(Sample sample, TranscluentWindow round) {
+	public static List<Results> creadResultListForDelete(Sample sample) {
 		List<Results> listResultsForDelete = new ArrayList<Results>();
 		for (int i = 0; i < dataTable.length; i++) {
 			String s1 = dataTable[i][mda_Colum].toString();
@@ -357,7 +376,7 @@ public class AddResultsViewWithTable extends JDialog {
 				}
 			}
 		}
-		round.StopWindow();
+
 		return listResultsForDelete;
 	}
 
@@ -372,7 +391,6 @@ public class AddResultsViewWithTable extends JDialog {
 		return fl;
 	}
 
-	
 	private static Results creadResultObject(Sample sample, int i) {
 		Results result;
 		if (dataTable[i][rsult_Id_Colum] == null) {
@@ -1060,8 +1078,7 @@ public class AddResultsViewWithTable extends JDialog {
 				}
 
 			}
-			
-			
+
 		});
 	}
 
@@ -1099,7 +1116,6 @@ public class AddResultsViewWithTable extends JDialog {
 				}
 			}
 
-		
 		});
 
 	}
@@ -1118,7 +1134,7 @@ public class AddResultsViewWithTable extends JDialog {
 		});
 		thread.start();
 	}
-	
+
 	private String[] getMasiveSimbolNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
 		String[] masiveSimbolNuclide = new String[listNucToPok.size()];
 		int i = 0;
@@ -1168,7 +1184,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	@SuppressWarnings("serial")
 	private void ViewTableInPanel(JPanel panel, TranscluentWindow round, Boolean isNewRow) {
-		
+
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
 		}
@@ -1222,9 +1238,9 @@ public class AddResultsViewWithTable extends JDialog {
 
 		panel.validate();
 		panel.repaint();
-		
+
 		round.StopWindow();
-		
+
 		setSize(1100, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		validate();

@@ -10,11 +10,14 @@ import javax.swing.JPanel;
 
 import Aplication.ResultsDAO;
 import DBase_Class.Results;
+import DBase_Class.Sample;
 import OldClases.test;
 
-public class MesejePanel {
+public class MesejePanel implements Runnable {
+	static int result=3;
 	
-	static int MesejePanel(List<Results> resultListForSave, List<Results> resultListForDelete) {
+	public MesejePanel(List<Results> resultListForSave, List<Results> resultListForDelete) {
+	
 		
 		String[][] saveStr = createmasive(resultListForSave);
 		
@@ -29,8 +32,13 @@ public class MesejePanel {
 		}
 		panel.add(createTextPanel("За запис"));
 		panel.add(test.creadJPanel(saveStr));
-		int result = JOptionPane.showOptionDialog(null, panel, "Enter a Number", JOptionPane.YES_NO_CANCEL_OPTION,
+		
+		result = JOptionPane.showOptionDialog(null, panel, "Enter a Number", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options1, null);
+		
+	}
+	
+	public static int getResultMeseje (){
 		return result;
 	}
 	private static String[][] createmasive(List<Results> resultListForSave) {
@@ -67,4 +75,18 @@ public class MesejePanel {
 		panel2.add(new JLabel(str));
 		return panel2;
 	}
+
+	
+	public void run(Sample samp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	 
 }

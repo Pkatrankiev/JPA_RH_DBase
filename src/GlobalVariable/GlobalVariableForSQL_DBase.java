@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 
 public class GlobalVariableForSQL_DBase {
 
-static Boolean isRemoteDBase = true;
+static Boolean isRemoteDBase = false;
 		
 		private static Map<String, String>  createLokalDataBase() {
 		

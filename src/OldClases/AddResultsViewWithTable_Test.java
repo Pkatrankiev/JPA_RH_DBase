@@ -1,16 +1,55 @@
-
-package WindowView;
+package OldClases;
 
 import java.awt.BorderLayout;
+import java.awt.Choice;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JWindow;
+import javax.swing.RootPaneContainer;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -43,74 +82,39 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import GlobalVariable.GlobalPathForIcons;
+import WindowView.AddDobivViewWithTable;
+import WindowView.AddResultsViewWithTable;
+import WindowView.CheckResultClass;
+import WindowView.CheckViewValueDialogFrame;
+import WindowView.DatePicker;
+import WindowView.MesejePanel;
+import WindowView.ReadGamaFile;
+import WindowView.RequestViewFunction;
+import WindowView.TranscluentWindow;
+import WindowView.AddResultsViewWithTable.TableHeaderMouseListener;
 
-import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-import javax.swing.RootPaneContainer;
-
-import java.awt.Insets;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Choice;
-import java.awt.Color;
-import java.awt.Dimension;
-
-import java.awt.Component;
-import java.awt.Cursor;
-
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.awt.event.ActionEvent;
-import java.awt.Rectangle;
-import java.awt.Point;
-import javax.swing.JTable;
-
-public class AddResultsViewWithTable extends JDialog {
+public class AddResultsViewWithTable_Test extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	
-	private static JScrollPane scrollTablePane;
-	private static JPanel basic_panel;
-	
+
+	private static Users user_Redac = null;
+
 	private static JTextField txtBasicValueResult;
-	private static JTextField txtRqstCode;
+	private JTextField txtRqstCode;
+	private JLabel lblNameMetod;
+	private JPanel top_panel;
+	private JLabel lblGif_labell;
+	private JLayeredPane layeredPane;
 	
-	
-	private static JLabel lblNameMetod;
-	private static Choice choiceSmplCode;
 	private static Choice choicePokazatel;
 	private static Choice choiceOIR;
 	private static Choice choiceORHO;
 	private static Choice choiceMetody;
 	private static Choice choiceDobiv;
-	
 	private static JButton btnCreadTable;
-	private static JButton btnAddRow;
-	private static JFileChooser f = new JFileChooser();
-	private static JTable tabResults;
-	
-	
+	private Choice choiceSmplCode;
+	private Metody selectedMetod = null;
 	private static List<Sample> listSample;
 	private static List<Users> list_Users;
 	private static List<String> list_UsersNameFamilyOIR;
@@ -124,28 +128,30 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<Results> resultListForSave;
 	private static List<Results> resultListForDelete;
 
+	private static JButton btnAddRow;
+
+	private JFileChooser f = new JFileChooser();
+
+	private static Request choiseRequest;
+
+	int newCountResults = 0;
+	int countRowTabResults = 0;
+	int addCount = 0;
+	int rowWidth = 20;
+	int meseje = 1;
+	Boolean flagNotReadListPokazatel = true;
+	Boolean flagNotReadListMetody = true;
+	Boolean viewAddRowButton = false;
+	Boolean flagThread = true;
+	boolean flagIncertedFile;
+
+	private static JTable tabResults;
 	private static String[] masuveSimbolNuclide;
 	private static String[] masive_NuclideToPokazatel;
 	private static String[] values_Razmernosti;
 	private static String[] values_Dimension;
 	private static String[] masiveTSI;
 	private static Object[][] dataTable;
-	
-	private static Metody selectedMetod = null;
-	private static Request choiseRequest;
-	private static Users user_Redac = null;
-	
-	int newCountResults = 0;
-	int countRowTabResults = 0;
-	int addCount = 0;
-	int rowWidth = 20;
-	Boolean flagNotReadListPokazatel = true;
-	Boolean flagNotReadListMetody = true;
-	Boolean viewAddRowButton = false;
-	Boolean flagIncertedFile = false;
-
-	
-	
 	private static int tbl_Colum = 14;
 	private static int nuclide_Colum = 0;
 	private static int actv_value_Colum = 1;
@@ -162,13 +168,13 @@ public class AddResultsViewWithTable extends JDialog {
 	private static int check_Colum = 12;
 	private static int rsult_Id_Colum = 13;
 
-	
+	private JScrollPane scrollTablePane;
 
-	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
-		super(parent, "Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р РµР·СѓР»С‚Р°С‚Рё", true);
+	public AddResultsViewWithTable_Test(JFrame parent, TranscluentWindow round, Users user) {
+		super(parent, "Въвеждане на Резултати", true);
 		list_Users = UsersDAO.getInListAllValueUsers();
-		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћРР "));
-		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћР РҐРћ"));
+		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР"));
+		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО"));
 		listSample = new ArrayList<Sample>();
 
 		user_Redac = user;
@@ -177,19 +183,39 @@ public class AddResultsViewWithTable extends JDialog {
 		values_Dimension = DimensionDAO.getMasiveStringAllValueDimension();
 		masiveTSI = TSI_DAO.getMasiveStringAllValueTSI();
 
-		setSize(1100, (countRowTabResults * rowWidth) + 340);
+		setSize(1100, (countRowTabResults * rowWidth) + 360);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
+
+		JPanel panel = new JPanel();
+		panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
+
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		layeredPane = new JLayeredPane();
+		panel_1.add(layeredPane);
 		
-		JPanel contentPanel = new JPanel();
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BorderLayout(0, 0));
+		ImageIcon pic = new ImageIcon(GlobalPathForIcons.get_destination_ajaxLoader());
+		lblGif_labell = new JLabel(pic);
+		layeredPane.setLayer(lblGif_labell, 4);
+		lblGif_labell.setBounds(0, 0, 1082, 278);
+		layeredPane.add(lblGif_labell);
+		lblGif_labell.setVisible(false);
+
+		top_panel = new JPanel();
+		layeredPane.setLayer(top_panel, 7);
+		top_panel.setBounds(0, 0, 1082, 278);
+		layeredPane.add(top_panel);
+		top_panel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		contentPanel.add(scrollPane);
+		top_panel.add(scrollPane);
 
-		basic_panel = new JPanel();
+		JPanel basic_panel = new JPanel();
 		basic_panel.setBounds(new Rectangle(5, 0, 0, 0));
 		scrollPane.setViewportView(basic_panel);
 		GridBagLayout gbl_basic_panel = new GridBagLayout();
@@ -280,10 +306,10 @@ public class AddResultsViewWithTable extends JDialog {
 		try {
 			System.out.println(result.get());
 		} catch (InterruptedException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		round.StopWindow();
@@ -299,77 +325,82 @@ public class AddResultsViewWithTable extends JDialog {
 		return m;
 	}
 
-	public static void setWaitCursor(JPanel frame) {
-		if (frame != null) {
-			RootPaneContainer root = (RootPaneContainer) frame.getRootPane().getTopLevelAncestor();
-			root.getGlassPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			root.getGlassPane().setVisible(true);
-		}
-	}
+	 public static void setWaitCursor(JDialog frame) {
+	        if (frame != null) {
+	            RootPaneContainer root = (RootPaneContainer) frame.getRootPane().getTopLevelAncestor();
+	            root.getGlassPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+	            root.getGlassPane().setVisible(true);
+	        }
+	    }
 
-	public static void setDefaultCursor(JPanel frame) {
-		if (frame != null) {
-			RootPaneContainer root = (RootPaneContainer) frame.getRootPane().getTopLevelAncestor();
-			root.getGlassPane().setCursor(Cursor.getDefaultCursor());
-			root.getGlassPane().setVisible(false);
-		}
-	}
+	    public static void setDefaultCursor(JDialog frame) {
+	        if (frame != null) {
+	            RootPaneContainer root = (RootPaneContainer) frame.getRootPane().getTopLevelAncestor();
+	            root.getGlassPane().setCursor(Cursor.getDefaultCursor());
+	        }
+	    }
 
+	
+	
+	
 	private void ButtonPanell(JPanel panel) {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JButton okButton = new JButton("Р—Р°РїРёСЃ");
+		JButton okButton = new JButton("Запис");
 		okButton.addActionListener(new ActionListener() {
-
+//			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-
+			
+			
 				if (checkDataResult()) {
 					updateIzpitvanPokazatelObjectInDBase();
-					AddResultsViewWithTable.setWaitCursor(panel);
-
+					AddResultsViewWithTable_Test.setWaitCursor(AddResultsViewWithTable_Test.this);
+	            
+					choiceORHO.setBackground(Color.RED);
+//					testSwingWorker;
 					Sample samp = getSampleObjectFromChoiceSampleCode();
 					ListResultsFromDBase = creadListResultsObjects_ChoiseSample(samp);
-					resultListForDelete = AddResultsViewWithTable.creadResultListForDelete(samp);
-					resultListForSave = AddResultsViewWithTable.creadResultListForSave(samp);
-
-					AddResultsViewWithTable.setDefaultCursor(panel);
-
+					resultListForDelete = AddResultsViewWithTable_Test.creadResultListForDelete(samp);
+					resultListForSave = AddResultsViewWithTable_Test.creadResultListForSave(samp);
+					
+					
+//					AddResultsViewWithTable.setDefaultCursor(AddResultsViewWithTable_Test.this);
+					choiceORHO.setBackground(Color.WHITE);
 					new MesejePanel(resultListForSave, resultListForDelete);
 					int k = MesejePanel.getResultMeseje();
 
 					if (k == 0) {
-//						AddResultsViewWithTable.setWaitCursor(AddResultsViewWithTable.this);
-//						for (Results results : resultListForSave) {
-//							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
-//							if (idresultInBase != 0) {
-//								results.setId_results(idresultInBase);
-//								ResultsDAO.updateResults(results);
-//							} else {
-//								ResultsDAO.setValueResults(results);
-//							}
-//						}
-//						for (Results results : resultListForDelete) {
-//							ResultsDAO.deleteResultsById(results.getId_results());
-//						}
-//
-//						
-						listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
-						Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
-								getSampleObjectFromChoiceSampleCode());
-						startViewtablePanel(panel, masiveResultsForChoiceSample);
-//						
-//						AddResultsViewWithTable.setDefaultCursor(AddResultsViewWithTable.this);
+						for (Results results : resultListForSave) {
+							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
+							if (idresultInBase != 0) {
+								results.setId_results(idresultInBase);
+								ResultsDAO.updateResults(results);
+							} else {
+								ResultsDAO.setValueResults(results);
+							}
+						}
+						for (Results results : resultListForDelete) {
+							ResultsDAO.deleteResultsById(results.getId_results());
+						}
+
+//						listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
+						
+//						Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
+//								getSampleObjectFromChoiceSampleCode());
+//						startViewtablePanel(panel, masiveResultsForChoiceSample);
 					}
 
 				}
-
+//				layeredPane.setLayer(lblGif_labell, 1);
+//				lblGif_labell.setVisible(false);
 			}
 
 		});
-
+		// okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
+		// getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
@@ -380,6 +411,61 @@ public class AddResultsViewWithTable extends JDialog {
 		});
 		// cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+	}
+
+	public static class Cadre extends JFrame implements Runnable {
+
+		// private PanneauHaut panneauHaut;
+		// private PanneauBas panneauBas;
+
+		@Override
+		public void run() {
+			System.out.println("Thread started");
+			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//	    setExtendedState(JFrame.MAXIMIZED_BOTH);
+//	    this.panneauHaut = new PanneauHaut();
+//	    this.panneauBas = new PanneauBas();
+			JPanel mainPanel = new JPanel();
+			JTextField kooltxt = new JTextField("hehehe");
+			mainPanel.setLayout(new BorderLayout());
+			mainPanel.add(kooltxt);
+//	    mainPanel.add(panneauHaut, BorderLayout.NORTH);
+//	    mainPanel.add(panneauBas.getPanel(), BorderLayout.SOUTH);
+			this.setContentPane(mainPanel);
+			pack();
+			setLocationRelativeTo(null);
+			this.setVisible(true);
+		}
+	}
+
+	public static class TranscluentWindowNew extends JFrame implements Runnable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private JWindow frame;
+
+		@Override
+		public void run() {
+			frame = new JWindow();
+			frame.setVisible(true);
+			frame.setAlwaysOnTop(true);
+			frame.setBackground(new Color(0, 0, 0, 0));
+			JPanel pan = new JPanel();
+			pan.setOpaque(false);
+			frame.setContentPane(pan);
+			ImageIcon pic = new ImageIcon(GlobalPathForIcons.get_destination_ajaxLoader());
+			frame.getContentPane().add(new JLabel(pic));
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+
+		}
+
+		public void StopWindow() {
+			SwingUtilities.getWindowAncestor(frame).dispose();
+
+		}
+
 	}
 
 	private void updateIzpitvanPokazatelObjectInDBase() {
@@ -493,7 +579,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void DobivSection(JPanel panel) {
-		JLabel lblDobiv = new JLabel("Р”РѕР±РёРІ");
+		JLabel lblDobiv = new JLabel("Добив");
 		GridBagConstraints gbc_lblDobiv = new GridBagConstraints();
 		gbc_lblDobiv.anchor = GridBagConstraints.EAST;
 		gbc_lblDobiv.insets = new Insets(0, 0, 5, 5);
@@ -523,7 +609,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void BasicValueFileSection(JPanel panel) {
-		JLabel lblBasicValueRsltsFile = new JLabel("РџСЉС‚ РґРѕ С„Р°Р№Р»Р°");
+		JLabel lblBasicValueRsltsFile = new JLabel("Път до файла");
 		GridBagConstraints gbc_lblBasicValueRsltsFile = new GridBagConstraints();
 		gbc_lblBasicValueRsltsFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBasicValueRsltsFile.anchor = GridBagConstraints.EAST;
@@ -584,7 +670,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void ChoiceOIR_Section(JPanel panel) {
-		JLabel lblNewLabel_2 = new JLabel("РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°");
+		JLabel lblNewLabel_2 = new JLabel("Извършил анализа");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -641,7 +727,7 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_lblNameMetod.gridy = 4;
 		panel.add(lblNameMetod, gbc_lblNameMetod);
 
-		JLabel lblMetody = new JLabel("РњРµС‚РѕРґ");
+		JLabel lblMetody = new JLabel("Метод");
 		GridBagConstraints gbc_lblMetody = new GridBagConstraints();
 		gbc_lblMetody.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMetody.gridx = 0;
@@ -712,7 +798,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void ChoiceORHO_Section(JPanel panel) {
-		JLabel lblNewLabel_1 = new JLabel("РР·РІСЉСЂС€РёР» РҐРёРј. РѕР±СЂР°Р±РѕС‚.");
+		JLabel lblNewLabel_1 = new JLabel("Извършил Хим. обработ.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
@@ -759,7 +845,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void PokazatelSection(JPanel panel) {
 
-		JLabel lblPokazatel = new JLabel("РџРѕРєР°Р·Р°С‚РµР»");
+		JLabel lblPokazatel = new JLabel("Показател");
 		GridBagConstraints gbc_lblPokazatel = new GridBagConstraints();
 		gbc_lblPokazatel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPokazatel.gridx = 0;
@@ -808,7 +894,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void SampleCodeSection(JPanel panel) {
 
-		JLabel lblSmplCode = new JLabel("в„– РЅР° РїСЂРѕР±Р°");
+		JLabel lblSmplCode = new JLabel("№ на проба");
 		GridBagConstraints gbc_lblSmplCode = new GridBagConstraints();
 		gbc_lblSmplCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSmplCode.gridx = 2;
@@ -938,7 +1024,7 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(lblError, gbc_lblError);
 		lblError.setVisible(false);
 
-		JLabel lblRqstCode = new JLabel("РљРѕРґ РЅР° Р·Р°СЏРІРєР°");
+		JLabel lblRqstCode = new JLabel("Код на заявка");
 		GridBagConstraints gbc_lblRqstCode = new GridBagConstraints();
 		gbc_lblRqstCode.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblRqstCode.insets = new Insets(0, 0, 5, 5);
@@ -994,7 +1080,7 @@ public class AddResultsViewWithTable extends JDialog {
 				if (!RequestDAO.checkRequestCode(txtRqstCode.getText())) {
 					txtRqstCode.setForeground(Color.red);
 					lblError.setVisible(true);
-					lblError.setText("Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°");
+					lblError.setText("Заявка с този номер не съществува");
 					validate();
 					repaint();
 
@@ -1045,7 +1131,7 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
+		renderer.setToolTipText("Натисни за избор");
 		nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -1053,7 +1139,7 @@ public class AddResultsViewWithTable extends JDialog {
 		JComboBox<?> comboBox1 = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox1));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
+		renderer.setToolTipText("Натисни за избор");
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
 
@@ -1061,7 +1147,7 @@ public class AddResultsViewWithTable extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Dimension);
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
+		renderer.setToolTipText("Натисни за избор");
 		Dimension_Column.setCellRenderer(renderer);
 	}
 
@@ -1069,14 +1155,14 @@ public class AddResultsViewWithTable extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(masiveTSI);
 		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
+		renderer.setToolTipText("Натисни за избор");
 		tSI_column.setCellRenderer(renderer);
 
 	}
 
 	private void btnDataFromDBase(JPanel panel) {
 
-		btnCreadTable = new JButton("Р”Р°РЅРЅРё РѕС‚ Р±Р°Р·Р°С‚Р°");
+		btnCreadTable = new JButton("Данни от базата");
 		btnCreadTableListener(panel, btnCreadTable);
 		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
 		gbc_btnCreadTable.gridwidth = 2;
@@ -1089,7 +1175,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void btnOpenFile(JPanel panel) {
-		JButton btnOpenFile = new JButton("РћС‚РІРѕСЂРё");
+		JButton btnOpenFile = new JButton("Отвори");
 		btnOpenFileListener(btnOpenFile);
 		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
 		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
@@ -1162,13 +1248,18 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void startViewtablePanel(JPanel panel, Results[] masiveResultsForChoiceSample) {
-	
+		TranscluentWindow round = new TranscluentWindow();
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
 				Object[][] ss = getDataTable(masiveResultsForChoiceSample, listSimbolBasikNulide);
 				dataTable = new Object[ss.length][tbl_Colum];
 				dataTable = ss;
 				Boolean isNewRow = false;
-				ViewTableInPanel(panel, isNewRow);
-			
+				ViewTableInPanel(panel, round, isNewRow);
+			}
+		});
+		thread.start();
 	}
 
 	private String[] getMasiveSimbolNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
@@ -1219,7 +1310,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	private void ViewTableInPanel(JPanel panel,  Boolean isNewRow) {
+	private void ViewTableInPanel(JPanel panel, TranscluentWindow round, Boolean isNewRow) {
 
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
@@ -1275,7 +1366,8 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.validate();
 		panel.repaint();
 
-		
+		round.StopWindow();
+		top_panel.setBounds(0, 0,  1082,(countRowTabResults * rowWidth) + 278);
 		setSize(1100, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		validate();
@@ -1285,7 +1377,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void btnTabFromFile(JPanel basic_panel) {
 
-		JButton btnTabFromFile = new JButton("Р”Р°РЅРЅРё РѕС‚ С„Р°Р№Р»");
+		JButton btnTabFromFile = new JButton("Данни от файл");
 		btnTabFromFileListener(basic_panel, btnTabFromFile);
 		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
 		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
@@ -1296,7 +1388,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void btnAddRow(JPanel basic_panel) {
-		btnAddRow = new JButton("РЅРѕРІ РќСѓРєР»РёРґ");
+		btnAddRow = new JButton("нов Нуклид");
 		btmAddRowListener(basic_panel, btnAddRow);
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
 		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
@@ -1315,16 +1407,24 @@ public class AddResultsViewWithTable extends JDialog {
 					if (choiceMetody.getSelectedItem() != null) {
 						setValueInChoiceDobiv();
 						if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getId_metody() == 9) {
+							TranscluentWindow round = new TranscluentWindow();
+							final Thread thread = new Thread(new Runnable() {
+								@Override
+								public void run() {
+
 									readFromGenie2kFile();
 									Boolean isNewRow = false;
-									ViewTableInPanel(basic_panel, isNewRow);
-				
+									ViewTableInPanel(basic_panel, round, isNewRow);
+								}
+							});
+							thread.start();
+
+						}
 					} else {
-						JOptionPane.showInputDialog("РЎР°РјРѕ Р·Р° РјРµС‚РѕРґ Рњ.Р›Р-Р РҐ-10", JOptionPane.ERROR_MESSAGE);
-					}
+						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showInputDialog("РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -1335,10 +1435,19 @@ public class AddResultsViewWithTable extends JDialog {
 	public void btmAddRowListener(JPanel basic_panel, JButton btnAddRow) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					AddNewRowIn_dataTable();
+				TranscluentWindow round = new TranscluentWindow();
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+
+						AddNewRowIn_dataTable();
 						Boolean isNewRow = true;
-						ViewTableInPanel(basic_panel, isNewRow);
-				}
+						ViewTableInPanel(basic_panel, round, isNewRow);
+					}
+				});
+				thread.start();
+
+			}
 
 		});
 	}
@@ -1444,6 +1553,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 							if (col == actv_value_Colum || col == uncrt_Colum || col == mda_Colum || col == sigma_Colum
 									|| col == qunt_Colum) {
+								System.out.println(col);
 								try {
 									Double.parseDouble((String) value);
 									dataTable[row][col] = value;
@@ -1542,8 +1652,8 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private static String[] getTabHeader() {
-		String[] tableHeader = { "РќСѓРєР»РёРґ", "РђРєС‚РёРІРЅРѕСЃС‚", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "РњР”Рђ", "Р Р°Р·РјРµСЂРЅРѕСЃС‚", "РЎРёРіРјР°", "РљРѕР»РёС‡РµСЃС‚РІРѕ",
-				"РњСЏСЂРєР°", "Рў РЎ Р", "Р”Р°С‚Р°РҐРёРјРћР±СЂ", "Р”Р°С‚Р°РђРЅР°Р»РёР·", "Р’ РїСЂРѕС‚РѕРєРѕР»", "РџСЂРѕРІРµСЂРєР°", "Id_Result" };
+		String[] tableHeader = { "Нуклид", "Активност", "Неопределеност", "МДА", "Размерност", "Сигма", "Количество",
+				"Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "В протокол", "Проверка", "Id_Result" };
 		return tableHeader;
 	}
 
@@ -1603,7 +1713,7 @@ public class AddResultsViewWithTable extends JDialog {
 		rowFromTableResult[dateHimObr_Colum] = result.getDate_chim_oper();
 		rowFromTableResult[dateAnaliz_Colum] = result.getDate_measur();
 		rowFromTableResult[in_Prot_Colum] = false;
-		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
+		rowFromTableResult[check_Colum] = "Провери";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -1623,7 +1733,7 @@ public class AddResultsViewWithTable extends JDialog {
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
 		rowFromTableResult[in_Prot_Colum] = false;
-		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
+		rowFromTableResult[check_Colum] = "Провери";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -1646,13 +1756,13 @@ public class AddResultsViewWithTable extends JDialog {
 			rowFromTableResult[dateHimObr_Colum] = results.getDate_chim_oper();
 			rowFromTableResult[dateAnaliz_Colum] = results.getDate_measur();
 			rowFromTableResult[in_Prot_Colum] = results.getInProtokol();
-			rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
+			rowFromTableResult[check_Colum] = "Провери";
 			rowFromTableResult[rsult_Id_Colum] = results.getId_results();
 		} catch (NullPointerException e) {
-			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:" + results.getId_results(),
+			JOptionPane.showInputDialog("Грешни данни за резултат:" + results.getId_results(),
 					JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e) {
-			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
 		}
 		return rowFromTableResult;
 
@@ -1664,38 +1774,38 @@ public class AddResultsViewWithTable extends JDialog {
 
 		if (txtRqstCode.getText().trim().isEmpty()) {
 			txtRqstCode.setBackground(Color.RED);
-			str_Error = str_Error + "РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°" + "\n";
+			str_Error = str_Error + "код на заявката" + "\n";
 			saveCheck = false;
 		}
 
 		if (choicePokazatel.getSelectedItem().trim().isEmpty()) {
 			choicePokazatel.setBackground(Color.RED);
-			str_Error = str_Error + "РёР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»" + "\n";
+			str_Error = str_Error + "изпитван показател" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceMetody.getSelectedItem().trim().isEmpty()) {
 			choiceMetody.setBackground(Color.RED);
-			str_Error = str_Error + "РјРµС‚РѕРґ" + "\n";
+			str_Error = str_Error + "метод" + "\n";
 
 			saveCheck = false;
 		}
 
 		if (choiceOIR.getSelectedItem().trim().isEmpty()) {
 			choiceOIR.setBackground(Color.RED);
-			str_Error = str_Error + "РёР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°" + "\n";
+			str_Error = str_Error + "извършил анализа" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
-			str_Error = str_Error + "РёР·РІ. С…РёРј. РѕР±СЂР°Р±РѕС‚РєР°" + "\n";
+			str_Error = str_Error + "изв. хим. обработка" + "\n";
 			saveCheck = false;
 		}
 
 		if (!listSimbolBasikNulideToMetod.isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			choiceDobiv.setBackground(Color.RED);
-			str_Error = str_Error + "РґРѕР±РёРІ" + "\n";
+			str_Error = str_Error + "добив" + "\n";
 			saveCheck = false;
 		}
 
@@ -1706,7 +1816,7 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 
 		if (!saveCheck) {
-			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, str_Error, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
+			JOptionPane.showMessageDialog(AddResultsViewWithTable_Test.this, str_Error, "Грешни данни за следните полета:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -1729,27 +1839,27 @@ public class AddResultsViewWithTable extends JDialog {
 				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) != 0)) {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					if (dataTable[i][razm_Colum].toString().trim().isEmpty()) {
-						errRazm = "СЂР°Р·РјРµСЂРЅРѕСЃС‚ " + "\n";
+						errRazm = "размерност " + "\n";
 					}
 					String razm = dataTable[i][razm_Colum].toString();
 					String qunt = dataTable[i][qunt_Colum].toString();
 					if (!razm.trim().isEmpty() && !razm.replace("Bq", "").isEmpty()) {
 						if (qunt.trim().isEmpty() || Double.parseDouble(qunt) <= 0) {
-							errQunt = "РєРѕР»РёС‡РµСЃС‚РІРѕ " + "\n";
+							errQunt = "количество " + "\n";
 						}
 
 						if (dataTable[i][dimen_Colum].toString().trim().isEmpty()) {
-							errDim = "РјСЏСЂРєР° " + "\n";
+							errDim = "мярка " + "\n";
 						}
 
 					}
 
 					if (dataTable[i][TSI_Colum].toString().trim().isEmpty()) {
-						errTSI = "Рў РЎ Р " + "\n";
+						errTSI = "Т С И " + "\n";
 					}
 
 					if (DatePicker.incorrectDate(dataTable[i][dateAnaliz_Colum].toString().trim(), false)) {
-						errDateAnaliz = "РґР°С‚Р° РЅР° Р°РЅР°Р»РёР·" + "\n";
+						errDateAnaliz = "дата на анализ" + "\n";
 					}
 
 				}
@@ -1758,14 +1868,33 @@ public class AddResultsViewWithTable extends JDialog {
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
 
 			if (deDupStringList.size() != listCodeNuclide.size()) {
-				errDuplic = "РїРѕРІС‚Р°СЂСЏС‰Рё СЃРµ РЅСѓРєР»РёРґРё" + "\n";
+				errDuplic = "повтарящи се нуклиди" + "\n";
 			}
 		} else {
-			errDuplic = "РЅРµРІСЉРІРµРґРµРЅРё РґР°РЅРЅРё" + "\n";
+			errDuplic = "невъведени данни" + "\n";
 		}
 		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim);
 	}
 
+	public class testSwingWorker extends SwingWorker<ArrayList<List<Results>>, Integer> {
+		ArrayList<List<Results>> masiveList = new ArrayList<List<Results>>();
+		
+		@Override
+		protected ArrayList<List<Results>> doInBackground() throws Exception {
+			TranscluentWindow round = new TranscluentWindow();
+			
+			Sample samp = getSampleObjectFromChoiceSampleCode();
+			masiveList.add(creadListResultsObjects_ChoiseSample(samp));
+			masiveList.add(AddResultsViewWithTable_Test.creadResultListForDelete(samp));
+			masiveList.add(AddResultsViewWithTable_Test.creadResultListForSave(samp));
+			
+			round.StopWindow();
+			return masiveList;
+		}
+		
+	}
+	
+	
 	public class TableHeaderMouseListener extends MouseAdapter {
 
 		private JTable table;

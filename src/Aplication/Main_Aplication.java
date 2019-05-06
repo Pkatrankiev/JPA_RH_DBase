@@ -6,7 +6,12 @@ import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.text.ParseException;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -18,9 +23,11 @@ import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import OldClases.AddResultsViewWithTable_Test;
 import OldClases.Foo;
 import OldClases.TestSuperScript;
 import OldClases.test;
+import OldClases.testDialogLayeredPane;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceListIzpPokazatel;
 import WindowView.MainWindows;
@@ -49,12 +56,12 @@ public class Main_Aplication {
 
 //		updateUserRedac();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
-//		test();
+//		test2();
+//		new testDialogLayeredPane();
 		
-		
-//		AddResultsViewWithTable();
+		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -72,20 +79,57 @@ public class Main_Aplication {
 	}
 	private static void test() {
 		TranscluentWindow round = new TranscluentWindow();	
-		Foo foo = new Foo();
-		Thread thread = new Thread(foo);
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				int m=0;
+				for (int i = 0; i < 900000000; i++) {
+					for (int k = 0;k  < 900000000; k++) {
+						m++;
+					}
+				}
+			}
+		});
 		thread.start();
-		try {
-			thread.join();
+		round.StopWindow();
+//System.out.println(value);
+	}
+	public static void test2() {
+		TranscluentWindow round = new TranscluentWindow();	
+		Callable<Integer> worker = new Callable<Integer>() {
+		    @Override
+		    public Integer call() throws Exception {
+		    	int m = metodTest();
+
+
+		      return m;
+		    }
+
+		
+		  };
+
+		  Future<Integer> result = Executors.newSingleThreadExecutor().submit(worker);
+		  try {
+			System.out.println(result.get());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		int value = foo.getValue();
-		round.StopWindow();
-System.out.println(value);
+		  round.StopWindow();
 	}
+	
+	private static int metodTest() throws InterruptedException {
+		int m=0;
 
+			for (int k = 0;k  < 900; k++) {
+				Thread.sleep(10);
+				m++;
+			}
+		return m;
+	}
 	
 	@SuppressWarnings("unused")
 	private static void ChoiceListIzpPokazatel() {
@@ -114,7 +158,8 @@ System.out.println(value);
 		    	 
 		    	 JFrame f = new JFrame();
 //		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
-		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 	
+		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 
+//		 		new AddResultsViewWithTable_Test(f,round, UsersDAO.getValueUsersById(3)); 
 		     }
 		    });
 		    thread.start();

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -26,7 +27,7 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Dimension;
 
-public class ChoiceListIzpPokazatel extends JDialog {
+public class ChoiceFromListWithPlusAndMinus extends JDialog {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -36,7 +37,7 @@ public class ChoiceListIzpPokazatel extends JDialog {
 	static int countCoice = 0;
 
 	
-	public ChoiceListIzpPokazatel(JFrame parent, String[] list_izpitvan_pokazatel) {
+	public ChoiceFromListWithPlusAndMinus(JFrame parent, String[] incomingValueStringMasive, List<String> bsic_list, String labelString) {
 		super(parent, "", true);
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -56,13 +57,14 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		panel.setBorder(null);
 		panel.setSize(400, 280);
 		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
 		gbl_panel.columnWidths = new int[] { 10, 299, 37, 37 };
 		gbl_panel.rowHeights = new int[] { 25, 25, 25, 25, 25, 25, 25, 25 };
 //		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
 //		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		panel.setLayout(gbl_panel);
 
-		JLabel lblFirst = new JLabel("Изберете Показател");
+		JLabel lblFirst = new JLabel(labelString);
 		GridBagConstraints gbc_lblFirst = new GridBagConstraints();
 		gbc_lblFirst.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFirst.gridx = 1;
@@ -70,12 +72,12 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		panel.add(lblFirst, gbc_lblFirst);
 
 		choice[0] = new Choice();
-
-		final ArrayList<String> bsic_list = RequestViewAplication.getStringListLIP();
+		choice[0].setPreferredSize(new Dimension(100, 23));
+//		final  = RequestViewAplication.getStringListLIP();
 		// String[] arr2 = RequestViewAplication.setMasiveFromList(list);
 		
 		
-		if (list_izpitvan_pokazatel == null) {
+		if (incomingValueStringMasive == null) {
 		for (String string : bsic_list) {
 			choice[0].add(string);
 		}
@@ -95,7 +97,6 @@ public class ChoiceListIzpPokazatel extends JDialog {
 //		btnMinus.setMaximumSize(new Dimension(37, 24));
 		btnMinus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Data /- = " + countCoice);
 				choice[countCoice].setVisible(false);
 				countCoice--;
 				System.out.println("Data - = " + countCoice);
@@ -109,29 +110,6 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				} else {
 					btnPlus.setVisible(false);
 				}
-				
-				
-//				// 'i' obhojda wsichki nalichni elementi
-//				for (int i = 0; i < countCoice; i++) {
-//					ArrayList<String> new_list = bsic_list;
-//					
-//					// 'k' obhojda izbranite stoinosti v nalichnite elementi
-//					for (int k = 0; k < countCoice; k++) {
-//						if (k != i)
-//							new_list.remove(choice[k].getSelectedItem());
-//					}
-//					choice[i].removeAll();
-//					for (String string : new_list) {
-//
-//						choice[i].add(string);
-//					}
-//				}
-				
-
-//				for (int i = 0; i < countCoice; i++) {
-//					choice[i].add(choice[countCoice + 1].getSelectedItem());
-//				}
-				
 				panel.repaint();
 				panel.revalidate();
 			}
@@ -159,14 +137,10 @@ public class ChoiceListIzpPokazatel extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				countCoice++;
 				choice[countCoice] = new Choice();
-
-				ArrayList<String> new_list1 = bsic_list;
-//				for (int i = 0; i < countCoice; i++) {
-//					new_list1.remove(choice[i].getSelectedItem());
-//				}
+				choice[countCoice].setPreferredSize(new Dimension(100, 23));
+				List<String> new_list1 = bsic_list;
 
 				for (String string : new_list1) {
-
 					choice[countCoice].add(string);
 				}
 				gbc_choice[countCoice] = new GridBagConstraints();
@@ -186,22 +160,7 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				} else {
 					btnPlus.setVisible(false);
 				}
-//				// 'i' obhojda wsichki nalichni elementi
-//				for (int i = 0; i < countCoice; i++) {
-//					ArrayList<String> new_list2 = bsic_list;
-//					
-//					// 'k' obhojda izbranite stoinosti v nalichnite elementi
-//					for (int k = 0; k < countCoice; k++) {
-//						if (k != i)
-//							new_list2.remove(choice[k].getSelectedItem());
-//					}
-//					choice[i].removeAll();
-//					for (String string : new_list2) {
-//
-//						choice[i].add(string);
-//					}
-//				}
-				
+
 				panel.repaint();
 				panel.revalidate();
 			}
@@ -223,9 +182,9 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		dialog.setLocationRelativeTo(parent);
 
 		// TODO paint old elements (изобразяване на привнесени елементи)
-		if (list_izpitvan_pokazatel != null) {
+		if (incomingValueStringMasive != null) {
 			countCoice = 0;
-			for (String string : list_izpitvan_pokazatel) {
+			for (String string : incomingValueStringMasive) {
 				choice[countCoice] = new Choice();
 				choice[countCoice].add(string);
 				choice[countCoice].select(string);
@@ -294,9 +253,9 @@ public class ChoiceListIzpPokazatel extends JDialog {
 				// panel.removeAll();
 				// panel.revalidate();
 				// panel.repaint();
-				if (list_izpitvan_pokazatel != null) {
+				if (incomingValueStringMasive != null) {
 				int k = 0;
-				for (String string : list_izpitvan_pokazatel) {
+				for (String string : incomingValueStringMasive) {
 					choice[k].select(string);
 					k++;
 				}
@@ -311,8 +270,7 @@ public class ChoiceListIzpPokazatel extends JDialog {
 		dialog.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				countCoice = 0;
-				for (String string : list_izpitvan_pokazatel) {
-					System.out.println(string);
+				for (String string : incomingValueStringMasive) {
 					choice[countCoice].select(string);
 					countCoice++;
 				}

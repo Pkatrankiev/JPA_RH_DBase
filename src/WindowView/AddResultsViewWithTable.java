@@ -340,27 +340,26 @@ public class AddResultsViewWithTable extends JDialog {
 					int k = MesejePanel.getResultMeseje();
 
 					if (k == 0) {
-//						AddResultsViewWithTable.setWaitCursor(AddResultsViewWithTable.this);
-//						for (Results results : resultListForSave) {
-//							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
-//							if (idresultInBase != 0) {
-//								results.setId_results(idresultInBase);
-//								ResultsDAO.updateResults(results);
-//							} else {
-//								ResultsDAO.setValueResults(results);
-//							}
-//						}
-//						for (Results results : resultListForDelete) {
-//							ResultsDAO.deleteResultsById(results.getId_results());
-//						}
-//
-//						
+						AddResultsViewWithTable.setWaitCursor(panel);
+						for (Results results : resultListForSave) {
+							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
+							if (idresultInBase != 0) {
+								results.setId_results(idresultInBase);
+								ResultsDAO.updateResults(results);
+							} else {
+								ResultsDAO.setValueResults(results);
+							}
+						}
+						for (Results results : resultListForDelete) {
+							ResultsDAO.deleteResultsById(results.getId_results());
+						}
+
+						
 						listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 						Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
 								getSampleObjectFromChoiceSampleCode());
 						startViewtablePanel(panel, masiveResultsForChoiceSample);
-//						
-//						AddResultsViewWithTable.setDefaultCursor(AddResultsViewWithTable.this);
+						AddResultsViewWithTable.setDefaultCursor(panel);
 					}
 
 				}
@@ -1312,6 +1311,8 @@ public class AddResultsViewWithTable extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				if (flagIncertedFile) {
+					AddResultsViewWithTable.setWaitCursor(basic_panel);
+//					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 					if (choiceMetody.getSelectedItem() != null) {
 						setValueInChoiceDobiv();
 						if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getId_metody() == 9) {
@@ -1323,6 +1324,7 @@ public class AddResultsViewWithTable extends JDialog {
 						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
 					}
 					}
+					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 				} else {
 					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
 				}

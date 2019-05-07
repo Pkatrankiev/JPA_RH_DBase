@@ -1466,15 +1466,12 @@ public class RequestView extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
 
-					// ---------------------------
-					// saveRequestSamplePokazatelTable("RequestObject");
-					// --------------------------------------
-
+					AddResultsViewWithTable.setWaitCursor(p);
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
 					request = createAndSaveRequest();
 					saveSample();
 					SaveIzpitvanPokazatel();
-
+					AddResultsViewWithTable.setDefaultCursor(p);
 					setVisible(false);
 				}
 			}

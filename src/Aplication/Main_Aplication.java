@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -29,7 +30,7 @@ import OldClases.TestSuperScript;
 import OldClases.test;
 import OldClases.testDialogLayeredPane;
 import WindowView.AddResultsViewWithTable;
-import WindowView.ChoiceListIzpPokazatel;
+import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.MainWindows;
 import WindowView.MesejePanel;
 import WindowView.TranscluentWindow;
@@ -56,12 +57,19 @@ public class Main_Aplication {
 
 //		updateUserRedac();
 		
+		
+		
+		
+		
 //		StartMainWindow();
+		
+		
+		
 		
 //		test2();
 //		new testDialogLayeredPane();
 		
-		AddResultsViewWithTable();
+//		AddResultsViewWithTable();
 		
 //		try {
 //			startcreateProtokolDocx() ;
@@ -73,7 +81,7 @@ public class Main_Aplication {
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 	
 		
-//		ChoiceListIzpPokazatel();
+		ChoiceListIzpPokazatel();
 	
 	
 	}
@@ -134,7 +142,9 @@ public class Main_Aplication {
 	@SuppressWarnings("unused")
 	private static void ChoiceListIzpPokazatel() {
 		JFrame f = new JFrame();
-		 new ChoiceListIzpPokazatel(f, null) ;
+		List<String> bsic_list = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
+		String label = "Изберете Обект на изпитване";
+		 new ChoiceFromListWithPlusAndMinus(f, null,bsic_list, label) ;
 	}
 	
 	

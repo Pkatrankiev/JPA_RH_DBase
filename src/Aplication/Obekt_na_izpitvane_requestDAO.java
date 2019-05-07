@@ -1,5 +1,6 @@
 package Aplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -56,23 +57,25 @@ public static void setBasicValueObekt_na_izpitvane(){
 		entitymanager.close();
 		emfactory.close();
 
-		for (Obekt_na_izpitvane_request e : list) {
-			System.out.println("Num:" + ((Obekt_na_izpitvane_request) e).getId_obekt_na_izpitvane() + "  NAME :"
-					+ ((Obekt_na_izpitvane_request) e).getName_obekt_na_izpitvane());
-		}
 		return list;
 	}
 	
-	@SuppressWarnings("unchecked")
+	
+	public static List<String> getListStringAllValueObekt_na_izpitvane() {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	List<Obekt_na_izpitvane_request> list = getInListAllValueObekt_na_izpitvane();
+	List<String> values = new ArrayList<String>();
+		
+		for (Obekt_na_izpitvane_request e : list) { 
+			values.add( e.getName_obekt_na_izpitvane());
+			
+			}
+		return values;
+	}
+
 	public static String [] getMasiveStringAllValueObekt_na_izpitvane() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e");
-		List<Obekt_na_izpitvane_request> list = query.getResultList();
-		entitymanager.close();
-		emfactory.close();
+	List<Obekt_na_izpitvane_request> list = getInListAllValueObekt_na_izpitvane();
 		String[] values = new String[list.size()];
 		int i = 0;
 		for (Obekt_na_izpitvane_request e : list) { 
@@ -81,7 +84,6 @@ public static void setBasicValueObekt_na_izpitvane(){
 			}
 		return values;
 	}
-
 	
 	@GET
 	@QueryParam("{id}")

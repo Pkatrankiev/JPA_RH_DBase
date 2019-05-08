@@ -28,11 +28,15 @@ public class RequestMiniFrame extends JDialog {
 				if (request.getExtra_module()==null) {
 					applicant = "ÄÏ \"ÐÀÎ\"";	
 				}else{
+					if(request.getExtra_module().getInternal_applicant()==null&& request.getExtra_module().getInternal_applicant()==null){
+						applicant = "ÄÏ \"ÐÀÎ\"";
+					}else{
 					if (request.getExtra_module().getInternal_applicant()!=null) {
 						applicant = request.getExtra_module().getInternal_applicant().getInternal_applicant_organization();
 				}else{
 					applicant = request.getExtra_module().getExternal_applicant().getExternal_applicant_name();
 				}
+					}
 				}
 				GridBagLayout gridBagLayout = new GridBagLayout();
 				gridBagLayout.columnWidths = new int[]{5, 125, 0, 0, 0, 0};

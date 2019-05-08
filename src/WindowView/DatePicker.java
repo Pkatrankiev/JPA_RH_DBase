@@ -29,9 +29,10 @@ public class DatePicker {
 
 	private static String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
 	private static String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
-	
-//	private String oldDate;
-	
+	private static String FORMAT_DATE_TABLE = GlobalFormatDate.getTAB_FORMAT_DATE();
+
+	// private String oldDate;
+
 	// create object of JLabel with alignment
 	JLabel l = new JLabel("", JLabel.CENTER);
 	// define variable
@@ -43,21 +44,20 @@ public class DatePicker {
 
 	JLabel lab = new JLabel();
 
-	public DatePicker(JFrame parent, Boolean inTime, String dateOld)// create constructor
+	public DatePicker(JFrame parent, Boolean inTime, String dateOld)// create
+																	// constructor
 	{
-	
+
 		// create object
 		d = new JDialog();
-		
-		 d.addWindowListener(new WindowAdapter() {
-	    	   public void windowClosing(WindowEvent evt) {
-	    	     onExit(dateOld,inTime);
-	    	   }
 
-			
-	    	  });
-		
-		
+		d.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				onExit(dateOld, inTime);
+			}
+
+		});
+
 		// set modal true
 		d.setModal(true);
 		// define string
@@ -97,7 +97,8 @@ public class DatePicker {
 				button[x].setText(header[x]);
 				button[x].setFont(new Font("Tahoma", Font.BOLD, 12));
 				button[x].setForeground(Color.red);
-				if (x < 5)button[x].setForeground(Color.black);
+				if (x < 5)
+					button[x].setForeground(Color.black);
 				button[x].setContentAreaFilled(false);
 				button[x].setBackground(SystemColor.controlShadow);
 				button[x].setEnabled(false);
@@ -160,7 +161,7 @@ public class DatePicker {
 
 	public void onExit(String date, boolean inTime) {
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
-		
+
 		Date data_int = null;
 		Calendar cal_int = Calendar.getInstance();
 		if (inTime) {
@@ -174,36 +175,34 @@ public class DatePicker {
 			}
 
 		}
-		
+
 		try {
 			data_int = sdf.parse(date);
 			cal_int.setTime(data_int);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 
-		
 		try {
 
-		
 			month = cal_int.get(Calendar.MONTH);
 			year = cal_int.get(Calendar.YEAR);
 			hour = cal_int.get(Calendar.HOUR_OF_DAY);
 			minute = cal_int.get(Calendar.MINUTE);
-			day = cal_int.get(Calendar.DAY_OF_MONTH)+"";
-			
-			System.out.println(" originData = " + date+" data day= "+day);
+			day = cal_int.get(Calendar.DAY_OF_MONTH) + "";
+
+			System.out.println(" originData = " + date + " data day= " + day);
 
 		} catch (DateTimeParseException e) {
 			System.out.println(" Eror Catch in Exit Data = " + date);
-			
+
 		}
-			    	  
-    	}
+
+	}
 
 	private void getTimeModule(JPanel panel) {
-//		Date data_time = null;
+		// Date data_time = null;
 		final SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
 		String time = hour + ":00";
 		try {
@@ -215,7 +214,7 @@ public class DatePicker {
 		minute = cal_time.get(Calendar.MINUTE);
 		JTextField label = new JTextField(time, SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		label.addKeyListener(new KeyListener() {
 
 			@Override
@@ -226,19 +225,18 @@ public class DatePicker {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				
 				try {
 					cal_time.setTime(sdf_time.parse(label.getText()));
-					} catch (ParseException e) {
+				} catch (ParseException e) {
 					JOptionPane.showMessageDialog(null, "Некоректен час!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 				hour = cal_time.get(Calendar.HOUR_OF_DAY);
 				minute = cal_time.get(Calendar.MINUTE);
 				String new_time = sdf_time.format(cal_time.getTime());
 				label.setText(new_time);
 				incorrectTime(label.getText(), label);
-				
+
 			}
 
 			@Override
@@ -246,10 +244,6 @@ public class DatePicker {
 				incorrectTime(label.getText(), label);
 			}
 		});
-
-		
-
-		
 
 		JButton previous_time_btn = new JButton("<< T Назад");
 		previous_time_btn.setFont(font);
@@ -302,7 +296,7 @@ public class DatePicker {
 		// TODO Auto-generated method stub
 		super.finalize();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
@@ -413,7 +407,7 @@ public class DatePicker {
 
 				getSecondDuration(locStartDate);
 				long refTimeInSec = duration.getSeconds() / 2;
-//				long qw = startDateInSec + refTimeInSec;
+				// long qw = startDateInSec + refTimeInSec;
 				refDate = locStartDate.plusSeconds(refTimeInSec);
 				if (refTimeInSec < 0) {
 					meanStrPeriod = "Некоректен период";
@@ -439,6 +433,21 @@ public class DatePicker {
 			return false;
 		}
 	}
+
+	public static Boolean incorrectTableDate(String date) {
+		Boolean corDate = false;
+		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TABLE);
+		String origDate = date;
+	
+		try {
+			LocalDate data_time = LocalDate.parse(date, sdf);
+			if (!data_time.format(sdf).equals(origDate))
+				return true;
+		} catch (DateTimeParseException e) {
+			return corDate = true;
+		}
+		return corDate;
+	}
 	
 	public static Boolean incorrectDate(String date, Boolean inTime) {
 		Boolean corDate = false;
@@ -449,23 +458,16 @@ public class DatePicker {
 			try {
 				origDate = date.substring(0, 10);
 			} catch (StringIndexOutOfBoundsException e) {
-
 				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
-
 			}
-
 		}
 		DateTimeFormatter sdf1 = DateTimeFormatter.ofPattern(FORMAT_DATE);
 
 		try {
-
 			LocalDate data_time = LocalDate.parse(date, sdf);
 			if (!data_time.format(sdf1).equals(origDate))
 				return true;
-			System.out.println("Data = " + data_time.format(sdf1) + " originData = " + origDate);
-
 		} catch (DateTimeParseException e) {
-			System.out.println(" ErorInCatch incorectData = " + origDate);
 			return corDate = true;
 		}
 		return corDate;
@@ -511,7 +513,6 @@ public class DatePicker {
 		return table_sdf.format(date);
 	}
 
-	
 	public static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
@@ -556,7 +557,7 @@ public class DatePicker {
 		date = sdf.parse(origin_date);
 		return table_sdf.format(date);
 	}
-	
+
 	public static String formatToProtokolDate(String origin_date) throws ParseException {
 		String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
 		String DOC_FORMAT_DATE_TIME = GlobalFormatDate.getDOC_FORMAT_DATE_TIME();
@@ -578,11 +579,8 @@ public class DatePicker {
 			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
 		}
 
-		
-			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
-			table_sdf = new SimpleDateFormat(DOC_FORMAT_DATE_TIME);
-
-		
+		sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+		table_sdf = new SimpleDateFormat(DOC_FORMAT_DATE_TIME);
 
 		Date date = new Date();
 

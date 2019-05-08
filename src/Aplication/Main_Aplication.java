@@ -61,7 +61,7 @@ public class Main_Aplication {
 		
 		
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 		
 		
@@ -81,7 +81,7 @@ public class Main_Aplication {
 //		AddResultsViewWithTable.checkValueFrame(NuclideDAO.getValueSNuclideById(47), SampleDAO.getValueSampleById(22), 0.22, 0.005);
 	
 		
-		ChoiceListIzpPokazatel();
+//		ChoiceListIzpPokazatel();
 	
 	
 	}

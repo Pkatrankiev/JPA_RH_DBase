@@ -201,7 +201,7 @@ public class Table_Request_List extends JDialog {
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
-							if (Login.getCurentUser().getIsAdmin()) {
+//							if (Login.getCurentUser().getIsAdmin()) {
 								if (column == ref_Date_Colum) {
 									return false;
 								}
@@ -209,17 +209,17 @@ public class Table_Request_List extends JDialog {
 							} else {
 								return false;
 							}
-						} else {
-							return false;
-						}
+//						} else {
+//							return false;
+//						}
 					}
 
 					public void setValueAt(Object value, int row, int col) {
 
 						if (!dataTable[row][col].equals(value)) {
-							if (col == exec_Date_Colum) {
+							if (col == exec_Date_Colum || col == rqst_Date_Colum) {
 								String str = (String) value;
-								if (!DatePicker.incorrectDate(str, true)) {
+								if (!DatePicker.incorrectTableDate(str)) {
 									dataTable[row][col] = value;
 								}
 							} else {

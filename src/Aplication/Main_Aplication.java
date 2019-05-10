@@ -31,6 +31,7 @@ import OldClases.test;
 import OldClases.testDialogLayeredPane;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
+import WindowView.MainWindow;
 import WindowView.MainWindows;
 import WindowView.MesejePanel;
 import WindowView.TranscluentWindow;
@@ -279,8 +280,8 @@ public class Main_Aplication {
 
 	private static void StartMainWindow() {
 
-		MainWindows win = new MainWindows();
-		win.WindowNew();
+		MainWindow win = new MainWindow();
+//		win.WindowNew();
 	}
 	
 }

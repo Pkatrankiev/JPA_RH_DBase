@@ -1,6 +1,7 @@
 package WindowView;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.KeyEvent;
 
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -37,8 +39,12 @@ import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+
 
 public class MainWindows {
+	
 
 	private static String loginStr = "logIn";
 	private Login loginDlg;
@@ -57,7 +63,19 @@ public class MainWindows {
 		win.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		win.setSize(900, 600);
 		win.setLocationRelativeTo(null);
-		win.getContentPane().setLayout(new GridLayout(4, 4));
+//		win.getContentPane().setLayout(new GridLayout(4, 4));
+		
+		JPanel panel = new JPanel();
+		win.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JPanel Panel_Left = new JPanel();
+		Panel_Left.setBackground(new Color(100, 100, 100));
+		panel.add(Panel_Left);
+		
+		JPanel panel_Ride = new JPanel();
+		panel_Ride.setBackground(new Color(100, 0, 100));
+		panel.add(panel_Ride);
 
 		win.setJMenuBar(createMenu(win));
 
@@ -92,6 +110,10 @@ public class MainWindows {
 		}
 	}
 
+	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	private JMenuBar createMenu(Frame win) {
 		JMenuBar menu = new JMenuBar();
 		// menu.setLayout(new BorderLayout());
@@ -172,6 +194,7 @@ public class MainWindows {
 		});
 		return loginMenu;
 	}
+	
 	private void StartLoginMenu(Frame win, JButton loginMenu) {
 	
 			    	  loginDlg = new Login(win, round);

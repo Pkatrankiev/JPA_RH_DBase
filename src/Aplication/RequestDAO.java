@@ -476,4 +476,25 @@ public class RequestDAO {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<Request> getListRequestFromProgramm(String izp_prod) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Request e WHERE e.ind_num_doc != :ind_num AND e.izpitvan_produkt = :izp_prod ORDER BY e.recuest_code ASC";
+				
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("ind_num", Ind_num_docDAO.getValueInd_num_docById(1));
+		query.setParameter("izp_prod", Izpitvan_produktDAO.getValueIzpitvan_produktByName(izp_prod));
+		List<Request> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
 }

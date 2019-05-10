@@ -19,7 +19,7 @@ import GlobalVariable.GlobalFormatDate;
 public class DatePicker {
 
 	// define variables
-	int month = Calendar.getInstance().get(Calendar.MONTH);
+	static int month = Calendar.getInstance().get(Calendar.MONTH);
 	int year = Calendar.getInstance().get(Calendar.YEAR);
 	int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	int minute = Calendar.getInstance().get(Calendar.MINUTE);
@@ -361,6 +361,10 @@ public class DatePicker {
 
 	}
 
+	public static int getActualyMonth() {
+		return month;
+	}
+	
 	public String setPickedDate(Boolean inTime) {
 		// if condition
 		if (day.equals(""))

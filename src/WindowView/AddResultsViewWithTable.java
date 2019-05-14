@@ -89,14 +89,13 @@ import javax.swing.JTable;
 public class AddResultsViewWithTable extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static JScrollPane scrollTablePane;
 	private static JPanel basic_panel;
-	
+
 	private static JTextField txtBasicValueResult;
 	private static JTextField txtRqstCode;
-	
-	
+
 	private static JLabel lblNameMetod;
 	private static Choice choiceSmplCode;
 	private static Choice choicePokazatel;
@@ -104,13 +103,12 @@ public class AddResultsViewWithTable extends JDialog {
 	private static Choice choiceORHO;
 	private static Choice choiceMetody;
 	private static Choice choiceDobiv;
-	
+
 	private static JButton btnCreadTable;
 	private static JButton btnAddRow;
 	private static JFileChooser f = new JFileChooser();
 	private static JTable tabResults;
-	
-	
+
 	private static List<Sample> listSample;
 	private static List<Users> list_Users;
 	private static List<String> list_UsersNameFamilyOIR;
@@ -130,11 +128,11 @@ public class AddResultsViewWithTable extends JDialog {
 	private static String[] values_Dimension;
 	private static String[] masiveTSI;
 	private static Object[][] dataTable;
-	
+
 	private static Metody selectedMetod = null;
 	private static Request choiseRequest;
 	private static Users user_Redac = null;
-	
+
 	int newCountResults = 0;
 	int countRowTabResults = 0;
 	int addCount = 0;
@@ -144,8 +142,6 @@ public class AddResultsViewWithTable extends JDialog {
 	Boolean viewAddRowButton = false;
 	Boolean flagIncertedFile = false;
 
-	
-	
 	private static int tbl_Colum = 14;
 	private static int nuclide_Colum = 0;
 	private static int actv_value_Colum = 1;
@@ -161,8 +157,6 @@ public class AddResultsViewWithTable extends JDialog {
 	private static int in_Prot_Colum = 11;
 	private static int check_Colum = 12;
 	private static int rsult_Id_Colum = 13;
-
-	
 
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
@@ -180,7 +174,7 @@ public class AddResultsViewWithTable extends JDialog {
 		setSize(1100, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		
+
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -280,10 +274,10 @@ public class AddResultsViewWithTable extends JDialog {
 		try {
 			System.out.println(result.get());
 		} catch (InterruptedException e) {
-			
+
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			
+
 			e.printStackTrace();
 		}
 		round.StopWindow();
@@ -354,7 +348,6 @@ public class AddResultsViewWithTable extends JDialog {
 							ResultsDAO.deleteResultsById(results.getId_results());
 						}
 
-						
 						listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 						Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
 								getSampleObjectFromChoiceSampleCode());
@@ -501,8 +494,17 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(lblDobiv, gbc_lblDobiv);
 
 		choiceDobiv = new Choice();
-		// choiceDobiv.setLightWeightPopupEnabled(false);
-		// choiceDobiv.setBackground(Color.WHITE);
+		choiceDobiv.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				choiceDobiv.setBackground(Color.WHITE);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			public void mousePressed(MouseEvent e) {
+			}
+		});
 
 		GridBagConstraints gbc_choiceDobiv = new GridBagConstraints();
 		gbc_choiceDobiv.insets = new Insets(0, 0, 5, 0);
@@ -782,11 +784,12 @@ public class AddResultsViewWithTable extends JDialog {
 				choicePokazatel.setBackground(Color.WHITE);
 				if (choiseRequest != null) {
 					if (getSampleObjectFromChoiceSampleCode() != null) {
-						if (flagNotReadListPokazatel)
+						if (flagNotReadListPokazatel) {
 							choicePokazatel.removeAll();
-						for (IzpitvanPokazatel pokazat : listPokazatel) {
-							choicePokazatel.add(pokazat.getPokazatel().getName_pokazatel());
-							flagNotReadListPokazatel = false;
+							for (IzpitvanPokazatel pokazat : listPokazatel) {
+								choicePokazatel.add(pokazat.getPokazatel().getName_pokazatel());
+								flagNotReadListPokazatel = false;
+							}
 						}
 					}
 				}
@@ -1161,13 +1164,13 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void startViewtablePanel(JPanel panel, Results[] masiveResultsForChoiceSample) {
-	
-				Object[][] ss = getDataTable(masiveResultsForChoiceSample, listSimbolBasikNulide);
-				dataTable = new Object[ss.length][tbl_Colum];
-				dataTable = ss;
-				Boolean isNewRow = false;
-				ViewTableInPanel(panel, isNewRow);
-			
+
+		Object[][] ss = getDataTable(masiveResultsForChoiceSample, listSimbolBasikNulide);
+		dataTable = new Object[ss.length][tbl_Colum];
+		dataTable = ss;
+		Boolean isNewRow = false;
+		ViewTableInPanel(panel, isNewRow);
+
 	}
 
 	private String[] getMasiveSimbolNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
@@ -1218,7 +1221,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	@SuppressWarnings("serial")
-	private void ViewTableInPanel(JPanel panel,  Boolean isNewRow) {
+	private void ViewTableInPanel(JPanel panel, Boolean isNewRow) {
 
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
@@ -1274,7 +1277,6 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.validate();
 		panel.repaint();
 
-		
 		setSize(1100, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
 		validate();
@@ -1312,17 +1314,17 @@ public class AddResultsViewWithTable extends JDialog {
 
 				if (flagIncertedFile) {
 					AddResultsViewWithTable.setWaitCursor(basic_panel);
-//					AddResultsViewWithTable.setDefaultCursor(basic_panel);
+					// AddResultsViewWithTable.setDefaultCursor(basic_panel);
 					if (choiceMetody.getSelectedItem() != null) {
 						setValueInChoiceDobiv();
 						if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getId_metody() == 9) {
-									readFromGenie2kFile();
-									Boolean isNewRow = false;
-									ViewTableInPanel(basic_panel, isNewRow);
-				
-					} else {
-						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
-					}
+							readFromGenie2kFile();
+							Boolean isNewRow = false;
+							ViewTableInPanel(basic_panel, isNewRow);
+
+						} else {
+							JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 				} else {
@@ -1337,10 +1339,10 @@ public class AddResultsViewWithTable extends JDialog {
 	public void btmAddRowListener(JPanel basic_panel, JButton btnAddRow) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					AddNewRowIn_dataTable();
-						Boolean isNewRow = true;
-						ViewTableInPanel(basic_panel, isNewRow);
-				}
+				AddNewRowIn_dataTable();
+				Boolean isNewRow = true;
+				ViewTableInPanel(basic_panel, isNewRow);
+			}
 
 		});
 	}
@@ -1689,7 +1691,7 @@ public class AddResultsViewWithTable extends JDialog {
 			saveCheck = false;
 		}
 
-		if (choiceORHO.getSelectedItem().trim().isEmpty()) {
+		if (!listSimbolBasikNulideToMetod.isEmpty() && choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
 			str_Error = str_Error + "изв. хим. обработка" + "\n";
 			saveCheck = false;

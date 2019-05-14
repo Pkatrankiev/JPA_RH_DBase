@@ -6,9 +6,9 @@ import java.util.*;
 import javax.swing.JOptionPane;
 public class FindFile 
 {
-    public String findFile(String name, String pat)
+    public String findFile(String name, File file)
     {
-    	new File(pat);
+    	
     	String fileName = "...";
         File[] list = file.listFiles();
         if(list!=null){
@@ -24,7 +24,7 @@ public class FindFile
             }
         }
         }else{
-        	 JOptionPane.showMessageDialog(null, "Недостигам до директория:" +);
+        	 JOptionPane.showMessageDialog(null, "Недостигам до директория:" +"");
         		
         }
         return fileName;

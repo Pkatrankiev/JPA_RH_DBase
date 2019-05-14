@@ -86,7 +86,7 @@ public class Table_Request_List extends JDialog {
 	private static int zab_Colum = 13;
 	private static int user_Id_Colum = 14;
 
-	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user4, Request tamplateRequest) {
+	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user, Request tamplateRequest) {
 		super(parent, "Списък на Заявките", true);
 
 		String[] columnNames = getTabHeader();
@@ -111,26 +111,27 @@ public class Table_Request_List extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				Users loginUser = Login.getCurentUser();
+//				Users loginUser = Login.getCurentUser();
+				DefaultTableModel model =(DefaultTableModel) table.getModel();
 				if (table.getSelectedColumn() == rqst_code_Colum && getSelectedModelRow(table) != -1) {
 					table.rowAtPoint(e.getPoint());
 					table.columnAtPoint(e.getPoint());
-					DefaultTableModel model =(DefaultTableModel) table.getModel();
+//					DefaultTableModel model =(DefaultTableModel) table.getModel();
 					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 
 				}
-				if (table.getSelectedColumn() == izp_Pok_Colum && loginUser != null && loginUser.getIsAdmin()
+				if (table.getSelectedColumn() == izp_Pok_Colum && user != null && user.getIsAdmin()
 						&& getSelectedModelRow(table) != -1) {
 					int rowPokazatel = table.rowAtPoint(e.getPoint());
 					EditColumnPokazatel(table, rowPokazatel);
 
 					AddInUpdateList(rowPokazatel);
 				}
-				DefaultTableModel model =(DefaultTableModel) table.getModel();
-				if (e.getClickCount() == 2 && loginUser != null && getSelectedModelRow(table) != -1) {
-					if (loginUser.getIsAdmin()) {
+				
+				if (e.getClickCount() == 2 && user != null && getSelectedModelRow(table) != -1) {
+					if (user.getIsAdmin()) {
 						if (table.getSelectedColumn() == cunt_Smpl_Colum
 								|| table.getSelectedColumn() == ref_Date_Colum) {
 							String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
@@ -155,7 +156,7 @@ public class Table_Request_List extends JDialog {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
 							
-								new RequestView(f, loginUser, choiseRequest, round);
+								new RequestView(f, user, choiseRequest, round);
 							
 
 						}

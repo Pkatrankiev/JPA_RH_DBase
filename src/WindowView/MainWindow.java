@@ -213,7 +213,7 @@ public class MainWindow extends JFrame {
 		
 
 		FindFile ff = new FindFile();
-		JLabel lblLabel_Protokol = new JLabel(ff.findFile(request.getRecuest_code(), dir_Protocol));
+		JLabel lblLabel_Protokol = new JLabel(ff.findFile(request.getRecuest_code(), new File(dir_Protocols)));
 		lblLabel_Protokol.setPreferredSize(new Dimension(140, 14));
 		panel.add(lblLabel_Protokol);
 
@@ -320,6 +320,7 @@ public class MainWindow extends JFrame {
 		dataMenu.add(new MenuData_EnableSampleList());
 		dataMenu.add(new MenuData_EnableResultsList());
 		dataMenu.add(new MenuData_EnableInternalAplicant());
+		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
 		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
 
 		return dataMenu;

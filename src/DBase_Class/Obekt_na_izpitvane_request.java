@@ -19,11 +19,13 @@ public class Obekt_na_izpitvane_request implements Serializable {
 		 private int Id_obekt_na_izpitvane;
 
 		 private String name;
+		 private String simple_Name;
 		
-		 public Obekt_na_izpitvane_request(Integer id, String name) {
+		 public Obekt_na_izpitvane_request(Integer id, String name, String simple_Name) {
 		     super( );
 		     		     
 		     this.name = name;
+		     this.simple_Name = simple_Name;
 		    		  }
 		 
 		 public Obekt_na_izpitvane_request(){
@@ -42,6 +44,14 @@ public class Obekt_na_izpitvane_request implements Serializable {
 		 public void setName_obekt_na_izpitvane(String name) {
 		 this.name = name;
 		 }
+
+		public String getSimple_Name() {
+			return simple_Name;
+		}
+
+		public void setSimple_Name(String simple_Name) {
+			this.simple_Name = simple_Name;
+		}
 
 		
 

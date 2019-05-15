@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -206,17 +208,17 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		DefaultTableModel model =(DefaultTableModel) table.getModel();
 		String strObektIzpit = model.getValueAt(row, obektNaIzp_Colum).toString().trim();
 		String str = "";
-		
+		strObektIzpit = strObektIzpit.replaceAll("\\(", "#<").replaceAll("\\)", "#>");
+						
 		while (!strObektIzpit.isEmpty()) {
 			if(strObektIzpit.indexOf(";")>=0){
 			str = strObektIzpit.substring(0, strObektIzpit.indexOf(";") + 1);
 			}else{
 				str = strObektIzpit;	
 			}
-			list.add(str.replaceAll(";", "").trim());
-			strObektIzpit = strObektIzpit.replaceFirst(str, "");
-			System.out.println(strObektIzpit);
-		}
+			list.add(str.replaceAll(";", "").replaceAll("#<", "\\(").replaceAll("#>", "\\)").trim());
+			strObektIzpit =  strObektIzpit.replaceFirst(str, "");
+				}
 		String [] masive = new String[list.size()];
 		int i=0;
 		for (String strList: list) {
@@ -279,24 +281,28 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 	}
 
 	private static void updateRequestToObIzpObject(Request request, List<Obekt_na_izpitvane_request> listObektIzpit_requet ) {
-List<Request_To_ObektNaIzpitvaneRequest> listRequestInBase = Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
+		List<Request_To_ObektNaIzpitvaneRequest> listRequestInBase = Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
 		
 			int i =0;
 			for (Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest : listRequestInBase) {
+				if(i<listObektIzpit_requet.size()){
 				request_To_ObektNaIzpitvaneRequest.setObektNaIzp(listObektIzpit_requet.get(i));
 				Request_To_ObektNaIzpitvaneRequestDAO.updateValueRequest_To_ObektNaIzpitvaneRequest(request_To_ObektNaIzpitvaneRequest);
 				i++;
+				}else{
+					Request_To_ObektNaIzpitvaneRequestDAO.deleteRequest_To_ObektNaIzpitvaneRequest(request_To_ObektNaIzpitvaneRequest);	
+				}
 			}
 			if(listRequestInBase.size()<listObektIzpit_requet.size()){
 			for (int j = i; j < listObektIzpit_requet.size(); j++) {
 				Request_To_ObektNaIzpitvaneRequest reqToObIzp = new Request_To_ObektNaIzpitvaneRequest(request,listObektIzpit_requet.get(j));
 				Request_To_ObektNaIzpitvaneRequestDAO.setValueRequest_To_ObektNaIzpitvaneRequest(reqToObIzp);
 			}
-		}else{
-			
+			}
+
 		}
 		
-	}
+	
 
 	private static void AddInUpdateList(int row, Object[][] dataTable) {
 

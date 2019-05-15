@@ -2,16 +2,22 @@ package OldClases;
 
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
@@ -49,6 +55,31 @@ public class TestClases {
 		thread.start();
 		round.StopWindow();
 //System.out.println(value);
+	}
+	
+	
+	public static void test3() {
+		List<String> list = new ArrayList<String>();
+		String strObektIzpit = "Спецкорпус-1; Бак 4 и 5 (Изход 2)";
+		String str = "";
+		strObektIzpit = strObektIzpit.replaceAll("\\(", "#<").replaceAll("\\)", "#>");
+						
+		while (!strObektIzpit.isEmpty()) {
+			if(strObektIzpit.indexOf(";")>=0){
+			str = strObektIzpit.substring(0, strObektIzpit.indexOf(";") + 1);
+			}else{
+				str = strObektIzpit;	
+			}
+			list.add(str.replaceAll(";", "").replaceAll("#<", "\\(").replaceAll("#>", "\\)").trim());
+			strObektIzpit =  strObektIzpit.replaceFirst(str, "");
+				}
+		String [] masive = new String[list.size()];
+		int i=0;
+		for (String strList: list) {
+			System.out.println(i+"-"+strList);
+			i++;
+		}
+		
 	}
 	
 	public static void test2() {

@@ -320,10 +320,23 @@ public class FunctionForGenerateWordDocFile {
 	public static String alignExpon(double basic, double foll) {
 		NumberFormat frm = new DecimalFormat("0.00E00");
 		NumberFormat frm_foll = new DecimalFormat("0.00");
+		NumberFormat frm_follA = new DecimalFormat("0.000");
 		String str_bas = frm.format(basic);
 		double expon = Double.valueOf("1.0" + str_bas.substring(str_bas.indexOf("E")));
 		foll = foll / expon;
-		String str_foll = frm_foll.format(foll) + str_bas.substring(str_bas.indexOf("E"));
+		String str_foll = frm_foll.format(foll);
+		
+		// zastoto metoda ne zakarglqva ot 0.045 na 0.05
+		String str_follA = frm_follA.format(foll);
+		if(str_follA.substring(4).equals("5")){
+			str_follA=str_follA.substring(0, 4);
+			str_follA=str_follA+"6";
+			str_follA = str_follA.replace(",", ".");
+			double d = Double.parseDouble(str_follA);
+			str_foll = frm_foll.format(d);
+		}
+		
+		str_foll = str_foll + str_bas.substring(str_bas.indexOf("E"));
 		if (!str_foll.contains("E-")) { // don't blast a negative sign
 			str_foll = str_foll.replace("E", "E+");
 		}

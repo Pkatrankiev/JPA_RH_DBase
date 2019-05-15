@@ -155,9 +155,9 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-
-		entitymanager.find(Request_To_ObektNaIzpitvaneRequest.class, request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
-		entitymanager.remove(request_to_ObectNaIzp);
+System.out.println(request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
+Request_To_ObektNaIzpitvaneRequest req_to_ObectNaIzp = entitymanager.find(Request_To_ObektNaIzpitvaneRequest.class, request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
+		entitymanager.remove(req_to_ObectNaIzp);
 
 		try {
 			entitymanager.getTransaction().commit();

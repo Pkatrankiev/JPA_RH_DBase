@@ -56,7 +56,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		panel.setSize(400, 280);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0 };
-		gbl_panel.columnWidths = new int[] { 10, 299, 37, 37 };
+		gbl_panel.columnWidths = new int[] { 10, 250, 37, 37 };
 		gbl_panel.rowHeights = new int[] { 25, 25, 25, 25, 25, 25, 25, 25 };
 		// gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
 		// gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -71,7 +71,8 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		panel.add(lblFirst, gbc_lblFirst);
 
 		choice[0] = new Choice();
-		choice[0].setPreferredSize(new Dimension(100, 23));
+		choice[0].setPreferredSize(new Dimension(120, 23));
+		
 		// final = RequestViewAplication.getStringListLIP();
 		// String[] arr2 = RequestViewAplication.setMasiveFromList(list);
 
@@ -135,7 +136,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				countCoice++;
 				choice[countCoice] = new Choice();
-				choice[countCoice].setPreferredSize(new Dimension(100, 23));
+				choice[countCoice].setPreferredSize(new Dimension(120, 23));
 				
 				for (String string : bsic_list) {
 					choice[countCoice].add(string);
@@ -183,6 +184,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 			countCoice = 0;
 			for (String incomingString : incomingValueStringMasive) {
 				choice[countCoice] = new Choice();
+				choice[countCoice].setPreferredSize(new Dimension(120, 23));
 				for (String str : bsic_list) {
 					choice[countCoice].add(str);
 				}

@@ -81,7 +81,7 @@ public class MainWindow extends JFrame {
 	private TranscluentWindow round;
 	private String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Вода", "Въздух" };
 
-	public MainWindow() {
+	public MainWindow(TranscluentWindow round) {
 		setMinimumSize(new Dimension(900, 600));
 		GetVisibleLAF(this);
 		setTitle("my RHA");
@@ -184,7 +184,7 @@ public class MainWindow extends JFrame {
 				System.exit(0);
 			}
 		});
-
+		round.StopWindow();
 		setVisible(true);
 
 	}

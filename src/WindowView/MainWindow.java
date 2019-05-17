@@ -72,15 +72,20 @@ import javax.swing.SwingConstants;
 import java.awt.ComponentOrientation;
 import javax.swing.border.MatteBorder;
 
-public class MainWindow extends JFrame {
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
 
+public class MainWindow extends JFrame {
+	
 	private String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
 	private JPanel contentPane;
 	private static String loginStr = "logIn";
 	private Login loginDlg;
 	private TranscluentWindow round;
-	private String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Вода", "Въздух" };
-
+	private String[] listMonitoringGroup = { "Р“Р°Р·РѕРѕР±СЂР°Р·РЅРё РёР·С…РІСЉСЂР»СЏРЅРёСЏ", "РўРµС‡РЅРё РёР·С…РІСЉСЂР»СЏРЅРёСЏ", "Р’СЉР·РґСѓС…", "Р’РѕРґР°"};
+	
 	public MainWindow(TranscluentWindow round) {
 		setMinimumSize(new Dimension(900, 600));
 		GetVisibleLAF(this);
@@ -113,18 +118,22 @@ public class MainWindow extends JFrame {
 			under_panel_Left.add(panel_row_Left_Label);
 			panel_row_Left_Label.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-			String month = getPreviousMesec();
-			JLabel lblNewLabel = new JLabel("Проби от програма периодичен мониторинг за м." + month);
+			String month = getPreviousMesec(1);
+			JLabel lblNewLabel = new JLabel("РџСЂРѕР±Рё РѕС‚ РїСЂРѕРіСЂР°РјР° РїРµСЂРёРѕРґРёС‡РµРЅ РјРѕРЅРёС‚РѕСЂРёРЅРі Р·Р° Рј." + month);
 			lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 			panel_row_Left_Label.add(lblNewLabel);
 
-
+			String inLabel = "";
 			for (String string : listMonitoringGroup) {
+				if(string.equals("Р’РѕРґР°")){
+					month = getPreviousMesec(2);
+					inLabel = " Р·Р° Рј."+month;
+				}
 				JPanel panel = new JPanel();
 				panel.setMaximumSize(new Dimension(32767, 20));
 				under_panel_Left.add(panel);
 				panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-				JLabel lbl_Grup_ = new JLabel(string);
+				JLabel lbl_Grup_ = new JLabel(string+inLabel);
 					panel.add(lbl_Grup_);
 
 				List<Request> techniIzh = cerateList(month, string);
@@ -240,13 +249,13 @@ public class MainWindow extends JFrame {
 		if (list.size() > 1) {
 			str = "<html>";
 			for (IzpitvanPokazatel izpPok : list) {
-				str = str + izpPok.getPokazatel().getName_pokazatel().replaceFirst("Съдържание на ", "") + "<br>";
+				str = str + izpPok.getPokazatel().getName_pokazatel().replaceFirst("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° ", "") + "<br>";
 			}
 
 			str = str.substring(0, str.length() - 4);
 			str = str + "</html>";
 		} else {
-			str = list.get(0).getPokazatel().getName_pokazatel().replaceFirst("Съдържание на ", "");
+			str = list.get(0).getPokazatel().getName_pokazatel().replaceFirst("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° ", "");
 		}
 		return str;
 	}
@@ -265,8 +274,8 @@ public class MainWindow extends JFrame {
 		return list;
 	}
 
-	private String getPreviousMesec() {
-		int month = DatePicker.getActualyMonth() + 1;
+	private String getPreviousMesec(int koregMount) {
+		int month = DatePicker.getActualyMonth() + koregMount;
 		if (month == 1) {
 			month = 12;
 		} else {
@@ -300,7 +309,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JMenu createRequenseMenu() {
-		JMenu sequenseMenu = new JMenu("Заявки");
+		JMenu sequenseMenu = new JMenu("Р—Р°СЏРІРєРё");
 		sequenseMenu.setMnemonic(KeyEvent.VK_Z);
 
 		sequenseMenu.add(new MenuRequense_NewRequense());
@@ -314,7 +323,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JMenu createDataMenu() {
-		JMenu dataMenu = new JMenu("Данни");
+		JMenu dataMenu = new JMenu("Р”Р°РЅРЅРё");
 		dataMenu.setMnemonic(KeyEvent.VK_D);
 		dataMenu.add(new MenuData_EnableRequestList());
 		dataMenu.add(new MenuData_EnableSampleList());
@@ -327,7 +336,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JMenu createWordDocMenu() {
-		JMenu docMenu = new JMenu("Документи");
+		JMenu docMenu = new JMenu("Р”РѕРєСѓРјРµРЅС‚Рё");
 		docMenu.setMnemonic(KeyEvent.VK_W);
 		docMenu.add(new MenuDoc_CreateProtokol());
 		docMenu.add(new MenuDoc_CreateRequest());
@@ -379,4 +388,5 @@ public class MainWindow extends JFrame {
 		}
 	}
 
+	
 }

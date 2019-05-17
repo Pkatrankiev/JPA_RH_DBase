@@ -1,18 +1,27 @@
 package OldClases;
 
 import javax.swing.JPanel;
+
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
+
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.io.File;
+import java.util.logging.Logger;
+
 import javax.swing.BoxLayout;
 
 public class test extends JPanel {
 
 	
-	
+	static Logger logger;
 	private static final long serialVersionUID = 1L;
 	public test() {
 		setLayout(new BorderLayout(0, 0));
@@ -67,4 +76,42 @@ public class test extends JPanel {
 		}
 		return panel_Basic;
 		}
+
+public static void convertDocx2pdf(String docxFilePath) {
+		
+		File docxFile = new File(docxFilePath);
+		String pdfFile = docxFilePath.substring(0, docxFilePath.lastIndexOf(".docx")) + ".pdf";
+
+		if (docxFile.exists()) {
+		    if (!docxFile.isDirectory()) { 
+		        ActiveXComponent app = null;
+
+		        long start = System.currentTimeMillis();
+		        try {
+		            ComThread.InitMTA(true); 
+		            app = new ActiveXComponent("Word.Application");
+		            Dispatch documents = app.getProperty("Documents").toDispatch();
+		            Dispatch document = Dispatch.call(documents, "Open", docxFilePath, false, true).toDispatch();
+		            File target = new File(pdfFile);
+		            if (target.exists()) {
+		                target.delete();
+		            }
+		            Dispatch.call(document, "SaveAs", pdfFile, 17);
+		            Dispatch.call(document, "Close", false);
+		            long end = System.currentTimeMillis();
+		            logger.info("============Convert Finished：" + (end - start) + "ms");
+		        } catch (Exception e) {
+//		            logger.error(e.getLocalizedMessage(), e);
+		            throw new RuntimeException("pdf convert failed.");
+		        } finally {
+		            if (app != null) {
+		                app.invoke("Quit", new Variant[] {});
+		            }
+		            ComThread.Release();
+		        }
+		    }
+		}
+	}
+
+
 }

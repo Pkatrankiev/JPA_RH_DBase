@@ -21,6 +21,7 @@ public class Main_Aplication {
 		
 		
 		StartMainWindow();
+		
 	}
 	private static void StartMainWindow() {
 		TranscluentWindow round = new TranscluentWindow();

@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,7 @@ import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
+import CreateWordDocProtocol.AplicationDocTemplate;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import WindowView.DatePicker;
@@ -213,6 +217,36 @@ public class Table_Sample_List extends JDialog {
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
+				JButton btnNewButton = new JButton("export");
+				
+				
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+
+						TranscluentWindow round = new TranscluentWindow();
+
+						final Thread thread = new Thread(new Runnable() {
+							@Override
+							public void run() {
+							
+								 try {
+									AplicationDocTemplate.toExcel(table );
+								} catch (UnsupportedEncodingException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (FileNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+							}
+						});
+						thread.start();
+
+					}
+				});
+				panel_Btn.add(btnNewButton);
+				
 				JButton btnSave = new JButton("Запис");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -234,6 +268,7 @@ public class Table_Sample_List extends JDialog {
 				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
+									
 					panel_Btn.add(btnSave);
 				}
 				JButton btnCancel = new JButton("Изход");

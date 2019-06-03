@@ -72,10 +72,7 @@ import javax.swing.SwingConstants;
 import java.awt.ComponentOrientation;
 import javax.swing.border.MatteBorder;
 
-import com.jacob.activeX.ActiveXComponent;
-import com.jacob.com.ComThread;
-import com.jacob.com.Dispatch;
-import com.jacob.com.Variant;
+
 
 public class MainWindow extends JFrame {
 	

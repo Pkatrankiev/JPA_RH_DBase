@@ -35,6 +35,8 @@ import Table.Table_RequestToObektNaIzp;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.MainWindow;
+import WindowView.RequestView;
+import WindowView.RequestViewNew;
 import WindowView.TranscluentWindow;
 
 public class TestClases {
@@ -127,6 +129,20 @@ public class TestClases {
 		 new ChoiceFromListWithPlusAndMinus(f, null,bsic_list, label) ;
 	}
 	
+	public static void testNewRequestVew(){
+		 JFrame f = new JFrame();
+		 Users user = UsersDAO.getValueUsersById(3);
+		 Request request = RequestDAO.getValueRequestById(189);
+		 TranscluentWindow round = new TranscluentWindow();
+			
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+	    	new RequestViewNew(f, user,request,round);
+		     }
+		    });
+		    thread.start();
+	}
 	
 	@SuppressWarnings("unused")
 	private static void updateUserRedac() {

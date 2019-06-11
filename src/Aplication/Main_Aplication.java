@@ -9,6 +9,7 @@ import OldClases.test;
 import Table.Table_Results_List;
 import WindowView.Login;
 import WindowView.MainWindow;
+import WindowView.RequestView;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
@@ -20,7 +21,9 @@ public class Main_Aplication {
 //	 test.convertDocx2pdf("l:/ЛИ-РХ/Протоколи/3793_08.02.2019.docx");
 		
 		
-		StartMainWindow();
+		TestClases.testNewRequestVew();
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

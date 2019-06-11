@@ -8,6 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -29,7 +31,7 @@ public class AddInChoice extends JDialog {
 	private static JTextField textField;
 	private JPanel panel;
 
-	public AddInChoice(JFrame parent, ArrayList<String> massiveO_I_R, String selectItem) {
+	public AddInChoice(JFrame parent, List<String> massiveO_I_R, String selectItem) {
 		super(parent, "", true);
 		
 		final JDialog dialog = new JDialog();
@@ -63,7 +65,7 @@ public class AddInChoice extends JDialog {
 				public void keyReleased(KeyEvent event) {
 					panel.removeAll();
 					if (textField.getText().length() >= 3) {
-						ArrayList<String> list = getStrMas(textField.getText(), massiveO_I_R);
+						List<String> list = getStrMas(textField.getText(), massiveO_I_R);
 						System.out.println("---" + list.size());
 						JLabel[] lblNewLabel2 = new JLabel[list.size()];
 						int i = 0;
@@ -132,9 +134,9 @@ public class AddInChoice extends JDialog {
 		setVisible(true);
 	}
 
-	public ArrayList<String> getStrMas(String str, ArrayList<String> massiveO_I_R) {
+	public List<String> getStrMas(String str, List<String> massiveO_I_R) {
 
-		ArrayList<String> masStr = new ArrayList<String>();
+		List<String> masStr = new ArrayList<String>();
 		for (String string : massiveO_I_R) {
 			if (string.indexOf(str) >= 0) {
 				masStr.add(string);

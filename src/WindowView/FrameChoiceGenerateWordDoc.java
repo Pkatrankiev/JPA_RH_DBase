@@ -17,6 +17,7 @@ import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.Request;
+import GlobalVariable.GlobalPathForDocFile;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -40,9 +41,9 @@ public class FrameChoiceGenerateWordDoc extends JDialog {
 	private JTextField textField;
 	private static Boolean corectRequestCode = true;
 
-	private String fileRequestDoc = "Zaqvka_new.docx";
-	private String fileRazpredDoc = "Razpred.docx";
-	private String fileProtDoc = "Protokol.docx";
+	private String fileRequestDoc = GlobalPathForDocFile.get_NameTamplate_Request();
+	private String fileRazpredDoc = GlobalPathForDocFile.get_NameTamplate_RazpredForm();
+	private String fileProtDoc = GlobalPathForDocFile.get_NameTamplate_Protokol();
 	
 	public FrameChoiceGenerateWordDoc(JFrame parent, String nameFrame) {
 		super(parent, nameFrame, true);

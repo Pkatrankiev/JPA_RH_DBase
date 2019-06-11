@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,15 +35,14 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 	static Choice[] choice = new Choice[7];
 	GridBagConstraints[] gbc_choice = new GridBagConstraints[7];
 	static int countCoice = 0;
-	static String[] masiveStringFromChoice = null;
+	static List<String> masiveStringFromChoice = null;
 
-	public ChoiceFromListWithPlusAndMinus(JFrame parent, String[] incomingValueStringMasive, List<String> bsic_list,
+	public ChoiceFromListWithPlusAndMinus(JFrame parent, List<String> incomingValueStringList, List<String> bsic_list,
 			String labelString) {
 		super(parent, "", true);
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		// dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
+		
 		setSize(430, 300);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,25 +59,43 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0 };
 		gbl_panel.columnWidths = new int[] { 10, 250, 37, 37 };
 		gbl_panel.rowHeights = new int[] { 25, 25, 25, 25, 25, 25, 25, 25 };
-		// gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
-		// gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-		// 0.0, 0.0 };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblFirst = new JLabel(labelString);
 		GridBagConstraints gbc_lblFirst = new GridBagConstraints();
-		gbc_lblFirst.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFirst.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFirst.gridx = 1;
 		gbc_lblFirst.gridy = 0;
 		panel.add(lblFirst, gbc_lblFirst);
+		
+		
+		JButton add_Button = new JButton("ƒобав€не");
+		add_Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				RequestViewFunction.addNewObjectIn_Choice_Obekt_na_Izpitvane_Request(parent, incomingValueStringList,  bsic_list, labelString);
+			
+				
+			}
+		});
+		add_Button.setAlignmentX(Component.CENTER_ALIGNMENT);
+		add_Button.setPreferredSize(new Dimension(75, 23));
+		add_Button.setMargin(new Insets(0, 1, 1, 1));
+		GridBagConstraints gbc_add_Button = new GridBagConstraints();
+		gbc_add_Button.gridwidth = 2;
+		gbc_add_Button.insets = new Insets(0, 0, 5, 0);
+		gbc_add_Button.gridx = 2;
+		gbc_add_Button.gridy = 0;
+		panel.add(add_Button, gbc_add_Button);
+		
+		
+		
+		
 
 		choice[0] = new Choice();
 		choice[0].setPreferredSize(new Dimension(120, 23));
 		
-		// final = RequestViewAplication.getStringListLIP();
-		// String[] arr2 = RequestViewAplication.setMasiveFromList(list);
-
-		if (incomingValueStringMasive == null) {
+		if (incomingValueStringList == null) {
 			for (String string : bsic_list) {
 				choice[0].add(string);
 			}
@@ -92,8 +111,6 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		final JButton btnMinus = new JButton("-");
 		btnMinus.setPreferredSize(new Dimension(37, 23));
 		btnMinus.setMargin(new Insets(0, 1, 1, 1));
-		// btnMinus.setMinimumSize(new Dimension(37, 24));
-		// btnMinus.setMaximumSize(new Dimension(37, 24));
 		btnMinus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				choice[countCoice].setVisible(false);
@@ -114,6 +131,8 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 			}
 		});
 		btnMinus.setVisible(false);
+		
+
 		btnMinus.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnMinus.setHorizontalAlignment(SwingConstants.CENTER);
 		btnMinus.setForeground(Color.RED);
@@ -130,8 +149,6 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		btnPlus = new JButton("+");
 		btnPlus.setMargin(new Insets(0, 1, 1, 1));
 		btnPlus.setPreferredSize(new Dimension(37, 23));
-		// btnPlus.setMinimumSize(new Dimension(37, 25));
-		// btnPlus.setMaximumSize(new Dimension(37, 25));
 		btnPlus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				countCoice++;
@@ -180,9 +197,9 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		dialog.setLocationRelativeTo(parent);
 
 		// TODO paint old elements (изобраз€ване на привнесени елементи)
-		if (incomingValueStringMasive != null) {
+		if (incomingValueStringList != null) {
 			countCoice = 0;
-			for (String incomingString : incomingValueStringMasive) {
+			for (String incomingString : incomingValueStringList) {
 				choice[countCoice] = new Choice();
 				choice[countCoice].setPreferredSize(new Dimension(120, 23));
 				for (String str : bsic_list) {
@@ -236,12 +253,9 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// panel.removeAll();
-				// panel.revalidate();
-				// panel.repaint();
-				if (incomingValueStringMasive != null) {
+					if (incomingValueStringList != null) {
 					int k = 0;
-					for (String string : incomingValueStringMasive) {
+					for (String string : incomingValueStringList) {
 						choice[k].select(string);
 						k++;
 					}
@@ -256,7 +270,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		dialog.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				countCoice = 0;
-				for (String string : incomingValueStringMasive) {
+				for (String string : incomingValueStringList) {
 					choice[countCoice].select(string);
 					countCoice++;
 				}
@@ -267,15 +281,15 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		setVisible(true);
 	}
 
-	public static String[] createMasiveStringFromChoice() {
-		String[] arr = new String[countCoice + 1];
+	public static List<String> createMasiveStringFromChoice() {
+		List<String> list = new ArrayList<String>();
 		for (int i = 0; i <= countCoice; i++) {
-			arr[i] = choice[i].getSelectedItem();
+			list.add( choice[i].getSelectedItem());
 		}
-		return arr;
+		return list;
 	}
 
-	public static String[] getMasiveStringFromChoice() {
+	public static List<String> getMasiveStringFromChoice() {
 		return masiveStringFromChoice;
 	}
 }

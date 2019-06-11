@@ -141,6 +141,27 @@ public class RequestViewFunction {
 		choice_obekt_na_izpitvane_request.select(str);
 	}
 	
+	public static void addNewObjectIn_Choice_Obekt_na_Izpitvane_Request(JFrame parent, List<String> incomingValueStringList, List<String> bsic_listObektNaIzpit, String labelString) {
+		Boolean fl = false;
+		 final JFrame f = new JFrame();
+
+		 new AddInChoice(f, bsic_listObektNaIzpit, incomingValueStringList.get(incomingValueStringList.size()-1));
+
+		String str = AddInChoice.getChoice();
+		for (String string : bsic_listObektNaIzpit) {
+			if (str.equals(string))
+				fl = true;
+		}
+		if (!fl) {
+			bsic_listObektNaIzpit.add( str);
+			incomingValueStringList.remove(incomingValueStringList.size()-1);
+			incomingValueStringList.add(str);
+		}
+		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit, "Обект на изпитване");
+		
+		
+	}
+	
 	public static void setDataIn_Choice_Razmernost(Choice choice_Razmernost, Request tamplateRequest) {
 		String[] arr3 = RequestViewAplication.getStringMassiveRazmernost();
 		for (String string : arr3) {

@@ -37,7 +37,7 @@ public class GenerateDocProtokol {
 	private static String strKeyTemplateNewRow = "##$$%%";
 	private static String strKeyTemplateMDA = "$$MDA$$";
 	private static String strKeyUser = "$$sert$$";
-	private static String strKeyPodpisiTable = "Извършили изпитването:";
+	private static String strKeyPodpisiTable = "Ръководител";
 	private static String strKeyzabTable = "$$%%";
 	private static String strKeyHeaderRow_1 = "Код на пробата";
 	private static String strKeyHeaderRow_2 = "1";
@@ -45,6 +45,7 @@ public class GenerateDocProtokol {
 
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
+		
 		
 		
 		BasicConfigurator.configure();

@@ -57,7 +57,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		Object[][] dataTable = getDataTable();
 		int counRow = dataTable.length;
 		
-		setTitle("Списък на Вътрешни Клиенти");
+		setTitle("Таблица на изпитваните обекти към заявка");
 		setBounds(100, 100, 650, counRow*25+50);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -72,24 +72,23 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 			public void mouseEntered(MouseEvent e) {}
 
 			public void mousePressed(MouseEvent e) {
-				if (table.getSelectedColumn() == request_Code_Colum && getSelectedModelRow(table) != -1) {
-					table.rowAtPoint(e.getPoint());
-					table.columnAtPoint(e.getPoint());
-					DefaultTableModel model =(DefaultTableModel) table.getModel();
-					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), request_Code_Colum).toString();
-					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+				if (getSelectedModelRow(table) != -1){
+				table.rowAtPoint(e.getPoint());
+				table.columnAtPoint(e.getPoint());
+				DefaultTableModel model =(DefaultTableModel) table.getModel();
+				String reqCodeStr = model.getValueAt(getSelectedModelRow(table), request_Code_Colum).toString();
+				Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+				if (table.getSelectedColumn() == request_Code_Colum) {
 					new RequestMiniFrame(new JFrame(), choiseRequest);
-
 				}
-				if (table.getSelectedColumn() == obektNaIzp_Colum && user != null && user.getIsAdmin()
-						&& getSelectedModelRow(table) != -1) {
+				if (table.getSelectedColumn() == obektNaIzp_Colum && user != null && user.getIsAdmin()) {
 					int rowObektNaIzp = table.rowAtPoint(e.getPoint());
 					System.out.println(rowObektNaIzp);
-					EditRequestObektIzpit(table, rowObektNaIzp);
+					EditRequestObektIzpit(table, rowObektNaIzp, choiseRequest);
 
 					AddInUpdateList(rowObektNaIzp, dataTable);
 				}
-				
+			}
 			}
 		});
 
@@ -186,22 +185,16 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		repaint();
 	}
 	
-	private static void EditRequestObektIzpit  (JTable table, int row) {
-		String []  list = ReadListObektNaIzpitInCell(table, row);
+	private static void EditRequestObektIzpit  (JTable table, int row, Request request) {
+		List<String>  list = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
+		
 		JFrame f = new JFrame();
 		new ChoiceFromListWithPlusAndMinus(f, list, bsic_listObektNaIzpit, "Обект на изпитване");
-		table.setValueAt(CreateStringObektNaIzpit(), row, obektNaIzp_Colum);
+		table.setValueAt(createStringListObektNaIzp(null, false), row, obektNaIzp_Colum);
 		
 	}
 	
-	private static String CreateStringObektNaIzpit() {
-		String str = "";
-		for(String stringObektNaIzpit :ChoiceFromListWithPlusAndMinus.createMasiveStringFromChoice()){
-			str = str + stringObektNaIzpit+"; ";
-			}
-		return str.substring(0, str.length()-2);
-			
-	}
+	
 
 	private static String[] ReadListObektNaIzpitInCell(JTable table, int row) {
 		List<String> list = new ArrayList<String>();
@@ -235,7 +228,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		for (Request request : listAllIntApplic) {
 			try {
 				table[i][request_Code_Colum] = request.getRecuest_code();
-				table[i][obektNaIzp_Colum] = createStringListObektNaIzp(request);
+				table[i][obektNaIzp_Colum] = createStringListObektNaIzp(request, false);
 				i++;
 			} catch (NumberFormatException e) {
 				JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
@@ -244,14 +237,45 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		return table;
 	}
 
-	private String createStringListObektNaIzp(Request request) {
-		String str = "";
-	for(Request_To_ObektNaIzpitvaneRequest requestToObIzp: Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request)){
-		str = str+requestToObIzp.getObektNaIzp().getName_obekt_na_izpitvane()+"; ";
+		
+	public static String createStringListObektNaIzp(Request request, Boolean forRequestVew) {
+		List<String> list;
+		if(request==null){
+			list = ChoiceFromListWithPlusAndMinus.createMasiveStringFromChoice();
+		}else{
+			list = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
+		}
+		String str = "", endLine="";
+		
+		int endIndex = list.size();
+		for (int i = 0; i < list.size(); i++) {
+			if(i==endIndex-1 && str.length()>0){
+				str = str.substring(0, str.length()-2);
+				str = str+" и "	;
+			}
+			if(forRequestVew && (str+list.get(i)).length()>70){
+				endLine = "\n";
+			}
+			str = str+endLine+list.get(i)+"; ";
+			
+		}
+
+	if(str.length()==0){
+		return str;
 	}
 		return str.substring(0, str.length()-2);
 	}
 
+	public static List<String> getListStringOfRequest_To_ObektNaIzpitvaneRequest(Request request){
+		List<String> listStr_Request_To_ObektNaIzpitvaneRequest = new ArrayList<String>();
+		List<Request_To_ObektNaIzpitvaneRequest> list = 
+				Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
+		for (Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest : list) {
+			listStr_Request_To_ObektNaIzpitvaneRequest.add(request_To_ObektNaIzpitvaneRequest.getObektNaIzp().getName_obekt_na_izpitvane());
+		}
+		return listStr_Request_To_ObektNaIzpitvaneRequest;
+		
+	}
 	
 	
 	@SuppressWarnings("rawtypes")

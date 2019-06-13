@@ -620,23 +620,26 @@ public class RequestViewNew extends JDialog {
 				txtArea_obekt_na_izpitvane_request.setBackground(Color.WHITE);
 			}
 		});
-		txtArea_obekt_na_izpitvane_request.setText(Table_RequestToObektNaIzp.createStringListObektNaIzp(tamplateRequest, true));
+		
 		listStringOfRequest_To_ObektNaIzpitvaneRequest = Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest(tamplateRequest);
+		txtArea_obekt_na_izpitvane_request.setText(Table_RequestToObektNaIzp.createStringListObektNaIzp(listStringOfRequest_To_ObektNaIzpitvaneRequest, true));
 		bsic_listObektNaIzpit = RequestViewAplication.getStringMassiveO_I_R();
 
 		// TODO Button_Add_O_I_R(Добавяне на Обект на Изпитване )
-		Button_Add_O_I_R(p);
+		Button_Add_O_I_R(p, tamplateRequest);
 	}
 
-	private void Button_Add_O_I_R(final JPanel p) {
+	private void Button_Add_O_I_R(final JPanel p, Request tamplateRequest) {
 		JButton btn_add__obekt_na_izpitvane_request = new JButton("Избор");
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
-				
 				JFrame f = new JFrame();
-				ChoiceFromListWithPlusAndMinus choice_ObectNaIzpit = new ChoiceFromListWithPlusAndMinus(f, listStringOfRequest_To_ObektNaIzpitvaneRequest, bsic_listObektNaIzpit, "Обект на изпитване");
-				listStringOfRequest_To_ObektNaIzpitvaneRequest = choice_ObectNaIzpit.getMasiveStringFromChoice();
-				txtArea_obekt_na_izpitvane_request.setText(Table_RequestToObektNaIzp.createStringListObektNaIzp(null,true));
+				new ChoiceFromListWithPlusAndMinus(f, listStringOfRequest_To_ObektNaIzpitvaneRequest, bsic_listObektNaIzpit, "Обект на изпитване");
+			
+				listStringOfRequest_To_ObektNaIzpitvaneRequest = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
+				txtArea_obekt_na_izpitvane_request.setText(Table_RequestToObektNaIzp.createStringListObektNaIzp(listStringOfRequest_To_ObektNaIzpitvaneRequest, true));
+				
 			}
 
 		});

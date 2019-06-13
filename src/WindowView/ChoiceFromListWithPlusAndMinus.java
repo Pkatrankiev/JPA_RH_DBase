@@ -10,20 +10,21 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -36,13 +37,19 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 	GridBagConstraints[] gbc_choice = new GridBagConstraints[7];
 	static int countCoice = 0;
 	static List<String> masiveStringFromChoice = null;
+	static List<String> old_incomingValueStringList;
+	static List<String> old_bsic_list;
+	static Boolean cancelBtnTurn=false;
 
-	public ChoiceFromListWithPlusAndMinus(JFrame parent, List<String> incomingValueStringList, List<String> bsic_list,
+	public ChoiceFromListWithPlusAndMinus(JFrame parent, List<String> incomingValueStringList, List<String> basic_list,
 			String labelString) {
+				
 		super(parent, "", true);
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
+		old_incomingValueStringList = incomingValueStringList;
+		old_bsic_list = basic_list;
 		setSize(430, 300);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -73,7 +80,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		add_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				RequestViewFunction.addNewObjectIn_Choice_Obekt_na_Izpitvane_Request(parent, incomingValueStringList,  bsic_list, labelString);
+				RequestViewFunction.addNewObjectIn_Choice_Obekt_na_Izpitvane_Request(parent, createMasiveStringFromChoice(),  basic_list, labelString);
 			
 				
 			}
@@ -96,7 +103,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		choice[0].setPreferredSize(new Dimension(120, 23));
 		
 		if (incomingValueStringList == null) {
-			for (String string : bsic_list) {
+			for (String string : basic_list) {
 				choice[0].add(string);
 			}
 
@@ -155,7 +162,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 				choice[countCoice] = new Choice();
 				choice[countCoice].setPreferredSize(new Dimension(120, 23));
 				
-				for (String string : bsic_list) {
+				for (String string : basic_list) {
 					choice[countCoice].add(string);
 				}
 				gbc_choice[countCoice] = new GridBagConstraints();
@@ -202,7 +209,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 			for (String incomingString : incomingValueStringList) {
 				choice[countCoice] = new Choice();
 				choice[countCoice].setPreferredSize(new Dimension(120, 23));
-				for (String str : bsic_list) {
+				for (String str : basic_list) {
 					choice[countCoice].add(str);
 				}
 				choice[countCoice].select(incomingString);
@@ -241,25 +248,37 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Има повтарящи се елементи");
+				if(checkDuplicates(createMasiveStringFromChoice())){
+					JOptionPane.showMessageDialog(null, "Има повтарящи се елементи");
+						
+				}else{
+					cancelBtnTurn = false; 
 				masiveStringFromChoice = createMasiveStringFromChoice();
 				removeAll();
 				dispose();
+				}
 			}
 		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
+		
+		
+		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					if (incomingValueStringList != null) {
-					int k = 0;
-					for (String string : incomingValueStringList) {
-						choice[k].select(string);
-						k++;
-					}
+					if (old_incomingValueStringList != null) {
+						cancelBtnTurn = true; 
+//						masiveStringFromChoice.clear();
+					masiveStringFromChoice = old_incomingValueStringList;
+				
+					
+					
 				}
+				removeAll();
 				dispose();
 
 			}
@@ -267,28 +286,47 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		// cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
-		dialog.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent evt) {
-				countCoice = 0;
-				for (String string : incomingValueStringList) {
-					choice[countCoice].select(string);
-					countCoice++;
-				}
-				dispose();
-			}
-		});
+//		dialog.addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent evt) {
+//				countCoice = 0;
+//				for (String string : incomingValueStringList) {
+//					choice[countCoice].select(string);
+//					countCoice++;
+//				}
+//				dispose();
+//			}
+//		});
 
 		setVisible(true);
 	}
 
+	
+	public static <T extends Comparable<T>> Boolean checkDuplicates(List<T> array) {
+        Set<T> dupes = new HashSet<T>();
+        for (T i : array) {
+            if (!dupes.add(i)) {
+                return true;
+            }
+        }
+		return false;
+
+    }
+
+
+	
 	public static List<String> createMasiveStringFromChoice() {
 		List<String> list = new ArrayList<String>();
 		for (int i = 0; i <= countCoice; i++) {
+			if(!choice[i].getSelectedItem().equals(""))
 			list.add( choice[i].getSelectedItem());
 		}
 		return list;
 	}
 
+	public static Boolean cancelBtnTurn() {
+		return cancelBtnTurn;
+	}
+	
 	public static List<String> getMasiveStringFromChoice() {
 		return masiveStringFromChoice;
 	}

@@ -9,8 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -228,7 +227,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		for (Request request : listAllIntApplic) {
 			try {
 				table[i][request_Code_Colum] = request.getRecuest_code();
-				table[i][obektNaIzp_Colum] = createStringListObektNaIzp(request, false);
+				table[i][obektNaIzp_Colum] = createStringListObektNaIzp(getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), false);
 				i++;
 			} catch (NumberFormatException e) {
 				JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
@@ -238,13 +237,13 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 	}
 
 		
-	public static String createStringListObektNaIzp(Request request, Boolean forRequestVew) {
-		List<String> list;
-		if(request==null){
-			list = ChoiceFromListWithPlusAndMinus.createMasiveStringFromChoice();
-		}else{
-			list = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
-		}
+	public static String createStringListObektNaIzp(List<String> list, Boolean forRequestVew) {
+//		List<String> list;
+//		if(request==null){
+//			list = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
+//		}else{
+//			list = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
+//		}
 		String str = "", endLine="";
 		
 		int endIndex = list.size();

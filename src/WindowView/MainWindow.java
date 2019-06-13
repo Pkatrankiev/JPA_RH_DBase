@@ -1,7 +1,7 @@
 package WindowView;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -53,29 +53,27 @@ import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
 import OldClases.FindFile;
 
-import java.awt.Rectangle;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Panel;
 
 import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
-import javax.swing.border.LineBorder;
 import java.awt.Component;
-import javax.swing.SwingConstants;
-import java.awt.ComponentOrientation;
+
 import javax.swing.border.MatteBorder;
 
 
 
 public class MainWindow extends JFrame {
 	
+	
+	private static final long serialVersionUID = 8880252554988817126L;
 	private String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
 	private JPanel contentPane;
 	private static String loginStr = "logIn";

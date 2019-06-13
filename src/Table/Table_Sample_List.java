@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -223,7 +223,7 @@ public class Table_Sample_List extends JDialog {
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
-						TranscluentWindow round = new TranscluentWindow();
+//						TranscluentWindow round = new TranscluentWindow();
 
 						final Thread thread = new Thread(new Runnable() {
 							@Override

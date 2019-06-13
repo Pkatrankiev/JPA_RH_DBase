@@ -259,11 +259,20 @@ public class Generate_Map_For_Request_Word_Document {
 	public static String getWordOFNumber(int num) {
 		String str = "";
 		String str2 = "";
-		if (num > 12) {
+		Boolean fl = false;
+		if (num > 12&& num < 20) {
 			num = num - 10;
 			str2 = "надесет";
 		}
-
+		if (num >= 20) {
+			str2 = "двадесет";
+			num = num - 20;
+			if(num>0){
+				str2 = str2 + " и ";
+				}
+			fl=true;
+		}
+		
 		switch (num) {
 		case 1:
 			str = "един";
@@ -312,11 +321,17 @@ public class Generate_Map_For_Request_Word_Document {
 		case 12:
 			str = "дванадесет";
 			break;
+				
+		}
+		if(fl){
+			return " (" + str2 + str + ") брой ";	
 		}
 		if (num == 1) {
 			return " (" + str + ") брой ";
-		} else
+		} else{
 			return " (" + str + str2 + ") броя ";
+		}
+		
 	}
 
 }

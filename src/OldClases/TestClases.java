@@ -2,8 +2,7 @@ package OldClases;
 
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +10,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.swing.JDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
@@ -34,18 +31,19 @@ import DBase_Class.Users;
 import Table.Table_RequestToObektNaIzp;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
-import WindowView.MainWindow;
-import WindowView.RequestView;
+
 import WindowView.RequestViewNew;
 import WindowView.TranscluentWindow;
 
 public class TestClases {
 	
+	@SuppressWarnings("unused")
 	private static void test() {
 		TranscluentWindow round = new TranscluentWindow();	
 		final Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
+			
 				int m=0;
 				for (int i = 0; i < 900000000; i++) {
 					for (int k = 0;k  < 900000000; k++) {
@@ -75,7 +73,7 @@ public class TestClases {
 			list.add(str.replaceAll(";", "").replaceAll("#<", "\\(").replaceAll("#>", "\\)").trim());
 			strObektIzpit =  strObektIzpit.replaceFirst(str, "");
 				}
-		String [] masive = new String[list.size()];
+//		String [] masive = new String[list.size()];
 		int i=0;
 		for (String strList: list) {
 			System.out.println(i+"-"+strList);
@@ -172,7 +170,6 @@ public class TestClases {
 			
 	}
 	
-	@SuppressWarnings("unused")
 	public	static void Table_RequestToObektNaIzp() {
 		TranscluentWindow round = new TranscluentWindow();
 		

@@ -97,7 +97,7 @@ public class ReadGamaFile {
 				countLineToNuclide++;
 				if (countLineToNuclide > 2) {
 					if (stringLine[j].length != 0) {
-						if(stringArray[j].substring(25, 40).trim().indexOf("*")<0){
+						if(stringArray[j].length()>70 && stringArray[j].substring(25, 40).trim().indexOf("*")<0){
 						listNuclideAkv.add(stringArray[j]);
 						}
 					} else {
@@ -182,6 +182,8 @@ public class ReadGamaFile {
 	public static String[][] getMasivNuclideAktiv() {
 		String[][] str = new String[listNuclideAkv.size()][4];
 		for (int i = 0; i < listNuclideAkv.size(); i++) {
+			
+			if(listNuclideAkv.get(i).substring(0, 5).trim().length()>0){
 		
 			str[i][0] = transformNuclideSimbol(listNuclideAkv.get(i).substring(4, 16).trim());// nuclide simbol
 
@@ -190,7 +192,7 @@ public class ReadGamaFile {
 			str[i][2] = listNuclideAkv.get(i).substring(40, 55).trim();// nuclide
 																		// uncertai
 			str[i][3] = listNuclideAkv.get(i).substring(70).trim();// nuclide
-																	// mda
+			}														// mda
 
 		}
 		return str;
@@ -205,11 +207,10 @@ public class ReadGamaFile {
 		Boolean fl = false;
 		for (int i = 0; i < listNuclideMDA.size(); i++) {
 			fl=false;
-			str = listNuclideMDA.get(i).substring(4, 16).trim();
+			str = listNuclideMDA.get(i).substring(5, 16).trim();
 			if (str.length() > 0) {
 				str = transformNuclideSimbol(str);
 				for (int j = 0; j < listActiveNuclide.length; j++) {
-					System.out.println(listActiveNuclide[j][0]+" "+str+"  "+k+"  "+ fl);
 					if (listActiveNuclide[j][0].equals(str)){
 					fl=true;
 					}

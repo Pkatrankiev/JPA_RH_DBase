@@ -98,7 +98,7 @@ package OldClases;
 
 	    public static void main(String[] args) {
 
-	    	String str="aaassddff";
+	    	String str="aaasddff";
 	        System.out.printf("For %s: %d\n\n",str, permAlone(str)); // expected 12
 	    }
 	}

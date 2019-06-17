@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.lang3.StringUtils;
 
 import Aplication.DimensionDAO;
@@ -34,7 +36,7 @@ public class ReadGamaFile {
 	private static String sysError;
 	private static String sigma;
 	private static String date_mesur;
-
+	
 	public static int getCountLine() {
 		return countLine;
 	}
@@ -86,6 +88,7 @@ public class ReadGamaFile {
 		String[] stringArray = CreadMasiveFromReadFile(FILENAME);
 		int flagNuclidy = 0;
 		int countLineToNuclide = 0;
+		Boolean fl_error_MDA = false;
 
 		String[][] stringLine = new String[countLine][];
 		listNuclideAkv = new ArrayList<String>();
@@ -97,7 +100,7 @@ public class ReadGamaFile {
 				countLineToNuclide++;
 				if (countLineToNuclide > 2) {
 					if (stringLine[j].length != 0) {
-						if(stringArray[j].length()>70 && stringArray[j].substring(25, 40).trim().indexOf("*")<0){
+						if(stringArray[j].length()> 60 && stringArray[j].substring(25, 40).trim().indexOf("*")<0){
 						listNuclideAkv.add(stringArray[j]);
 						}
 					} else {
@@ -109,6 +112,9 @@ public class ReadGamaFile {
 					countLineToNuclide++;
 					if (countLineToNuclide > 2) {
 						if (stringLine[j].length != 0) {
+							if (stringArray[j].substring(0, 10).indexOf("@")>0) {
+								fl_error_MDA =true;
+							}
 							listNuclideMDA.add(stringArray[j]);
 						} else {
 							flagNuclidy++;
@@ -158,6 +164,10 @@ public class ReadGamaFile {
 				}
 			}
 		}
+		
+		if(fl_error_MDA){
+			JOptionPane.showMessageDialog(null, "Няма корекция за разпадане./n Проверете референтната дата");
+		}
 	}
 		
 	
@@ -183,7 +193,7 @@ public class ReadGamaFile {
 		String[][] str = new String[listNuclideAkv.size()][4];
 		for (int i = 0; i < listNuclideAkv.size(); i++) {
 			
-			if(listNuclideAkv.get(i).substring(0, 5).trim().length()>0){
+			if(listNuclideAkv.get(i).substring(0, 5).trim().length()==0){
 		
 			str[i][0] = transformNuclideSimbol(listNuclideAkv.get(i).substring(4, 16).trim());// nuclide simbol
 
@@ -207,7 +217,7 @@ public class ReadGamaFile {
 		Boolean fl = false;
 		for (int i = 0; i < listNuclideMDA.size(); i++) {
 			fl=false;
-			str = listNuclideMDA.get(i).substring(5, 16).trim();
+			str = listNuclideMDA.get(i).substring(6, 16).trim();
 			if (str.length() > 0) {
 				str = transformNuclideSimbol(str);
 				for (int j = 0; j < listActiveNuclide.length; j++) {

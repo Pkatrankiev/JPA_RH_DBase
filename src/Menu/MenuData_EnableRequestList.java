@@ -13,7 +13,7 @@ public class MenuData_EnableRequestList extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
 
 	public MenuData_EnableRequestList() {
-		super("Редактиране на Заявките");
+		super("Списък на Заявките");
 		// TODO Auto-generated constructor stub
 	}
 

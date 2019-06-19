@@ -38,13 +38,13 @@ public class RequestViewFunction {
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));
 		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 			txtField_RequestCode.setForeground(Color.red);
-			lblError.setText("Çàÿâêà ñ òîçè íîìåð âå÷å ñúùåñòâóâà");
+			lblError.setText("Ð—Ð°ÑÐ²ÐºÐ° Ñ Ñ‚Ð¾Ð·Ð¸ Ð½Ð¾Ð¼ÐµÑ€ Ð²ÐµÑ‡Ðµ ÑÑŠÑ‰ÐµÑÑ‚Ð²ÑƒÐ²Ð°");
 			corectRequestCode = false;
 		} else {
 
 			if (checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 				txtField_RequestCode.setForeground(Color.red);
-				lblError.setText("Íåêîðåêòåí íîìåð");
+				lblError.setText("ÐÐµÐºÐ¾Ñ€ÐµÐºÑ‚ÐµÐ½ Ð½Ð¾Ð¼ÐµÑ€");
 				corectRequestCode = false;
 			} else {
 				txtField_RequestCode.setForeground(Color.BLACK);
@@ -157,7 +157,7 @@ public class RequestViewFunction {
 			incomingValueStringList.remove(incomingValueStringList.size()-1);
 			incomingValueStringList.add(str);
 		}
-		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit, "Îáåêò íà èçïèòâàíå");
+		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit, "ÐžÐ±ÐµÐºÑ‚ Ð½Ð° Ð¸Ð·Ð¿Ð¸Ñ‚Ð²Ð°Ð½Ðµ");
 		
 		
 	}
@@ -215,8 +215,8 @@ public class RequestViewFunction {
 		String txtInDescriptGrupSample="";
 		String strMesec = "";
 		String strChoice_Period = choice_Period.getSelectedItem();
-		String prob = "ïðîáa";
-		String sbor = "Ñáîðíà";
+		String prob = "Ð¿Ñ€Ð¾Ð±a";
+		String sbor = "Ð¡Ð±Ð¾Ñ€Ð½Ð°";
 		int count = 1;
 		try {
 			 count = Integer.parseInt(sampleCount);
@@ -225,27 +225,30 @@ public class RequestViewFunction {
 			
 		}
 		if(count>1) {
-			 prob = "ïðîáè";
-			 sbor = "Ñáîðíè";
+			 prob = "Ð¿Ñ€Ð¾Ð±Ð¸";
+			 sbor = "Ð¡Ð±Ð¾Ñ€Ð½Ð¸";
 		}
+//		String str_period_sample = DateChoice_period.get_str_period_sample(false);
+		String str_period_sample = DateChoice.get_str_period_sample();
 		if (strChoice_Period.equals("")) {
 			txtInDescriptGrupSample = "";
-			if(DateChoice.get_str_period_sample().length()>0) {
+			
+			if(str_period_sample.length()>0) {
 				txtInDescriptGrupSample =  sbor+" "+prob;
 			}
-			txtInDescriptGrupSample = txtInDescriptGrupSample + " "+DateChoice.get_str_period_sample();
+			txtInDescriptGrupSample = txtInDescriptGrupSample + " "+str_period_sample;
 		} else {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
 			if(id_Period<13){
-				strMesec = "ì. ";
+				strMesec = "Ð¼. ";
 			}
-			if (DateChoice.get_str_period_sample().equals("")) {
+			if (str_period_sample.equals("")) {
 				txtInDescriptGrupSample = "";
-				txtInDescriptGrupSample = sbor+" "+prob +" çà "+strMesec + strChoice_Period;
+				txtInDescriptGrupSample = sbor+" "+prob +" Ð·Ð° "+strMesec + strChoice_Period;
 			} else {
 				txtInDescriptGrupSample = "";
 				
-				txtInDescriptGrupSample = sbor+" "+prob +" çà "+ strMesec+ strChoice_Period + " "+ DateChoice.get_str_period_sample() ;
+				txtInDescriptGrupSample = sbor+" "+prob +" Ð·Ð° "+ strMesec+ strChoice_Period + " "+ str_period_sample ;
 			}
 		}
 		return txtInDescriptGrupSample;
@@ -462,4 +465,30 @@ return volSampleView;
 		arr1[0] = "";
 		return arr1;
 	}
+
+	public static Boolean incorrectReception_Date_Period(JTextField txtFld_date_reception) {
+		Boolean incorrectReception_date_period =false;
+		String startData ="";
+				String endData = "";		
+		String  reception_date_period = txtFld_date_reception.getText();
+		if(reception_date_period.length()>10){
+		
+			if(reception_date_period.indexOf("Ã·")>0){
+				 startData = reception_date_period.substring(0,reception_date_period.indexOf("Ã·")).trim();
+				endData = reception_date_period.substring(reception_date_period.indexOf("Ã·")+1,reception_date_period.length()).trim();
+				if (DatePicker.incorrectDate(startData, false)||DatePicker.incorrectDate(endData, false)) {
+					incorrectReception_date_period	= true;
+				}
+			}else{
+				incorrectReception_date_period	= true;	
+			}
+		}else{
+			 startData = reception_date_period;
+			 if (DatePicker.incorrectDate(startData, false)) {
+					incorrectReception_date_period	= true;
+				}
+		}
+		return incorrectReception_date_period;
+	}
+
 }

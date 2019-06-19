@@ -71,6 +71,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Font;
+import java.awt.Frame;
 
 import javax.swing.border.Border;
 import javax.swing.JTextArea;
@@ -89,7 +90,7 @@ public class RequestViewNew extends JDialog {
 
 	private JTextField txtFld_Count_Sample;
 	private JTextField txtFld_date_execution;
-	private JTextField txtFld_date_reception;
+	private JTextField txtFld_date_period_reception;
 	private JTextField txtField_RequestCode;
 	private JTextField txtFld_Date_Request;
 	private JTextField txt_fid_date_time_reference;
@@ -122,6 +123,7 @@ public class RequestViewNew extends JDialog {
 	private String[][] masiveSampleValue = null;
 	private Boolean corectRequestCode = true;
 	private Boolean section = true;
+	private Boolean incorrect_date_period_Reception = false;
 //	private Boolean firstReadSampleDescription = true;
 //	private Extra_module xtra_module2 = null;
 	private Users curent_user;
@@ -804,13 +806,18 @@ public class RequestViewNew extends JDialog {
 				try {
 
 					final JFrame f = new JFrame();
-					DateChoice date_time_reference = new DateChoice(f, txt_fid_date_time_reference.getText());
+					Boolean forDateReception = false;
+					Boolean withTime = true;
+					String str_date_period_reception = txt_fid_date_time_reference.getText();
+					
+					DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception , withTime,  forDateReception);
+										
 					date_time_reference.setVisible(true);
 					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period,
 							txtFld_Count_Sample.getText());
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
 					String textRefDate = "";
-					textRefDate = DateChoice.get_date_time_reference();
+					textRefDate = DateChoice_period.get_date_time_reference();
 
 					if (DatePicker.incorrectDate(textRefDate, true))
 						txt_fid_date_time_reference.setForeground(Color.RED);
@@ -1153,7 +1160,7 @@ public class RequestViewNew extends JDialog {
 	}
 
 	private void Section_Date_Reception(final JPanel p, Border border) {
-		JLabel lbl_date_reception = new JLabel("Дата и час на приемане:");
+		JLabel lbl_date_reception = new JLabel("Дата / период на приемане:");
 		GridBagConstraints gbc_lbl_date_reception = new GridBagConstraints();
 		gbc_lbl_date_reception.anchor = GridBagConstraints.EAST;
 		gbc_lbl_date_reception.gridwidth = 2;
@@ -1162,8 +1169,8 @@ public class RequestViewNew extends JDialog {
 		gbc_lbl_date_reception.gridy = 19;
 		p.add(lbl_date_reception, gbc_lbl_date_reception);
 
-		txtFld_date_reception = new JTextField(RequestViewFunction.DateNaw(false));
-		txtFld_date_reception.addKeyListener(new KeyListener() {
+		txtFld_date_period_reception = new JTextField(RequestViewFunction.DateNaw(false));
+		txtFld_date_period_reception.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent event) {
@@ -1172,15 +1179,16 @@ public class RequestViewNew extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-
-				if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
-					txtFld_date_reception.setForeground(Color.RED);
-
+				incorrect_date_period_Reception = RequestViewFunction.incorrectReception_Date_Period(txtFld_date_period_reception);
+				if (incorrect_date_period_Reception) {
+					txtFld_date_period_reception.setForeground(Color.RED);
 				} else {
-					txtFld_date_reception.setForeground(Color.BLACK);
-					txtFld_date_reception.setBorder(border);
+					txtFld_date_period_reception.setForeground(Color.BLACK);
+					txtFld_date_period_reception.setBorder(border);
 				}
 			}
+
+		
 
 			@Override
 			public void keyPressed(KeyEvent event) {
@@ -1188,11 +1196,12 @@ public class RequestViewNew extends JDialog {
 			}
 		});
 		GridBagConstraints gbc_txtFld_date_reception = new GridBagConstraints();
+		gbc_txtFld_date_reception.gridwidth = 2;
 		gbc_txtFld_date_reception.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFld_date_reception.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFld_date_reception.gridx = 3;
 		gbc_txtFld_date_reception.gridy = 19;
-		p.add(txtFld_date_reception, gbc_txtFld_date_reception);
+		p.add(txtFld_date_period_reception, gbc_txtFld_date_reception);
 
 		Button_Date_Rception(p, border);
 	}
@@ -1201,27 +1210,58 @@ public class RequestViewNew extends JDialog {
 		JButton btn_date_reception = new JButton("Избор на дата");
 		btn_date_reception.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				final JFrame f = new JFrame();
-				DatePicker dPicer = new DatePicker(f, false, txtFld_date_reception.getText());
-				txtFld_date_reception.setText(dPicer.setPickedDate(false));
-				String textRefDate = "";
-				textRefDate = txtFld_date_reception.getText();
-				if (DatePicker.incorrectDate(textRefDate, false))
-					txtFld_date_reception.setForeground(Color.RED);
-				else {
-					txtFld_date_reception.setForeground(Color.BLACK);
-					txtFld_date_reception.setBorder(border);
-				}
+				
+				try {
 
-				txtFld_date_reception.setText(textRefDate);
-				System.out.println("Data in requestViewFild = " + txtFld_date_reception.getText().trim());
+					final JFrame f = new JFrame();
+					Boolean forDateReception = true;
+					Boolean withTime = false;
+					String str_date_period_reception = txtFld_date_period_reception.getText();
+					if (incorrect_date_period_Reception) {
+						str_date_period_reception = RequestViewFunction.DateNaw(false);
+					}
+					DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception , withTime,  forDateReception);
+					date_period_reception.setVisible(true);
+					
+					String textRefDate = "";
+					textRefDate = DateChoice_period.get_str_period_sample(forDateReception);
+
+					incorrect_date_period_Reception = RequestViewFunction.incorrectReception_Date_Period(txtFld_date_period_reception);
+					if (incorrect_date_period_Reception) {
+						txtFld_date_period_reception.setForeground(Color.RED);
+					}else {
+						txtFld_date_period_reception.setForeground(Color.BLACK);
+						txtFld_date_period_reception.setBorder(border);
+					}
+
+					txtFld_date_period_reception.setText(textRefDate);
+
+				} catch (NumberFormatException e) {
+
+				}	
+								
+						
+//				**********************************************************
+//				final JFrame f = new JFrame();
+//				DatePicker dPicer = new DatePicker(f, false, txtFld_date_period_reception.getText());
+//				txtFld_date_period_reception.setText(dPicer.setPickedDate(false));
+//				String textRefDate = "";
+//				textRefDate = txtFld_date_period_reception.getText();
+//				if (DatePicker.incorrectDate(textRefDate, false))
+//					txtFld_date_period_reception.setForeground(Color.RED);
+//				else {
+//					txtFld_date_period_reception.setForeground(Color.BLACK);
+//					txtFld_date_period_reception.setBorder(border);
+//				}
+//
+//				txtFld_date_period_reception.setText(textRefDate);
+//				System.out.println("Data in requestViewFild = " + txtFld_date_period_reception.getText().trim());
 			}
 		});
 		GridBagConstraints gbc_btn_date_reception = new GridBagConstraints();
 		gbc_btn_date_reception.anchor = GridBagConstraints.WEST;
-		gbc_btn_date_reception.gridwidth = 2;
 		gbc_btn_date_reception.insets = new Insets(0, 0, 5, 5);
-		gbc_btn_date_reception.gridx = 4;
+		gbc_btn_date_reception.gridx = 5;
 		gbc_btn_date_reception.gridy = 19;
 		p.add(btn_date_reception, gbc_btn_date_reception);
 	}
@@ -1615,8 +1655,8 @@ public class RequestViewNew extends JDialog {
 		}
 
 		String str_DateTimeRequest = "";
-		if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
-			txtFld_date_reception.setBorder(new LineBorder(Color.RED));
+		if (DatePicker.incorrectDate(txtFld_date_period_reception.getText(), false)) {
+			txtFld_date_period_reception.setBorder(new LineBorder(Color.RED));
 			str_DateTimeRequest = "дата на приемане" + "\n";
 			saveCheck = false;
 		}
@@ -1658,7 +1698,7 @@ public class RequestViewNew extends JDialog {
 
 		recuest = RequestDAO.setValueRequest(txtField_RequestCode.getText(), txtFld_Date_Request.getText(),
 				chckbx_accreditation.isSelected(), section, extra_mod, count_Sample,
-				txtArea_Descript_grup_Sample.getText(), txtFld_date_reception.getText(),
+				txtArea_Descript_grup_Sample.getText(), txtFld_date_period_reception.getText(),
 				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
 				obekt_na_izpitvane_request);
 		return recuest;

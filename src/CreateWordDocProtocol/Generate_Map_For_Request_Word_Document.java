@@ -23,6 +23,7 @@ public class Generate_Map_For_Request_Word_Document {
 	private static String key_request_code = "$$request_code$$";
 	private static String key_ind_num_doc = "$$ind_num_doc$$";
 	private static String key_request_date  = "$$request_date$$";
+	private static String key_protokol_date  = "$$protokol_date$$";
 	private static String key_izpitvan_produkt = "$$izpitvan_produkt$$";
 	private static String key_obekt_na_izpitvane_1 = "$$obekt_na_izpitvane_1$$";
 	private static String key_obekt_na_izpitvane_protokol = "$$obekt_na_izpitvane_protokol$$";
@@ -80,8 +81,8 @@ public class Generate_Map_For_Request_Word_Document {
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
 		substitutionData.put(key_request_code, request.getRecuest_code());
-
-		substitutionData.put(key_request_date, RequestViewFunction.DateNaw(false));
+		substitutionData.put(key_protokol_date, RequestViewFunction.DateNaw(false));
+		substitutionData.put(key_request_date, request.getDate_request());
 
 		String str = "";
 		if (request.getInd_num_doc() != null)

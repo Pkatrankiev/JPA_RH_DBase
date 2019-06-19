@@ -106,7 +106,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private static JButton btnCreadTable;
 	private static JButton btnAddRow;
-	private static JFileChooser f = new JFileChooser();
+	private static JFileChooser fileChooser = new JFileChooser();
 	private static JTable tabResults;
 
 	private static List<Sample> listSample;
@@ -499,9 +499,11 @@ public class AddResultsViewWithTable extends JDialog {
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 			}
+
 			public void mousePressed(MouseEvent e) {
 			}
 		});
@@ -673,9 +675,12 @@ public class AddResultsViewWithTable extends JDialog {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				choiceMetody.setBackground(Color.WHITE);
-				if (choicePokazatel.getSelectedItem() != null) {
+				if (!choicePokazatel.getSelectedItem().trim().isEmpty()) {
 					if (flagNotReadListMetody) {
 						choiceMetody.removeAll();
+						if (getListMetodyFormMetody_To_Pokaztel().isEmpty()) {
+							choiceMetody.add("");
+						}
 						for (Metody metod : getListMetodyFormMetody_To_Pokaztel()) {
 							choiceMetody.add(metod.getCode_metody());
 							flagNotReadListMetody = false;
@@ -687,7 +692,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				if (choiceMetody.getSelectedItem() != null) {
+				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 					lblNameMetod.setText(selectedMetod.getName_metody());
 					if (listDobivFromMetod.isEmpty()) {
@@ -1105,11 +1110,13 @@ public class AddResultsViewWithTable extends JDialog {
 		btnOpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				f.showOpenDialog(null);
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				fileChooser.showOpenDialog(null);
 				try {
-					txtBasicValueResult.setText((f.getSelectedFile()).toString());
-					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
+					String fileName = fileChooser.getSelectedFile().toString();
+					txtBasicValueResult.setText(fileName);
+
+					ReadGamaFile.getReadGamaFile(fileName);
 
 					if (ReadGamaFile.getListNuclideMDA() > 0) {
 						flagIncertedFile = true;
@@ -1129,7 +1136,7 @@ public class AddResultsViewWithTable extends JDialog {
 		btnCreadTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (choiceMetody.getSelectedItem() != null) {
+				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 
 					setValueInChoiceDobiv();
 
@@ -1311,24 +1318,43 @@ public class AddResultsViewWithTable extends JDialog {
 	public void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile) {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				int choice = 0;
 				if (flagIncertedFile) {
-					AddResultsViewWithTable.setWaitCursor(basic_panel);
-					// AddResultsViewWithTable.setDefaultCursor(basic_panel);
-					if (choiceMetody.getSelectedItem() != null) {
-						setValueInChoiceDobiv();
-						if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getId_metody() == 9) {
-							readFromGenie2kFile();
-							Boolean isNewRow = false;
-							ViewTableInPanel(basic_panel, isNewRow);
+					String fileName = fileChooser.getSelectedFile().toString();
+					if (fileName.indexOf(txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem()) < 0) {
+						// display the showOptionDialog
+						Object[] options = { "Да", "Не" };
+						choice = JOptionPane.showOptionDialog(null,
+								"Кода на пробата не съвпада \nс името на файла. \nЩе продължите ли?", "Грешни данни",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+					}
+					if (choice == JOptionPane.YES_OPTION) {
+
+						AddResultsViewWithTable.setWaitCursor(basic_panel);
+						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
+							setValueInChoiceDobiv();
+
+							if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem())
+									.getId_metody() == 9) {
+								readFromGenie2kFile();
+								Boolean isNewRow = false;
+								ViewTableInPanel(basic_panel, isNewRow);
+							} else {
+								JOptionPane.showMessageDialog(null, "Само за метод М.ЛИ-РХ-10", "Грешни данни",
+										JOptionPane.ERROR_MESSAGE);
+							}
 
 						} else {
-							JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 				} else {
-					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 
@@ -1393,7 +1419,8 @@ public class AddResultsViewWithTable extends JDialog {
 						String date_choice = getDateFromDatePicker(table, col);
 						table.setValueAt(date_choice, row, col);
 					}
-
+						
+					
 				}
 				if (table.getSelectedColumn() == check_Colum) {
 					double actv_value = Double
@@ -1507,6 +1534,22 @@ public class AddResultsViewWithTable extends JDialog {
 		DatePicker dPicer = new DatePicker(f, false, date);
 		String date_choice = dPicer.setPickedDate(false);
 		return date_choice;
+	}
+	
+	private static String getStringOfQuantyti(JTable table, int col) {
+		final JFrame f = new JFrame();
+		String incertData = table.getValueAt(table.getSelectedRow(), col).toString();
+		String string = (String)JOptionPane.showInputDialog(
+                f,
+                "Въведете стойност за всички редове",
+                "",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                incertData);
+		
+				
+		return string;
 	}
 
 	public static void checkValueFrame(Nuclide nuclide, Sample samp, Double actv_value, Double mda) {
@@ -1787,6 +1830,13 @@ public class AddResultsViewWithTable extends JDialog {
 					table.setValueAt(date_choice, i, column);
 				}
 			}
+			if (column == qunt_Colum) {
+				String date_choice = getStringOfQuantyti(table, column);
+				for (int i = 0; i < dataTable.length; i++) {
+				table.setValueAt(date_choice, i, column);
+				}
+			}
+			
 
 		}
 	}

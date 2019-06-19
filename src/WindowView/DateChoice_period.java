@@ -1,0 +1,344 @@
+package WindowView;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+public class DateChoice_period extends JDialog {
+
+	
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private static JTextField txtStartDate;
+	private static JTextField txtEndDate;
+	private static JTextField txt_fid_date_time_reference;
+	String startIncomingData = "";
+	String endIncomingData = "";
+
+
+	public DateChoice_period (Frame parent, String incoming_date_time, Boolean withTime, Boolean forDateReception) {
+		super(parent, "Избор на референтна дата и време", true);
+		
+		if(forDateReception){
+			setTitle("Избор на дата / период на вземане");
+			if(incoming_date_time.length()>10){
+				 startIncomingData = incoming_date_time.substring(0,incoming_date_time.indexOf("÷")).trim();
+				 endIncomingData = incoming_date_time.substring(incoming_date_time.indexOf("÷")+1,incoming_date_time.length()).trim();
+			}else{
+				 startIncomingData = incoming_date_time;
+			}
+		}
+		
+		setBounds(100, 100, 550, 200);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{87, 143, 110, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
+		
+		
+		if(!forDateReception){
+			JLabel lbl_date_time_reception = new JLabel("Референтна дата (средата на периода)");
+			GridBagConstraints gbc_lbl_date_time_reception = new GridBagConstraints();
+			gbc_lbl_date_time_reception.gridwidth = 2;
+			gbc_lbl_date_time_reception.insets = new Insets(0, 0, 0, 5);
+			gbc_lbl_date_time_reception.anchor = GridBagConstraints.EAST;
+			gbc_lbl_date_time_reception.gridx = 0;
+			gbc_lbl_date_time_reception.gridy = 2;
+			contentPanel.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
+		
+			txt_fid_date_time_reference = new JTextField(incoming_date_time);
+			txt_fid_date_time_reference.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyTyped(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
+						txt_fid_date_time_reference.setForeground(Color.RED);
+					else
+						txt_fid_date_time_reference.setForeground(Color.BLACK);
+				}
+
+				@Override
+				public void keyReleased(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
+						txt_fid_date_time_reference.setForeground(Color.RED);
+					else
+						txt_fid_date_time_reference.setForeground(Color.BLACK);
+				}
+
+				@Override
+				public void keyPressed(KeyEvent event) {
+
+					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
+						txt_fid_date_time_reference.setForeground(Color.RED);
+					else
+						txt_fid_date_time_reference.setForeground(Color.BLACK);
+				}
+			});
+
+			GridBagConstraints gbc_date_time_reference = new GridBagConstraints();
+			gbc_date_time_reference.insets = new Insets(0, 0, 0, 5);
+			gbc_date_time_reference.fill = GridBagConstraints.HORIZONTAL;
+			gbc_date_time_reference.gridx = 2;
+			gbc_date_time_reference.gridy = 2;
+			contentPanel.add(txt_fid_date_time_reference, gbc_date_time_reference);
+			txt_fid_date_time_reference.setColumns(10);
+		}
+		
+		
+// StartDate of date_time_reception  ----------------------------------------------------------------------
+		{
+			JLabel lblNewLabel = new JLabel("Начална дата");
+			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+			gbc_lblNewLabel.gridx = 1;
+			gbc_lblNewLabel.gridy = 0;
+			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
+		}
+		{
+			
+			txtStartDate = new JTextField(startIncomingData);
+			txtStartDate.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyTyped(KeyEvent event) {
+
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
+				}
+
+				@Override
+				public void keyReleased(KeyEvent event) {
+
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
+				}
+
+				@Override
+				public void keyPressed(KeyEvent event) {
+
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
+				}
+
+		
+			});
+			
+			GridBagConstraints gbc_txtStartDate = new GridBagConstraints();
+			gbc_txtStartDate.insets = new Insets(0, 0, 5, 5);
+			gbc_txtStartDate.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtStartDate.gridx = 2;
+			gbc_txtStartDate.gridy = 0;
+			contentPanel.add(txtStartDate, gbc_txtStartDate);
+			txtStartDate.setColumns(10);
+		}
+		{
+			JButton btnStartData = new JButton("Начална дата");
+			btnStartData.setMaximumSize(new Dimension(105, 23));
+			btnStartData.setMinimumSize(new Dimension (105, 23));
+			btnStartData.setPreferredSize(new Dimension (105, 23));
+			btnStartData.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					final JFrame d = new JFrame();
+					DatePicker dPicer = new DatePicker(d, withTime, txtStartDate.getText());
+					txtStartDate.setText(dPicer.setPickedDate(withTime));
+					if(!forDateReception){
+					String textRefDate = "";
+					textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+					if (DatePicker.incorrectDate(textRefDate, withTime))
+						txt_fid_date_time_reference.setForeground(Color.RED);
+					else
+						txt_fid_date_time_reference.setForeground(Color.BLACK);
+
+					txt_fid_date_time_reference.setText(textRefDate);
+					}
+				}
+			});
+
+			GridBagConstraints gbc_btnStartData = new GridBagConstraints();
+			gbc_btnStartData.anchor = GridBagConstraints.WEST;
+			gbc_btnStartData.insets = new Insets(0, 0, 5, 0);
+			gbc_btnStartData.gridx = 3;
+			gbc_btnStartData.gridy = 0;
+			contentPanel.add(btnStartData, gbc_btnStartData);
+		}
+		
+		// EndDate of date_time_reception
+		{
+			JLabel lblNewLabel_1 = new JLabel("Крайна дата");
+			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel_1.gridx = 1;
+			gbc_lblNewLabel_1.gridy = 1;
+			contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		}
+		{			
+			txtEndDate = new JTextField(endIncomingData);
+			txtEndDate.addKeyListener(new KeyListener() {
+
+				@Override
+				public void keyTyped(KeyEvent event) {
+
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+					
+				}
+
+				@Override
+				public void keyReleased(KeyEvent event) {
+
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+					
+				}
+
+				@Override
+				public void keyPressed(KeyEvent event) {
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+				
+				}
+			});
+			
+			GridBagConstraints gbc_txtEndDate = new GridBagConstraints();
+			gbc_txtEndDate.insets = new Insets(0, 0, 5, 5);
+			gbc_txtEndDate.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtEndDate.gridx = 2;
+			gbc_txtEndDate.gridy = 1;
+			contentPanel.add(txtEndDate, gbc_txtEndDate);
+			txtEndDate.setColumns(10);
+		}
+		{
+			JButton btnEndData = new JButton("Крайна дата");
+			btnEndData.setPreferredSize(new Dimension(105, 23));
+			btnEndData.setMinimumSize(new Dimension(105, 23));
+			btnEndData.setMaximumSize(new Dimension(105, 23));
+			btnEndData.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					final JFrame k = new JFrame();
+					DatePicker dPicer = new DatePicker(k, withTime, txtEndDate.getText());
+					txtEndDate.setText(dPicer.setPickedDate(withTime));
+					
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+					
+				}
+			});
+			GridBagConstraints gbc_btnEndData = new GridBagConstraints();
+			gbc_btnEndData.anchor = GridBagConstraints.WEST;
+			gbc_btnEndData.insets = new Insets(0, 0, 5, 0);
+			gbc_btnEndData.gridx = 3;
+			gbc_btnEndData.gridy = 1;
+			contentPanel.add(btnEndData, gbc_btnEndData);
+		}
+		
+		
+		
+		
+	
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						removeAll();
+						dispose();	
+					}
+
+					
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(forDateReception){
+							txtStartDate.setText(startIncomingData);
+							txtEndDate.setText(endIncomingData);
+											}else{
+					txt_fid_date_time_reference.setText(incoming_date_time);
+											}
+						dispose();	
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+	
+	public static String get_str_period_sample(Boolean forDateReception) {
+	
+		String str="";
+		if(forDateReception){
+			str = txtStartDate.getText();
+		}
+		if(!txtEndDate.getText().equals("")){
+			if(forDateReception){
+				str = txtStartDate.getText()+" ÷ "+ txtEndDate.getText() ;
+			}else{
+		str = "за периода: "+txtStartDate.getText().substring(0, 10)+" ÷ "+ txtEndDate.getText().substring(0, 10) ;
+			}
+		}	
+		return str;
+	}
+	
+
+
+	public static String get_date_time_reference() {
+		
+		String str="";
+		str = txt_fid_date_time_reference.getText();
+		return str;
+	}
+	
+	private Boolean check_and_collor_incorrect_DateAndReferenceTxt(Boolean withTime,
+			Boolean forDateReception, JTextField txtDate, JTextField txt_fid_date_time_reference) {
+		Boolean check = true;
+		if (DatePicker.incorrectDate(txtDate.getText(), withTime)){
+			txtDate.setForeground(Color.RED);
+		check = false;
+		}else{
+			txtStartDate.setForeground(Color.BLACK);
+			check = true;
+			if(!forDateReception){
+				String textRefDate = "";
+				textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
+				if (DatePicker.incorrectDate(textRefDate, withTime)){
+					txt_fid_date_time_reference.setForeground(Color.RED);
+				check = false;
+				}else{
+					txt_fid_date_time_reference.setForeground(Color.BLACK);
+				check = true;
+				txt_fid_date_time_reference.setText(textRefDate);
+				}
+			}
+		}
+		return check;
+	}
+	
+}

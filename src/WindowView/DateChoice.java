@@ -31,10 +31,6 @@ public class DateChoice extends JDialog {
 	private static JTextField txt_fid_date_time_reception;
 
 
-
-	/**
-	 * Create the dialog.
-	 */
 	public DateChoice(Frame parent, String date_time_reception) {
 		super(parent, "Избор на референтна дата и време", true);
 		setBounds(100, 100, 550, 200);
@@ -358,6 +354,8 @@ public class DateChoice extends JDialog {
 		str = "за периода: "+txtStartDate.getText().substring(0, 10)+" ÷ "+ txtEndDate.getText().substring(0, 10) ;
 		return str;
 	}
+	
+
 	public static String get_date_time_reference() {
 		// TODO Auto-generated method stub
 		String str="";

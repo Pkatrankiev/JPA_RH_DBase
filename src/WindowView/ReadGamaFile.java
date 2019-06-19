@@ -166,7 +166,7 @@ public class ReadGamaFile {
 		}
 		
 		if(fl_error_MDA){
-			JOptionPane.showMessageDialog(null, "Няма корекция за разпадане./n Проверете референтната дата");
+			JOptionPane.showMessageDialog(null, " Няма корекция за разпадане.\n Проверете референтната дата", "Грешни данни", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 		

@@ -1,20 +1,12 @@
 package OldClases;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
-
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
 
 public class WordConvertPDF {
     public static void main(String[] args) {
-        WordConvertPDF cwoWord = new WordConvertPDF();
+//        WordConvertPDF cwoWord = new WordConvertPDF();
 //        cwoWord.ConvertToPDF("D:/test.docx", "D:/Test.pdf");
     }
 

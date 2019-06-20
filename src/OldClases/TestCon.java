@@ -1,29 +1,19 @@
 package OldClases;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.persistence.Convert;
 
 
 
 public class TestCon {
 
 	public static void main(String[] args) throws Exception {
-        String inputFile="D:/test.docx";
-        String outputFile="D:/TEST.pdf";
-        if (args != null && args.length == 2) {
-          inputFile=args[0];
-          outputFile=args[1];
-        }
+      
+//		String inputFile="D:/test.docx";
+//        String outputFile="D:/TEST.pdf";
+//        if (args != null && args.length == 2) {
+//          inputFile=args[0];
+//          outputFile=args[1];
+//        }
         
 //        ConvertToPDF(inputFile,outputFile);
         

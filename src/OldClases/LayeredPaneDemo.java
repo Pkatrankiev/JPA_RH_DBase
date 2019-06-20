@@ -1,8 +1,7 @@
 package OldClases;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.accessibility.*;
+
  
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +13,9 @@ import java.awt.event.*;
 public class LayeredPaneDemo extends JPanel
                              implements ActionListener,
                                         MouseMotionListener {
-    private String[] layerStrings = { "Yellow (0)", "Magenta (1)",
+   
+	private static final long serialVersionUID = 1L;
+	private String[] layerStrings = { "Yellow (0)", "Magenta (1)",
                                       "Cyan (2)",   "Red (3)",
                                       "Green (4)" };
     private Color[] layerColors = { Color.yellow, Color.magenta,
@@ -24,7 +25,7 @@ public class LayeredPaneDemo extends JPanel
     private JLayeredPane layeredPane;
     private JLabel dukeLabel;
     private JCheckBox onTop;
-    private JComboBox layerList;
+    private JComboBox<?> layerList;
  
     //Action commands
     private static String ON_TOP_COMMAND = "ontop";
@@ -111,13 +112,14 @@ public class LayeredPaneDemo extends JPanel
     }
  
     //Create the control pane for the top of the frame.
-    private JPanel createControlPanel() {
+
+	private JPanel createControlPanel() {
         onTop = new JCheckBox("Top Position in Layer");
         onTop.setSelected(true);
         onTop.setActionCommand(ON_TOP_COMMAND);
         onTop.addActionListener(this);
  
-        layerList = new JComboBox(layerStrings);
+        layerList = new JComboBox<Object>(layerStrings);
         layerList.setSelectedIndex(2);    //cyan layer
         layerList.setActionCommand(LAYER_COMMAND);
         layerList.addActionListener(this);

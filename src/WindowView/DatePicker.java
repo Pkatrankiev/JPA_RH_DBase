@@ -364,7 +364,7 @@ public class DatePicker {
 	public static int getActualyMonth() {
 		return month;
 	}
-	
+
 	public String setPickedDate(Boolean inTime) {
 		// if condition
 		if (day.equals(""))
@@ -394,6 +394,12 @@ public class DatePicker {
 		if (!startStrDate.equals("")) {
 			if (endStrDate.equals("")) {
 				meanStrPeriod = startStrDate;
+				try {
+					LocalDateTime.parse(startStrDate, sdf);
+				} catch (Exception e) {
+					return meanStrPeriod = "Некоректни дати";
+
+				}
 			} else {
 				// sredata na perioda
 				LocalDateTime locStartDate = null;
@@ -403,7 +409,6 @@ public class DatePicker {
 					locStartDate = LocalDateTime.parse(startStrDate, sdf);
 					locEndDate = LocalDateTime.parse(endStrDate, sdf);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					return meanStrPeriod = "Некоректни дати";
 
 				}
@@ -411,7 +416,6 @@ public class DatePicker {
 
 				getSecondDuration(locStartDate);
 				long refTimeInSec = duration.getSeconds() / 2;
-				// long qw = startDateInSec + refTimeInSec;
 				refDate = locStartDate.plusSeconds(refTimeInSec);
 				if (refTimeInSec < 0) {
 					meanStrPeriod = "Некоректен период";
@@ -426,6 +430,51 @@ public class DatePicker {
 		return meanStrPeriod;
 	}
 
+	public static String chec_current_period(String startStrDate, String endStrDate) {
+		String meanStrPeriod = startStrDate;
+		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);
+		LocalDate	locStartDate =	null;
+		LocalDate	locEndDate =	null;
+		if (!startStrDate.equals("")) {
+			if (endStrDate.equals("")) {
+				meanStrPeriod = startStrDate;
+				try {
+					LocalDate.parse(startStrDate, sdf);
+				} catch (Exception e) {
+					return meanStrPeriod = "Некоректни датa";
+
+				}
+			} else {
+				try {
+						locStartDate =	LocalDate.parse(startStrDate, sdf);
+						locEndDate =	LocalDate.parse(endStrDate, sdf);
+				} catch (Exception e) {
+					return meanStrPeriod = "Некоректни дати";
+
+				}
+				if (locStartDate.isAfter(locEndDate)) {
+					 meanStrPeriod = "Некоректен период";
+				    } 
+			}
+		}
+		
+//		SimpleDateFormat s_sdf = new SimpleDateFormat(FORMAT_DATE);
+//		Date s_locStartDate = null;
+//		Date s_locEndDate = null;
+//		
+//		try {
+//			s_locStartDate = s_sdf.parse(startStrDate);
+//			s_locEndDate =  s_sdf.parse(endStrDate);
+//		} catch (Exception e) {
+//			return meanStrPeriod = "Некоректни дати2";
+//		}
+//		 if (s_locStartDate.after(s_locEndDate)) {
+//			 meanStrPeriod = "Некоректен период";
+//		    } 
+		
+		return meanStrPeriod;
+	}
+	
 	public static Boolean incorrectTime(String time, JTextField label) {
 		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
 		try {
@@ -442,7 +491,7 @@ public class DatePicker {
 		Boolean corDate = false;
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TABLE);
 		String origDate = date;
-	
+
 		try {
 			LocalDate data_time = LocalDate.parse(date, sdf);
 			if (!data_time.format(sdf).equals(origDate))
@@ -452,25 +501,18 @@ public class DatePicker {
 		}
 		return corDate;
 	}
-	
+
 	public static Boolean incorrectDate(String date, Boolean inTime) {
 		Boolean corDate = false;
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);
-		String origDate = date;
+		
 		if (inTime) {
 			sdf = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
-			try {
-				origDate = date.substring(0, 10);
-			} catch (StringIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
-			}
 		}
-		DateTimeFormatter sdf1 = DateTimeFormatter.ofPattern(FORMAT_DATE);
-
+		
 		try {
-			LocalDate data_time = LocalDate.parse(date, sdf);
-			if (!data_time.format(sdf1).equals(origDate))
-				return true;
+			LocalDate.parse(date, sdf);
+	
 		} catch (DateTimeParseException e) {
 			return corDate = true;
 		}

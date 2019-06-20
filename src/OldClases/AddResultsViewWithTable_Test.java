@@ -84,7 +84,6 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
 import WindowView.AddDobivViewWithTable;
-import WindowView.AddResultsViewWithTable;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
@@ -92,7 +91,6 @@ import WindowView.MesejePanel;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
-import WindowView.AddResultsViewWithTable.TableHeaderMouseListener;
 
 public class AddResultsViewWithTable_Test extends JDialog {
 
@@ -417,6 +415,11 @@ public class AddResultsViewWithTable_Test extends JDialog {
 
 		// private PanneauHaut panneauHaut;
 		// private PanneauBas panneauBas;
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public void run() {

@@ -1,32 +1,27 @@
 package OldClases;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import GlobalVariable.GlobalPathForIcons;
 
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
-import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JToggleButton;
-import java.awt.Panel;
-import java.awt.Label;
-import java.awt.Font;
 
 public class testDialogLayeredPane extends JDialog {
-	private JPanel panel;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+//	private JPanel panel;
 	/**
 	 * Launch the application.
 	 */

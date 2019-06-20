@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.io.File;
 import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;

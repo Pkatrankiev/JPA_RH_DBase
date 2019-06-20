@@ -71,7 +71,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Font;
-import java.awt.Frame;
 
 import javax.swing.border.Border;
 import javax.swing.JTextArea;
@@ -116,6 +115,7 @@ public class RequestViewNew extends JDialog {
 
 	private String strAplicant = "";
 	private String str_Descript_grup_Sample = "";
+	private String original_Description_sample_group = "";
 	private ArrayList<String> comBox_O_I_S;
 	private List<String>  listStringOfRequest_To_ObektNaIzpitvaneRequest = null;
 	private ArrayList<String> bsic_listObektNaIzpit = null;
@@ -738,6 +738,8 @@ public class RequestViewNew extends JDialog {
 		String strSampGroup = "";
 		if (tamplateRequest != null) {
 			strSampGroup = tamplateRequest.getDescription_sample_group();
+			if(strSampGroup.indexOf("м.")>0)
+			original_Description_sample_group = strSampGroup.substring(0, strSampGroup.indexOf("за"));
 		}
 		txtArea_Descript_grup_Sample = new JTextArea(strSampGroup);
 		txtArea_Descript_grup_Sample.setBorder(UIManager.getBorder("ComboBox.border"));
@@ -813,9 +815,11 @@ public class RequestViewNew extends JDialog {
 					DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception , withTime,  forDateReception);
 										
 					date_time_reference.setVisible(true);
-					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period,
-							txtFld_Count_Sample.getText());
+					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSampleNew(choice_Period,
+							txtFld_Count_Sample.getText(), original_Description_sample_group);
+					
 					txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
+					
 					String textRefDate = "";
 					textRefDate = DateChoice_period.get_date_time_reference();
 
@@ -866,9 +870,10 @@ public class RequestViewNew extends JDialog {
 		// Add item listener choice_Period
 		choice_Period.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
-				str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSample(choice_Period,
-						txtFld_Count_Sample.getText());
+				str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSampleNew(choice_Period,
+						txtFld_Count_Sample.getText(),original_Description_sample_group);
 				txtArea_Descript_grup_Sample.setText(str_Descript_grup_Sample);
+				
 
 			}
 		});

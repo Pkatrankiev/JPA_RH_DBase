@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -29,8 +30,10 @@ public class DateChoice_period extends JDialog {
 	private static JTextField txtStartDate;
 	private static JTextField txtEndDate;
 	private static JTextField txt_fid_date_time_reference;
+	private static JLabel lbl_errorPeriod;
 	String startIncomingData = "";
 	String endIncomingData = "";
+	Boolean correctDate = true;
 
 
 	public DateChoice_period (Frame parent, String incoming_date_time, Boolean withTime, Boolean forDateReception) {
@@ -74,28 +77,31 @@ public class DateChoice_period extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent event) {
 
-					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
-						txt_fid_date_time_reference.setForeground(Color.RED);
-					else
-						txt_fid_date_time_reference.setForeground(Color.BLACK);
+//					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
+//						txt_fid_date_time_reference.setForeground(Color.RED);
+//					else
+//						txt_fid_date_time_reference.setForeground(Color.BLACK);
 				}
 
 				@Override
 				public void keyReleased(KeyEvent event) {
 
-					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
+					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime)){
 						txt_fid_date_time_reference.setForeground(Color.RED);
-					else
+					correctDate = false;
+				}else{
 						txt_fid_date_time_reference.setForeground(Color.BLACK);
+						correctDate = true;
+				}
 				}
 
 				@Override
 				public void keyPressed(KeyEvent event) {
 
-					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
-						txt_fid_date_time_reference.setForeground(Color.RED);
-					else
-						txt_fid_date_time_reference.setForeground(Color.BLACK);
+//					if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), withTime))
+//						txt_fid_date_time_reference.setForeground(Color.RED);
+//					else
+//						txt_fid_date_time_reference.setForeground(Color.BLACK);
 				}
 			});
 
@@ -106,6 +112,16 @@ public class DateChoice_period extends JDialog {
 			gbc_date_time_reference.gridy = 2;
 			contentPanel.add(txt_fid_date_time_reference, gbc_date_time_reference);
 			txt_fid_date_time_reference.setColumns(10);
+		}else{
+			lbl_errorPeriod = new JLabel(incoming_date_time);
+	
+			GridBagConstraints gbc_lbl_errorPeriod = new GridBagConstraints();
+			gbc_lbl_errorPeriod.insets = new Insets(0, 0, 0, 5);
+			gbc_lbl_errorPeriod.fill = GridBagConstraints.HORIZONTAL;
+			gbc_lbl_errorPeriod.gridx = 2;
+			gbc_lbl_errorPeriod.gridy = 2;
+			contentPanel.add(lbl_errorPeriod, gbc_lbl_errorPeriod);
+			lbl_errorPeriod.setVisible(false);
 		}
 		
 		
@@ -127,19 +143,19 @@ public class DateChoice_period extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent event) {
 
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
+//					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
 				}
 
 				@Override
 				public void keyReleased(KeyEvent event) {
-
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
+					correctDate =
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate);
 				}
 
 				@Override
 				public void keyPressed(KeyEvent event) {
 
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
+//					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate, txt_fid_date_time_reference);
 				}
 
 		
@@ -163,16 +179,9 @@ public class DateChoice_period extends JDialog {
 					final JFrame d = new JFrame();
 					DatePicker dPicer = new DatePicker(d, withTime, txtStartDate.getText());
 					txtStartDate.setText(dPicer.setPickedDate(withTime));
-					if(!forDateReception){
-					String textRefDate = "";
-					textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
-					if (DatePicker.incorrectDate(textRefDate, withTime))
-						txt_fid_date_time_reference.setForeground(Color.RED);
-					else
-						txt_fid_date_time_reference.setForeground(Color.BLACK);
-
-					txt_fid_date_time_reference.setText(textRefDate);
-					}
+					correctDate =
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtStartDate);
+					
 				}
 			});
 
@@ -201,20 +210,20 @@ public class DateChoice_period extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent event) {
 
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+//					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
 					
 				}
 
 				@Override
 				public void keyReleased(KeyEvent event) {
-
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+					correctDate = 
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate);
 					
 				}
 
 				@Override
 				public void keyPressed(KeyEvent event) {
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+//					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
 				
 				}
 			});
@@ -237,8 +246,8 @@ public class DateChoice_period extends JDialog {
 					final JFrame k = new JFrame();
 					DatePicker dPicer = new DatePicker(k, withTime, txtEndDate.getText());
 					txtEndDate.setText(dPicer.setPickedDate(withTime));
-					
-					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate, txt_fid_date_time_reference);
+					correctDate = 
+					check_and_collor_incorrect_DateAndReferenceTxt(withTime, forDateReception,txtEndDate);
 					
 				}
 			});
@@ -262,10 +271,25 @@ public class DateChoice_period extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(!correctDate){
+						// display the showOptionDialog
+						int choice = 0;
+						Object[] options = { "Не", "Да" };
+						choice = JOptionPane.showOptionDialog(null,
+								"Има некоректни дати.\nЩе нанесете ли поправки?", "Грешни данни",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+					
+					if (choice == JOptionPane.YES_OPTION) {
+						returnToIncomingDate(incoming_date_time, forDateReception);
+						dispose();
+											}
+						}else{	
 						removeAll();
 						dispose();	
+						}
 					}
-
+					
 					
 				});
 				okButton.setActionCommand("OK");
@@ -276,14 +300,11 @@ public class DateChoice_period extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(forDateReception){
-							txtStartDate.setText(startIncomingData);
-							txtEndDate.setText(endIncomingData);
-											}else{
-					txt_fid_date_time_reference.setText(incoming_date_time);
-											}
+						returnToIncomingDate(incoming_date_time, forDateReception);
 						dispose();	
 					}
+
+				
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
@@ -294,6 +315,7 @@ public class DateChoice_period extends JDialog {
 	public static String get_str_period_sample(Boolean forDateReception) {
 	
 		String str="";
+		if(txtStartDate != null || txtEndDate != null){
 		if(forDateReception){
 			str = txtStartDate.getText();
 		}
@@ -303,11 +325,19 @@ public class DateChoice_period extends JDialog {
 			}else{
 		str = "за периода: "+txtStartDate.getText().substring(0, 10)+" ÷ "+ txtEndDate.getText().substring(0, 10) ;
 			}
-		}	
+		}
+		}
 		return str;
 	}
 	
-
+	private void returnToIncomingDate(String incoming_date_time, Boolean forDateReception) {
+		if(forDateReception){
+			txtStartDate.setText(startIncomingData);
+			txtEndDate.setText(endIncomingData);
+							}else{
+	txt_fid_date_time_reference.setText(incoming_date_time);
+							}
+	}
 
 	public static String get_date_time_reference() {
 		
@@ -317,25 +347,41 @@ public class DateChoice_period extends JDialog {
 	}
 	
 	private Boolean check_and_collor_incorrect_DateAndReferenceTxt(Boolean withTime,
-			Boolean forDateReception, JTextField txtDate, JTextField txt_fid_date_time_reference) {
+			Boolean forDateReception, JTextField txtDate) {
 		Boolean check = true;
 		if (DatePicker.incorrectDate(txtDate.getText(), withTime)){
 			txtDate.setForeground(Color.RED);
 		check = false;
 		}else{
-			txtStartDate.setForeground(Color.BLACK);
+			txtDate.setForeground(Color.BLACK);
 			check = true;
+		}
+		String textRefDate = "";
 			if(!forDateReception){
-				String textRefDate = "";
 				textRefDate = DatePicker.getReferenceDate(txtStartDate.getText(), txtEndDate.getText());
 				if (DatePicker.incorrectDate(textRefDate, withTime)){
 					txt_fid_date_time_reference.setForeground(Color.RED);
+					txt_fid_date_time_reference.setText(textRefDate);
 				check = false;
 				}else{
 					txt_fid_date_time_reference.setForeground(Color.BLACK);
 				check = true;
 				txt_fid_date_time_reference.setText(textRefDate);
 				}
+			
+		}else{
+			textRefDate = DatePicker.chec_current_period(txtStartDate.getText(), txtEndDate.getText());
+			if (DatePicker.incorrectDate(textRefDate, withTime)){
+				lbl_errorPeriod.setForeground(Color.RED);
+				lbl_errorPeriod.setText(textRefDate);
+				lbl_errorPeriod.setVisible(true);
+			check = false;
+			}else{
+			
+			lbl_errorPeriod.setForeground(Color.BLACK);
+			lbl_errorPeriod.setText(textRefDate);
+			lbl_errorPeriod.setVisible(false);
+			check = true;
 			}
 		}
 		return check;

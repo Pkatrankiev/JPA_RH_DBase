@@ -8,6 +8,8 @@ import java.awt.image.*;
 public class TransparentBackground extends JComponent
 implements ComponentListener, WindowFocusListener, Runnable {
  
+	
+	private static final long serialVersionUID = 1L;
 	private JFrame _frame;
 	private BufferedImage _background;
 	private long _lastUpdate = 0;

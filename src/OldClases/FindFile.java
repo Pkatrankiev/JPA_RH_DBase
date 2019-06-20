@@ -34,7 +34,8 @@ public class FindFile
     public static void main(String[] args) 
     {
         FindFile ff = new FindFile();
-        Scanner scan = new Scanner(System.in);
+        @SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
         System.out.println("Enter the file to be searched.. " );
         String name = scan.next();
         System.out.println("Enter the directory where to search ");

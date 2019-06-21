@@ -162,7 +162,7 @@ public class RequestViewAplication {
 
 	public static String getStringZabelejkiForRequest(Request request) {
 		String zabel_str = "";
-		if (request.getZabelejki() != null&&request.getZabelejki().getId_zabelejki()!=5) {
+		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki()!=5) {
 			zabel_str = request.getZabelejki().getName_zabelejki()+ "; ";
 		}
 		System.out.println("1--"+zabel_str);
@@ -185,7 +185,7 @@ public class RequestViewAplication {
 	public static List<String> getStringZabelejkiForProtokol(Request request) {
 		List<String>  zabel_str = new ArrayList<String>() ;
 		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki()!=5) {
-			zabel_str.add(request.getZabelejki().getName_zabelejki());
+			zabel_str.add(request.getZabelejki().getProtokol_name());
 		}
 		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
 			zabel_str.add( request.getExtra_module().getDoplIzisk().getName_dopIzis());
@@ -200,11 +200,8 @@ public class RequestViewAplication {
 	public static ArrayList<String> getStringZabelejki() {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
 		ArrayList<String> arr = new ArrayList<String>();
-		arr.add("");
-
 		for (Zabelejki e : list) {
 			arr.add(e.getName_zabelejki());
-
 		}
 		return arr;
 	}

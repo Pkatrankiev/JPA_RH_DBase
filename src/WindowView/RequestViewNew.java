@@ -142,7 +142,7 @@ public class RequestViewNew extends JDialog {
 		
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenHeight = screenSize.height;
+		int screenHeight = screenSize.height-50;
 //		int screenWidth = screenSize.width;
 		setSize(870, screenHeight);
 		setLocationRelativeTo(null);

@@ -20,11 +20,13 @@ public class Zabelejki implements Serializable {
 		 private int Id_zabelejki;
 
 		 private String name;
+		 private String protokol_name;
 		
-		 public Zabelejki(Integer id, String name) {
+		 public Zabelejki(Integer id, String name, String protokol_name) {
 		     super( );
 		     		     
 		     this.name = name;
+		     this.setProtokol_name(protokol_name);
 		    		  }
 		 
 		 public Zabelejki(){
@@ -43,6 +45,14 @@ public class Zabelejki implements Serializable {
 		 public void setName_zabelejki(String name) {
 		 this.name = name;
 		 }
+
+		public String getProtokol_name() {
+			return protokol_name;
+		}
+
+		public void setProtokol_name(String protokol_name) {
+			this.protokol_name = protokol_name;
+		}
 
 
 

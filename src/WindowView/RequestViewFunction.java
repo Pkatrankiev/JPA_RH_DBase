@@ -180,17 +180,14 @@ public class RequestViewFunction {
 					tamplateRequest)) {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
-			JFrame f = new JFrame();
-			new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
-			String strTamplate = "";
+			Boolean fromTamplate=true;
 			txtArea_list_izpitvan_pokazatel.setText("");
-			for (String string : ChoiceL_I_P.getChoiceL_P()) {
-				strTamplate = strTamplate + string + "\n";
-			}
-			int cout_str = strTamplate.length();
-			txtArea_list_izpitvan_pokazatel.setText(strTamplate.substring(0, cout_str - 1));
+			String strTamplate = generateStringFromCoice_L_I_P(list_String_I_P_Tamplate, fromTamplate);
+			txtArea_list_izpitvan_pokazatel.setText(strTamplate);
 		}
 	}
+
+	
 
 	public static void generateTextIn_Text_Area_List_Izpitvan_Pokazatel(JTextArea txtArea_list_izpitvan_pokazatel,
 			Border border) {
@@ -198,22 +195,28 @@ public class RequestViewFunction {
 
 		if (!txtArea_list_izpitvan_pokazatel.getText().equals("")) {
 			list_I_P = ChoiceL_I_P.getChoiceL_P();
-			System.out.println(list_I_P.size());
-		}
-		final JFrame f = new JFrame();
-		new ChoiceL_I_P(f, list_I_P, false);
-
-		String str = "";
+			}
 		txtArea_list_izpitvan_pokazatel.setText("");
-		for (String string : ChoiceL_I_P.getChoiceL_P()) {
-			str = str + string + "\n";
-		}
-
+		Boolean fromTamplate=false;
+		String strTamplate = generateStringFromCoice_L_I_P(list_I_P, fromTamplate);
+		
 		txtArea_list_izpitvan_pokazatel.setBorder(border);
-		int cout_str = str.length();
-		txtArea_list_izpitvan_pokazatel.setText(str.substring(0, cout_str - 1));
+		txtArea_list_izpitvan_pokazatel.setText(strTamplate);
 	}
 
+	private static String generateStringFromCoice_L_I_P(List<String> list_String_I_P_Tamplate, Boolean fromTamplate) {
+		JFrame f = new JFrame();
+		new ChoiceL_I_P(f, list_String_I_P_Tamplate, fromTamplate);
+		String strTamplate = "";
+		
+		for (String string : ChoiceL_I_P.getChoiceL_P()) {
+			strTamplate = strTamplate + string + "\n";
+		}
+		strTamplate= strTamplate.substring(0, strTamplate.length() - 1);
+	
+		return strTamplate;
+	}	
+	
 	public static String generateTxtInDescriptGrupSample(Choice choice_Period, String sampleCount) {
 		String txtInDescriptGrupSample = "";
 		String strMesec = "";
@@ -276,8 +279,8 @@ public class RequestViewFunction {
 			prob = "проби";
 			sbor = "Сборни";
 		}
-//		String str_period_sample = DateChoice_period.get_str_period_sample(false);
-		 String str_period_sample = DateChoice.get_str_period_sample();
+		String str_period_sample = DateChoice_period.get_str_period_sample(false);
+//		 String str_period_sample = DateChoice.get_str_period_sample();
 
 		txtInDescriptGrupSample = sbor + " " + prob;
 		if (original_Description_sample_group.length() > 0)

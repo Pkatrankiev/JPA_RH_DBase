@@ -9,7 +9,6 @@ import java.util.Map;
 
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
-import Aplication.TSI_DAO;
 import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -144,14 +143,18 @@ public class Generate_Map_For_Request_Word_Document {
 
 		String request_zabelejki = RequestViewAplication.getStringZabelejkiForRequest(request);
 		substitutionData.put(key_request_zab, request_zabelejki);
-				substitutionData.put(key_date_measur, minDate + " ÷ " + maxDate);
+		
+		if(minDate.equals(maxDate)){
+			substitutionData.put(key_date_measur, minDate);
+		}else{			
+		substitutionData.put(key_date_measur, minDate + " ÷ " + maxDate);
+		}
 
 		if (request.getUsers() != null) {
 			substitutionData.put(key_user,
 					request.getUsers().getName_users() + " " + request.getUsers().getFamily_users());
 		}
-		String strrr = TSI_DAO.getValueTSIById(1).getName();
-		System.out.println(strrr);
+		
 		return substitutionData;
 
 	}

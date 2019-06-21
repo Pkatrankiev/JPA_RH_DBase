@@ -16,14 +16,14 @@ public class Main_Aplication {
 
 	public static void main(String[] args) {
 	
-//		TestClases.Table_RequestToObektNaIzp();
+		TestClases.Table_RequestToObektNaIzp();
 		
 //	 test.convertDocx2pdf("l:/ЛИ-РХ/Протоколи/3793_08.02.2019.docx");
 		
 		
 //		TestClases.testNewRequestVew();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

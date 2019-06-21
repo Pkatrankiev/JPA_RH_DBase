@@ -18,18 +18,10 @@ public class ZabelejkiDAO {
 //	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
 	
 
-	public static void setBasicValueZabelejki() {
-		setValueZabelejki("Към неопределеността е добавена 10% систематична грешка.");
-		setValueZabelejki(": Ако е необходимо, протоколът от изпитване може да включва"
-				+ " мнения и интерпретации за определени изпитвания (заключения не се допускат) само"
-				+ " в съответствие с изискванията на т. 5.10.5 от БДС EN ISO/IEC 17025.");
-		setValueZabelejki("Резултатите от изпитването се отнасят само за изпитваните проби."
-				+ "Протоколът от изпитване не може да бъде възпроизвеждан, освен с писменото разрешение"
-				+ "на лабораторията и само изцяло.");
-	}
+
 
 	// Zabelevki
-	public static void setValueZabelejki(String value) {
+	public static void setValueZabelejki(String value,String value_protokol) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
@@ -37,6 +29,7 @@ public class ZabelejkiDAO {
 		entitymanager.getTransaction().begin();
 		Zabelejki valueEnt = new Zabelejki();
 		valueEnt.setName_zabelejki(value);
+		valueEnt.setName_zabelejki(value_protokol);
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
@@ -99,10 +92,11 @@ public class ZabelejkiDAO {
 		Zabelejki zab= null;
 		if (!list.isEmpty()){
 			zab = list.get(0);
-		}else{
-			setValueZabelejki(name);
-			zab = getValueZabelejkiByName(name);
 		}
+//		else{
+//			setValueZabelejki(name);
+//			zab = getValueZabelejkiByName(name);
+//		}
 		entitymanager.close();
 		emfactory.close();
 

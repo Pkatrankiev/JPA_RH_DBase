@@ -191,7 +191,7 @@ public class GenerateDocProtokol {
 						FunctionForGenerateWordDocFile.generateMapMDA(result));
 			}
 		}
-		String string_zab = smple_list.get(0).getRequest().getZabelejki().getName_zabelejki();
+		String string_zab = smple_list.get(0).getRequest().getZabelejki().getProtokol_name();
 		if (FunctionForGenerateWordDocFile.isZabContain10pecent(string_zab)) {
 			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel,
 					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* " + string_zab));

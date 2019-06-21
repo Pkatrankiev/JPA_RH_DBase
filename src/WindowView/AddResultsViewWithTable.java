@@ -1768,10 +1768,11 @@ public class AddResultsViewWithTable extends JDialog {
 		String errRazm = "";
 		String errQunt = "";
 		String errDim = "";
+		String inProtokol = "резултати в протокол" + "\n";
 		List<String> listCodeNuclide = new ArrayList<String>();
 		if (dataTable != null) {
 			for (int i = 0; i < dataTable.length; i++) {
-				String s1 = dataTable[i][mda_Colum].toString().toString();
+				String s1 = dataTable[i][mda_Colum].toString();
 				String s2 = dataTable[i][actv_value_Colum].toString();
 				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) != 0)) {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
@@ -1800,6 +1801,10 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 
 				}
+				if (dataTable[i][in_Prot_Colum].toString()=="1") {
+					inProtokol = "";
+				}
+				
 			}
 
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
@@ -1810,7 +1815,7 @@ public class AddResultsViewWithTable extends JDialog {
 		} else {
 			errDuplic = "невъведени данни" + "\n";
 		}
-		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim);
+		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim + inProtokol);
 	}
 
 	public class TableHeaderMouseListener extends MouseAdapter {

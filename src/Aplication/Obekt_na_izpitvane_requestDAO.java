@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
@@ -19,16 +18,6 @@ public class Obekt_na_izpitvane_requestDAO {
 //	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
 	
 	
-public static void setBasicValueObekt_na_izpitvane(){
-	setValueObekt_na_izpitvane("Вентилационна тръба-1 и Вентилационна тръба-2");
-	setValueObekt_na_izpitvane("Спец корпус-1 и Спец корпус-2");
-	setValueObekt_na_izpitvane("БАК 1и2");
-	setValueObekt_na_izpitvane("БНС-1, СК-1");
-	setValueObekt_na_izpitvane("БНС-2, СК-1");
-	setValueObekt_na_izpitvane("БВС-1");
-	setValueObekt_na_izpitvane("БВС-2");
-
-}
 
 //	Obekt_na_izpitvane
 	public static void setValueObekt_na_izpitvane(String value) {
@@ -73,13 +62,13 @@ public static void setBasicValueObekt_na_izpitvane(){
 		return values;
 	}
 
-	public static String [] getMasiveStringAllValueObekt_na_izpitvane() {
+	public static List<String > getMasiveStringAllValueObekt_na_izpitvane() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 	List<Obekt_na_izpitvane_request> list = getInListAllValueObekt_na_izpitvane();
-		String[] values = new String[list.size()];
+	List<String > values = new ArrayList<String >();
 		int i = 0;
 		for (Obekt_na_izpitvane_request e : list) { 
-			values[i] = e.getName_obekt_na_izpitvane();
+			values.add( e.getName_obekt_na_izpitvane());
 			i++;
 			}
 		return values;
@@ -127,7 +116,7 @@ public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryPa
 	}
 	
 	public static void saveValueObekt_na_izpitvaneWitchCheck(String value) {
-		String [] masive_Obekt_na_izpitvane =  getMasiveStringAllValueObekt_na_izpitvane();
+		List<String > masive_Obekt_na_izpitvane =  getMasiveStringAllValueObekt_na_izpitvane();
 		
 		Boolean fl_Obekt_na_izpitvane = false;
 		for (String string : masive_Obekt_na_izpitvane) {

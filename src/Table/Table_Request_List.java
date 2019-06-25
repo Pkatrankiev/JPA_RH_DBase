@@ -9,7 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -39,10 +41,12 @@ import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DatePicker;
 import WindowView.Login;
@@ -60,13 +64,15 @@ public class Table_Request_List extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private static Request choiseRequest;
 	private static String[] values_I_P;
-	private static String[] values_O_I_R;
+	private static List<String> values_O_I_R;
 	private static String[] values_Id_Num_Doc;
 	private static String[] values_Razmernosti;
 	private static String[] value_users;
 	private static String[] value_Zabelejki;
+	private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp = new HashMap<Integer, List<String>>();
+
 	// private static JFrame frame;
-	private static List<String> listStrRequestCode;
+	private static List<Integer> listRowForUpdate;
 	private static Object[][] dataTable;
 
 	private static int tbl_Colum = 15;
@@ -95,7 +101,7 @@ public class Table_Request_List extends JDialog {
 		Object[][] data = getDataTable(tamplateRequest);
 		dataTable = data;
 		
-		listStrRequestCode = new ArrayList<String>();
+		listRowForUpdate = new ArrayList<Integer>();
 		values_Id_Num_Doc = Ind_num_docDAO.getMasiveStringAllValueValueInd_num_doc();
 		values_I_P = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();
 		values_O_I_R = Obekt_na_izpitvane_requestDAO.getMasiveStringAllValueObekt_na_izpitvane();
@@ -129,6 +135,20 @@ public class Table_Request_List extends JDialog {
 
 					AddInUpdateList(rowPokazatel);
 				}
+				
+				if(table.getSelectedColumn() == obk_Izp_Colum && user != null && user.getIsAdmin()
+						&& getSelectedModelRow(table) != -1){
+					int rowObektNaIzp = table.rowAtPoint(e.getPoint());
+					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
+					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+					if(Table_RequestToObektNaIzp.EditRequestObektIzpit(table, rowObektNaIzp, choiseRequest, 
+							mapListForChangedStrObektNaIzp, values_O_I_R)){
+						List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
+						table.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(listFromChoiceObektNaIzp, false), 
+								rowObektNaIzp, obk_Izp_Colum);
+						mapListForChangedStrObektNaIzp.put(rowObektNaIzp, listFromChoiceObektNaIzp);
+//					AddInUpdateList(rowObektNaIzp, listFromChoiceObektNaIzp);
+					}}
 				
 				if (e.getClickCount() == 2 && user != null && getSelectedModelRow(table) != -1) {
 					if (user.getIsAdmin()) {
@@ -201,7 +221,7 @@ public class Table_Request_List extends JDialog {
 
 					@Override
 					public boolean isCellEditable(int row, int column) {
-						if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
+						if (user != null && user.getIsAdmin()) {
 //							if (Login.getCurentUser().getIsAdmin()) {
 								if (column == ref_Date_Colum) {
 									return false;
@@ -246,7 +266,7 @@ public class Table_Request_List extends JDialog {
 
 				setUp_Id_Num_Doc(table, table.getColumnModel().getColumn(id_ND_Colum));
 				setUp_I_P_Column(table, table.getColumnModel().getColumn(izp_Prod_Colum));
-				setUp_O_I_R_Column(table, table.getColumnModel().getColumn(obk_Izp_Colum));
+//				setUp_O_I_R_Column(table, table.getColumnModel().getColumn(obk_Izp_Colum));
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(razmer_Colum));
 				setUp_Users(table, table.getColumnModel().getColumn(user_Colum));
 				setUp_Zabelejki(table, table.getColumnModel().getColumn(zab_Colum));
@@ -268,7 +288,7 @@ public class Table_Request_List extends JDialog {
 							@Override
 							public void run() {
 
-								updateData(table, listStrRequestCode, round);
+								updateData(table, listRowForUpdate, round);
 
 							}
 						});
@@ -278,7 +298,7 @@ public class Table_Request_List extends JDialog {
 				});
 				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
+				if (user != null && user.getIsAdmin()) {
 					panel_Btn.add(btnSave);
 				}
 				JButton btnCancel = new JButton("Изход");
@@ -310,14 +330,14 @@ public class Table_Request_List extends JDialog {
 		I_P_Column.setCellRenderer(renderer);
 	}
 
-	public static void setUp_O_I_R_Column(JTable table, TableColumn O_I_R_Column) {
-
-		JComboBox<?> comboBox = new JComboBox<Object>(values_O_I_R);
-		O_I_R_Column.setCellEditor(new DefaultCellEditor(comboBox));
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
-		O_I_R_Column.setCellRenderer(renderer);
-	}
+//	public static void setUp_O_I_R_Column(JTable table, TableColumn O_I_R_Column) {
+//
+//		JComboBox<?> comboBox = new JComboBox<Object>(values_O_I_R);
+//		O_I_R_Column.setCellEditor(new DefaultCellEditor(comboBox));
+//		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+//		renderer.setToolTipText("Натисни за избор");
+//		O_I_R_Column.setCellRenderer(renderer);
+//	}
 
 	public static void setUp_Users(JTable table, TableColumn users_Column) {
 		JComboBox<?> comboBox = new JComboBox<Object>(value_users);
@@ -386,7 +406,13 @@ public class Table_Request_List extends JDialog {
 				// tableRequest[i][rqst_Date_Colum ] =
 				// request.getDate_request();
 				tableRequest[i][izp_Prod_Colum] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
-				tableRequest[i][obk_Izp_Colum] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+//				tableRequest[i][obk_Izp_Colum] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+				
+				 
+				 tableRequest[i][obk_Izp_Colum] = Table_RequestToObektNaIzp.createStringListObektNaIzp(
+						Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), true);
+				
+				
 				tableRequest[i][izp_Pok_Colum] = RequestViewFunction.CreateStringListIzpPokaz(request, list_All_I_P);
 				tableRequest[i][razmer_Colum] = request.getRazmernosti().getName_razmernosti();
 				tableRequest[i][cunt_Smpl_Colum] = request.getCounts_samples();
@@ -476,41 +502,46 @@ public class Table_Request_List extends JDialog {
 	}
 
 	private static void AddInUpdateList(int row) {
-		if (listStrRequestCode.isEmpty()) {
-			listStrRequestCode.add((String) dataTable[row][rqst_code_Colum]);
+		if (listRowForUpdate.isEmpty()) {
+			listRowForUpdate.add(row);
 		} else {
-			if (!listStrRequestCode.equals(dataTable[row][rqst_code_Colum])) {
-				listStrRequestCode.add((String) dataTable[row][rqst_code_Colum]);
+			if (!listRowForUpdate.equals(dataTable[row][rqst_code_Colum])) {
+				listRowForUpdate.add(row);
 			}
 		}
 	}
 
-	private static void updateData(JTable table, List<String> listStrRequestCode, TranscluentWindow round) {
-		List<Request> list_request = RequestDAO.getInListAllValueRequest();
+	private static void updateData(JTable table, List<Integer> listStrRequestCodeForUpdate, TranscluentWindow round) {
+		List<Request> listAllValueRequest = RequestDAO.getInListAllValueRequest();
 		DefaultTableModel model =(DefaultTableModel) table.getModel();
-		int countRows = model.getRowCount();
+//		int countRows = model.getRowCount();
 		
-		for (String strRequestCode : listStrRequestCode) {
-
-			for (int row = 0; row < countRows; row++) {
-				if (strRequestCode.equals(model.getValueAt(row, rqst_code_Colum))) {
-					Request request = searchRequestFromListRequest(list_request, strRequestCode);
-
-					// Request request =
-					// RequestDAO.getRequestFromColumnByVolume("recuest_code",
-					// strRequestCode);
-					updateRequestObject(table, row, request);
-					List_izpitvan_pokazatel[][] list_Masive_L_I_P = updateIzpitvanPokazatelObject(table, row, request);
+		for (int rowForUpdate : listStrRequestCodeForUpdate) {
+					Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code",model.getValueAt(rowForUpdate, rqst_code_Colum));
+					updateRequestObject(table, rowForUpdate, request);
+					
+					List_izpitvan_pokazatel[][] list_Masive_L_I_P = updateIzpitvanPokazatelObject(table, rowForUpdate, request);
 					updateIzpitvanPokazatelInResultObject(list_Masive_L_I_P, request);
-				}
-			}
+					if(mapListForChangedStrObektNaIzp!=null && !mapListForChangedStrObektNaIzp.isEmpty()){
+					List<Obekt_na_izpitvane_request> listObektIzpit_request = 
+							Table_RequestToObektNaIzp.creadListStrFromMap(mapListForChangedStrObektNaIzp,rowForUpdate);
+					Table_RequestToObektNaIzp.updateRequestToObIzpObject(request,listObektIzpit_request);
+					}
+					
+//					for (int row = 0; row < countRows; row++) {
+//					if (strRequestCode.equals(model.getValueAt(row, rqst_code_Colum))) {
+//						Request request = searchRequestFromListRequest(listAllValueRequest, strRequestCode);
+
+					
+//				}
+//			}
 		}
 		round.StopWindow();
 	}
 
-	private static Request searchRequestFromListRequest(List<Request> list_request, String strRequestCode) {
+	private static Request searchRequestFromListRequest(List<Request> listAllValueRequest, String strRequestCode) {
 		Request request1 = null;
-		for (Request request : list_request) {
+		for (Request request : listAllValueRequest) {
 			if (strRequestCode.equals(request.getRecuest_code())) {
 				return request;
 			}
@@ -530,8 +561,10 @@ public class Table_Request_List extends JDialog {
 		request.setInd_num_doc(Ind_num_docDAO.getValueIByName(model.getValueAt(row, id_ND_Colum) + ""));
 		request.setIzpitvan_produkt(
 				Izpitvan_produktDAO.getValueIzpitvan_produktByName(model.getValueAt(row, izp_Prod_Colum) + ""));
-		request.setObekt_na_izpitvane_request(Obekt_na_izpitvane_requestDAO
-				.getValueObekt_na_izpitvane_requestByName(model.getValueAt(row, obk_Izp_Colum) + ""));
+//		request.setObekt_na_izpitvane_request(Obekt_na_izpitvane_requestDAO
+//				.getValueObekt_na_izpitvane_requestByName(model.getValueAt(row, obk_Izp_Colum) + ""));
+		
+		
 		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(model.getValueAt(row, razmer_Colum) + ""));
 		request.setCounts_samples((int) model.getValueAt(row, cunt_Smpl_Colum));
 		request.setDescription_sample_group(model.getValueAt(row, dscr_Smpl_Colum) + "");

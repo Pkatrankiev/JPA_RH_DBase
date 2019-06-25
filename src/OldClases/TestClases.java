@@ -29,9 +29,10 @@ import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
 import Table.Table_RequestToObektNaIzp;
+import Table.Table_Request_List;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
-
+import WindowView.Login;
 import WindowView.RequestViewNew;
 import WindowView.TranscluentWindow;
 
@@ -81,6 +82,21 @@ public class TestClases {
 		}
 		
 	}
+	
+	public static void start_Table_Request_List(){
+	TranscluentWindow round = new TranscluentWindow();
+	Users user = UsersDAO.getValueUsersById(4);
+	 final Thread thread = new Thread(new Runnable() {
+	     @Override
+	     public void run() {
+	    	 
+	    	 JFrame f = new JFrame();
+	 		new Table_Request_List(f,round,user,null);
+   	
+	     }
+	    });
+	    thread.start();
+}  
 	
 	public static void test2() {
 		TranscluentWindow round = new TranscluentWindow();	

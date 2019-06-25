@@ -3,9 +3,15 @@ package WindowView;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+
+import Aplication.RequestDAO;
 import DBase_Class.Request;
 import java.awt.Dimension;
 
@@ -16,7 +22,14 @@ public class RequestMiniFrame extends JDialog {
 	public RequestMiniFrame(JFrame parent, Request request) {
 			super(parent, "", true);
 			setBounds(100, 100, 450, 200);
-			
+			this.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {}
+
+				public void mousePressed(MouseEvent e) {
+					dispose();
+				}
+			});
 				
 				String codeRequest = request.getRecuest_code();
 				String dateRequest = request.getDate_request();
@@ -39,7 +52,7 @@ public class RequestMiniFrame extends JDialog {
 					}
 				}
 				GridBagLayout gridBagLayout = new GridBagLayout();
-				gridBagLayout.columnWidths = new int[]{5, 125, 0, 0, 0, 0};
+				gridBagLayout.columnWidths = new int[]{5, 125, 44, 0, 0, 0};
 				gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 				gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 				gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -54,11 +67,10 @@ public class RequestMiniFrame extends JDialog {
 				getContentPane().add(requestCode_label, gbc_requestCode_label);
 				
 				JLabel requestCode_value = new JLabel(codeRequest);
-				requestCode_value.setPreferredSize(new Dimension(25, 14));
-				requestCode_value.setMinimumSize(new Dimension(25, 14));
-				requestCode_value.setMaximumSize(new Dimension(25, 14));
+				requestCode_value.setPreferredSize(new Dimension(30, 14));
+				requestCode_value.setMinimumSize(new Dimension(30, 14));
+				requestCode_value.setMaximumSize(new Dimension(30, 14));
 				GridBagConstraints gbc_requestCode_value = new GridBagConstraints();
-				gbc_requestCode_value.anchor = GridBagConstraints.EAST;
 				gbc_requestCode_value.insets = new Insets(0, 0, 5, 5);
 				gbc_requestCode_value.gridx = 2;
 				gbc_requestCode_value.gridy = 0;

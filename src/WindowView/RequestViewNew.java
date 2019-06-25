@@ -37,6 +37,7 @@ import Aplication.DopalnIziskvDAO;
 import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
+import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
 import Aplication.AplicantDAO;
@@ -52,7 +53,6 @@ import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
@@ -1523,12 +1523,16 @@ public class RequestViewNew extends JDialog {
 					AddResultsViewWithTable.setWaitCursor(p);
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
 					request = createAndSaveRequest();
+					saveRequest_To_ObektNaIzpitvaneRequest(request, listStringOfRequest_To_ObektNaIzpitvaneRequest);
+
 					saveSample();
 					SaveIzpitvanPokazatel();
 					AddResultsViewWithTable.setDefaultCursor(p);
 					setVisible(false);
 				}
 			}
+
+			
 		});
 
 		btn_save.setPreferredSize(new Dimension(80, 23));
@@ -1695,8 +1699,8 @@ public class RequestViewNew extends JDialog {
 				.getValueIzpitvan_produktByName(choice_izpitvan_produkt.getSelectedItem());
 		Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
 		Zabelejki zabelejki = ZabelejkiDAO.getValueZabelejkiByName(choice_Zab.getSelectedItem());
-		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
-				.getValueObekt_na_izpitvane_requestByName(txtArea_obekt_na_izpitvane_request.getText());
+//		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
+//				.getValueObekt_na_izpitvane_requestByName(txtArea_obekt_na_izpitvane_request.getText());
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		
 		
@@ -1705,7 +1709,7 @@ public class RequestViewNew extends JDialog {
 				chckbx_accreditation.isSelected(), section, extra_mod, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_period_reception.getText(),
 				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
-				obekt_na_izpitvane_request);
+				null);
 		return recuest;
 
 	}
@@ -1866,6 +1870,16 @@ public class RequestViewNew extends JDialog {
 			}
 		}
 		return internalAplic;
+	}
+	
+	private void saveRequest_To_ObektNaIzpitvaneRequest(Request request,
+			List<String> listStringOfRequest_To_ObektNaIzpitvaneRequest) {
+		for (String stringName : listStringOfRequest_To_ObektNaIzpitvaneRequest) {
+			Request_To_ObektNaIzpitvaneRequestDAO.setValueRequest_To_ObektNaIzpitvaneRequest(request, 
+					Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvane_requestByName(stringName))
+			;
+		}
+		
 	}
 
 }

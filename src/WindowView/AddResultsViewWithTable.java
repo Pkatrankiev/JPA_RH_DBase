@@ -1801,7 +1801,8 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 
 				}
-				if (dataTable[i][in_Prot_Colum].toString()=="1") {
+				System.out.println(dataTable[i][in_Prot_Colum].toString());
+				if (dataTable[i][in_Prot_Colum].toString()=="true") {
 					inProtokol = "";
 				}
 				

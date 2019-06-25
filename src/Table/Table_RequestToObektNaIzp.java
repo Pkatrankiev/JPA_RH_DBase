@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -41,8 +43,10 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	
-	private static List<Integer> listRowUpdateObject = new ArrayList<Integer>();
+//	private static List<Integer> listRowUpdateObject = new ArrayList<Integer>();
 	private static List<String> bsic_listObektNaIzpit = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
+	private static Map<Integer, List<String>> mapListForStrObektNaIzp = new HashMap<Integer, List<String>>();
+
 	private static int tbl_Colum = 3;
 	private static int request_Code_Colum = 0;
 	private static int obektNaIzp_Colum = 1;
@@ -82,10 +86,13 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 				}
 				if (table.getSelectedColumn() == obektNaIzp_Colum && user != null && user.getIsAdmin()) {
 					int rowObektNaIzp = table.rowAtPoint(e.getPoint());
-					System.out.println(rowObektNaIzp);
-					EditRequestObektIzpit(table, rowObektNaIzp, choiseRequest);
-
-					AddInUpdateList(rowObektNaIzp, dataTable);
+					if(EditRequestObektIzpit(table, rowObektNaIzp, choiseRequest, mapListForStrObektNaIzp, bsic_listObektNaIzpit)){
+					List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
+					table.setValueAt(createStringListObektNaIzp(listFromChoiceObektNaIzp, false), rowObektNaIzp, obektNaIzp_Colum);
+					mapListForStrObektNaIzp.put(rowObektNaIzp, listFromChoiceObektNaIzp);
+//					AddInUpdateList(rowObektNaIzp, listFromChoiceObektNaIzp);
+					}
+					
 				}
 			}
 			}
@@ -132,7 +139,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 						if (!dataTable[row][col].equals(value)) {
 							dataTable[row][col] = value;
 							fireTableCellUpdated(row, col);
-							AddInUpdateList(row, dataTable);
+//							AddInUpdateList(row, dataTable);
 						}
 					}
 
@@ -158,7 +165,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 						final Thread thread = new Thread(new Runnable() {
 							@Override
 							public void run() {
-								updateData(table, listRowUpdateObject, round);
+								updateData(table, mapListForStrObektNaIzp, round);
 							}
 						});
 						thread.start();
@@ -184,42 +191,64 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		repaint();
 	}
 	
-	private static void EditRequestObektIzpit  (JTable table, int row, Request request) {
-		List<String>  list = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
+	static Boolean EditRequestObektIzpit  (JTable table, int row, Request request, Map<Integer, List<String>> mapListForStrObektNaIzp,
+			List<String> bsic_listObektNaIzpit) {
+	
+		List<String>  OriginalListObektNaIzp = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
+//		List<String>  IncominglListObektNaIzp = new ArrayList<String>();
+		List<String>  IncominglListObektNaIzp = mapListForStrObektNaIzp.get(row);
+		if(IncominglListObektNaIzp!=null){
+			OriginalListObektNaIzp = IncominglListObektNaIzp;
+		}
 		
 		JFrame f = new JFrame();
-		new ChoiceFromListWithPlusAndMinus(f, list, bsic_listObektNaIzpit, "Обект на изпитване");
-		table.setValueAt(createStringListObektNaIzp(null, false), row, obektNaIzp_Colum);
-		
+		new ChoiceFromListWithPlusAndMinus(f, OriginalListObektNaIzp, bsic_listObektNaIzpit, "Обект на изпитване");
+		List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
+			
+		return checkForChange(listFromChoiceObektNaIzp, OriginalListObektNaIzp);
 	}
 	
-	
-
-	private static String[] ReadListObektNaIzpitInCell(JTable table, int row) {
-		List<String> list = new ArrayList<String>();
-		DefaultTableModel model =(DefaultTableModel) table.getModel();
-		String strObektIzpit = model.getValueAt(row, obektNaIzp_Colum).toString().trim();
-		String str = "";
-		strObektIzpit = strObektIzpit.replaceAll("\\(", "#<").replaceAll("\\)", "#>");
-						
-		while (!strObektIzpit.isEmpty()) {
-			if(strObektIzpit.indexOf(";")>=0){
-			str = strObektIzpit.substring(0, strObektIzpit.indexOf(";") + 1);
-			}else{
-				str = strObektIzpit;	
-			}
-			list.add(str.replaceAll(";", "").replaceAll("#<", "\\(").replaceAll("#>", "\\)").trim());
-			strObektIzpit =  strObektIzpit.replaceFirst(str, "");
+	private static Boolean checkForChange(List<String> listFromChoiceObektNaIzp, List<String>  OriginalListObektNaIzp){
+		Boolean check = false;
+		if(listFromChoiceObektNaIzp.size() == OriginalListObektNaIzp.size()){
+			int index=0;
+			for (String strObektNaIzp : OriginalListObektNaIzp) {
+				if(!listFromChoiceObektNaIzp.get(index).equals(strObektNaIzp)){
+					return true;
 				}
-		String [] masive = new String[list.size()];
-		int i=0;
-		for (String strList: list) {
-			masive[i] = strList;
-			i++;
+				index++;
+			}
+		}else{
+			return true;	
 		}
-		return masive;
+		return check;
 	}
-	
+
+//	private static String[] ReadListObektNaIzpitInCell(JTable table, int row) {
+//		List<String> list = new ArrayList<String>();
+//		DefaultTableModel model =(DefaultTableModel) table.getModel();
+//		String strObektIzpit = model.getValueAt(row, obektNaIzp_Colum).toString().trim();
+//		String str = "";
+//		strObektIzpit = strObektIzpit.replaceAll("\\(", "#<").replaceAll("\\)", "#>");
+//						
+//		while (!strObektIzpit.isEmpty()) {
+//			if(strObektIzpit.indexOf(";")>=0){
+//			str = strObektIzpit.substring(0, strObektIzpit.indexOf(";") + 1);
+//			}else{
+//				str = strObektIzpit;	
+//			}
+//			list.add(str.replaceAll(";", "").replaceAll("#<", "\\(").replaceAll("#>", "\\)").trim());
+//			strObektIzpit =  strObektIzpit.replaceFirst(str, "");
+//				}
+//		String [] masive = new String[list.size()];
+//		int i=0;
+//		for (String strList: list) {
+//			masive[i] = strList;
+//			i++;
+//		}
+//		return masive;
+//	}
+//	
 	private Object[][] getDataTable() {
 		List<Request> listAllIntApplic = RequestDAO.getInListAllValueRequest();
 		Object[][] table = new Object[listAllIntApplic.size()][tbl_Colum];
@@ -289,21 +318,33 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 	}
 
 	
-	private static void updateData(JTable table, List<Integer> listIdUpdateObject, TranscluentWindow round) {
-		
-		for (int rowUpdateObject : listIdUpdateObject) {
+	private static void updateData(JTable table, Map<Integer, List<String>> mapListForStrObektNaIzp, TranscluentWindow round) {
+		// create list of keys and values 
+        List<Integer> ListofKeys = null; 
+       
+  
+        // convert hashmap to list of keys and values 
+        ListofKeys = mapListForStrObektNaIzp.keySet().stream().collect(Collectors.toCollection(ArrayList::new)); 
+		for (int rowUpdateObject : ListofKeys) {
 			Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", table.getValueAt(rowUpdateObject, request_Code_Colum));
-			List<Obekt_na_izpitvane_request> listObektIzpit_requet = new ArrayList<Obekt_na_izpitvane_request>();
-			for (String strNameObektIzpit : ReadListObektNaIzpitInCell(table, rowUpdateObject)){
-				listObektIzpit_requet.add(Obekt_na_izpitvane_requestDAO.
-						getValueObekt_na_izpitvane_requestByName(strNameObektIzpit));
-			}
-			updateRequestToObIzpObject(request,listObektIzpit_requet);
+			List<Obekt_na_izpitvane_request> listObektIzpit_request = creadListStrFromMap(mapListForStrObektNaIzp,
+					rowUpdateObject);
+			updateRequestToObIzpObject(request,listObektIzpit_request);
 		}
 		round.StopWindow();
 	}
 
-	private static void updateRequestToObIzpObject(Request request, List<Obekt_na_izpitvane_request> listObektIzpit_requet ) {
+	static List<Obekt_na_izpitvane_request> creadListStrFromMap(
+			Map<Integer, List<String>> mapListForStrObektNaIzp, int rowUpdateObject) {
+		List<Obekt_na_izpitvane_request> listObektIzpit_request = new ArrayList<Obekt_na_izpitvane_request>();
+		for (String strNameObektIzpit : mapListForStrObektNaIzp.get(rowUpdateObject)){
+			listObektIzpit_request.add(Obekt_na_izpitvane_requestDAO.
+					getValueObekt_na_izpitvane_requestByName(strNameObektIzpit));
+		}
+		return listObektIzpit_request;
+	}
+
+	static void updateRequestToObIzpObject(Request request, List<Obekt_na_izpitvane_request> listObektIzpit_requet ) {
 		List<Request_To_ObektNaIzpitvaneRequest> listRequestInBase = Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
 		
 			int i =0;
@@ -327,16 +368,17 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		
 	
 
-	private static void AddInUpdateList(int row, Object[][] dataTable) {
-
-		if (listRowUpdateObject.isEmpty()) {
-			listRowUpdateObject.add(row);
-		} else {
-			if (!listRowUpdateObject.equals(row)) {
-				listRowUpdateObject.add(row);
-			}
-		}
-	}
+//	private static void AddInUpdateList(int row, List<String> listFromChoiceObektNaIzp) {
+//
+//		if (listRowUpdateObject.isEmpty()) {
+//			
+//			listRowUpdateObject.add(row);
+//		} else {
+//			if (!listRowUpdateObject.equals(row)) {
+//				listRowUpdateObject.add(row);
+//			}
+//		}
+//	}
 
 	private int getSelectedModelRow(JTable table) {
 		return  table.convertRowIndexToModel(table.getSelectedRow());

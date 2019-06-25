@@ -14,7 +14,8 @@ static Boolean isRemoteDBase = false;
 		
 		Map<String, String> persistenceMap = new HashMap<String, String>();
 		if(isRemoteDBase){
-		persistenceMap.put("javax.persistence.jdbc.url", "jdbc:mysql://192.168.21.27:3306/rhdbase?characterEncoding=UTF-8");
+//		persistenceMap.put("javax.persistence.jdbc.url", "jdbc:mysql://192.168.21.27:3306/rhdbase?characterEncoding=UTF-8");
+		persistenceMap.put("javax.persistence.jdbc.url", "jdbc:mysql://192.168.21.75:3306/rhdbase?characterEncoding=UTF-8");
 		persistenceMap.put("javax.persistence.jdbc.user", "someuser");
 		persistenceMap.put("javax.persistence.jdbc.password", "123");
 		}else{

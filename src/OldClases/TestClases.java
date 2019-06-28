@@ -1,5 +1,6 @@
 package OldClases;
 
+import java.awt.Frame;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 
@@ -11,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -30,10 +31,12 @@ import DBase_Class.TSI;
 import DBase_Class.Users;
 import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
+import Table.Table_Sample_List;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.Login;
-import WindowView.RequestViewNew;
+import WindowView.MainWindow;
+import WindowView.RequestView;
 import WindowView.TranscluentWindow;
 
 public class TestClases {
@@ -58,6 +61,31 @@ public class TestClases {
 //System.out.println(value);
 	}
 	
+	public static void testTableSampleList(){
+		JButton loginMenu = new JButton();
+		Frame win = new Frame();
+		MainWindow.StartLoginMenu(win,  loginMenu);
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 JFrame f = new JFrame();
+		    		new Table_Sample_List(f,round, null);
+		     }
+		    });
+		    thread.start();
+	}
+	
+	public static void testSetText_Ob_na_Izp_Request() {
+		List<Request> list_Requestv = RequestDAO.getInListAllValueRequest();
+		for (Request request : list_Requestv) {
+		String str_Ob_na_Izp =	Table_RequestToObektNaIzp.createStringListObektNaIzp(Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), false);
+		request.setText_obekt_na_izpitvane_request(str_Ob_na_Izp);
+		RequestDAO.updateObjectRequest(request);
+		}
+	}
 	
 	public static void test3() {
 		List<String> list = new ArrayList<String>();
@@ -152,7 +180,7 @@ public class TestClases {
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-	    	new RequestViewNew(f, user,request,round);
+	    	new RequestView(f, user,request,round);
 		     }
 		    });
 		    thread.start();

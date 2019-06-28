@@ -68,6 +68,7 @@ public class SetDBfromWordDoc {
 		Boolean section = false;
 		Izpitvan_produkt izpitvan_produkt = null;
 		String description_sample_group = null;
+		String text_obekt_na_izpitvane_request = null;
 
 		Extra_module extra_mod = null;
 		Ind_num_doc ind_num_doc = null;
@@ -567,6 +568,7 @@ public class SetDBfromWordDoc {
 				description_sample_group, // description_sample_group
 				date_time_reception, // date_time_reception
 				date_execution, // date_execution
+				text_obekt_na_izpitvane_request,
 				ind_num_doc, // ind_num_doc
 				izpitvan_produkt, // izpitvan_produkt
 				razmernost_recuest, // razmernosti
@@ -591,8 +593,8 @@ public class SetDBfromWordDoc {
 				RazmernostiDAO.getValueRazmernostiByName(razmernost[i]);
 
 				Sample samp = new Sample(sample_code[i], sample_description[i], date_time_reference, request,
-						Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]), period,
-						year);
+						Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(ob_na_izpit[i]),
+						null, period,	year);
 				SampleDAO.setValueSample(samp);
 
 				for (int k = 0; k <= max_num_results[i][p]; k++) {

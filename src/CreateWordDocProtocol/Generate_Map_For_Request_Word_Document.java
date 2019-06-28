@@ -13,9 +13,11 @@ import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import Table.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
+
 
 public class Generate_Map_For_Request_Word_Document {
 	
@@ -244,8 +246,10 @@ public class Generate_Map_For_Request_Word_Document {
 	}
 
 	private static String generate_obekt_na_izpitvane_Masive_String(Request request) {
-
-		return request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+		
+		return Table_RequestToObektNaIzp.createStringListObektNaIzp(
+				Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), false);
+//		return request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
 
 	}
 

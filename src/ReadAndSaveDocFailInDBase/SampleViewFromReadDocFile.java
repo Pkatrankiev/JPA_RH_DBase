@@ -168,7 +168,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 						for (String string : comBox_O_I_S) {
 							comboBox_OI[i].addItem(string);
 						}
-						comboBox_OI[i].setSelectedItem(sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+						comboBox_OI[i].setSelectedItem(sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 						if (notEmptryString)
 							comboBox_OI[i].setSelectedItem(stringVol[i][1]);
 						panel[i].add(comboBox_OI[i]);

@@ -9,9 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
 
-import Aplication.RequestDAO;
 import DBase_Class.Request;
 import java.awt.Dimension;
 
@@ -35,7 +33,7 @@ public class RequestMiniFrame extends JDialog {
 				String dateRequest = request.getDate_request();
 				
 				String i_P_Request = request.getIzpitvan_produkt().getName_zpitvan_produkt();
-				String obekt_I_Request = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+				String obekt_I_Request = request.getText_obekt_na_izpitvane_request();
 				String countSample = request.getCounts_samples()+"";
 				String applicant = "";
 				if (request.getExtra_module()==null) {

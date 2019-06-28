@@ -41,36 +41,38 @@ import java.awt.event.ActionEvent;
 
 public class SampleViewAdd extends JDialog {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final JScrollPane scrollPane;
-	private JPanel panel_Label;
-	private JPanel[] panel;
+	
+	private static JPanel panel_Label;
+	private static JPanel[] panel;
+	private static JPanel[] edit_comboBox_OI;
+	private static JPanel[] edit_Ref_date;
+	
 	private static JLabel[] lbl_sample_code;
 	@SuppressWarnings("rawtypes")
 	private static JComboBox[] comboBox_OI;
-	private static JPanel[] edit_comboBox_OI;
-	private static JTextArea[] txtArea_Sample_Descr;
-	private static JTextField[] txtFld_Ref_date;
-	private static JPanel[] edit_Ref_date;
+	@SuppressWarnings("rawtypes")
+	private static JComboBox[] comboBox_OIR;
 	@SuppressWarnings("rawtypes")
 	private static JComboBox[] comboBox_Period;
+	
+	private static JTextArea[] txtArea_Sample_Descr;
+	private static JTextField[] txtFld_Ref_date;
 	private static JTextField[] txtFld_Year;
 	private static Boolean[] corectYear;
 	private static Boolean[] corect_Ref_date;
-	private static ArrayList<String> comBox_O_I_S_dinam;
-	private Boolean notEmptryString;
-	private static Boolean cancelEntered = false;
-	private Font font = new  Font("Tahoma", Font.PLAIN, 12);
 	
-	/**
-	 * Create the dialog.
-	 */
+	private static ArrayList<String> comBox_O_I_S_dinam;
+	private static Boolean notEmptryString;
+	private static Boolean cancelEntered = false;
+	private static Font font = new  Font("Tahoma", Font.PLAIN, 12);
+	private static int dimmen = 1130;
+	 
 	@SuppressWarnings("unchecked")
 	public SampleViewAdd(Frame parent, final int countSample, int requestCode,  ArrayList<String> comBox_O_I_S, String ref_Date_Time, String period,
-			String[][] stringVol, Request tamplateRequest) {
+			String[][] incoming_masiveValueSample, Request tamplateRequest, List<String>  listStringOfRequest_To_ObektNaIzpitvaneRequest) {
 		super(parent, "Информация за пробите", true);
 		
 		List<Sample> listSample = new ArrayList<Sample>();
@@ -78,7 +80,7 @@ public class SampleViewAdd extends JDialog {
 			listSample = SampleDAO.getListSampleFromColumnByVolume("request", tamplateRequest);
 				}
 		
-		setBounds(100, 100, 910, (countSample * 29) + 120);
+		setBounds(100, 100, dimmen, (countSample * 29) + 120);
 		getContentPane().setLayout(new BorderLayout());
 		{
 
@@ -90,7 +92,7 @@ public class SampleViewAdd extends JDialog {
 
 			panel_Label = new JPanel();
 			panel_Label.setAlignmentY(Component.TOP_ALIGNMENT);
-			panel_Label.setMaximumSize(new Dimension(900, 30));
+			panel_Label.setMaximumSize(new Dimension(1120, 30));
 			panel_Label.setAutoscrolls(true);
 
 			JLabel lbl_sam_code = new JLabel("Код");
@@ -98,21 +100,31 @@ public class SampleViewAdd extends JDialog {
 			lbl_sam_code.setHorizontalAlignment(JLabel.CENTER);
 			lbl_sam_code.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_sam_code);
+			
+			JLabel lbl_OI_Request = new JLabel("Обект от който са взети пробите");
+			lbl_OI_Request.setPreferredSize(new Dimension(220, 20));
+			lbl_OI_Request.setHorizontalAlignment(JLabel.CENTER);
+			lbl_OI_Request.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panel_Label.add(lbl_OI_Request);
+			
 			JLabel lbl_OI = new JLabel("Обект на изпитване");
 			lbl_OI.setPreferredSize(new Dimension(225, 20));
 			lbl_OI.setHorizontalAlignment(JLabel.CENTER);
 			lbl_OI.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_OI);
+			
 			JLabel lbl_Samp_Descr = new JLabel("Описание на пробата");
 			lbl_Samp_Descr.setPreferredSize(new Dimension(300, 20));
 			lbl_Samp_Descr.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Samp_Descr.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Samp_Descr);
+			
 			JLabel lbl_Ref_date = new JLabel("Референтна дата");
 			lbl_Ref_date.setPreferredSize(new Dimension(130, 20));
 			lbl_Ref_date.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Ref_date.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Ref_date);
+			
 			JLabel lbl_Preiod = new JLabel("Периодичност");
 			lbl_Preiod.setPreferredSize(new Dimension(142, 20));
 			lbl_Preiod.setHorizontalAlignment(JLabel.CENTER);
@@ -126,6 +138,7 @@ public class SampleViewAdd extends JDialog {
 
 			panel = new JPanel[countSample];
 			lbl_sample_code = new JLabel[countSample];
+			comboBox_OIR = new JComboBox[countSample];
 			comboBox_OI = new JComboBox[countSample];
 			edit_comboBox_OI = new JPanel[countSample];
 			txtArea_Sample_Descr = new JTextArea[countSample];
@@ -138,7 +151,7 @@ public class SampleViewAdd extends JDialog {
 
 			notEmptryString = false;
 			try {
-				int ss = stringVol.length;
+				int ss = incoming_masiveValueSample.length;
 				if (ss == countSample)
 					notEmptryString = true;
 			} catch (NullPointerException e) {
@@ -151,7 +164,7 @@ public class SampleViewAdd extends JDialog {
 				{
 					panel[i] = new JPanel();
 					panel[i].setAlignmentY(Component.TOP_ALIGNMENT);
-					panel[i].setMaximumSize(new Dimension(900, 25));
+					panel[i].setMaximumSize(new Dimension(1120, 25));
 					panel[i].setAutoscrolls(true);
 
 					{
@@ -163,6 +176,22 @@ public class SampleViewAdd extends JDialog {
 						panel[i].add(lbl_sample_code[i]);
 					}
 					{
+						comboBox_OIR[i] = new JComboBox<Object>();
+						comboBox_OIR[i] .setFont(font);
+						comboBox_OIR[i].setPreferredSize(new Dimension(220, 20));
+
+						for (String string : listStringOfRequest_To_ObektNaIzpitvaneRequest) {
+							comboBox_OIR[i].addItem(string);
+						}
+						if (notEmptryString){
+							comboBox_OIR[i].setSelectedItem(incoming_masiveValueSample[i][1]);
+						}else{
+						if(tamplateRequest != null && i<listSample.size())
+							comboBox_OIR[i].setSelectedItem(listSample.get(i).getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane());
+						}
+						panel[i].add(comboBox_OIR[i]);
+					}
+					{
 						comboBox_OI[i] = new JComboBox<Object>();
 						comboBox_OI[i] .setFont(font);
 						comboBox_OI[i].setPreferredSize(new Dimension(200, 20));
@@ -171,10 +200,10 @@ public class SampleViewAdd extends JDialog {
 							comboBox_OI[i].addItem(string);
 						}
 						if (notEmptryString){
-							comboBox_OI[i].setSelectedItem(stringVol[i][1]);
+							comboBox_OI[i].setSelectedItem(incoming_masiveValueSample[i][2]);
 						}else{
 						if(tamplateRequest != null && i<listSample.size())
-							comboBox_OI[i].setSelectedItem(listSample.get(i).getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+							comboBox_OI[i].setSelectedItem(listSample.get(i).getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 						}
 						panel[i].add(comboBox_OI[i]);
 
@@ -235,7 +264,7 @@ public class SampleViewAdd extends JDialog {
 						txtArea_Sample_Descr[i] = new JTextArea();
 						txtArea_Sample_Descr[i] .setFont(font);
 						if (notEmptryString){
-							txtArea_Sample_Descr[i].setText(stringVol[i][2]);
+							txtArea_Sample_Descr[i].setText(incoming_masiveValueSample[i][3]);
 						}else{
 						if(tamplateRequest != null && i<listSample.size())
 							txtArea_Sample_Descr[i].setText(listSample.get(i).getDescription_sample());
@@ -251,7 +280,7 @@ public class SampleViewAdd extends JDialog {
 
 								Dimension d = txtArea_Sample_Descr[selection].getMinimumSize();
 								txtArea_Sample_Descr[selection].setPreferredSize(new Dimension(300, (d.height + 2)));
-								panel[selection].setMaximumSize(new Dimension(900, (d.height + 8)));
+								panel[selection].setMaximumSize(new Dimension(dimmen, (d.height + 8)));
 							}
 
 							@Override
@@ -259,7 +288,7 @@ public class SampleViewAdd extends JDialog {
 
 								Dimension d = txtArea_Sample_Descr[selection].getMinimumSize();
 								txtArea_Sample_Descr[selection].setPreferredSize(new Dimension(300, (d.height + 2)));
-								panel[selection].setMaximumSize(new Dimension(900, (d.height + 8)));
+								panel[selection].setMaximumSize(new Dimension(dimmen, (d.height + 8)));
 							}
 
 							@Override
@@ -267,7 +296,7 @@ public class SampleViewAdd extends JDialog {
 
 								Dimension d = txtArea_Sample_Descr[selection].getMinimumSize();
 								txtArea_Sample_Descr[selection].setPreferredSize(new Dimension(300, (d.height + 2)));
-								panel[selection].setMaximumSize(new Dimension(900, (d.height + 8)));
+								panel[selection].setMaximumSize(new Dimension(dimmen, (d.height + 8)));
 							}
 						});
 
@@ -279,7 +308,7 @@ public class SampleViewAdd extends JDialog {
 						txtFld_Ref_date[i] .setFont(font);
 						txtFld_Ref_date[i].setPreferredSize(new Dimension(120, 20));
 						if (notEmptryString)
-							txtFld_Ref_date[i].setText(stringVol[i][3]);
+							txtFld_Ref_date[i].setText(incoming_masiveValueSample[i][4]);
 												
 						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
 
@@ -375,7 +404,7 @@ public class SampleViewAdd extends JDialog {
 //						}
 						comboBox_Period[i].setSelectedItem(period);
 						if (notEmptryString)
-							comboBox_Period[i].setSelectedItem(stringVol[i][4]);
+							comboBox_Period[i].setSelectedItem(incoming_masiveValueSample[i][5]);
 												
 						panel[i].add(comboBox_Period[i]);
 					}
@@ -388,7 +417,7 @@ public class SampleViewAdd extends JDialog {
 						txtFld_Year[i] .setFont(font);
 						txtFld_Year[i].setPreferredSize(new Dimension(37, 20));
 						if (notEmptryString)
-							txtFld_Year[i].setText(stringVol[i][5]);
+							txtFld_Year[i].setText(incoming_masiveValueSample[i][6]);
 						
 						panel[i].add(txtFld_Year[i]);
 						txtFld_Year[i].setColumns(3);
@@ -435,9 +464,9 @@ public class SampleViewAdd extends JDialog {
 			}
 			System.out.println(notEmptryString);
 			if (notEmptryString)
-				for (int j = 0; j < stringVol.length; j++) {
-					for (int j2 = 0; j2 < stringVol[0].length; j2++) {
-						System.out.println(stringVol[j][j2] + " ");
+				for (int j = 0; j < incoming_masiveValueSample.length; j++) {
+					for (int j2 = 0; j2 < incoming_masiveValueSample[0].length; j2++) {
+						System.out.println(incoming_masiveValueSample[j][j2] + " ");
 					}
 					System.out.println();
 				}
@@ -503,49 +532,23 @@ public class SampleViewAdd extends JDialog {
 
 	}
 
-//	public static String[][] getVolumeSampleViewFromTamplete(Request tamplateRequest, String ref_Date_Time, String period) {
-//		
-////		cancelEntered = true;
-////			
-////			String[][] volSampleView = new String[listSample.size()][6];
-////			int i = 0;
-////			for (Sample sample : listSample) {
-////				volSampleView[i][0] = sample.getSample_code();
-////			
-////				volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
-////				
-////				volSampleView[i][2] = sample.getDescription_sample();
-////			
-////				volSampleView[i][3] = ref_Date_Time;
-////				
-////				volSampleView[i][4] = period;
-////				String year ="";
-////				if(ref_Date_Time!=""){
-////					 year =ref_Date_Time.substring(6, 10);
-////				}
-////				if(period==null){
-////					year="";
-////				}
-////				
-////				volSampleView[i][5] = year;
-////				
-////				i++;
-////			}
-//		
-//			return volSampleView;
-//		}
 			
 	public static String[][] getVolumeSampleView(int countSample) {
-				String[][] volSampleView = new String[countSample][6];
-		for (int i = 0; i < countSample; i++) {
-			volSampleView[i][0] = lbl_sample_code[i].getText();
-			volSampleView[i][1] = comboBox_OI[i].getSelectedItem().toString();
-			volSampleView[i][2] = txtArea_Sample_Descr[i].getText();
-			volSampleView[i][3] = txtFld_Ref_date[i].getText();
-			volSampleView[i][4] = comboBox_Period[i].getSelectedItem().toString();
-			volSampleView[i][5] = txtFld_Year[i].getText();
-		
-		}
+				String[][] volSampleView = new String[countSample][7];
+				
+				for (int i = 0; i < countSample; i++) {
+					volSampleView[i][0] = lbl_sample_code[i].getText();
+					volSampleView[i][1] = comboBox_OIR[i].getSelectedItem().toString();
+					volSampleView[i][2] = comboBox_OI[i].getSelectedItem().toString();
+					volSampleView[i][3] = txtArea_Sample_Descr[i].getText();
+					volSampleView[i][4] = txtFld_Ref_date[i].getText();
+					volSampleView[i][5] = comboBox_Period[i].getSelectedItem().toString();
+					volSampleView[i][6] = txtFld_Year[i].getText();
+					
+				
+				}
+											
+
 		return volSampleView;
 	}
 	

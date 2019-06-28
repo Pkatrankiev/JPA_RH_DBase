@@ -76,7 +76,7 @@ public class Obekt_na_izpitvane_requestDAO {
 	
 	@GET
 	@QueryParam("{id}")
-public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryParam("id") int id) {
+	public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryParam("id") int id) {
 //	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 	EntityManager entitymanager = emfactory.createEntityManager();

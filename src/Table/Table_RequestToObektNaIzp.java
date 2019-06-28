@@ -37,6 +37,7 @@ import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
+import sun.nio.cs.ext.MSISO2022JP;
 
 public class Table_RequestToObektNaIzp  extends JDialog {
 
@@ -224,31 +225,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		return check;
 	}
 
-//	private static String[] ReadListObektNaIzpitInCell(JTable table, int row) {
-//		List<String> list = new ArrayList<String>();
-//		DefaultTableModel model =(DefaultTableModel) table.getModel();
-//		String strObektIzpit = model.getValueAt(row, obektNaIzp_Colum).toString().trim();
-//		String str = "";
-//		strObektIzpit = strObektIzpit.replaceAll("\\(", "#<").replaceAll("\\)", "#>");
-//						
-//		while (!strObektIzpit.isEmpty()) {
-//			if(strObektIzpit.indexOf(";")>=0){
-//			str = strObektIzpit.substring(0, strObektIzpit.indexOf(";") + 1);
-//			}else{
-//				str = strObektIzpit;	
-//			}
-//			list.add(str.replaceAll(";", "").replaceAll("#<", "\\(").replaceAll("#>", "\\)").trim());
-//			strObektIzpit =  strObektIzpit.replaceFirst(str, "");
-//				}
-//		String [] masive = new String[list.size()];
-//		int i=0;
-//		for (String strList: list) {
-//			masive[i] = strList;
-//			i++;
-//		}
-//		return masive;
-//	}
-//	
+
 	private Object[][] getDataTable() {
 		List<Request> listAllIntApplic = RequestDAO.getInListAllValueRequest();
 		Object[][] table = new Object[listAllIntApplic.size()][tbl_Colum];
@@ -305,6 +282,27 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		
 	}
 	
+	public static String[] getMasiveStringOfRequest_To_ObektNaIzpitvaneRequest(Request request){
+		List<Request_To_ObektNaIzpitvaneRequest> list = 
+				Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
+		String[] masive = new String[list.size()];
+		int i=0;
+		for (Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest : list) {
+			masive[i]=request_To_ObektNaIzpitvaneRequest.getObektNaIzp().getName_obekt_na_izpitvane();
+			i++;
+		}
+		return masive;
+			}
+	
+	public static Request_To_ObektNaIzpitvaneRequest getRequest_To_ObektNaIzpitvaneRequest(Request request, String ObektNaIzpitvaneRequest){
+		List<Request_To_ObektNaIzpitvaneRequest> list = 
+				Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
+		for (Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest : list) {
+			if(request_To_ObektNaIzpitvaneRequest.getObektNaIzp().getName_obekt_na_izpitvane().equals(ObektNaIzpitvaneRequest))
+			return request_To_ObektNaIzpitvaneRequest;
+				}
+		return null;
+			}
 	
 	@SuppressWarnings("rawtypes")
 	private Class[] getTypes() {
@@ -344,8 +342,18 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		return listObektIzpit_request;
 	}
 
+	static List<String> creatListStringfromListObekt_na_izpitvane_request(
+			List<Obekt_na_izpitvane_request> listObektIzpit_request) {
+	List<String> list = new ArrayList<String>();
+		for (Obekt_na_izpitvane_request obekt_na_izpitvane_request : listObektIzpit_request) {
+			list.add(obekt_na_izpitvane_request.getName_obekt_na_izpitvane());
+		}
+		return list;
+	}
+	
 	static void updateRequestToObIzpObject(Request request, List<Obekt_na_izpitvane_request> listObektIzpit_requet ) {
-		List<Request_To_ObektNaIzpitvaneRequest> listRequestInBase = Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
+		List<Request_To_ObektNaIzpitvaneRequest> listRequestInBase = 
+				Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
 		
 			int i =0;
 			for (Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest : listRequestInBase) {
@@ -365,20 +373,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 			}
 
 		}
-		
 	
-
-//	private static void AddInUpdateList(int row, List<String> listFromChoiceObektNaIzp) {
-//
-//		if (listRowUpdateObject.isEmpty()) {
-//			
-//			listRowUpdateObject.add(row);
-//		} else {
-//			if (!listRowUpdateObject.equals(row)) {
-//				listRowUpdateObject.add(row);
-//			}
-//		}
-//	}
 
 	private int getSelectedModelRow(JTable table) {
 		return  table.convertRowIndexToModel(table.getSelectedRow());

@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 import Aplication.Internal_applicantDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
-import Aplication.Obekt_na_izpitvane_requestDAO;
+
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.DopalnIziskvDAO;
 import Aplication.PeriodDAO;
@@ -49,7 +49,7 @@ import DBase_Class.Internal_applicant;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Obekt_na_izpitvane_request;
+
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Razmernosti;
@@ -1000,7 +1000,7 @@ public class ExtraRequestView extends JDialog {
 							SampleViewAdd sampleDescript = null;
 
 							sampleDescript = new SampleViewAdd(f, count_Sample, requestCode, comBox_O_I_S,
-									ref_Date_Time, period, masiveSampleValue, tamplateRequest);
+									ref_Date_Time, period, masiveSampleValue, tamplateRequest, null);
 
 							sampleDescript.setVisible(true);
 							if (!SampleViewAdd.cancelEntered()) {
@@ -1580,8 +1580,8 @@ public class ExtraRequestView extends JDialog {
 
 		Razmernosti razmernosti = RazmernostiDAO.getValueRazmernostiByName(choice_Razmernost.getSelectedItem());
 
-		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
-				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
+//		Obekt_na_izpitvane_request obekt_na_izpitvane_request = Obekt_na_izpitvane_requestDAO
+//				.getValueObekt_na_izpitvane_requestByName(choice_obekt_na_izpitvane_request.getSelectedItem());
 
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 
@@ -1591,7 +1591,7 @@ public class ExtraRequestView extends JDialog {
 				chckbx_accreditation.isSelected(), section, extra_mod, count_Sample,
 				txtArea_Descript_grup_Sample.getText(), txtFld_date_reception.getText(),
 				txtFld_date_execution.getText(), ind_num_doc, izpitvan_produkt, razmernosti, zabelejki, curent_user,
-				obekt_na_izpitvane_request);
+				"");
 
 		return recuest;
 
@@ -1668,7 +1668,7 @@ public class ExtraRequestView extends JDialog {
 
 			SampleDAO.setValueSample(masiveSampleValue[i][0].substring(5, masiveSampleValue[i][0].length()),
 					masiveSampleValue[i][2], masiveSampleValue[i][3], request, obectNaIzpitvaneSample, period,
-					Integer.valueOf(masiveSampleValue[i][5]));
+					Integer.valueOf(masiveSampleValue[i][5]),null);
 
 		}
 	}

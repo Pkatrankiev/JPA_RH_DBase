@@ -89,7 +89,7 @@ public class RequestViewAplication {
 		int i = 0;
 		for (Sample sample : listSample) {
 			volSampleView[i][0] = sample.getSample_code();
-			volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			volSampleView[i][1] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 			volSampleView[i][2] = sample.getDescription_sample();
 			volSampleView[i][3] = sample.getDate_time_reference();
 			String period = "";
@@ -218,20 +218,25 @@ public class RequestViewAplication {
 	}
 
 	// Sample
-	public static String writeSampleDescript(String[][] str1) {
-
-		int[] numPoz = { 8, 20, 50, 17, 10, 6 };
-		String someLine = "  Код  " + " Обект на изпитване " + "                Описание на пробата               "
-				+ " Референтна дата " + "  Периодичност  " + "\n";
+	public static String writeSampleDescript(String[][] masiveSampleValue) {
+		String someLine="";
+		int[] numPoz = { 8, 20, 20, 30, 17, 10, 6 };
+		
+		String[] firsLine = {"Код", "Обект от заявката", "Обект на изпитване" , "Описание на пробата",
+				 "Референтна дата" , "Периодичност"};
+		for (int i = 0; i < firsLine.length; i++) {
+			someLine += padString(firsLine[i], numPoz[i]) ;
+		}
+		someLine += "\n";
 		String str_som = "";
 		String[] str_desc = new String[10];
 		int k = 0;
-		for (int i = 0; i < str1.length; i++) {
+		for (int i = 0; i < masiveSampleValue.length; i++) {
 
-			for (int j = 0; j < str1[0].length; j++) {
+			for (int j = 0; j < masiveSampleValue[0].length; j++) {
 				if (j == 2) {
 					k = 0;
-					str_desc[k] = str1[i][j];
+					str_desc[k] = masiveSampleValue[i][j];
 					String ssss = str_desc[k];
 					while (ssss.indexOf("\n") > 0) {
 						str_desc[k] = ssss.substring(0, ssss.indexOf("\n"));
@@ -242,7 +247,7 @@ public class RequestViewAplication {
 
 					str_som = str_desc[0];
 				} else
-					str_som = str1[i][j];
+					str_som = masiveSampleValue[i][j];
 				someLine = someLine + padString(str_som, numPoz[j]);
 
 			}
@@ -276,7 +281,7 @@ public class RequestViewAplication {
 		List<Sample> list_Sample_From_Request = get_List_SamplelFromList_Sample(request, listAllSample);
 		for (Sample sample : list_Sample_From_Request) {
 			volSampleView[i][0] = sample.getSample_code();
-			volSampleView[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			volSampleView[i][1] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 			volSampleView[i][2] = sample.getDescription_sample();
 			volSampleView[i][3] = sample.getDate_time_reference();
 			String period = "";

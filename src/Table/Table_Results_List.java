@@ -263,7 +263,7 @@ public class Table_Results_List extends JDialog {
 								int request_code = Integer.parseInt(results.getSample().getRequest().getRecuest_code());
 								tableResult[i][rqst_code_Colum] = request_code;
 								tableResult[i][smpl_code_Colum] = sample.getSample_code();
-								tableResult[i][obk_Izp_Colum] = sample.getObekt_na_izpitvane()
+								tableResult[i][obk_Izp_Colum] = sample.getObekt_na_izpitvane_sample()
 										.getName_obekt_na_izpitvane();
 								tableResult[i][mtd_Izp_Colum] = results.getMetody().getCode_metody();
 								tableResult[i][izp_Pok_Colum] = results.getPokazatel().getName_pokazatel();
@@ -327,7 +327,7 @@ public class Table_Results_List extends JDialog {
 						int request_code = Integer.parseInt(results.getSample().getRequest().getRecuest_code());
 						tableSample[i][rqst_code_Colum] = request_code;
 						tableSample[i][smpl_code_Colum] = sample.getSample_code();
-						tableSample[i][obk_Izp_Colum] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+						tableSample[i][obk_Izp_Colum] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 						tableSample[i][mtd_Izp_Colum] = results.getMetody().getCode_metody();
 						tableSample[i][izp_Pok_Colum] = results.getPokazatel().getName_pokazatel();
 						tableSample[i][nuclide_Colum] = results.getNuclide().getSymbol_nuclide();

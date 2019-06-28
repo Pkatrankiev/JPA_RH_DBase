@@ -374,7 +374,7 @@ public class RequestViewFunction {
 		int i = 0;
 		for (Sample sample : smple_list) {
 			smple_vol[i][0] = sample.getSample_code();
-			smple_vol[i][1] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			smple_vol[i][1] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 			smple_vol[i][2] = sample.getDescription_sample();
 			smple_vol[i][3] = sample.getDate_time_reference();
 			if (sample.getPeriod() == null) {
@@ -440,7 +440,7 @@ public class RequestViewFunction {
 		String[][] volSampleView = new String[countSample][6];
 		for (int i = 0; i < countSample; i++) {
 			volSampleView[i][0] = request.getRecuest_code() + "-" + sample.get(i).getSample_code();
-			volSampleView[i][1] = sample.get(i).getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+			volSampleView[i][1] = sample.get(i).getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 			volSampleView[i][2] = sample.get(i).getDescription_sample();
 			volSampleView[i][3] = sample.get(i).getDate_time_reference();
 			String str = "";

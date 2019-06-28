@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
 import DBase_Class.Request;
+import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
@@ -23,7 +24,8 @@ public class SampleDAO {
 	
 
 	public static void setValueSample(String sample_code, String description_sample, String date_time_reference,
-			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period, int godina_period) {
+			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period, 
+			int godina_period, Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
@@ -32,10 +34,11 @@ public class SampleDAO {
 
 		Sample valueEnt = new Sample();
 		valueEnt.setSample_code(sample_code);
+		valueEnt.setRequest_to_obekt_na_izpitvane_request(request_To_ObektNaIzpitvaneRequest);
 		valueEnt.setDescription_sample(description_sample);
 		valueEnt.setDate_time_reference(date_time_reference);
 		valueEnt.setRequest(request);
-		valueEnt.setObekt_na_izpitvane(obekt_na_izpitvane);
+		valueEnt.setObekt_na_izpitvane_sample(obekt_na_izpitvane);
 		valueEnt.setPeriod(period);
 		valueEnt.setGodina_period(godina_period);
 
@@ -53,7 +56,7 @@ public class SampleDAO {
 		valueEnt.setDescription_sample(description_sample);
 		valueEnt.setDate_time_reference(date_time_reference);
 		valueEnt.setRequest(request);
-		valueEnt.setObekt_na_izpitvane(obekt_na_izpitvane);
+		valueEnt.setObekt_na_izpitvane_sample(obekt_na_izpitvane);
 		valueEnt.setPeriod(period);
 		valueEnt.setGodina_period(godina_period);
 		

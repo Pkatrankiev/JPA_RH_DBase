@@ -3,6 +3,7 @@ package Table;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -33,9 +34,11 @@ import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import CreateWordDocProtocol.AplicationDocTemplate;
 import DBase_Class.Request;
+import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
 import WindowView.DatePicker;
 import WindowView.Login;
+import WindowView.MiniComboBoxFrame;
 import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
@@ -43,7 +46,6 @@ import net.coderazzi.filters.gui.TableFilterHeader;
 
 public class Table_Sample_List extends JDialog {
 
-	
 	private static final long serialVersionUID = 1L;
 	private static String[] values_Period;
 	private static String[] values_O_I_S;
@@ -62,7 +64,6 @@ public class Table_Sample_List extends JDialog {
 	private static int yar_Colum = 8;
 	private static int smpl_Id_Colum = 9;
 
-	
 	public Table_Sample_List(JFrame parent, TranscluentWindow round, Request templateRequest) {
 		super(parent, "Списък на Пробите", true);
 
@@ -87,34 +88,35 @@ public class Table_Sample_List extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				DefaultTableModel model =(DefaultTableModel) table.getModel();
-				if (table.getSelectedColumn() == rqst_code_Colum) {
-					int row = table.rowAtPoint(e.getPoint());
-					table.columnAtPoint(e.getPoint());
-					
-					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
-					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-					System.out.println(row + " " + choiseRequest.getRecuest_code());
-					new RequestMiniFrame(new JFrame(), choiseRequest);
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				getSelectedModelRow(table);
+				int selectColiumn = table.getSelectedColumn();
+				int selectedRow = getSelectedModelRow(table);
+				String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
 
+				if (table.getSelectedColumn() == rqst_code_Colum) {
+					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+					new RequestMiniFrame(new JFrame(), choiseRequest);
 				}
+
+				if (selectColiumn == O_I_R_Colum) {
+					String origO_I_Request = model.getValueAt(selectedRow, O_I_R_Colum).toString();
+					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+					String[] values_O_I_R = Table_RequestToObektNaIzp
+							.getMasiveStringOfRequest_To_ObektNaIzpitvaneRequest(choiseRequest);
+
+					JFrame f = new JFrame();
+					MiniComboBoxFrame miniBoxFrame = new MiniComboBoxFrame(f, values_O_I_R, origO_I_Request);
+					String changed_O_I_R = miniBoxFrame.getStrO_I_Request();
+					model.setValueAt(changed_O_I_R, selectedRow, O_I_R_Colum);
+					if (!changed_O_I_R.equals(origO_I_Request)) {
+						AddInUpdateList(selectedRow);
+					}
+				}
+
 				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
 
-					getSelectedModelRow(table);
-					int col = table.getSelectedColumn();
-					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
-					if (reqCodeStr.startsWith("templ")) {
-						// choiseRequest =
-						// RequestDAO.getRequestFromColumnByVolume("recuest_code",
-						// reqCodeStr);
-						// RequestView reqView = new
-						// RequestView(Login.getCurentUser(),
-						// choiseRequest);
-						// frame.setVisible(false);
-
-					}
-
-					if (col == smpl_code_Colum) {
+					if (selectColiumn == smpl_code_Colum) {
 						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 						TranscluentWindow round = new TranscluentWindow();
 
@@ -127,16 +129,15 @@ public class Table_Sample_List extends JDialog {
 						});
 						thread.start();
 					}
-					
-					
-					if (col == O_I_R_Colum || col == smpl_group_descrp_Colum) {
+
+					if (selectColiumn == smpl_group_descrp_Colum) {
 						startEditChoiceRequest(reqCodeStr);
 					}
+
 				}
-				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
+
 			}
 
-			
 		});
 
 		new TableFilterHeader(table, AutoChoices.ENABLED);
@@ -218,26 +219,33 @@ public class Table_Sample_List extends JDialog {
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
 				JButton btnNewButton = new JButton("export");
-				
-				
+
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
-//						TranscluentWindow round = new TranscluentWindow();
+						 TranscluentWindow round = new TranscluentWindow();
 
 						final Thread thread = new Thread(new Runnable() {
 							@Override
 							public void run() {
-							
-								 try {
-									AplicationDocTemplate.toExcel(table );
-								} catch (UnsupportedEncodingException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (FileNotFoundException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+								
+								DefaultTableModel model = (DefaultTableModel) table.getModel();
+								List<Integer> listRow = new ArrayList<Integer>();
+								for (int i = 0; i < model.getRowCount(); i++) {
+									listRow.add(i);
 								}
+								
+								updateChangedSampleObject(table, listRow, round);
+
+//								try {
+//									AplicationDocTemplate.toExcel(table);
+//								} catch (UnsupportedEncodingException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								} catch (FileNotFoundException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
 
 							}
 						});
@@ -246,7 +254,7 @@ public class Table_Sample_List extends JDialog {
 					}
 				});
 				panel_Btn.add(btnNewButton);
-				
+
 				JButton btnSave = new JButton("Запис");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -256,8 +264,9 @@ public class Table_Sample_List extends JDialog {
 						final Thread thread = new Thread(new Runnable() {
 							@Override
 							public void run() {
-
-								updateData(table, listChangedSampleId, round);
+								System.out.println(listChangedSampleId);
+								updateChangedSampleObject(table, listChangedSampleId, round);
+								 
 
 							}
 						});
@@ -268,7 +277,7 @@ public class Table_Sample_List extends JDialog {
 				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				if (Login.getCurentUser() != null && Login.getCurentUser().getIsAdmin()) {
-									
+
 					panel_Btn.add(btnSave);
 				}
 				JButton btnCancel = new JButton("Изход");
@@ -304,13 +313,13 @@ public class Table_Sample_List extends JDialog {
 		Period_Column.setCellRenderer(renderer);
 	}
 
-	
 	private static void AddInUpdateList(int row) {
+
 		if (listChangedSampleId.isEmpty()) {
-			listChangedSampleId.add((Integer) dataTable[row][smpl_Id_Colum]);
+			listChangedSampleId.add(row);
 		} else {
-			if (!listChangedSampleId.equals(dataTable[row][smpl_Id_Colum])) {
-				listChangedSampleId.add((Integer) dataTable[row][smpl_Id_Colum]);
+			if (!listChangedSampleId.contains(row)) {
+				listChangedSampleId.add(row);
 			}
 		}
 		System.out.println(row);
@@ -334,9 +343,13 @@ public class Table_Sample_List extends JDialog {
 				Integer.parseInt(sample.getRequest().getRecuest_code());
 				tableSample[i][rqst_code_Colum] = sample.getRequest().getRecuest_code();
 				tableSample[i][smpl_code_Colum] = sample.getSample_code();
-				tableSample[i][O_I_R_Colum] = sample.getRequest().getObekt_na_izpitvane_request()
-						.getName_obekt_na_izpitvane();
-				tableSample[i][O_I_S_Colum] = sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+				if(sample.getRequest_to_obekt_na_izpitvane_request()!=null){
+					tableSample[i][O_I_R_Colum] = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane();
+				}else{
+					tableSample[i][O_I_R_Colum] ="";
+//					tableSample[i][O_I_R_Colum] = sample.getRequest().getText_obekt_na_izpitvane_request();
+				}
+				tableSample[i][O_I_S_Colum] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 				tableSample[i][smpl_group_descrp_Colum] = sample.getRequest().getDescription_sample_group();
 				tableSample[i][smpl_descrip_Colum] = sample.getDescription_sample();
 				tableSample[i][date_time_ref_Colum] = sample.getDate_time_reference();
@@ -356,42 +369,33 @@ public class Table_Sample_List extends JDialog {
 		return tableSample;
 	}
 
-	private static void updateData(JTable table, List<Integer> listChangedSampleId, TranscluentWindow round) {
-		DefaultTableModel model =(DefaultTableModel) table.getModel();
-		int countRows = model.getRowCount();
-		
-		for (Integer sampleId : listChangedSampleId) {
+	private static void updateChangedSampleObject(JTable table, List<Integer> listRowChangedSample, TranscluentWindow round ) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for (Integer rowChangedSample : listRowChangedSample) {
+			Sample sample = SampleDAO.getValueSampleById((int) model.getValueAt(rowChangedSample, smpl_Id_Colum));
 
-			for (int row = 0; row < countRows; row++) {
-				if (sampleId == model.getValueAt(row, smpl_Id_Colum)) {
-					Sample sample = SampleDAO.getValueSampleById(sampleId);
-
-					updateSampleObject(table, row, sample);
-
-				}
+			sample.setDate_time_reference(model.getValueAt(rowChangedSample, date_time_ref_Colum).toString());
+			sample.setDescription_sample(model.getValueAt(rowChangedSample, smpl_descrip_Colum).toString());
+			sample.setGodina_period((int) model.getValueAt(rowChangedSample, yar_Colum));
+			sample.setSample_code(model.getValueAt(rowChangedSample, smpl_code_Colum).toString());
+			Request_To_ObektNaIzpitvaneRequest requestTo_O_I_R = Table_RequestToObektNaIzp
+					.getRequest_To_ObektNaIzpitvaneRequest(sample.getRequest(),
+							model.getValueAt(rowChangedSample, O_I_R_Colum).toString());
+			sample.setRequest_to_obekt_na_izpitvane_request(requestTo_O_I_R);
+			sample.setObekt_na_izpitvane_sample(Obekt_na_izpitvane_sampleDAO
+					.getValueObekt_na_izpitvane_sampleByName(model.getValueAt(rowChangedSample, O_I_S_Colum).toString()));
+			String strPeriod = model.getValueAt(rowChangedSample, period_Colum).toString();
+			if (strPeriod.equals("")) {
+				sample.setPeriod(null);
+			} else {
+				sample.setPeriod(PeriodDAO.getValuePeriodByPeriod(strPeriod));
 			}
+			sample.setRequest(RequestDAO.getRequestFromColumnByVolume("recuest_code",
+					model.getValueAt(rowChangedSample, rqst_code_Colum).toString()));
+
+			SampleDAO.updateSample(sample);
 		}
 		round.StopWindow();
-	}
-
-	private static void updateSampleObject(JTable table, int row, Sample sample) {
-		DefaultTableModel model =(DefaultTableModel) table.getModel();
-		sample.setDate_time_reference(model.getValueAt(row, date_time_ref_Colum) + "");
-		sample.setDescription_sample(model.getValueAt(row, smpl_descrip_Colum) + "");
-		sample.setGodina_period((int) model.getValueAt(row, yar_Colum));
-		sample.setSample_code(model.getValueAt(row, smpl_code_Colum) + "");
-		sample.setObekt_na_izpitvane(Obekt_na_izpitvane_sampleDAO
-				.getValueObekt_na_izpitvane_sampleByName(model.getValueAt(row, O_I_S_Colum) + ""));
-		String strPeriod = model.getValueAt(row, period_Colum) + "";
-		if (strPeriod.equals("")) {
-			sample.setPeriod(null);
-		} else {
-			sample.setPeriod(PeriodDAO.getValuePeriodByPeriod(strPeriod));
-		}
-		sample.setRequest(
-				RequestDAO.getRequestFromColumnByVolume("recuest_code", model.getValueAt(row, rqst_code_Colum) + ""));
-
-		SampleDAO.updateSample(sample);
 	}
 
 	private static String[] getTabHeader() {
@@ -403,30 +407,29 @@ public class Table_Sample_List extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private static Class[] getTypes() {
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
-				String.class, String.class, String.class, Integer.class };
+				String.class, String.class, Integer.class, Integer.class };
 		return types;
 	}
-	
+
 	private void startEditChoiceRequest(String reqCodeStr) {
 		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-		
+
 		TranscluentWindow round = new TranscluentWindow();
-		
-		 final Thread thread = new Thread(new Runnable() {
-		     @Override
-		     public void run() {
-		    	 
-		    	 JFrame f = new JFrame();
-		 		new Table_Request_List(f,round,Login.getCurentUser(),choiseRequest);
-	    	
-		     }
-		    });
-		    thread.start();
-		    
-		
+
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				JFrame f = new JFrame();
+				new Table_Request_List(f, round, Login.getCurentUser(), choiseRequest);
+
+			}
+		});
+		thread.start();
+
 	}
 
 	private int getSelectedModelRow(JTable table) {
-		return  table.convertRowIndexToModel(table.getSelectedRow());
-		}
+		return table.convertRowIndexToModel(table.getSelectedRow());
+	}
 }

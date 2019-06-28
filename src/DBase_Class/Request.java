@@ -33,6 +33,7 @@ public class Request implements Serializable {
 	private String description_sample_group;
 	private String date_reception;
 	private String date_execution;
+	private String text_obekt_na_izpitvane_request;
 
 	@ManyToOne
 	private Extra_module extra_module;
@@ -62,6 +63,7 @@ public class Request implements Serializable {
 			String description_sample_group, 
 			String date_reception,
 			String date_execution,
+			String text_obekt_na_izpitvane_request,
 			Ind_num_doc ind_num_doc,
 			Izpitvan_produkt izpitvan_produkt, 
 			Razmernosti razmernosti, 
@@ -76,7 +78,7 @@ public class Request implements Serializable {
 		this.accreditation = accreditation;
 		this.section = section;
 		this.extra_module = xtra_module;
-			
+		this.setText_obekt_na_izpitvane_request(text_obekt_na_izpitvane_request);	
 		this.counts_samples = counts_samples;
 		this.description_sample_group = description_sample_group;
 		this.date_reception = date_reception;
@@ -223,6 +225,14 @@ public class Request implements Serializable {
 
 	public void setObekt_na_izpitvane_request(Obekt_na_izpitvane_request obekt_na_izpitvane_request) {
 		this.obekt_na_izpitvane_request = obekt_na_izpitvane_request;
+	}
+
+	public String getText_obekt_na_izpitvane_request() {
+		return text_obekt_na_izpitvane_request;
+	}
+
+	public void setText_obekt_na_izpitvane_request(String text_obekt_na_izpitvane_request) {
+		this.text_obekt_na_izpitvane_request = text_obekt_na_izpitvane_request;
 	}
 	 
 			

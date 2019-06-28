@@ -31,9 +31,11 @@ public class Sample  {
 	
 	
 	@ManyToOne
-	private Obekt_na_izpitvane_sample obekt_na_izpitvane;
+	private Obekt_na_izpitvane_sample obekt_na_izpitvane_sample;
 	@ManyToOne
 	private Period period;
+	@ManyToOne
+	private Request_To_ObektNaIzpitvaneRequest request_to_obekt_na_izpitvane_request;
 	
 	
 
@@ -42,7 +44,8 @@ public class Sample  {
 			String description_sample, 
 			String date_time_reference,
 			Request request,
-			Obekt_na_izpitvane_sample obekt_na_izpitvane,
+			Obekt_na_izpitvane_sample obekt_na_izpitvane_sample,
+			Request_To_ObektNaIzpitvaneRequest request_to_obekt_na_izpitvane_request,
 			Period period,
 			int godina_period
 			) {
@@ -53,7 +56,8 @@ public class Sample  {
 		this.description_sample = description_sample;
 		this.date_time_reference = date_time_reference;
 		this.request = request;
-		this.obekt_na_izpitvane = obekt_na_izpitvane;
+		this.obekt_na_izpitvane_sample = obekt_na_izpitvane_sample;
+		this.request_to_obekt_na_izpitvane_request = request_to_obekt_na_izpitvane_request;
 		this.period = period;
 		this.godina_period = godina_period;
 		
@@ -104,12 +108,12 @@ public class Sample  {
 		this.request = request;
 	}
 
-	public Obekt_na_izpitvane_sample getObekt_na_izpitvane() {
-		return obekt_na_izpitvane;
+	public Obekt_na_izpitvane_sample getObekt_na_izpitvane_sample() {
+		return obekt_na_izpitvane_sample;
 	}
 
-	public void setObekt_na_izpitvane(Obekt_na_izpitvane_sample obekt_na_izpitvane) {
-		this.obekt_na_izpitvane = obekt_na_izpitvane;
+	public void setObekt_na_izpitvane_sample(Obekt_na_izpitvane_sample obekt_na_izpitvane_sample) {
+		this.obekt_na_izpitvane_sample = obekt_na_izpitvane_sample;
 	}
 
 		
@@ -131,6 +135,15 @@ public class Sample  {
 
 	public void setGodina_period(int godina_period) {
 		this.godina_period = godina_period;
+	}
+
+	public Request_To_ObektNaIzpitvaneRequest getRequest_to_obekt_na_izpitvane_request() {
+		return request_to_obekt_na_izpitvane_request;
+	}
+
+	public void setRequest_to_obekt_na_izpitvane_request(
+			Request_To_ObektNaIzpitvaneRequest request_to_obekt_na_izpitvane_request) {
+		this.request_to_obekt_na_izpitvane_request = request_to_obekt_na_izpitvane_request;
 	}
 
 	

@@ -208,7 +208,7 @@ public class FunctionForGenerateWordDocFile {
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
 
 		// "$$ob_izp_sam$$"
-		substitutionData.put(masive_key_table_row[1], sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane());
+		substitutionData.put(masive_key_table_row[1], sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 
 		// "$$pokazat$$"
 		String strMinipokazatel = generateSimpliStrOnPokazatel(pokazatel.getPokazatel().getName_pokazatel());

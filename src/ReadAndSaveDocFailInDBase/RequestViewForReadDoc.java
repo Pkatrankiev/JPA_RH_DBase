@@ -1265,7 +1265,7 @@ public class RequestViewForReadDoc extends JFrame {
 		String str_templ = RequestViewFunction.DateNaw(true);
 		recuest = RequestDAO.setValueRequest("templ " + str_templ, "", chckbx_accreditation.isSelected(), section,
 				xtra_module, count_Sample, txtArea_Descript_grup_Sample.getText(), "", "", ind_num_doc,
-				izpitvan_produkt, razmernosti, zabelejki, curent_user, obekt_na_izpitvane_request);
+				izpitvan_produkt, razmernosti, zabelejki, curent_user, "");
 		return recuest;
 
 	}
@@ -1284,7 +1284,7 @@ public class RequestViewForReadDoc extends JFrame {
 						period = PeriodDAO.getValuePeriodByPeriod(masiveSampleValue[i][4]);
 					Obekt_na_izpitvane_sample obectNaIzpitvaneSample = Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(masiveSampleValue[i][1]);
 					
-					sampleDBAse.setObekt_na_izpitvane(obectNaIzpitvaneSample);
+					sampleDBAse.setObekt_na_izpitvane_sample(obectNaIzpitvaneSample);
 					sampleDBAse.setDescription_sample(masiveSampleValue[i][2]);
 					sampleDBAse.setDate_time_reference(masiveSampleValue[i][3]);
 					sampleDBAse.setPeriod(period);

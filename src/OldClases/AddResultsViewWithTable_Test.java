@@ -1007,7 +1007,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 			String strChoiseSamp = choiceSmplCode.getSelectedItem();
 			for (Sample samp : listSample) {
 				if (samp.getSample_code().equals(strChoiseSamp)) {
-					name_IO_Sample = samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane();
+					name_IO_Sample = samp.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 
 				}
 			}
@@ -1623,8 +1623,8 @@ public class AddResultsViewWithTable_Test extends JDialog {
 		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
 
 		for (Sample sample : listAllSamp) {
-			if (sample.getObekt_na_izpitvane().getName_obekt_na_izpitvane()
-					.equals(samp.getObekt_na_izpitvane().getName_obekt_na_izpitvane())
+			if (sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane()
+					.equals(samp.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane())
 					&& sample.getDescription_sample().equals(samp.getDescription_sample())) {
 				for (Results result : ResultsDAO.getListResultsFromColumnByVolume("sample", sample)) {
 					if (result.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {

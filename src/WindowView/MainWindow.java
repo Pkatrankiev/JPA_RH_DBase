@@ -77,8 +77,8 @@ public class MainWindow extends JFrame {
 	private String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
 	private JPanel contentPane;
 	private static String loginStr = "logIn";
-	private Login loginDlg;
-	private TranscluentWindow round;
+	private static Login loginDlg;
+	
 	private String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Въздух", "Вода"};
 	
 	public MainWindow(TranscluentWindow round) {
@@ -345,7 +345,7 @@ public class MainWindow extends JFrame {
 		loginMenu.setMnemonic(KeyEvent.VK_L);
 		loginMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				round = new TranscluentWindow();
+				TranscluentWindow round = new TranscluentWindow();
 				String textBtnLogin = loginMenu.getText();
 
 				if (textBtnLogin.equals("LogOut")) {
@@ -371,8 +371,8 @@ public class MainWindow extends JFrame {
 		return loginMenu;
 	}
 
-	private void StartLoginMenu(Frame win, JButton loginMenu) {
-
+	public static void StartLoginMenu(Frame win, JButton loginMenu) {
+		TranscluentWindow round = new TranscluentWindow();
 		loginDlg = new Login(win, round);
 		loginDlg.setVisible(true);
 

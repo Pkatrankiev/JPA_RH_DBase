@@ -282,6 +282,8 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		
 	}
 	
+	
+	
 	public static String[] getMasiveStringOfRequest_To_ObektNaIzpitvaneRequest(Request request){
 		List<Request_To_ObektNaIzpitvaneRequest> list = 
 				Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);

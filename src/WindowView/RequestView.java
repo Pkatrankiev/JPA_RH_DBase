@@ -741,7 +741,7 @@ public class RequestView extends JDialog {
 		String strSampGroup = "";
 		if (tamplateRequest != null) {
 			strSampGroup = tamplateRequest.getDescription_sample_group();
-			if (strSampGroup.indexOf("м.") > 0)
+			if (strSampGroup.indexOf("за") > 0)
 				original_Description_sample_group = strSampGroup.substring(0, strSampGroup.indexOf("за"));
 		}
 		txtArea_Descript_grup_Sample = new JTextArea(strSampGroup);
@@ -1239,13 +1239,14 @@ public class RequestView extends JDialog {
 
 				try {
 
-					final JFrame f = new JFrame();
+					
 					Boolean forDateReception = true;
 					Boolean withTime = false;
 					String str_date_period_reception = txtFld_date_period_reception.getText();
 					if (incorrect_date_period_Reception) {
 						str_date_period_reception = RequestViewFunction.DateNaw(false);
 					}
+					final JFrame f = new JFrame();
 					DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
 							withTime, forDateReception);
 					date_period_reception.setVisible(true);
@@ -1672,9 +1673,9 @@ public class RequestView extends JDialog {
 		}
 
 		String str_DateTimeRequest = "";
-		if (DatePicker.incorrectDate(txtFld_date_period_reception.getText(), false)) {
+		if (incorrect_date_period_Reception) {
 			txtFld_date_period_reception.setBorder(new LineBorder(Color.RED));
-			str_DateTimeRequest = "дата на приемане" + "\n";
+			str_DateTimeRequest = "дата/период на приемане" + "\n";
 			saveCheck = false;
 		}
 

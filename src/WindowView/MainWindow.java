@@ -52,7 +52,7 @@ import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
 import OldClases.FindFile;
-
+import Table.Table_RequestToObektNaIzp;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -205,8 +205,9 @@ public class MainWindow extends JFrame {
 		JLabel lblLabel_Code = new JLabel(request.getRecuest_code());
 		lblLabel_Code.setPreferredSize(new Dimension(30, 14));
 		panel.add(lblLabel_Code);
-
-		JLabel lblLabel_Obect = new JLabel(request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane());
+		
+		JLabel lblLabel_Obect = new JLabel(Table_RequestToObektNaIzp.createStringListObektNaIzp(
+				Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest( request), false));
 		lblLabel_Obect.setPreferredSize(new Dimension(200, 14));
 		panel.add(lblLabel_Obect);
 

@@ -48,6 +48,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
+import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestViewAplication;
@@ -59,7 +60,6 @@ import net.coderazzi.filters.gui.TableFilterHeader;
 
 public class Table_Request_List extends JDialog {
 
-	
 	private static final long serialVersionUID = 1L;
 	private static Request choiseRequest;
 	private static String[] values_I_P;
@@ -73,6 +73,26 @@ public class Table_Request_List extends JDialog {
 	// private static JFrame frame;
 	private static List<Integer> listRowForUpdate;
 	private static Object[][] dataTable;
+
+	private static String[] tableHeader = { "№ на Заявката", "Ид.№ на документа", "Дата на заявката",
+			"Изпитван продукт", "Обект на изпитване", "Показател", "Размерност", "Брой проби", "Описание на пробите",
+			"Референтна дата", "Срок на изпълнение", "Време на приемане", "Приел заявката", "Забележка", "Id User" };
+
+	private static String name_rqst_code_Colum = tableHeader[0];
+	private static String name_id_ND_Colum = tableHeader[1];
+	private static String name_rqst_Date_Colum = tableHeader[2];
+	private static String name_izp_Prod_Colum = tableHeader[3];
+	private static String name_obk_Izp_Colum = tableHeader[4];
+	private static String name_izp_Pok_Colum = tableHeader[5];
+	private static String name_razmer_Colum = tableHeader[6];
+	private static String name_cunt_Smpl_Colum = tableHeader[7];
+	private static String name_dscr_Smpl_Colum = tableHeader[8];
+	private static String name_ref_Date_Colum = tableHeader[9];
+	private static String name_exec_Date_Colum = tableHeader[10];
+	private static String name_rcpt_Date_Colum = tableHeader[11];
+	private static String name_user_Colum = tableHeader[12];
+	private static String name_zab_Colum = tableHeader[13];
+	private static String name_user_Id_Colum = tableHeader[14];
 
 	private static int tbl_Colum = 15;
 	private static int rqst_code_Colum = 0;
@@ -99,7 +119,7 @@ public class Table_Request_List extends JDialog {
 		Class[] types = getTypes();
 		Object[][] data = getDataTable(tamplateRequest);
 		dataTable = data;
-		
+
 		listRowForUpdate = new ArrayList<Integer>();
 		values_Id_Num_Doc = Ind_num_docDAO.getMasiveStringAllValueValueInd_num_doc();
 		values_I_P = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();
@@ -116,76 +136,117 @@ public class Table_Request_List extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-//				Users loginUser = Login.getCurentUser();
-				DefaultTableModel model =(DefaultTableModel) table.getModel();
-				if (table.getSelectedColumn() == rqst_code_Colum && getSelectedModelRow(table) != -1) {
-					table.rowAtPoint(e.getPoint());
-					table.columnAtPoint(e.getPoint());
-//					DefaultTableModel model =(DefaultTableModel) table.getModel();
-					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
-					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-					new RequestMiniFrame(new JFrame(), choiseRequest);
-
-				}
-				if (table.getSelectedColumn() == izp_Pok_Colum && user != null && user.getIsAdmin()
-						&& getSelectedModelRow(table) != -1) {
-					int rowPokazatel = table.rowAtPoint(e.getPoint());
-					EditColumnPokazatel(table, rowPokazatel);
-
-					AddInUpdateList(rowPokazatel);
-				}
+				// Users loginUser = Login.getCurentUser();
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn()).getHeaderValue()
+						.toString();
+				int selectedRow = table.rowAtPoint(e.getPoint());
+				table.rowAtPoint(e.getPoint());
+				table.columnAtPoint(e.getPoint());
+				// DefaultTableModel model =(DefaultTableModel)
+				// table.getModel();
+				System.out.println("-----  "+nameSelectedColumn);
 				
-				if(table.getSelectedColumn() == obk_Izp_Colum && user != null && user.getIsAdmin()
-						&& getSelectedModelRow(table) != -1){
-					int rowObektNaIzp = table.rowAtPoint(e.getPoint());
-					String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
-					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-					if(Table_RequestToObektNaIzp.EditRequestObektIzpit(table, rowObektNaIzp, choiseRequest, 
-							mapListForChangedStrObektNaIzp, values_O_I_R)){
-						List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
-						table.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(listFromChoiceObektNaIzp, false), 
-								rowObektNaIzp, obk_Izp_Colum);
-						mapListForChangedStrObektNaIzp.put(rowObektNaIzp, listFromChoiceObektNaIzp);
-					AddInUpdateList(rowObektNaIzp);
-					}}
-				
-				if (e.getClickCount() == 2 && user != null && getSelectedModelRow(table) != -1) {
-					if (user.getIsAdmin()) {
-						if (table.getSelectedColumn() == cunt_Smpl_Colum
-								|| table.getSelectedColumn() == ref_Date_Colum) {
-							String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
-							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-							new JFrame();
-							TranscluentWindow round = new TranscluentWindow();
+				if (getSelectedModelRow(table) != -1) {
 
-							final Thread thread = new Thread(new Runnable() {
-								@Override
-								public void run() {
-
-									JFrame f = new JFrame();
-									new Table_Sample_List(f, round, choiseRequest);
-								}
-							});
-							thread.start();
-						}
-					} else {
+					if (user != null && user.getIsAdmin()) {
 						
-						String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum).toString();
+						if (nameSelectedColumn.equals(name_rqst_code_Colum)) {
+						
+							String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
+							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+							new RequestMiniFrame(new JFrame(), choiseRequest);
+
+						}
+						
+						if (nameSelectedColumn.equals(name_exec_Date_Colum) || nameSelectedColumn.equals(name_rqst_Date_Colum)) {
+							int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
+							String strDate = model.getValueAt(selectedRow, columnIndex).toString();
+							
+							final JFrame f = new JFrame();
+							DatePicker dPicer = new DatePicker(f, false, strDate);
+							table.setValueAt(dPicer.setPickedDate(false), selectedRow, columnIndex);
+														
+						} 
+						
+						
+						if (nameSelectedColumn.equals(name_rcpt_Date_Colum)){
+							int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
+							String str_date_period_reception = model.getValueAt(selectedRow, columnIndex).toString();
+						Boolean forDateReception = true;
+						Boolean withTime = false;
+												
+						final JFrame f = new JFrame();
+						DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
+								withTime, forDateReception);
+						date_period_reception.setVisible(true);
+						table.setValueAt(DateChoice_period.get_str_period_sample(forDateReception),selectedRow, columnIndex);
+						}
+						
+						
+						
+						if (nameSelectedColumn.equals(name_izp_Pok_Colum)) {
+							
+							EditColumnPokazatel(table, selectedRow,nameSelectedColumn );
+
+							AddInUpdateList(selectedRow);
+						}
+
+						if (nameSelectedColumn.equals(name_obk_Izp_Colum)) {
+							int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
+							String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
+							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+							if (Table_RequestToObektNaIzp.EditRequestObektIzpit(table, selectedRow, choiseRequest,
+									mapListForChangedStrObektNaIzp, values_O_I_R)) {
+								List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus
+										.getMasiveStringFromChoice();
+								table.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(
+										listFromChoiceObektNaIzp, false), selectedRow, columnIndex);
+								mapListForChangedStrObektNaIzp.put(selectedRow, listFromChoiceObektNaIzp);
+								AddInUpdateList(selectedRow);
+							}
+						}
+
+						if (e.getClickCount() == 2) {
+
+							if (nameSelectedColumn.equals(name_cunt_Smpl_Colum)
+									|| nameSelectedColumn.equals(name_ref_Date_Colum)) {
+								String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum)
+										.toString();
+								Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code",
+										reqCodeStr);
+								new JFrame();
+								TranscluentWindow round = new TranscluentWindow();
+
+								final Thread thread = new Thread(new Runnable() {
+									@Override
+									public void run() {
+
+										JFrame f = new JFrame();
+										new Table_Sample_List(f, round, choiseRequest);
+									}
+								});
+								thread.start();
+							}
+						
+						}
+
+					}else {
+						if (e.getClickCount() == 2) {
+						String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum)
+								.toString();
 						if (parent.getName().equals("tamplete")) {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
-							
-								new RequestView(f, user, choiseRequest, round);
-							
 
+							new RequestView(f, user, choiseRequest, round);
 						}
-					}
+						}}
 
+					System.out.println(getSelectedModelRow(table) + "   " + table.getSelectedRow());
 				}
-				
-				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
 			}
-			
+
 		});
 
 		new TableFilterHeader(table, AutoChoices.ENABLED);
@@ -202,14 +263,11 @@ public class Table_Request_List extends JDialog {
 			public void run() {
 				DefaultTableModel dtm = new DefaultTableModel(dataTable, columnNames) {
 
-					/**
-					 * 
-					 */
+					
 					private static final long serialVersionUID = 1L;
 					@SuppressWarnings("rawtypes")
 					private Class[] types2 = types;
 
-					
 					public Class<?> getColumnClass(int columnIndex) {
 						return this.types2[columnIndex];
 					}
@@ -221,30 +279,18 @@ public class Table_Request_List extends JDialog {
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						if (user != null && user.getIsAdmin()) {
-//							if (Login.getCurentUser().getIsAdmin()) {
-								if (column == ref_Date_Colum || column == cunt_Smpl_Colum) {
-									return false;
-								}
-								return true;
-							} else {
-								return false;
-							}
-//						} else {
-//							return false;
-//						}
+							return true;
+						} else {
+							return false;
+						}
+						
 					}
 
 					public void setValueAt(Object value, int row, int col) {
 
-						if (!dataTable[row][col].equals(value)) {
-							if (col == exec_Date_Colum || col == rqst_Date_Colum) {
-								String str = (String) value;
-								if (!DatePicker.incorrectTableDate(str)) {
-									dataTable[row][col] = value;
-								}
-							} else {
+						if (!dataTable[row][col].equals(value)) {					
 								dataTable[row][col] = value;
-							}
+				
 							fireTableCellUpdated(row, col);
 							if (col == user_Colum) {
 								EditColumnUser(value, row);
@@ -265,7 +311,8 @@ public class Table_Request_List extends JDialog {
 
 				setUp_Id_Num_Doc(table, table.getColumnModel().getColumn(id_ND_Colum));
 				setUp_I_P_Column(table, table.getColumnModel().getColumn(izp_Prod_Colum));
-//				setUp_O_I_R_Column(table, table.getColumnModel().getColumn(obk_Izp_Colum));
+				// setUp_O_I_R_Column(table,
+				// table.getColumnModel().getColumn(obk_Izp_Colum));
 				setUp_Razmernosti(table, table.getColumnModel().getColumn(razmer_Colum));
 				setUp_Users(table, table.getColumnModel().getColumn(user_Colum));
 				setUp_Zabelejki(table, table.getColumnModel().getColumn(zab_Colum));
@@ -329,14 +376,15 @@ public class Table_Request_List extends JDialog {
 		I_P_Column.setCellRenderer(renderer);
 	}
 
-//	public static void setUp_O_I_R_Column(JTable table, TableColumn O_I_R_Column) {
-//
-//		JComboBox<?> comboBox = new JComboBox<Object>(values_O_I_R);
-//		O_I_R_Column.setCellEditor(new DefaultCellEditor(comboBox));
-//		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-//		renderer.setToolTipText("Натисни за избор");
-//		O_I_R_Column.setCellRenderer(renderer);
-//	}
+	// public static void setUp_O_I_R_Column(JTable table, TableColumn
+	// O_I_R_Column) {
+	//
+	// JComboBox<?> comboBox = new JComboBox<Object>(values_O_I_R);
+	// O_I_R_Column.setCellEditor(new DefaultCellEditor(comboBox));
+	// DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+	// renderer.setToolTipText("Натисни за избор");
+	// O_I_R_Column.setCellRenderer(renderer);
+	// }
 
 	public static void setUp_Users(JTable table, TableColumn users_Column) {
 		JComboBox<?> comboBox = new JComboBox<Object>(value_users);
@@ -405,10 +453,11 @@ public class Table_Request_List extends JDialog {
 				// tableRequest[i][rqst_Date_Colum ] =
 				// request.getDate_request();
 				tableRequest[i][izp_Prod_Colum] = request.getIzpitvan_produkt().getName_zpitvan_produkt();
-//				tableRequest[i][obk_Izp_Colum] = request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
-								 
+				// tableRequest[i][obk_Izp_Colum] =
+				// request.getObekt_na_izpitvane_request().getName_obekt_na_izpitvane();
+
 				tableRequest[i][obk_Izp_Colum] = request.getText_obekt_na_izpitvane_request();
-								
+
 				tableRequest[i][izp_Pok_Colum] = RequestViewFunction.CreateStringListIzpPokaz(request, list_All_I_P);
 				tableRequest[i][razmer_Colum] = request.getRazmernosti().getName_razmernosti();
 				tableRequest[i][cunt_Smpl_Colum] = request.getCounts_samples();
@@ -416,7 +465,7 @@ public class Table_Request_List extends JDialog {
 				tableRequest[i][ref_Date_Colum] = RequestViewFunction
 						.GenerateStringRefDateTimeFromMasiveSample(masiveSample);
 				tableRequest[i][exec_Date_Colum] = DatePicker.formatToTabDate(request.getDate_execution(), false);
-				tableRequest[i][rcpt_Date_Colum] = DatePicker.formatToTabDate(request.getDate_reception(), false);
+				tableRequest[i][rcpt_Date_Colum] = request.getDate_reception();
 				tableRequest[i][user_Colum] = request.getUsers().getName_users() + " "
 						+ request.getUsers().getFamily_users();
 				String zab = "";
@@ -444,16 +493,14 @@ public class Table_Request_List extends JDialog {
 	}
 
 	private String[] getTabHeader() {
-		String[] tableHeader = { "№ на Заявката", "Ид.№ на документа", "Дата на заявката", "Изпитван продукт",
-				"Обект на изпитване", "Показател", "Размерност", "Брой проби", "Описание на пробите", "Референтна дата",
-				"Срок на изпълнение", "Време на приемане", "Приел заявката", "Забележка", "Id User" };
+
 		return tableHeader;
 	}
 
 	private int getSelectedModelRow(JTable table) {
-	return  table.convertRowIndexToModel(table.getSelectedRow());
+		return table.convertRowIndexToModel(table.getSelectedRow());
 	}
-	
+
 	private static void EditColumnUser(Object value, int row) {
 		String valueStr = value + "";
 		dataTable[row][user_Id_Colum] = UsersDAO.getValueUsersByName(valueStr.substring(0, valueStr.indexOf(" ")))
@@ -461,21 +508,22 @@ public class Table_Request_List extends JDialog {
 
 	}
 
-	private static void EditColumnPokazatel(JTable table, int row) {
+	private static void EditColumnPokazatel(JTable table, int row, String nameSelectedColumn) {
+		int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
 		List<String> list = ReadListPokazatelInCell(table, row);
 		JFrame f = new JFrame();
 		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false);
 		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
-			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, izp_Pok_Colum);
+			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, columnIndex);
 		} else {
-			JOptionPane.showMessageDialog(null, "Некоректен брой Показатели", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Не можете да променяте броя Показатели", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private static List<String> ReadListPokazatelInCell(JTable table, int row) {
 		List<String> list = new ArrayList<String>();
-		DefaultTableModel model =(DefaultTableModel) table.getModel();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		String strPokazatel = model.getValueAt(row, izp_Pok_Colum).toString().trim();
 		String str = "";
 		while (!strPokazatel.isEmpty()) {
@@ -507,87 +555,67 @@ public class Table_Request_List extends JDialog {
 	}
 
 	private static void updateData(JTable table, List<Integer> listStrRequestCodeForUpdate, TranscluentWindow round) {
-//		List<Request> listAllValueRequest = RequestDAO.getInListAllValueRequest();
-		DefaultTableModel model =(DefaultTableModel) table.getModel();
-//		int countRows = model.getRowCount();
-		
-		for (int rowForUpdate : listStrRequestCodeForUpdate) {
-					Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code",model.getValueAt(rowForUpdate, rqst_code_Colum));
-										
-					List_izpitvan_pokazatel[][] list_Masive_L_I_P = updateIzpitvanPokazatelObject(table, rowForUpdate, request);
-					updateIzpitvanPokazatelInResultObject(list_Masive_L_I_P, request);
-					if(mapListForChangedStrObektNaIzp!=null && !mapListForChangedStrObektNaIzp.isEmpty()){
-					List<Obekt_na_izpitvane_request> listObektIzpit_request = 
-							Table_RequestToObektNaIzp.creadListStrFromMap(mapListForChangedStrObektNaIzp, rowForUpdate);
-					Table_RequestToObektNaIzp.updateRequestToObIzpObject(request,listObektIzpit_request);
-					List<String> listStringObektIzpit_request = Table_RequestToObektNaIzp.creatListStringfromListObekt_na_izpitvane_request(listObektIzpit_request);
-					request.setText_obekt_na_izpitvane_request(Table_RequestToObektNaIzp.createStringListObektNaIzp(listStringObektIzpit_request, false));
-					}
-					updateRequestObject(table, rowForUpdate, request);
-					
-//					for (int row = 0; row < countRows; row++) {
-//					if (strRequestCode.equals(model.getValueAt(row, rqst_code_Colum))) {
-//						Request request = searchRequestFromListRequest(listAllValueRequest, strRequestCode);
+		// List<Request> listAllValueRequest =
+		// RequestDAO.getInListAllValueRequest();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		// int countRows = model.getRowCount();
 
-					
-//				}
-//			}
+		for (int rowForUpdate : listStrRequestCodeForUpdate) {
+			Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code",
+					model.getValueAt(rowForUpdate, rqst_code_Colum));
+
+			List_izpitvan_pokazatel[][] list_Masive_L_I_P = updateIzpitvanPokazatelObject(table, rowForUpdate, request);
+			updateIzpitvanPokazatelInResultObject(list_Masive_L_I_P, request);
+			if (mapListForChangedStrObektNaIzp != null && !mapListForChangedStrObektNaIzp.isEmpty()) {
+				List<Obekt_na_izpitvane_request> listObektIzpit_request = Table_RequestToObektNaIzp
+						.creadListStrFromMap(mapListForChangedStrObektNaIzp, rowForUpdate);
+				Table_RequestToObektNaIzp.updateRequestToObIzpObject(request, listObektIzpit_request);
+				List<String> listStringObektIzpit_request = Table_RequestToObektNaIzp
+						.creatListStringfromListObekt_na_izpitvane_request(listObektIzpit_request);
+				request.setText_obekt_na_izpitvane_request(
+						Table_RequestToObektNaIzp.createStringListObektNaIzp(listStringObektIzpit_request, false));
+			}
+			updateRequestObject(table, rowForUpdate, request);
+
 		}
 		round.StopWindow();
 	}
 
-
-
-//	private static Request searchRequestFromListRequest(List<Request> listAllValueRequest, String strRequestCode) {
-//		Request request1 = null;
-//		for (Request request : listAllValueRequest) {
-//			if (strRequestCode.equals(request.getRecuest_code())) {
-//				return request;
-//			}
-//		}
-//		return request1;
-//	}
-
 	private static void updateRequestObject(JTable table, int row, Request request) {
-		DefaultTableModel model =(DefaultTableModel) table.getModel();
-		try {
-			request.setDate_request(DatePicker.reformatFromTabDate(model.getValueAt(row, rqst_Date_Colum) + "", false));
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-		request.setInd_num_doc(Ind_num_docDAO.getValueIByName(model.getValueAt(row, id_ND_Colum) + ""));
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		String str_rqst_Date = model.getValueAt(row, rqst_Date_Colum).toString();
+		str_rqst_Date = reformatDate(str_rqst_Date);
+		
+		request.setDate_request(str_rqst_Date);
+		request.setInd_num_doc(Ind_num_docDAO.getValueIByName(model.getValueAt(row, id_ND_Colum).toString()));
 		request.setIzpitvan_produkt(
-				Izpitvan_produktDAO.getValueIzpitvan_produktByName(model.getValueAt(row, izp_Prod_Colum) + ""));
-//		request.setObekt_na_izpitvane_request(Obekt_na_izpitvane_requestDAO
-//				.getValueObekt_na_izpitvane_requestByName(model.getValueAt(row, obk_Izp_Colum) + ""));
-		
-		
-		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(model.getValueAt(row, razmer_Colum) + ""));
+				Izpitvan_produktDAO.getValueIzpitvan_produktByName(model.getValueAt(row, izp_Prod_Colum).toString()));
+
+		request.setRazmernosti(
+				RazmernostiDAO.getValueRazmernostiByName(model.getValueAt(row, razmer_Colum).toString()));
 		request.setCounts_samples((int) model.getValueAt(row, cunt_Smpl_Colum));
-		request.setDescription_sample_group(model.getValueAt(row, dscr_Smpl_Colum) + "");
-		try {
-			request.setDate_execution(
-					DatePicker.reformatFromTabDate(model.getValueAt(row, exec_Date_Colum) + "", false));
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-		;
-		try {
-			request.setDate_reception(
-					DatePicker.reformatFromTabDate(model.getValueAt(row, rcpt_Date_Colum) + "", false));
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
+		request.setDescription_sample_group(model.getValueAt(row, dscr_Smpl_Colum).toString());
+		
+		String str_exec_Date = model.getValueAt(row, exec_Date_Colum).toString();
+		str_exec_Date = reformatDate(str_exec_Date);
+		request.setDate_request(str_exec_Date);
+
+		request.setDate_reception(model.getValueAt(row, rcpt_Date_Colum).toString());
 		request.setUsers(UsersDAO.getValueUsersById((int) model.getValueAt(row, user_Id_Colum)));
-		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(model.getValueAt(row, zab_Colum) + ""));
+		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(model.getValueAt(row, zab_Colum).toString()));
 
 		RequestDAO.updateObjectRequest(request);
+	}
+
+	private static String reformatDate(String strDate) {
+		try {
+			strDate = DatePicker.reformatFromTabDate(strDate, false);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		return strDate;
 	}
 
 	private static List_izpitvan_pokazatel[][] updateIzpitvanPokazatelObject(JTable table, int row, Request request) {

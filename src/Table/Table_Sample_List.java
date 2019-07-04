@@ -26,7 +26,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
@@ -52,6 +54,10 @@ public class Table_Sample_List extends JDialog {
 	private static Object[][] dataTable;
 	private static List<Integer> listChangedSampleId;
 
+	private static String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване",
+			"Описание на групата проби", "Обект на пробата", "Описание на пробата", "Референтна дата", "Приод",
+			"Година", "Id" };
+
 	private static int tbl_Colum = 10;
 	private static int rqst_code_Colum = 0;
 	private static int smpl_code_Colum = 1;
@@ -63,6 +69,17 @@ public class Table_Sample_List extends JDialog {
 	private static int period_Colum = 7;
 	private static int yar_Colum = 8;
 	private static int smpl_Id_Colum = 9;
+
+	private static String name_rqst_Colum = tableHeader[0];
+	private static String name_smpl_Colum = tableHeader[1];
+	private static String name_O_I_R_Colum = tableHeader[2];
+	private static String name_smpl_group_descrp_Colum = tableHeader[3];
+	private static String name_O_I_S_Colum = tableHeader[4];
+//	private static String name_smpl_descrip_Colum = tableHeader[5];
+//	private static String name_date_time_ref_Colum = tableHeader[6];
+//	private static String name_period_Colum = tableHeader[7];
+//	private static String name_yar_Colum = tableHeader[8];
+//	private static String name_smpl_Id_Colum = tableHeader[9];
 
 	public Table_Sample_List(JFrame parent, TranscluentWindow round, Request templateRequest) {
 		super(parent, "Списък на Пробите", true);
@@ -89,17 +106,20 @@ public class Table_Sample_List extends JDialog {
 
 			public void mousePressed(MouseEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				getSelectedModelRow(table);
-				int selectColiumn = table.getSelectedColumn();
-				int selectedRow = getSelectedModelRow(table);
+				
+				String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn()).getHeaderValue()
+						.toString();
+				
+				int selectedRow = table.rowAtPoint(e.getPoint());
 				String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
 
-				if (table.getSelectedColumn() == rqst_code_Colum) {
+				if (nameSelectedColumn.equals(name_rqst_Colum)) {
+
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new RequestMiniFrame(new JFrame(), choiseRequest);
 				}
 
-				if (selectColiumn == O_I_R_Colum) {
+				if (nameSelectedColumn.equals(name_O_I_R_Colum)) {
 					String origO_I_Request = model.getValueAt(selectedRow, O_I_R_Colum).toString();
 					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					String[] values_O_I_R = Table_RequestToObektNaIzp
@@ -116,7 +136,7 @@ public class Table_Sample_List extends JDialog {
 
 				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
 
-					if (selectColiumn == smpl_code_Colum) {
+					if (nameSelectedColumn.equals(name_smpl_Colum)) {
 						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 						TranscluentWindow round = new TranscluentWindow();
 
@@ -130,7 +150,7 @@ public class Table_Sample_List extends JDialog {
 						thread.start();
 					}
 
-					if (selectColiumn == smpl_group_descrp_Colum) {
+					if (nameSelectedColumn.equals(name_smpl_group_descrp_Colum)) {
 						startEditChoiceRequest(reqCodeStr);
 					}
 
@@ -223,30 +243,20 @@ public class Table_Sample_List extends JDialog {
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
-						 TranscluentWindow round = new TranscluentWindow();
+						TranscluentWindow round = new TranscluentWindow();
 
 						final Thread thread = new Thread(new Runnable() {
 							@Override
 							public void run() {
-								
+
 								DefaultTableModel model = (DefaultTableModel) table.getModel();
 								List<Integer> listRow = new ArrayList<Integer>();
 								for (int i = 0; i < model.getRowCount(); i++) {
 									listRow.add(i);
 								}
-								
+
 								updateChangedSampleObject(table, listRow, round);
-
-//								try {
-//									AplicationDocTemplate.toExcel(table);
-//								} catch (UnsupportedEncodingException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								} catch (FileNotFoundException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								}
-
+						
 							}
 						});
 						thread.start();
@@ -266,7 +276,6 @@ public class Table_Sample_List extends JDialog {
 							public void run() {
 								System.out.println(listChangedSampleId);
 								updateChangedSampleObject(table, listChangedSampleId, round);
-								 
 
 							}
 						});
@@ -326,6 +335,7 @@ public class Table_Sample_List extends JDialog {
 	}
 
 	private static Object[][] getDataTable(Request templateRequest) {
+				
 		List<Sample> listSample = new ArrayList<Sample>();
 		if (templateRequest == null) {
 			listSample = SampleDAO.getInListAllValueSample();
@@ -343,11 +353,13 @@ public class Table_Sample_List extends JDialog {
 				Integer.parseInt(sample.getRequest().getRecuest_code());
 				tableSample[i][rqst_code_Colum] = sample.getRequest().getRecuest_code();
 				tableSample[i][smpl_code_Colum] = sample.getSample_code();
-				if(sample.getRequest_to_obekt_na_izpitvane_request()!=null){
-					tableSample[i][O_I_R_Colum] = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane();
-				}else{
-					tableSample[i][O_I_R_Colum] ="";
-//					tableSample[i][O_I_R_Colum] = sample.getRequest().getText_obekt_na_izpitvane_request();
+				if (sample.getRequest_to_obekt_na_izpitvane_request() != null) {
+					tableSample[i][O_I_R_Colum] = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp()
+							.getName_obekt_na_izpitvane();
+				} else {
+					tableSample[i][O_I_R_Colum] = "";
+					// tableSample[i][O_I_R_Colum] =
+					// sample.getRequest().getText_obekt_na_izpitvane_request();
 				}
 				tableSample[i][O_I_S_Colum] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 				tableSample[i][smpl_group_descrp_Colum] = sample.getRequest().getDescription_sample_group();
@@ -369,8 +381,11 @@ public class Table_Sample_List extends JDialog {
 		return tableSample;
 	}
 
-	private static void updateChangedSampleObject(JTable table, List<Integer> listRowChangedSample, TranscluentWindow round ) {
+	private static void updateChangedSampleObject(JTable table, List<Integer> listRowChangedSample,
+			TranscluentWindow round) {
+		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
+//		updateIndexColumn(table);
 		for (Integer rowChangedSample : listRowChangedSample) {
 			Sample sample = SampleDAO.getValueSampleById((int) model.getValueAt(rowChangedSample, smpl_Id_Colum));
 
@@ -382,8 +397,9 @@ public class Table_Sample_List extends JDialog {
 					.getRequest_To_ObektNaIzpitvaneRequest(sample.getRequest(),
 							model.getValueAt(rowChangedSample, O_I_R_Colum).toString());
 			sample.setRequest_to_obekt_na_izpitvane_request(requestTo_O_I_R);
-			sample.setObekt_na_izpitvane_sample(Obekt_na_izpitvane_sampleDAO
-					.getValueObekt_na_izpitvane_sampleByName(model.getValueAt(rowChangedSample, O_I_S_Colum).toString()));
+			System.out.println(name_O_I_S_Colum+" -/- "+O_I_S_Colum+"  *******  "+model.getValueAt(rowChangedSample, O_I_S_Colum).toString());
+			sample.setObekt_na_izpitvane_sample(Obekt_na_izpitvane_sampleDAO.getValueObekt_na_izpitvane_sampleByName(
+					model.getValueAt(rowChangedSample, O_I_S_Colum).toString()));
 			String strPeriod = model.getValueAt(rowChangedSample, period_Colum).toString();
 			if (strPeriod.equals("")) {
 				sample.setPeriod(null);
@@ -399,8 +415,6 @@ public class Table_Sample_List extends JDialog {
 	}
 
 	private static String[] getTabHeader() {
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване", "Описание на групата проби",
-				"Обект на пробата", "Описание на пробата", "Референтна дата", "Приод", "Година", "Id" };
 		return tableHeader;
 	}
 
@@ -432,4 +446,18 @@ public class Table_Sample_List extends JDialog {
 	private int getSelectedModelRow(JTable table) {
 		return table.convertRowIndexToModel(table.getSelectedRow());
 	}
+
+	static int getColumnIndex(JTable table, String columnTitle) {
+	    int columnCount = table.getColumnCount();
+
+	    for (int column = 0; column < columnCount; column++) {
+	        if (table.getColumnName(column).equalsIgnoreCase(columnTitle)) {
+	            return column;
+	        }
+	    }
+
+	    return -1;
+	}
+
+
 }

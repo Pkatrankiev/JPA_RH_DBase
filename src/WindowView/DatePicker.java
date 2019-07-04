@@ -61,7 +61,7 @@ public class DatePicker {
 		// set modal true
 		d.setModal(true);
 		// define string
-		String[] header = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд" };
+		String[] header = { "РџРЅ", "Р’С‚", "РЎСЂ", "Р§С‚", "РџС‚", "РЎР±", "РќРґ" };
 		// create JPanel object and set layout
 		JPanel p1 = new JPanel(new GridLayout(7, 7));
 		// set size
@@ -113,7 +113,7 @@ public class DatePicker {
 		JPanel p2 = new JPanel(new GridLayout(1, 3));
 
 		// create object of button for previous month
-		JButton data_previous = new JButton("<< Назад");
+		JButton data_previous = new JButton("<< РќР°Р·Р°Рґ");
 		data_previous.setFont(font);
 		// add action command
 		data_previous.addActionListener(new ActionListener() {
@@ -127,7 +127,7 @@ public class DatePicker {
 		p2.add(data_previous);// add button
 		p2.add(l);// add label
 		// create object of button for next month
-		JButton data_next = new JButton("Напред >>");
+		JButton data_next = new JButton("РќР°РїСЂРµРґ >>");
 		data_next.setFont(font);
 		// add action command
 		data_next.addActionListener(new ActionListener() {
@@ -170,7 +170,7 @@ public class DatePicker {
 				date.substring(0, 10);
 			} catch (StringIndexOutOfBoundsException e) {
 
-				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Р“СЂРµС€РЅР° РґР°С‚Р°!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 
 			}
 
@@ -228,7 +228,7 @@ public class DatePicker {
 				try {
 					cal_time.setTime(sdf_time.parse(label.getText()));
 				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(null, "Некоректен час!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "РќРµРєРѕСЂРµРєС‚РµРЅ С‡Р°СЃ!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 				}
 
 				hour = cal_time.get(Calendar.HOUR_OF_DAY);
@@ -245,7 +245,7 @@ public class DatePicker {
 			}
 		});
 
-		JButton previous_time_btn = new JButton("<< T Назад");
+		JButton previous_time_btn = new JButton("<< T РќР°Р·Р°Рґ");
 		previous_time_btn.setFont(font);
 		previous_time_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -263,7 +263,7 @@ public class DatePicker {
 
 		panel.add(label);
 
-		JButton next_time_btn = new JButton("Напред T >>");
+		JButton next_time_btn = new JButton("РќР°РїСЂРµРґ T >>");
 		next_time_btn.setFont(font);
 		next_time_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -357,7 +357,7 @@ public class DatePicker {
 		}
 		l.setText(sdf.format(cal.getTime()));
 		// set title
-		d.setTitle("Дата");
+		d.setTitle("Р”Р°С‚Р°");
 
 	}
 
@@ -397,7 +397,7 @@ public class DatePicker {
 				try {
 					LocalDateTime.parse(startStrDate, sdf);
 				} catch (Exception e) {
-					return meanStrPeriod = "Некоректни дати";
+					return meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РЅРё РґР°С‚Рё";
 
 				}
 			} else {
@@ -409,7 +409,7 @@ public class DatePicker {
 					locStartDate = LocalDateTime.parse(startStrDate, sdf);
 					locEndDate = LocalDateTime.parse(endStrDate, sdf);
 				} catch (Exception e) {
-					return meanStrPeriod = "Некоректни дати";
+					return meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РЅРё РґР°С‚Рё";
 
 				}
 				Duration duration = Duration.between(locStartDate, locEndDate);
@@ -418,7 +418,7 @@ public class DatePicker {
 				long refTimeInSec = duration.getSeconds() / 2;
 				refDate = locStartDate.plusSeconds(refTimeInSec);
 				if (refTimeInSec < 0) {
-					meanStrPeriod = "Некоректен период";
+					meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РµРЅ РїРµСЂРёРѕРґ";
 				} else
 					meanStrPeriod = refDate.format(sdf);
 
@@ -441,7 +441,7 @@ public class DatePicker {
 				try {
 					LocalDate.parse(startStrDate, sdf);
 				} catch (Exception e) {
-					return meanStrPeriod = "Некоректни датa";
+					return meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РЅРё РґР°С‚a";
 
 				}
 			} else {
@@ -449,11 +449,11 @@ public class DatePicker {
 						locStartDate =	LocalDate.parse(startStrDate, sdf);
 						locEndDate =	LocalDate.parse(endStrDate, sdf);
 				} catch (Exception e) {
-					return meanStrPeriod = "Некоректни дати";
+					return meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РЅРё РґР°С‚Рё";
 
 				}
 				if (locStartDate.isAfter(locEndDate)) {
-					 meanStrPeriod = "Некоректен период";
+					 meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РµРЅ РїРµСЂРёРѕРґ";
 				    } 
 			}
 		}
@@ -466,10 +466,10 @@ public class DatePicker {
 //			s_locStartDate = s_sdf.parse(startStrDate);
 //			s_locEndDate =  s_sdf.parse(endStrDate);
 //		} catch (Exception e) {
-//			return meanStrPeriod = "Некоректни дати2";
+//			return meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РЅРё РґР°С‚Рё2";
 //		}
 //		 if (s_locStartDate.after(s_locEndDate)) {
-//			 meanStrPeriod = "Некоректен период";
+//			 meanStrPeriod = "РќРµРєРѕСЂРµРєС‚РµРЅ РїРµСЂРёРѕРґ";
 //		    } 
 		
 		return meanStrPeriod;
@@ -518,8 +518,21 @@ public class DatePicker {
 		}
 		return corDate;
 	}
+	
+	public static Boolean incorrectPeriodOrDate(String date) {
+		Boolean fl1=false,fl2=false;
+		String date1 = date;
+		if(date.indexOf("Г·")>0){
+			date1 = date.substring(0,date.indexOf("")).trim();
+		String date2 = date.substring(date.indexOf("Г·")).trim();
+		fl2 = incorrectDate(date2, false);
+			}
+		fl1 = incorrectDate(date1, false);
+		
+		return fl1&&fl2;
+	}
 
-	public static String reformatFromTabDate(String origin_date, Boolean inTime) throws ParseException {
+	public static String reformatFromTabDate(String origin_date, Boolean withTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
 		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
@@ -537,7 +550,7 @@ public class DatePicker {
 			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
 		}
 
-		if (inTime) {
+		if (withTime) {
 			sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
 			table_sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 
@@ -551,7 +564,7 @@ public class DatePicker {
 		try {
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "РџСЂРµС„РѕСЂРјР°С‚РёСЂР°РЅРµ РЅР° Р”Р°С‚Р°С‚Р°", "Р“СЂРµС€РєР° РІ РґР°РЅРЅРёС‚Рµ",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
@@ -559,7 +572,7 @@ public class DatePicker {
 		return table_sdf.format(date);
 	}
 
-	public static String formatToTabDate(String origin_date, Boolean inTime) throws ParseException {
+	public static String formatToTabDate(String origin_date, Boolean withTime) throws ParseException {
 		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
 		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
@@ -582,7 +595,7 @@ public class DatePicker {
 			FORMAT_DATE = FORMAT_DATE.replace(separ, separator);
 		}
 
-		if (inTime) {
+		if (withTime) {
 			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
 			table_sdf = new SimpleDateFormat(TAB_FORMAT_DATE_TIME);
 
@@ -596,7 +609,7 @@ public class DatePicker {
 		try {
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "РџСЂРµС„РѕСЂРјР°С‚РёСЂР°РЅРµ РЅР° Р”Р°С‚Р°С‚Р°", "Р“СЂРµС€РєР° РІ РґР°РЅРЅРёС‚Рµ",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
@@ -633,7 +646,7 @@ public class DatePicker {
 		try {
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "РџСЂРµС„РѕСЂРјР°С‚РёСЂР°РЅРµ РЅР° Р”Р°С‚Р°С‚Р°", "Р“СЂРµС€РєР° РІ РґР°РЅРЅРёС‚Рµ",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}

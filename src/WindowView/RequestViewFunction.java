@@ -279,7 +279,8 @@ public class RequestViewFunction {
 			prob = "проби";
 			sbor = "Сборни";
 		}
-		String str_period_sample = DateChoice_period.get_str_period_sample(false);
+		Boolean forTable = false;
+		String str_period_sample = DateChoice_period.get_str_period_sample(false, forTable);
 //		 String str_period_sample = DateChoice.get_str_period_sample();
 
 		txtInDescriptGrupSample = sbor + " " + prob;

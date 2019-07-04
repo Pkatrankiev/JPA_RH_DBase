@@ -1250,9 +1250,9 @@ public class RequestView extends JDialog {
 					DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
 							withTime, forDateReception);
 					date_period_reception.setVisible(true);
-
+					Boolean forTable = false;
 					String textRefDate = "";
-					textRefDate = DateChoice_period.get_str_period_sample(forDateReception);
+					textRefDate = DateChoice_period.get_str_period_sample(forDateReception, forTable);
 
 					incorrect_date_period_Reception = RequestViewFunction
 							.incorrectReception_Date_Period(txtFld_date_period_reception);

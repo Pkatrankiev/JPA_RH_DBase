@@ -312,16 +312,24 @@ public class DateChoice_period extends JDialog {
 		}
 	}
 	
-	public static String get_str_period_sample(Boolean forDateReception) {
+	public static String get_str_period_sample(Boolean forDateReception,Boolean forTable) {
 	
-		String str="";
+		String str="", txtStartDate_Table="",txtEndDate_Table="";
 		if(txtStartDate != null || txtEndDate != null){
+			txtStartDate_Table = DatePicker.formatToTabDate(txtStartDate.getText(), false);
 		if(forDateReception){
 			str = txtStartDate.getText();
 		}
+		if(forTable){
+			str =	txtStartDate_Table;
+		}
 		if(!txtEndDate.getText().equals("")){
+			txtEndDate_Table = DatePicker.formatToTabDate(txtEndDate.getText(), false);	
 			if(forDateReception){
 				str = txtStartDate.getText()+" ÷ "+ txtEndDate.getText() ;
+				if(forTable){
+					str =	txtEndDate_Table+" ÷ " + txtStartDate_Table;
+				}
 			}else{
 		str = "за периода: "+txtStartDate.getText().substring(0, 10)+" ÷ "+ txtEndDate.getText().substring(0, 10) ;
 			}

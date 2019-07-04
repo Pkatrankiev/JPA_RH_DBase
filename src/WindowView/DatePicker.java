@@ -564,7 +564,7 @@ public class DatePicker {
 		try {
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Преформатиране на - Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
@@ -572,7 +572,7 @@ public class DatePicker {
 		return table_sdf.format(date);
 	}
 
-	public static String formatToTabDate(String origin_date, Boolean withTime) throws ParseException {
+	public static String formatToTabDate(String origin_date, Boolean withTime)  {
 		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
 		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
@@ -613,7 +613,9 @@ public class DatePicker {
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		date = sdf.parse(origin_date);
+//		date = sdf.parse(origin_date);
+		
+		
 		return table_sdf.format(date);
 	}
 
@@ -644,6 +646,7 @@ public class DatePicker {
 		Date date = new Date();
 
 		try {
+			System.out.println("--                  --"+origin_date);
 			date = sdf.parse(origin_date);
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",

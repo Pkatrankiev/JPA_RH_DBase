@@ -110,7 +110,7 @@ public class Table_Sample_List extends JDialog {
 				String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn()).getHeaderValue()
 						.toString();
 				
-				int selectedRow = table.rowAtPoint(e.getPoint());
+				int selectedRow = getSelectedModelRow(table);
 				String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
 
 				if (nameSelectedColumn.equals(name_rqst_Colum)) {

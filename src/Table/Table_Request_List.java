@@ -140,9 +140,9 @@ public class Table_Request_List extends JDialog {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn()).getHeaderValue()
 						.toString();
-				int selectedRow = table.rowAtPoint(e.getPoint());
-				table.rowAtPoint(e.getPoint());
-				table.columnAtPoint(e.getPoint());
+				int selectedRow = getSelectedModelRow(table);
+//				table.rowAtPoint(e.getPoint());
+//				table.columnAtPoint(e.getPoint());
 				// DefaultTableModel model =(DefaultTableModel)
 				// table.getModel();
 				System.out.println("-----  "+nameSelectedColumn);
@@ -165,7 +165,9 @@ public class Table_Request_List extends JDialog {
 							
 							final JFrame f = new JFrame();
 							DatePicker dPicer = new DatePicker(f, false, strDate);
-							table.setValueAt(dPicer.setPickedDate(false), selectedRow, columnIndex);
+							String str = dPicer.setPickedDate(false);
+							strDate = DatePicker.formatToTabDate(str, false);
+							table.setValueAt(strDate, selectedRow, columnIndex);
 														
 						} 
 						
@@ -174,13 +176,14 @@ public class Table_Request_List extends JDialog {
 							int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
 							String str_date_period_reception = model.getValueAt(selectedRow, columnIndex).toString();
 						Boolean forDateReception = true;
+						Boolean forTable = true;
 						Boolean withTime = false;
 												
 						final JFrame f = new JFrame();
 						DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
 								withTime, forDateReception);
 						date_period_reception.setVisible(true);
-						table.setValueAt(DateChoice_period.get_str_period_sample(forDateReception),selectedRow, columnIndex);
+						table.setValueAt(DateChoice_period.get_str_period_sample(forDateReception, forTable),selectedRow, columnIndex);
 						}
 						
 						
@@ -428,7 +431,7 @@ public class Table_Request_List extends JDialog {
 		List<Sample> listSample = SampleDAO.getInListAllValueSample();
 
 		for (Request request : listRequest) {
-			try {
+			
 				Integer.parseInt(request.getRecuest_code());
 				String[][] masiveSample = RequestViewAplication.getMasiveSampleFromListSampleFromRequest(request,
 						listSample);
@@ -474,11 +477,7 @@ public class Table_Request_List extends JDialog {
 				tableRequest[i][zab_Colum] = zab;
 				tableRequest[i][user_Id_Colum] = request.getUsers().getId_users();
 				i++;
-			} catch (NumberFormatException e) {
-
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			
 		}
 
 		return tableRequest;

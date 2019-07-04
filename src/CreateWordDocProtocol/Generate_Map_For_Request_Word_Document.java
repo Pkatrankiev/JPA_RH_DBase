@@ -53,15 +53,11 @@ public class Generate_Map_For_Request_Word_Document {
 		for (Sample sample : list_Sample) {
 			List<Results> list_Results = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			for (Results result : list_Results) {
-				try {
-					if (result.getDate_chim_oper().length() > 0)
+				if (result.getDate_chim_oper().length() > 0)
 						date.add(DatePicker.formatToTabDate(result.getDate_chim_oper(), false));
 					if (result.getDate_measur().length() > 0)
 						date.add(DatePicker.formatToTabDate(result.getDate_measur(), false));
-				} catch (ParseException e) {
-					
-					e.printStackTrace();
-				}
+				
 
 			}
 		}

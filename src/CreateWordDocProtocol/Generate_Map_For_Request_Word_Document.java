@@ -65,14 +65,11 @@ public class Generate_Map_For_Request_Word_Document {
 		if (date.size() > 0) {
 			maxDate = Collections.max(date);
 			minDate = Collections.min(date);
-			try {
+			
 				maxDate = DatePicker.reformatFromTabDate(maxDate, false);
 				minDate = DatePicker.reformatFromTabDate(minDate, false);
 
-			} catch (ParseException e) {
-				
-				e.printStackTrace();
-			}
+			
 		}
 
 		Map<String, String> substitutionData = new HashMap<String, String>();

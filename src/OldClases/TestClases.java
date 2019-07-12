@@ -197,7 +197,8 @@ public class TestClases {
 	}
 	 
 	@SuppressWarnings("unused")
-	private static void AddResultsViewWithTable() {
+	public
+	static void AddResultsViewWithTable() {
 		TranscluentWindow round = new TranscluentWindow();
 		
 		 final Thread thread = new Thread(new Runnable() {

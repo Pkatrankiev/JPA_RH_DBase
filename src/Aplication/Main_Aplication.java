@@ -24,8 +24,9 @@ public class Main_Aplication {
 //		TestClases.testNewRequestVew();
 		
 //		TestClases.testTableSampleList();
+		TestClases.AddResultsViewWithTable() ;
 		
-		TestClases.start_Table_Request_List();
+//		TestClases.start_Table_Request_List();
 		
 //		StartMainWindow();
 		

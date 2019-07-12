@@ -3,14 +3,11 @@ package Table;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,15 +23,12 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
-import CreateWordDocProtocol.AplicationDocTemplate;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
@@ -447,7 +441,7 @@ public class Table_Sample_List extends JDialog {
 		return table.convertRowIndexToModel(table.getSelectedRow());
 	}
 
-	static int getColumnIndex(JTable table, String columnTitle) {
+	public static int getColumnIndex(JTable table, String columnTitle) {
 	    int columnCount = table.getColumnCount();
 
 	    for (int column = 0; column < columnCount; column++) {

@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 
 public class MiniComboBoxFrame extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox<Object> comboBox;
 	private String strChoice;

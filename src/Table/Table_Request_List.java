@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,20 +78,20 @@ public class Table_Request_List extends JDialog {
 			"Референтна дата", "Срок на изпълнение", "Време на приемане", "Приел заявката", "Забележка", "Id User" };
 
 	private static String name_rqst_code_Colum = tableHeader[0];
-	private static String name_id_ND_Colum = tableHeader[1];
+//	private static String name_id_ND_Colum = tableHeader[1];
 	private static String name_rqst_Date_Colum = tableHeader[2];
-	private static String name_izp_Prod_Colum = tableHeader[3];
+//	private static String name_izp_Prod_Colum = tableHeader[3];
 	private static String name_obk_Izp_Colum = tableHeader[4];
 	private static String name_izp_Pok_Colum = tableHeader[5];
-	private static String name_razmer_Colum = tableHeader[6];
+//	private static String name_razmer_Colum = tableHeader[6];
 	private static String name_cunt_Smpl_Colum = tableHeader[7];
-	private static String name_dscr_Smpl_Colum = tableHeader[8];
+//	private static String name_dscr_Smpl_Colum = tableHeader[8];
 	private static String name_ref_Date_Colum = tableHeader[9];
 	private static String name_exec_Date_Colum = tableHeader[10];
 	private static String name_rcpt_Date_Colum = tableHeader[11];
-	private static String name_user_Colum = tableHeader[12];
-	private static String name_zab_Colum = tableHeader[13];
-	private static String name_user_Id_Colum = tableHeader[14];
+//	private static String name_user_Colum = tableHeader[12];
+//	private static String name_zab_Colum = tableHeader[13];
+//	private static String name_user_Id_Colum = tableHeader[14];
 
 	private static int tbl_Colum = 15;
 	private static int rqst_code_Colum = 0;
@@ -141,11 +140,12 @@ public class Table_Request_List extends JDialog {
 				String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn()).getHeaderValue()
 						.toString();
 				int selectedRow = getSelectedModelRow(table);
-//				table.rowAtPoint(e.getPoint());
+				String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
+//				int selectedRow = table.rowAtPoint(e.getPoint());
 //				table.columnAtPoint(e.getPoint());
 				// DefaultTableModel model =(DefaultTableModel)
 				// table.getModel();
-				System.out.println("-----  "+nameSelectedColumn);
+				System.out.println("-----  "+nameSelectedColumn+"   code Request= "+reqCodeStr);
 				
 				if (getSelectedModelRow(table) != -1) {
 
@@ -153,7 +153,7 @@ public class Table_Request_List extends JDialog {
 						
 						if (nameSelectedColumn.equals(name_rqst_code_Colum)) {
 						
-							String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
+							
 							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							new RequestMiniFrame(new JFrame(), choiseRequest);
 
@@ -167,7 +167,7 @@ public class Table_Request_List extends JDialog {
 							DatePicker dPicer = new DatePicker(f, false, strDate);
 							String str = dPicer.setPickedDate(false);
 							strDate = DatePicker.formatToTabDate(str, false);
-							table.setValueAt(strDate, selectedRow, columnIndex);
+							model.setValueAt(strDate, selectedRow, columnIndex);
 														
 						} 
 						
@@ -178,12 +178,12 @@ public class Table_Request_List extends JDialog {
 						Boolean forDateReception = true;
 						Boolean forTable = true;
 						Boolean withTime = false;
-												
+						Boolean fromTable = true;					
 						final JFrame f = new JFrame();
 						DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
-								withTime, forDateReception);
+								withTime, forDateReception, fromTable);
 						date_period_reception.setVisible(true);
-						table.setValueAt(DateChoice_period.get_str_period_sample(forDateReception, forTable),selectedRow, columnIndex);
+						model.setValueAt(DateChoice_period.get_str_period_sample(forDateReception, forTable),selectedRow, columnIndex);
 						}
 						
 						
@@ -197,13 +197,13 @@ public class Table_Request_List extends JDialog {
 
 						if (nameSelectedColumn.equals(name_obk_Izp_Colum)) {
 							int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
-							String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum).toString();
+							
 							Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							if (Table_RequestToObektNaIzp.EditRequestObektIzpit(table, selectedRow, choiseRequest,
 									mapListForChangedStrObektNaIzp, values_O_I_R)) {
 								List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus
 										.getMasiveStringFromChoice();
-								table.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(
+								model.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(
 										listFromChoiceObektNaIzp, false), selectedRow, columnIndex);
 								mapListForChangedStrObektNaIzp.put(selectedRow, listFromChoiceObektNaIzp);
 								AddInUpdateList(selectedRow);
@@ -214,8 +214,7 @@ public class Table_Request_List extends JDialog {
 
 							if (nameSelectedColumn.equals(name_cunt_Smpl_Colum)
 									|| nameSelectedColumn.equals(name_ref_Date_Colum)) {
-								String reqCodeStr = model.getValueAt(selectedRow, rqst_code_Colum)
-										.toString();
+								
 								Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code",
 										reqCodeStr);
 								new JFrame();
@@ -236,8 +235,7 @@ public class Table_Request_List extends JDialog {
 
 					}else {
 						if (e.getClickCount() == 2) {
-						String reqCodeStr = model.getValueAt(getSelectedModelRow(table), rqst_code_Colum)
-								.toString();
+						
 						if (parent.getName().equals("tamplete")) {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
@@ -304,6 +302,10 @@ public class Table_Request_List extends JDialog {
 					}
 
 				};
+				
+				
+				
+				
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
 
@@ -468,7 +470,11 @@ public class Table_Request_List extends JDialog {
 				tableRequest[i][ref_Date_Colum] = RequestViewFunction
 						.GenerateStringRefDateTimeFromMasiveSample(masiveSample);
 				tableRequest[i][exec_Date_Colum] = DatePicker.formatToTabDate(request.getDate_execution(), false);
-				tableRequest[i][rcpt_Date_Colum] = request.getDate_reception();
+				
+				String[] strPeriodDate = DateChoice_period.getMasiveDateFromPeriodString(request.getDate_reception());
+				
+				tableRequest[i][rcpt_Date_Colum] = DateChoice_period.generateStringPeriodDate(true, true, strPeriodDate[0],
+						strPeriodDate[1]);;
 				tableRequest[i][user_Colum] = request.getUsers().getName_users() + " "
 						+ request.getUsers().getFamily_users();
 				String zab = "";
@@ -607,13 +613,7 @@ public class Table_Request_List extends JDialog {
 	}
 
 	private static String reformatDate(String strDate) {
-		try {
-			strDate = DatePicker.reformatFromTabDate(strDate, false);
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
+		strDate = DatePicker.reformatFromTabDate(strDate, false);
 		return strDate;
 	}
 

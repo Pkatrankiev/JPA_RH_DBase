@@ -3,6 +3,7 @@ package WindowView;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -43,6 +44,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import Table.CustomTableRenderer;
 
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -141,6 +143,9 @@ public class AddResultsViewWithTable extends JDialog {
 	Boolean flagNotReadListMetody = true;
 	Boolean viewAddRowButton = false;
 	Boolean flagIncertedFile = false;
+	
+	private Font font_plain = new Font("Tahoma", Font.PLAIN, 11);
+	private Font font_bold = new Font("Tahoma", Font.BOLD, 11);
 
 	private static int tbl_Colum = 14;
 	private static int nuclide_Colum = 0;
@@ -1404,8 +1409,36 @@ public class AddResultsViewWithTable extends JDialog {
 									// columnNames));
 
 		JTableHeader header = table.getTableHeader();
+		header.setReorderingAllowed(false);
 		header.addMouseListener(new TableHeaderMouseListener(table));
 
+		table.setDefaultRenderer(String.class, new CustomTableRenderer(){
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			    public Component getTableCellRendererComponent(JTable table, Object value,
+			            boolean isSelected, boolean hasFocus, int row, int column) {
+
+			        Component c = super.getTableCellRendererComponent(table, value, isSelected,
+			                hasFocus, row, nuclide_Colum);
+			               			            
+			            if ((table.getValueAt(row, in_Prot_Colum)).toString().equals("true")) {
+			                //set to red bold font
+			                c.setForeground(Color.RED);
+			                c.setFont(font_bold);
+			                
+			            } else {
+			                //stay at default
+			                c.setForeground(Color.BLACK);
+			                c.setFont(font_plain);
+			            }
+			        
+			        return c;
+			    }
+		});
+
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -1422,6 +1455,16 @@ public class AddResultsViewWithTable extends JDialog {
 						
 					
 				}
+				
+				if (col == in_Prot_Colum ) {
+					String in_Prot =(table.getValueAt(table.getSelectedRow(), in_Prot_Colum)).toString();
+					System.out.println(in_Prot);
+					if(in_Prot.equals("")){
+						
+					}
+										
+				}
+				
 				if (table.getSelectedColumn() == check_Colum) {
 					double actv_value = Double
 							.parseDouble((table.getValueAt(table.getSelectedRow(), actv_value_Colum)).toString());
@@ -1846,5 +1889,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 		}
 	}
-
+	
 }
+
+ 

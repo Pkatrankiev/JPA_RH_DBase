@@ -813,10 +813,11 @@ public class RequestView extends JDialog {
 					final JFrame f = new JFrame();
 					Boolean forDateReception = false;
 					Boolean withTime = true;
+					Boolean fromTable = false;
 					String str_date_period_reception = txt_fid_date_time_reference.getText();
 
 					DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception,
-							withTime, forDateReception);
+							withTime, forDateReception,	fromTable);
 
 					date_time_reference.setVisible(true);
 					str_Descript_grup_Sample = RequestViewFunction.generateTxtInDescriptGrupSampleNew(choice_Period,
@@ -1242,13 +1243,14 @@ public class RequestView extends JDialog {
 					
 					Boolean forDateReception = true;
 					Boolean withTime = false;
+					Boolean fromTable = false;
 					String str_date_period_reception = txtFld_date_period_reception.getText();
 					if (incorrect_date_period_Reception) {
 						str_date_period_reception = RequestViewFunction.DateNaw(false);
 					}
 					final JFrame f = new JFrame();
 					DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
-							withTime, forDateReception);
+							withTime, forDateReception,fromTable);
 					date_period_reception.setVisible(true);
 					Boolean forTable = false;
 					String textRefDate = "";

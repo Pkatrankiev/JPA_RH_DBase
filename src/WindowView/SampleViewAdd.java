@@ -20,6 +20,7 @@ import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForIcons;
+import GlobalVariable.ResourceLoader;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

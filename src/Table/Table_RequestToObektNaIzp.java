@@ -37,7 +37,6 @@ import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
-import sun.nio.cs.ext.MSISO2022JP;
 
 public class Table_RequestToObektNaIzp  extends JDialog {
 

@@ -532,7 +532,7 @@ public class DatePicker {
 		return fl1&&fl2;
 	}
 
-	public static String reformatFromTabDate(String origin_date, Boolean withTime) throws ParseException {
+	public static String reformatFromTabDate(String origin_date, Boolean withTime) {
 		String TAB_FORMAT_DATE = GlobalFormatDate.getTAB_FORMAT_DATE();
 		String TAB_FORMAT_DATE_TIME = GlobalFormatDate.getTAB_FORMAT_DATE_TIME();
 		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
@@ -568,7 +568,7 @@ public class DatePicker {
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		date = sdf.parse(origin_date);
+		
 		return table_sdf.format(date);
 	}
 

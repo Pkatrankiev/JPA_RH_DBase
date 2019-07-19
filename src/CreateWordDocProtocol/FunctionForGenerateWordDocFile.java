@@ -199,7 +199,7 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	static Map<String, String> generateMapRowTable(Sample sample, IzpitvanPokazatel pokazatel,
-			String[] masive_key_table_row) {
+			String[] masive_key_table_row, Boolean isDiferent_Ob_Izp_Req) {
 
 		Map<String, String> substitutionData = new HashMap<String, String>();
 
@@ -208,7 +208,8 @@ public class FunctionForGenerateWordDocFile {
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
 
 		// "$$ob_izp_sam$$"
-		substitutionData.put(masive_key_table_row[1], sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
+		String str_ob_izp_sam = generate_str_Ob_izp_samp(sample, isDiferent_Ob_Izp_Req);
+		substitutionData.put(masive_key_table_row[1], str_ob_izp_sam);
 
 		// "$$pokazat$$"
 		String strMinipokazatel = generateSimpliStrOnPokazatel(pokazatel.getPokazatel().getName_pokazatel());
@@ -221,6 +222,21 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put(masive_key_table_row[3], pokazatel.getRequest().getDate_execution());
 
 		return substitutionData;
+	}
+
+	public static String generate_str_Ob_izp_samp(Sample sample, Boolean isDiferent_Ob_Izp_Req) {
+		String str_ob_izp_sam ="";
+		if(isDiferent_Ob_Izp_Req){
+		str_ob_izp_sam =
+		sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane();
+		String str_ob_izp_req_simpl = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name();
+		if(!str_ob_izp_req_simpl.equals("")){
+			str_ob_izp_sam = str_ob_izp_req_simpl;
+		}
+		str_ob_izp_sam += ", ";
+		}
+		str_ob_izp_sam += sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
+		return str_ob_izp_sam;
 	}
 
 	static Map<String, String> generateEmptiMapRowTable(String[] masive_key_table_row) {

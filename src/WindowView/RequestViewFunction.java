@@ -21,6 +21,8 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
+import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
+import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.GenerateRequestWordDoc;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Ind_num_doc;
@@ -436,20 +438,22 @@ public class RequestViewFunction {
 	}
 
 	public static String[][] generateMasiveSampleDescriptionFromRequest(Request request) {
+		Boolean isDiferent_Ob_Izp_Req = GenerateDocRazpredFormul.isDiferent_Ob_Izp_Req(request);
 		int countSample = request.getCounts_samples();
-		List<Sample> sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
+		List<Sample> list_sample = SampleDAO.getListSampleFromColumnByVolume("request", request);
 		String[][] volSampleView = new String[countSample][6];
 		for (int i = 0; i < countSample; i++) {
-			volSampleView[i][0] = request.getRecuest_code() + "-" + sample.get(i).getSample_code();
-			volSampleView[i][1] = sample.get(i).getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
-			volSampleView[i][2] = sample.get(i).getDescription_sample();
-			volSampleView[i][3] = sample.get(i).getDate_time_reference();
+			volSampleView[i][0] = request.getRecuest_code() + "-" + list_sample.get(i).getSample_code();
+			volSampleView[i][1] = FunctionForGenerateWordDocFile.
+					generate_str_Ob_izp_samp(list_sample.get(i), isDiferent_Ob_Izp_Req);
+			volSampleView[i][2] = list_sample.get(i).getDescription_sample();
+			volSampleView[i][3] = list_sample.get(i).getDate_time_reference();
 			String str = "";
-			if (sample.get(i).getPeriod() != null) {
-				str = sample.get(i).getPeriod().getValue();
+			if (list_sample.get(i).getPeriod() != null) {
+				str = list_sample.get(i).getPeriod().getValue();
 			}
 			volSampleView[i][4] = str;
-			volSampleView[i][5] = sample.get(i).getGodina_period() + "";
+			volSampleView[i][5] = list_sample.get(i).getGodina_period() + "";
 
 		}
 		return volSampleView;

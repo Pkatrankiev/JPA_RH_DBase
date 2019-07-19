@@ -430,6 +430,29 @@ public class DatePicker {
 		return meanStrPeriod;
 	}
 
+	public static String reformarDateMeasur(String origin_date) {
+		
+		SimpleDateFormat sdf  = new SimpleDateFormat("dd.MM.yyyy");
+		SimpleDateFormat sdf7 = new SimpleDateFormat("dd.M.yy");
+		SimpleDateFormat sdf8 = new SimpleDateFormat("dd.MM.yy");
+		Date date = new Date();
+		
+			try {
+				if (origin_date.length()==7) {
+				date = sdf7.parse(origin_date);
+				}
+				if (origin_date.length()==8) {
+					date = sdf8.parse(origin_date);
+					}
+			} catch (ParseException e) {
+				JOptionPane.showMessageDialog(null, "Преформатиране на - Датата", "Грешка в данните",
+						JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			
+		}
+			return sdf.format(date);
+	}
+	
 	public static String chec_current_period(String startStrDate, String endStrDate) {
 		String meanStrPeriod = startStrDate;
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);

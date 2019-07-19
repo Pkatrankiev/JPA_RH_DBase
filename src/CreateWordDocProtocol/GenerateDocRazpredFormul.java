@@ -15,10 +15,13 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.*;
 
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
+import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
 import WindowView.RequestViewFunction;
@@ -39,7 +42,7 @@ public class GenerateDocRazpredFormul {
 				"$$date_exec$$" };
 
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
-
+		Boolean isDiferent_Ob_Izp_Req = isDiferent_Ob_Izp_Req(recuest);
 		int count_Result_In_Protokol = FunctionForGenerateWordDocFile.get_count_Result_In_Protokol(smple_list);
 
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
@@ -100,13 +103,14 @@ public class GenerateDocRazpredFormul {
 		FunctionForGenerateWordDocFile.countRowInFirstPege(count_Result_In_Protokol);
 		int coutRow = 0;
 
+		
 		for (Sample sample : smple_list) {
 			ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 
 			for (IzpitvanPokazatel pokazatel : pokazatel_list) {
 				if (coutRow < maxRowInTableOnePage) {
 					repl_results = FunctionForGenerateWordDocFile.generateMapRowTable(sample, pokazatel,
-							masive_key_table_row);
+							masive_key_table_row, isDiferent_Ob_Izp_Req);
 					AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
 
 				} else {
@@ -128,7 +132,7 @@ public class GenerateDocRazpredFormul {
 						newTableCreate = false;
 					}
 					repl_results = FunctionForGenerateWordDocFile.generateMapRowTable(sample, pokazatel,
-							masive_key_table_row);
+							masive_key_table_row, isDiferent_Ob_Izp_Req);
 					AplicationDocTemplate.addRowToTable(new_table, templateRow, repl_results);
 
 				}
@@ -162,6 +166,16 @@ public class GenerateDocRazpredFormul {
 
 			e.printStackTrace();
 		}
+	}
+
+
+	public static Boolean isDiferent_Ob_Izp_Req(Request  request) {
+		List<Request_To_ObektNaIzpitvaneRequest> list_request_To_ObektNaIzpitvaneRequest = Request_To_ObektNaIzpitvaneRequestDAO.
+				getRequest_To_ObektNaIzpitvaneRequestByRequest( request);
+		if(list_request_To_ObektNaIzpitvaneRequest.size()>1){
+				return true;
+		}
+		return false;
 	}
 
 }

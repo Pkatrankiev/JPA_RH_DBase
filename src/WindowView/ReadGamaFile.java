@@ -86,6 +86,8 @@ public class ReadGamaFile {
 	public static void getReadGamaFile(String FILENAME) {
 
 		String[] stringArray = CreadMasiveFromReadFile(FILENAME);
+		
+		date_mesur = DatePicker.reformarDateMeasur(StringUtils.split(stringArray[0])[0]);
 		int flagNuclidy = 0;
 		int countLineToNuclide = 0;
 		Boolean fl_error_MDA = false;
@@ -155,9 +157,9 @@ public class ReadGamaFile {
 						case "Неопределеността":
 							sigma = stringLine[j][4];
 							break;
-						case "Начало":
-							date_mesur = stringLine[j][3];
-							break;
+//						case "Дата":
+//							date_mesur = stringLine[j][1];
+//							break;
 
 						}
 					}

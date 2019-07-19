@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import Aplication.DimensionDAO;
@@ -44,7 +45,6 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
-import Table.CustomTableRenderer;
 
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -144,22 +144,26 @@ public class AddResultsViewWithTable extends JDialog {
 	Boolean viewAddRowButton = false;
 	Boolean flagIncertedFile = false;
 	
-	private Font font_plain = new Font("Tahoma", Font.PLAIN, 11);
-	private Font font_bold = new Font("Tahoma", Font.BOLD, 11);
-
+	private static String[] tableHeader = { "Нуклид", "В протокол", "Активност", "Неопределеност", "МДА", "Размерност", "Сигма", "Количество",
+			"Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ",  "Проверка", "Id_Result" };
+	
+	@SuppressWarnings("rawtypes")
+	private static Class[] types = { String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, String.class, String.class,  String.class,Integer.class };
+	
 	private static int tbl_Colum = 14;
 	private static int nuclide_Colum = 0;
-	private static int actv_value_Colum = 1;
-	private static int uncrt_Colum = 2;
-	private static int mda_Colum = 3;
-	private static int razm_Colum = 4;
-	private static int sigma_Colum = 5;
-	private static int qunt_Colum = 6;
-	private static int dimen_Colum = 7;
-	private static int TSI_Colum = 8;
-	private static int dateHimObr_Colum = 9;
-	private static int dateAnaliz_Colum = 10;
-	private static int in_Prot_Colum = 11;
+	private static int in_Prot_Colum = 1;
+	private static int actv_value_Colum = 2;
+	private static int uncrt_Colum = 3;
+	private static int mda_Colum = 4;
+	private static int razm_Colum = 5;
+	private static int sigma_Colum =6;
+	private static int qunt_Colum = 7;
+	private static int dimen_Colum = 8;
+	private static int TSI_Colum = 9;
+	private static int dateHimObr_Colum = 10;
+	private static int dateAnaliz_Colum = 11;
 	private static int check_Colum = 12;
 	private static int rsult_Id_Colum = 13;
 
@@ -1323,6 +1327,13 @@ public class AddResultsViewWithTable extends JDialog {
 	public void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile) {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Double sysError = Double.parseDouble((String)ReadGamaFile.getSysError());
+				System.out.println(choiseRequest.getZabelejki().getName_zabelejki().toString()+" ////////   "+sysError);
+				if(choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%")>0 && Double.compare(sysError, 10.00) != 0){
+					JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
+				}
 				int choice = 0;
 				if (flagIncertedFile) {
 					String fileName = fileChooser.getSelectedFile().toString();
@@ -1411,33 +1422,6 @@ public class AddResultsViewWithTable extends JDialog {
 		JTableHeader header = table.getTableHeader();
 		header.setReorderingAllowed(false);
 		header.addMouseListener(new TableHeaderMouseListener(table));
-
-		table.setDefaultRenderer(String.class, new CustomTableRenderer(){
-			
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			    public Component getTableCellRendererComponent(JTable table, Object value,
-			            boolean isSelected, boolean hasFocus, int row, int column) {
-
-			        Component c = super.getTableCellRendererComponent(table, value, isSelected,
-			                hasFocus, row, nuclide_Colum);
-			               			            
-			            if ((table.getValueAt(row, in_Prot_Colum)).toString().equals("true")) {
-			                //set to red bold font
-			                c.setForeground(Color.RED);
-			                c.setFont(font_bold);
-			                
-			            } else {
-			                //stay at default
-			                c.setForeground(Color.BLACK);
-			                c.setFont(font_plain);
-			            }
-			        
-			        return c;
-			    }
-		});
-
 		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1447,24 +1431,21 @@ public class AddResultsViewWithTable extends JDialog {
 			public void mousePressed(MouseEvent e) {
 				int row = table.rowAtPoint(e.getPoint());
 				int col = table.columnAtPoint(e.getPoint());
+				
+				
 				if (SwingUtilities.isRightMouseButton(e)) {
 					if (col == dateAnaliz_Colum || col == dateHimObr_Colum) {
 						String date_choice = getDateFromDatePicker(table, col);
 						table.setValueAt(date_choice, row, col);
 					}
-						
-					
 				}
 				
-				if (col == in_Prot_Colum ) {
-					String in_Prot =(table.getValueAt(table.getSelectedRow(), in_Prot_Colum)).toString();
-					System.out.println(in_Prot);
-					if(in_Prot.equals("")){
-						
-					}
-										
-				}
-				
+				if (col == in_Prot_Colum){
+					table.changeSelection(row, 0, false, false);
+					DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+					cellRenderer.getBorder();
+				  }
+								
 				if (table.getSelectedColumn() == check_Colum) {
 					double actv_value = Double
 							.parseDouble((table.getValueAt(table.getSelectedRow(), actv_value_Colum)).toString());
@@ -1474,8 +1455,9 @@ public class AddResultsViewWithTable extends JDialog {
 					Sample samp = getSampleObjectFromChoiceSampleCode();
 					checkValueFrame(nuclide, samp, actv_value, mda);
 				}
+			
 			}
-
+			 
 		});
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -1632,18 +1614,11 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private static String[] getTabHeader() {
-		String[] tableHeader = { "Нуклид", "Активност", "Неопределеност", "МДА", "Размерност", "Сигма", "Количество",
-				"Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "В протокол", "Проверка", "Id_Result" };
 		return tableHeader;
 	}
 
 	@SuppressWarnings("rawtypes")
 	private static Class[] getTypes() {
-
-		Class[] types = { String.class, String.class, String.class, String.class, String.class, String.class,
-				String.class, String.class, String.class, String.class, String.class, Boolean.class, String.class,
-				Integer.class };
-
 		return types;
 	}
 
@@ -1803,10 +1778,10 @@ public class AddResultsViewWithTable extends JDialog {
 		return saveCheck;
 	}
 
-	private static String strCurrentDataInDataTable(Object[][] dataTable) {
+	private  String strCurrentDataInDataTable(Object[][] dataTable) {
 		String errDuplic = "";
 		String errTSI = "";
-
+		String uncrtError = "";
 		String errDateAnaliz = "";
 		String errRazm = "";
 		String errQunt = "";
@@ -1815,9 +1790,10 @@ public class AddResultsViewWithTable extends JDialog {
 		List<String> listCodeNuclide = new ArrayList<String>();
 		if (dataTable != null) {
 			for (int i = 0; i < dataTable.length; i++) {
-				String s1 = dataTable[i][mda_Colum].toString();
-				String s2 = dataTable[i][actv_value_Colum].toString();
-				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) != 0)) {
+				Double mda = Double.parseDouble((String)dataTable[i][mda_Colum].toString());
+				Double actv = Double.parseDouble((String)dataTable[i][actv_value_Colum].toString());
+				Double uncrt = Double.parseDouble((String)dataTable[i][uncrt_Colum].toString());
+				if (mda + actv != 0) {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					if (dataTable[i][razm_Colum].toString().trim().isEmpty()) {
 						errRazm = "размерност " + "\n";
@@ -1844,8 +1820,21 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 
 				}
-				System.out.println(dataTable[i][in_Prot_Colum].toString());
+				
 				if (dataTable[i][in_Prot_Colum].toString()=="true") {
+					String nuclede_uncrtError = "";
+					if (actv != 0) {
+						if (uncrt == 0) {
+							nuclede_uncrtError = "нулева неопределеност";
+						}else
+						if((uncrt/actv)*100>52){
+							nuclede_uncrtError = "неопределеност >52%";	
+						}
+					}
+					if(!nuclede_uncrtError.equals("")){
+						
+						uncrtError += dataTable[i][nuclide_Colum].toString() +" е  с "+ nuclede_uncrtError+ "\n";
+					}
 					inProtokol = "";
 				}
 				
@@ -1858,6 +1847,11 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 		} else {
 			errDuplic = "невъведени данни" + "\n";
+		}
+		
+		if (!uncrtError.equals("")) {
+			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, uncrtError, "Грешни данни за следните полета:",
+					JOptionPane.ERROR_MESSAGE);
 		}
 		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim + inProtokol);
 	}

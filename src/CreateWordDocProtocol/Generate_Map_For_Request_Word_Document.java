@@ -13,6 +13,7 @@ import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import GlobalVariable.GlobalPathForDocFile;
 import Table.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
@@ -39,6 +40,7 @@ public class Generate_Map_For_Request_Word_Document {
 	private static String key_date_execution = "$$date_execution$$";
 	private static String key_date_time_request = "$$date_time_request$$";
 	private static String key_request_zab = "$$req_zab$$";
+	private static String strKeyDopalneniaZabel = "$$dopalnenia$$";
 	private static String key_date_measur = "$$date_measur$$";
 	private static String key_user = "$$user$$";
 //	private static String 
@@ -138,7 +140,13 @@ public class Generate_Map_For_Request_Word_Document {
 
 		String request_zabelejki = RequestViewAplication.getStringZabelejkiForRequest(request);
 		substitutionData.put(key_request_zab, request_zabelejki);
-		
+				
+		if (request_zabelejki.equals("")) {
+			request_zabelejki = GlobalPathForDocFile.getTextDopalneniqIzklucheniq();
+		}else{
+			request_zabelejki =request.getZabelejki().getProtokol_name();
+		}
+		substitutionData.put(strKeyDopalneniaZabel, request_zabelejki);
 		if(minDate.equals(maxDate)){
 			substitutionData.put(key_date_measur, minDate);
 		}else{			

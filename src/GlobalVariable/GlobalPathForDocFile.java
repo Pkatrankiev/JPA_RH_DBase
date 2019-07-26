@@ -5,7 +5,18 @@ public class GlobalPathForDocFile {
 	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
 	private static final String destinationDir = "DIRECTORY/";
 	private static final String destinationDir_Protocols = "l:/ЛИ-РХ/Протоколи/";
-	private static final String name_tamplate_Protocols = "Protokol.docx";
+	
+//	public static int maxRowInOneTableOnePage = 13;
+//	public static int maxRowInFullTableOnePage = 25;
+//	private static final Integer[] masiveMergeColumn = {0,1,3};
+//	private static final String name_tamplate_Protocols = "Protokol.docx";
+		
+	public static final int maxRowInOneTableOnePage = 22;
+	public static final int maxRowInFullTableOnePage = 34;
+	private static final Integer[] masiveMergeColumn = {0,1,4};
+	private static final String name_tamplate_Protocols = "Protokol_NEW.docx";
+	private static final String text_dopalneniq_izklucheniq = "____________________";
+	
 	private static final String name_tamplate_Request = "Zaqvka_new.docx";
 	private static final String name_tamplate_RazpredForm = "Razpred.docx";
 	
@@ -32,4 +43,22 @@ public class GlobalPathForDocFile {
 	public static String get_NameTamplate_RazpredForm() {
 		return name_tamplate_RazpredForm;
 	}
+
+	public static int getMaxRowInOneTableOnePage() {
+		return maxRowInOneTableOnePage;
+	}
+
+	public static int getMaxRowInFullTableOnePage() {
+		return maxRowInFullTableOnePage;
+	}
+
+	public static Integer[] getMasivemergecolumn() {
+		return masiveMergeColumn;
+	}
+
+	public static String getTextDopalneniqIzklucheniq() {
+		return text_dopalneniq_izklucheniq;
+	}
+	
+	
 }

@@ -368,6 +368,19 @@ public class DateChoice_period extends JDialog {
 		return str;
 	}
 
+	public static String reformatPeriodDateFromTable(String incoming_date_time) {
+		String[] masiveStartAndEndDate = getMasiveDateFromPeriodString(incoming_date_time);
+		String str = "";
+			if(incoming_date_time.length()<12){
+				str = DatePicker.reformatFromTabDate(masiveStartAndEndDate[0], false);
+			}else{
+				str = DatePicker.reformatFromTabDate(masiveStartAndEndDate[1], false)+
+						" ÷ " + DatePicker.reformatFromTabDate(masiveStartAndEndDate[0], false);
+			}
+		return str;
+	}
+	
+	
 	private void returnToIncomingDate(String incoming_date_time, Boolean forDateReception) {
 		if (forDateReception) {
 			txtStartDate.setText(startIncomingData);

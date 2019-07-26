@@ -22,13 +22,13 @@ public class Main_Aplication {
 		
 //		TestClases.testSetText_Ob_na_Izp_Request();
 //		TestClases.testNewRequestVew();
-		
+//		TestClases.startCreateProtokolDocx();
 //		TestClases.testTableSampleList();
-//		TestClases.AddResultsViewWithTable() ;
+		TestClases.AddResultsViewWithTable() ;
 		
 //		TestClases.start_Table_Request_List();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

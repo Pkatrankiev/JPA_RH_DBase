@@ -21,15 +21,25 @@ public class Zabelejki implements Serializable {
 
 		 private String name;
 		 private String protokol_name;
+		 private String request_name;
 		
-		 public Zabelejki(Integer id, String name, String protokol_name) {
+		 public Zabelejki(Integer id, String name, String protokol_name, String request_name) {
 		     super( );
 		     		     
 		     this.name = name;
-		     this.setProtokol_name(protokol_name);
+		     this.protokol_name = protokol_name;
+		     this. request_name = request_name;
 		    		  }
 		 
-		 public Zabelejki(){
+		 public String getRequest_name() {
+			return request_name;
+		}
+
+		public void setRequest_name(String request_name) {
+			this.request_name = request_name;
+		}
+
+		public Zabelejki(){
 		 super( );
 		 }
 		 

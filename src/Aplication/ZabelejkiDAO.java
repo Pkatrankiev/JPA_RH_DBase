@@ -21,7 +21,7 @@ public class ZabelejkiDAO {
 
 
 	// Zabelevki
-	public static void setValueZabelejki(String value,String value_protokol) {
+	public static void setValueZabelejki(String value,String value_protokol, String request_name) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
@@ -30,6 +30,7 @@ public class ZabelejkiDAO {
 		Zabelejki valueEnt = new Zabelejki();
 		valueEnt.setName_zabelejki(value);
 		valueEnt.setName_zabelejki(value_protokol);
+		valueEnt.setRequest_name(request_name);
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();

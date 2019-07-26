@@ -99,6 +99,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static JTextField txtRqstCode;
 
 	private static JLabel lblNameMetod;
+	private static JLabel lbl_StoinostiFromDobiv;
 	private static Choice choiceSmplCode;
 	private static Choice choicePokazatel;
 	private static Choice choiceOIR;
@@ -110,6 +111,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static JButton btnAddRow;
 	private static JFileChooser fileChooser = new JFileChooser();
 	private static JTable tabResults;
+	private static JTableHeader header;
 
 	private static List<Sample> listSample;
 	private static List<Users> list_Users;
@@ -143,14 +145,15 @@ public class AddResultsViewWithTable extends JDialog {
 	Boolean flagNotReadListMetody = true;
 	Boolean viewAddRowButton = false;
 	Boolean flagIncertedFile = false;
-	
-	private static String[] tableHeader = { "Нуклид", "В протокол", "Активност", "Неопределеност", "МДА", "Размерност", "Сигма", "Количество",
-			"Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ",  "Проверка", "Id_Result" };
-	
+
+	private static String[] tableHeader = { "Нуклид", "В протокол", "Активност", "Неопределеност", "МДА", "Размерност",
+			"Сигма", "Количество", "Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка", "Id_Result" };
+
 	@SuppressWarnings("rawtypes")
-	private static Class[] types = { String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class,
-			String.class, String.class, String.class, String.class, String.class,  String.class,Integer.class };
-	
+	private static Class[] types = { String.class, Boolean.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, String.class, String.class, String.class, String.class,
+			String.class, Integer.class };
+
 	private static int tbl_Colum = 14;
 	private static int nuclide_Colum = 0;
 	private static int in_Prot_Colum = 1;
@@ -158,7 +161,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static int uncrt_Colum = 3;
 	private static int mda_Colum = 4;
 	private static int razm_Colum = 5;
-	private static int sigma_Colum =6;
+	private static int sigma_Colum = 6;
 	private static int qunt_Colum = 7;
 	private static int dimen_Colum = 8;
 	private static int TSI_Colum = 9;
@@ -226,6 +229,8 @@ public class AddResultsViewWithTable extends JDialog {
 		btnAddRow(basic_panel);
 
 		DobivSection(basic_panel);
+
+		LabelStoinostiFromDobiv(basic_panel);
 
 		ButtonPanell(basic_panel);
 		round.StopWindow();
@@ -507,6 +512,9 @@ public class AddResultsViewWithTable extends JDialog {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
+				String strStoinostiDobiv_Nuclide = generate_strStoinostiDobiv_Nuclide(
+						choiceDobiv.getSelectedItem().trim());
+				lbl_StoinostiFromDobiv.setText(strStoinostiDobiv_Nuclide);
 			}
 
 			@Override
@@ -514,7 +522,12 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
+
+				String strStoinostiDobiv_Nuclide = generate_strStoinostiDobiv_Nuclide(
+						choiceDobiv.getSelectedItem().trim());
+				lbl_StoinostiFromDobiv.setText(strStoinostiDobiv_Nuclide);
 			}
+
 		});
 
 		GridBagConstraints gbc_choiceDobiv = new GridBagConstraints();
@@ -524,6 +537,37 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_choiceDobiv.gridy = 5;
 		panel.add(choiceDobiv, gbc_choiceDobiv);
 	}
+
+	private void LabelStoinostiFromDobiv(JPanel panel) {
+		lbl_StoinostiFromDobiv = new JLabel();
+		GridBagConstraints gbc_lbl_StoinostiFromDobiv = new GridBagConstraints();
+		gbc_lbl_StoinostiFromDobiv.anchor = GridBagConstraints.EAST;
+		gbc_lbl_StoinostiFromDobiv.gridwidth = 2;
+		gbc_lbl_StoinostiFromDobiv.insets = new Insets(0, 0, 5, 0);
+		gbc_lbl_StoinostiFromDobiv.gridx = 5;
+		gbc_lbl_StoinostiFromDobiv.gridy = 6;
+		panel.add(lbl_StoinostiFromDobiv, gbc_lbl_StoinostiFromDobiv);
+		
+		lbl_StoinostiFromDobiv.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				String strStoinostiDobiv_Nuclide = generate_strStoinostiDobiv_Nuclide(
+						choiceDobiv.getSelectedItem().trim());
+				lbl_StoinostiFromDobiv.setText(strStoinostiDobiv_Nuclide);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+		});
+	}
+	
+	
 
 	private void setValueInChoiceDobiv() {
 		choiceDobiv.removeAll();
@@ -942,6 +986,20 @@ public class AddResultsViewWithTable extends JDialog {
 		return name_IO_Sample;
 	}
 
+	private String generate_strStoinostiDobiv_Nuclide(String strSelectedDobiv) {
+		String strStoinostiDobiv_Nuclide = "";
+		if (!strSelectedDobiv.isEmpty()) {
+			for (Dobiv dobiv : DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem())) {
+				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " - " + dobiv.getValue_result()
+						+ "% , ";
+			}
+			if(!strStoinostiDobiv_Nuclide.isEmpty())
+			strStoinostiDobiv_Nuclide = strStoinostiDobiv_Nuclide.substring(0, strStoinostiDobiv_Nuclide.length() - 2);
+		}
+		
+		return strStoinostiDobiv_Nuclide;
+	}
+
 	private void RequestCodeSection(JPanel panel) {
 
 		JLabel lblError = new JLabel();
@@ -1313,6 +1371,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void btnAddRow(JPanel basic_panel) {
+
 		btnAddRow = new JButton("нов Нуклид");
 		btmAddRowListener(basic_panel, btnAddRow);
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
@@ -1327,12 +1386,14 @@ public class AddResultsViewWithTable extends JDialog {
 	public void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile) {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Double sysError = Double.parseDouble((String)ReadGamaFile.getSysError());
-				System.out.println(choiseRequest.getZabelejki().getName_zabelejki().toString()+" ////////   "+sysError);
-				if(choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%")>0 && Double.compare(sysError, 10.00) != 0){
-					JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността", "Грешни данни",
-							JOptionPane.ERROR_MESSAGE);
+
+				Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
+				System.out.println(
+						choiseRequest.getZabelejki().getName_zabelejki().toString() + " ////////   " + sysError);
+				if (choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
+						&& Double.compare(sysError, 10.00) != 0) {
+					JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
+							"Грешни данни", JOptionPane.ERROR_MESSAGE);
 				}
 				int choice = 0;
 				if (flagIncertedFile) {
@@ -1351,8 +1412,8 @@ public class AddResultsViewWithTable extends JDialog {
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							setValueInChoiceDobiv();
 
-							if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem())
-									.getId_metody() == 9) {
+							if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getCode_metody()
+									.indexOf("10") > 1) {
 								readFromGenie2kFile();
 								Boolean isNewRow = false;
 								ViewTableInPanel(basic_panel, isNewRow);
@@ -1419,10 +1480,11 @@ public class AddResultsViewWithTable extends JDialog {
 		JTable table = new JTable();// new DefaultTableModel(rowData,
 									// columnNames));
 
-		JTableHeader header = table.getTableHeader();
+		header = table.getTableHeader();
 		header.setReorderingAllowed(false);
 		header.addMouseListener(new TableHeaderMouseListener(table));
 		
+
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -1431,21 +1493,20 @@ public class AddResultsViewWithTable extends JDialog {
 			public void mousePressed(MouseEvent e) {
 				int row = table.rowAtPoint(e.getPoint());
 				int col = table.columnAtPoint(e.getPoint());
-				
-				
+
 				if (SwingUtilities.isRightMouseButton(e)) {
 					if (col == dateAnaliz_Colum || col == dateHimObr_Colum) {
 						String date_choice = getDateFromDatePicker(table, col);
 						table.setValueAt(date_choice, row, col);
 					}
 				}
-				
-				if (col == in_Prot_Colum){
+
+				if (col == in_Prot_Colum) {
 					table.changeSelection(row, 0, false, false);
 					DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 					cellRenderer.getBorder();
-				  }
-								
+				}
+
 				if (table.getSelectedColumn() == check_Colum) {
 					double actv_value = Double
 							.parseDouble((table.getValueAt(table.getSelectedRow(), actv_value_Colum)).toString());
@@ -1455,9 +1516,9 @@ public class AddResultsViewWithTable extends JDialog {
 					Sample samp = getSampleObjectFromChoiceSampleCode();
 					checkValueFrame(nuclide, samp, actv_value, mda);
 				}
-			
+
 			}
-			 
+
 		});
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -1560,20 +1621,13 @@ public class AddResultsViewWithTable extends JDialog {
 		String date_choice = dPicer.setPickedDate(false);
 		return date_choice;
 	}
-	
+
 	private static String getStringOfQuantyti(JTable table, int col) {
 		final JFrame f = new JFrame();
 		String incertData = table.getValueAt(table.getSelectedRow(), col).toString();
-		String string = (String)JOptionPane.showInputDialog(
-                f,
-                "Въведете стойност за всички редове",
-                "",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                incertData);
-		
-				
+		String string = (String) JOptionPane.showInputDialog(f, "Въведете стойност за всички редове", "",
+				JOptionPane.PLAIN_MESSAGE, null, null, incertData);
+
 		return string;
 	}
 
@@ -1778,7 +1832,7 @@ public class AddResultsViewWithTable extends JDialog {
 		return saveCheck;
 	}
 
-	private  String strCurrentDataInDataTable(Object[][] dataTable) {
+	private String strCurrentDataInDataTable(Object[][] dataTable) {
 		String errDuplic = "";
 		String errTSI = "";
 		String uncrtError = "";
@@ -1790,9 +1844,9 @@ public class AddResultsViewWithTable extends JDialog {
 		List<String> listCodeNuclide = new ArrayList<String>();
 		if (dataTable != null) {
 			for (int i = 0; i < dataTable.length; i++) {
-				Double mda = Double.parseDouble((String)dataTable[i][mda_Colum].toString());
-				Double actv = Double.parseDouble((String)dataTable[i][actv_value_Colum].toString());
-				Double uncrt = Double.parseDouble((String)dataTable[i][uncrt_Colum].toString());
+				Double mda = Double.parseDouble((String) dataTable[i][mda_Colum].toString());
+				Double actv = Double.parseDouble((String) dataTable[i][actv_value_Colum].toString());
+				Double uncrt = Double.parseDouble((String) dataTable[i][uncrt_Colum].toString());
 				if (mda + actv != 0) {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					if (dataTable[i][razm_Colum].toString().trim().isEmpty()) {
@@ -1820,24 +1874,23 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 
 				}
-				
-				if (dataTable[i][in_Prot_Colum].toString()=="true") {
+
+				if (dataTable[i][in_Prot_Colum].toString() == "true") {
 					String nuclede_uncrtError = "";
 					if (actv != 0) {
 						if (uncrt == 0) {
 							nuclede_uncrtError = "нулева неопределеност";
-						}else
-						if((uncrt/actv)*100>52){
-							nuclede_uncrtError = "неопределеност >52%";	
+						} else if ((uncrt / actv) * 100 > 52) {
+							nuclede_uncrtError = "неопределеност >52%";
 						}
 					}
-					if(!nuclede_uncrtError.equals("")){
-						
-						uncrtError += dataTable[i][nuclide_Colum].toString() +" е  с "+ nuclede_uncrtError+ "\n";
+					if (!nuclede_uncrtError.equals("")) {
+
+						uncrtError += dataTable[i][nuclide_Colum].toString() + " е  с " + nuclede_uncrtError + "\n";
 					}
 					inProtokol = "";
 				}
-				
+
 			}
 
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
@@ -1848,7 +1901,7 @@ public class AddResultsViewWithTable extends JDialog {
 		} else {
 			errDuplic = "невъведени данни" + "\n";
 		}
-		
+
 		if (!uncrtError.equals("")) {
 			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, uncrtError, "Грешни данни за следните полета:",
 					JOptionPane.ERROR_MESSAGE);
@@ -1876,14 +1929,11 @@ public class AddResultsViewWithTable extends JDialog {
 			if (column == qunt_Colum) {
 				String date_choice = getStringOfQuantyti(table, column);
 				for (int i = 0; i < dataTable.length; i++) {
-				table.setValueAt(date_choice, i, column);
+					table.setValueAt(date_choice, i, column);
 				}
 			}
-			
 
 		}
 	}
-	
-}
 
- 
+}

@@ -34,6 +34,7 @@ import Table.Table_Request_List;
 import Table.Table_Sample_List;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
+import WindowView.FrameChoiceGenerateWordDoc;
 import WindowView.Login;
 import WindowView.MainWindow;
 import WindowView.RequestView;
@@ -233,8 +234,10 @@ public class TestClases {
 	}
 
 	@SuppressWarnings("unused")
-	private static void startcreateProtokolDocx() throws ParseException {
-
+	public
+	static void startCreateProtokolDocx() {
+		JFrame f = new JFrame();
+   	 new FrameChoiceGenerateWordDoc(f, "Генериране на Протокол") ;
 //		String codeRequest = "3833";
 //		
 //		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
@@ -243,7 +246,7 @@ public class TestClases {
 //		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
 //				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
 //				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
-		TestSuperScript.GenerateProtokolWordDoc("test.docx");
+//		TestSuperScript.GenerateProtokolWordDoc("test.docx");
 //		StartGenerateDocTemplate.GenerateProtokolWordDoc("Protokol.docx", choiseRequest, substitutionData);
 	}
 

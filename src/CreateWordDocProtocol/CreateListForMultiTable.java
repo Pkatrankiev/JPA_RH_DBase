@@ -11,11 +11,12 @@ import Aplication.ResultsDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import GlobalVariable.GlobalPathForDocFile;
 
 public class CreateListForMultiTable {
 
-	public static int maxRowInOneTableOnePage = 13;
-	public static int maxRowInFullTableOnePage = 25;
+	public static int maxRowInOneTableOnePage = GlobalPathForDocFile.getMaxRowInOneTableOnePage();
+	public static int maxRowInFullTableOnePage = GlobalPathForDocFile.getMaxRowInFullTableOnePage();
 
 	public CreateListForMultiTable() {
 	}

@@ -36,7 +36,7 @@ public class DatePicker {
 	// create object of JLabel with alignment
 	JLabel l = new JLabel("", JLabel.CENTER);
 	// define variable
-	String day = "";
+	String day = "", old_day="";
 	// declaration
 	JDialog d;
 	// create object of JButton
@@ -44,7 +44,7 @@ public class DatePicker {
 
 	JLabel lab = new JLabel();
 
-	public DatePicker(JFrame parent, Boolean inTime, String dateOld)// create
+	public DatePicker(JFrame parent, Boolean inTime, String old_date)// create
 																	// constructor
 	{
 
@@ -53,7 +53,7 @@ public class DatePicker {
 
 		d.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				onExit(dateOld, inTime);
+				old_day = old_date;
 			}
 
 		});
@@ -160,44 +160,46 @@ public class DatePicker {
 	}
 
 	public void onExit(String date, boolean inTime) {
-		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
-
-		Date data_int = null;
-		Calendar cal_int = Calendar.getInstance();
-		if (inTime) {
-			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
-			try {
-				date.substring(0, 10);
-			} catch (StringIndexOutOfBoundsException e) {
-
-				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
-
-			}
-
-		}
-
-		try {
-			data_int = sdf.parse(date);
-			cal_int.setTime(data_int);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-		}
-
-		try {
-
-			month = cal_int.get(Calendar.MONTH);
-			year = cal_int.get(Calendar.YEAR);
-			hour = cal_int.get(Calendar.HOUR_OF_DAY);
-			minute = cal_int.get(Calendar.MINUTE);
-			day = cal_int.get(Calendar.DAY_OF_MONTH) + "";
-
-			System.out.println(" originData = " + date + " data day= " + day);
-
-		} catch (DateTimeParseException e) {
-			System.out.println(" Eror Catch in Exit Data = " + date);
-
-		}
+		old_day = date;
+//		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE);
+//
+//		Date data_int = null;
+//		Calendar cal_int = Calendar.getInstance();
+//		if (inTime) {
+//			sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+//		}
+//			try {
+//				date.substring(0, 10);
+//			} catch (StringIndexOutOfBoundsException e) {
+//				old_day = date;
+//				JOptionPane.showMessageDialog(null, "Грешна дата!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+//
+//			}
+//
+//		
+//
+//		try {
+//			data_int = sdf.parse(date);
+//			cal_int.setTime(data_int);
+//		} catch (ParseException e) {
+//			old_day = date;
+//		}
+//
+//		try {
+//
+//			month = cal_int.get(Calendar.MONTH);
+//			year = cal_int.get(Calendar.YEAR);
+//			hour = cal_int.get(Calendar.HOUR_OF_DAY);
+//			minute = cal_int.get(Calendar.MINUTE);
+//			day = cal_int.get(Calendar.DAY_OF_MONTH) + "";
+//
+//			System.out.println(" originData = " + date + " data day= " + day);
+//
+//		} catch (DateTimeParseException e) {
+//			old_day = date;
+//			System.out.println(" Eror Catch in Exit Data = " + date);
+//
+//		}
 
 	}
 
@@ -208,7 +210,7 @@ public class DatePicker {
 		try {
 			cal_time.setTime(sdf_time.parse(time));
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
+		
 			e1.printStackTrace();
 		}
 		minute = cal_time.get(Calendar.MINUTE);
@@ -281,31 +283,31 @@ public class DatePicker {
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
+		
 		return super.clone();
 	}
 
 	@Override
 	public boolean equals(Object arg0) {
-		// TODO Auto-generated method stub
+		
 		return super.equals(arg0);
 	}
 
 	@Override
 	protected void finalize() throws Throwable {
-		// TODO Auto-generated method stub
+	
 		super.finalize();
 	}
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
+		
 		return super.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
+		
 		return super.toString();
 	}
 
@@ -366,7 +368,8 @@ public class DatePicker {
 	}
 
 	public String setPickedDate(Boolean inTime) {
-		// if condition
+		if(!old_day.equals(""))
+			return old_day;
 		if (day.equals(""))
 			return day;
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE_TIME);

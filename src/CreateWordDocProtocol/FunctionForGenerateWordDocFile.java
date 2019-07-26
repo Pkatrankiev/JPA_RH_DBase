@@ -60,7 +60,9 @@ public class FunctionForGenerateWordDocFile {
 				sample.getRequest().getRecuest_code() + "-" + sample.getSample_code());
 
 		// "$$sample_metod$$"
-		substitutionData.put(masive_column_table_result[1], result.getMetody().getCode_metody());
+		String code_samp_metody = result.getMetody().getCode_metody();
+		substitutionData.put(masive_column_table_result[1], code_samp_metody);
+//		substitutionData.put(masive_column_table_result[1], code_samp_metody.substring(0, code_samp_metody.indexOf("/")));
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();

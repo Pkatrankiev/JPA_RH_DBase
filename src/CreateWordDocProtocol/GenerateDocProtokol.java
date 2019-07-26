@@ -33,6 +33,7 @@ public class GenerateDocProtokol {
 	private static String strKeyTemplateText = "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО";
 	private static String strKeyTemplateNewPage = "#$%";
 	private static String strKeyTemplateZabel = "$$zab$$";
+	
 
 	private static String strKeyTemplateNewRow = "##$$%%";
 	private static String strKeyTemplateMDA = "$$MDA$$";
@@ -42,6 +43,7 @@ public class GenerateDocProtokol {
 	private static String strKeyHeaderRow_1 = "Код на пробата";
 	private static String strKeyHeaderRow_2 = "1";
 	private static String strKeyRow_pokazatel = "$$request_pokazarel$$";
+	private static Integer[] masiveMergeColumn = GlobalPathForDocFile.getMasivemergecolumn();
 
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
@@ -126,7 +128,7 @@ public class GenerateDocProtokol {
 		Map<String, String> repl_results = new HashMap<String, String>();
 		// int[] numberMergeCells = new int[smple_list.size() + 1];
 
-		int coutRow = 2;
+		int coutRow = 1;
 		// List<int[]> list = createMsasiveRowTable(smple_list,
 		// pokazatel_list,coutRow);
 
@@ -191,10 +193,11 @@ public class GenerateDocProtokol {
 						FunctionForGenerateWordDocFile.generateMapMDA(result));
 			}
 		}
-		String string_zab = smple_list.get(0).getRequest().getZabelejki().getProtokol_name();
+		String string_zab = smple_list.get(0).getRequest().getZabelejki().getRequest_name();
 		if (FunctionForGenerateWordDocFile.isZabContain10pecent(string_zab)) {
 			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel,
 					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* " + string_zab));
+			
 		}
 
 		Naredbi naredba = FunctionForGenerateWordDocFile.getNaredba();
@@ -238,9 +241,12 @@ public class GenerateDocProtokol {
 
 	private static void mergeCelsInTAble(Tbl tempTable, int[] numberMergeCells, Request recuest) {
 		for (int i = 0; i < numberMergeCells.length - 1; i++) {
-			MergeCellsAplication.mergeCellsVertically(tempTable, 0, numberMergeCells[i], numberMergeCells[i + 1]);
-			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[i], numberMergeCells[i + 1]);
-			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[i], numberMergeCells[i + 1]);
+			for (int numbereMergeColumn : masiveMergeColumn) {
+				MergeCellsAplication.mergeCellsVertically(tempTable, numbereMergeColumn, numberMergeCells[i], numberMergeCells[i + 1]);
+			}
+			
+//			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[i], numberMergeCells[i + 1]);
+//			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[i], numberMergeCells[i + 1]);
 		}
 		int max = 0;
 		for (int i = 1; i < numberMergeCells.length; i++) {

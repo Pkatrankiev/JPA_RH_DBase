@@ -338,7 +338,10 @@ public class Table_Request_List extends JDialog {
 						final Thread thread = new Thread(new Runnable() {
 							@Override
 							public void run() {
-
+								DefaultTableModel model = (DefaultTableModel) table.getModel();
+								for (int rowForUpdate : listRowForUpdate) {
+									System.out.println(rowForUpdate+"  --  "+model.getValueAt(rowForUpdate, rqst_code_Colum));
+								}
 								updateData(table, listRowForUpdate, round);
 
 							}
@@ -380,17 +383,7 @@ public class Table_Request_List extends JDialog {
 		renderer.setToolTipText("Натисни за избор");
 		I_P_Column.setCellRenderer(renderer);
 	}
-
-	// public static void setUp_O_I_R_Column(JTable table, TableColumn
-	// O_I_R_Column) {
-	//
-	// JComboBox<?> comboBox = new JComboBox<Object>(values_O_I_R);
-	// O_I_R_Column.setCellEditor(new DefaultCellEditor(comboBox));
-	// DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-	// renderer.setToolTipText("Натисни за избор");
-	// O_I_R_Column.setCellRenderer(renderer);
-	// }
-
+	
 	public static void setUp_Users(JTable table, TableColumn users_Column) {
 		JComboBox<?> comboBox = new JComboBox<Object>(value_users);
 		users_Column.setCellEditor(new DefaultCellEditor(comboBox));
@@ -603,9 +596,12 @@ public class Table_Request_List extends JDialog {
 		
 		String str_exec_Date = model.getValueAt(row, exec_Date_Colum).toString();
 		str_exec_Date = reformatDate(str_exec_Date);
-		request.setDate_request(str_exec_Date);
+		request.setDate_execution(str_exec_Date);
 
-		request.setDate_reception(model.getValueAt(row, rcpt_Date_Colum).toString());
+		String str_recept_Date = model.getValueAt(row, rcpt_Date_Colum).toString();
+		str_recept_Date = DateChoice_period.reformatPeriodDateFromTable(str_recept_Date);
+		request.setDate_reception(str_recept_Date);
+		
 		request.setUsers(UsersDAO.getValueUsersById((int) model.getValueAt(row, user_Id_Colum)));
 		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(model.getValueAt(row, zab_Colum).toString()));
 

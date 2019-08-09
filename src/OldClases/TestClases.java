@@ -32,6 +32,7 @@ import DBase_Class.Users;
 import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
+import WindowView.AddDobivViewWithTable;
 import WindowView.AddResultsViewWithTable;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;
@@ -215,6 +216,8 @@ public class TestClases {
 		    thread.start();
 			
 	}
+	
+	
 	
 	public	static void Table_RequestToObektNaIzp() {
 		TranscluentWindow round = new TranscluentWindow();

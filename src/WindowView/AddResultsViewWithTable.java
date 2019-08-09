@@ -197,7 +197,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 		basic_panel = new JPanel();
 		basic_panel.setBounds(new Rectangle(5, 0, 0, 0));
-		scrollPane.setViewportView(basic_panel);
+		scrollPane.setColumnHeaderView(basic_panel);
 		GridBagLayout gbl_basic_panel = new GridBagLayout();
 		gbl_basic_panel.columnWidths = new int[] { 91, 111, 147, 138, 166, 182, 197, 0 };
 		gbl_basic_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -471,7 +471,8 @@ public class AddResultsViewWithTable extends JDialog {
 			result.setDimension(DimensionDAO.getValueDimensionByName(dataTable[i][dimen_Colum].toString()));
 		}
 		result.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
-		result.setNuclide(NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString()));
+		Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString());
+		result.setNuclide(nuclide);
 		result.setPokazatel(
 				List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem()));
 		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(dataTable[i][razm_Colum].toString()));
@@ -492,9 +493,16 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		result.setUser_redac(user_Redac);
 		result.setZabelejki(null);
+		
 		if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
-			result.setDobiv(DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString()).get(0));
-		}
+			for (Dobiv dobiv : DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString())) {
+				if(dobiv.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())){
+					System.out.println(dobiv.getId_dobiv());
+					result.setDobiv(dobiv);
+				}
+			}
+			}
+			
 		return result;
 	}
 
@@ -508,13 +516,22 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(lblDobiv, gbc_lblDobiv);
 
 		choiceDobiv = new Choice();
+		
+		choiceDobiv.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
+
+			}
+
+		});
+		
 		choiceDobiv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
-				String strStoinostiDobiv_Nuclide = generate_strStoinostiDobiv_Nuclide(
-						choiceDobiv.getSelectedItem().trim());
-				lbl_StoinostiFromDobiv.setText(strStoinostiDobiv_Nuclide);
+				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 			}
 
 			@Override
@@ -522,10 +539,7 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-
-				String strStoinostiDobiv_Nuclide = generate_strStoinostiDobiv_Nuclide(
-						choiceDobiv.getSelectedItem().trim());
-				lbl_StoinostiFromDobiv.setText(strStoinostiDobiv_Nuclide);
+				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 			}
 
 		});
@@ -551,9 +565,7 @@ public class AddResultsViewWithTable extends JDialog {
 		lbl_StoinostiFromDobiv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				String strStoinostiDobiv_Nuclide = generate_strStoinostiDobiv_Nuclide(
-						choiceDobiv.getSelectedItem().trim());
-				lbl_StoinostiFromDobiv.setText(strStoinostiDobiv_Nuclide);
+				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 			}
 
 			@Override
@@ -569,7 +581,7 @@ public class AddResultsViewWithTable extends JDialog {
 	
 	
 
-	private void setValueInChoiceDobiv() {
+	private void setValueInChoiceDobiv(Metody selectedMetod) {
 		choiceDobiv.removeAll();
 		choiceDobiv.addItem("");
 		listDobivFromMetod = DobivDAO.getListDobivByMetody(selectedMetod);
@@ -714,19 +726,22 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(choiceMetody, gbc_choiceMetody);
 		choiceMetody.add(" ");
 		choiceMetody.select(" ");
+		
 		choiceMetody.addItemListener(new ItemListener() {
-
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				setValueInChoiceDobiv();
+				setVisiblelblNameMetody(lblNameMetod);
+				String strChoisedmetod = choiceMetody.getSelectedItem();
+				selectedMetod = MetodyDAO.getValueList_MetodyByCode(strChoisedmetod);
+				setValueInChoiceDobiv(selectedMetod);
 				listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
 			}
-
-		});
+});
 
 		choiceMetody.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				
 				choiceMetody.setBackground(Color.WHITE);
 				if (!choicePokazatel.getSelectedItem().trim().isEmpty()) {
 					if (flagNotReadListMetody) {
@@ -738,28 +753,30 @@ public class AddResultsViewWithTable extends JDialog {
 							choiceMetody.add(metod.getCode_metody());
 							flagNotReadListMetody = false;
 						}
+						
+						setVisiblelblNameMetody(lblNameMetod);
 					}
-
+//					setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 				}
+				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
+				
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-					lblNameMetod.setText(selectedMetod.getName_metody());
-					if (listDobivFromMetod.isEmpty()) {
-						setValueInChoiceDobiv();
-						listSimbolBasikNulideToMetod = AddDobivViewWithTable
-								.getListSimbolBasikNulideToMetod(selectedMetod);
-					}
-					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-					lblNameMetod.setText(selectedMetod.getName_metody());
+					String strChoisedmetod = choiceMetody.getSelectedItem();
+					selectedMetod = MetodyDAO.getValueList_MetodyByCode(strChoisedmetod);
+					setVisiblelblNameMetody(lblNameMetod);
+					listSimbolBasikNulideToMetod = AddDobivViewWithTable
+							.getListSimbolBasikNulideToMetod(selectedMetod);
 					listNucToPok = getListNuklideToPokazatel();
-
 					listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 					masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);
+					
+//					setValueInChoiceDobiv(selectedMetod);
 				}
+				
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -769,7 +786,15 @@ public class AddResultsViewWithTable extends JDialog {
 		});
 
 	}
-
+	
+	private void setVisiblelblNameMetody(JLabel lblNameMetod) {
+		
+		if (choiceMetody.getSelectedItem() != "") {
+			Metody	selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()); 
+		lblNameMetod.setText(selectedMetod.getName_metody());
+		lblNameMetod.setVisible(true);
+		}
+	}
 	private void ChoiceORHO_Section(JPanel panel) {
 		JLabel lblNewLabel_1 = new JLabel("Извършил Хим. обработ.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -1204,8 +1229,8 @@ public class AddResultsViewWithTable extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-
-					setValueInChoiceDobiv();
+					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+					setValueInChoiceDobiv(selectedMetod);
 
 					Results[] masiveResultsForChoiceSample = creadMasiveFromResultsObjects_ChoiseSample(
 							getSampleObjectFromChoiceSampleCode());
@@ -1410,7 +1435,8 @@ public class AddResultsViewWithTable extends JDialog {
 
 						AddResultsViewWithTable.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-							setValueInChoiceDobiv();
+							selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+							setValueInChoiceDobiv(selectedMetod);
 
 							if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getCode_metody()
 									.indexOf("10") > 1) {

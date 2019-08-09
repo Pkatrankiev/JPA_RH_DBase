@@ -166,13 +166,13 @@ public class GenerateDocProtokol {
 				// }
 				lastSampleIndex = CreateListForMultiTable
 						.lastIndexSampleForFirstTab(smple_list.subList(lastSampleIndex, smple_list.size() - 1));
-				System.out.println("lastSampleIndex2 " + lastSampleIndex);
+//				System.out.println("lastSampleIndex2 " + lastSampleIndex);
 
 				masiveMergeRow = new int[lastSampleIndex + 2];
 				idexSample = 0;
 			}
 
-			System.out.println("idexSample " + idexSample);
+//			System.out.println("idexSample " + idexSample);
 			masiveMergeRow[idexSample] = coutRow;
 
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
@@ -234,20 +234,21 @@ public class GenerateDocProtokol {
 			e.printStackTrace();
 		}
 
-		for (int i = 0; i < masiveMergeRow.length; i++) {
-			System.out.println("masiveMergeRow [" + i + "] " + masiveMergeRow[i]);
-		}
+//		for (int i = 0; i < masiveMergeRow.length; i++) {
+//			System.out.println("masiveMergeRow [" + i + "] " + masiveMergeRow[i]);
+//		}
+//		for (int i = 0; i < masiveMergeColumn.length; i++) {
+//			System.out.println("MergeCol [" + i + "] " + masiveMergeColumn[i]);
+//		}
 	}
 
 	private static void mergeCelsInTAble(Tbl tempTable, int[] numberMergeCells, Request recuest) {
+		
 		for (int i = 0; i < numberMergeCells.length - 1; i++) {
 			for (int numbereMergeColumn : masiveMergeColumn) {
 				MergeCellsAplication.mergeCellsVertically(tempTable, numbereMergeColumn, numberMergeCells[i], numberMergeCells[i + 1]);
 			}
-			
-//			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[i], numberMergeCells[i + 1]);
-//			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[i], numberMergeCells[i + 1]);
-		}
+	}
 		int max = 0;
 		for (int i = 1; i < numberMergeCells.length; i++) {
 			if (max <= numberMergeCells[i] - numberMergeCells[i - 1]) {
@@ -256,10 +257,10 @@ public class GenerateDocProtokol {
 		}
 		System.out.println("max= " + max);
 		if (FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size() == 1 && max < 2) {
-			MergeCellsAplication.mergeCellsVertically(tempTable, 1, numberMergeCells[0],
+			for (int i = 1; i < masiveMergeColumn.length; i++) {
+			MergeCellsAplication.mergeCellsVertically(tempTable, masiveMergeColumn[i], numberMergeCells[0],
 					numberMergeCells[numberMergeCells.length - 1]);
-			MergeCellsAplication.mergeCellsVertically(tempTable, 3, numberMergeCells[0],
-					numberMergeCells[numberMergeCells.length - 1]);
+			}
 		}
 	}
 
@@ -290,7 +291,7 @@ public class GenerateDocProtokol {
 													// CTTbl
 
 		AplicationDocTemplate.addRowToTable(new_table, headerRow_1, repl_results);
-		AplicationDocTemplate.addRowToTable(new_table, headerRow_2, repl_results);
+//		AplicationDocTemplate.addRowToTable(new_table, headerRow_2, repl_results);
 		return new_table;
 	}
 

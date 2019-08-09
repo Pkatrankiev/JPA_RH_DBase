@@ -485,8 +485,8 @@ public class AddDobivViewWithTable extends JDialog {
 			words.add(dobiv.getCode_Standart());
 		}
 
-		new AutoSuggestor(txtStandartCode, this, words, Color.WHITE.brighter(),
-				Color.BLUE, Color.RED, 0.79f);
+//		new AutoSuggestor(txtStandartCode, this, words, Color.WHITE.brighter(),
+//				Color.BLUE, Color.RED, 0.79f);
 
 		txtDobivCodeListener(lblError);
 
@@ -582,6 +582,7 @@ public class AddDobivViewWithTable extends JDialog {
 							ListDobivsFromStandart_code);
 
 					if (masiveDobivForMetod.length > 0) {
+						if (masiveDobivForMetod[0] != null) {
 						if (masiveDobivForMetod[0].getUser_measur() != null) {
 							String str = masiveDobivForMetod[0].getUser_measur().getName_users() + " "
 									+ masiveDobivForMetod[0].getUser_measur().getFamily_users();
@@ -592,6 +593,7 @@ public class AddDobivViewWithTable extends JDialog {
 									+ masiveDobivForMetod[0].getUser_chim_oper().getFamily_users();
 							choiceORHO.select(str);
 						}
+					}
 					}
 					TranscluentWindow round = new TranscluentWindow();
 					final Thread thread = new Thread(new Runnable() {

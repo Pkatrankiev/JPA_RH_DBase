@@ -145,6 +145,9 @@ public class Generate_Map_For_Request_Word_Document {
 			request_zabelejki = GlobalPathForDocFile.getTextDopalneniqIzklucheniq();
 		}else{
 			request_zabelejki =request.getZabelejki().getProtokol_name();
+			if (request_zabelejki.equals("")) {
+				request_zabelejki = GlobalPathForDocFile.getTextDopalneniqIzklucheniq();
+			}
 		}
 		substitutionData.put(strKeyDopalneniaZabel, request_zabelejki);
 		if(minDate.equals(maxDate)){

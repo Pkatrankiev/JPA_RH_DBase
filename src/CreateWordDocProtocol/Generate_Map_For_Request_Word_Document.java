@@ -150,6 +150,8 @@ public class Generate_Map_For_Request_Word_Document {
 			}
 		}
 		substitutionData.put(strKeyDopalneniaZabel, request_zabelejki);
+		
+	
 		if(minDate.equals(maxDate)){
 			substitutionData.put(key_date_measur, minDate);
 		}else{			

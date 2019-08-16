@@ -208,8 +208,8 @@ public class TestClases {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-//		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
-		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 
+		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
+//		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 
 //		 		new AddResultsViewWithTable_Test(f,round, UsersDAO.getValueUsersById(3)); 
 		     }
 		    });

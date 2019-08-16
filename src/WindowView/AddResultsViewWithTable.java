@@ -580,7 +580,6 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 	
 	
-
 	private void setValueInChoiceDobiv(Metody selectedMetod) {
 		choiceDobiv.removeAll();
 		choiceDobiv.addItem("");

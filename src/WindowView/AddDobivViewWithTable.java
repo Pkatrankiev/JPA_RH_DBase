@@ -62,6 +62,8 @@ import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
 import DBase_Class.Users;
+import ExcelFilesFunction.Destruct_Result;
+import ExcelFilesFunction.ReadExcelFile;
 import WindowViewAplication.AutoSuggestor;
 
 public class AddDobivViewWithTable extends JDialog {
@@ -1183,13 +1185,22 @@ public class AddDobivViewWithTable extends JDialog {
 				f.showOpenDialog(null);
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
+					if(selectedMetod.getCode_metody().equals("10")){
 					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
-
 					if (ReadGamaFile.getListNuclideMDA() > 0) {
 						flagIncertedFile = true;
 					} else {
 						flagIncertedFile = false;
 					}
+					}else{
+						List<Destruct_Result> destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString());
+						if (destruct_Result_List.size() > 0) {
+							flagIncertedFile = true;
+						} else {
+							flagIncertedFile = false;
+						}
+					}
+					
 				} catch (NullPointerException e2) {
 
 				}

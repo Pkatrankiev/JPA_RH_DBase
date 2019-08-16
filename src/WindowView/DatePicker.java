@@ -436,11 +436,15 @@ public class DatePicker {
 	public static String reformarDateMeasur(String origin_date) {
 		
 		SimpleDateFormat sdf  = new SimpleDateFormat("dd.MM.yyyy");
+		SimpleDateFormat sdf6 = new SimpleDateFormat("d.M.yy");
 		SimpleDateFormat sdf7 = new SimpleDateFormat("dd.M.yy");
 		SimpleDateFormat sdf8 = new SimpleDateFormat("dd.MM.yy");
 		Date date = new Date();
 		
 			try {
+				if (origin_date.length()==6) {
+					date = sdf6.parse(origin_date);
+					}
 				if (origin_date.length()==7) {
 				date = sdf7.parse(origin_date);
 				}

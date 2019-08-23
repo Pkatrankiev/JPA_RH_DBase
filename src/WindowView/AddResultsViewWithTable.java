@@ -45,6 +45,8 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import ExcelFilesFunction.Destruct_Result;
+import ExcelFilesFunction.ReadExcelFile;
 
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -125,6 +127,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static List<Results> ListResultsFromDBase;
 	private static List<Results> resultListForSave;
 	private static List<Results> resultListForDelete;
+	private static List<Destruct_Result> destruct_Result_List;
 
 	private static String[] masuveSimbolNuclide;
 	private static String[] masive_NuclideToPokazatel;
@@ -493,16 +496,15 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		result.setUser_redac(user_Redac);
 		result.setZabelejki(null);
-		
+
 		if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
 			for (Dobiv dobiv : DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString())) {
-				if(dobiv.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())){
-					System.out.println(dobiv.getId_dobiv());
+				if (dobiv.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
 					result.setDobiv(dobiv);
 				}
 			}
-			}
-			
+		}
+
 		return result;
 	}
 
@@ -516,22 +518,28 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(lblDobiv, gbc_lblDobiv);
 
 		choiceDobiv = new Choice();
-		
+
 		choiceDobiv.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
+				if (choiceDobiv.getSelectedItem() == null)
+					setValueInChoiceDobiv(selectedMetod);
+				lbl_StoinostiFromDobiv
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 
 			}
 
 		});
-		
+
 		choiceDobiv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
-				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
+				if (choiceDobiv.getSelectedItem() == null)
+					setValueInChoiceDobiv(selectedMetod);
+				lbl_StoinostiFromDobiv
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 			}
 
 			@Override
@@ -539,7 +547,8 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
+				lbl_StoinostiFromDobiv
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 			}
 
 		});
@@ -561,11 +570,12 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_lbl_StoinostiFromDobiv.gridx = 5;
 		gbc_lbl_StoinostiFromDobiv.gridy = 6;
 		panel.add(lbl_StoinostiFromDobiv, gbc_lbl_StoinostiFromDobiv);
-		
+
 		lbl_StoinostiFromDobiv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lbl_StoinostiFromDobiv.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
+				lbl_StoinostiFromDobiv
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim()));
 			}
 
 			@Override
@@ -573,13 +583,12 @@ public class AddResultsViewWithTable extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				
+
 			}
 
 		});
 	}
-	
-	
+
 	private void setValueInChoiceDobiv(Metody selectedMetod) {
 		choiceDobiv.removeAll();
 		choiceDobiv.addItem("");
@@ -611,18 +620,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	}
 
-	private void readFromGenie2kFile() {
-		Users user = ReadGamaFile.getUserFromFile();
-		String str = user.getName_users() + " " + user.getFamily_users();
-		choiceOIR.select(str);
-
-		Object[][] ss = CreatedataTableFromFile();
-		dataTable = new Object[ss.length][tbl_Colum];
-		dataTable = ss;
-
-	}
-
-	private Object[][] CreatedataTableFromFile() {
+	private Object[][] CreatedataTableFromGeany2kFile() {
 		List<Nuclide_to_Pokazatel> listNucToPok = getListNuklideToPokazatel();
 		List<String> listSimbolBasicNuclide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 		masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);
@@ -635,13 +633,9 @@ public class AddResultsViewWithTable extends JDialog {
 		int k = 0;
 		for (int i = 0; i < masiveResultsActivFromFile.length; i++) {
 			tableResult[i] = rowWithValueResultsFromFile(masiveResultsActivFromFile[i]);
-			// k = i;
 			k++;
 		}
-		// if (k == 0)
-		// k = -1;
 		for (int i = 0; i < masiveResultsMDAFromFile.length; i++) {
-			// k++;
 			tableResult[k] = rowWithValueResultsFromFile(masiveResultsMDAFromFile[i]);
 			k++;
 
@@ -725,7 +719,7 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(choiceMetody, gbc_choiceMetody);
 		choiceMetody.add(" ");
 		choiceMetody.select(" ");
-		
+
 		choiceMetody.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -735,12 +729,12 @@ public class AddResultsViewWithTable extends JDialog {
 				setValueInChoiceDobiv(selectedMetod);
 				listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
 			}
-});
+		});
 
 		choiceMetody.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
+
 				choiceMetody.setBackground(Color.WHITE);
 				if (!choicePokazatel.getSelectedItem().trim().isEmpty()) {
 					if (flagNotReadListMetody) {
@@ -752,30 +746,29 @@ public class AddResultsViewWithTable extends JDialog {
 							choiceMetody.add(metod.getCode_metody());
 							flagNotReadListMetody = false;
 						}
-						
+
 						setVisiblelblNameMetody(lblNameMetod);
 					}
-//					setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+					// setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 				}
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				
+
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					String strChoisedmetod = choiceMetody.getSelectedItem();
 					selectedMetod = MetodyDAO.getValueList_MetodyByCode(strChoisedmetod);
 					setVisiblelblNameMetody(lblNameMetod);
-					listSimbolBasikNulideToMetod = AddDobivViewWithTable
-							.getListSimbolBasikNulideToMetod(selectedMetod);
+					listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
 					listNucToPok = getListNuklideToPokazatel();
 					listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 					masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);
-					
-//					setValueInChoiceDobiv(selectedMetod);
+
+					// setValueInChoiceDobiv(selectedMetod);
 				}
-				
+
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -785,15 +778,16 @@ public class AddResultsViewWithTable extends JDialog {
 		});
 
 	}
-	
+
 	private void setVisiblelblNameMetody(JLabel lblNameMetod) {
-		
+
 		if (choiceMetody.getSelectedItem() != "") {
-			Metody	selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()); 
-		lblNameMetod.setText(selectedMetod.getName_metody());
-		lblNameMetod.setVisible(true);
+			Metody selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+			lblNameMetod.setText(selectedMetod.getName_metody());
+			lblNameMetod.setVisible(true);
 		}
 	}
+
 	private void ChoiceORHO_Section(JPanel panel) {
 		JLabel lblNewLabel_1 = new JLabel("Извършил Хим. обработ.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -874,6 +868,7 @@ public class AddResultsViewWithTable extends JDialog {
 							}
 						}
 					}
+					
 				}
 
 			}
@@ -1017,10 +1012,11 @@ public class AddResultsViewWithTable extends JDialog {
 				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " - " + dobiv.getValue_result()
 						+ "% , ";
 			}
-			if(!strStoinostiDobiv_Nuclide.isEmpty())
-			strStoinostiDobiv_Nuclide = strStoinostiDobiv_Nuclide.substring(0, strStoinostiDobiv_Nuclide.length() - 2);
+			if (!strStoinostiDobiv_Nuclide.isEmpty())
+				strStoinostiDobiv_Nuclide = strStoinostiDobiv_Nuclide.substring(0,
+						strStoinostiDobiv_Nuclide.length() - 2);
 		}
-		
+
 		return strStoinostiDobiv_Nuclide;
 	}
 
@@ -1203,19 +1199,32 @@ public class AddResultsViewWithTable extends JDialog {
 
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				fileChooser.showOpenDialog(null);
+
+				destruct_Result_List = new ArrayList<Destruct_Result>();
+				int sizeExcelList = 0, sizeGamaList = 0;
 				try {
 					String fileName = fileChooser.getSelectedFile().toString();
 					txtBasicValueResult.setText(fileName);
 
-					ReadGamaFile.getReadGamaFile(fileName);
-
-					if (ReadGamaFile.getListNuclideMDA() > 0) {
+					if (selectedMetod.getCode_metody().equals("10")) {
+						ReadGamaFile.getReadGamaFile(fileName);
+						sizeGamaList = ReadGamaFile.getListNuclideMDA();
+					} else {
+						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName);
+						sizeExcelList = destruct_Result_List.size();
+					}
+					System.out.println(sizeGamaList + "    " + sizeExcelList);
+					if (sizeGamaList > 0 || sizeExcelList > 0) {
 						flagIncertedFile = true;
 					} else {
 						flagIncertedFile = false;
+						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+								JOptionPane.ERROR_MESSAGE);
+
 					}
 				} catch (NullPointerException e2) {
-
+					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -1262,13 +1271,8 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void startViewtablePanel(JPanel panel, Results[] masiveResultsForChoiceSample) {
-
 		Object[][] ss = getDataTable(masiveResultsForChoiceSample, listSimbolBasikNulide);
-		dataTable = new Object[ss.length][tbl_Colum];
-		dataTable = ss;
-		Boolean isNewRow = false;
-		ViewTableInPanel(panel, isNewRow);
-
+		createDataTableAndViewTableInPanel(basic_panel, ss);
 	}
 
 	private String[] getMasiveSimbolNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
@@ -1411,42 +1415,31 @@ public class AddResultsViewWithTable extends JDialog {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
-				System.out.println(
-						choiseRequest.getZabelejki().getName_zabelejki().toString() + " ////////   " + sysError);
-				if (choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
-						&& Double.compare(sysError, 10.00) != 0) {
-					JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
-							"Грешни данни", JOptionPane.ERROR_MESSAGE);
-				}
-				int choice = 0;
 				if (flagIncertedFile) {
 					String fileName = fileChooser.getSelectedFile().toString();
-					if (fileName.indexOf(txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem()) < 0) {
-						// display the showOptionDialog
-						Object[] options = { "Да", "Не" };
-						choice = JOptionPane.showOptionDialog(null,
-								"Кода на пробата не съвпада \nс името на файла. \nЩе продължите ли?", "Грешни данни",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-					}
-					if (choice == JOptionPane.YES_OPTION) {
+					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
+					if (checkKorektFileName(fileName, codeSamample)) {
 
 						AddResultsViewWithTable.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-							setValueInChoiceDobiv(selectedMetod);
+							
+							switch (selestTypeReadFileByChoiceMetod(basic_panel, selectedMetod)) {
+							case 10:
+								checkFor10SysError();
+								Users user = ReadGamaFile.getUserFromFile();
+								String str = user.getName_users() + " " + user.getFamily_users();
+								choiceOIR.select(str);
+								Object[][] ss = CreatedataTableFromGeany2kFile();
+								createDataTableAndViewTableInPanel(basic_panel, ss);
+								break;
 
-							if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getCode_metody()
-									.indexOf("10") > 1) {
-								readFromGenie2kFile();
-								Boolean isNewRow = false;
-								ViewTableInPanel(basic_panel, isNewRow);
-							} else {
-								JOptionPane.showMessageDialog(null, "Само за метод М.ЛИ-РХ-10", "Грешни данни",
-										JOptionPane.ERROR_MESSAGE);
+							case 0:
+								 checkForKoretMetod(destruct_Result_List);
+								Object[][] ssExcel = CreatedataTableFromExcelFile();
+								createDataTableAndViewTableInPanel(basic_panel, ssExcel);
+								break;
 							}
-
 						} else {
 							JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
 									JOptionPane.ERROR_MESSAGE);
@@ -1454,7 +1447,7 @@ public class AddResultsViewWithTable extends JDialog {
 					}
 					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 				} else {
-					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл", "Грешни данни",
+					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
 							JOptionPane.ERROR_MESSAGE);
 
 				}
@@ -1462,6 +1455,81 @@ public class AddResultsViewWithTable extends JDialog {
 
 		});
 
+	}
+
+	private void checkFor10SysError() {
+		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
+		if (choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
+				&& Double.compare(sysError, 10.00) != 0) {
+			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
+					"Грешни данни", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void checkForKoretMetod(List<Destruct_Result> destruct_Result_List) {
+		if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
+			selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+
+			if (selectedMetod.getCode_metody()
+					.indexOf(destruct_Result_List.get(0).getMetod().replace("М.ЛИ-РХ-", "")) > 0) {
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Не съвпада избрания метод и този от файла", "Грешни данни",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}else{
+			JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void createDataTableAndViewTableInPanel(JPanel basic_panel, Object[][] ss) {
+		Boolean isNewRow = false;
+		dataTable = new Object[ss.length][tbl_Colum];
+		dataTable = ss;
+		isNewRow = false;
+		ViewTableInPanel(basic_panel, isNewRow);
+		
+	}
+
+	private int selestTypeReadFileByChoiceMetod(JPanel basic_panel, Metody selectedMetod) {
+		if (selectedMetod.getCode_metody().indexOf("10") > 1) {
+			return 10;
+		}
+		return 0;
+	}
+
+	private Boolean checkKorektFileName(String fileName, String codeSamample) {
+		int choice = 0;
+		Boolean fl = false;
+		if (fileName.indexOf(codeSamample) < 0) {
+			// display the showOptionDialog
+			Object[] options = { "Да", "Не" };
+			choice = JOptionPane.showOptionDialog(null, "Кода  не съвпада \nс името на файла. \nЩе продължите ли?",
+					"Грешни данни", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+		}
+		if (choice == JOptionPane.YES_OPTION) {
+			fl = true;
+		}
+		return fl;
+	}
+
+	private Object[][] CreatedataTableFromExcelFile() {
+		List<Nuclide_to_Pokazatel> listNucToPok = getListNuklideToPokazatel();
+		List<String> listSimbolBasicNuclide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
+		// masuveSimbolNuclide =
+		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
+		Results[] masiveResultsFromFile = ReadExcelFile.getMasivResultsFromExcelFile(destruct_Result_List,
+				listSimbolBasicNuclide);
+		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
+
+		int k = 0;
+		for (int i = 0; i < masiveResultsFromFile.length; i++) {
+			tableResult[i] = rowWithValueResultsFromFile(masiveResultsFromFile[i]);
+			k++;
+		}
+		return tableResult;
 	}
 
 	public void btmAddRowListener(JPanel basic_panel, JButton btnAddRow) {
@@ -1508,7 +1576,6 @@ public class AddResultsViewWithTable extends JDialog {
 		header = table.getTableHeader();
 		header.setReorderingAllowed(false);
 		header.addMouseListener(new TableHeaderMouseListener(table));
-		
 
 		table.addMouseListener(new MouseAdapter() {
 			@Override

@@ -1183,23 +1183,21 @@ public class AddDobivViewWithTable extends JDialog {
 				JFileChooser f = new JFileChooser();
 				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				f.showOpenDialog(null);
+				List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
 					if(selectedMetod.getCode_metody().equals("10")){
 					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
-					if (ReadGamaFile.getListNuclideMDA() > 0) {
+					}else{
+						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString());
+					}
+					if (ReadGamaFile.getListNuclideMDA() > 0 || destruct_Result_List.size() > 0) {
 						flagIncertedFile = true;
 					} else {
 						flagIncertedFile = false;
 					}
-					}else{
-						List<Destruct_Result> destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString());
-						if (destruct_Result_List.size() > 0) {
-							flagIncertedFile = true;
-						} else {
-							flagIncertedFile = false;
-						}
-					}
+						
+					
 					
 				} catch (NullPointerException e2) {
 
@@ -1239,17 +1237,18 @@ public class AddDobivViewWithTable extends JDialog {
 				if (flagIncertedFile) {
 					if (choiceMetody.getSelectedItem() != null) {
 						if (MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()).getId_metody() == 9) {
-							// TranscluentWindow round = new
-							// TranscluentWindow();
-							// final Thread thread = new Thread(new Runnable() {
-							// @Override
-							// public void run() {
-							//
-							// readFromGenie2kFile();
-							// ViewTableInPanel(basic_panel, round);
-							// }
-							// });
-							// thread.start();
+							 @SuppressWarnings("unused")
+							TranscluentWindow round = new
+							 TranscluentWindow();
+							 final Thread thread = new Thread(new Runnable() {
+							 @Override
+							 public void run() {
+							
+//							 readFromGenie2kFile();
+//							 ViewTableInPanel(basic_panel, round);
+							 }
+							 });
+							 thread.start();
 
 						}
 					} else {

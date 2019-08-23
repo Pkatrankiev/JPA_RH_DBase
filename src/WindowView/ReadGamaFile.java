@@ -332,7 +332,7 @@ public class ReadGamaFile {
 		return newMasiveResultsMDA;
 	}
 
-	private static TSI getTSIObjectFromFileString(String t_s_i) {
+	public static TSI getTSIObjectFromFileString(String t_s_i) {
 		return TSI_DAO.getValueTSIByNumberFromName(t_s_i.substring(1,3).trim());
 		
 	}

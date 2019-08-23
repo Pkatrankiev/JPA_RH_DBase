@@ -248,7 +248,6 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Има повтарящи се елементи");
 				if(checkDuplicates(createMasiveStringFromChoice())){
 					JOptionPane.showMessageDialog(null, "Има повтарящи се елементи");
 						

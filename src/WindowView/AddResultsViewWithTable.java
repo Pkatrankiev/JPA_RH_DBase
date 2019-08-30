@@ -3,7 +3,6 @@ package WindowView;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import Aplication.DimensionDAO;
@@ -109,7 +107,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static Choice choiceMetody;
 	private static Choice choiceDobiv;
 
-	private static JButton btnCreadTable;
+	
 	private static JButton btnAddRow;
 	private static JFileChooser fileChooser = new JFileChooser();
 	private static JTable tabResults;
@@ -933,7 +931,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				visibleSampleInfoLbl(lbl_OI_Sample, lblSampleDescript);
+				visibleSampleInfoLbl(choiceSmplCode, lbl_OI_Sample, lblSampleDescript);
 
 			}
 
@@ -943,13 +941,13 @@ public class AddResultsViewWithTable extends JDialog {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 
-				visibleSampleInfoLbl(lbl_OI_Sample, lblSampleDescript);
+				visibleSampleInfoLbl(choiceSmplCode, lbl_OI_Sample, lblSampleDescript);
 
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				visibleSampleInfoLbl(lbl_OI_Sample, lblSampleDescript);
+				visibleSampleInfoLbl(choiceSmplCode, lbl_OI_Sample, lblSampleDescript);
 
 			}
 
@@ -960,7 +958,7 @@ public class AddResultsViewWithTable extends JDialog {
 		});
 	}
 
-	public void visibleSampleInfoLbl(JLabel lbl_OI_Sample, JLabel lblSampleDescript) {
+	public void visibleSampleInfoLbl(Choice choiceSmplCode, JLabel lbl_OI_Sample, JLabel lblSampleDescript) {
 		if (choiceSmplCode.getSelectedItem() != "") {
 			if (getName_IO_Sample(choiceSmplCode.getSelectedItem()).length() > 50) {
 				lbl_OI_Sample.setText(getName_IO_Sample(choiceSmplCode.getSelectedItem()).substring(0, 50));
@@ -1170,69 +1168,18 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void btnDataFromDBase(JPanel panel) {
 
-		btnCreadTable = new JButton("Данни от базата");
-		btnCreadTableListener(panel, btnCreadTable);
-		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
-		gbc_btnCreadTable.gridwidth = 2;
-		gbc_btnCreadTable.anchor = GridBagConstraints.EAST;
-		gbc_btnCreadTable.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCreadTable.gridx = 0;
-		gbc_btnCreadTable.gridy = 6;
-		panel.add(btnCreadTable, gbc_btnCreadTable);
+		JButton btnDataFromDBase = new JButton("Данни от базата");
+		btnDataFromDBaseListener(panel, btnDataFromDBase);
+		GridBagConstraints gbc_btnDataFromDBase = new GridBagConstraints();
+		gbc_btnDataFromDBase.gridwidth = 2;
+		gbc_btnDataFromDBase.anchor = GridBagConstraints.EAST;
+		gbc_btnDataFromDBase.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDataFromDBase.gridx = 0;
+		gbc_btnDataFromDBase.gridy = 6;
+		panel.add(btnDataFromDBase, gbc_btnDataFromDBase);
 
 	}
-
-	private void btnOpenFile(JPanel panel) {
-		JButton btnOpenFile = new JButton("Отвори");
-		btnOpenFileListener(btnOpenFile);
-		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
-		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
-		gbc_btnBasicDataFile.insets = new Insets(0, 0, 5, 5);
-		gbc_btnBasicDataFile.gridx = 3;
-		gbc_btnBasicDataFile.gridy = 5;
-		panel.add(btnOpenFile, gbc_btnBasicDataFile);
-	}
-
-	public void btnOpenFileListener(JButton btnOpenFile) {
-		btnOpenFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				fileChooser.showOpenDialog(null);
-
-				destruct_Result_List = new ArrayList<Destruct_Result>();
-				int sizeExcelList = 0, sizeGamaList = 0;
-				try {
-					String fileName = fileChooser.getSelectedFile().toString();
-					txtBasicValueResult.setText(fileName);
-
-					if (selectedMetod.getCode_metody().equals("10")) {
-						ReadGamaFile.getReadGamaFile(fileName);
-						sizeGamaList = ReadGamaFile.getListNuclideMDA();
-					} else {
-						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName);
-						sizeExcelList = destruct_Result_List.size();
-					}
-					System.out.println(sizeGamaList + "    " + sizeExcelList);
-					if (sizeGamaList > 0 || sizeExcelList > 0) {
-						flagIncertedFile = true;
-					} else {
-						flagIncertedFile = false;
-						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
-								JOptionPane.ERROR_MESSAGE);
-
-					}
-				} catch (NullPointerException e2) {
-					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-			}
-
-		});
-	}
-
-	public void btnCreadTableListener(JPanel panel, JButton btnCreadTable) {
+	public void btnDataFromDBaseListener(JPanel panel, JButton btnCreadTable) {
 		btnCreadTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -1268,6 +1215,88 @@ public class AddResultsViewWithTable extends JDialog {
 
 		});
 
+	}
+
+	private void btnAddRow(JPanel basic_panel) {
+
+		btnAddRow = new JButton("нов Нуклид");
+		btmAddRowListener(basic_panel, btnAddRow);
+		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
+		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
+		gbc_btnAddRow.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddRow.gridx = 6;
+		gbc_btnAddRow.gridy = 8;
+		basic_panel.add(btnAddRow, gbc_btnAddRow);
+		btnAddRow.setVisible(false);
+	}
+	
+	public void btmAddRowListener(JPanel basic_panel, JButton btnAddRow) {
+		btnAddRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddNewRowIn_dataTable();
+				Boolean isNewRow = true;
+				ViewTableInPanel(basic_panel, isNewRow);
+			}
+
+		});
+	}
+	
+	private void btnOpenFile(JPanel panel) {
+		JButton btnOpenFile = new JButton("Отвори");
+		btnOpenFileListener(btnOpenFile);
+		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
+		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
+		gbc_btnBasicDataFile.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBasicDataFile.gridx = 3;
+		gbc_btnBasicDataFile.gridy = 5;
+		panel.add(btnOpenFile, gbc_btnBasicDataFile);
+	}
+
+	public void btnOpenFileListener(JButton btnOpenFile) {
+		btnOpenFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				fileChooser.showOpenDialog(null);
+
+				destruct_Result_List = new ArrayList<Destruct_Result>();
+				int sizeExcelList = 0, sizeGamaList = 0;
+				try {
+					String fileName = fileChooser.getSelectedFile().toString();
+					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
+					if (checkKorektFileName(fileName, codeSamample)) {
+					txtBasicValueResult.setText(fileName);
+					if (!choiceMetody.getSelectedItem().trim().isEmpty()){
+					if (choiceMetody.getSelectedItem().indexOf("10")>0){
+					
+						ReadGamaFile.getReadGamaFile(fileName);
+						sizeGamaList = ReadGamaFile.getListNuclideMDA();
+					} else {
+						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName);
+						sizeExcelList = destruct_Result_List.size();
+					}
+					
+					if (sizeGamaList > 0 || sizeExcelList > 0) {
+						flagIncertedFile = true;
+					} else {
+						flagIncertedFile = false;
+						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+								JOptionPane.ERROR_MESSAGE);
+
+					}
+					}else {
+						flagIncertedFile = false;
+						JOptionPane.showMessageDialog(null, "Не сте избрали метод", "Грешни данни",
+								JOptionPane.ERROR_MESSAGE);
+				}
+					}
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(null, "Не сте избрали файл!", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+
+		});
 	}
 
 	private void startViewtablePanel(JPanel panel, Results[] masiveResultsForChoiceSample) {
@@ -1398,53 +1427,45 @@ public class AddResultsViewWithTable extends JDialog {
 		basic_panel.add(btnTabFromFile, gbc_btnTabFromFile);
 	}
 
-	private void btnAddRow(JPanel basic_panel) {
-
-		btnAddRow = new JButton("нов Нуклид");
-		btmAddRowListener(basic_panel, btnAddRow);
-		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
-		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
-		gbc_btnAddRow.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddRow.gridx = 6;
-		gbc_btnAddRow.gridy = 8;
-		basic_panel.add(btnAddRow, gbc_btnAddRow);
-		btnAddRow.setVisible(false);
-	}
-
 	public void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile) {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (flagIncertedFile) {
-					String fileName = fileChooser.getSelectedFile().toString();
-					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
-					if (checkKorektFileName(fileName, codeSamample)) {
-
+										
 						AddResultsViewWithTable.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-							
-							switch (selestTypeReadFileByChoiceMetod(basic_panel, selectedMetod)) {
+							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
+							int switCase =selestTypeReadFileByChoiceMetod(basic_panel, selectedMetod);
+							System.out.println(switCase+ " switCase------------------------------------------------");
+							switch (switCase) {
 							case 10:
+								String codeSamampleFromGamaFile = ReadGamaFile.getCod_sample();
+								if (checkKorektFileName(codeSamampleFromGamaFile, codeSamample)) {
 								checkFor10SysError();
 								Users user = ReadGamaFile.getUserFromFile();
 								String str = user.getName_users() + " " + user.getFamily_users();
 								choiceOIR.select(str);
 								Object[][] ss = CreatedataTableFromGeany2kFile();
 								createDataTableAndViewTableInPanel(basic_panel, ss);
+								}
 								break;
 
 							case 0:
+								String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
+								if (checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
 								 checkForKoretMetod(destruct_Result_List);
 								Object[][] ssExcel = CreatedataTableFromExcelFile();
 								createDataTableAndViewTableInPanel(basic_panel, ssExcel);
+								}
 								break;
 							}
 						} else {
 							JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
 									JOptionPane.ERROR_MESSAGE);
 						}
-					}
+					
 					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 				} else {
 					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
@@ -1501,17 +1522,18 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private Boolean checkKorektFileName(String fileName, String codeSamample) {
 		int choice = 0;
-		Boolean fl = false;
+		Boolean fl = true;
 		if (fileName.indexOf(codeSamample) < 0) {
+			fl = false;
 			// display the showOptionDialog
 			Object[] options = { "Да", "Не" };
 			choice = JOptionPane.showOptionDialog(null, "Кода  не съвпада \nс името на файла. \nЩе продължите ли?",
 					"Грешни данни", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
+			if (choice == JOptionPane.YES_OPTION) {
+				fl = true;
+			}
 		}
-		if (choice == JOptionPane.YES_OPTION) {
-			fl = true;
-		}
+		
 		return fl;
 	}
 
@@ -1523,24 +1545,12 @@ public class AddResultsViewWithTable extends JDialog {
 		Results[] masiveResultsFromFile = ReadExcelFile.getMasivResultsFromExcelFile(destruct_Result_List,
 				listSimbolBasicNuclide);
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
-
-		int k = 0;
+		
 		for (int i = 0; i < masiveResultsFromFile.length; i++) {
 			tableResult[i] = rowWithValueResultsFromFile(masiveResultsFromFile[i]);
-			k++;
+		
 		}
 		return tableResult;
-	}
-
-	public void btmAddRowListener(JPanel basic_panel, JButton btnAddRow) {
-		btnAddRow.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AddNewRowIn_dataTable();
-				Boolean isNewRow = true;
-				ViewTableInPanel(basic_panel, isNewRow);
-			}
-
-		});
 	}
 
 	private void AddNewRowIn_dataTable() {

@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  * Created by anirudh on 20/10/14.
  */
 public class ReadExcelFile {
-	private static List<Destruct_Result> listNuclideDestruct_Result;
+//	private static List<Destruct_Result> listNuclideDestruct_Result;
 	// private static final String FILE_PATH = "d:/123456.xls";
 
 	// public static void main(String args[]) {
@@ -40,6 +40,11 @@ public class ReadExcelFile {
 	// }
 	//
 	// }
+	private static String cod_sample;
+	
+	public static String getCod_sample() {
+		return cod_sample;
+	}
 
 	public static String getStringDestruct_Result(Destruct_Result destruct_Result) {
 
@@ -53,7 +58,7 @@ public class ReadExcelFile {
 		DataFormatter formatter = new DataFormatter();
 		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
 		FileInputStream fis = null;
-		String cod = "", metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "",
+		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "",
 				dimencion = "";
 		String param = "", valume = "";
 		try {
@@ -94,7 +99,7 @@ public class ReadExcelFile {
 
 							switch (param) {
 							case "Код":
-								cod = valume;
+								cod_sample = valume;
 								break;
 							case "Метод":
 								metod = valume;
@@ -127,7 +132,7 @@ public class ReadExcelFile {
 							}
 
 							if (endNuclideRsult) {
-								destruct_Result_List.add(new Destruct_Result(cod, metod, nuclide, result, uncert, mda,
+								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, uncert, mda,
 										tsi, quantity, dimencion));
 								endNuclideRsult = false;
 							}

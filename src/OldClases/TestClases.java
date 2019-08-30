@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
@@ -209,8 +208,8 @@ public class TestClases {
 		    	 
 		    	 JFrame f = new JFrame();
 //		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
-//		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 
-		 		new AddResultsViewWithTable_Test(f,round, UsersDAO.getValueUsersById(3)); 
+		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 
+		 		
 		     }
 		    });
 		    thread.start();

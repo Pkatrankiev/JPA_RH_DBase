@@ -102,7 +102,7 @@ public class ReadGamaFile {
 				countLineToNuclide++;
 				if (countLineToNuclide > 2) {
 					if (stringLine[j].length != 0) {
-						if(stringArray[j].length()> 60 && stringArray[j].substring(25, 40).trim().indexOf("*")<0){
+						if(stringArray[j].length()> 70 && stringArray[j].substring(25, 40).trim().indexOf("*")<0){
 						listNuclideAkv.add(stringArray[j]);
 						}
 					} else {

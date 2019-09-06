@@ -218,6 +218,7 @@ public class MainWindow extends JFrame {
 		
 
 		FindFile ff = new FindFile();
+		System.out.println("*****************************************");
 		JLabel lblLabel_Protokol = new JLabel(ff.findFile(request.getRecuest_code(), new File(dir_Protocols)));
 		lblLabel_Protokol.setPreferredSize(new Dimension(140, 14));
 		panel.add(lblLabel_Protokol);

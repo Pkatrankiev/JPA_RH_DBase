@@ -99,7 +99,7 @@ public class ReadExcelFile {
 
 							switch (param) {
 							case "Код":
-								cod_sample = valume;
+								cod_sample = cell.getStringCellValue();
 								break;
 							case "Метод":
 								metod = valume;
@@ -123,7 +123,7 @@ public class ReadExcelFile {
 								tsi = valume;
 								break;
 							case "Размерност":
-								dimencion = valume;
+								dimencion = cell.getStringCellValue();
 								break;
 							case "end":
 								endNuclideRsult = true;
@@ -132,6 +132,12 @@ public class ReadExcelFile {
 							}
 
 							if (endNuclideRsult) {
+								double dub_MDA = Double.valueOf(mda);
+								double dub_result = Double.valueOf(result);
+								if(dub_MDA > dub_result) {
+									result = "0.0";
+									uncert = "0.0";
+								}
 								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, uncert, mda,
 										tsi, quantity, dimencion));
 								endNuclideRsult = false;
@@ -180,8 +186,11 @@ public class ReadExcelFile {
 		List<Results> listResults = new ArrayList<Results>();
 		for (int i = 0; i < masiveActiveResults.length; i++) {
 			String nuclideResult = masiveActiveResults[i][2];
+			System.out.println(masiveActiveResults[i][8]+" >>>>>>>>>>>>>>>>>>>>>>>>>>> ");
 			for (String nuclideBasic : listSimbolBasicNuclide) {
-				if (nuclideResult.equals(nuclideBasic))
+				
+				if (nuclideResult.contains(nuclideBasic)) {
+					
 					try {
 						Results results = new Results();
 						results.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
@@ -195,23 +204,25 @@ public class ReadExcelFile {
 						String dim = masiveActiveResults[i][8];
 						results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(dim));
 						if (dim.indexOf("/") > 0) {
-							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("", "Bq/")));
+							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq/","")));
 						} else {
-							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("", "Bq")));
+							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq","")));
 						}
 						results.setSigma(2);
+						
 						listResults.add(results);
 
 					} catch (NumberFormatException e) {
 					}
 			}
+			}
 		}
-
+		System.out.println(listResults.size()+" *****************************");
 		Results[] masiveResultsnew = new Results[listResults.size()];
-		for (int j = 0; j < masiveResultsnew.length; j++) {
+		for (int j = 0; j < listResults.size(); j++) {
 			masiveResultsnew[j] = listResults.get(j);
 		}
-
+		System.out.println(masiveResultsnew.length+" ..........................");
 		return masiveResultsnew;
 	}
 }

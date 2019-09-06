@@ -68,6 +68,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import AddResultViewFunction.AddresultViewMwetods;
+
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
@@ -1531,7 +1534,7 @@ public class RequestView extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
 
-					AddResultsViewWithTable.setWaitCursor(p);
+					AddresultViewMwetods.setWaitCursor(p);
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
 					request = createAndSaveRequest();
 
@@ -1539,7 +1542,7 @@ public class RequestView extends JDialog {
 
 					saveSample();
 					SaveIzpitvanPokazatel();
-					AddResultsViewWithTable.setDefaultCursor(p);
+					AddresultViewMwetods.setDefaultCursor(p);
 					setVisible(false);
 				}
 			}

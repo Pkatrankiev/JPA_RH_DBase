@@ -24,7 +24,7 @@ public class DobivSection {
 				if (choiceDobiv.getSelectedItem() == null)
 					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
 				lbl_StoinostiFromDobiv
-						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim(), choiceDobiv));
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 
 			}
 
@@ -37,7 +37,7 @@ public class DobivSection {
 				if (choiceDobiv.getSelectedItem() != null) {
 					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
 				lbl_StoinostiFromDobiv
-						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim(), choiceDobiv));
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 				}
 			}
 
@@ -49,8 +49,8 @@ public class DobivSection {
 				if (choiceDobiv.getSelectedItem() != null) {
 					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
 				lbl_StoinostiFromDobiv
-						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim(), choiceDobiv));
-				}
+						.setText(generate_strStoinostiDobiv_Nuclide( choiceDobiv));
+				}  
 			}
 
 		});
@@ -65,9 +65,9 @@ public class DobivSection {
 		}
 	}
 	
-	static String generate_strStoinostiDobiv_Nuclide(String strSelectedDobiv, Choice choiceDobiv) {
+	static String generate_strStoinostiDobiv_Nuclide(Choice choiceDobiv) {
 		String strStoinostiDobiv_Nuclide = "";
-		if (!strSelectedDobiv.isEmpty()) {
+		if (!choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			for (Dobiv dobiv : DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem())) {
 				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " - " + dobiv.getValue_result()
 						+ "% , ";

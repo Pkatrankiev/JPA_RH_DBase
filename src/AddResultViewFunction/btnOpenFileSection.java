@@ -28,8 +28,11 @@ public class btnOpenFileSection {
 				try {
 					String fileName = fileChooser.getSelectedFile().toString();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
+					
 					if (AddresultViewMwetods.checkKorektFileName(fileName, codeSamample)) {
+					
 					txtBasicValueResult.setText(fileName);
+					System.out.println(codeSamample+"   "+fileName);
 					if (!choiceMetody.getSelectedItem().trim().isEmpty()){
 					if (choiceMetody.getSelectedItem().indexOf("10")>0){
 					

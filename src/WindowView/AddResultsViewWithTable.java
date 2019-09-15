@@ -163,11 +163,13 @@ public class AddResultsViewWithTable extends JDialog {
 		gbl_basic_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		basic_panel.setLayout(gbl_basic_panel);
+	
 		SampleCodeSection(basic_panel);
 		
 		RequestCodeSection(parent, basic_panel);
 
-		
+		BasicValueFileSection(basic_panel);
+		DobivSection(basic_panel);
 
 		PokazatelSection(basic_panel);
 
@@ -176,19 +178,19 @@ public class AddResultsViewWithTable extends JDialog {
 		MetodSection(basic_panel);
 
 		ChoiceOIR_Section(basic_panel);
-
+		
+		
 		btnDataFromDBaseSection(basic_panel);
 
 		btnOpenFileSection(basic_panel);
 
-		BasicValueFileSection(basic_panel);
+		
 
 		btnTabFromFile(basic_panel);
 
 		btnAddRow(basic_panel);
 
-		DobivSection(basic_panel);
-
+		
 		LabelStoinostiFromDobiv(basic_panel);
 
 		ButtonPanell(basic_panel);
@@ -431,7 +433,7 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(txtBasicValueResult, gbc_txtBasicValueResult);
 
 		txtBasicValueResult.setColumns(10);
-
+		txtBasicValueResult.setText("--");
 	}
 	
 	private void btnTabFromFile(JPanel basic_panel) {
@@ -516,9 +518,41 @@ public class AddResultsViewWithTable extends JDialog {
 		scrollTablePane.setViewportView(panelTable);
 		panelTable.setLayout(new BorderLayout(0, 0));
 
-		AddresultViewMwetods.TableRendererMetod( isNewRow,  tabResults, countRowTabResults, btnAddRow, header, 
+		tabResults = AddresultViewMwetods.CreateTableResults(isNewRow,  btnAddRow,  header, 
 				choiceSmplCode);
+		countRowTabResults = ОverallVariables.getDataTable().length;
+		tabResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+		private static final long serialVersionUID = 1L;
 
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int col) {
+
+				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+				String s1 = table.getValueAt(row, AddresultViewMwetods.getActv_value_Colum()).toString();
+				String s2 = table.getValueAt(row, AddresultViewMwetods.getMda_Colum()).toString();
+
+				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2))) == 0) {
+					// setBackground(Color.BLACK);
+					setForeground(Color.LIGHT_GRAY);
+				} else {
+					// setBackground(table.getBackground());
+					setForeground(table.getForeground());
+				}
+				return this;
+			}
+		});
+
+		
+		
+		
+//		
+//		AddresultViewMwetods.TableRendererMetod( isNewRow,  tabResults, countRowTabResults, btnAddRow, header, 
+//				choiceSmplCode);
+
+		
+		
+		
 		tabResults.validate();
 		tabResults.repaint();
 

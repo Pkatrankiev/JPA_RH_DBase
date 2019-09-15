@@ -84,6 +84,14 @@ public class AddresultViewMwetods {
 	private static int check_Colum = 12;
 	private static int rsult_Id_Colum = 13;
 
+	public static int getActv_value_Colum() {
+		return actv_value_Colum;
+	}
+
+	public static int getMda_Colum() {
+		return mda_Colum;
+	}
+
 	public static int getDateHimObr_Colum() {
 		return dateHimObr_Colum;
 	}
@@ -380,6 +388,8 @@ public class AddresultViewMwetods {
 		});
 	}
 
+		
+	
 	public static JTable CreateTableResults(Boolean isNewRow, JButton btnAddRow, JTableHeader header, 
 			Choice choiceSmplCode) {
 

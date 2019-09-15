@@ -155,6 +155,8 @@ public class ButtonPanellListener {
 			str_Error = str_Error + "èçâ. õèì. îáğàáîòêà" + "\n";
 			saveCheck = false;
 		}
+		System.out.println(choiceDobiv.getSelectedItem().trim().isEmpty());
+		System.out.println( ÎverallVariables.getListSimbolBasikNulideToMetod().isEmpty());
 
 		if (!ÎverallVariables.getListSimbolBasikNulideToMetod().isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			choiceDobiv.setBackground(Color.RED);

@@ -3,17 +3,12 @@ package AddResultViewFunction;
 import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import Aplication.MetodyDAO;
 import DBase_Class.Metody;
-import DBase_Class.Nuclide_to_Pokazatel;
-import DBase_Class.Results;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import WindowView.AddResultsViewWithTable;
@@ -21,7 +16,7 @@ import WindowView.ReadGamaFile;
 
 public class btnTabFromFileSection {
 
-	public static void btnTabFromFileListener(JPanel basic_panel, JButton btnTabFromFile, Choice choiceMetody, JTextField txtRqstCode,
+	public static void btnTabFromFileListener(AddResultsViewWithTable addResultsViewWithTable,JPanel basic_panel, JButton btnTabFromFile, Choice choiceMetody, JTextField txtRqstCode,
 			Choice choiceSmplCode, Choice choiceOIR, Choice choicePokazatel) {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -43,7 +38,7 @@ public class btnTabFromFileSection {
 								String str = user.getName_users() + " " + user.getFamily_users();
 								choiceOIR.select(str);
 								Object[][] ss = AddresultViewMwetods.CreatedataTableFromGeany2kFile(choicePokazatel);
-								AddresultViewMwetods.createDataTableAndViewTableInPanel(basic_panel, ss);
+								AddresultViewMwetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
 								}
 								break;
 
@@ -52,7 +47,7 @@ public class btnTabFromFileSection {
 								if (AddresultViewMwetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
 								if( AddresultViewMwetods.checkForKoretMetod(ÎverallVariables.getDestruct_Result_List(), choiceMetody)){
 								Object[][] ssExcel = AddresultViewMwetods.CreatedataTableFromExcelFile( choicePokazatel);
-								AddresultViewMwetods.createDataTableAndViewTableInPanel(basic_panel, ssExcel);
+								AddresultViewMwetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
 								}
 								}
 								break;

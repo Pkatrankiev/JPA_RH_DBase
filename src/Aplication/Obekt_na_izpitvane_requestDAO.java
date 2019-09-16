@@ -20,15 +20,15 @@ public class Obekt_na_izpitvane_requestDAO {
 	
 
 //	Obekt_na_izpitvane
-	public static void setValueObekt_na_izpitvane(String value) {
+	public static void setValueObekt_na_izpitvane(String name,String simpleName) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		Obekt_na_izpitvane_request valueEnt = new Obekt_na_izpitvane_request();
-		valueEnt.setName_obekt_na_izpitvane(value);
-		
+		valueEnt.setName_obekt_na_izpitvane(name);
+		valueEnt.setSimple_Name(simpleName);
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
@@ -105,7 +105,7 @@ public class Obekt_na_izpitvane_requestDAO {
 		
 		List<Obekt_na_izpitvane_request> list = query.getResultList();
 		if (list.isEmpty()){
-			setValueObekt_na_izpitvane(name);
+			setValueObekt_na_izpitvane(name, "");
 		 list = query.getResultList();
 		}
 
@@ -125,7 +125,7 @@ public class Obekt_na_izpitvane_requestDAO {
 			}
 		}
 		if(!fl_Obekt_na_izpitvane){
-			setValueObekt_na_izpitvane( value);	
+			setValueObekt_na_izpitvane( value,"");	
 		}
 	}
 }

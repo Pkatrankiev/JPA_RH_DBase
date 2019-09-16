@@ -19,7 +19,6 @@ import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;

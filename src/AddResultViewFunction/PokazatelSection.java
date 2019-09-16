@@ -4,9 +4,7 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Sample;
 
 public class PokazatelSection {
 	

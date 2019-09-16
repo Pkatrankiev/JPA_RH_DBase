@@ -48,7 +48,6 @@ import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.MetodyDAO;
 import Aplication.Metody_to_NiclideForDobiveDAO;
-//import Aplication.Metody_to_NiclideForDobiveDAO;
 import Aplication.Metody_to_PokazatelDAO;
 import Aplication.NuclideDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
@@ -64,7 +63,6 @@ import DBase_Class.Nuclide_to_Pokazatel;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
-import WindowViewAplication.AutoSuggestor;
 
 public class AddDobivViewWithTable extends JDialog {
 

@@ -1197,7 +1197,7 @@ public class RequestViewForReadDoc extends JFrame {
 		System.out.println(coundNew + " " + countOld);
 		if (countOld != coundNew) {
 			for (int i = countOld; i < coundNew; i++) {
-				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
+				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i),"");
 			}
 		}
 		tamplateRequest.setDate_request(txtFld_Date_Request.getText());
@@ -1259,7 +1259,7 @@ public class RequestViewForReadDoc extends JFrame {
 		System.out.println(coundNew + " " + countOld);
 		if (countOld != coundNew) {
 			for (int i = countOld; i < coundNew; i++) {
-				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i));
+				Obekt_na_izpitvane_requestDAO.setValueObekt_na_izpitvane(array_O_I_R.get(i),"");
 			}
 		}
 		String str_templ = RequestViewFunction.DateNaw(true);

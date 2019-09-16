@@ -34,7 +34,7 @@ public class DobivSection {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
-				if (choiceDobiv.getSelectedItem() != null) {
+				if (choiceDobiv.getSelectedItem().trim().isEmpty()) {
 					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
@@ -46,10 +46,10 @@ public class DobivSection {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				if (choiceDobiv.getSelectedItem() != null) {
+				if (choiceDobiv.getSelectedItem().trim().isEmpty()) {
 					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
 				lbl_StoinostiFromDobiv
-						.setText(generate_strStoinostiDobiv_Nuclide( choiceDobiv));
+						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 				}  
 			}
 
@@ -80,5 +80,5 @@ public class DobivSection {
 		return strStoinostiDobiv_Nuclide;
 	}
 
-	
+
 }

@@ -6,23 +6,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import DBase_Class.Sample;
+import WindowView.AddResultsViewWithTable;
 import WindowView.RequestViewFunction;
 
 public class RequestCodeSection {
 	
 
-	public static void txtRqstCodeListener(JFrame parent, JLabel lblError,JTextField txtRqstCode,
+	public static void txtRqstCodeListener(AddResultsViewWithTable addResultsViewWithTable, JLabel lblError,JTextField txtRqstCode,
 			 	Choice choiceSmplCode) {
 
 		txtRqstCode.addMouseListener(new MouseAdapter() {
@@ -59,8 +56,8 @@ public class RequestCodeSection {
 					txtRqstCode.setForeground(Color.red);
 					lblError.setVisible(true);
 					lblError.setText("Заявка с този номер не съществува");
-					parent.validate();
-					parent.repaint();
+					addResultsViewWithTable.validate();
+					addResultsViewWithTable.repaint();
 
 				} else {
 					txtRqstCode.setForeground(Color.BLACK);
@@ -81,8 +78,8 @@ public class RequestCodeSection {
 
 					}
 					choiceSmplCode.setEnabled(true);
-					parent.validate();
-					parent.repaint();
+					addResultsViewWithTable.validate();
+					addResultsViewWithTable.repaint();
 
 				}
 			}

@@ -24,8 +24,8 @@ import WindowView.MesejePanel;
 
 public class ButtonPanellListener {
 
-	@SuppressWarnings("unused")
-	public static void saveButtonListener(JPanel basic_panel, JPanel panel, JButton saveButton,JTextField txtRqstCode, Choice choicePokazatel, Choice choiceMetody,
+
+	public static void saveButtonListener(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, JButton saveButton,JTextField txtRqstCode, Choice choicePokazatel, Choice choiceMetody,
 			Choice choiceOIR, Choice choiceORHO, Choice choiceDobiv, Choice choiceSmplCode, JTextField txtBasicValueResult) {
 		saveButton.addActionListener(new ActionListener() {
 
@@ -34,7 +34,7 @@ public class ButtonPanellListener {
 				if (checkDataResult(txtRqstCode, choicePokazatel, choiceMetody,
 						choiceOIR,choiceORHO,  choiceDobiv)) {
 					updateIzpitvanPokazatelObjectInDBase(choicePokazatel, choiceMetody);
-					AddresultViewMwetods.setWaitCursor(panel);
+					AddresultViewMwetods.setWaitCursor(basic_panel);
 
 					Sample samp = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
 					ÎverallVariables.setListResultsFromDBase ( creadListResultsObjects_ChoiseSample(samp,  choicePokazatel));
@@ -42,13 +42,13 @@ public class ButtonPanellListener {
 					ÎverallVariables.setResultListForSave ( AddresultViewMwetods.creadResultListForSave( samp, txtBasicValueResult,
 							 choiceMetody,  choicePokazatel,  choiceORHO,  choiceOIR,  choiceDobiv));
 
-					AddresultViewMwetods.setDefaultCursor(panel);
+					AddresultViewMwetods.setDefaultCursor(basic_panel);
 
 					new MesejePanel(ÎverallVariables.getResultListForSave(), ÎverallVariables.getResultListForDelete());
 					int k = MesejePanel.getResultMeseje();
 
 					if (k == 0) {
-						AddresultViewMwetods.setWaitCursor(panel);
+						AddresultViewMwetods.setWaitCursor(basic_panel);
 						for (Results results : ÎverallVariables.getResultListForSave()) {
 							int idresultInBase = existsNuclideInResultTOResultBase(ÎverallVariables.getListResultsFromDBase(), results);
 							if (idresultInBase != 0) {
@@ -65,8 +65,8 @@ public class ButtonPanellListener {
 						ÎverallVariables.setListSimbolBasikNulide ( AddresultViewMwetods.getListSimbolBasikNulideFNuclideToPokazatel(ÎverallVariables.getListNucToPok()));
 						Results[] masiveResultsForChoiceSample = AddresultViewMwetods.creadMasiveFromResultsObjects_ChoiseSample(
 								SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode),  choicePokazatel);
-						startViewtablePanel(basic_panel, panel, masiveResultsForChoiceSample);
-						AddresultViewMwetods.setDefaultCursor(panel);
+						startViewtablePanel(addResultsViewWithTable,basic_panel,  masiveResultsForChoiceSample);
+						AddresultViewMwetods.setDefaultCursor(basic_panel);
 					}
 
 				}
@@ -87,9 +87,9 @@ public class ButtonPanellListener {
 		return fl;
 	}
 
-	static void startViewtablePanel(JPanel basic_panel, JPanel panel, Results[] masiveResultsForChoiceSample) {
+	static void startViewtablePanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
 		Object[][] ss = AddresultViewMwetods.getDataTable(masiveResultsForChoiceSample, ÎverallVariables.getListSimbolBasikNulide());
-		AddresultViewMwetods.createDataTableAndViewTableInPanel(basic_panel, ss);
+		AddresultViewMwetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
 	}
 
 	

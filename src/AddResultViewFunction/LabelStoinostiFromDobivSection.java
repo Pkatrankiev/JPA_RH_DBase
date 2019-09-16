@@ -13,7 +13,7 @@ public class LabelStoinostiFromDobivSection {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				lbl_StoinostiFromDobiv
-						.setText(DobivSection.generate_strStoinostiDobiv_Nuclide(choiceDobiv.getSelectedItem().trim(), choiceDobiv));
+						.setText(DobivSection.generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 			}
 
 			@Override

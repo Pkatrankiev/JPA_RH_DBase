@@ -8,19 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JLabel;
-
-import Aplication.DobivDAO;
-import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.Metody_to_PokazatelDAO;
-import Aplication.Nuclide_to_PokazatelDAO;
-import DBase_Class.Dobiv;
-import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_Pokazatel;
-import DBase_Class.Nuclide_to_Pokazatel;
 import WindowView.AddDobivViewWithTable;
 
 public class MetodSection {
@@ -32,7 +24,7 @@ public class MetodSection {
 				setVisiblelblNameMetody(lblNameMetod, choiceMetody);
 				String strChoisedmetod = choiceMetody.getSelectedItem();
 				ÎverallVariables.setSelectedMetod (MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
-				setItemInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
+				DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
 				ÎverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(ÎverallVariables.getSelectedMetod()));
 			}
 		});
@@ -55,7 +47,7 @@ public class MetodSection {
 
 						setVisiblelblNameMetody(lblNameMetod, choiceMetody);
 					}
-					// setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+					DobivSection.setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()), choiceDobiv);
 				}
 
 			}
@@ -84,14 +76,7 @@ public class MetodSection {
 		});
 	}
 	
-	private static void setItemInChoiceDobiv(Metody selectedMetod, Choice choiceDobiv) {
-		choiceDobiv.removeAll();
-		choiceDobiv.addItem("");
-		ÎverallVariables.setListDobivFromMetod( DobivDAO.getListDobivByMetody(selectedMetod));
-		for (Dobiv str : ÎverallVariables.getListDobivFromMetod()) {
-			choiceDobiv.addItem(str.getCode_Standart());
-		}
-	}
+	
 	
 	private static void setVisiblelblNameMetody(JLabel lblNameMetod, Choice choiceMetody ) {
 

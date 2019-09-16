@@ -3,16 +3,15 @@ package AddResultViewFunction;
 import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import Aplication.MetodyDAO;
 import DBase_Class.Results;
+import WindowView.AddResultsViewWithTable;
 
 public class btnDataFromDBaseSection {
 
-	public static void btnDataFromDBaseListener(JPanel basic_panel, JPanel panel, JButton btnDataFromDBase, Choice choiceMetody, Choice choiceDobiv, 
+	public static void btnDataFromDBaseListener(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, JButton btnDataFromDBase, Choice choiceMetody, Choice choiceDobiv, 
 			Choice choiceSmplCode, Choice choicePokazatel, Choice choiceOIR, Choice choiceORHO) {
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -42,7 +41,7 @@ public class btnDataFromDBaseSection {
 
 					}
 
-					AddresultViewMwetods.startViewtablePanel(basic_panel, panel, masiveResultsForChoiceSample);
+					AddresultViewMwetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
 
 				}
 			}

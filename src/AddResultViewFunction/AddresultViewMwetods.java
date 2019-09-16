@@ -4,7 +4,6 @@ import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,7 +25,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -142,9 +139,9 @@ public class AddresultViewMwetods {
 		return List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem());
 	}
 
-	static void startViewtablePanel(JPanel basic_panel, JPanel panel, Results[] masiveResultsForChoiceSample) {
+	static void startViewtablePanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
 		Object[][] ss = getDataTable(masiveResultsForChoiceSample, ÎverallVariables.getListSimbolBasikNulide());
-		createDataTableAndViewTableInPanel(basic_panel, ss);
+		createDataTableAndViewTableInPanel(addResultsViewWithTable,basic_panel, ss);
 	}
 
 	static Boolean checkKorektFileName(String fileName, String codeSamample) {
@@ -256,7 +253,7 @@ public class AddresultViewMwetods {
 		return tableResult;
 	}
 
-	static void AddNewRowIn_dataTable(Choice choicePokazatel) {
+	public static void AddNewRowIn_dataTable(Choice choicePokazatel) {
 		List<Nuclide_to_Pokazatel> listNucToPok = AddresultViewMwetods.getListNuklideToPokazatel(choicePokazatel);
 		ÎverallVariables.setMasive_NuclideToPokazatel(getListSimbolNuclideToPokazatel(listNucToPok));
 		int countDataTable = ÎverallVariables.getDataTable().length;
@@ -350,12 +347,12 @@ public class AddresultViewMwetods {
 
 	}
 
-	static void createDataTableAndViewTableInPanel(JPanel basic_panel, Object[][] ss) {
+	static void createDataTableAndViewTableInPanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Object[][] ss) {
 		Boolean isNewRow = false;
 		ÎverallVariables.setDataTable(new Object[ss.length][tbl_Colum]);
 		ÎverallVariables.setDataTable(ss);
 		isNewRow = false;
-		AddResultsViewWithTable.ViewTableInPanel(basic_panel, isNewRow);
+		AddResultsViewWithTable.ViewTableInPanel(addResultsViewWithTable,isNewRow);
 
 	}
 

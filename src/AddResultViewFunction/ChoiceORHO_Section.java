@@ -2,14 +2,8 @@ package AddResultViewFunction;
 
 import java.awt.Choice;
 import java.awt.Color;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import Aplication.MetodyDAO;
-import DBase_Class.Metody;
-import WindowView.AddDobivViewWithTable;
 
 public class ChoiceORHO_Section {
 

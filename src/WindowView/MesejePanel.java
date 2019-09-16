@@ -33,7 +33,7 @@ public class MesejePanel implements Runnable {
 		panel.add(createTextPanel("За запис"));
 		panel.add(test.creadJPanel(saveStr));
 		
-		result = JOptionPane.showOptionDialog(null, panel, "Enter a Number", JOptionPane.YES_NO_CANCEL_OPTION,
+		result = JOptionPane.showOptionDialog(null, panel, "Данни за базата", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options1, null);
 		
 	}
@@ -75,7 +75,6 @@ public class MesejePanel implements Runnable {
 		panel2.add(new JLabel(str));
 		return panel2;
 	}
-
 	
 	public void run(Sample samp) {
 		// TODO Auto-generated method stub

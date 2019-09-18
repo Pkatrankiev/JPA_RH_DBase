@@ -14,8 +14,10 @@ public class PokazatelSection {
 		public void mouseEntered(MouseEvent e) {
 			choicePokazatel.setBackground(Color.WHITE);
 			if (ÎverallVariables.getChoiseRequest() != null) {
+				
 				if (SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode) != null) {
 					if (ÎverallVariables.getFlagNotReadListPokazatel()) {
+						System.out.println("-----------  ÎverallVariables.getFlagNotReadListPokazatel()");
 						choicePokazatel.removeAll();
 						for (IzpitvanPokazatel pokazat : ÎverallVariables.getListPokazatel()) {
 							choicePokazatel.add(pokazat.getPokazatel().getName_pokazatel());

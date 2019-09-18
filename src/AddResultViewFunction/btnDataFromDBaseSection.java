@@ -4,6 +4,7 @@ import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Aplication.MetodyDAO;
 import DBase_Class.Results;
@@ -12,13 +13,13 @@ import WindowView.AddResultsViewWithTable;
 public class btnDataFromDBaseSection {
 
 	public static void btnDataFromDBaseListener(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, JButton btnDataFromDBase, Choice choiceMetody, Choice choiceDobiv, 
-			Choice choiceSmplCode, Choice choicePokazatel, Choice choiceOIR, Choice choiceORHO) {
+			Choice choiceSmplCode, Choice choicePokazatel, Choice choiceOIR, Choice choiceORHO, JLabel lbl_StoinostiFromDobiv) {
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					ÎverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
-					DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
+					DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 
 					Results[] masiveResultsForChoiceSample = AddresultViewMwetods.creadMasiveFromResultsObjects_ChoiseSample(
 							SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode), choicePokazatel);
@@ -37,6 +38,8 @@ public class btnDataFromDBaseSection {
 						if (masiveResultsForChoiceSample[0].getDobiv() != null) {
 							String str = masiveResultsForChoiceSample[0].getDobiv().getCode_Standart();
 							choiceDobiv.select(str);
+							lbl_StoinostiFromDobiv
+							.setText(DobivSection.generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 						}
 
 					}

@@ -22,7 +22,7 @@ public class DobivSection {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (choiceDobiv.getSelectedItem() == null)
-					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
+					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv,lbl_StoinostiFromDobiv, false);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 
@@ -35,7 +35,7 @@ public class DobivSection {
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
 				if (choiceDobiv.getSelectedItem().trim().isEmpty()) {
-					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
+					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 				}
@@ -47,7 +47,7 @@ public class DobivSection {
 
 			public void mousePressed(MouseEvent e) {
 				if (choiceDobiv.getSelectedItem().trim().isEmpty()) {
-					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
+					setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv,lbl_StoinostiFromDobiv, false);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 				}  
@@ -56,12 +56,18 @@ public class DobivSection {
 		});
 	}
 	
-	static void setValueInChoiceDobiv(Metody selectedMetod, Choice choiceDobiv) {
+	static void setValueInChoiceDobiv(Metody selectedMetod, Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv, Boolean clearItems) {
+		if (clearItems || choiceDobiv.getSelectedItem().trim().isEmpty()) {
+			
 		choiceDobiv.removeAll();
 		choiceDobiv.addItem("");
+		
 		ÎverallVariables.setListDobivFromMetod ( DobivDAO.getListDobivByMetody(selectedMetod));
 		for (Dobiv str : ÎverallVariables.getListDobivFromMetod()) {
 			choiceDobiv.addItem(str.getCode_Standart());
+		}
+		lbl_StoinostiFromDobiv
+		.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));	
 		}
 	}
 	
@@ -69,7 +75,7 @@ public class DobivSection {
 		String strStoinostiDobiv_Nuclide = "";
 		if (!choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			for (Dobiv dobiv : DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem())) {
-				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " - " + dobiv.getValue_result()
+				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + dobiv.getValue_result()
 						+ "% , ";
 			}
 			if (!strStoinostiDobiv_Nuclide.isEmpty())

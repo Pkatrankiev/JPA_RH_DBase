@@ -47,36 +47,36 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private static JScrollPane scrollTablePane;
-	private static JPanel basic_panel;
+	private static JScrollPane scrollTablePane = null;
+	private static JPanel basic_panel = null;
 
-	private static JTextField txtBasicValueResult;
-	private static JTextField txtRqstCode;
+	private static JTextField txtBasicValueResult = null;
+	private static JTextField txtRqstCode = null;
 
-	private static JLabel lblNameMetod;
-	private static JLabel lbl_StoinostiFromDobiv;
-	private static JLabel lblError;
-	private static JLabel lbl_OI_Sample;
-	private static JLabel lblSampleDescript;
+	private static JLabel lblNameMetod = null;
+	private static JLabel lbl_StoinostiFromDobiv = null;
+	private static JLabel lblError = null;
+	private static JLabel lbl_OI_Sample = null;
+	private static JLabel lblSampleDescript = null;
 	
 	
-	private static Choice choiceSmplCode;
-	private static Choice choicePokazatel;
-	private static Choice choiceOIR;
-	private static Choice choiceORHO;
-	private static Choice choiceMetody;
-	private static Choice choiceDobiv;
+	private static Choice choiceSmplCode = null;
+	private static Choice choicePokazatel = null;
+	private static Choice choiceOIR = null;
+	private static Choice choiceORHO = null;
+	private static Choice choiceMetody = null;
+	private static Choice choiceDobiv = null;
 
 	
-	private static JButton btnAddRow;
-	private static JButton btnDataFromDBase;
-	private static JButton btnOpenFile;
-	private static JButton btnTabFromFile;
-	private static JButton saveButton;
+	private static JButton btnAddRow = null;
+	private static JButton btnDataFromDBase = null;
+	private static JButton btnOpenFile = null;
+	private static JButton btnTabFromFile = null;
+	private static JButton saveButton = null;
 	
 	private static JFileChooser fileChooser = new JFileChooser();
-	private static JTable tabResults;
-	private static JTableHeader header;
+	private static JTable tabResults = null;
+	private static JTableHeader header = null;
 
 	
 	int newCountResults = 0;
@@ -89,6 +89,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
+		ОverallVariables.clearAllVariables();
 		AddresultViewMwetods.BasicDataInport(user);
 		
 		setSize(1100, (countRowTabResults * rowWidth) + 340);
@@ -419,7 +420,7 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_choiceDobiv.gridx = 6;
 		gbc_choiceDobiv.gridy = 5;
 		basic_panel.add(choiceDobiv, gbc_choiceDobiv);
-		
+		choiceDobiv.addItem("");
 		
 
 		
@@ -530,10 +531,10 @@ public class AddResultsViewWithTable extends JDialog {
 		SampleCodeSection.choiceSmplCodeListener(lbl_OI_Sample, lblSampleDescript,choiceSmplCode);
 		PokazatelSection.PokazatelSectionListener(choicePokazatel, choiceSmplCode);
 		ChoiceORHO_Section.ChoiceORHOListener(choiceORHO);
-		MetodSection.choiceMetodyListener(choiceMetody, lblNameMetod, choicePokazatel, choiceDobiv);
+		MetodSection.choiceMetodyListener(choiceMetody, lblNameMetod, choicePokazatel, choiceDobiv, lbl_StoinostiFromDobiv);
 		ChoiceOIR_Section.choiceOIRListener(choiceOIR);
 		btnDataFromDBaseSection.btnDataFromDBaseListener(addResultsViewWithTable, basic_panel, btnDataFromDBase,  choiceMetody, choiceDobiv, 
-				 choiceSmplCode,  choicePokazatel, choiceOIR,  choiceORHO);
+				 choiceSmplCode,  choicePokazatel, choiceOIR,  choiceORHO, lbl_StoinostiFromDobiv);
 		btnOpenFileSection.btnOpenFileListener(btnOpenFile,  fileChooser, txtRqstCode,
 				choiceSmplCode, txtBasicValueResult, choiceMetody);
 		btnTabFromFileSection.btnTabFromFileListener(addResultsViewWithTable, basic_panel,  btnTabFromFile,  choiceMetody, txtRqstCode,

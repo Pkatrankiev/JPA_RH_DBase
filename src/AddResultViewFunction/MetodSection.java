@@ -17,14 +17,15 @@ import WindowView.AddDobivViewWithTable;
 
 public class MetodSection {
 
-	public static void choiceMetodyListener(Choice choiceMetody, JLabel lblNameMetod, Choice choicePokazatel, Choice choiceDobiv) {
+	public static void choiceMetodyListener(Choice choiceMetody, JLabel lblNameMetod, Choice choicePokazatel, Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv) {
 		choiceMetody.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				setVisiblelblNameMetody(lblNameMetod, choiceMetody);
 				String strChoisedmetod = choiceMetody.getSelectedItem();
 				ÎverallVariables.setSelectedMetod (MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
-				DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv);
+				Boolean clearItems = true; 
+				DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, clearItems);
 				ÎverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(ÎverallVariables.getSelectedMetod()));
 			}
 		});
@@ -47,7 +48,7 @@ public class MetodSection {
 
 						setVisiblelblNameMetody(lblNameMetod, choiceMetody);
 					}
-					DobivSection.setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()), choiceDobiv);
+					DobivSection.setValueInChoiceDobiv(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()), choiceDobiv, lbl_StoinostiFromDobiv, false);
 				}
 
 			}

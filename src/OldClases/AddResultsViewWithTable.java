@@ -17,6 +17,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import AddResultViewFunction.AddresultViewMwetods;
+import AddResultViewFunction.MesejePanelInAddResultsFuncion;
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -49,7 +50,6 @@ import WindowView.AddDobivViewWithTable;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
-import WindowView.MesejePanel;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
@@ -353,8 +353,8 @@ public class AddResultsViewWithTable extends JDialog {
 
 					AddResultsViewWithTable.setDefaultCursor(panel);
 
-					new MesejePanel(resultListForSave, resultListForDelete);
-					int k = MesejePanel.getResultMeseje();
+					new MesejePanelInAddResultsFuncion(resultListForSave, resultListForDelete);
+					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
 						AddresultViewMwetods.setWaitCursor(panel);

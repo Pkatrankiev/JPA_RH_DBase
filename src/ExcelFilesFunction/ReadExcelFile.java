@@ -16,30 +16,18 @@ import WindowView.ReadGamaFile;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-/**
- * Created by anirudh on 20/10/14.
- */
-public class ReadExcelFile {
-//	private static List<Destruct_Result> listNuclideDestruct_Result;
-	// private static final String FILE_PATH = "d:/123456.xls";
 
-	// public static void main(String args[]) {
-	//
-	// List<Destruct_Result> destruct_Result_List =
-	// getDestruct_Result_ListFromExcelFile();
-	//
-	// for (Destruct_Result destruct_Result : destruct_Result_List) {
-	// System.out.println(getStringDestruct_Result(destruct_Result));
-	// }
-	//
-	// }
+public class ReadExcelFile {
+
 	private static String cod_sample;
 	
 	public static String getCod_sample() {
@@ -109,15 +97,19 @@ public class ReadExcelFile {
 								break;
 							case "Резултат":
 								result = String.valueOf(cell.getNumericCellValue());
+								result = NumberFormatWithRounding(result);
 								break;
 							case "Неопределеност":
 								uncert = String.valueOf(cell.getNumericCellValue());
+								uncert = NumberFormatWithRounding(uncert);
 								break;
 							case "МДА":
 								mda = String.valueOf(cell.getNumericCellValue());
+								mda = NumberFormatWithRounding(mda);
 								break;
 							case "Количество":
 								quantity = String.valueOf(cell.getNumericCellValue());
+								quantity = NumberFormatWithRounding(quantity);
 								break;
 							case "ТСИ":
 								tsi = valume;
@@ -185,12 +177,9 @@ public class ReadExcelFile {
 		String[][] masiveActiveResults = getMasivNuclideFromExcelFile(list_destruct_Result);
 		List<Results> listResults = new ArrayList<Results>();
 		for (int i = 0; i < masiveActiveResults.length; i++) {
-			String nuclideResult = masiveActiveResults[i][2];
-			System.out.println(masiveActiveResults[i][8]+" >>>>>>>>>>>>>>>>>>>>>>>>>>> ");
+			String nuclideResult = masiveActiveResults[i][2].trim();
 			for (String nuclideBasic : listSimbolBasicNuclide) {
-				
-				if (nuclideResult.contains(nuclideBasic)) {
-					
+				if (nuclideResult.equals(nuclideBasic)) {
 					try {
 						Results results = new Results();
 						results.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
@@ -217,12 +206,33 @@ public class ReadExcelFile {
 			}
 			}
 		}
-		System.out.println(listResults.size()+" *****************************");
-		Results[] masiveResultsnew = new Results[listResults.size()];
+			Results[] masiveResultsnew = new Results[listResults.size()];
 		for (int j = 0; j < listResults.size(); j++) {
 			masiveResultsnew[j] = listResults.get(j);
 		}
-		System.out.println(masiveResultsnew.length+" ..........................");
 		return masiveResultsnew;
+	}
+	
+	public static String NumberFormatWithRounding(String num) {
+		String formatNum;
+		String head = num.substring(0, num.indexOf("."));
+		if( Integer.parseInt(head)==0){
+		String body = num.substring(num.indexOf(".")+1);
+		while (body.substring(0,1).equals("0")) {
+			body = body.substring(1);
+		}
+		if(body.length()>5){
+			body = body.substring(0,5);
+		}
+		num = num.substring(0,num.indexOf(body)+body.length());
+		formatNum = num;
+		}else{
+		Double boubVal = Double.parseDouble(num);
+		 DecimalFormat df = new DecimalFormat("#.####");
+		    df.setRoundingMode(RoundingMode.HALF_UP);
+		    formatNum =df.format(boubVal);
+		
+		}
+		return formatNum.replaceAll(",",".");
 	}
 }

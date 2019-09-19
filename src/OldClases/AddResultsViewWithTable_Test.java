@@ -56,6 +56,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+import AddResultViewFunction.MesejePanelInAddResultsFuncion;
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -87,7 +88,6 @@ import WindowView.AddDobivViewWithTable;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
-import WindowView.MesejePanel;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
@@ -366,8 +366,8 @@ public class AddResultsViewWithTable_Test extends JDialog {
 					
 //					AddResultsViewWithTable.setDefaultCursor(AddResultsViewWithTable_Test.this);
 					choiceORHO.setBackground(Color.WHITE);
-					new MesejePanel(resultListForSave, resultListForDelete);
-					int k = MesejePanel.getResultMeseje();
+					new MesejePanelInAddResultsFuncion(resultListForSave, resultListForDelete);
+					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
 						for (Results results : resultListForSave) {

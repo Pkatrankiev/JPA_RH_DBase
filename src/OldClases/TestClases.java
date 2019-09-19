@@ -2,8 +2,10 @@ package OldClases;
 
 import java.awt.Frame;
 import java.awt.font.TextAttribute;
+import java.math.RoundingMode;
 import java.text.AttributedString;
-
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -341,6 +343,40 @@ public class TestClases {
 			ResultsDAO.updateResults(object);
 		}
 	
+	}
+	
+	public static String ChangeStringToNumber() {
+		String num = "0.0000407408419115";
+		String head = num.substring(0, num.indexOf("."));
+		System.out.println("head= "+head);
+		if( Integer.parseInt(head)==0){
+		String body = num.substring(num.indexOf(".")+1);
+		while (body.substring(0,1).equals("0")) {
+			body = body.substring(1);
+		}
+		System.out.println("body= "+body);
+		if(body.length()>5){
+			body = body.substring(0,5);
+		}
+		System.out.println("body1= "+body);
+		System.out.println(num+"  num.indexOf(body)= "+num.indexOf(body));
+		num = num.substring(0,num.indexOf(body)+body.length());
+		}
+		 System.out.println("num= "+num);
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumFractionDigits(4);
+		Double boubVal = Double.parseDouble(num);
+		System.out.println(num+" -> "+nf.format(boubVal));
+//		
+		 DecimalFormat df = new DecimalFormat("#.####");
+		    df.setRoundingMode(RoundingMode.HALF_UP);
+		   
+		    String a = df.format(boubVal);
+		    System.out.println(a);
+//
+		    double roundOff = Math.round(boubVal * 10000.0000) / 10000.0000;
+		    System.out.println(roundOff);
+		return num;
 	}
 
 	

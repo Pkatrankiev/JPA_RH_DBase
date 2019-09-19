@@ -19,7 +19,6 @@ import DBase_Class.Metody;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import WindowView.AddResultsViewWithTable;
-import WindowView.MesejePanel;
 
 
 public class ButtonPanellListener {
@@ -44,8 +43,8 @@ public class ButtonPanellListener {
 
 					AddresultViewMwetods.setDefaultCursor(basic_panel);
 
-					new MesejePanel(ÎverallVariables.getResultListForSave(), ÎverallVariables.getResultListForDelete());
-					int k = MesejePanel.getResultMeseje();
+					new MesejePanelInAddResultsFuncion(ÎverallVariables.getResultListForSave(), ÎverallVariables.getResultListForDelete());
+					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
 						AddresultViewMwetods.setWaitCursor(basic_panel);

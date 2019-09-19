@@ -246,7 +246,7 @@ public class Generate_Map_For_Request_Word_Document {
 	private static String generate_pokazatel_razmernost_Masive_String(Request request, String list_izpitvan_pokazatel) {
 
 		String izpit_pokaz = list_izpitvan_pokazatel.replaceAll("\n", " ");
-		izpit_pokaz = izpit_pokaz + " / " + request.getRazmernosti().getName_razmernosti();
+		izpit_pokaz = izpit_pokaz + " / " + RequestViewFunction.ConvertNumberInStrToSuperscript(request.getRazmernosti().getName_razmernosti());
 
 		return izpit_pokaz;
 	}

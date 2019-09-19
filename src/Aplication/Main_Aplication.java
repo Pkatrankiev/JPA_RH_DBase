@@ -5,11 +5,10 @@ import javax.swing.JFrame;
 
 import DBase_Class.Users;
 import OldClases.TestClases;
-import OldClases.test;
 import Table.Table_Results_List;
 import WindowView.Login;
 import WindowView.MainWindow;
-
+import WindowView.MesejePanelInAddResultsView;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
@@ -26,6 +25,8 @@ public class Main_Aplication {
 //		TestClases.testTableSampleList();
 		
 //		TestClases.AddResultsViewWithTable() ;
+		
+//		TestClases.ChangeStringToNumber();
 		
 //		TestClases.start_Table_Request_List();
 		

@@ -18,8 +18,8 @@ public class btnDataFromDBaseSection {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-					ÎverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
-					DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
+					OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+					DobivSection.setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 
 					Results[] masiveResultsForChoiceSample = AddresultViewMwetods.creadMasiveFromResultsObjects_ChoiseSample(
 							SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode), choicePokazatel);

@@ -21,13 +21,13 @@ public class btnTabFromFileSection {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (ОverallVariables.getFlagIncertedFile()) {
+				if (OverallVariables.getFlagIncertedFile()) {
 										
 					AddresultViewMwetods.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-							ОverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+							OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
-							int switCase =selestTypeReadFileByChoiceMetod(basic_panel, ОverallVariables.getSelectedMetod());
+							int switCase =selestTypeReadFileByChoiceMetod(basic_panel, OverallVariables.getSelectedMetod());
 							System.out.println(switCase+ " switCase------------------------------------------------");
 							switch (switCase) {
 							case 10:
@@ -45,7 +45,7 @@ public class btnTabFromFileSection {
 							case 0:
 								String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
 								if (AddresultViewMwetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
-								if( AddresultViewMwetods.checkForKoretMetod(ОverallVariables.getDestruct_Result_List(), choiceMetody)){
+								if( AddresultViewMwetods.checkForKoretMetod(OverallVariables.getDestruct_Result_List(), choiceMetody)){
 								Object[][] ssExcel = AddresultViewMwetods.CreatedataTableFromExcelFile( choicePokazatel);
 								AddresultViewMwetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
 								}
@@ -78,7 +78,7 @@ public class btnTabFromFileSection {
 	
 	private static void checkFor10SysError() {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
-		if (ОverallVariables.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
+		if (OverallVariables.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
 				&& Double.compare(sysError, 10.00) != 0) {
 			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
 					"Грешни данни", JOptionPane.ERROR_MESSAGE);

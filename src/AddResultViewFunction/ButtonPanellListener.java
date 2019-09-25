@@ -36,20 +36,20 @@ public class ButtonPanellListener {
 					AddresultViewMwetods.setWaitCursor(basic_panel);
 
 					Sample samp = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
-					ŒverallVariables.setListResultsFromDBase ( creadListResultsObjects_ChoiseSample(samp,  choicePokazatel));
-					ŒverallVariables.setResultListForDelete ( AddresultViewMwetods.creadResultListForDelete(samp));
-					ŒverallVariables.setResultListForSave ( AddresultViewMwetods.creadResultListForSave( samp, txtBasicValueResult,
+					OverallVariables.setListResultsFromDBase ( creadListResultsObjects_ChoiseSample(samp,  choicePokazatel));
+					OverallVariables.setResultListForDelete ( AddresultViewMwetods.creadResultListForDelete(samp));
+					OverallVariables.setResultListForSave ( AddresultViewMwetods.creadResultListForSave( samp, txtBasicValueResult,
 							 choiceMetody,  choicePokazatel,  choiceORHO,  choiceOIR,  choiceDobiv));
 
 					AddresultViewMwetods.setDefaultCursor(basic_panel);
 
-					new MesejePanelInAddResultsFuncion(ŒverallVariables.getResultListForSave(), ŒverallVariables.getResultListForDelete());
+					new MesejePanelInAddResultsFuncion(OverallVariables.getResultListForSave(), OverallVariables.getResultListForDelete());
 					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
 						AddresultViewMwetods.setWaitCursor(basic_panel);
-						for (Results results : ŒverallVariables.getResultListForSave()) {
-							int idresultInBase = existsNuclideInResultTOResultBase(ŒverallVariables.getListResultsFromDBase(), results);
+						for (Results results : OverallVariables.getResultListForSave()) {
+							int idresultInBase = existsNuclideInResultTOResultBase(OverallVariables.getListResultsFromDBase(), results);
 							if (idresultInBase != 0) {
 								results.setId_results(idresultInBase);
 								ResultsDAO.updateResults(results);
@@ -57,11 +57,11 @@ public class ButtonPanellListener {
 								ResultsDAO.setValueResults(results);
 							}
 						}
-						for (Results results : ŒverallVariables.getResultListForDelete()) {
+						for (Results results : OverallVariables.getResultListForDelete()) {
 							ResultsDAO.deleteResultsById(results.getId_results());
 						}
 
-						ŒverallVariables.setListSimbolBasikNulide ( AddresultViewMwetods.getListSimbolBasikNulideFNuclideToPokazatel(ŒverallVariables.getListNucToPok()));
+						OverallVariables.setListSimbolBasikNulide ( AddresultViewMwetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariables.getListNucToPok()));
 						Results[] masiveResultsForChoiceSample = AddresultViewMwetods.creadMasiveFromResultsObjects_ChoiseSample(
 								SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode),  choicePokazatel);
 						startViewtablePanel(addResultsViewWithTable,basic_panel,  masiveResultsForChoiceSample);
@@ -87,7 +87,7 @@ public class ButtonPanellListener {
 	}
 
 	static void startViewtablePanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
-		Object[][] ss = AddresultViewMwetods.getDataTable(masiveResultsForChoiceSample, ŒverallVariables.getListSimbolBasikNulide());
+		Object[][] ss = AddresultViewMwetods.getDataTable(masiveResultsForChoiceSample, OverallVariables.getListSimbolBasikNulide());
 		AddresultViewMwetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
 	}
 
@@ -99,7 +99,7 @@ public class ButtonPanellListener {
 		List_izpitvan_pokazatel pokazatel = AddresultViewMwetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
 		for (Results result : ListResultsFromSample) {
 			if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()
-					&& result.getMetody().getId_metody() == ŒverallVariables.getSelectedMetod().getId_metody()) {
+					&& result.getMetody().getId_metody() == OverallVariables.getSelectedMetod().getId_metody()) {
 				choiceResults.add(result);
 			}
 		}
@@ -110,7 +110,7 @@ public class ButtonPanellListener {
 	
 	static void updateIzpitvanPokazatelObjectInDBase(Choice choicePokazatel, Choice choiceMetody) {
 		IzpitvanPokazatel izpivanPokazatel = IzpitvanPokazatelDAO
-				.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(ŒverallVariables.getChoiseRequest(),
+				.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(OverallVariables.getChoiseRequest(),
 						AddresultViewMwetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
 		Metody mm = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 		izpivanPokazatel.getId_pokazatel();
@@ -149,22 +149,22 @@ public class ButtonPanellListener {
 			saveCheck = false;
 		}
 
-		if (!ŒverallVariables.getListSimbolBasikNulideToMetod().isEmpty() && choiceORHO.getSelectedItem().trim().isEmpty()) {
+		if (!OverallVariables.getListSimbolBasikNulideToMetod().isEmpty() && choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
 			str_Error = str_Error + "ËÁ‚. ıËÏ. Ó·‡·ÓÚÍ‡" + "\n";
 			saveCheck = false;
 		}
 		System.out.println(choiceDobiv.getSelectedItem().trim().isEmpty());
-		System.out.println( ŒverallVariables.getListSimbolBasikNulideToMetod().isEmpty());
+		System.out.println( OverallVariables.getListSimbolBasikNulideToMetod().isEmpty());
 
-		if (!ŒverallVariables.getListSimbolBasikNulideToMetod().isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
+		if (!OverallVariables.getListSimbolBasikNulideToMetod().isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			choiceDobiv.setBackground(Color.RED);
 			str_Error = str_Error + "‰Ó·Ë‚" + "\n";
 			saveCheck = false;
 		}
 
-		if (!AddresultViewMwetods.strCurrentDataInDataTable(ŒverallVariables.getDataTable()).trim().isEmpty()) {
-			str_Error = str_Error + AddresultViewMwetods.strCurrentDataInDataTable(ŒverallVariables.getDataTable());
+		if (!AddresultViewMwetods.strCurrentDataInDataTable(OverallVariables.getDataTable()).trim().isEmpty()) {
+			str_Error = str_Error + AddresultViewMwetods.strCurrentDataInDataTable(OverallVariables.getDataTable());
 			System.out.println(str_Error);
 			saveCheck = false;
 		}

@@ -102,18 +102,18 @@ public class AddresultViewMwetods {
 	}
 
 	public static void BasicDataInport(Users user) {
-		ÎverallVariables.setList_Users(UsersDAO.getInListAllValueUsers());
-		ÎverallVariables.setList_UsersNameFamilyOIR(
+		OverallVariables.setList_Users(UsersDAO.getInListAllValueUsers());
+		OverallVariables.setList_UsersNameFamilyOIR(
 				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ÎÈÐ")));
-		ÎverallVariables.setList_UsersNameFamilyORHO(
+		OverallVariables.setList_UsersNameFamilyORHO(
 				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ÎÐÕÎ")));
-		ÎverallVariables.setListSample(new ArrayList<Sample>());
+		OverallVariables.setListSample(new ArrayList<Sample>());
 
-		ÎverallVariables.setUser_Redac(user);
+		OverallVariables.setUser_Redac(user);
 
-		ÎverallVariables.setValues_Razmernosti(RazmernostiDAO.getMasiveStringAllValueRazmernosti());
-		ÎverallVariables.setValues_Dimension(DimensionDAO.getMasiveStringAllValueDimension());
-		ÎverallVariables.setMasiveTSI(TSI_DAO.getMasiveStringAllValueTSI());
+		OverallVariables.setValues_Razmernosti(RazmernostiDAO.getMasiveStringAllValueRazmernosti());
+		OverallVariables.setValues_Dimension(DimensionDAO.getMasiveStringAllValueDimension());
+		OverallVariables.setMasiveTSI(TSI_DAO.getMasiveStringAllValueTSI());
 	}
 
 	static Results[] creadMasiveFromResultsObjects_ChoiseSample(Sample sample, Choice choicePokazatel) {
@@ -122,7 +122,7 @@ public class AddresultViewMwetods {
 		List_izpitvan_pokazatel pokazatel = AddresultViewMwetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
 		for (Results result : ListResultsFromSample) {
 			if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()
-					&& result.getMetody().getId_metody() == ÎverallVariables.getSelectedMetod().getId_metody()) {
+					&& result.getMetody().getId_metody() == OverallVariables.getSelectedMetod().getId_metody()) {
 				choiceResults.add(result);
 			}
 		}
@@ -140,7 +140,7 @@ public class AddresultViewMwetods {
 	}
 
 	static void startViewtablePanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
-		Object[][] ss = getDataTable(masiveResultsForChoiceSample, ÎverallVariables.getListSimbolBasikNulide());
+		Object[][] ss = getDataTable(masiveResultsForChoiceSample, OverallVariables.getListSimbolBasikNulide());
 		createDataTableAndViewTableInPanel(addResultsViewWithTable,basic_panel, ss);
 	}
 
@@ -164,10 +164,10 @@ public class AddresultViewMwetods {
 	static Boolean checkForKoretMetod(List<Destruct_Result> destruct_Result_List, Choice choiceMetody) {
 		Boolean fl = false;
 		if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-			ÎverallVariables.setSelectedMetod(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+			OverallVariables.setSelectedMetod(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 
 			for (Destruct_Result destruct_Result : destruct_Result_List) {
-				if (ÎverallVariables.getSelectedMetod().getCode_metody()
+				if (OverallVariables.getSelectedMetod().getCode_metody()
 						.indexOf(destruct_Result.getMetod().replace("Ì.ËÈ-ÐÕ-", "")) > 0) {
 					fl = true;
 				}
@@ -215,7 +215,7 @@ public class AddresultViewMwetods {
 		List<Nuclide_to_Pokazatel> listNucToPok = AddresultViewMwetods.getListNuklideToPokazatel(choicePokazatel);
 		List<String> listSimbolBasicNuclide = AddresultViewMwetods
 				.getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
-		ÎverallVariables.setMasuveSimbolNuclide(AddresultViewMwetods.getMasiveSimbolNuclideToPokazatel(listNucToPok));
+		OverallVariables.setMasuveSimbolNuclide(AddresultViewMwetods.getMasiveSimbolNuclideToPokazatel(listNucToPok));
 		Results[] masiveResultsActivFromFile = ReadGamaFile.getMasivResultsWithAktiv();
 		Results[] masiveResultsMDAFromFile = ReadGamaFile.getMasivResultsMDA(listSimbolBasicNuclide);
 		System.out.print(masiveResultsActivFromFile.length);
@@ -242,7 +242,7 @@ public class AddresultViewMwetods {
 		// masuveSimbolNuclide =
 		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Results[] masiveResultsFromFile = ReadExcelFile
-				.getMasivResultsFromExcelFile(ÎverallVariables.getDestruct_Result_List(), listSimbolBasicNuclide);
+				.getMasivResultsFromExcelFile(OverallVariables.getDestruct_Result_List(), listSimbolBasicNuclide);
 		System.out.println(masiveResultsFromFile.length + " ----------------------------------------");
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
 
@@ -255,16 +255,16 @@ public class AddresultViewMwetods {
 
 	public static void AddNewRowIn_dataTable(Choice choicePokazatel) {
 		List<Nuclide_to_Pokazatel> listNucToPok = AddresultViewMwetods.getListNuklideToPokazatel(choicePokazatel);
-		ÎverallVariables.setMasive_NuclideToPokazatel(getListSimbolNuclideToPokazatel(listNucToPok));
-		int countDataTable = ÎverallVariables.getDataTable().length;
+		OverallVariables.setMasive_NuclideToPokazatel(getListSimbolNuclideToPokazatel(listNucToPok));
+		int countDataTable = OverallVariables.getDataTable().length;
 		Object[][] newTable = new Object[countDataTable + 1][tbl_Colum];
 		for (int i = 0; i < countDataTable; i++) {
-			newTable[i] = ÎverallVariables.getDataTable()[i];
+			newTable[i] = OverallVariables.getDataTable()[i];
 		}
-		newTable[countDataTable] = rowWithoutValueResults(ÎverallVariables.getMasive_NuclideToPokazatel()[0]);
-		ÎverallVariables.setDataTable(new Object[newTable.length][tbl_Colum]);
+		newTable[countDataTable] = rowWithoutValueResults(OverallVariables.getMasive_NuclideToPokazatel()[0]);
+		OverallVariables.setDataTable(new Object[newTable.length][tbl_Colum]);
 		for (int i = 0; i < newTable.length; i++) {
-			ÎverallVariables.getDataTable()[i] = newTable[i];
+			OverallVariables.getDataTable()[i] = newTable[i];
 		}
 	}
 
@@ -274,11 +274,11 @@ public class AddresultViewMwetods {
 		rowFromTableResult[actv_value_Colum] = 0.0;
 		rowFromTableResult[uncrt_Colum] = 0.0;
 		rowFromTableResult[mda_Colum] = 0.0;
-		rowFromTableResult[razm_Colum] = ÎverallVariables.getChoiseRequest().getRazmernosti().getName_razmernosti();
+		rowFromTableResult[razm_Colum] = OverallVariables.getChoiseRequest().getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = 2;
 		rowFromTableResult[qunt_Colum] = 0.0;
 		rowFromTableResult[dimen_Colum] = "";
-		rowFromTableResult[dimen_Colum] = ÎverallVariables.getValues_Dimension()[0];
+		rowFromTableResult[dimen_Colum] = OverallVariables.getValues_Dimension()[0];
 		rowFromTableResult[TSI_Colum] = "";
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
@@ -349,8 +349,8 @@ public class AddresultViewMwetods {
 
 	static void createDataTableAndViewTableInPanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Object[][] ss) {
 		Boolean isNewRow = false;
-		ÎverallVariables.setDataTable(new Object[ss.length][tbl_Colum]);
-		ÎverallVariables.setDataTable(ss);
+		OverallVariables.setDataTable(new Object[ss.length][tbl_Colum]);
+		OverallVariables.setDataTable(ss);
 		isNewRow = false;
 		AddResultsViewWithTable.ViewTableInPanel(addResultsViewWithTable,isNewRow);
 
@@ -361,7 +361,7 @@ public class AddresultViewMwetods {
 			Choice choiceSmplCode) {
 		tabResults = CreateTableResults(isNewRow,  btnAddRow,  header, 
 				 choiceSmplCode);
-		countRowTabResults = ÎverallVariables.getDataTable().length;
+		countRowTabResults = OverallVariables.getDataTable().length;
 		tabResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 7888392104063188806L;
 
@@ -390,7 +390,7 @@ public class AddresultViewMwetods {
 	public static JTable CreateTableResults(Boolean isNewRow, JButton btnAddRow, JTableHeader header, 
 			Choice choiceSmplCode) {
 
-		if (1 < ÎverallVariables.getListNucToPok().size()) {
+		if (1 < OverallVariables.getListNucToPok().size()) {
 			btnAddRow.setVisible(true);
 		} else {
 			btnAddRow.setVisible(false);
@@ -446,7 +446,7 @@ public class AddresultViewMwetods {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				DefaultTableModel dtm = new DefaultTableModel(ÎverallVariables.getDataTable(), columnNames) {
+				DefaultTableModel dtm = new DefaultTableModel(OverallVariables.getDataTable(), columnNames) {
 
 					private static final long serialVersionUID = 1L;
 					@SuppressWarnings("rawtypes")
@@ -459,7 +459,7 @@ public class AddresultViewMwetods {
 					}
 
 					public Object getValueAt(int row, int col) {
-						return ÎverallVariables.getDataTable()[row][col];
+						return OverallVariables.getDataTable()[row][col];
 					}
 
 					@Override
@@ -473,10 +473,10 @@ public class AddresultViewMwetods {
 
 					public void setValueAt(Object value, int row, int col) {
 
-						if (!ÎverallVariables.getDataTable()[row][col].equals(value)) {
+						if (!OverallVariables.getDataTable()[row][col].equals(value)) {
 							if (col == dateHimObr_Colum || col == dateAnaliz_Colum) {
 								if (!DatePicker.incorrectDate((String) value, false)) {
-									ÎverallVariables.getDataTable()[row][col] = value;
+									OverallVariables.getDataTable()[row][col] = value;
 									fireTableCellUpdated(row, col);
 								}
 							}
@@ -485,7 +485,7 @@ public class AddresultViewMwetods {
 									|| col == qunt_Colum) {
 								try {
 									Double.parseDouble((String) value);
-									ÎverallVariables.getDataTable()[row][col] = value;
+									OverallVariables.getDataTable()[row][col] = value;
 									fireTableCellUpdated(row, col);
 								} catch (NumberFormatException e) {
 								}
@@ -493,7 +493,7 @@ public class AddresultViewMwetods {
 
 							if (col == nuclide_Colum || col == razm_Colum || col == dimen_Colum || col == in_Prot_Colum
 									|| col == TSI_Colum) {
-								ÎverallVariables.getDataTable()[row][col] = value;
+								OverallVariables.getDataTable()[row][col] = value;
 								fireTableCellUpdated(row, col);
 							}
 						}
@@ -506,7 +506,7 @@ public class AddresultViewMwetods {
 
 					public int getRowCount() {
 
-						return ÎverallVariables.getDataTable().length;
+						return OverallVariables.getDataTable().length;
 					}
 
 				};
@@ -581,9 +581,9 @@ public class AddresultViewMwetods {
 	}
 
 	public static void setUp_Nuclide(TableColumn nuclide_Column, Boolean isNewRow) {
-		JComboBox<?> comboBox = new JComboBox<Object>(ÎverallVariables.getMasuveSimbolNuclide());
+		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariables.getMasuveSimbolNuclide());
 		if (isNewRow) {
-			comboBox = new JComboBox<Object>(ÎverallVariables.getMasive_NuclideToPokazatel());
+			comboBox = new JComboBox<Object>(OverallVariables.getMasive_NuclideToPokazatel());
 		}
 		nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -592,7 +592,7 @@ public class AddresultViewMwetods {
 	}
 
 	public static void setUp_Razmernosti(TableColumn Razmernosti_Column) {
-		JComboBox<?> comboBox1 = new JComboBox<Object>(ÎverallVariables.getValues_Razmernosti());
+		JComboBox<?> comboBox1 = new JComboBox<Object>(OverallVariables.getValues_Razmernosti());
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox1));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Íàòèñíè çà èçáîð");
@@ -600,7 +600,7 @@ public class AddresultViewMwetods {
 	}
 
 	public static void setUp_Dimension(TableColumn Dimension_Column) {
-		JComboBox<?> comboBox = new JComboBox<Object>(ÎverallVariables.getValues_Dimension());
+		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariables.getValues_Dimension());
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Íàòèñíè çà èçáîð");
@@ -608,7 +608,7 @@ public class AddresultViewMwetods {
 	}
 
 	private static void setUp_TSI(TableColumn tSI_column) {
-		JComboBox<?> comboBox = new JComboBox<Object>(ÎverallVariables.getMasiveTSI());
+		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariables.getMasiveTSI());
 		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Íàòèñíè çà èçáîð");
@@ -741,9 +741,9 @@ public class AddresultViewMwetods {
 	public static List<Results> creadResultListForSave(Sample sample, JTextField txtBasicValueResult,
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 		List<Results> listResultsForSave = new ArrayList<Results>();
-		for (int i = 0; i < ÎverallVariables.getDataTable().length; i++) {
-			String s1 = ÎverallVariables.getDataTable()[i][mda_Colum].toString();
-			String s2 = ÎverallVariables.getDataTable()[i][actv_value_Colum].toString();
+		for (int i = 0; i < OverallVariables.getDataTable().length; i++) {
+			String s1 = OverallVariables.getDataTable()[i][mda_Colum].toString();
+			String s2 = OverallVariables.getDataTable()[i][actv_value_Colum].toString();
 			if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) > 0)) {
 				listResultsForSave.add(creadResultObject(sample, i,  txtBasicValueResult,
 						  choiceMetody,   choicePokazatel,   choiceORHO,  choiceOIR,   choiceDobiv));
@@ -756,12 +756,12 @@ public class AddresultViewMwetods {
 
 	public static List<Results> creadResultListForDelete(Sample sample) {
 		List<Results> listResultsForDelete = new ArrayList<Results>();
-		for (int i = 0; i < ÎverallVariables.getDataTable().length; i++) {
-			String s1 = ÎverallVariables.getDataTable()[i][mda_Colum].toString();
-			String s2 = ÎverallVariables.getDataTable()[i][actv_value_Colum].toString();
+		for (int i = 0; i < OverallVariables.getDataTable().length; i++) {
+			String s1 = OverallVariables.getDataTable()[i][mda_Colum].toString();
+			String s2 = OverallVariables.getDataTable()[i][actv_value_Colum].toString();
 			if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) == 0)) {
-				if (ÎverallVariables.getDataTable()[i][rsult_Id_Colum] != null) {
-					listResultsForDelete.add(ResultsDAO.getValueResultsById((int) ÎverallVariables.getDataTable()[i][rsult_Id_Colum]));
+				if (OverallVariables.getDataTable()[i][rsult_Id_Colum] != null) {
+					listResultsForDelete.add(ResultsDAO.getValueResultsById((int) OverallVariables.getDataTable()[i][rsult_Id_Colum]));
 				}
 			}
 		}
@@ -772,11 +772,11 @@ public class AddresultViewMwetods {
 	private static Results creadResultObject(Sample sample, int i, JTextField txtBasicValueResult,
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 		Results result;
-		if (ÎverallVariables.getDataTable()[i][rsult_Id_Colum] == null) {
+		if (OverallVariables.getDataTable()[i][rsult_Id_Colum] == null) {
 			result = creadResultsObject(i, new Results(), sample,  txtBasicValueResult,
 					choiceMetody,  choicePokazatel, choiceORHO,  choiceOIR, choiceDobiv);
 		} else {
-			result = creadResultsObject(i, ResultsDAO.getValueResultsById((int) ÎverallVariables.getDataTable()[i][rsult_Id_Colum]), sample, txtBasicValueResult,
+			result = creadResultsObject(i, ResultsDAO.getValueResultsById((int) OverallVariables.getDataTable()[i][rsult_Id_Colum]), sample, txtBasicValueResult,
 					choiceMetody,choicePokazatel,  choiceORHO,  choiceOIR, choiceDobiv);
 		}
 		return result;
@@ -786,47 +786,47 @@ public class AddresultViewMwetods {
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 
 		result.setBasic_value(txtBasicValueResult.getText());
-		if (ÎverallVariables.getDataTable()[i][dateHimObr_Colum] == null) {
+		if (OverallVariables.getDataTable()[i][dateHimObr_Colum] == null) {
 			result.setDate_chim_oper("");
 		} else {
-			result.setDate_chim_oper(ÎverallVariables.getDataTable()[i][dateHimObr_Colum].toString());
+			result.setDate_chim_oper(OverallVariables.getDataTable()[i][dateHimObr_Colum].toString());
 		}
-		result.setDate_measur(ÎverallVariables.getDataTable()[i][dateAnaliz_Colum].toString());
+		result.setDate_measur(OverallVariables.getDataTable()[i][dateAnaliz_Colum].toString());
 		result.setDate_redac(RequestViewFunction.DateNaw(false));
-		result.setInProtokol((Boolean) ÎverallVariables.getDataTable()[i][in_Prot_Colum]);
-		result.setMda(Double.parseDouble(ÎverallVariables.getDataTable()[i][mda_Colum].toString()));
-		result.setQuantity(Double.parseDouble(ÎverallVariables.getDataTable()[i][qunt_Colum].toString()));
-		result.setSigma(Integer.parseUnsignedInt(ÎverallVariables.getDataTable()[i][sigma_Colum].toString()));
-		result.setUncertainty(Double.parseDouble(ÎverallVariables.getDataTable()[i][uncrt_Colum].toString()));
-		result.setValue_result(Double.parseDouble(ÎverallVariables.getDataTable()[i][actv_value_Colum].toString()));
-		result.setTsi(TSI_DAO.getValueTSIByName(ÎverallVariables.getDataTable()[i][TSI_Colum].toString()));
-		if ((ÎverallVariables.getDataTable()[i][dimen_Colum].equals(""))) {
+		result.setInProtokol((Boolean) OverallVariables.getDataTable()[i][in_Prot_Colum]);
+		result.setMda(Double.parseDouble(OverallVariables.getDataTable()[i][mda_Colum].toString()));
+		result.setQuantity(Double.parseDouble(OverallVariables.getDataTable()[i][qunt_Colum].toString()));
+		result.setSigma(Integer.parseUnsignedInt(OverallVariables.getDataTable()[i][sigma_Colum].toString()));
+		result.setUncertainty(Double.parseDouble(OverallVariables.getDataTable()[i][uncrt_Colum].toString()));
+		result.setValue_result(Double.parseDouble(OverallVariables.getDataTable()[i][actv_value_Colum].toString()));
+		result.setTsi(TSI_DAO.getValueTSIByName(OverallVariables.getDataTable()[i][TSI_Colum].toString()));
+		if ((OverallVariables.getDataTable()[i][dimen_Colum].equals(""))) {
 			result.setDimension(null);
 		} else {
-			result.setDimension(DimensionDAO.getValueDimensionByName(ÎverallVariables.getDataTable()[i][dimen_Colum].toString()));
+			result.setDimension(DimensionDAO.getValueDimensionByName(OverallVariables.getDataTable()[i][dimen_Colum].toString()));
 		}
 		result.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
-		Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(ÎverallVariables.getDataTable()[i][nuclide_Colum].toString());
+		Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(OverallVariables.getDataTable()[i][nuclide_Colum].toString());
 		result.setNuclide(nuclide);
 		result.setPokazatel(
 				List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem()));
-		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(ÎverallVariables.getDataTable()[i][razm_Colum].toString()));
+		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(OverallVariables.getDataTable()[i][razm_Colum].toString()));
 		result.setSample(sample);
 		String choiceUser = choiceORHO.getSelectedItem();
-		for (Users user : ÎverallVariables.getList_Users()) {
+		for (Users user : OverallVariables.getList_Users()) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
 					&& choiceUser.substring(choiceUser.indexOf(" ") + 1).equals(user.getFamily_users())) {
 				result.setUser_chim_oper(user);
 			}
 		}
 		choiceUser = choiceOIR.getSelectedItem();
-		for (Users user : ÎverallVariables.getList_Users()) {
+		for (Users user : OverallVariables.getList_Users()) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
 					&& choiceUser.substring(choiceUser.indexOf(" ") + 1).equals(user.getFamily_users())) {
 				result.setUser_measur(user);
 			}
 		}
-		result.setUser_redac(ÎverallVariables.getUser_Redac());
+		result.setUser_redac(OverallVariables.getUser_Redac());
 		result.setZabelejki(null);
 
 		if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {

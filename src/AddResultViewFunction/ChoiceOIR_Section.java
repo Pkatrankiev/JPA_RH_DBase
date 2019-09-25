@@ -9,7 +9,7 @@ public class ChoiceOIR_Section {
 
 	
 	public static void setItemInChoiceOIR(Choice choiceOIR) {
-		for (String str : ÎverallVariables.getList_UsersNameFamilyOIR()) {
+		for (String str : OverallVariables.getList_UsersNameFamilyOIR()) {
 			choiceOIR.addItem(str);
 		}
 	}

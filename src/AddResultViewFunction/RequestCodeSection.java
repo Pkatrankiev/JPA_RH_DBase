@@ -62,15 +62,15 @@ public class RequestCodeSection {
 				} else {
 					txtRqstCode.setForeground(Color.BLACK);
 					txtRqstCode.setBorder(new LineBorder(Color.BLACK));
-					ÎverallVariables.setChoiseRequest ( RequestDAO.getRequestFromColumnByVolume("recuest_code", txtRqstCode.getText()));
+					OverallVariables.setChoiseRequest ( RequestDAO.getRequestFromColumnByVolume("recuest_code", txtRqstCode.getText()));
 					lblError.setVisible(false);
-					ÎverallVariables.setListPokazatel( IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelByRequest(ÎverallVariables.getChoiseRequest()));
+					OverallVariables.setListPokazatel( IzpitvanPokazatelDAO.getValueIzpitvan_pokazatelByRequest(OverallVariables.getChoiseRequest()));
 					txtRqstCode.setEditable(false);
-					if (ÎverallVariables.getChoiseRequest() != null) {
-						if (ÎverallVariables.getListSample().isEmpty()) {
-							ÎverallVariables.setListSample (SampleDAO.getListSampleFromColumnByVolume("request", ÎverallVariables.getChoiseRequest()));
+					if (OverallVariables.getChoiseRequest() != null) {
+						if (OverallVariables.getListSample().isEmpty()) {
+							OverallVariables.setListSample (SampleDAO.getListSampleFromColumnByVolume("request", OverallVariables.getChoiseRequest()));
 								
-						for (Sample samp : ÎverallVariables.getListSample()) {
+						for (Sample samp : OverallVariables.getListSample()) {
 							System.out.println(	samp.getSample_code()+"  //////////////////");
 								choiceSmplCode.add(samp.getSample_code());
 							}

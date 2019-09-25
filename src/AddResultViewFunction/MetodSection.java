@@ -23,10 +23,10 @@ public class MetodSection {
 			public void itemStateChanged(ItemEvent e) {
 				setVisiblelblNameMetody(lblNameMetod, choiceMetody);
 				String strChoisedmetod = choiceMetody.getSelectedItem();
-				ÎverallVariables.setSelectedMetod (MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
+				OverallVariables.setSelectedMetod (MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
 				Boolean clearItems = true; 
-				DobivSection.setValueInChoiceDobiv(ÎverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, clearItems);
-				ÎverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(ÎverallVariables.getSelectedMetod()));
+				DobivSection.setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, clearItems);
+				OverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(OverallVariables.getSelectedMetod()));
 			}
 		});
 
@@ -36,14 +36,14 @@ public class MetodSection {
 
 				choiceMetody.setBackground(Color.WHITE);
 				if (!choicePokazatel.getSelectedItem().trim().isEmpty()) {
-					if (ÎverallVariables.getFlagNotReadListMetody()) {
+					if (OverallVariables.getFlagNotReadListMetody()) {
 						choiceMetody.removeAll();
 						if (getListMetodyFormMetody_To_Pokaztel(choicePokazatel).isEmpty()) {
 							choiceMetody.add("");
 						}
 						for (Metody metod : getListMetodyFormMetody_To_Pokaztel(choicePokazatel)) {
 							choiceMetody.add(metod.getCode_metody());
-							ÎverallVariables.setFlagNotReadListMetody (false);
+							OverallVariables.setFlagNotReadListMetody (false);
 						}
 
 						setVisiblelblNameMetody(lblNameMetod, choiceMetody);
@@ -58,12 +58,12 @@ public class MetodSection {
 
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					String strChoisedmetod = choiceMetody.getSelectedItem();
-					ÎverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
+					OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
 					setVisiblelblNameMetody(lblNameMetod, choiceMetody);
-					ÎverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(ÎverallVariables.getSelectedMetod()));
-					ÎverallVariables.setListNucToPok ( AddresultViewMwetods.getListNuklideToPokazatel(choicePokazatel));
-					ÎverallVariables.setListSimbolBasikNulide ( AddresultViewMwetods.getListSimbolBasikNulideFNuclideToPokazatel(ÎverallVariables.getListNucToPok()));
-					ÎverallVariables.setMasuveSimbolNuclide(  AddresultViewMwetods.getMasiveSimbolNuclideToPokazatel(ÎverallVariables.getListNucToPok()));
+					OverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(OverallVariables.getSelectedMetod()));
+					OverallVariables.setListNucToPok ( AddresultViewMwetods.getListNuklideToPokazatel(choicePokazatel));
+					OverallVariables.setListSimbolBasikNulide ( AddresultViewMwetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariables.getListNucToPok()));
+					OverallVariables.setMasuveSimbolNuclide(  AddresultViewMwetods.getMasiveSimbolNuclideToPokazatel(OverallVariables.getListNucToPok()));
 
 					// setValueInChoiceDobiv(selectedMetod);
 				}

@@ -214,6 +214,9 @@ public class ReadExcelFile {
 	}
 	
 	public static String NumberFormatWithRounding(String num) {
+		if( Double.parseDouble(num)==0){
+			return num;
+		}
 		String formatNum;
 		String head = num.substring(0, num.indexOf("."));
 		if( Integer.parseInt(head)==0){

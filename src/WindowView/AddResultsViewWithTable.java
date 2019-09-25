@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
 import AddResultViewFunction.SampleCodeSection;
-import AddResultViewFunction.ОverallVariables;
+import AddResultViewFunction.OverallVariables;
 import AddResultViewFunction.AddresultViewMwetods;
 import AddResultViewFunction.RequestCodeSection;
 import AddResultViewFunction.PokazatelSection;
@@ -89,7 +89,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
-		ОverallVariables.clearAllVariables();
+		OverallVariables.clearAllVariables();
 		AddresultViewMwetods.BasicDataInport(user);
 		
 		setSize(1100, (countRowTabResults * rowWidth) + 340);
@@ -460,7 +460,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 		tabResults = AddresultViewMwetods.CreateTableResults(isNewRow,  btnAddRow,  header, 
 				choiceSmplCode);
-		countRowTabResults = ОverallVariables.getDataTable().length;
+		countRowTabResults = OverallVariables.getDataTable().length;
 		tabResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 		private static final long serialVersionUID = 1L;
 

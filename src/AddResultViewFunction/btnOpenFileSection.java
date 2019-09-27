@@ -25,7 +25,7 @@ public class btnOpenFileSection {
 					String fileName = fileChooser.getSelectedFile().toString();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
 					
-					if (AddresultViewMwetods.checkKorektFileName(fileName, codeSamample)) {
+					if (AddresultViewMetods.checkKorektFileName(fileName, codeSamample)) {
 					
 					txtBasicValueResult.setText(fileName);
 					System.out.println(codeSamample+"   "+fileName);

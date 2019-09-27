@@ -64,7 +64,7 @@ import GlobalVariable.GlobalFormatDate;
 import Table.Table_RequestToObektNaIzp;
 import WindowView.AddInChoice;
 import WindowView.AddInChoiceNameFamily;
-import WindowView.AddResultsViewWithTable;
+import WindowView.AddResultsView;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
@@ -81,7 +81,7 @@ import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import AddResultViewFunction.AddresultViewMwetods;
+import AddResultViewFunction.AddresultViewMetods;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -1485,12 +1485,12 @@ import javax.swing.BoxLayout;
 				public void actionPerformed(ActionEvent arg0) {
 					if (checkRequest()) {
 
-						AddresultViewMwetods.setWaitCursor(p);
+						AddresultViewMetods.setWaitCursor(p);
 						AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
 						request = createAndSaveRequest();
 						saveSample();
 						SaveIzpitvanPokazatel();
-						AddresultViewMwetods.setDefaultCursor(p);
+						AddresultViewMetods.setDefaultCursor(p);
 						setVisible(false);
 					}
 				}

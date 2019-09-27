@@ -13,13 +13,13 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.RequestDAO;
 import Aplication.SampleDAO;
 import DBase_Class.Sample;
-import WindowView.AddResultsViewWithTable;
+import WindowView.AddResultsView;
 import WindowView.RequestViewFunction;
 
 public class RequestCodeSection {
 	
 
-	public static void txtRqstCodeListener(AddResultsViewWithTable addResultsViewWithTable, JLabel lblError,JTextField txtRqstCode,
+	public static void txtRqstCodeListener(AddResultsView addResultsViewWithTable, JLabel lblError,JTextField txtRqstCode,
 			 	Choice choiceSmplCode) {
 
 		txtRqstCode.addMouseListener(new MouseAdapter() {

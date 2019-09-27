@@ -18,13 +18,13 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Results;
 import DBase_Class.Sample;
-import WindowView.AddResultsViewWithTable;
+import WindowView.AddResultsView;
 
 
-public class ButtonPanellListener {
+	public class ButtonPanellListener {
 
 
-	public static void saveButtonListener(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, JButton saveButton,JTextField txtRqstCode, Choice choicePokazatel, Choice choiceMetody,
+	public static void saveButtonListener(AddResultsView addResultsViewWithTable, JPanel basic_panel, JButton saveButton,JTextField txtRqstCode, Choice choicePokazatel, Choice choiceMetody,
 			Choice choiceOIR, Choice choiceORHO, Choice choiceDobiv, Choice choiceSmplCode, JTextField txtBasicValueResult) {
 		saveButton.addActionListener(new ActionListener() {
 
@@ -33,21 +33,21 @@ public class ButtonPanellListener {
 				if (checkDataResult(txtRqstCode, choicePokazatel, choiceMetody,
 						choiceOIR,choiceORHO,  choiceDobiv)) {
 					updateIzpitvanPokazatelObjectInDBase(choicePokazatel, choiceMetody);
-					AddresultViewMwetods.setWaitCursor(basic_panel);
+					AddresultViewMetods.setWaitCursor(basic_panel);
 
 					Sample samp = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
 					OverallVariables.setListResultsFromDBase ( creadListResultsObjects_ChoiseSample(samp,  choicePokazatel));
-					OverallVariables.setResultListForDelete ( AddresultViewMwetods.creadResultListForDelete(samp));
-					OverallVariables.setResultListForSave ( AddresultViewMwetods.creadResultListForSave( samp, txtBasicValueResult,
+					OverallVariables.setResultListForDelete ( AddresultViewMetods.creadResultListForDelete(samp));
+					OverallVariables.setResultListForSave ( AddresultViewMetods.creadResultListForSave( samp, txtBasicValueResult,
 							 choiceMetody,  choicePokazatel,  choiceORHO,  choiceOIR,  choiceDobiv));
 
-					AddresultViewMwetods.setDefaultCursor(basic_panel);
+					AddresultViewMetods.setDefaultCursor(basic_panel);
 
 					new MesejePanelInAddResultsFuncion(OverallVariables.getResultListForSave(), OverallVariables.getResultListForDelete());
 					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
-						AddresultViewMwetods.setWaitCursor(basic_panel);
+						AddresultViewMetods.setWaitCursor(basic_panel);
 						for (Results results : OverallVariables.getResultListForSave()) {
 							int idresultInBase = existsNuclideInResultTOResultBase(OverallVariables.getListResultsFromDBase(), results);
 							if (idresultInBase != 0) {
@@ -61,11 +61,11 @@ public class ButtonPanellListener {
 							ResultsDAO.deleteResultsById(results.getId_results());
 						}
 
-						OverallVariables.setListSimbolBasikNulide ( AddresultViewMwetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariables.getListNucToPok()));
-						Results[] masiveResultsForChoiceSample = AddresultViewMwetods.creadMasiveFromResultsObjects_ChoiseSample(
+						OverallVariables.setListSimbolBasikNulide ( AddresultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariables.getListNucToPok()));
+						Results[] masiveResultsForChoiceSample = AddresultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
 								SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode),  choicePokazatel);
 						startViewtablePanel(addResultsViewWithTable,basic_panel,  masiveResultsForChoiceSample);
-						AddresultViewMwetods.setDefaultCursor(basic_panel);
+						AddresultViewMetods.setDefaultCursor(basic_panel);
 					}
 
 				}
@@ -86,17 +86,16 @@ public class ButtonPanellListener {
 		return fl;
 	}
 
-	static void startViewtablePanel(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
-		Object[][] ss = AddresultViewMwetods.getDataTable(masiveResultsForChoiceSample, OverallVariables.getListSimbolBasikNulide());
-		AddresultViewMwetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
+	static void startViewtablePanel(AddResultsView addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
+		Object[][] ss = AddresultViewMetods.getDataTable(masiveResultsForChoiceSample, OverallVariables.getListSimbolBasikNulide());
+		OverallVariables.setFromDBase(true);
+		AddresultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
 	}
-
-	
 	
 	static List<Results> creadListResultsObjects_ChoiseSample(Sample sample,Choice choicePokazatel) {
 		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 		List<Results> choiceResults = new ArrayList<Results>();
-		List_izpitvan_pokazatel pokazatel = AddresultViewMwetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
+		List_izpitvan_pokazatel pokazatel = AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
 		for (Results result : ListResultsFromSample) {
 			if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()
 					&& result.getMetody().getId_metody() == OverallVariables.getSelectedMetod().getId_metody()) {
@@ -111,7 +110,7 @@ public class ButtonPanellListener {
 	static void updateIzpitvanPokazatelObjectInDBase(Choice choicePokazatel, Choice choiceMetody) {
 		IzpitvanPokazatel izpivanPokazatel = IzpitvanPokazatelDAO
 				.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(OverallVariables.getChoiseRequest(),
-						AddresultViewMwetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
+						AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
 		Metody mm = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 		izpivanPokazatel.getId_pokazatel();
 		izpivanPokazatel.setMetody(mm);
@@ -163,8 +162,8 @@ public class ButtonPanellListener {
 			saveCheck = false;
 		}
 
-		if (!AddresultViewMwetods.strCurrentDataInDataTable(OverallVariables.getDataTable()).trim().isEmpty()) {
-			str_Error = str_Error + AddresultViewMwetods.strCurrentDataInDataTable(OverallVariables.getDataTable());
+		if (!AddresultViewMetods.strCurrentDataInDataTable(OverallVariables.getDataTable()).trim().isEmpty()) {
+			str_Error = str_Error + AddresultViewMetods.strCurrentDataInDataTable(OverallVariables.getDataTable());
 			System.out.println(str_Error);
 			saveCheck = false;
 		}

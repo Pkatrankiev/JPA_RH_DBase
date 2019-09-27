@@ -3,13 +3,12 @@ package GlobalVariable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
-import WindowView.RequestView;
 
 public class GlobalVariableForSQL_DBase {
 

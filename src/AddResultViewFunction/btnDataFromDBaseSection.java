@@ -8,11 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Aplication.MetodyDAO;
 import DBase_Class.Results;
-import WindowView.AddResultsViewWithTable;
+import WindowView.AddResultsView;
 
 public class btnDataFromDBaseSection {
 
-	public static void btnDataFromDBaseListener(AddResultsViewWithTable addResultsViewWithTable, JPanel basic_panel, JButton btnDataFromDBase, Choice choiceMetody, Choice choiceDobiv, 
+	public static void btnDataFromDBaseListener(AddResultsView addResultsViewWithTable, JPanel basic_panel, JButton btnDataFromDBase, Choice choiceMetody, Choice choiceDobiv, 
 			Choice choiceSmplCode, Choice choicePokazatel, Choice choiceOIR, Choice choiceORHO, JLabel lbl_StoinostiFromDobiv) {
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -21,7 +21,7 @@ public class btnDataFromDBaseSection {
 					OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 					DobivSection.setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 
-					Results[] masiveResultsForChoiceSample = AddresultViewMwetods.creadMasiveFromResultsObjects_ChoiseSample(
+					Results[] masiveResultsForChoiceSample = AddresultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
 							SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode), choicePokazatel);
 					if (masiveResultsForChoiceSample.length > 0) {
 						if (masiveResultsForChoiceSample[0].getUser_measur() != null) {
@@ -43,8 +43,8 @@ public class btnDataFromDBaseSection {
 						}
 
 					}
-
-					AddresultViewMwetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
+					OverallVariables.setFromDBase(true);
+					AddresultViewMetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
 
 				}
 			}

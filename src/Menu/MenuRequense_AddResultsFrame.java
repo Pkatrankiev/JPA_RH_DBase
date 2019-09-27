@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import DBase_Class.Users;
-import WindowView.AddResultsViewWithTable;
+import WindowView.AddResultsView;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
@@ -31,7 +31,7 @@ public class MenuRequense_AddResultsFrame extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new AddResultsViewWithTable(f,round, loginDlg);
+		 		new AddResultsView(f,round, loginDlg);
 		 			    	
 		     }
 		    });

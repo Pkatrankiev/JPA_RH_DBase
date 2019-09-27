@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
-import AddResultViewFunction.AddresultViewMwetods;
+import AddResultViewFunction.AddresultViewMetods;
 import AddResultViewFunction.MesejePanelInAddResultsFuncion;
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
@@ -344,7 +344,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 				if (checkDataResult()) {
 					updateIzpitvanPokazatelObjectInDBase();
-					AddresultViewMwetods.setWaitCursor(panel);
+					AddresultViewMetods.setWaitCursor(panel);
 
 					Sample samp = getSampleObjectFromChoiceSampleCode();
 					ListResultsFromDBase = creadListResultsObjects_ChoiseSample(samp);
@@ -357,7 +357,7 @@ public class AddResultsViewWithTable extends JDialog {
 					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
-						AddresultViewMwetods.setWaitCursor(panel);
+						AddresultViewMetods.setWaitCursor(panel);
 						for (Results results : resultListForSave) {
 							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
 							if (idresultInBase != 0) {
@@ -1441,7 +1441,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 				if (flagIncertedFile) {
 										
-					AddresultViewMwetods.setWaitCursor(basic_panel);
+					AddresultViewMetods.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();

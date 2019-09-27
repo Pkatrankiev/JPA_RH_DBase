@@ -34,7 +34,7 @@ import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
 import WindowView.AddDobivViewWithTable;
-import WindowView.AddResultsViewWithTable;
+import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;
 import WindowView.Login;
@@ -210,7 +210,9 @@ public class TestClases {
 		    	 
 		    	 JFrame f = new JFrame();
 //		 		new AddDobivViewWithTable(f,round, UsersDAO.getValueUsersById(3));
-		 		new AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3)); 
+		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
+		    	 
+//		 		new OldClases.AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
 		 		
 		     }
 		    });

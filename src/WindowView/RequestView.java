@@ -69,7 +69,7 @@ import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import AddResultViewFunction.AddresultViewMwetods;
+import AddResultViewFunction.AddresultViewMetods;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -1534,7 +1534,7 @@ public class RequestView extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
 
-					AddresultViewMwetods.setWaitCursor(p);
+					AddresultViewMetods.setWaitCursor(p);
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
 					request = createAndSaveRequest();
 
@@ -1542,7 +1542,7 @@ public class RequestView extends JDialog {
 
 					saveSample();
 					SaveIzpitvanPokazatel();
-					AddresultViewMwetods.setDefaultCursor(p);
+					AddresultViewMetods.setDefaultCursor(p);
 					setVisible(false);
 				}
 			}

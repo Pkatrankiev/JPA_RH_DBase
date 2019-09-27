@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import DBase_Class.Users;
-import WindowView.AddDobivViewWithTable;
+import WindowView.AddDobivView;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
@@ -30,7 +30,7 @@ public class MenuRequense_AddDobiveFrame extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new AddDobivViewWithTable(f,round, loginDlg);
+		 		new AddDobivView(f,round, loginDlg);
 		 			    	
 		     }
 		    });

@@ -9,11 +9,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+
+import AddDobivViewFunction.AddDobivViewMetods;
 import Aplication.MetodyDAO;
 import Aplication.Metody_to_PokazatelDAO;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_Pokazatel;
-import WindowView.AddDobivViewWithTable;
+import WindowView.AddDobivView;
 
 public class MetodSection {
 
@@ -26,7 +28,7 @@ public class MetodSection {
 				OverallVariables.setSelectedMetod (MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
 				Boolean clearItems = true; 
 				DobivSection.setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, clearItems);
-				OverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(OverallVariables.getSelectedMetod()));
+				OverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewMetods.getListSimbolBasikNulideToMetod(OverallVariables.getSelectedMetod()));
 			}
 		});
 
@@ -60,7 +62,7 @@ public class MetodSection {
 					String strChoisedmetod = choiceMetody.getSelectedItem();
 					OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
 					setVisiblelblNameMetody(lblNameMetod, choiceMetody);
-					OverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewWithTable.getListSimbolBasikNulideToMetod(OverallVariables.getSelectedMetod()));
+					OverallVariables.setListSimbolBasikNulideToMetod ( AddDobivViewMetods.getListSimbolBasikNulideToMetod(OverallVariables.getSelectedMetod()));
 					OverallVariables.setListNucToPok ( AddresultViewMetods.getListNuklideToPokazatel(choicePokazatel));
 					OverallVariables.setListSimbolBasikNulide ( AddresultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariables.getListNucToPok()));
 					OverallVariables.setMasuveSimbolNuclide(  AddresultViewMetods.getMasiveSimbolNuclideToPokazatel(OverallVariables.getListNucToPok()));

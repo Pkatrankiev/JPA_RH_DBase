@@ -56,6 +56,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+import AddDobivViewFunction.AddDobivViewMetods;
 import AddResultViewFunction.MesejePanelInAddResultsFuncion;
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
@@ -84,7 +85,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
-import WindowView.AddDobivViewWithTable;
+import WindowView.AddDobivView;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
@@ -752,7 +753,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				setValueInChoiceDobiv();
-				listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
+				listSimbolBasikNulideToMetod = AddDobivViewMetods.getListSimbolBasikNulideToMetod(selectedMetod);
 			}
 
 		});
@@ -780,7 +781,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 					lblNameMetod.setText(selectedMetod.getName_metody());
 					if (listDobivFromMetod.isEmpty()) {
 						setValueInChoiceDobiv();
-						listSimbolBasikNulideToMetod = AddDobivViewWithTable
+						listSimbolBasikNulideToMetod = AddDobivViewMetods
 								.getListSimbolBasikNulideToMetod(selectedMetod);
 					}
 					selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());

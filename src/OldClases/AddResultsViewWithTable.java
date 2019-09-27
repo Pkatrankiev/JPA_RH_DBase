@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+import AddDobivViewFunction.AddDobivViewMetods;
 import AddResultViewFunction.AddresultViewMetods;
 import AddResultViewFunction.MesejePanelInAddResultsFuncion;
 import Aplication.DimensionDAO;
@@ -46,7 +47,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
-import WindowView.AddDobivViewWithTable;
+import WindowView.AddDobivView;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
@@ -733,7 +734,7 @@ public class AddResultsViewWithTable extends JDialog {
 				String strChoisedmetod = choiceMetody.getSelectedItem();
 				selectedMetod = MetodyDAO.getValueList_MetodyByCode(strChoisedmetod);
 				setValueInChoiceDobiv(selectedMetod);
-				listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
+				listSimbolBasikNulideToMetod = AddDobivViewMetods.getListSimbolBasikNulideToMetod(selectedMetod);
 			}
 		});
 
@@ -767,7 +768,7 @@ public class AddResultsViewWithTable extends JDialog {
 					String strChoisedmetod = choiceMetody.getSelectedItem();
 					selectedMetod = MetodyDAO.getValueList_MetodyByCode(strChoisedmetod);
 					setVisiblelblNameMetody(lblNameMetod);
-					listSimbolBasikNulideToMetod = AddDobivViewWithTable.getListSimbolBasikNulideToMetod(selectedMetod);
+					listSimbolBasikNulideToMetod = AddDobivViewMetods.getListSimbolBasikNulideToMetod(selectedMetod);
 					listNucToPok = getListNuklideToPokazatel();
 					listSimbolBasikNulide = getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 					masuveSimbolNuclide = getMasiveSimbolNuclideToPokazatel(listNucToPok);

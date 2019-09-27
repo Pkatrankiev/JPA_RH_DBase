@@ -44,6 +44,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import AddDobivViewFunction.AddDobivViewMetods;
 import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.MetodyDAO;
@@ -64,7 +65,7 @@ import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
 
-public class AddDobivViewWithTable extends JDialog {
+public class AddDobivView extends JDialog {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -123,7 +124,7 @@ public class AddDobivViewWithTable extends JDialog {
 	private JScrollPane scrollTablePane;
 	private static JTextField textFieldDobivDescrip;
 
-	public AddDobivViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
+	public AddDobivView(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Добив", true);
 		list_Users = UsersDAO.getInListAllValueUsers();
 		// list_UsersNameFamily =
@@ -624,15 +625,7 @@ public class AddDobivViewWithTable extends JDialog {
 		return masiveSimbolNuclide;
 	}
 
-	public static List<String> getListSimbolBasikNulideToMetod(Metody metod) {
-		List<String> listSimbolBasikNulide = new ArrayList<String>();
-		List<Metody_to_NiclideForDobive> listMetody_NuclideForDobive = Metody_to_NiclideForDobiveDAO
-				.getListMetody_to_NiclideForDobiveByMetody(metod);
-		for (Metody_to_NiclideForDobive nuclide_to_Metod : listMetody_NuclideForDobive) {
-			listSimbolBasikNulide.add(nuclide_to_Metod.getNuclide().getSymbol_nuclide());
-		}
-		return listSimbolBasikNulide;
-	}
+
 
 	private Dobiv[] creadMasiveFromDobivsObjects_StandartCode(Metody metod, List<Dobiv> ListDobivsFromStandart_code) {
 
@@ -973,7 +966,7 @@ public class AddDobivViewWithTable extends JDialog {
 		}
 
 		if (!saveCheck) {
-			JOptionPane.showMessageDialog(AddDobivViewWithTable.this, str_Error, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(AddDobivView.this, str_Error, "Грешни данни за следните полета:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -1300,13 +1293,7 @@ public class AddDobivViewWithTable extends JDialog {
 		}
 	}
 
-	private void createAllListsForNuclide() {
-		selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
-		listSimbolBasikNulide = getListSimbolBasikNulideToMetod(selectedMetod);
-		masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
-		listNuclideToMetod = getListNuclideToMetod(selectedMetod);
-		masive_NuclideToMetod = createMasiveStringSimbolNuklide(listNuclideToMetod);
-	}
+	
 
 	public static void checkValueFrame(Nuclide nuclide, Metody curentMetod, Double actv_value) {
 		List<Metody> listAllMetody = MetodyDAO.getInListAllValueMetody();
@@ -1347,4 +1334,13 @@ public class AddDobivViewWithTable extends JDialog {
 		return types;
 	}
 
+	private void createAllListsForNuclide() {
+		selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
+		listSimbolBasikNulide = AddDobivViewMetods.getListSimbolBasikNulideToMetod(selectedMetod);
+		masuveSimbolBasikNuclide = creatMasiveSimbolNuclideToMrtod(listSimbolBasikNulide);
+		listNuclideToMetod = getListNuclideToMetod(selectedMetod);
+		masive_NuclideToMetod = createMasiveStringSimbolNuklide(listNuclideToMetod);
+	}
+	
+	
 }

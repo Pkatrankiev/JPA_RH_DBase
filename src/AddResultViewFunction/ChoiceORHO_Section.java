@@ -14,6 +14,7 @@ public class ChoiceORHO_Section {
 	}
 	
 	public static void ChoiceORHOListener(Choice choiceORHO) {
+		addItemInChoiceORHO(choiceORHO);
 		choiceORHO.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {

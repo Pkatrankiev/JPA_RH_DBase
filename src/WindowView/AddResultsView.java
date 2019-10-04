@@ -266,7 +266,7 @@ public class AddResultsView extends JDialog {
 		gbc_choiceORHO.gridx = 7;
 		gbc_choiceORHO.gridy = 1;
 		basic_panel.add(choiceORHO, gbc_choiceORHO);
-		ChoiceORHO_Section.addItemInChoiceORHO(choiceORHO);
+		
 		
 
 	}

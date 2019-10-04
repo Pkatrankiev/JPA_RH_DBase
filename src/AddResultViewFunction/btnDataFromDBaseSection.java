@@ -14,6 +14,7 @@ public class btnDataFromDBaseSection {
 
 	public static void btnDataFromDBaseListener(AddResultsView addResultsViewWithTable, JPanel basic_panel, JButton btnDataFromDBase, Choice choiceMetody, Choice choiceDobiv, 
 			Choice choiceSmplCode, Choice choicePokazatel, Choice choiceOIR, Choice choiceORHO, JLabel lbl_StoinostiFromDobiv) {
+		
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 

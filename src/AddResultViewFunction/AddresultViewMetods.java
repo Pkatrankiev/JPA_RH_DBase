@@ -144,7 +144,7 @@ public class AddresultViewMetods {
 		createDataTableAndViewTableInPanel(addResultsViewWithTable,basic_panel, ss);
 	}
 
-	static Boolean checkKorektFileName(String fileName, String codeSamample) {
+	public static Boolean checkKorektFileName(String fileName, String codeSamample) {
 		int choice = 0;
 		Boolean fl = true;
 		if (fileName.indexOf(codeSamample) < 0) {
@@ -161,7 +161,7 @@ public class AddresultViewMetods {
 		return fl;
 	}
 
-	static Boolean checkForKoretMetod(List<Destruct_Result> destruct_Result_List, Choice choiceMetody) {
+	public static Boolean checkForKoretMetod(List<Destruct_Result> destruct_Result_List, Choice choiceMetody) {
 		Boolean fl = false;
 		if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 			OverallVariables.setSelectedMetod(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
@@ -184,13 +184,13 @@ public class AddresultViewMetods {
 		return fl;
 	}
 
-	static List<Nuclide_to_Pokazatel> getListNuklideToPokazatel(Choice choicePokazatel) {
+	public static List<Nuclide_to_Pokazatel> getListNuklideToPokazatel(Choice choicePokazatel) {
 		List<Nuclide_to_Pokazatel> listNucToPok = Nuclide_to_PokazatelDAO.getListNuclide_to_PokazatelByPokazatel(
 				AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
 		return listNucToPok;
 	}
 
-	static List<String> getListSimbolBasikNulideFNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
+	public static List<String> getListSimbolBasikNulideFNuclideToPokazatel(List<Nuclide_to_Pokazatel> listNucToPok) {
 		List<String> listSimbolBasikNulide = new ArrayList<String>();
 		for (Nuclide_to_Pokazatel nuclide_to_Pokazatel : listNucToPok) {
 			if (nuclide_to_Pokazatel.getNuclide().getFavorite_nuclide()) {

@@ -34,6 +34,7 @@ import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
 import WindowView.AddDobivView;
+import WindowView.AddDobivView_;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;
@@ -42,7 +43,7 @@ import WindowView.MainWindow;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
 
-public class TestClases {
+public class TestClases  {
 	
 	@SuppressWarnings("unused")
 	private static void test() {
@@ -209,7 +210,7 @@ public class TestClases {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+		 		new AddDobivView_(f,round, UsersDAO.getValueUsersById(3));
 //		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
 		    	 
 //		 		new OldClases.AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));

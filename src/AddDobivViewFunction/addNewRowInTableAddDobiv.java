@@ -2,28 +2,20 @@ package AddDobivViewFunction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import WindowView.TranscluentWindow;
+import WindowView.AddDobivView_;
 
 public class addNewRowInTableAddDobiv {
 	
-	public static void btmAddRowInTableAddDobivListener(JPanel basic_panel, JButton btnAddRow) {
+	public static void btmAddRowInTableAddDobivListener(AddDobivView_ addDobivView, JPanel basic_panel, JButton btnAddRow) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TranscluentWindow round = new TranscluentWindow();
-				final Thread thread = new Thread(new Runnable() {
-					@Override
-					public void run() {
-
+			
 						AddNewRowIn_dataTable();
 						Boolean isNewRow = true;
-//						ViewTableInPanel(basic_panel, round, isNewRow);
-					}
-				});
-				thread.start();
+						AddDobivView_.ViewTableInPanel( addDobivView,  basic_panel,   isNewRow);
+				
 
 			}
 

@@ -1,48 +1,69 @@
 package AddDobivViewFunction;
 
+import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import ExcelFilesFunction.Destruct_Result;
+import AddResultViewFunction.AddresultViewMetods;
 import ExcelFilesFunction.ReadExcelFile;
 import WindowView.ReadGamaFile;
 
 public class btnOpenFileAddDobivSection {
 
-	public static void btnOpenFileListener(JButton btnOpenFile, JTextField txtBasicValueResult) {
+	public static void btnOpenFileListener(JButton btnOpenFile, JFileChooser fileChooser, 
+			JTextField txtBasicValueResult, JTextField txtStandartCode, Choice choiceMetody) {
 		btnOpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser f = new JFileChooser();
-				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				f.showOpenDialog(null);
-				List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
+				
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				fileChooser.showOpenDialog(null);
+				int sizeExcelList = 0, sizeGamaList = 0;
 				try {
-					txtBasicValueResult.setText((f.getSelectedFile()).toString());
-					if(OverallVariablesAddDobiv.getSelectedMetod().getCode_metody().equals("10")){
-					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
-					}else{
-						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString());
-					}
-					if (ReadGamaFile.getListNuclideMDA() > 0 || destruct_Result_List.size() > 0) {
-						OverallVariablesAddDobiv.setFlagIncertedFile( true);
+					String fileName = fileChooser.getSelectedFile().toString();
+					String codeDobiv = txtStandartCode.getText();
+					
+					if (AddresultViewMetods.checkKorektFileName(fileName, codeDobiv)) {
+					
+					txtBasicValueResult.setText(fileName);
+					System.out.println(codeDobiv+"   "+fileName);
+					if (!choiceMetody.getSelectedItem().trim().isEmpty()){
+					if (choiceMetody.getSelectedItem().indexOf("10")>0){
+					
+						ReadGamaFile.getReadGamaFile(fileName);
+						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
-						OverallVariablesAddDobiv.setFlagIncertedFile( false);
+						OverallVariablesAddDobiv.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName));
+						sizeExcelList = OverallVariablesAddDobiv.getDestruct_Result_List().size();
 					}
-						
 					
-					
-				} catch (NullPointerException e2) {
+					if (sizeGamaList > 0 || sizeExcelList > 0) {
+						OverallVariablesAddDobiv.setFlagIncertedFile ( true);
+					} else {
+						OverallVariablesAddDobiv.setFlagIncertedFile ( false);
+						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+								JOptionPane.ERROR_MESSAGE);
 
+					}
+					}else {
+						OverallVariablesAddDobiv.setFlagIncertedFile ( false);
+						JOptionPane.showMessageDialog(null, "Не сте избрали метод", "Грешни данни",
+								JOptionPane.ERROR_MESSAGE);
+				}
+					}
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(null, "Не сте избрали файл!", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
+
 		});
 	}
+	
 
 }

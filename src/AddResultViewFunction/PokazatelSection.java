@@ -13,15 +13,15 @@ public class PokazatelSection {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			choicePokazatel.setBackground(Color.WHITE);
-			if (OverallVariables.getChoiseRequest() != null) {
+			if (OverallVariablesAddResults.getChoiseRequest() != null) {
 				
 				if (SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode) != null) {
-					if (OverallVariables.getFlagNotReadListPokazatel()) {
+					if (OverallVariablesAddResults.getFlagNotReadListPokazatel()) {
 						System.out.println("-----------  ÎverallVariables.getFlagNotReadListPokazatel()");
 						choicePokazatel.removeAll();
-						for (IzpitvanPokazatel pokazat : OverallVariables.getListPokazatel()) {
+						for (IzpitvanPokazatel pokazat : OverallVariablesAddResults.getListPokazatel()) {
 							choicePokazatel.add(pokazat.getPokazatel().getName_pokazatel());
-							OverallVariables.setFlagNotReadListPokazatel ( false);
+							OverallVariablesAddResults.setFlagNotReadListPokazatel ( false);
 						}
 					}
 				}

@@ -17,10 +17,10 @@ public class btnDataFromDBaseSection {
 		
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				AddresultViewMetods.setWaitCursor(basic_panel);
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-					OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
-					DobivSection.setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
+					OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+					DobivSection.setValueInChoiceDobiv(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 
 					Results[] masiveResultsForChoiceSample = AddresultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
 							SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode), choicePokazatel);
@@ -44,9 +44,10 @@ public class btnDataFromDBaseSection {
 						}
 
 					}
-					OverallVariables.setFromDBase(true);
+					
+					OverallVariablesAddResults.setFromDBase(true);
 					AddresultViewMetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
-
+					AddresultViewMetods.setDefaultCursor(basic_panel);
 				}
 			}
 

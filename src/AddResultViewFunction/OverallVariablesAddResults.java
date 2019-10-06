@@ -14,7 +14,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 
-public class OverallVariables {
+public class OverallVariablesAddResults {
 
 	private static List<Sample> listSample;
 	private static List<Users> list_Users;
@@ -89,7 +89,7 @@ public class OverallVariables {
 	}
 
 	public static void setListSample(List<Sample> listSample) {
-		OverallVariables.listSample = listSample;
+		OverallVariablesAddResults.listSample = listSample;
 	}
 
 	public static List<Users> getList_Users() {
@@ -97,7 +97,7 @@ public class OverallVariables {
 	}
 
 	public static void setList_Users(List<Users> list_Users) {
-		OverallVariables.list_Users = list_Users;
+		OverallVariablesAddResults.list_Users = list_Users;
 	}
 
 	public static List<String> getList_UsersNameFamilyOIR() {
@@ -105,7 +105,7 @@ public class OverallVariables {
 	}
 
 	public static void setList_UsersNameFamilyOIR(List<String> list_UsersNameFamilyOIR) {
-		OverallVariables.list_UsersNameFamilyOIR = list_UsersNameFamilyOIR;
+		OverallVariablesAddResults.list_UsersNameFamilyOIR = list_UsersNameFamilyOIR;
 	}
 
 	public static List<String> getList_UsersNameFamilyORHO() {
@@ -113,7 +113,7 @@ public class OverallVariables {
 	}
 
 	public static void setList_UsersNameFamilyORHO(List<String> list_UsersNameFamilyORHO) {
-		OverallVariables.list_UsersNameFamilyORHO = list_UsersNameFamilyORHO;
+		OverallVariablesAddResults.list_UsersNameFamilyORHO = list_UsersNameFamilyORHO;
 	}
 
 	public static List<String> getListSimbolBasikNulide() {
@@ -121,7 +121,7 @@ public class OverallVariables {
 	}
 
 	public static void setListSimbolBasikNulide(List<String> listSimbolBasikNulide) {
-		OverallVariables.listSimbolBasikNulide = listSimbolBasikNulide;
+		OverallVariablesAddResults.listSimbolBasikNulide = listSimbolBasikNulide;
 	}
 
 	public static List<String> getListSimbolBasikNulideToMetod() {
@@ -129,7 +129,7 @@ public class OverallVariables {
 	}
 
 	public static void setListSimbolBasikNulideToMetod(List<String> listSimbolBasikNulideToMetod) {
-		OverallVariables.listSimbolBasikNulideToMetod = listSimbolBasikNulideToMetod;
+		OverallVariablesAddResults.listSimbolBasikNulideToMetod = listSimbolBasikNulideToMetod;
 	}
 
 	public static List<IzpitvanPokazatel> getListPokazatel() {
@@ -137,7 +137,7 @@ public class OverallVariables {
 	}
 
 	public static void setListPokazatel(List<IzpitvanPokazatel> listPokazatel) {
-		OverallVariables.listPokazatel = listPokazatel;
+		OverallVariablesAddResults.listPokazatel = listPokazatel;
 	}
 
 	public static List<Dobiv> getListDobivFromMetod() {
@@ -145,7 +145,7 @@ public class OverallVariables {
 	}
 
 	public static void setListDobivFromMetod(List<Dobiv> listDobivFromMetod) {
-		OverallVariables.listDobivFromMetod = listDobivFromMetod;
+		OverallVariablesAddResults.listDobivFromMetod = listDobivFromMetod;
 	}
 
 	public static List<Nuclide_to_Pokazatel> getListNucToPok() {
@@ -153,7 +153,7 @@ public class OverallVariables {
 	}
 
 	public static void setListNucToPok(List<Nuclide_to_Pokazatel> listNucToPok) {
-		OverallVariables.listNucToPok = listNucToPok;
+		OverallVariablesAddResults.listNucToPok = listNucToPok;
 	}
 
 	public static List<Results> getListResultsFromDBase() {
@@ -169,7 +169,7 @@ public class OverallVariables {
 	}
 
 	public static void setResultListForSave(List<Results> resultListForSave) {
-		OverallVariables.resultListForSave = resultListForSave;
+		OverallVariablesAddResults.resultListForSave = resultListForSave;
 	}
 
 	public static List<Results> getResultListForDelete() {
@@ -177,7 +177,7 @@ public class OverallVariables {
 	}
 
 	public static void setResultListForDelete(List<Results> resultListForDelete) {
-		OverallVariables.resultListForDelete = resultListForDelete;
+		OverallVariablesAddResults.resultListForDelete = resultListForDelete;
 	}
 
 	public static List<Destruct_Result> getDestruct_Result_List() {
@@ -185,7 +185,7 @@ public class OverallVariables {
 	}
 
 	public static void setDestruct_Result_List(List<Destruct_Result> destruct_Result_List) {
-		OverallVariables.destruct_Result_List = destruct_Result_List;
+		OverallVariablesAddResults.destruct_Result_List = destruct_Result_List;
 	}
 
 	public static String[] getMasuveSimbolNuclide() {
@@ -193,7 +193,7 @@ public class OverallVariables {
 	}
 
 	public static void setMasuveSimbolNuclide(String[] masuveSimbolNuclide) {
-		OverallVariables.masuveSimbolNuclide = masuveSimbolNuclide;
+		OverallVariablesAddResults.masuveSimbolNuclide = masuveSimbolNuclide;
 	}
 
 	public static String[] getMasive_NuclideToPokazatel() {
@@ -201,7 +201,7 @@ public class OverallVariables {
 	}
 
 	public static void setMasive_NuclideToPokazatel(String[] masive_NuclideToPokazatel) {
-		OverallVariables.masive_NuclideToPokazatel = masive_NuclideToPokazatel;
+		OverallVariablesAddResults.masive_NuclideToPokazatel = masive_NuclideToPokazatel;
 	}
 
 	public static String[] getValues_Razmernosti() {
@@ -209,7 +209,7 @@ public class OverallVariables {
 	}
 
 	public static void setValues_Razmernosti(String[] values_Razmernosti) {
-		OverallVariables.values_Razmernosti = values_Razmernosti;
+		OverallVariablesAddResults.values_Razmernosti = values_Razmernosti;
 	}
 
 	public static String[] getValues_Dimension() {
@@ -217,7 +217,7 @@ public class OverallVariables {
 	}
 
 	public static void setValues_Dimension(String[] values_Dimension) {
-		OverallVariables.values_Dimension = values_Dimension;
+		OverallVariablesAddResults.values_Dimension = values_Dimension;
 	}
 
 	public static String[] getMasiveTSI() {
@@ -225,7 +225,7 @@ public class OverallVariables {
 	}
 
 	public static void setMasiveTSI(String[] masiveTSI) {
-		OverallVariables.masiveTSI = masiveTSI;
+		OverallVariablesAddResults.masiveTSI = masiveTSI;
 	}
 
 	public static Object[][] getDataTable() {
@@ -233,7 +233,7 @@ public class OverallVariables {
 	}
 
 	public static void setDataTable(Object[][] dataTable) {
-		OverallVariables.dataTable = dataTable;
+		OverallVariablesAddResults.dataTable = dataTable;
 	}
 
 	public static Metody getSelectedMetod() {
@@ -241,7 +241,7 @@ public class OverallVariables {
 	}
 
 	public static void setSelectedMetod(Metody selectedMetod) {
-		OverallVariables.selectedMetod = selectedMetod;
+		OverallVariablesAddResults.selectedMetod = selectedMetod;
 	}
 
 	public static Request getChoiseRequest() {
@@ -249,7 +249,7 @@ public class OverallVariables {
 	}
 
 	public static void setChoiseRequest(Request choiseRequest) {
-		OverallVariables.choiseRequest = choiseRequest;
+		OverallVariablesAddResults.choiseRequest = choiseRequest;
 	}
 
 	public static Users getUser_Redac() {
@@ -257,7 +257,7 @@ public class OverallVariables {
 	}
 
 	public static void setUser_Redac(Users user_Redac) {
-		OverallVariables.user_Redac = user_Redac;
+		OverallVariablesAddResults.user_Redac = user_Redac;
 	}
 
 	public static Boolean getFlagNotReadListPokazatel() {
@@ -265,7 +265,7 @@ public class OverallVariables {
 	}
 
 	public static void setFlagNotReadListPokazatel(Boolean flagNotReadListPokazatel) {
-		OverallVariables.flagNotReadListPokazatel = flagNotReadListPokazatel;
+		OverallVariablesAddResults.flagNotReadListPokazatel = flagNotReadListPokazatel;
 	}
 
 	public static Boolean getFlagNotReadListMetody() {
@@ -273,7 +273,7 @@ public class OverallVariables {
 	}
 
 	public static void setFlagNotReadListMetody(Boolean flagNotReadListMetody) {
-		OverallVariables.flagNotReadListMetody = flagNotReadListMetody;
+		OverallVariablesAddResults.flagNotReadListMetody = flagNotReadListMetody;
 	}
 
 	public static Boolean getViewAddRowButton() {
@@ -281,7 +281,7 @@ public class OverallVariables {
 	}
 
 	public static void setViewAddRowButton(Boolean viewAddRowButton) {
-		OverallVariables.viewAddRowButton = viewAddRowButton;
+		OverallVariablesAddResults.viewAddRowButton = viewAddRowButton;
 	}
 
 	public static Boolean getFlagIncertedFile() {
@@ -289,7 +289,7 @@ public class OverallVariables {
 	}
 
 	public static void setFlagIncertedFile(Boolean flagIncertedFile) {
-		OverallVariables.flagIncertedFile = flagIncertedFile;
+		OverallVariablesAddResults.flagIncertedFile = flagIncertedFile;
 	}
 
 	public static Color getColorFromDBase() {
@@ -307,7 +307,7 @@ public class OverallVariables {
 	}
 
 	public static void setFromDBase(Boolean fromDBase) {
-		OverallVariables.fromDBase = fromDBase;
+		OverallVariablesAddResults.fromDBase = fromDBase;
 	}
 
 	

@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import AddResultViewFunction.AddresultViewMetods;
-import AddResultViewFunction.OverallVariables;
 import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -43,16 +42,13 @@ import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
-import DBase_Class.Results;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import WindowView.AddDobivView_;
-import WindowView.AddResultsView;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
 import WindowView.RequestViewFunction;
-import WindowView.TranscluentWindow;
 
 public class AddDobivViewMetods {
 	
@@ -578,18 +574,18 @@ public class AddDobivViewMetods {
 	}
 
 	
-	static void startViewtablePanel(AddDobivView_ addDobivView, Dobiv[] masiveDobivForMetod, JPanel basic_panel, TranscluentWindow round) {
+	static void startViewtablePanel(AddDobivView_ addDobivView, Dobiv[] masiveDobivForMetod, JPanel basic_panel) {
 		Object[][] ss = getDataTable(masiveDobivForMetod, OverallVariablesAddDobiv.getListSimbolBasikNulide());
-		createDataTableAndViewTableInPanel(addDobivView, basic_panel, ss, round);
+		createDataTableAndViewTableInPanel(addDobivView, basic_panel, ss);
 	}
 	
 	static void createDataTableAndViewTableInPanel( AddDobivView_ addDobivView, JPanel basic_panel, 
-			Object[][] ss, TranscluentWindow round) {
+			Object[][] ss) {
 		Boolean isNewRow = false;
 		OverallVariablesAddDobiv.setDataTable ( new Object[ss.length][AddDobivViewMetods.getTbl_Colum()]);
 		OverallVariablesAddDobiv.setDataTable ( ss);
 		isNewRow = false;
-		AddDobivView_.ViewTableInPanel(addDobivView, basic_panel, round, isNewRow);
+		AddDobivView_.ViewTableInPanel(addDobivView, basic_panel,  isNewRow);
 		
 	}
 	
@@ -601,12 +597,12 @@ public class AddDobivViewMetods {
 		// masuveSimbolNuclide =
 		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Dobiv[] masiveResultsFromFile = ReadExcelFile
-				.getMasivResultsFromExcelFile(OverallVariables.getDestruct_Result_List(), listSimbolBasicNuclide);
+				.getMasivDobivsFromExcelFile(OverallVariablesAddDobiv.getDestruct_Result_List(), listSimbolBasicNuclide);
 		System.out.println(masiveResultsFromFile.length + " ----------------------------------------");
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
 
 		for (int i = 0; i < masiveResultsFromFile.length; i++) {
-			tableResult[i] = rowWithValueResultsFromFile(masiveResultsFromFile[i]);
+			tableResult[i] = rowWithValueDobivs(masiveResultsFromFile[i]);
 
 		}
 		return tableResult;

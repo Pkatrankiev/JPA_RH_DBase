@@ -71,7 +71,7 @@ public class SampleCodeSection {
 		{
 
 			String strChoiseSamp = choiceSmplCode.getSelectedItem();
-			for (Sample samp : OverallVariables.getListSample()) {
+			for (Sample samp : OverallVariablesAddResults.getListSample()) {
 				if (samp.getSample_code().equals(strChoiseSamp)) {
 					name_IO_Sample = samp.getDescription_sample();
 
@@ -83,7 +83,7 @@ public class SampleCodeSection {
 
 	public static String getName_IO_Sample(String name_IO_Sample, Choice choiceSmplCode) {
 		String strChoiseSamp = choiceSmplCode.getSelectedItem();
-		for (Sample samp : OverallVariables.getListSample()) {
+		for (Sample samp : OverallVariablesAddResults.getListSample()) {
 			if (samp.getSample_code().equals(strChoiseSamp)) {
 				name_IO_Sample = samp.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 
@@ -95,7 +95,7 @@ public class SampleCodeSection {
 
 	static Sample getSampleObjectFromChoiceSampleCode(Choice choiceSmplCode) {
 		Sample smp = null;
-		for (Sample samp : OverallVariables.getListSample()) {
+		for (Sample samp : OverallVariablesAddResults.getListSample()) {
 			if (samp.getSample_code().equals(choiceSmplCode.getSelectedItem())) {
 				return samp;
 			}

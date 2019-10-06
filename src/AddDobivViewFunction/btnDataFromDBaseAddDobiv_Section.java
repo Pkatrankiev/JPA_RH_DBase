@@ -7,19 +7,20 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import AddResultViewFunction.AddresultViewMetods;
 import Aplication.DobivDAO;
 import DBase_Class.Dobiv;
 import WindowView.AddDobivView_;
-import WindowView.TranscluentWindow;
 
 	public class btnDataFromDBaseAddDobiv_Section {
 
-	public static void btnDataFromDBaseListener(AddDobivView_ addDobivView, JPanel panel, JButton btnDataFromDBase,  Choice choiceMetody, Choice choiceOIR, 
+	public static void btnDataFromDBaseListener(AddDobivView_ addDobivView, JPanel basic_panel, JButton btnDataFromDBase,  Choice choiceMetody, Choice choiceOIR, 
 			Choice choiceORHO, JTextField txtStandartCode) {
 		
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				AddresultViewMetods.setWaitCursor(basic_panel);
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					
 					List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
@@ -41,15 +42,11 @@ import WindowView.TranscluentWindow;
 						}
 					}
 					}
-					TranscluentWindow round = new TranscluentWindow();
-					final Thread thread = new Thread(new Runnable() {
-						@Override
-						public void run() {
+					
 							OverallVariablesAddDobiv.setFromDBase(true);
-							AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, panel, round);
-						}
-					});
-					thread.start();
+							AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, basic_panel);
+							AddresultViewMetods.setDefaultCursor(basic_panel);
+				
 					
 					
 					

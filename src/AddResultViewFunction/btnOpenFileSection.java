@@ -35,20 +35,20 @@ public class btnOpenFileSection {
 						ReadGamaFile.getReadGamaFile(fileName);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
-						OverallVariables.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName));
-						sizeExcelList = OverallVariables.getDestruct_Result_List().size();
+						OverallVariablesAddResults.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName));
+						sizeExcelList = OverallVariablesAddResults.getDestruct_Result_List().size();
 					}
 					
 					if (sizeGamaList > 0 || sizeExcelList > 0) {
-						OverallVariables.setFlagIncertedFile ( true);
+						OverallVariablesAddResults.setFlagIncertedFile ( true);
 					} else {
-						OverallVariables.setFlagIncertedFile ( false);
+						OverallVariablesAddResults.setFlagIncertedFile ( false);
 						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
 								JOptionPane.ERROR_MESSAGE);
 
 					}
 					}else {
-						OverallVariables.setFlagIncertedFile ( false);
+						OverallVariablesAddResults.setFlagIncertedFile ( false);
 						JOptionPane.showMessageDialog(null, "Не сте избрали метод", "Грешни данни",
 								JOptionPane.ERROR_MESSAGE);
 				}

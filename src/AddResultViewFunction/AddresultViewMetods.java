@@ -102,18 +102,18 @@ public class AddresultViewMetods {
 	}
 
 	public static void BasicDataInport(Users user) {
-		OverallVariables.setList_Users(UsersDAO.getInListAllValueUsers());
-		OverallVariables.setList_UsersNameFamilyOIR(
+		OverallVariablesAddResults.setList_Users(UsersDAO.getInListAllValueUsers());
+		OverallVariablesAddResults.setList_UsersNameFamilyOIR(
 				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР")));
-		OverallVariables.setList_UsersNameFamilyORHO(
+		OverallVariablesAddResults.setList_UsersNameFamilyORHO(
 				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО")));
-		OverallVariables.setListSample(new ArrayList<Sample>());
+		OverallVariablesAddResults.setListSample(new ArrayList<Sample>());
 
-		OverallVariables.setUser_Redac(user);
+		OverallVariablesAddResults.setUser_Redac(user);
 
-		OverallVariables.setValues_Razmernosti(RazmernostiDAO.getMasiveStringAllValueRazmernosti());
-		OverallVariables.setValues_Dimension(DimensionDAO.getMasiveStringAllValueDimension());
-		OverallVariables.setMasiveTSI(TSI_DAO.getMasiveStringAllValueTSI());
+		OverallVariablesAddResults.setValues_Razmernosti(RazmernostiDAO.getMasiveStringAllValueRazmernosti());
+		OverallVariablesAddResults.setValues_Dimension(DimensionDAO.getMasiveStringAllValueDimension());
+		OverallVariablesAddResults.setMasiveTSI(TSI_DAO.getMasiveStringAllValueTSI());
 	}
 
 	static Results[] creadMasiveFromResultsObjects_ChoiseSample(Sample sample, Choice choicePokazatel) {
@@ -122,7 +122,7 @@ public class AddresultViewMetods {
 		List_izpitvan_pokazatel pokazatel = AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
 		for (Results result : ListResultsFromSample) {
 			if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()
-					&& result.getMetody().getId_metody() == OverallVariables.getSelectedMetod().getId_metody()) {
+					&& result.getMetody().getId_metody() == OverallVariablesAddResults.getSelectedMetod().getId_metody()) {
 				choiceResults.add(result);
 			}
 		}
@@ -140,7 +140,7 @@ public class AddresultViewMetods {
 	}
 
 	static void startViewtablePanel(AddResultsView addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
-		Object[][] ss = getDataTable(masiveResultsForChoiceSample, OverallVariables.getListSimbolBasikNulide());
+		Object[][] ss = getDataTable(masiveResultsForChoiceSample, OverallVariablesAddResults.getListSimbolBasikNulide());
 		createDataTableAndViewTableInPanel(addResultsViewWithTable,basic_panel, ss);
 	}
 
@@ -164,10 +164,10 @@ public class AddresultViewMetods {
 	public static Boolean checkForKoretMetod(List<Destruct_Result> destruct_Result_List, Choice choiceMetody) {
 		Boolean fl = false;
 		if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-			OverallVariables.setSelectedMetod(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+			OverallVariablesAddResults.setSelectedMetod(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 
 			for (Destruct_Result destruct_Result : destruct_Result_List) {
-				if (OverallVariables.getSelectedMetod().getCode_metody()
+				if (OverallVariablesAddResults.getSelectedMetod().getCode_metody()
 						.indexOf(destruct_Result.getMetod().replace("М.ЛИ-РХ-", "")) > 0) {
 					fl = true;
 				}
@@ -215,7 +215,7 @@ public class AddresultViewMetods {
 		List<Nuclide_to_Pokazatel> listNucToPok = AddresultViewMetods.getListNuklideToPokazatel(choicePokazatel);
 		List<String> listSimbolBasicNuclide = AddresultViewMetods
 				.getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
-		OverallVariables.setMasuveSimbolNuclide(AddresultViewMetods.getMasiveSimbolNuclideToPokazatel(listNucToPok));
+		OverallVariablesAddResults.setMasuveSimbolNuclide(AddresultViewMetods.getMasiveSimbolNuclideToPokazatel(listNucToPok));
 		Results[] masiveResultsActivFromFile = ReadGamaFile.getMasivResultsWithAktiv();
 		Results[] masiveResultsMDAFromFile = ReadGamaFile.getMasivResultsMDA(listSimbolBasicNuclide);
 		System.out.print(masiveResultsActivFromFile.length);
@@ -242,7 +242,7 @@ public class AddresultViewMetods {
 		// masuveSimbolNuclide =
 		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Results[] masiveResultsFromFile = ReadExcelFile
-				.getMasivResultsFromExcelFile(OverallVariables.getDestruct_Result_List(), listSimbolBasicNuclide);
+				.getMasivResultsFromExcelFile(OverallVariablesAddResults.getDestruct_Result_List(), listSimbolBasicNuclide);
 		System.out.println(masiveResultsFromFile.length + " ----------------------------------------");
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
 
@@ -255,16 +255,16 @@ public class AddresultViewMetods {
 
 	public static void AddNewRowIn_dataTable(Choice choicePokazatel) {
 		List<Nuclide_to_Pokazatel> listNucToPok = AddresultViewMetods.getListNuklideToPokazatel(choicePokazatel);
-		OverallVariables.setMasive_NuclideToPokazatel(getListSimbolNuclideToPokazatel(listNucToPok));
-		int countDataTable = OverallVariables.getDataTable().length;
+		OverallVariablesAddResults.setMasive_NuclideToPokazatel(getListSimbolNuclideToPokazatel(listNucToPok));
+		int countDataTable = OverallVariablesAddResults.getDataTable().length;
 		Object[][] newTable = new Object[countDataTable + 1][tbl_Colum];
 		for (int i = 0; i < countDataTable; i++) {
-			newTable[i] = OverallVariables.getDataTable()[i];
+			newTable[i] = OverallVariablesAddResults.getDataTable()[i];
 		}
-		newTable[countDataTable] = rowWithoutValueResults(OverallVariables.getMasive_NuclideToPokazatel()[0]);
-		OverallVariables.setDataTable(new Object[newTable.length][tbl_Colum]);
+		newTable[countDataTable] = rowWithoutValueResults(OverallVariablesAddResults.getMasive_NuclideToPokazatel()[0]);
+		OverallVariablesAddResults.setDataTable(new Object[newTable.length][tbl_Colum]);
 		for (int i = 0; i < newTable.length; i++) {
-			OverallVariables.getDataTable()[i] = newTable[i];
+			OverallVariablesAddResults.getDataTable()[i] = newTable[i];
 		}
 	}
 
@@ -274,11 +274,11 @@ public class AddresultViewMetods {
 		rowFromTableResult[actv_value_Colum] = 0.0;
 		rowFromTableResult[uncrt_Colum] = 0.0;
 		rowFromTableResult[mda_Colum] = 0.0;
-		rowFromTableResult[razm_Colum] = OverallVariables.getChoiseRequest().getRazmernosti().getName_razmernosti();
+		rowFromTableResult[razm_Colum] = OverallVariablesAddResults.getChoiseRequest().getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = 2;
 		rowFromTableResult[qunt_Colum] = 0.0;
 		rowFromTableResult[dimen_Colum] = "";
-		rowFromTableResult[dimen_Colum] = OverallVariables.getValues_Dimension()[0];
+		rowFromTableResult[dimen_Colum] = OverallVariablesAddResults.getValues_Dimension()[0];
 		rowFromTableResult[TSI_Colum] = "";
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
@@ -349,8 +349,8 @@ public class AddresultViewMetods {
 
 	static void createDataTableAndViewTableInPanel(AddResultsView addResultsViewWithTable, JPanel basic_panel, Object[][] ss) {
 		Boolean isNewRow = false;
-		OverallVariables.setDataTable(new Object[ss.length][tbl_Colum]);
-		OverallVariables.setDataTable(ss);
+		OverallVariablesAddResults.setDataTable(new Object[ss.length][tbl_Colum]);
+		OverallVariablesAddResults.setDataTable(ss);
 		isNewRow = false;
 		AddResultsView.ViewTableInPanel(addResultsViewWithTable,isNewRow);
 
@@ -361,7 +361,7 @@ public class AddresultViewMetods {
 			Choice choiceSmplCode) {
 		tabResults = CreateTableResults(isNewRow,  btnAddRow,  header, 
 				 choiceSmplCode);
-		countRowTabResults = OverallVariables.getDataTable().length;
+		countRowTabResults = OverallVariablesAddResults.getDataTable().length;
 		tabResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 7888392104063188806L;
 
@@ -390,7 +390,7 @@ public class AddresultViewMetods {
 	public static JTable CreateTableResults(Boolean isNewRow, JButton btnAddRow, JTableHeader header, 
 			Choice choiceSmplCode) {
 
-		if (1 < OverallVariables.getListNucToPok().size()) {
+		if (1 < OverallVariablesAddResults.getListNucToPok().size()) {
 			btnAddRow.setVisible(true);
 		} else {
 			btnAddRow.setVisible(false);
@@ -447,7 +447,7 @@ public class AddresultViewMetods {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				DefaultTableModel dtm = new DefaultTableModel(OverallVariables.getDataTable(), columnNames) {
+				DefaultTableModel dtm = new DefaultTableModel(OverallVariablesAddResults.getDataTable(), columnNames) {
 
 					private static final long serialVersionUID = 1L;
 					@SuppressWarnings("rawtypes")
@@ -460,7 +460,7 @@ public class AddresultViewMetods {
 					}
 
 					public Object getValueAt(int row, int col) {
-						return OverallVariables.getDataTable()[row][col];
+						return OverallVariablesAddResults.getDataTable()[row][col];
 					}
 
 					@Override
@@ -474,10 +474,10 @@ public class AddresultViewMetods {
 
 					public void setValueAt(Object value, int row, int col) {
 
-						if (!OverallVariables.getDataTable()[row][col].equals(value)) {
+						if (!OverallVariablesAddResults.getDataTable()[row][col].equals(value)) {
 							if (col == dateHimObr_Colum || col == dateAnaliz_Colum) {
 								if (!DatePicker.incorrectDate((String) value, false)) {
-									OverallVariables.getDataTable()[row][col] = value;
+									OverallVariablesAddResults.getDataTable()[row][col] = value;
 									fireTableCellUpdated(row, col);
 								}
 							}
@@ -486,7 +486,7 @@ public class AddresultViewMetods {
 									|| col == qunt_Colum) {
 								try {
 									Double.parseDouble((String) value);
-									OverallVariables.getDataTable()[row][col] = value;
+									OverallVariablesAddResults.getDataTable()[row][col] = value;
 									fireTableCellUpdated(row, col);
 								} catch (NumberFormatException e) {
 								}
@@ -494,7 +494,7 @@ public class AddresultViewMetods {
 
 							if (col == nuclide_Colum || col == razm_Colum || col == dimen_Colum || col == in_Prot_Colum
 									|| col == TSI_Colum) {
-								OverallVariables.getDataTable()[row][col] = value;
+								OverallVariablesAddResults.getDataTable()[row][col] = value;
 								fireTableCellUpdated(row, col);
 							}
 						}
@@ -507,7 +507,7 @@ public class AddresultViewMetods {
 
 					public int getRowCount() {
 
-						return OverallVariables.getDataTable().length;
+						return OverallVariablesAddResults.getDataTable().length;
 					}
 
 				};
@@ -584,9 +584,9 @@ public class AddresultViewMetods {
 	}
 
 	public static void setUp_Nuclide(TableColumn nuclide_Column, Boolean isNewRow) {
-		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariables.getMasuveSimbolNuclide());
+		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariablesAddResults.getMasuveSimbolNuclide());
 		if (isNewRow) {
-			comboBox = new JComboBox<Object>(OverallVariables.getMasive_NuclideToPokazatel());
+			comboBox = new JComboBox<Object>(OverallVariablesAddResults.getMasive_NuclideToPokazatel());
 		}
 		nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -595,7 +595,7 @@ public class AddresultViewMetods {
 	}
 
 	public static void setUp_Razmernosti(TableColumn Razmernosti_Column) {
-		JComboBox<?> comboBox1 = new JComboBox<Object>(OverallVariables.getValues_Razmernosti());
+		JComboBox<?> comboBox1 = new JComboBox<Object>(OverallVariablesAddResults.getValues_Razmernosti());
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox1));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -603,7 +603,7 @@ public class AddresultViewMetods {
 	}
 
 	public static void setUp_Dimension(TableColumn Dimension_Column) {
-		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariables.getValues_Dimension());
+		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariablesAddResults.getValues_Dimension());
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -611,7 +611,7 @@ public class AddresultViewMetods {
 	}
 
 	private static void setUp_TSI(TableColumn tSI_column) {
-		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariables.getMasiveTSI());
+		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariablesAddResults.getMasiveTSI());
 		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Натисни за избор");
@@ -740,9 +740,9 @@ public class AddresultViewMetods {
 	public static List<Results> creadResultListForSave(Sample sample, JTextField txtBasicValueResult,
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 		List<Results> listResultsForSave = new ArrayList<Results>();
-		for (int i = 0; i < OverallVariables.getDataTable().length; i++) {
-			String s1 = OverallVariables.getDataTable()[i][mda_Colum].toString();
-			String s2 = OverallVariables.getDataTable()[i][actv_value_Colum].toString();
+		for (int i = 0; i < OverallVariablesAddResults.getDataTable().length; i++) {
+			String s1 = OverallVariablesAddResults.getDataTable()[i][mda_Colum].toString();
+			String s2 = OverallVariablesAddResults.getDataTable()[i][actv_value_Colum].toString();
 			if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) > 0)) {
 				listResultsForSave.add(creadResultObject(sample, i,  txtBasicValueResult,
 						  choiceMetody,   choicePokazatel,   choiceORHO,  choiceOIR,   choiceDobiv));
@@ -755,12 +755,12 @@ public class AddresultViewMetods {
 
 	public static List<Results> creadResultListForDelete(Sample sample) {
 		List<Results> listResultsForDelete = new ArrayList<Results>();
-		for (int i = 0; i < OverallVariables.getDataTable().length; i++) {
-			String s1 = OverallVariables.getDataTable()[i][mda_Colum].toString();
-			String s2 = OverallVariables.getDataTable()[i][actv_value_Colum].toString();
+		for (int i = 0; i < OverallVariablesAddResults.getDataTable().length; i++) {
+			String s1 = OverallVariablesAddResults.getDataTable()[i][mda_Colum].toString();
+			String s2 = OverallVariablesAddResults.getDataTable()[i][actv_value_Colum].toString();
 			if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2)) == 0)) {
-				if (OverallVariables.getDataTable()[i][rsult_Id_Colum] != null) {
-					listResultsForDelete.add(ResultsDAO.getValueResultsById((int) OverallVariables.getDataTable()[i][rsult_Id_Colum]));
+				if (OverallVariablesAddResults.getDataTable()[i][rsult_Id_Colum] != null) {
+					listResultsForDelete.add(ResultsDAO.getValueResultsById((int) OverallVariablesAddResults.getDataTable()[i][rsult_Id_Colum]));
 				}
 			}
 		}
@@ -771,11 +771,11 @@ public class AddresultViewMetods {
 	private static Results creadResultObject(Sample sample, int i, JTextField txtBasicValueResult,
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 		Results result;
-		if (OverallVariables.getDataTable()[i][rsult_Id_Colum] == null) {
+		if (OverallVariablesAddResults.getDataTable()[i][rsult_Id_Colum] == null) {
 			result = creadResultsObject(i, new Results(), sample,  txtBasicValueResult,
 					choiceMetody,  choicePokazatel, choiceORHO,  choiceOIR, choiceDobiv);
 		} else {
-			result = creadResultsObject(i, ResultsDAO.getValueResultsById((int) OverallVariables.getDataTable()[i][rsult_Id_Colum]), sample, txtBasicValueResult,
+			result = creadResultsObject(i, ResultsDAO.getValueResultsById((int) OverallVariablesAddResults.getDataTable()[i][rsult_Id_Colum]), sample, txtBasicValueResult,
 					choiceMetody,choicePokazatel,  choiceORHO,  choiceOIR, choiceDobiv);
 		}
 		return result;
@@ -785,47 +785,47 @@ public class AddresultViewMetods {
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 
 		result.setBasic_value(txtBasicValueResult.getText());
-		if (OverallVariables.getDataTable()[i][dateHimObr_Colum] == null) {
+		if (OverallVariablesAddResults.getDataTable()[i][dateHimObr_Colum] == null) {
 			result.setDate_chim_oper("");
 		} else {
-			result.setDate_chim_oper(OverallVariables.getDataTable()[i][dateHimObr_Colum].toString());
+			result.setDate_chim_oper(OverallVariablesAddResults.getDataTable()[i][dateHimObr_Colum].toString());
 		}
-		result.setDate_measur(OverallVariables.getDataTable()[i][dateAnaliz_Colum].toString());
+		result.setDate_measur(OverallVariablesAddResults.getDataTable()[i][dateAnaliz_Colum].toString());
 		result.setDate_redac(RequestViewFunction.DateNaw(false));
-		result.setInProtokol((Boolean) OverallVariables.getDataTable()[i][in_Prot_Colum]);
-		result.setMda(Double.parseDouble(OverallVariables.getDataTable()[i][mda_Colum].toString()));
-		result.setQuantity(Double.parseDouble(OverallVariables.getDataTable()[i][qunt_Colum].toString()));
-		result.setSigma(Integer.parseUnsignedInt(OverallVariables.getDataTable()[i][sigma_Colum].toString()));
-		result.setUncertainty(Double.parseDouble(OverallVariables.getDataTable()[i][uncrt_Colum].toString()));
-		result.setValue_result(Double.parseDouble(OverallVariables.getDataTable()[i][actv_value_Colum].toString()));
-		result.setTsi(TSI_DAO.getValueTSIByName(OverallVariables.getDataTable()[i][TSI_Colum].toString()));
-		if ((OverallVariables.getDataTable()[i][dimen_Colum].equals(""))) {
+		result.setInProtokol((Boolean) OverallVariablesAddResults.getDataTable()[i][in_Prot_Colum]);
+		result.setMda(Double.parseDouble(OverallVariablesAddResults.getDataTable()[i][mda_Colum].toString()));
+		result.setQuantity(Double.parseDouble(OverallVariablesAddResults.getDataTable()[i][qunt_Colum].toString()));
+		result.setSigma(Integer.parseUnsignedInt(OverallVariablesAddResults.getDataTable()[i][sigma_Colum].toString()));
+		result.setUncertainty(Double.parseDouble(OverallVariablesAddResults.getDataTable()[i][uncrt_Colum].toString()));
+		result.setValue_result(Double.parseDouble(OverallVariablesAddResults.getDataTable()[i][actv_value_Colum].toString()));
+		result.setTsi(TSI_DAO.getValueTSIByName(OverallVariablesAddResults.getDataTable()[i][TSI_Colum].toString()));
+		if ((OverallVariablesAddResults.getDataTable()[i][dimen_Colum].equals(""))) {
 			result.setDimension(null);
 		} else {
-			result.setDimension(DimensionDAO.getValueDimensionByName(OverallVariables.getDataTable()[i][dimen_Colum].toString()));
+			result.setDimension(DimensionDAO.getValueDimensionByName(OverallVariablesAddResults.getDataTable()[i][dimen_Colum].toString()));
 		}
 		result.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
-		Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(OverallVariables.getDataTable()[i][nuclide_Colum].toString());
+		Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(OverallVariablesAddResults.getDataTable()[i][nuclide_Colum].toString());
 		result.setNuclide(nuclide);
 		result.setPokazatel(
 				List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem()));
-		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(OverallVariables.getDataTable()[i][razm_Colum].toString()));
+		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(OverallVariablesAddResults.getDataTable()[i][razm_Colum].toString()));
 		result.setSample(sample);
 		String choiceUser = choiceORHO.getSelectedItem();
-		for (Users user : OverallVariables.getList_Users()) {
+		for (Users user : OverallVariablesAddResults.getList_Users()) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
 					&& choiceUser.substring(choiceUser.indexOf(" ") + 1).equals(user.getFamily_users())) {
 				result.setUser_chim_oper(user);
 			}
 		}
 		choiceUser = choiceOIR.getSelectedItem();
-		for (Users user : OverallVariables.getList_Users()) {
+		for (Users user : OverallVariablesAddResults.getList_Users()) {
 			if (choiceUser.substring(0, choiceUser.indexOf(" ")).equals(user.getName_users())
 					&& choiceUser.substring(choiceUser.indexOf(" ") + 1).equals(user.getFamily_users())) {
 				result.setUser_measur(user);
 			}
 		}
-		result.setUser_redac(OverallVariables.getUser_Redac());
+		result.setUser_redac(OverallVariablesAddResults.getUser_Redac());
 		result.setZabelejki(null);
 
 		if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {

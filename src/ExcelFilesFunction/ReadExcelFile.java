@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import Aplication.DimensionDAO;
 import Aplication.NuclideDAO;
 import Aplication.RazmernostiDAO;
+import DBase_Class.Dobiv;
 import DBase_Class.Results;
 import WindowView.ReadGamaFile;
 
@@ -171,6 +172,37 @@ public class ReadExcelFile {
 
 	}
 
+	public static Dobiv[] getMasivDobivsFromExcelFile(List<Destruct_Result> list_destruct_Result,
+			List<String> listSimbolBasicNuclide) {
+		String[][] masiveActiveResults = getMasivNuclideFromExcelFile(list_destruct_Result);
+		List<Dobiv> listDobivs = new ArrayList<Dobiv>();
+		for (int i = 0; i < masiveActiveResults.length; i++) {
+			String nuclideResult = masiveActiveResults[i][2].trim();
+			for (String nuclideBasic : listSimbolBasicNuclide) {
+				if (nuclideResult.equals(nuclideBasic)) {
+					try {
+						Dobiv dobiv = new Dobiv();
+						dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
+						dobiv.setValue_result(Double.parseDouble(masiveActiveResults[i][3]));
+						dobiv.setUncertainty(Double.parseDouble(masiveActiveResults[i][4]));
+						dobiv.setDate_measur("");
+						dobiv.setDate_chim_oper("");
+						dobiv.setTsi(ReadGamaFile.getTSIObjectFromFileString(masiveActiveResults[i][7]));
+						
+						listDobivs.add(dobiv);
+
+					} catch (NumberFormatException e) {
+					}
+			}
+			}
+		}
+		Dobiv[] masiveDobivsnew = new Dobiv[listDobivs.size()];
+		for (int j = 0; j < listDobivs.size(); j++) {
+			masiveDobivsnew[j] = listDobivs.get(j);
+		}
+		return masiveDobivsnew;
+	}
+	
 	public static Results[] getMasivResultsFromExcelFile(List<Destruct_Result> list_destruct_Result,
 			List<String> listSimbolBasicNuclide) {
 		String[][] masiveActiveResults = getMasivNuclideFromExcelFile(list_destruct_Result);

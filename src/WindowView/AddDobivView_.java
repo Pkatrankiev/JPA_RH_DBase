@@ -12,32 +12,19 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import AddDobivViewFunction.AddDobivViewMetods;
 import AddDobivViewFunction.ChoiceORHODobivSection;
@@ -51,18 +38,7 @@ import AddDobivViewFunction.btnDataFromDBaseAddDobiv_Section;
 import AddDobivViewFunction.btnOpenFileAddDobivSection;
 import AddDobivViewFunction.btnPaneAddDobivSection;
 import AddDobivViewFunction.btnTabFromFileAddDobivSection;
-import AddResultViewFunction.btnOpenFileSection;
-import Aplication.DobivDAO;
-import Aplication.Izpitvan_produktDAO;
-import Aplication.MetodyDAO;
-import Aplication.NuclideDAO;
-import Aplication.TSI_DAO;
-import DBase_Class.Dobiv;
-import DBase_Class.Metody;
-import DBase_Class.Nuclide;
 import DBase_Class.Users;
-import ExcelFilesFunction.Destruct_Result;
-import ExcelFilesFunction.ReadExcelFile;
 
 public class AddDobivView_ extends JDialog {
 
@@ -401,7 +377,7 @@ public class AddDobivView_ extends JDialog {
 	
 		
 	@SuppressWarnings("serial")
-	public static void ViewTableInPanel(AddDobivView_ addDobivView, JPanel panel, TranscluentWindow round, Boolean isNewRow) {
+	public static void ViewTableInPanel(AddDobivView_ addDobivView, JPanel panel,  Boolean isNewRow) {
 		
 		if (scrollTablePane != null) {
 			scrollTablePane.removeNotify();
@@ -463,7 +439,7 @@ public class AddDobivView_ extends JDialog {
 //		panel.validate();
 //		panel.repaint();
 		
-		round.StopWindow();
+		
 		
 		addDobivView.setSize(1100, (countRowTabDobivs * rowWidth) + 340);
 		addDobivView.setLocationRelativeTo(null);
@@ -484,8 +460,9 @@ public class AddDobivView_ extends JDialog {
 		btnDataFromDBaseAddDobiv_Section.btnDataFromDBaseListener(addDobivView, basic_panel, btnDataFromDBase,  choiceMetody,  choiceOIR, 
 				 choiceORHO,  txtStandartCode);
 		btnPaneAddDobivSection.saveButtonListener(okButton, addDobivView, choiceOIR, choiceORHO, txtBasicValueResult, choiceIzpitProd, txtStandartCode, choiceMetody, textFieldDobivDescrip, lblNameMetod);
-		btnOpenFileAddDobivSection.btnOpenFileListener( btnOpenFile, txtBasicValueResult);
-		addNewRowInTableAddDobiv.btmAddRowInTableAddDobivListener( basic_panel,  btnAddRow);
-		btnTabFromFileAddDobivSection.btnTabFromFileListener( basic_panel,  btnTabFromFile,   choiceMetody);
+		btnOpenFileAddDobivSection.btnOpenFileListener(  btnOpenFile,  fileChooser, txtBasicValueResult,  txtStandartCode,  choiceMetody);
+		addNewRowInTableAddDobiv.btmAddRowInTableAddDobivListener(addDobivView, basic_panel,  btnAddRow);
+		btnTabFromFileAddDobivSection.btnTabFromFileListener(  addDobivView,  basic_panel,  btnTabFromFile,  
+				 choiceMetody,  txtStandartCode);
 	}
 }

@@ -22,7 +22,7 @@ public class DobivSection {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (choiceDobiv.getSelectedItem() == null)
-					setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv,lbl_StoinostiFromDobiv, false);
+					setValueInChoiceDobiv(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv,lbl_StoinostiFromDobiv, false);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 
@@ -35,7 +35,7 @@ public class DobivSection {
 			public void mouseEntered(MouseEvent e) {
 				choiceDobiv.setBackground(Color.WHITE);
 				if (choiceDobiv.getSelectedItem().trim().isEmpty()) {
-					setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
+					setValueInChoiceDobiv(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 				}
@@ -47,7 +47,7 @@ public class DobivSection {
 
 			public void mousePressed(MouseEvent e) {
 				if (choiceDobiv.getSelectedItem().trim().isEmpty()) {
-					setValueInChoiceDobiv(OverallVariables.getSelectedMetod(), choiceDobiv,lbl_StoinostiFromDobiv, false);
+					setValueInChoiceDobiv(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv,lbl_StoinostiFromDobiv, false);
 				lbl_StoinostiFromDobiv
 						.setText(generate_strStoinostiDobiv_Nuclide(choiceDobiv));
 				}  
@@ -62,8 +62,8 @@ public class DobivSection {
 		choiceDobiv.removeAll();
 		choiceDobiv.addItem("");
 		
-		OverallVariables.setListDobivFromMetod ( DobivDAO.getListDobivByMetody(selectedMetod));
-		for (Dobiv str : OverallVariables.getListDobivFromMetod()) {
+		OverallVariablesAddResults.setListDobivFromMetod ( DobivDAO.getListDobivByMetody(selectedMetod));
+		for (Dobiv str : OverallVariablesAddResults.getListDobivFromMetod()) {
 			choiceDobiv.addItem(str.getCode_Standart());
 		}
 		lbl_StoinostiFromDobiv

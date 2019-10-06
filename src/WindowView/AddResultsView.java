@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
 import AddResultViewFunction.SampleCodeSection;
-import AddResultViewFunction.OverallVariables;
+import AddResultViewFunction.OverallVariablesAddResults;
 import AddResultViewFunction.AddresultViewMetods;
 import AddResultViewFunction.RequestCodeSection;
 import AddResultViewFunction.PokazatelSection;
@@ -91,7 +91,7 @@ public class AddResultsView extends JDialog {
 	public AddResultsView(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
 //		setResizable(false);
-		OverallVariables.clearAllVariables();
+		OverallVariablesAddResults.clearAllVariables();
 		AddresultViewMetods.BasicDataInport(user);
 		
 		setSize(frameLight, (countRowTabResults * rowWidth) + 340);
@@ -334,7 +334,7 @@ public class AddResultsView extends JDialog {
 	private void btnDataFromDBaseSection() {
 
 		btnDataFromDBase = new JButton("Данни от базата");
-		btnDataFromDBase.setBackground(OverallVariables.getColorFromDBase());
+		btnDataFromDBase.setBackground(OverallVariablesAddResults.getColorFromDBase());
 		GridBagConstraints gbc_btnDataFromDBase = new GridBagConstraints();
 		gbc_btnDataFromDBase.gridwidth = 2;
 		gbc_btnDataFromDBase.anchor = GridBagConstraints.EAST;
@@ -382,7 +382,7 @@ public class AddResultsView extends JDialog {
 	private void btnTabFromFile() {
 
 		btnTabFromFile = new JButton("Данни от файл");
-		btnTabFromFile.setBackground(OverallVariables.getColorFromFile());
+		btnTabFromFile.setBackground(OverallVariablesAddResults.getColorFromFile());
 		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
 		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
 		gbc_btnTabFromFile.insets = new Insets(0, 0, 5, 5);
@@ -467,7 +467,7 @@ public class AddResultsView extends JDialog {
 		
 		tableResults = AddresultViewMetods.CreateTableResults(isNewRow,  btnAddRow,  header, 
 				choiceSmplCode);
-		countRowTabResults = OverallVariables.getDataTable().length;
+		countRowTabResults = OverallVariablesAddResults.getDataTable().length;
 		tableResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 		private static final long serialVersionUID = 1L;
 
@@ -494,9 +494,9 @@ public class AddResultsView extends JDialog {
 //		tabResults.repaint();
 		header = tableResults.getTableHeader();
 	
-		header.setBackground(OverallVariables.getColorFromFile());
-		if(OverallVariables.getFromDBase()){
-			header.setBackground(OverallVariables.getColorFromDBase());
+		header.setBackground(OverallVariablesAddResults.getColorFromFile());
+		if(OverallVariablesAddResults.getFromDBase()){
+			header.setBackground(OverallVariablesAddResults.getColorFromDBase());
 		}
 		
 		panelTable.add(header, BorderLayout.NORTH);

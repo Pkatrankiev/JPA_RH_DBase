@@ -23,13 +23,13 @@ public class TableHeaderMouseListener extends MouseAdapter {
 		int column = table.columnAtPoint(point);
 		if (column == AddresultViewMetods.getDateAnaliz_Colum() || column == AddresultViewMetods.getDateHimObr_Colum()) {
 			String date_choice = getDateFromDatePicker(table, column);
-			for (int i = 0; i < OverallVariables.getDataTable().length; i++) {
+			for (int i = 0; i < OverallVariablesAddResults.getDataTable().length; i++) {
 				table.setValueAt(date_choice, i, column);
 			}
 		}
 		if (column == AddresultViewMetods.getQunt_Colum()) {
 			String date_choice = getStringOfQuantyti(table, column);
-			for (int i = 0; i < OverallVariables.getDataTable().length; i++) {
+			for (int i = 0; i < OverallVariablesAddResults.getDataTable().length; i++) {
 				table.setValueAt(date_choice, i, column);
 			}
 		}

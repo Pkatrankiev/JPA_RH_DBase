@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 public class ChoiceORHO_Section {
 
 	public static void addItemInChoiceORHO(Choice choiceORHO) {
-		for (String str : OverallVariables.getList_UsersNameFamilyORHO()) {
+		for (String str : OverallVariablesAddResults.getList_UsersNameFamilyORHO()) {
 			choiceORHO.addItem(str);
 		}
 	}

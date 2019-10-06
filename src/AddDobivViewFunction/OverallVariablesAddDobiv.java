@@ -7,6 +7,7 @@ import DBase_Class.Dobiv;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Users;
+import ExcelFilesFunction.Destruct_Result;
 
 public class OverallVariablesAddDobiv {
 
@@ -18,6 +19,7 @@ public class OverallVariablesAddDobiv {
 	private static List<String> listStandartCodeAllDobiv ;
 	private static List<String> listSimbolBasikNulide;
 	private static List<Nuclide> listNuclideToMetod;
+	private static List<Destruct_Result> destruct_Result_List;
 	
 	private static String[] masuveSimbolBasikNuclide;
 	private static String[] masive_NuclideToMetod;
@@ -197,6 +199,14 @@ public class OverallVariablesAddDobiv {
 
 	public static void setFromDBase(Boolean fromDBase) {
 		OverallVariablesAddDobiv.fromDBase = fromDBase;
+	}
+
+	public static List<Destruct_Result> getDestruct_Result_List() {
+		return destruct_Result_List;
+	}
+
+	public static void setDestruct_Result_List(List<Destruct_Result> destruct_Result_List) {
+		OverallVariablesAddDobiv.destruct_Result_List = destruct_Result_List;
 	}
 
 	

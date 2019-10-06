@@ -22,13 +22,13 @@ public class btnTabFromFileSection {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (OverallVariables.getFlagIncertedFile()) {
+				if (OverallVariablesAddResults.getFlagIncertedFile()) {
 										
 					AddresultViewMetods.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
-							OverallVariables.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
+							OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
-							int switCase =selestTypeReadFileByChoiceMetod(basic_panel, OverallVariables.getSelectedMetod());
+							int switCase =selestTypeReadFileByChoiceMetod(basic_panel, OverallVariablesAddResults.getSelectedMetod());
 							System.out.println(switCase+ " switCase------------------------------------------------");
 							switch (switCase) {
 							case 10:
@@ -39,7 +39,7 @@ public class btnTabFromFileSection {
 								String str = user.getName_users() + " " + user.getFamily_users();
 								choiceOIR.select(str);
 								Object[][] ss = AddresultViewMetods.CreatedataTableFromGeany2kFile(choicePokazatel);
-								OverallVariables.setFromDBase(false);
+								OverallVariablesAddResults.setFromDBase(false);
 								AddresultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
 								}
 								break;
@@ -47,9 +47,9 @@ public class btnTabFromFileSection {
 							case 0:
 								String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
 								if (AddresultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
-								if( AddresultViewMetods.checkForKoretMetod(OverallVariables.getDestruct_Result_List(), choiceMetody)){
+								if( AddresultViewMetods.checkForKoretMetod(OverallVariablesAddResults.getDestruct_Result_List(), choiceMetody)){
 								Object[][] ssExcel = AddresultViewMetods.CreatedataTableFromExcelFile( choicePokazatel);
-								OverallVariables.setFromDBase(false);
+								OverallVariablesAddResults.setFromDBase(false);
 								AddresultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
 								}
 								}
@@ -81,7 +81,7 @@ public class btnTabFromFileSection {
 	
 	private static void checkFor10SysError() {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
-		if (OverallVariables.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
+		if (OverallVariablesAddResults.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
 				&& Double.compare(sysError, 10.00) != 0) {
 			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
 					"Грешни данни", JOptionPane.ERROR_MESSAGE);

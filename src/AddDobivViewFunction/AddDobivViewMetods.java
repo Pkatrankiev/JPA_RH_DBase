@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -42,6 +42,7 @@ import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
+import DBase_Class.Results;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import WindowView.AddDobivView_;
@@ -203,6 +204,19 @@ public class AddDobivViewMetods {
 		return rowFromTableDobiv;
 	}
 
+	static Object[] rowWithValueDobivsFromFile(Dobiv dobiv) {
+		Object[] rowFromTableDobiv = new Object[tbl_Colum];
+		rowFromTableDobiv[nuclide_Colum] = dobiv.getNuclide().getSymbol_nuclide();
+		rowFromTableDobiv[actv_value_Colum] = dobiv.getValue_result();
+		rowFromTableDobiv[uncrt_Colum] = dobiv.getUncertainty();
+			rowFromTableDobiv[TSI_Colum] = dobiv.getTsi().getName();
+		rowFromTableDobiv[dateHimObr_Colum] = dobiv.getDate_chim_oper();
+		rowFromTableDobiv[dateAnaliz_Colum] = dobiv.getDate_measur();
+		rowFromTableDobiv[check_Colum] = "Провери";
+		rowFromTableDobiv[dobiv_Id_Colum] = null;
+		return rowFromTableDobiv;
+	}
+	
 	public static JTable CreateTableDobivs(Boolean isNewRow) {
 
 		String[] columnNames = getTabHeader();
@@ -481,13 +495,19 @@ public class AddDobivViewMetods {
 	public static Dobiv creadDobivObject(int i, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip) {
 		Dobiv dobiv;
+		System.out.println(OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]);
 		if (OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum] == null) {
-			dobiv = new Dobiv();
+			dobiv = creadDobivsObject(i, new Dobiv(), choiceOIR, choiceORHO,  txtBasicValueResult,
+					 choiceIzpitProd,  txtStandartCode,  choiceMetody, textFieldDobivDescrip);
+					
 		} else {
-			dobiv = DobivDAO.getDobivById((int) OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]);
+			dobiv =creadDobivsObject(i, DobivDAO.getDobivById((int) OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]), 
+					choiceOIR, choiceORHO,  txtBasicValueResult,
+					 choiceIzpitProd,  txtStandartCode,  choiceMetody, textFieldDobivDescrip);
+					
 		}
-		return creadDobivsObject(i, dobiv, choiceOIR, choiceORHO,  txtBasicValueResult,
-				 choiceIzpitProd,  txtStandartCode,  choiceMetody, textFieldDobivDescrip);
+		dobiv.setDate_redac("");
+		return dobiv;
 	}
 
 	public static Dobiv creadDobivsObject(int i, Dobiv dobiv, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
@@ -593,7 +613,7 @@ public class AddDobivViewMetods {
 		
 		List<List_izpitvan_pokazatel> listIzpPokazatel = getListList_izpitvan_pokazatelToMetod(choiceMetody);
 		List<Nuclide_to_Pokazatel> listNucToPok = getListNuklideToPokazatel(listIzpPokazatel);
-		List<String> listSimbolBasicNuclide =  AddresultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
+		List<String> listSimbolBasicNuclide =  AddResultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
 		// masuveSimbolNuclide =
 		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Dobiv[] masiveResultsFromFile = ReadExcelFile
@@ -602,7 +622,7 @@ public class AddDobivViewMetods {
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
 
 		for (int i = 0; i < masiveResultsFromFile.length; i++) {
-			tableResult[i] = rowWithValueDobivs(masiveResultsFromFile[i]);
+			tableResult[i] = rowWithValueDobivsFromFile(masiveResultsFromFile[i]);
 
 		}
 		return tableResult;

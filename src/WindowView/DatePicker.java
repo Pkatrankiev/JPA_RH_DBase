@@ -616,7 +616,7 @@ public class DatePicker {
 			separator = '-';
 		}
 
-		if (!origin_date.substring(0, 3).contains(".")) {
+		if (origin_date.length()>3 && !origin_date.substring(0, 3).contains(".")) {
 			return origin_date;
 		}
 
@@ -637,7 +637,9 @@ public class DatePicker {
 		Date date = new Date();
 
 		try {
+			if(origin_date.length()>3){
 			date = sdf.parse(origin_date);
+			}
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);

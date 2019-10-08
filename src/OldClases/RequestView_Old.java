@@ -81,7 +81,7 @@ import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -1485,12 +1485,12 @@ import javax.swing.BoxLayout;
 				public void actionPerformed(ActionEvent arg0) {
 					if (checkRequest()) {
 
-						AddresultViewMetods.setWaitCursor(p);
+						AddResultViewMetods.setWaitCursor(p);
 						AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
 						request = createAndSaveRequest();
 						saveSample();
 						SaveIzpitvanPokazatel();
-						AddresultViewMetods.setDefaultCursor(p);
+						AddResultViewMetods.setDefaultCursor(p);
 						setVisible(false);
 					}
 				}

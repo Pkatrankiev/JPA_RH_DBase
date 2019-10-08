@@ -9,7 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 import ExcelFilesFunction.ReadExcelFile;
 import WindowView.ReadGamaFile;
 
@@ -27,7 +27,7 @@ public class btnOpenFileAddDobivSection {
 					String fileName = fileChooser.getSelectedFile().toString();
 					String codeDobiv = txtStandartCode.getText();
 					
-					if (AddresultViewMetods.checkKorektFileName(fileName, codeDobiv)) {
+					if (AddResultViewMetods.checkKorektFileName(fileName, codeDobiv)) {
 					
 					txtBasicValueResult.setText(fileName);
 					System.out.println(codeDobiv+"   "+fileName);
@@ -37,7 +37,8 @@ public class btnOpenFileAddDobivSection {
 						ReadGamaFile.getReadGamaFile(fileName);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
-						OverallVariablesAddDobiv.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName));
+						Boolean forResults = false;
+						OverallVariablesAddDobiv.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName, forResults));
 						sizeExcelList = OverallVariablesAddDobiv.getDestruct_Result_List().size();
 					}
 					

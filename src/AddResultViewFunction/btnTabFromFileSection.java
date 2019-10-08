@@ -24,7 +24,7 @@ public class btnTabFromFileSection {
 
 				if (OverallVariablesAddResults.getFlagIncertedFile()) {
 										
-					AddresultViewMetods.setWaitCursor(basic_panel);
+					AddResultViewMetods.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
@@ -33,24 +33,24 @@ public class btnTabFromFileSection {
 							switch (switCase) {
 							case 10:
 								String codeSamampleFromGamaFile = ReadGamaFile.getCod_sample();
-								if (AddresultViewMetods.checkKorektFileName(codeSamampleFromGamaFile, codeSamample)) {
+								if (AddResultViewMetods.checkKorektFileName(codeSamampleFromGamaFile, codeSamample)) {
 								checkFor10SysError();
 								Users user = ReadGamaFile.getUserFromFile();
 								String str = user.getName_users() + " " + user.getFamily_users();
 								choiceOIR.select(str);
-								Object[][] ss = AddresultViewMetods.CreatedataTableFromGeany2kFile(choicePokazatel);
+								Object[][] ss = AddResultViewMetods.CreatedataTableFromGeany2kFile(choicePokazatel);
 								OverallVariablesAddResults.setFromDBase(false);
-								AddresultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
+								AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
 								}
 								break;
 
 							case 0:
 								String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
-								if (AddresultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
-								if( AddresultViewMetods.checkForKoretMetod(OverallVariablesAddResults.getDestruct_Result_List(), choiceMetody)){
-								Object[][] ssExcel = AddresultViewMetods.CreatedataTableFromExcelFile( choicePokazatel);
+								if (AddResultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
+								if( AddResultViewMetods.checkForKoretMetod(OverallVariablesAddResults.getDestruct_Result_List(), choiceMetody)){
+								Object[][] ssExcel = AddResultViewMetods.CreatedataTableFromExcelFile( choicePokazatel);
 								OverallVariablesAddResults.setFromDBase(false);
-								AddresultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
+								AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
 								}
 								}
 								break;
@@ -60,7 +60,7 @@ public class btnTabFromFileSection {
 									JOptionPane.ERROR_MESSAGE);
 						}
 					
-						AddresultViewMetods.setDefaultCursor(basic_panel);
+						AddResultViewMetods.setDefaultCursor(basic_panel);
 				} else {
 					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
 							JOptionPane.ERROR_MESSAGE);

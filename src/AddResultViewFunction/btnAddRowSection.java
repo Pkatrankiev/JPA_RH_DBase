@@ -11,7 +11,7 @@ public class btnAddRowSection {
 	public static void btmAddRowListener(AddResultsView addResultsViewWithTable, JButton btnAddRow, Choice choicePokazatel) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddresultViewMetods.AddNewRowIn_dataTable(choicePokazatel);
+				AddResultViewMetods.AddNewRowIn_dataTable(choicePokazatel);
 				Boolean isNewRow = true;
 				AddResultsView.ViewTableInPanel( addResultsViewWithTable,isNewRow);
 			}

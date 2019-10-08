@@ -41,7 +41,7 @@ public class ReadExcelFile {
 				+ destruct_Result.getUncert();
 	}
 
-	public static List<Destruct_Result> getDestruct_Result_ListFromExcelFile(String FILE_PATH) {
+	public static List<Destruct_Result> getDestruct_Result_ListFromExcelFile(String FILE_PATH, Boolean forResults) {
 
 		DataFormatter formatter = new DataFormatter();
 		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
@@ -126,9 +126,11 @@ public class ReadExcelFile {
 							if (endNuclideRsult) {
 								double dub_MDA = Double.valueOf(mda);
 								double dub_result = Double.valueOf(result);
+								if(forResults){
 								if(dub_MDA > dub_result) {
 									result = "0.0";
 									uncert = "0.0";
+								}
 								}
 								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, uncert, mda,
 										tsi, quantity, dimencion));

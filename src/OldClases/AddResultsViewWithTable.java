@@ -17,7 +17,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import AddDobivViewFunction.AddDobivViewMetods;
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 import AddResultViewFunction.MesejePanelInAddResultsFuncion;
 import Aplication.DimensionDAO;
 import Aplication.DobivDAO;
@@ -345,7 +345,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 				if (checkDataResult()) {
 					updateIzpitvanPokazatelObjectInDBase();
-					AddresultViewMetods.setWaitCursor(panel);
+					AddResultViewMetods.setWaitCursor(panel);
 
 					Sample samp = getSampleObjectFromChoiceSampleCode();
 					ListResultsFromDBase = creadListResultsObjects_ChoiseSample(samp);
@@ -358,7 +358,7 @@ public class AddResultsViewWithTable extends JDialog {
 					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
-						AddresultViewMetods.setWaitCursor(panel);
+						AddResultViewMetods.setWaitCursor(panel);
 						for (Results results : resultListForSave) {
 							int idresultInBase = existsNuclideInResultTOResultBase(ListResultsFromDBase, results);
 							if (idresultInBase != 0) {
@@ -1280,7 +1280,8 @@ public class AddResultsViewWithTable extends JDialog {
 						ReadGamaFile.getReadGamaFile(fileName);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
-						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName);
+						Boolean forResults = true;
+						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName, forResults);
 						sizeExcelList = destruct_Result_List.size();
 					}
 					
@@ -1442,7 +1443,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 				if (flagIncertedFile) {
 										
-					AddresultViewMetods.setWaitCursor(basic_panel);
+					AddResultViewMetods.setWaitCursor(basic_panel);
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							selectedMetod = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();

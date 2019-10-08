@@ -17,12 +17,12 @@ public class btnDataFromDBaseSection {
 		
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddresultViewMetods.setWaitCursor(basic_panel);
+				AddResultViewMetods.setWaitCursor(basic_panel);
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 					DobivSection.setValueInChoiceDobiv(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv, false);
 
-					Results[] masiveResultsForChoiceSample = AddresultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
+					Results[] masiveResultsForChoiceSample = AddResultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
 							SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode), choicePokazatel);
 					if (masiveResultsForChoiceSample.length > 0) {
 						if (masiveResultsForChoiceSample[0].getUser_measur() != null) {
@@ -46,8 +46,8 @@ public class btnDataFromDBaseSection {
 					}
 					
 					OverallVariablesAddResults.setFromDBase(true);
-					AddresultViewMetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
-					AddresultViewMetods.setDefaultCursor(basic_panel);
+					AddResultViewMetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
+					AddResultViewMetods.setDefaultCursor(basic_panel);
 				}
 			}
 

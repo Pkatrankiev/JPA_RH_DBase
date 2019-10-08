@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 import DBase_Class.Metody;
 import ExcelFilesFunction.ReadExcelFile;
 import WindowView.AddDobivView_;
@@ -24,7 +24,7 @@ public class btnTabFromFileAddDobivSection {
 				
 				if (OverallVariablesAddDobiv.getFlagIncertedFile()) {
 					
-					AddresultViewMetods.setWaitCursor(basic_panel);
+					AddResultViewMetods.setWaitCursor(basic_panel);
 					if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 						int switCase =selestTypeReadFileByChoiceMetod(basic_panel, OverallVariablesAddDobiv.getSelectedMetod());
 						
@@ -59,8 +59,8 @@ public class btnTabFromFileAddDobivSection {
 					case 0:
 						String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
 						String standartCode = txtStandartCode.getText();
-						if (AddresultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, standartCode)) {
-						if( AddresultViewMetods.checkForKoretMetod(OverallVariablesAddDobiv.getDestruct_Result_List(), choiceMetody)){
+						if (AddResultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, standartCode)) {
+						if( AddResultViewMetods.checkForKoretMetod(OverallVariablesAddDobiv.getDestruct_Result_List(), choiceMetody)){
 						Object[][] ssExcel = AddDobivViewMetods.CreateDataTableDobivFromExcelFile(choiceMetody);
 						OverallVariablesAddDobiv.setFromDBase(false);
 //						AddDobivViewMetods.startViewtablePanel(  addDobivView,  masiveDobivForMetod,  basic_panel);
@@ -72,7 +72,7 @@ public class btnTabFromFileAddDobivSection {
 					} else {
 						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
 					}
-					AddresultViewMetods.setDefaultCursor(basic_panel);
+					AddResultViewMetods.setDefaultCursor(basic_panel);
 				} else {
 					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
 				}

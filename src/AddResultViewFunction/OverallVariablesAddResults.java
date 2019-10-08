@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.plaf.ColorUIResource;
+
 import DBase_Class.Dobiv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;
@@ -47,8 +49,10 @@ public class OverallVariablesAddResults {
 	private static Boolean flagIncertedFile = false;
 	private static Boolean fromDBase = false;
 	
-	private static Color colorFromDBase = new Color(200, 255, 200);
-	private static Color colorFromFile = new Color(200, 255, 255);
+	private static Color colorFromDBase = new Color(0, 120, 0);
+	private static Color colorFromFile = new Color(0, 0, 255);
+	
+	
 
 
 	public static void clearAllVariables() {

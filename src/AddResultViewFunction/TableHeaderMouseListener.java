@@ -21,13 +21,13 @@ public class TableHeaderMouseListener extends MouseAdapter {
 	public void mouseClicked(MouseEvent event) {
 		Point point = event.getPoint();
 		int column = table.columnAtPoint(point);
-		if (column == AddresultViewMetods.getDateAnaliz_Colum() || column == AddresultViewMetods.getDateHimObr_Colum()) {
+		if (column == AddResultViewMetods.getDateAnaliz_Colum() || column == AddResultViewMetods.getDateHimObr_Colum()) {
 			String date_choice = getDateFromDatePicker(table, column);
 			for (int i = 0; i < OverallVariablesAddResults.getDataTable().length; i++) {
 				table.setValueAt(date_choice, i, column);
 			}
 		}
-		if (column == AddresultViewMetods.getQunt_Colum()) {
+		if (column == AddResultViewMetods.getQunt_Colum()) {
 			String date_choice = getStringOfQuantyti(table, column);
 			for (int i = 0; i < OverallVariablesAddResults.getDataTable().length; i++) {
 				table.setValueAt(date_choice, i, column);
@@ -38,11 +38,11 @@ public class TableHeaderMouseListener extends MouseAdapter {
 
 	private String getDateFromDatePicker(JTable table, int col) {
 		String date = "";
-		if (col == AddresultViewMetods.getDateAnaliz_Colum()) {
-			date = table.getValueAt(table.getSelectedRow(), AddresultViewMetods.getDateAnaliz_Colum()).toString();
+		if (col == AddResultViewMetods.getDateAnaliz_Colum()) {
+			date = table.getValueAt(table.getSelectedRow(), AddResultViewMetods.getDateAnaliz_Colum()).toString();
 		}
-		if (col == AddresultViewMetods.getDateHimObr_Colum()) {
-			date = table.getValueAt(table.getSelectedRow(), AddresultViewMetods.getDateHimObr_Colum()).toString();
+		if (col == AddResultViewMetods.getDateHimObr_Colum()) {
+			date = table.getValueAt(table.getSelectedRow(), AddResultViewMetods.getDateHimObr_Colum()).toString();
 		}
 		final JFrame f = new JFrame();
 		DatePicker dPicer = new DatePicker(f, false, date);

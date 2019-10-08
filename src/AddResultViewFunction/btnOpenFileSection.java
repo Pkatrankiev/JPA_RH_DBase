@@ -25,7 +25,7 @@ public class btnOpenFileSection {
 					String fileName = fileChooser.getSelectedFile().toString();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
 					
-					if (AddresultViewMetods.checkKorektFileName(fileName, codeSamample)) {
+					if (AddResultViewMetods.checkKorektFileName(fileName, codeSamample)) {
 					
 					txtBasicValueResult.setText(fileName);
 					System.out.println(codeSamample+"   "+fileName);
@@ -35,7 +35,8 @@ public class btnOpenFileSection {
 						ReadGamaFile.getReadGamaFile(fileName);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
-						OverallVariablesAddResults.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName));
+						Boolean forResults = true;
+						OverallVariablesAddResults.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName, forResults));
 						sizeExcelList = OverallVariablesAddResults.getDestruct_Result_List().size();
 					}
 					

@@ -3,6 +3,8 @@ package WindowView;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -12,9 +14,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
+import OldClases.Add_DefaultTableCellRenderer;
+import OldClases.ColorIcon;
 import AddResultViewFunction.SampleCodeSection;
 import AddResultViewFunction.OverallVariablesAddResults;
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 import AddResultViewFunction.RequestCodeSection;
 import AddResultViewFunction.PokazatelSection;
 import AddResultViewFunction.ChoiceORHO_Section;
@@ -38,11 +42,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
 import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
 public class AddResultsView extends JDialog {
 
@@ -91,8 +101,10 @@ public class AddResultsView extends JDialog {
 	public AddResultsView(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Резултати", true);
 //		setResizable(false);
+		
+		GetVisibleLAF(parent);
 		OverallVariablesAddResults.clearAllVariables();
-		AddresultViewMetods.BasicDataInport(user);
+		AddResultViewMetods.BasicDataInport(user);
 		
 		setSize(frameLight, (countRowTabResults * rowWidth) + 340);
 		setLocationRelativeTo(null);
@@ -334,7 +346,7 @@ public class AddResultsView extends JDialog {
 	private void btnDataFromDBaseSection() {
 
 		btnDataFromDBase = new JButton("Данни от базата");
-		btnDataFromDBase.setBackground(OverallVariablesAddResults.getColorFromDBase());
+		btnDataFromDBase.setForeground(OverallVariablesAddResults.getColorFromDBase());
 		GridBagConstraints gbc_btnDataFromDBase = new GridBagConstraints();
 		gbc_btnDataFromDBase.gridwidth = 2;
 		gbc_btnDataFromDBase.anchor = GridBagConstraints.EAST;
@@ -380,9 +392,10 @@ public class AddResultsView extends JDialog {
 	}
 	
 	private void btnTabFromFile() {
-
+//		Icon icon = new ColorIcon(Color.RED, 50, 50);
 		btnTabFromFile = new JButton("Данни от файл");
-		btnTabFromFile.setBackground(OverallVariablesAddResults.getColorFromFile());
+		btnTabFromFile.setForeground(OverallVariablesAddResults.getColorFromFile());
+		btnTabFromFile.setOpaque(true);
 		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
 		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
 		gbc_btnTabFromFile.insets = new Insets(0, 0, 5, 5);
@@ -465,40 +478,18 @@ public class AddResultsView extends JDialog {
 		panelTable.setLayout(new BorderLayout(0, 0));
 
 		
-		tableResults = AddresultViewMetods.CreateTableResults(isNewRow,  btnAddRow,  header, 
+		tableResults = AddResultViewMetods.CreateTableResults(isNewRow,  btnAddRow,  header, 
 				choiceSmplCode);
 		countRowTabResults = OverallVariablesAddResults.getDataTable().length;
-		tableResults.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-		private static final long serialVersionUID = 1L;
+//		tableResults.setDefaultRenderer(Object.class, new Add_DefaultTableCellRenderer());
 
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-					boolean hasFocus, int row, int col) {
-
-				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-				String s1 = table.getValueAt(row, AddresultViewMetods.getActv_value_Colum()).toString();
-				String s2 = table.getValueAt(row, AddresultViewMetods.getMda_Colum()).toString();
-
-				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2))) == 0) {
-					// setBackground(Color.BLACK);
-					setForeground(Color.LIGHT_GRAY);
-				} else {
-					// setBackground(table.getBackground());
-					setForeground(table.getForeground());
-				}
-				return this;
-			}
-		});
-	
-//		tabResults.validate();
-//		tabResults.repaint();
 		header = tableResults.getTableHeader();
 	
-		header.setBackground(OverallVariablesAddResults.getColorFromFile());
+		header.setForeground(OverallVariablesAddResults.getColorFromFile());
 		if(OverallVariablesAddResults.getFromDBase()){
-			header.setBackground(OverallVariablesAddResults.getColorFromDBase());
+			header.setForeground(OverallVariablesAddResults.getColorFromDBase());
 		}
-		
+		SwingUtilities.updateComponentTreeUI(addResultsViewWithTable);
 		panelTable.add(header, BorderLayout.NORTH);
 		panelTable.add(tableResults, BorderLayout.CENTER);
 
@@ -560,7 +551,15 @@ public class AddResultsView extends JDialog {
 
 	
 
-	
+	private void GetVisibleLAF(JFrame win) {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			SwingUtilities.updateComponentTreeUI(win);
+			this.pack();
+		} catch (Exception ex) {
+			Logger.getLogger(JFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
 	
 	

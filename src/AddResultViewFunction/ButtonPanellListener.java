@@ -33,21 +33,21 @@ import WindowView.AddResultsView;
 				if (checkDataResult(txtRqstCode, choicePokazatel, choiceMetody,
 						choiceOIR,choiceORHO,  choiceDobiv)) {
 					updateIzpitvanPokazatelObjectInDBase(choicePokazatel, choiceMetody);
-					AddresultViewMetods.setWaitCursor(basic_panel);
+					AddResultViewMetods.setWaitCursor(basic_panel);
 
 					Sample samp = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
 					OverallVariablesAddResults.setListResultsFromDBase ( creadListResultsObjects_ChoiseSample(samp,  choicePokazatel));
-					OverallVariablesAddResults.setResultListForDelete ( AddresultViewMetods.creadResultListForDelete(samp));
-					OverallVariablesAddResults.setResultListForSave ( AddresultViewMetods.creadResultListForSave( samp, txtBasicValueResult,
+					OverallVariablesAddResults.setResultListForDelete ( AddResultViewMetods.creadResultListForDelete(samp));
+					OverallVariablesAddResults.setResultListForSave ( AddResultViewMetods.creadResultListForSave( samp, txtBasicValueResult,
 							 choiceMetody,  choicePokazatel,  choiceORHO,  choiceOIR,  choiceDobiv));
 
-					AddresultViewMetods.setDefaultCursor(basic_panel);
+					AddResultViewMetods.setDefaultCursor(basic_panel);
 
 					new MesejePanelInAddResultsFuncion(OverallVariablesAddResults.getResultListForSave(), OverallVariablesAddResults.getResultListForDelete());
 					int k = MesejePanelInAddResultsFuncion.getResultMeseje();
 
 					if (k == 0) {
-						AddresultViewMetods.setWaitCursor(basic_panel);
+						AddResultViewMetods.setWaitCursor(basic_panel);
 						for (Results results : OverallVariablesAddResults.getResultListForSave()) {
 							int idresultInBase = existsNuclideInResultTOResultBase(OverallVariablesAddResults.getListResultsFromDBase(), results);
 							if (idresultInBase != 0) {
@@ -61,11 +61,11 @@ import WindowView.AddResultsView;
 							ResultsDAO.deleteResultsById(results.getId_results());
 						}
 
-						OverallVariablesAddResults.setListSimbolBasikNulide ( AddresultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
-						Results[] masiveResultsForChoiceSample = AddresultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
+						OverallVariablesAddResults.setListSimbolBasikNulide ( AddResultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
+						Results[] masiveResultsForChoiceSample = AddResultViewMetods.creadMasiveFromResultsObjects_ChoiseSample(
 								SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode),  choicePokazatel);
 						startViewtablePanel(addResultsViewWithTable,basic_panel,  masiveResultsForChoiceSample);
-						AddresultViewMetods.setDefaultCursor(basic_panel);
+						AddResultViewMetods.setDefaultCursor(basic_panel);
 					}
 
 				}
@@ -87,15 +87,15 @@ import WindowView.AddResultsView;
 	}
 
 	static void startViewtablePanel(AddResultsView addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
-		Object[][] ss = AddresultViewMetods.getDataTable(masiveResultsForChoiceSample, OverallVariablesAddResults.getListSimbolBasikNulide());
+		Object[][] ss = AddResultViewMetods.getDataTable(masiveResultsForChoiceSample, OverallVariablesAddResults.getListSimbolBasikNulide());
 		OverallVariablesAddResults.setFromDBase(true);
-		AddresultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
+		AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
 	}
 	
 	static List<Results> creadListResultsObjects_ChoiseSample(Sample sample,Choice choicePokazatel) {
 		List<Results> ListResultsFromSample = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 		List<Results> choiceResults = new ArrayList<Results>();
-		List_izpitvan_pokazatel pokazatel = AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
+		List_izpitvan_pokazatel pokazatel = AddResultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel);
 		for (Results result : ListResultsFromSample) {
 			if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()
 					&& result.getMetody().getId_metody() == OverallVariablesAddResults.getSelectedMetod().getId_metody()) {
@@ -110,7 +110,7 @@ import WindowView.AddResultsView;
 	static void updateIzpitvanPokazatelObjectInDBase(Choice choicePokazatel, Choice choiceMetody) {
 		IzpitvanPokazatel izpivanPokazatel = IzpitvanPokazatelDAO
 				.getIzpitvan_pokazatelObjectByRequestAndListIzpitvanPokazatel(OverallVariablesAddResults.getChoiseRequest(),
-						AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
+						AddResultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
 		Metody mm = MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem());
 		izpivanPokazatel.getId_pokazatel();
 		izpivanPokazatel.setMetody(mm);
@@ -162,8 +162,8 @@ import WindowView.AddResultsView;
 			saveCheck = false;
 		}
 
-		if (!AddresultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable()).trim().isEmpty()) {
-			str_Error = str_Error + AddresultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable());
+		if (!AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable()).trim().isEmpty()) {
+			str_Error = str_Error + AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable());
 			System.out.println(str_Error);
 			saveCheck = false;
 		}

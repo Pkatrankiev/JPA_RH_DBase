@@ -1180,7 +1180,8 @@ public class AddDobivView extends JDialog {
 					if(selectedMetod.getCode_metody().equals("10")){
 					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
 					}else{
-						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString());
+						Boolean forResults = false;
+						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString(), forResults);
 					}
 					if (ReadGamaFile.getListNuclideMDA() > 0 || destruct_Result_List.size() > 0) {
 						flagIncertedFile = true;

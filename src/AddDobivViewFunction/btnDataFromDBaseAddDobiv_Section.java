@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import AddResultViewFunction.AddresultViewMetods;
+import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import DBase_Class.Dobiv;
 import WindowView.AddDobivView_;
@@ -20,7 +20,7 @@ import WindowView.AddDobivView_;
 		
 		btnDataFromDBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddresultViewMetods.setWaitCursor(basic_panel);
+				AddResultViewMetods.setWaitCursor(basic_panel);
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					
 					List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
@@ -45,7 +45,7 @@ import WindowView.AddDobivView_;
 					
 							OverallVariablesAddDobiv.setFromDBase(true);
 							AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, basic_panel);
-							AddresultViewMetods.setDefaultCursor(basic_panel);
+							AddResultViewMetods.setDefaultCursor(basic_panel);
 				
 					
 					

@@ -63,9 +63,9 @@ public class MetodSection {
 					OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
 					setVisiblelblNameMetody(lblNameMetod, choiceMetody);
 					OverallVariablesAddResults.setListSimbolBasikNulideToMetod ( AddDobivViewMetods.getListSimbolBasikNulideToMetod(OverallVariablesAddResults.getSelectedMetod()));
-					OverallVariablesAddResults.setListNucToPok ( AddresultViewMetods.getListNuklideToPokazatel(choicePokazatel));
-					OverallVariablesAddResults.setListSimbolBasikNulide ( AddresultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
-					OverallVariablesAddResults.setMasuveSimbolNuclide(  AddresultViewMetods.getMasiveSimbolNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
+					OverallVariablesAddResults.setListNucToPok ( AddResultViewMetods.getListNuklideToPokazatel(choicePokazatel));
+					OverallVariablesAddResults.setListSimbolBasikNulide ( AddResultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
+					OverallVariablesAddResults.setMasuveSimbolNuclide(  AddResultViewMetods.getMasiveSimbolNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
 
 					// setValueInChoiceDobiv(selectedMetod);
 				}
@@ -92,7 +92,7 @@ public class MetodSection {
 
 	private static List<Metody> getListMetodyFormMetody_To_Pokaztel(Choice choicePokazatel) {
 		List<Metody_to_Pokazatel> list = Metody_to_PokazatelDAO
-				.getListMetody_to_PokazatelByPokazatel(AddresultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
+				.getListMetody_to_PokazatelByPokazatel(AddResultViewMetods.getPokazatelObjectFromChoicePokazatel(choicePokazatel));
 		List<Metody> listMetody = new ArrayList<Metody>();
 		for (Metody_to_Pokazatel metody_to_Pokazatel : list) {
 			listMetody.add(metody_to_Pokazatel.getMetody());

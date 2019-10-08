@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class GlobalVariableForSQL_DBase {
 
-static Boolean isRemoteDBase = false;
+static Boolean isRemoteDBase = true;
 		
 		private static Map<String, String>  createLokalDataBase() {
 		

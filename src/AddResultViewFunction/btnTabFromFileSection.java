@@ -38,7 +38,7 @@ public class btnTabFromFileSection {
 								Users user = ReadGamaFile.getUserFromFile();
 								String str = user.getName_users() + " " + user.getFamily_users();
 								choiceOIR.select(str);
-								Object[][] ss = AddResultViewMetods.CreatedataTableFromGeany2kFile(choicePokazatel);
+								Object[][] ss = AddResultViewMetods.CreateMasiveObjectFromGeany2kFile(choicePokazatel);
 								OverallVariablesAddResults.setFromDBase(false);
 								AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
 								}
@@ -48,7 +48,7 @@ public class btnTabFromFileSection {
 								String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
 								if (AddResultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
 								if( AddResultViewMetods.checkForKoretMetod(OverallVariablesAddResults.getDestruct_Result_List(), choiceMetody)){
-								Object[][] ssExcel = AddResultViewMetods.CreatedataTableFromExcelFile( choicePokazatel);
+								Object[][] ssExcel = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
 								OverallVariablesAddResults.setFromDBase(false);
 								AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
 								}

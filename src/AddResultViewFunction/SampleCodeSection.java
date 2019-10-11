@@ -93,7 +93,7 @@ public class SampleCodeSection {
 		return name_IO_Sample;
 	}
 
-	static Sample getSampleObjectFromChoiceSampleCode(Choice choiceSmplCode) {
+	public static Sample getSampleObjectFromChoiceSampleCode(Choice choiceSmplCode) {
 		Sample smp = null;
 		for (Sample samp : OverallVariablesAddResults.getListSample()) {
 			if (samp.getSample_code().equals(choiceSmplCode.getSelectedItem())) {

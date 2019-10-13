@@ -14,8 +14,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
-import OldClases.ColorIcon;
-import Table.Add_DefaultTableCellRenderer;
 import AddResultViewFunction.SampleCodeSection;
 import AddResultViewFunction.OverallVariablesAddResults;
 import AddResultViewFunction.AddResultViewMetods;

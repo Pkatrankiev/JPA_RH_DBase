@@ -11,12 +11,12 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import Aplication.DobivDAO;
 import Aplication.UsersDAO;
-import WindowView.AddDobivView_;
+import WindowView.AddDobivView;
 
 
 public class CodeDobivSection {
 	
-	public static void txtDobivCodeListener(AddDobivView_ addDobivView, JLabel lblError, JTextField txtStandartCode, JTextField textFieldDobivDescrip, 
+	public static void txtDobivCodeListener(AddDobivView addDobivView, JLabel lblError, JTextField txtStandartCode, JTextField textFieldDobivDescrip, 
 			Choice choiceIzpitProd, Choice choiceOIR, Choice choiceORHO, Choice choiceMetody) {
 		txtStandartCode.addMouseListener(new MouseAdapter() {
 			@Override

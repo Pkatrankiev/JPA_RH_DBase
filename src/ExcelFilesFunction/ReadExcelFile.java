@@ -2,6 +2,7 @@ package ExcelFilesFunction;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -10,8 +11,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import Aplication.DimensionDAO;
 import Aplication.NuclideDAO;
 import Aplication.RazmernostiDAO;
+import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.Results;
+import DBase_Class.Users;
+import GlobalVariable.GlobalFormatDate;
 import WindowView.ReadGamaFile;
 
 import java.io.FileInputStream;
@@ -19,7 +23,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,6 +36,7 @@ import javax.swing.JOptionPane;
 public class ReadExcelFile {
 
 	private static String cod_sample;
+	private static String user_Analize="";
 	
 	public static String getCod_sample() {
 		return cod_sample;
@@ -48,7 +56,17 @@ public class ReadExcelFile {
 		FileInputStream fis = null;
 		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "",
 				dimencion = "";
-		String param = "", valume = "";
+		String param = "", valume = "", date_Analize= ""  ;
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(GlobalFormatDate.getFORMAT_DATE());
+		Date dateNull = null;
+		try {
+			dateNull = sdf.parse("01.01.1910");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			fis = new FileInputStream(FILE_PATH);
 
@@ -117,6 +135,18 @@ public class ReadExcelFile {
 							case "Размерност":
 								dimencion = cell.getStringCellValue();
 								break;
+							case "Дата на анализа":
+								if(cell.getDateCellValue().after(dateNull)){
+								date_Analize = sdf.format(cell.getDateCellValue());
+								}
+								break;
+							case "Извършил анализа":
+								try{
+								user_Analize = cell.getStringCellValue();
+							} catch (IllegalStateException e) {
+								user_Analize ="";
+							}
+								break;
 							case "end":
 								endNuclideRsult = true;
 								break;
@@ -133,7 +163,7 @@ public class ReadExcelFile {
 								}
 								}
 								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, uncert, mda,
-										tsi, quantity, dimencion));
+										tsi, quantity, dimencion, date_Analize, user_Analize));
 								endNuclideRsult = false;
 							}
 						}
@@ -152,7 +182,7 @@ public class ReadExcelFile {
 	}
 
 	public static String[][] getMasivNuclideFromExcelFile(List<Destruct_Result> list_destruct_Result) {
-		String[][] str = new String[list_destruct_Result.size()][9];
+		String[][] str = new String[list_destruct_Result.size()][11];
 		for (int i = 0; i < list_destruct_Result.size(); i++) {
 			str[i][0] = list_destruct_Result.get(i).getCod(); // nuclide Cod
 			str[i][1] = list_destruct_Result.get(i).getMetod(); // nuclide Metod
@@ -168,6 +198,8 @@ public class ReadExcelFile {
 			str[i][7] = list_destruct_Result.get(i).getTsi(); // nuclide TSI
 			str[i][8] = list_destruct_Result.get(i).getDimencion(); // nuclide
 																	// razmernost
+			str[i][9] = list_destruct_Result.get(i).getDate_Analize();
+			str[i][10] = list_destruct_Result.get(i).getUser_Analize();
 
 		}
 		return str;
@@ -187,7 +219,7 @@ public class ReadExcelFile {
 						dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
 						dobiv.setValue_result(Double.parseDouble(masiveActiveResults[i][3]));
 						dobiv.setUncertainty(Double.parseDouble(masiveActiveResults[i][4]));
-						dobiv.setDate_measur("");
+						dobiv.setDate_measur(masiveActiveResults[i][9]);
 						dobiv.setDate_chim_oper("");
 						dobiv.setTsi(ReadGamaFile.getTSIObjectFromFileString(masiveActiveResults[i][7]));
 						
@@ -220,7 +252,7 @@ public class ReadExcelFile {
 						results.setUncertainty(Double.parseDouble(masiveActiveResults[i][4]));
 						results.setMda(Double.parseDouble(masiveActiveResults[i][5]));
 						results.setQuantity(Double.parseDouble(masiveActiveResults[i][6]));
-						results.setDate_measur("");
+						results.setDate_measur(masiveActiveResults[i][9]);
 						results.setDate_chim_oper("");
 						results.setTsi(ReadGamaFile.getTSIObjectFromFileString(masiveActiveResults[i][7]));
 						String dim = masiveActiveResults[i][8];
@@ -271,4 +303,20 @@ public class ReadExcelFile {
 		}
 		return formatNum.replaceAll(",",".");
 	}
+
+	public  static Users getUserFromExcelFile() {
+		System.out.println("--------------------------------- ////////////// "+user_Analize);
+		String str = user_Analize;
+		Users user = UsersDAO.getValueUsersById(10);
+		
+		if (user_Analize.length() > 0) {
+			if (user_Analize.contains(".")) {
+				str = user_Analize.substring(user_Analize.indexOf(".")+1);
+			}
+			user = UsersDAO.getValueUsersByFamily(str);
+		}
+
+		return user;
+	}
+
 }

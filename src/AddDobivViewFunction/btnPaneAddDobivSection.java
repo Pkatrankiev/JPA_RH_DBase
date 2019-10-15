@@ -11,11 +11,11 @@ import javax.swing.JTextField;
 
 import Aplication.DobivDAO;
 import DBase_Class.Dobiv;
-import WindowView.AddDobivView_;
+import WindowView.AddDobivView;
 
 public class btnPaneAddDobivSection {
 	
-	public static void saveButtonListener(JButton okButton, AddDobivView_ addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
+	public static void saveButtonListener(JButton okButton, AddDobivView addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 	 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip, JLabel lblNameMetod){
 	okButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {

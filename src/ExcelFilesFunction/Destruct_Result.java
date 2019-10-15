@@ -11,11 +11,14 @@ public class Destruct_Result {
 	private String quantity;
 	private String cod;
 	private String dimencion;
+	private String date_Analize;
+	private String user_Analize;
 
 	public Destruct_Result() {
 	}
 
-	public Destruct_Result(String cod, String metod, String nuclide, String result, String uncert, String mda, String tsi, String quantity, String dimencion) {
+	public Destruct_Result(String cod, String metod, String nuclide, String result, String uncert, 
+			String mda, String tsi, String quantity, String dimencion, String date_Analize, String user_Analize) {
 		this.cod = cod;
 		this.metod = metod;
 		this.nuclide = nuclide;
@@ -25,6 +28,8 @@ public class Destruct_Result {
 		this.tsi = tsi;
 		this.quantity = quantity;
 		this.dimencion = dimencion;
+		this.date_Analize = date_Analize;
+		this.user_Analize = user_Analize;
 	}
 
 	
@@ -99,6 +104,22 @@ public class Destruct_Result {
 
 	public void setTsi(String tsi) {
 		this.tsi = tsi;
+	}
+
+	public String getUser_Analize() {
+		return user_Analize;
+	}
+
+	public void setUser_Analize(String user_Analize) {
+		this.user_Analize = user_Analize;
+	}
+
+	public String getDate_Analize() {
+		return date_Analize;
+	}
+
+	public void setDate_Analize(String date_Analize) {
+		this.date_Analize = date_Analize;
 	}
 
 }

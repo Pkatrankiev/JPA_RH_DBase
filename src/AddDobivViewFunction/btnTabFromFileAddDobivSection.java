@@ -3,6 +3,7 @@ package AddDobivViewFunction;
 import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -11,14 +12,16 @@ import javax.swing.JTextField;
 
 import AddResultViewFunction.AddResultViewMetods;
 import DBase_Class.Metody;
+import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
-import WindowView.AddDobivView_;
+import Table.Add_DefaultTableModel;
+import WindowView.AddDobivView;
 
 
 public class btnTabFromFileAddDobivSection {
 	
-	public static void btnTabFromFileListener(AddDobivView_ addDobivView, JPanel basic_panel, JButton btnTabFromFile,  
-			Choice choiceMetody, JTextField txtStandartCode) {
+	public static void btnTabFromFileListener(AddDobivView addDobivView, JPanel basic_panel, JButton btnTabFromFile,  
+			Choice choiceMetody, Choice choiceOIR,JTextField txtStandartCode) {
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -57,15 +60,14 @@ public class btnTabFromFileAddDobivSection {
 						break;
 
 					case 0:
-						String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
+						
 						String standartCode = txtStandartCode.getText();
-						if (AddResultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, standartCode)) {
-						if( AddResultViewMetods.checkForKoretMetod(OverallVariablesAddDobiv.getDestruct_Result_List(), choiceMetody)){
+						
 						Object[][] ssExcel = AddDobivViewMetods.CreateDataTableDobivFromExcelFile(choiceMetody);
-						OverallVariablesAddDobiv.setFromDBase(false);
-//						AddDobivViewMetods.startViewtablePanel(  addDobivView,  masiveDobivForMetod,  basic_panel);
+						List<Destruct_Result> destruct_Result_List = OverallVariablesAddDobiv.getDestruct_Result_List();
+						if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,standartCode, destruct_Result_List)){
+							Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
 						AddDobivViewMetods.createDataTableAndViewTableInPanel( addDobivView ,basic_panel, ssExcel);
-						}
 						}
 						break;
 					}

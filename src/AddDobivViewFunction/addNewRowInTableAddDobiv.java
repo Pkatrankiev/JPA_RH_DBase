@@ -4,17 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import WindowView.AddDobivView_;
+import WindowView.AddDobivView;
 
 public class addNewRowInTableAddDobiv {
 	
-	public static void btmAddRowInTableAddDobivListener(AddDobivView_ addDobivView, JPanel basic_panel, JButton btnAddRow) {
+	public static void btmAddRowInTableAddDobivListener(AddDobivView addDobivView, JPanel basic_panel, JButton btnAddRow) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
 						AddNewRowIn_dataTable();
 						Boolean isNewRow = true;
-						AddDobivView_.ViewTableInPanel( addDobivView,  basic_panel,   isNewRow);
+						AddDobivView.ViewTableInPanel( addDobivView,  basic_panel,   isNewRow);
 				
 
 			}

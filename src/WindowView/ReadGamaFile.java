@@ -375,7 +375,7 @@ public class ReadGamaFile {
 
 	public  static Users getUserFromFile() {
 		String str = null;
-		Users user = UsersDAO.getValueUsersById(1);
+		Users user = UsersDAO.getValueUsersById(10);
 		if (user_mesure.length() > 0) {
 			if (user_mesure.contains(".")) {
 				str = user_mesure.substring(user_mesure.indexOf(".")+1);

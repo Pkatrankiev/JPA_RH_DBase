@@ -11,11 +11,12 @@ import javax.swing.JTextField;
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import DBase_Class.Dobiv;
-import WindowView.AddDobivView_;
+import Table.Add_DefaultTableModel;
+import WindowView.AddDobivView;
 
 	public class btnDataFromDBaseAddDobiv_Section {
 
-	public static void btnDataFromDBaseListener(AddDobivView_ addDobivView, JPanel basic_panel, JButton btnDataFromDBase,  Choice choiceMetody, Choice choiceOIR, 
+	public static void btnDataFromDBaseListener(AddDobivView addDobivView, JPanel basic_panel, JButton btnDataFromDBase,  Choice choiceMetody, Choice choiceOIR, 
 			Choice choiceORHO, JTextField txtStandartCode) {
 		
 		btnDataFromDBase.addActionListener(new ActionListener() {
@@ -43,7 +44,7 @@ import WindowView.AddDobivView_;
 					}
 					}
 					
-							OverallVariablesAddDobiv.setFromDBase(true);
+					Add_DefaultTableModel.setFromDBase(true);
 							AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, basic_panel);
 							AddResultViewMetods.setDefaultCursor(basic_panel);
 				

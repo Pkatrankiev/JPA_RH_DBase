@@ -85,7 +85,6 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
-import WindowView.AddDobivView;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;

@@ -2,8 +2,6 @@ package AddDobivViewFunction;
 
 import java.awt.Choice;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import AddResultViewFunction.AddResultViewMetods;
+import AddResultViewFunction.OverallVariablesAddResults;
 import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -42,10 +42,13 @@ import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
-import DBase_Class.Results;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
-import WindowView.AddDobivView_;
+import Table.Add_DefaultTableCellRenderer;
+import Table.Add_DefaultTableModel;
+import Table.Add_TableHeaderMouseListener;
+import Table.Add_TableMouseListener;
+import WindowView.AddDobivView;
 import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
@@ -53,6 +56,18 @@ import WindowView.RequestViewFunction;
 
 public class AddDobivViewMetods {
 	
+	private static String[] masiveTipeHeader = { "Choice", "Double", "Double",  "Choice",
+			 "DatePicker", "DatePicker", "Check", "Id" };
+	
+	private static String[] tableHeader = { "Нуклид", "Добив", "Неопределеност", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка",
+	"Id_Result" };
+	
+	private static String[] masiveTipeColumn = { "Choice", "Double", "Double",  "Choice", "DatePicker", "DatePicker", "Check", "Id" };
+	
+	@SuppressWarnings("rawtypes")
+	private static Class[] masiveClassColumn = { String.class, String.class, String.class, String.class, String.class, String.class,
+			String.class, Integer.class };
+
 	private static int tbl_Colum = 8;
 	private static int nuclide_Colum = 0;
 	private static int actv_value_Colum = 1;
@@ -62,6 +77,7 @@ public class AddDobivViewMetods {
 	private static int dateAnaliz_Colum = 5;
 	private static int check_Colum = 6;
 	private static int dobiv_Id_Colum = 7;
+
 	
 	public static int getActv_value_Colum() {
 		return actv_value_Colum;
@@ -217,121 +233,34 @@ public class AddDobivViewMetods {
 		return rowFromTableDobiv;
 	}
 	
-	public static JTable CreateTableDobivs(Boolean isNewRow) {
+	public static JTable CreateTableDobivs(Boolean isNewRow,JButton btnAddRow) {
 
-		String[] columnNames = getTabHeader();
-		@SuppressWarnings("rawtypes")
-		Class[] types = getTypes();
+				
+		if (OverallVariablesAddDobiv.getListSimbolBasikNulide().size() < OverallVariablesAddDobiv.getListNuclideToMetod().size()) {
+			btnAddRow.setVisible(true);
+		} else {
+			btnAddRow.setVisible(false);
+		}
 
-		JTable table = new JTable();// new DefaultTableModel(rowData,
-									// columnNames));
+		JTable table = new JTable();
+		Add_TableHeaderMouseListener.Add_TableHeaderMouseListener_( table,  masiveTipeHeader, OverallVariablesAddDobiv.getDataTable().length);
 
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-				int row = table.rowAtPoint(e.getPoint());
-				int col = table.columnAtPoint(e.getPoint());
-				if (SwingUtilities.isRightMouseButton(e)) {
-					String date = "";
-					if (col == dateAnaliz_Colum) {
-						date = table.getValueAt(table.getSelectedRow(), dateAnaliz_Colum).toString();
-					}
-					if (col == dateHimObr_Colum) {
-						date = table.getValueAt(table.getSelectedRow(), dateHimObr_Colum).toString();
-					}
-					final JFrame f = new JFrame();
-					DatePicker dPicer = new DatePicker(f, false, date);
-					table.setValueAt(dPicer.setPickedDate(false), row, col);
-
-				}
-				if (table.getSelectedColumn() == check_Colum) {
-					double actv_value = Double
-							.parseDouble((table.getValueAt(table.getSelectedRow(), actv_value_Colum)).toString());
-					Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(
-							table.getValueAt(table.getSelectedRow(), nuclide_Colum).toString());
-					checkValueFrame(nuclide, OverallVariablesAddDobiv.getSelectedMetod(), actv_value);
-				}
-			}
-
-		});
+		new Add_TableMouseListener( table,  masiveTipeColumn,  actv_value_Colum,  0, 
+				 nuclide_Colum, null);
+		
+		table.setDefaultRenderer(Object.class, Add_DefaultTableCellRenderer.Add_MyDefaultTableCellRenderer(AddDobivViewMetods.getActv_value_Colum(), 0));
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				DefaultTableModel dtm = new DefaultTableModel(OverallVariablesAddDobiv.getDataTable(), columnNames) {
-
-					private static final long serialVersionUID = 1L;
-					@SuppressWarnings("rawtypes")
-					private Class[] classTypes = types;
-
-					@SuppressWarnings({})
-					@Override
-					public Class<?> getColumnClass(int columnIndex) {
-						return this.classTypes[columnIndex];
-					}
-
-					public Object getValueAt(int row, int col) {
-						return OverallVariablesAddDobiv.getDataTable()[row][col];
-					}
-
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						if (column < check_Colum) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-
-					public void setValueAt(Object value, int row, int col) {
-						if (!OverallVariablesAddDobiv.getDataTable()[row][col].equals(value)) {
-							if (col == dateHimObr_Colum || col == dateAnaliz_Colum) {
-								if (!DatePicker.incorrectDate((String) value, false)) {
-									OverallVariablesAddDobiv.getDataTable()[row][col] = value;
-									fireTableCellUpdated(row, col);
-								}
-							}
-
-							if (col == actv_value_Colum || col == uncrt_Colum) {
-								try {
-									Double.parseDouble((String) value);
-									OverallVariablesAddDobiv.getDataTable()[row][col] = value;
-									fireTableCellUpdated(row, col);
-								} catch (NumberFormatException e) {
-								}
-							}
-
-							if (col == nuclide_Colum || col == TSI_Colum) {
-								OverallVariablesAddDobiv.getDataTable()[row][col] = value;
-								fireTableCellUpdated(row, col);
-							}
-						}
-
-					}
-
-					public int getColumnCount() {
-						return columnNames.length;
-					}
-
-					public int getRowCount() {
-
-						return OverallVariablesAddDobiv.getDataTable().length;
-					}
-
-				};
-
+				DefaultTableModel dtm = Add_DefaultTableModel.Add_DefaultTableModel_dd(OverallVariablesAddDobiv.getDataTable(), tableHeader, masiveClassColumn, masiveTipeColumn, check_Colum);
 				table.setModel(dtm);
 
 				setUp_Nuclide(table.getColumnModel().getColumn(nuclide_Colum), isNewRow);
 				setUp_TSI(table.getColumnModel().getColumn(TSI_Colum));
-
-				table.getColumnModel().getColumn(dobiv_Id_Colum).setWidth(0);
-				table.getColumnModel().getColumn(dobiv_Id_Colum).setMinWidth(0);
-				table.getColumnModel().getColumn(dobiv_Id_Colum).setMaxWidth(0);
-				table.getColumnModel().getColumn(dobiv_Id_Colum).setPreferredWidth(0);
+				
+				Add_DefaultTableModel.setInvisibleColumn(table, dobiv_Id_Colum);
+								
 
 			}
 
@@ -340,18 +269,12 @@ public class AddDobivViewMetods {
 	}
 
 	public static String[] getTabHeader() {
-		String[] tableHeader = { "Нуклид", "Добив", "Неопределеност", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка",
-				"Id_Result" };
 		return tableHeader;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static Class[] getTypes() {
-
-		Class[] types = { String.class, String.class, String.class, String.class, String.class, String.class,
-				String.class, Integer.class };
-
-		return types;
+	public static Class[] getMasiveClassColumn() {
+		return masiveClassColumn;
 	}
 
 	public static void checkValueFrame(Nuclide nuclide, Metody curentMetod, Double actv_value) {
@@ -437,7 +360,7 @@ public class AddDobivViewMetods {
 		return (errTSI + errDateHim  + errDateAnaliz + errDuplic);
 	}
 
-	public static List<Dobiv> creadListFromDobivObjectForSave(AddDobivView_ addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
+	public static List<Dobiv> creadListFromDobivObjectForSave(AddDobivView addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip, JLabel lblNameMetod) {
 		Boolean fl;
 		List<Dobiv> listDobivsForSave = new ArrayList<Dobiv>();
@@ -545,7 +468,7 @@ public class AddDobivViewMetods {
 		return dobiv;
 	}
 
-	private static Boolean checkDobiv( AddDobivView_ addDobivView, JTextField txtStandartCode,	 JLabel lblNameMetod, Choice choiceIzpitProd,
+	private static Boolean checkDobiv( AddDobivView addDobivView, JTextField txtStandartCode,	 JLabel lblNameMetod, Choice choiceIzpitProd,
 	Choice choiceOIR, Choice choiceORHO, Choice choiceMetody) {
 		Boolean saveCheck = true;
 		String str_Error = "";
@@ -594,18 +517,18 @@ public class AddDobivViewMetods {
 	}
 
 	
-	static void startViewtablePanel(AddDobivView_ addDobivView, Dobiv[] masiveDobivForMetod, JPanel basic_panel) {
+	static void startViewtablePanel(AddDobivView addDobivView, Dobiv[] masiveDobivForMetod, JPanel basic_panel) {
 		Object[][] ss = getDataTable(masiveDobivForMetod, OverallVariablesAddDobiv.getListSimbolBasikNulide());
 		createDataTableAndViewTableInPanel(addDobivView, basic_panel, ss);
 	}
 	
-	static void createDataTableAndViewTableInPanel( AddDobivView_ addDobivView, JPanel basic_panel, 
+	static void createDataTableAndViewTableInPanel( AddDobivView addDobivView, JPanel basic_panel, 
 			Object[][] ss) {
 		Boolean isNewRow = false;
 		OverallVariablesAddDobiv.setDataTable ( new Object[ss.length][AddDobivViewMetods.getTbl_Colum()]);
 		OverallVariablesAddDobiv.setDataTable ( ss);
 		isNewRow = false;
-		AddDobivView_.ViewTableInPanel(addDobivView, basic_panel,  isNewRow);
+		AddDobivView.ViewTableInPanel(addDobivView, basic_panel,  isNewRow);
 		
 	}
 	

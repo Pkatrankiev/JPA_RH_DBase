@@ -22,21 +22,22 @@ public class btnOpenFileSection {
 //				destruct_Result_List = new ArrayList<Destruct_Result>();
 				int sizeExcelList = 0, sizeGamaList = 0;
 				try {
-					String fileName = fileChooser.getSelectedFile().toString();
+					String pathfileName = fileChooser.getSelectedFile().toString();
+					String stringfileName = fileChooser.getSelectedFile().getName();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
 					
-					if (AddResultViewMetods.checkKorektFileName(fileName, codeSamample)) {
+					if (AddResultViewMetods.checkKorektFileName(stringfileName, codeSamample)) {
 					
-					txtBasicValueResult.setText(fileName);
-					System.out.println(codeSamample+"   "+fileName);
+					txtBasicValueResult.setText(pathfileName);
+					
 					if (!choiceMetody.getSelectedItem().trim().isEmpty()){
 					if (choiceMetody.getSelectedItem().indexOf("10")>0){
 					
-						ReadGamaFile.getReadGamaFile(fileName);
+						ReadGamaFile.getReadGamaFile(pathfileName);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
 						Boolean forResults = true;
-						OverallVariablesAddResults.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(fileName, forResults));
+						OverallVariablesAddResults.setDestruct_Result_List (ReadExcelFile.getDestruct_Result_ListFromExcelFile(pathfileName, forResults));
 						sizeExcelList = OverallVariablesAddResults.getDestruct_Result_List().size();
 					}
 					

@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Aplication.MetodyDAO;
 import DBase_Class.Results;
+import Table.Add_DefaultTableModel;
 import WindowView.AddResultsView;
 
 public class btnDataFromDBaseSection {
@@ -45,7 +46,7 @@ public class btnDataFromDBaseSection {
 
 					}
 					
-					OverallVariablesAddResults.setFromDBase(true);
+					Add_DefaultTableModel.setFromDBase(true);
 					AddResultViewMetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
 					AddResultViewMetods.setDefaultCursor(basic_panel);
 				}

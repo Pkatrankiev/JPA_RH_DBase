@@ -38,6 +38,9 @@ public class GlobalFormatDate {
 		return separator;
 	}
 	
+	public static String getEXCEL_FORMAT_DATE() {
+		return TAB_FORMAT_DATE;
+	}
 	
 	
 }

@@ -47,7 +47,7 @@ public class OverallVariablesAddResults {
 	private static Boolean flagNotReadListMetody = true;
 	private static Boolean viewAddRowButton = false;
 	private static Boolean flagIncertedFile = false;
-	private static Boolean fromDBase = false;
+	
 	
 	private static Color colorFromDBase = new Color(0, 120, 0);
 	private static Color colorFromFile = new Color(0, 0, 255);
@@ -85,7 +85,7 @@ public class OverallVariablesAddResults {
 		flagNotReadListMetody = true;
 		viewAddRowButton = false;
 		flagIncertedFile = false;
-		fromDBase = null;
+		
 	}
 
 	public static List<Sample> getListSample() {
@@ -306,14 +306,7 @@ public class OverallVariablesAddResults {
 		return colorFromFile;
 	}
 
-	public static Boolean getFromDBase() {
-		return fromDBase;
-	}
-
-	public static void setFromDBase(Boolean fromDBase) {
-		OverallVariablesAddResults.fromDBase = fromDBase;
-	}
-
+	
 	
 
 }

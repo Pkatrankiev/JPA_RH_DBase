@@ -33,7 +33,7 @@ import DBase_Class.Users;
 import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
-import WindowView.AddDobivView_;
+import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;

@@ -158,13 +158,12 @@ public class AddResultViewMetods {
 	public static Boolean checkKorektFileName(String fileName, String codeSamample) {
 		int choice = 0;
 		Boolean fl = true;
-		System.out.println(fileName + "   " + codeSamample + "   " + fileName.indexOf(codeSamample));
 		if (fileName.indexOf(codeSamample) < 0) {
 			fl = false;
 			// display the showOptionDialog
 			Object[] options = { "Да", "Не" };
 			choice = JOptionPane.showOptionDialog(null,
-					"Кода  не съвпада с името на файла." + "\nкод от файл:" + fileName + " <--> код на стандарта:"
+					"Кода  не съвпада с името на файла." + "\nкод от файл: " + fileName + " <--> въведен код: "
 							+ codeSamample + " \nЩе продължите ли?",
 					"Грешни данни", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			if (choice == JOptionPane.YES_OPTION) {
@@ -181,9 +180,9 @@ public class AddResultViewMetods {
 			OverallVariablesAddResults
 					.setSelectedMetod(MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 
-			for (Destruct_Result destruct_Result : destruct_Result_List) {
+			for (Object destruct_Result : destruct_Result_List) {
 				if (OverallVariablesAddResults.getSelectedMetod().getCode_metody()
-						.indexOf(destruct_Result.getMetod().replace("М.ЛИ-РХ-", "")) > 0) {
+						.indexOf(((Destruct_Result) destruct_Result).getMetod().replace("М.ЛИ-РХ-", "")) > 0) {
 					fl = true;
 				}
 			}
@@ -392,13 +391,15 @@ public class AddResultViewMetods {
 		new Add_TableMouseListener( table,  masiveTipeColumn,  actv_value_Colum,  mda_Colum, 
 				 nuclide_Colum, choiceSmplCode);
 		
-		table.setDefaultRenderer(Object.class, new Add_DefaultTableCellRenderer());
+		table.setDefaultRenderer(Object.class, Add_DefaultTableCellRenderer.Add_MyDefaultTableCellRenderer(AddResultViewMetods.getActv_value_Colum(), AddResultViewMetods.getMda_Colum()));
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				DefaultTableModel dtm = Add_DefaultTableModel.Add_DefaultTableModel_dd(OverallVariablesAddResults.getDataTable(), masiveNameFortableHeader, masiveClassColumn, masiveTipeColumn, check_Colum);
+				DefaultTableModel dtm = Add_DefaultTableModel.Add_DefaultTableModel_dd(OverallVariablesAddResults.getDataTable(), masiveNameFortableHeader,
+						masiveClassColumn, masiveTipeColumn, check_Colum);
 		
+				
 				table.setModel(dtm);
 
 				setUp_Nuclide(table.getColumnModel().getColumn(nuclide_Colum), isNewRow);
@@ -476,10 +477,6 @@ public class AddResultViewMetods {
 		Column.setCellRenderer(renderer);
 	}
 
-
-	
-
-	
 
 	static Object[][] getDataTable(Results[] masiveResultsForChoiceSample, List<String> listSimbolBasikNulide) {
 

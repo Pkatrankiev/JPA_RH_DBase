@@ -3,14 +3,20 @@ package AddResultViewFunction;
 import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import AddDobivViewFunction.OverallVariablesAddDobiv;
 import Aplication.MetodyDAO;
 import DBase_Class.Metody;
 import DBase_Class.Users;
+import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
+import Table.Add_DefaultTableModel;
 import WindowView.AddResultsView;
 import WindowView.ReadGamaFile;
 
@@ -39,19 +45,18 @@ public class btnTabFromFileSection {
 								String str = user.getName_users() + " " + user.getFamily_users();
 								choiceOIR.select(str);
 								Object[][] ss = AddResultViewMetods.CreateMasiveObjectFromGeany2kFile(choicePokazatel);
-								OverallVariablesAddResults.setFromDBase(false);
+								Add_DefaultTableModel.setFromDBase(false);
 								AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
 								}
 								break;
 
 							case 0:
-								String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
-								if (AddResultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
-								if( AddResultViewMetods.checkForKoretMetod(OverallVariablesAddResults.getDestruct_Result_List(), choiceMetody)){
 								Object[][] ssExcel = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
-								OverallVariablesAddResults.setFromDBase(false);
-								AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
-								}
+								List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults.getDestruct_Result_List();
+								
+								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List)){
+									Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
+									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
 								}
 								break;
 							}
@@ -67,6 +72,10 @@ public class btnTabFromFileSection {
 
 				}
 			}
+
+			
+
+		
 
 		});
 

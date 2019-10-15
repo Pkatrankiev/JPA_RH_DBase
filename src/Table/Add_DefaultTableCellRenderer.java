@@ -6,20 +6,28 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import AddResultViewFunction.AddResultViewMetods;
 
-public class Add_DefaultTableCellRenderer extends DefaultTableCellRenderer {
+public class Add_DefaultTableCellRenderer  {
 	
 
-	private static final long serialVersionUID = 1L;
+	public static DefaultTableCellRenderer Add_MyDefaultTableCellRenderer(int active_value_column, int mda_column) {
 
-			@Override
+			
+		DefaultTableCellRenderer dcr = new DefaultTableCellRenderer(){
+			
+			private static final long serialVersionUID = 1L;
+
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int col) {
 
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-				String s1 = table.getValueAt(row, AddResultViewMetods.getActv_value_Colum()).toString();
-				String s2 = table.getValueAt(row, AddResultViewMetods.getMda_Colum()).toString();
+				String s2 ="0";
+				if(mda_column>0){
+					s2 = table.getValueAt(row, mda_column).toString();
+				}
+					
+				String s1 = table.getValueAt(row, active_value_column).toString();
+			
 
 				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2))) == 0) {
 					// setBackground(Color.BLACK);
@@ -30,5 +38,9 @@ public class Add_DefaultTableCellRenderer extends DefaultTableCellRenderer {
 				}
 				return this;
 			}
+			
+	};
+		return dcr;
+	}
 		}
 

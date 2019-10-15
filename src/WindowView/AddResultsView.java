@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
+import Table.Add_DefaultTableModel;
 import AddResultViewFunction.SampleCodeSection;
 import AddResultViewFunction.OverallVariablesAddResults;
 import AddResultViewFunction.AddResultViewMetods;
@@ -484,7 +485,7 @@ public class AddResultsView extends JDialog {
 		header = tableResults.getTableHeader();
 	
 		header.setForeground(OverallVariablesAddResults.getColorFromFile());
-		if(OverallVariablesAddResults.getFromDBase()){
+		if(Add_DefaultTableModel.getFromDBase()){
 			header.setForeground(OverallVariablesAddResults.getColorFromDBase());
 		}
 		SwingUtilities.updateComponentTreeUI(addResultsViewWithTable);

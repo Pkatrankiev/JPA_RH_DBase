@@ -18,6 +18,7 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import Table.Add_DefaultTableModel;
 import WindowView.AddResultsView;
 
 
@@ -88,7 +89,7 @@ import WindowView.AddResultsView;
 
 	static void startViewtablePanel(AddResultsView addResultsViewWithTable, JPanel basic_panel, Results[] masiveResultsForChoiceSample) {
 		Object[][] ss = AddResultViewMetods.getDataTable(masiveResultsForChoiceSample, OverallVariablesAddResults.getListSimbolBasikNulide());
-		OverallVariablesAddResults.setFromDBase(true);
+		Add_DefaultTableModel.setFromDBase(true);
 		AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable ,basic_panel, ss);
 	}
 	

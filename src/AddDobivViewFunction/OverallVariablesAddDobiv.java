@@ -1,6 +1,5 @@
 package AddDobivViewFunction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import DBase_Class.Dobiv;
@@ -35,7 +34,7 @@ public class OverallVariablesAddDobiv {
 	private static Boolean corectStandartCode = true;
 
 	private static Boolean flagIncertedFile = false;
-	private static Boolean fromDBase = null;
+
 	
 	
 	
@@ -193,13 +192,7 @@ public class OverallVariablesAddDobiv {
 		OverallVariablesAddDobiv.flagIncertedFile = flagIncertedFile;
 	}
 
-	public static Boolean getFromDBase() {
-		return fromDBase;
-	}
-
-	public static void setFromDBase(Boolean fromDBase) {
-		OverallVariablesAddDobiv.fromDBase = fromDBase;
-	}
+	
 
 	public static List<Destruct_Result> getDestruct_Result_List() {
 		return destruct_Result_List;

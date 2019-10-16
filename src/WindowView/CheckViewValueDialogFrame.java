@@ -168,15 +168,32 @@ public class CheckViewValueDialogFrame extends JDialog {
 				@Override
 			public void mouseExited(MouseEvent e) {
 					lblReuqestCode[k].setForeground(Color.black);
+//					setSize(500, 400);
+//					paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, listCheckResultObject.size());
+					revalidate();
+					repaint();
 			}
 				@Override
 			public void mouseEntered(MouseEvent e) {
+					 paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, k);
+					setSize(500, 400);
+					revalidate();
+					repaint();	
 				lblReuqestCode[k].setForeground(Color.red);
+				
+				
+				
+				
 			}
 				@Override
 				public void mouseReleased(MouseEvent e) {}
 
-				public void mousePressed(MouseEvent e) {}
+				public void mousePressed(MouseEvent e) {
+					 paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, k);
+					setSize(500, 400);
+					revalidate();
+					repaint();
+				}
 			});
 			
 			
@@ -203,33 +220,9 @@ public class CheckViewValueDialogFrame extends JDialog {
 		  if(check_mda!=null){
 		  yData_MDA[listCheckResultObject.size()] = check_mda;
 		  }
-		JPanel panelGraphic = new JPanel();
-		scrollPane.setViewportView(panelGraphic);
-		panelGraphic.setLayout(new BoxLayout(panelGraphic, BoxLayout.Y_AXIS));
-
-		JPanel panel_Graph_Value = new JPanel();
-		panel_Graph_Value.setLayout(new BoxLayout(panel_Graph_Value, BoxLayout.X_AXIS));
-		JPointGraph2D chart ;
-		if(check_mda!=null){
-			chart = new JPointGraph2D(yData_Value, "Активност");
-		}else{
-				chart = new JPointGraph2D(yData_Value, "Добив");	
-			}
-		chart.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), Color.GRAY, null, null));
-		chart.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		chart.setLineColor(new Color(0, 28, 28));
-		panel_Graph_Value.add(chart);
-		panelGraphic.add(panel_Graph_Value);
-		if(check_mda!=null){
-		JPanel panel_Graph_MDA = new JPanel();
-		panel_Graph_MDA.setLayout(new BoxLayout(panel_Graph_MDA, BoxLayout.X_AXIS));
-		chart_1 = new JPointGraph2D(yData_MDA, "MDA");
-		chart_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		chart_1.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-		chart_1.setLineColor(new Color(0, 28, 28));
-		panel_Graph_MDA.add(chart_1);
-		panelGraphic.add(panel_Graph_MDA);
-		}
+		  
+		  
+		JPanel panelGraphic = paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, yData_Value.length);
 //		JButton falseButton = new JButton();
 //		falseButton.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent arg0) {
@@ -245,15 +238,49 @@ public class CheckViewValueDialogFrame extends JDialog {
 			}
 		});
 		
-				
+		setSize(500, 401);
 		panelGraphic.revalidate();
 		panelGraphic.repaint();
 //		round.StopWindow();
 		setVisible(true);
-		SwingUtilities.getWindowAncestor( this ).repaint(); 
-		okButton.getModel().setPressed(true);
+		setSize(501, 401);
+		revalidate();
+		repaint();
+//		SwingUtilities.getWindowAncestor( this ).repaint(); 
+//		okButton.getModel().setPressed(true);
 //		falseButton.doClick();	
+		
+	}
 
+	private JPanel paintGraph(Double check_mda, JScrollPane scrollPane, double[] yData_Value, double[] yData_MDA, int choice) {
+		JPanel panelGraphic = new JPanel();
+		scrollPane.setViewportView(panelGraphic);
+		panelGraphic.setLayout(new BoxLayout(panelGraphic, BoxLayout.Y_AXIS));
+
+		JPanel panel_Graph_Value = new JPanel();
+		panel_Graph_Value.setLayout(new BoxLayout(panel_Graph_Value, BoxLayout.X_AXIS));
+		JPointGraph2D chart ;
+		if(check_mda!=null){
+			chart = new JPointGraph2D(yData_Value, "Активност", choice);
+		}else{
+				chart = new JPointGraph2D(yData_Value, "Добив", choice);	
+			}
+		chart.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), Color.GRAY, null, null));
+		chart.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		chart.setLineColor(new Color(0, 28, 28));
+		panel_Graph_Value.add(chart);
+		panelGraphic.add(panel_Graph_Value);
+		if(check_mda!=null){
+		JPanel panel_Graph_MDA = new JPanel();
+		panel_Graph_MDA.setLayout(new BoxLayout(panel_Graph_MDA, BoxLayout.X_AXIS));
+		chart_1 = new JPointGraph2D(yData_MDA, "MDA", choice);
+		chart_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		chart_1.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+		chart_1.setLineColor(new Color(0, 28, 28));
+		panel_Graph_MDA.add(chart_1);
+		panelGraphic.add(panel_Graph_MDA);
+		}
+		return panelGraphic;
 	}
 
 	

@@ -94,7 +94,7 @@ public class AddDobivView extends JDialog {
 	public AddDobivView(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Въвеждане на Добив", true);
 	
-		GetVisibleLAF(parent);
+//		GetVisibleLAF(parent);
 		OverallVariablesAddDobiv.clearAllVariables() ;
 		AddDobivViewMetods.BasicDataInport(user);
 
@@ -435,14 +435,14 @@ public class AddDobivView extends JDialog {
 		panelTable.add(header, BorderLayout.NORTH);
 		panelTable.add(tabDobivs, BorderLayout.CENTER);
 
-//		panelTable.validate();
-//		panelTable.repaint();
-//
-//		scrollTablePane.validate();
-//		scrollTablePane.repaint();
-//
-//		panel.validate();
-//		panel.repaint();
+		panelTable.validate();
+		panelTable.repaint();
+
+		scrollTablePane.validate();
+		scrollTablePane.repaint();
+
+		basic_panel.validate();
+		basic_panel.repaint();
 //		
 		
 		
@@ -450,6 +450,7 @@ public class AddDobivView extends JDialog {
 		addDobivView.setLocationRelativeTo(null);
 		addDobivView.validate();
 		addDobivView.repaint();
+		addDobivView.setSize(frameLight, (countRowTabDobivs * rowWidth) + 341);
 
 	}
 

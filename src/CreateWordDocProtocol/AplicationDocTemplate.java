@@ -372,9 +372,7 @@ k++;
 	
 	public static void toExcel(JTable table) throws UnsupportedEncodingException, FileNotFoundException{
 //		 File file = new File("Some name.xls");
-		 
-		 
-	
+		 	
 		    Writer excel = new BufferedWriter(
 		            new OutputStreamWriter(new FileOutputStream(
 		            		"Some2 name.xls"), "cp1251"
@@ -385,7 +383,7 @@ k++;
 	        TableModel model = table.getModel();
 //	        FileWriter excel = new FileWriter(out);
 
-	        for(int i = 0; i < model.getColumnCount(); i++){
+	        for(int i = 0; i < model.getColumnCount(); i++){ 
 	            excel.write(model.getColumnName(i) + "\t");
 	        }
 

@@ -150,7 +150,7 @@ public class AddResultsView extends JDialog {
 
 		btnAddRow();
 
-		ButtonPanell(this);
+		ButtonPanell();
 		
 		AllListenerSection(this);
 		
@@ -502,7 +502,7 @@ public class AddResultsView extends JDialog {
 	
 	}
 	
-	private void ButtonPanell(AddResultsView addResultsViewWithTable) {
+	private void ButtonPanell() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);

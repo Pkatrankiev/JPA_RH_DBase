@@ -261,6 +261,8 @@ public class AddDobivViewMetods {
 				Add_DefaultTableModel.setInvisibleColumn(table, dobiv_Id_Colum);
 								
 
+				table.setRowSelectionInterval(0, 0);
+				table.requestFocus();
 			}
 
 		});
@@ -428,7 +430,6 @@ public class AddDobivViewMetods {
 	public static Dobiv creadDobivObject(int i, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip) {
 		Dobiv dobiv;
-		System.out.println(OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]);
 		if (OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum] == null) {
 			dobiv = creadDobivsObject(i, new Dobiv(), choiceOIR, choiceORHO,  txtBasicValueResult,
 					 choiceIzpitProd,  txtStandartCode,  choiceMetody, textFieldDobivDescrip);
@@ -535,7 +536,7 @@ public class AddDobivViewMetods {
 	static void createDataTableAndViewTableInPanel( AddDobivView addDobivView, JPanel basic_panel, 
 			Object[][] ss) {
 		Boolean isNewRow = false;
-		OverallVariablesAddDobiv.setDataTable ( new Object[ss.length][AddDobivViewMetods.getTbl_Colum()]);
+		OverallVariablesAddDobiv.setDataTable ( new Object[ss.length][tbl_Colum]);
 		OverallVariablesAddDobiv.setDataTable ( ss);
 		isNewRow = false;
 		AddDobivView.ViewTableInPanel(addDobivView, isNewRow);
@@ -551,7 +552,6 @@ public class AddDobivViewMetods {
 		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Dobiv[] masiveResultsFromFile = ReadExcelFile
 				.getMasivDobivsFromExcelFile(OverallVariablesAddDobiv.getDestruct_Result_List(), listSimbolBasicNuclide);
-		System.out.println(masiveResultsFromFile.length + " ----------------------------------------");
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
 
 		for (int i = 0; i < masiveResultsFromFile.length; i++) {

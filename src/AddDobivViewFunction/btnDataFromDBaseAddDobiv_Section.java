@@ -24,8 +24,7 @@ import WindowView.AddDobivView;
 				AddResultViewMetods.setWaitCursor(basic_panel);
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					
-					viewTableDobivFromDBaseByStandartCode(addDobivView, basic_panel, choiceOIR, choiceORHO,
-							txtStandartCode);
+					viewTableDobivFromDBaseByStandartCode(addDobivView, basic_panel, choiceOIR, choiceORHO,	txtStandartCode);
 				
 					
 					AddResultViewMetods.setDefaultCursor(basic_panel);
@@ -43,6 +42,7 @@ import WindowView.AddDobivView;
 
 	public static void viewTableDobivFromDBaseByStandartCode(AddDobivView addDobivView, JPanel basic_panel,
 			Choice choiceOIR, Choice choiceORHO, JTextField txtStandartCode) {
+		
 		List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
 				txtStandartCode.getText());
 		Dobiv[] masiveDobivForMetod = AddDobivViewMetods.creadMasiveFromDobivsObjects_StandartCode(OverallVariablesAddDobiv.getSelectedMetod(),
@@ -62,7 +62,7 @@ import WindowView.AddDobivView;
 			}
 		}
 		}
-		
+		Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
 		Add_DefaultTableModel.setFromDBase(true);
 				AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, basic_panel);
 				

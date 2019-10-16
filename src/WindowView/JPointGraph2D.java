@@ -50,7 +50,7 @@ public class JPointGraph2D extends JPanel {
 	  protected double yMax;
 	  protected double[] pieData;
 
-
+	  protected double choice;;
 	  protected Stroke stroke;
 
 	  protected GradientPaint gradient;
@@ -61,9 +61,9 @@ public class JPointGraph2D extends JPanel {
 
 	  protected Color lineColor = Color.blue;
 
-	  public JPointGraph2D( double[] yD, String text) {
+	  public JPointGraph2D( double[] yD, String text, int choice1) {
 	    super(new BorderLayout());
-	   
+	    choice = choice1;
 	    setBackground(Color.white);
 	    titleLabel = new JLabel(text, JLabel.CENTER);
 	    add(titleLabel, BorderLayout.NORTH);
@@ -138,6 +138,8 @@ public class JPointGraph2D extends JPanel {
 
 		  double m_h;
 
+		
+
 	    ChartPanel() {
 	      enableEvents(ComponentEvent.COMPONENT_RESIZED);
 	    }
@@ -179,8 +181,15 @@ public class JPointGraph2D extends JPanel {
 	        g2.draw(new Line2D.Double(xChartToScreen(xMin_custom), yChartToScreen(yMax_custom),xChartToScreen(xMax_custom), yChartToScreen(yMax_custom)));
 	        g2.setColor(pointColor);
 	        for (int k = 0; k < dataLength; k++) {
-	        	if(k==dataLength-1)
-	        		g2.setColor(Color.red);
+	        	
+	        		if(k==choice ) {
+	        			g2.setColor(Color.red);
+	        		}else {
+	        			g2.setColor(pointColor);	
+	        		}
+	        		if(k==dataLength-1) {
+	        			g2.setColor(Color.red);		
+	        		}
 	        	 g2.draw(new Line2D.Double(xChartToScreen(xData[k]), yChartToScreen(yData[k]),xChartToScreen(xData[k]), yChartToScreen(yData[k])));
 	        }
 	      

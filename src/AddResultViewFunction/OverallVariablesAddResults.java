@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.ColorUIResource;
-
 import DBase_Class.Dobiv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;

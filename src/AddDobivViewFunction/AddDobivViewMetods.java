@@ -23,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import AddResultViewFunction.AddResultViewMetods;
-import AddResultViewFunction.OverallVariablesAddResults;
 import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -360,27 +359,44 @@ public class AddDobivViewMetods {
 		return (errTSI + errDateHim  + errDateAnaliz + errDuplic);
 	}
 
-	public static List<Dobiv> creadListFromDobivObjectForSave(AddDobivView addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
+	
+	public static List<Dobiv> creadListDobivObjectInDataTable(AddDobivView addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip, JLabel lblNameMetod) {
-		Boolean fl;
-		List<Dobiv> listDobivsForSave = new ArrayList<Dobiv>();
-		List<Dobiv> listDobivsForDelete = new ArrayList<Dobiv>();
+		
 		List<Dobiv> listDobivsFromTable = new ArrayList<Dobiv>();
-		if (checkDobiv( addDobivView,  txtStandartCode,	  lblNameMetod,  choiceIzpitProd,
-				 choiceOIR,  choiceORHO,  choiceMetody)) {
+		
 			for (int i = 0; i < OverallVariablesAddDobiv.getDataTable().length; i++) {
-				String s1 = OverallVariablesAddDobiv.getDataTable()[i][uncrt_Colum].toString().toString();
 				String s2 = OverallVariablesAddDobiv.getDataTable()[i][actv_value_Colum].toString();
-				if ((Double.parseDouble((String) s1) != 0 || (Double.parseDouble((String) s2)) != 0)) {
+			
+				if (((Double.parseDouble((String) s2)) != 0)) {
 					listDobivsFromTable.add(creadDobivObject(i, choiceOIR,  choiceORHO,  txtBasicValueResult,
 							  choiceIzpitProd,  txtStandartCode,  choiceMetody,  textFieldDobivDescrip));
-				} else {
-					if (OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum] != null) {
+				} 
+				}
+			return listDobivsFromTable;
+			}
+	
+	public static List<Dobiv> creadListDobivObjectForDelete(List<Dobiv> listDobivsFromTable){
+		
+		List<Dobiv> listDobivsForDelete = new ArrayList<Dobiv>();
+	
+		if(OverallVariablesAddDobiv.getDataTable().length > listDobivsFromTable.size())
+			for (int i = 0; i < OverallVariablesAddDobiv.getDataTable().length; i++) {
+				String s2 = OverallVariablesAddDobiv.getDataTable()[i][actv_value_Colum].toString();
+			
+				if (((Double.parseDouble((String) s2)) == 0)) {
+				if (OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum] != null) {
 						listDobivsForDelete.add(DobivDAO.getDobivById((int) OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]));
 					}
 				}
 			}
-		}
+		return listDobivsForDelete;
+			}
+	
+	public static List<Dobiv> creadListFromDobivObjectForSave(JTextField txtStandartCode, List<Dobiv> listDobivsFromTable) {
+		Boolean fl;
+		List<Dobiv> listDobivsForSave = new ArrayList<Dobiv>();
+		
 
 		List<Dobiv> ListDobivsFromDBase = DobivDAO.getList_DobivByCode_Standart(txtStandartCode.getText());
 		Iterator<Dobiv> itr = null;
@@ -405,13 +421,7 @@ public class AddDobivViewMetods {
 
 			listDobivsForSave.add(dobiv);
 		}
-
-		for (Dobiv dobiv : listDobivsForDelete) {
-
-			DobivDAO.deleteDobivById(dobiv.getId_dobiv());
-		}
-		;
-
+			
 		return listDobivsForSave;
 	}
 
@@ -468,7 +478,7 @@ public class AddDobivViewMetods {
 		return dobiv;
 	}
 
-	private static Boolean checkDobiv( AddDobivView addDobivView, JTextField txtStandartCode,	 JLabel lblNameMetod, Choice choiceIzpitProd,
+	public static Boolean checkDobiv( AddDobivView addDobivView, JTextField txtStandartCode,	 JLabel lblNameMetod, Choice choiceIzpitProd,
 	Choice choiceOIR, Choice choiceORHO, Choice choiceMetody) {
 		Boolean saveCheck = true;
 		String str_Error = "";
@@ -528,7 +538,7 @@ public class AddDobivViewMetods {
 		OverallVariablesAddDobiv.setDataTable ( new Object[ss.length][AddDobivViewMetods.getTbl_Colum()]);
 		OverallVariablesAddDobiv.setDataTable ( ss);
 		isNewRow = false;
-		AddDobivView.ViewTableInPanel(addDobivView, basic_panel,  isNewRow);
+		AddDobivView.ViewTableInPanel(addDobivView, isNewRow);
 		
 	}
 	
@@ -572,4 +582,5 @@ public class AddDobivViewMetods {
 		return list;
 	}
 
+	
 }

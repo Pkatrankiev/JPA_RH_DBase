@@ -24,7 +24,19 @@ import GlobalVariable.GlobalVariableForSQL_DBase;
 public class DobivDAO {
 //	static String name_DBase = "JPA_RH_DBase";
 //	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
-	
+
+	public static void setValueDobiv(Dobiv valueEnt) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+			
+		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
 
 		public static void setValueDobiv(
 			String code_Standart,

@@ -11,7 +11,7 @@ public class GlobalPathForDocFile {
 //	private static final Integer[] masiveMergeColumn = {0,1,3};
 //	private static final String name_tamplate_Protocols = "Protokol.docx";
 		
-	public static final int maxRowInOneTableOnePage = 20;
+	public static final int maxRowInOneTableOnePage = 24;
 	public static final int maxRowInFullTableOnePage = 32;
 	private static final Integer[] masiveMergeColumn = {0,1,4};
 	private static final String name_tamplate_Protocols = "Protokol_NEW.docx";

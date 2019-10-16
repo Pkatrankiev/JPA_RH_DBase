@@ -10,12 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import AddDobivViewFunction.OverallVariablesAddDobiv;
 import Aplication.MetodyDAO;
 import DBase_Class.Metody;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
-import ExcelFilesFunction.ReadExcelFile;
 import Table.Add_DefaultTableModel;
 import WindowView.AddResultsView;
 import WindowView.ReadGamaFile;

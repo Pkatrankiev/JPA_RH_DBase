@@ -8,13 +8,13 @@ import WindowView.AddDobivView;
 
 public class addNewRowInTableAddDobiv {
 	
-	public static void btmAddRowInTableAddDobivListener(AddDobivView addDobivView, JPanel basic_panel, JButton btnAddRow) {
+	public static void btmAddRowInTableAddDobivListener(AddDobivView addDobivView, JButton btnAddRow) {
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
 						AddNewRowIn_dataTable();
 						Boolean isNewRow = true;
-						AddDobivView.ViewTableInPanel( addDobivView,  basic_panel,   isNewRow);
+						AddDobivView.ViewTableInPanel( addDobivView, isNewRow);
 				
 
 			}

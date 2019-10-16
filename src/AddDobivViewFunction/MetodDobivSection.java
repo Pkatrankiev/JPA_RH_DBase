@@ -6,18 +6,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
 
 import Aplication.MetodyDAO;
-import Aplication.Metody_to_PokazatelDAO;
-import Aplication.Nuclide_to_PokazatelDAO;
 import DBase_Class.Metody;
-import DBase_Class.Metody_to_Pokazatel;
-import DBase_Class.Nuclide;
-import DBase_Class.Nuclide_to_Pokazatel;
 
 public class MetodDobivSection {
 

@@ -6,9 +6,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import AddDobivViewFunction.OverallVariablesAddDobiv;
 import AddResultViewFunction.AddResultViewMetods;
-import AddResultViewFunction.OverallVariablesAddResults;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;

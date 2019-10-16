@@ -24,32 +24,11 @@ import WindowView.AddDobivView;
 				AddResultViewMetods.setWaitCursor(basic_panel);
 				if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 					
-					List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
-							txtStandartCode.getText());
-					Dobiv[] masiveDobivForMetod = AddDobivViewMetods.creadMasiveFromDobivsObjects_StandartCode(OverallVariablesAddDobiv.getSelectedMetod(),
-							ListDobivsFromStandart_code);
-
-					if (masiveDobivForMetod.length > 0) {
-						if (masiveDobivForMetod[0] != null) {
-						if (masiveDobivForMetod[0].getUser_measur() != null) {
-							String str = masiveDobivForMetod[0].getUser_measur().getName_users() + " "
-									+ masiveDobivForMetod[0].getUser_measur().getFamily_users();
-							choiceOIR.select(str);
-						}
-						if (masiveDobivForMetod[0].getUser_chim_oper() != null) {
-							String str = masiveDobivForMetod[0].getUser_chim_oper().getName_users() + " "
-									+ masiveDobivForMetod[0].getUser_chim_oper().getFamily_users();
-							choiceORHO.select(str);
-						}
-					}
-					}
-					
-					Add_DefaultTableModel.setFromDBase(true);
-							AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, basic_panel);
-							AddResultViewMetods.setDefaultCursor(basic_panel);
+					viewTableDobivFromDBaseByStandartCode(addDobivView, basic_panel, choiceOIR, choiceORHO,
+							txtStandartCode);
 				
 					
-					
+					AddResultViewMetods.setDefaultCursor(basic_panel);
 					
 
 					
@@ -57,7 +36,36 @@ import WindowView.AddDobivView;
 				}
 			}
 
+			
+
 		});
+	}
+
+	public static void viewTableDobivFromDBaseByStandartCode(AddDobivView addDobivView, JPanel basic_panel,
+			Choice choiceOIR, Choice choiceORHO, JTextField txtStandartCode) {
+		List<Dobiv> ListDobivsFromStandart_code = DobivDAO.getListResultsFromColumnByVolume("code_Standart",
+				txtStandartCode.getText());
+		Dobiv[] masiveDobivForMetod = AddDobivViewMetods.creadMasiveFromDobivsObjects_StandartCode(OverallVariablesAddDobiv.getSelectedMetod(),
+				ListDobivsFromStandart_code);
+
+		if (masiveDobivForMetod.length > 0) {
+			if (masiveDobivForMetod[0] != null) {
+			if (masiveDobivForMetod[0].getUser_measur() != null) {
+				String str = masiveDobivForMetod[0].getUser_measur().getName_users() + " "
+						+ masiveDobivForMetod[0].getUser_measur().getFamily_users();
+				choiceOIR.select(str);
+			}
+			if (masiveDobivForMetod[0].getUser_chim_oper() != null) {
+				String str = masiveDobivForMetod[0].getUser_chim_oper().getName_users() + " "
+						+ masiveDobivForMetod[0].getUser_chim_oper().getFamily_users();
+				choiceORHO.select(str);
+			}
+		}
+		}
+		
+		Add_DefaultTableModel.setFromDBase(true);
+				AddDobivViewMetods.startViewtablePanel( addDobivView, masiveDobivForMetod, basic_panel);
+				
 	}
 
 	

@@ -15,7 +15,6 @@ import Aplication.MetodyDAO;
 import Aplication.Metody_to_PokazatelDAO;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_Pokazatel;
-import OldClases.AddDobivView_old;
 
 public class MetodSection {
 

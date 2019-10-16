@@ -45,7 +45,7 @@ public class btnDataFromDBaseSection {
 						}
 
 					}
-					
+					Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
 					Add_DefaultTableModel.setFromDBase(true);
 					AddResultViewMetods.startViewtablePanel(addResultsViewWithTable,basic_panel, masiveResultsForChoiceSample);
 					AddResultViewMetods.setDefaultCursor(basic_panel);

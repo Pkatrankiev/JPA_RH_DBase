@@ -101,6 +101,10 @@ public class Dobiv implements Serializable {
 		return Id_dobiv;
 	}
 
+	public void setId_dobiv(int id_dobiv) {
+		Id_dobiv = id_dobiv;
+	}
+
 	public String getCode_Standart() {
 		return code_Standart;
 	}

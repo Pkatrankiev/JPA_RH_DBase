@@ -15,19 +15,19 @@ public class OverallVariablesAddDobiv {
 	private static List<String> list_UsersNameFamilyOIR;
 	private static List<String> list_UsersNameFamilyORHO;
 	private static List<Metody> listMetody;
-	private static List<String> listStandartCodeAllDobiv ;
+	private static List<String> listStandartCodeAllDobiv;
 	private static List<String> listSimbolBasikNulide;
 	private static List<Nuclide> listNuclideToMetod;
 	private static List<Destruct_Result> destruct_Result_List;
-	
+
 	private static String[] masuveSimbolBasikNuclide;
 	private static String[] masive_NuclideToMetod;
 	private static String[] masiveTSI;
 	private static Object[][] dataTable;
-	
+
 	private static Metody selectedMetod = null;
 	private static Users user_Redac = null;
-	
+
 	private static Boolean flagNotReadListPokazatel = true;
 	private static Boolean flagNotReadListMetody = true;
 	private static Boolean viewAddRowButton = false;
@@ -35,11 +35,6 @@ public class OverallVariablesAddDobiv {
 
 	private static Boolean flagIncertedFile = false;
 
-	
-	
-	
-	
-	
 	public static List<Dobiv> getListChoisedDobiv() {
 		return listChoisedDobiv;
 	}
@@ -192,8 +187,6 @@ public class OverallVariablesAddDobiv {
 		OverallVariablesAddDobiv.flagIncertedFile = flagIncertedFile;
 	}
 
-	
-
 	public static List<Destruct_Result> getDestruct_Result_List() {
 		return destruct_Result_List;
 	}
@@ -202,5 +195,32 @@ public class OverallVariablesAddDobiv {
 		OverallVariablesAddDobiv.destruct_Result_List = destruct_Result_List;
 	}
 
-	
+	public static void clearAllVariables() {
+		listChoisedDobiv = null;
+		list_Users = null;
+		list_UsersNameFamilyOIR = null;
+		list_UsersNameFamilyORHO = null;
+		listMetody = null;
+		listStandartCodeAllDobiv = null;
+		listSimbolBasikNulide = null;
+		listNuclideToMetod = null;
+		destruct_Result_List = null;
+
+		masuveSimbolBasikNuclide = null;
+		masive_NuclideToMetod = null;
+		masiveTSI = null;
+		dataTable = null;
+
+		selectedMetod = null;
+		user_Redac = null;
+
+		flagNotReadListPokazatel = true;
+		flagNotReadListMetody = true;
+		viewAddRowButton = false;
+		corectStandartCode = true;
+
+		flagIncertedFile = false;
+
+	}
+
 }

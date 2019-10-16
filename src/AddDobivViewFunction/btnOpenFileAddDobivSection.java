@@ -25,9 +25,10 @@ public class btnOpenFileAddDobivSection {
 				int sizeExcelList = 0, sizeGamaList = 0;
 				try {
 					String fileName = fileChooser.getSelectedFile().toString();
+					String stringfileName = fileChooser.getSelectedFile().getName();
 					String codeDobiv = txtStandartCode.getText();
 					
-					if (AddResultViewMetods.checkKorektFileName(fileName, codeDobiv)) {
+					if (AddResultViewMetods.checkKorektFileName(stringfileName, codeDobiv)) {
 					
 					txtBasicValueResult.setText(fileName);
 					System.out.println(codeDobiv+"   "+fileName);

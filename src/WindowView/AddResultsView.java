@@ -4,14 +4,12 @@ package WindowView;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
 import Table.Add_DefaultTableModel;
@@ -39,7 +37,6 @@ import javax.swing.JLabel;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -51,7 +48,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
 import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
-import javax.swing.border.LineBorder;
 
 public class AddResultsView extends JDialog {
 
@@ -550,7 +546,7 @@ public class AddResultsView extends JDialog {
 
 	
 
-	private void GetVisibleLAF(JFrame win) {
+	private void GetVisibleLAF(final JFrame win) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			SwingUtilities.updateComponentTreeUI(win);

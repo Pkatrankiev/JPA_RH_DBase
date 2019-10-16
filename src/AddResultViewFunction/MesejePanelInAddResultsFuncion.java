@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Aplication.DobivDAO;
 import Aplication.ResultsDAO;
+import DBase_Class.Dobiv;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import WindowView.MesejePanelInAddResultsView;
@@ -27,6 +29,28 @@ public class MesejePanelInAddResultsFuncion implements Runnable {
 		
 			if(!resultListForDelete.isEmpty()){
 	String[][] deleteStr  = createmasiveDelete(resultListForDelete);
+		panel.add(createTextPanel("За изтриване"));
+		panel.add(MesejePanelInAddResultsView.creadJPanel(deleteStr));
+		}
+		panel.add(createTextPanel("За запис"));
+		panel.add(MesejePanelInAddResultsView.creadJPanel(saveStr));
+		
+		result = JOptionPane.showOptionDialog(null, panel, "Данни за базата", JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.ERROR_MESSAGE, null, options1, null);
+		
+	}
+	
+public static void MesejePanelInAddDobivFuncion(List<Dobiv> resultListForSave, List<Dobiv> resultListForDelete) {
+	
+		
+		String[][] saveStr = createmasiveDobiv(resultListForSave);
+		
+		Object[] options1 = { "Да", "Отказ"};
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+			if(!resultListForDelete.isEmpty()){
+	String[][] deleteStr  = createMasiveDeleteDobiv(resultListForDelete);
 		panel.add(createTextPanel("За изтриване"));
 		panel.add(MesejePanelInAddResultsView.creadJPanel(deleteStr));
 		}
@@ -59,6 +83,21 @@ public class MesejePanelInAddResultsFuncion implements Runnable {
 		return masive;
 	}
 	
+	private static String[][] createmasiveDobiv(List<Dobiv> resultListForSave) {
+		
+		String[][] masive = new String[resultListForSave.size()+1][3];
+		masive[0] = new String[] { "Нуклид", "Добив",""};
+		int i =1;
+		for (Dobiv res : resultListForSave) {
+			
+			masive[i][0] = res.getNuclide().getSymbol_nuclide();
+			masive[i][1] = res.getValue_result().toString();
+			masive[i][2] = "";
+			i++;
+		}
+		return masive;
+	}
+	
 	private static String[][] createmasiveDelete(List<Results> resultListForDelete) {
 		String[][] masive = new String[resultListForDelete.size()+1][3];
 		masive[0] = new String[] { "Нуклид", "Активност", "МДА" };
@@ -68,6 +107,20 @@ public class MesejePanelInAddResultsFuncion implements Runnable {
 			masive[i][0] = result.getNuclide().getSymbol_nuclide();
 			masive[i][1] = result.getValue_result().toString();
 			masive[i][2] = result.getMda().toString();
+			i++;
+		}
+		return masive;
+	}
+	
+	private static String[][] createMasiveDeleteDobiv(List<Dobiv> resultListForDelete) {
+		String[][] masive = new String[resultListForDelete.size()+1][3];
+		masive[0] = new String[] { "Нуклид", "Добив","" };
+		int i =1;
+		for (Dobiv res : resultListForDelete) {
+			Dobiv result = DobivDAO.getDobivById(res.getId_dobiv());
+			masive[i][0] = result.getNuclide().getSymbol_nuclide();
+			masive[i][1] = result.getValue_result().toString();
+			masive[i][2] = "";
 			i++;
 		}
 		return masive;

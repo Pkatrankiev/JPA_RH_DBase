@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import AddResultViewFunction.AddResultViewMetods;
 import DBase_Class.Metody;
 import ExcelFilesFunction.Destruct_Result;
-import ExcelFilesFunction.ReadExcelFile;
 import Table.Add_DefaultTableModel;
 import WindowView.AddDobivView;
 
@@ -22,6 +21,7 @@ public class btnTabFromFileAddDobivSection {
 	
 	public static void btnTabFromFileListener(AddDobivView addDobivView, JPanel basic_panel, JButton btnTabFromFile,  
 			Choice choiceMetody, Choice choiceOIR,JTextField txtStandartCode) {
+		
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -69,6 +69,7 @@ public class btnTabFromFileAddDobivSection {
 							Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
 						AddDobivViewMetods.createDataTableAndViewTableInPanel( addDobivView ,basic_panel, ssExcel);
 						}
+					
 						break;
 					}
 					} else {

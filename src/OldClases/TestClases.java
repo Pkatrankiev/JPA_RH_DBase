@@ -209,8 +209,8 @@ public class TestClases  {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-//		 		new AddDobivView_(f,round, UsersDAO.getValueUsersById(3));
-		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
+		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+//		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
 		    	 
 //		 		new OldClases.AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
 		 		

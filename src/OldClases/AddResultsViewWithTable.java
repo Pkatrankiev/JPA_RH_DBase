@@ -1772,8 +1772,8 @@ public class AddResultsViewWithTable extends JDialog {
 		Collections.sort(listCheckResultObject, CheckResultClass.StuNameComparator);
 
 		// TranscluentWindow round = new TranscluentWindow();
-		JFrame f = new JFrame();
-		new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, mda);
+//		JFrame f = new JFrame();
+//		new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, mda);
 		// final Thread thread = new Thread(new Runnable() {
 		// @Override
 		// public void run() {

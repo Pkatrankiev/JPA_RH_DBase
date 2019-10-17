@@ -54,6 +54,7 @@ import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
+import WindowView.TranscluentWindow;
 
 public class AddResultViewMetods {
 
@@ -421,6 +422,11 @@ public class AddResultViewMetods {
 	
 	
 	public static void checkResultsValueFrame(Nuclide nuclide, Sample samp, Double actv_value, Double mda) {
+		 TranscluentWindow round = new TranscluentWindow();
+			
+		 final Thread thread = new Thread(new Runnable() {
+		 @Override
+		 public void run() {
 		List<Sample> listAllSamp = SampleDAO.getInListAllValueSample();
 		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
 
@@ -441,19 +447,12 @@ public class AddResultViewMetods {
 		}
 		Collections.sort(listCheckResultObject, CheckResultClass.StuNameComparator);
 
-		// TranscluentWindow round = new TranscluentWindow();
-		JFrame f = new JFrame();
-		new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, mda);
-		// final Thread thread = new Thread(new Runnable() {
-		// @Override
-		// public void run() {
-		//
-		//
-		//
-		//
-		// }
-		// });
-		// thread.start();
+		
+				JFrame f = new JFrame();
+				new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, mda,  round);
+				 }
+		 });
+		 thread.start();
 	}
 
 	

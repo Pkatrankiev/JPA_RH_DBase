@@ -279,7 +279,7 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put("$$n_nucl$$", nuclide[0]);
 		substitutionData.put("$$c_nucl$$", nuclide[1]);
 
-		substitutionData.put("$$MDA$$", "< " + formatter(result.getMda()));
+		substitutionData.put("$$MDA$$", " " + formatter(result.getMda()));
 		substitutionData.put("$$razmernost$$", result.getRtazmernosti().getName_razmernosti());
 		return substitutionData;
 	}

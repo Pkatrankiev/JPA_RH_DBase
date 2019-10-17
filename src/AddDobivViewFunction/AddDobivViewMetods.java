@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import AddResultViewFunction.AddResultViewMetods;
+import AddResultViewFunction.OverallVariablesAddResults;
 import Aplication.DobivDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
@@ -32,6 +33,7 @@ import Aplication.Metody_to_PokazatelDAO;
 import Aplication.NuclideDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
 import Aplication.PostDAO;
+import Aplication.ResultsDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
@@ -52,6 +54,7 @@ import WindowView.CheckResultClass;
 import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
 import WindowView.RequestViewFunction;
+import WindowView.TranscluentWindow;
 
 public class AddDobivViewMetods {
 	
@@ -279,6 +282,12 @@ public class AddDobivViewMetods {
 	}
 
 	public static void checkValueFrame(Nuclide nuclide, Metody curentMetod, Double actv_value) {
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		 @Override
+		 public void run() {
+		
 		List<Metody> listAllMetody = MetodyDAO.getInListAllValueMetody();
 		List<CheckResultClass> listCheckResultObject = new ArrayList<CheckResultClass>();
 
@@ -297,9 +306,15 @@ public class AddDobivViewMetods {
 
 		}
 		Collections.sort(listCheckResultObject, CheckResultClass.StuNameComparator);
-
-		JFrame f = new JFrame();
-		new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, null);
+		 
+			 JFrame f = new JFrame();
+				new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, null,  round);
+				 }
+		 });
+		 thread.start();
+		
+		
+		
 	}
 
 	public static void setUp_Nuclide(TableColumn Nuclide_Column, Boolean isNewRow) {
@@ -362,7 +377,7 @@ public class AddDobivViewMetods {
 	}
 
 	
-	public static List<Dobiv> creadListDobivObjectInDataTable(AddDobivView addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
+	public static List<Dobiv> creadListDobivObjectForSave(AddDobivView addDobivView, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip, JLabel lblNameMetod) {
 		
 		List<Dobiv> listDobivsFromTable = new ArrayList<Dobiv>();
@@ -378,54 +393,22 @@ public class AddDobivViewMetods {
 			return listDobivsFromTable;
 			}
 	
-	public static List<Dobiv> creadListDobivObjectForDelete(List<Dobiv> listDobivsFromTable){
-		
+	public static List<Dobiv> creadListDobivObjectForDelete(){
 		List<Dobiv> listDobivsForDelete = new ArrayList<Dobiv>();
-	
-		if(OverallVariablesAddDobiv.getDataTable().length > listDobivsFromTable.size())
-			for (int i = 0; i < OverallVariablesAddDobiv.getDataTable().length; i++) {
+		for (int i = 0; i < OverallVariablesAddDobiv.getDataTable().length; i++) {
 				String s2 = OverallVariablesAddDobiv.getDataTable()[i][actv_value_Colum].toString();
-			
-				if (((Double.parseDouble((String) s2)) == 0)) {
+			if (((Double.parseDouble((String) s2)) == 0)) {
 				if (OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum] != null) {
-						listDobivsForDelete.add(DobivDAO.getDobivById((int) OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]));
-					}
+					listDobivsForDelete.add(DobivDAO
+							.getDobivById((int) OverallVariablesAddDobiv.getDataTable()[i][dobiv_Id_Colum]));
+					
+				}
 				}
 			}
 		return listDobivsForDelete;
 			}
 	
-	public static List<Dobiv> creadListFromDobivObjectForSave(JTextField txtStandartCode, List<Dobiv> listDobivsFromTable) {
-		Boolean fl;
-		List<Dobiv> listDobivsForSave = new ArrayList<Dobiv>();
-		
-
-		List<Dobiv> ListDobivsFromDBase = DobivDAO.getList_DobivByCode_Standart(txtStandartCode.getText());
-		Iterator<Dobiv> itr = null;
-		for (Dobiv dobiv : listDobivsFromTable) {
-
-			itr = ListDobivsFromDBase.iterator();
-			fl = false;
-			while (itr.hasNext()) {
-				String codeNulide = itr.next().getNuclide().getSymbol_nuclide();
-				if (codeNulide.equals(dobiv.getNuclide().getSymbol_nuclide())) {
-					itr.remove();
-					listDobivsForSave.add(dobiv);
-					fl = true;
-				}
-			}
-			if (!fl) {
-				listDobivsForSave.add(dobiv);
-			}
-		}
-
-		for (Dobiv dobiv : ListDobivsFromDBase) {
-
-			listDobivsForSave.add(dobiv);
-		}
-			
-		return listDobivsForSave;
-	}
+	
 
 	public static Dobiv creadDobivObject(int i, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip) {

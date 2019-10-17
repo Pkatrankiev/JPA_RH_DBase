@@ -67,14 +67,15 @@ public class JPointGraph2D extends JPanel {
 	    setBackground(Color.white);
 	    titleLabel = new JLabel(text, JLabel.CENTER);
 	    add(titleLabel, BorderLayout.NORTH);
-	    int nData = yD.length;
-	    if (xData == null) {
-	      xData = new double[nData];
-	      for (int k = 0; k < nData; k++)
+	    
+	    dataLength = yD.length;
+	   
+	      xData = new double[dataLength];
+	      for (int k = 0; k < dataLength; k++)
 	        xData[k] = k;
-	    }
+	  
 	
-	    dataLength = nData;
+	     
 	
 	    yData = yD;
 

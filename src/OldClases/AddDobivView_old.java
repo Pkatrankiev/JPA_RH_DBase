@@ -1322,8 +1322,8 @@ public class AddDobivView_old extends JDialog {
 		}
 		Collections.sort(listCheckResultObject, CheckResultClass.StuNameComparator);
 
-		JFrame f = new JFrame();
-		new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, null);
+//		JFrame f = new JFrame();
+//		new CheckViewValueDialogFrame(f, listCheckResultObject, actv_value, null);
 	}
 
 	private static String[] getTabHeader() {

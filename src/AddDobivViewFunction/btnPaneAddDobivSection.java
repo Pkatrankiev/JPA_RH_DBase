@@ -26,10 +26,10 @@ public class btnPaneAddDobivSection {
 			
 			if (AddDobivViewMetods.checkDobiv(addDobivView, txtStandartCode, lblNameMetod, choiceIzpitProd, choiceOIR, choiceORHO, choiceMetody)) {
 				AddResultViewMetods.setWaitCursor(basic_panel);
-				List<Dobiv> listDobivsInDataTable = AddDobivViewMetods.creadListDobivObjectInDataTable( addDobivView,  choiceOIR,  choiceORHO,  txtBasicValueResult,
+				List<Dobiv> ListFromDobivObjectForSave = AddDobivViewMetods.creadListDobivObjectForSave( addDobivView,  choiceOIR,  choiceORHO,  txtBasicValueResult,
 						  choiceIzpitProd,  txtStandartCode,  choiceMetody,  textFieldDobivDescrip,  lblNameMetod);
-				List<Dobiv> ListDobivObjectForDelete = AddDobivViewMetods.creadListDobivObjectForDelete( listDobivsInDataTable);
-				List<Dobiv> ListFromDobivObjectForSave =  AddDobivViewMetods.creadListFromDobivObjectForSave(txtStandartCode, listDobivsInDataTable);
+				List<Dobiv> ListDobivObjectForDelete = AddDobivViewMetods.creadListDobivObjectForDelete();
+				 
 				AddResultViewMetods.setDefaultCursor(basic_panel);
 				
 				MesejePanelInAddResultsFuncion.MesejePanelInAddDobivFuncion(ListFromDobivObjectForSave, ListDobivObjectForDelete);

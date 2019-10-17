@@ -34,11 +34,18 @@ import javax.swing.border.BevelBorder;
 @SuppressWarnings("serial")
 public class CheckViewValueDialogFrame extends JDialog {
 	private JPointGraph2D chart_1;
+	private JPanel panelGraphic;
+	private int  maxViewVolume = 15;
 
 	public CheckViewValueDialogFrame(JFrame parent,
-			List<CheckResultClass> listCheckResultObject, Double check_actv_value, Double check_mda) {
+			List<CheckResultClass> listCheckResultObject, Double check_actv_value, Double check_mda,  TranscluentWindow round) {
 		super(parent, "Проверка на резултати", true);
 
+		int maxCountList = listCheckResultObject.size();
+		if(maxViewVolume < maxCountList){
+			listCheckResultObject = listCheckResultObject.subList(maxCountList-maxViewVolume, maxCountList);
+		}
+		
 		setSize(500, 400);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
@@ -170,15 +177,15 @@ public class CheckViewValueDialogFrame extends JDialog {
 					lblReuqestCode[k].setForeground(Color.black);
 //					setSize(500, 400);
 //					paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, listCheckResultObject.size());
-					revalidate();
-					repaint();
+//					revalidate();
+//					repaint();
 			}
 				@Override
 			public void mouseEntered(MouseEvent e) {
-					 paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, k);
-					setSize(500, 400);
-					revalidate();
-					repaint();	
+				 panelGraphic = paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, k);
+//					setSize(500, 400);
+//					revalidate();
+//					repaint();	
 				lblReuqestCode[k].setForeground(Color.red);
 				
 				
@@ -189,10 +196,13 @@ public class CheckViewValueDialogFrame extends JDialog {
 				public void mouseReleased(MouseEvent e) {}
 
 				public void mousePressed(MouseEvent e) {
-					 paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, k);
-					setSize(500, 400);
+//					 paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, k);
+//					setSize(500, 400);
+					scrollPane.setViewportView(panelGraphic);
 					revalidate();
 					repaint();
+					
+					
 				}
 			});
 			
@@ -222,7 +232,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 		  }
 		  
 		  
-		JPanel panelGraphic = paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, yData_Value.length);
+		panelGraphic = paintGraph(check_mda, scrollPane, yData_Value, yData_MDA, yData_Value.length);
 //		JButton falseButton = new JButton();
 //		falseButton.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent arg0) {
@@ -237,11 +247,12 @@ public class CheckViewValueDialogFrame extends JDialog {
 				repaint();
 			}
 		});
-		
+	
 		setSize(500, 401);
+		scrollPane.setViewportView(panelGraphic);
 		panelGraphic.revalidate();
 		panelGraphic.repaint();
-//		round.StopWindow();
+		round.StopWindow();
 		setVisible(true);
 		setSize(501, 401);
 		revalidate();
@@ -254,7 +265,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 
 	private JPanel paintGraph(Double check_mda, JScrollPane scrollPane, double[] yData_Value, double[] yData_MDA, int choice) {
 		JPanel panelGraphic = new JPanel();
-		scrollPane.setViewportView(panelGraphic);
+//		scrollPane.setViewportView(panelGraphic);
 		panelGraphic.setLayout(new BoxLayout(panelGraphic, BoxLayout.Y_AXIS));
 
 		JPanel panel_Graph_Value = new JPanel();

@@ -240,7 +240,7 @@ public class Table_Request_List extends JDialog {
 							choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 							JFrame f = new JFrame();
 
-							new RequestView(f, user, choiseRequest, round);
+							new RequestView(f, user, choiseRequest, round,false);
 						}
 						}}
 

@@ -155,10 +155,6 @@ public class Extra_moduleDAO {
 		return id_extraMod;
 		}
 	
-	
-		
-	
-	
 	@SuppressWarnings("unchecked")
 	public static List<Extra_module> getInListAllValueExtra_module(){
 	

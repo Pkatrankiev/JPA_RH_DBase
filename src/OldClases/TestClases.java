@@ -177,13 +177,13 @@ public class TestClases  {
 	public static void testNewRequestVew(){
 		 JFrame f = new JFrame();
 		 Users user = UsersDAO.getValueUsersById(3);
-		 Request request = RequestDAO.getValueRequestById(189);
+		 Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3009");
 		 TranscluentWindow round = new TranscluentWindow();
 			
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-	    	new RequestView(f, user,request,round);
+	    	new RequestView(f, user,request,round,true);
 		     }
 		    });
 		    thread.start();

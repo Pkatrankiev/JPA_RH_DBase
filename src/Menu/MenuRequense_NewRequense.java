@@ -31,7 +31,7 @@ public class MenuRequense_NewRequense extends AbstractMenuAction{
 			     @Override
 			     public void run() {
 			    	 JFrame f = new JFrame();
-			    	new RequestView(f, loginDlg,null,round);
+			    	new RequestView(f, loginDlg,null,round,false);
 		    	     	
 			     }
 			    });

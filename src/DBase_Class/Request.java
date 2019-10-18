@@ -234,7 +234,7 @@ public class Request implements Serializable {
 	public void setText_obekt_na_izpitvane_request(String text_obekt_na_izpitvane_request) {
 		this.text_obekt_na_izpitvane_request = text_obekt_na_izpitvane_request;
 	}
-	 
+
 			
 			
 	 

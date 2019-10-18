@@ -34,16 +34,16 @@ public class AplicantDAO {
 		emfactory.close();
 	}
 
-	public static void saveValueAplicantWitchCheck(String nameFamily) {
+	public static void saveValueAplicantWitchCheck(String nameAndFamily) {
 		String[] masive_AplicantNameFamily = getMasiveStringAllName_FamilyAplicant();
 		Boolean fl_Aplicant = false;
 		for (String string : masive_AplicantNameFamily) {
-			if (string.equals(nameFamily)) {
+			if (string.equals(nameAndFamily)) {
 				fl_Aplicant = true;
 			}
 		}
 		if(!fl_Aplicant){
-		setValueAplicant(nameFamily.substring(0, nameFamily.indexOf(" ")), nameFamily.substring(nameFamily.indexOf(" ")+1));
+		setValueAplicant(nameAndFamily.substring(0, nameAndFamily.indexOf(" ")), nameAndFamily.substring(nameAndFamily.indexOf(" ")+1));
 		}
 	}
 	

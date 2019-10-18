@@ -190,4 +190,23 @@ public class SampleDAO {
 		emfactory.close();
 	}
 	
+	public static void deleteSample(Sample sample) {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Sample samp = entitymanager.find(Sample.class, sample.getId_sample());
+		entitymanager.remove(samp);
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null,
+					"Прблем при изтриване на проба: " + samp.getRequest().getRecuest_code()+"-"+samp.getSample_code(),
+					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
 }

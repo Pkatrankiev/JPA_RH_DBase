@@ -6,16 +6,20 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
+import AddDobivViewFunction.OverallVariablesAddDobiv;
+import DBase_Class.Dobiv;
+
 public class LabelStoinostiFromDobivSection {
 
 	public static void LabelStoinFromDobivListener(JLabel lbl_StoinostiFromDobiv, Choice choiceDobiv) {
 		lbl_StoinostiFromDobiv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lbl_StoinostiFromDobiv
-						.setText(DobivSection.generate_strStoinostiDobiv_Nuclide(choiceDobiv));
+				String stoinostDobiv = DobivSection.generate_strStoinostiDobiv_Nuclide(choiceDobiv);
+				lbl_StoinostiFromDobiv.setText(stoinostDobiv);
 			}
 
+			
 			@Override
 			public void mouseExited(MouseEvent e) {
 			}

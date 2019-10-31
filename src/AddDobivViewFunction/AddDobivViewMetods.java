@@ -37,12 +37,14 @@ import Aplication.ResultsDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
+import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import Table.Add_DefaultTableCellRenderer;
@@ -427,6 +429,8 @@ public class AddDobivViewMetods {
 		return dobiv;
 	}
 
+	
+	
 	public static Dobiv creadDobivsObject(int i, Dobiv dobiv, Choice choiceOIR, Choice choiceORHO, JTextField txtBasicValueResult,
 			 Choice choiceIzpitProd, JTextField txtStandartCode, Choice choiceMetody, JTextField textFieldDobivDescrip) {
 		Object[][] dataTable = OverallVariablesAddDobiv.getDataTable();

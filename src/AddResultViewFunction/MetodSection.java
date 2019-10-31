@@ -61,16 +61,14 @@ public class MetodSection {
 					String strChoisedmetod = choiceMetody.getSelectedItem();
 					OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(strChoisedmetod));
 					setVisiblelblNameMetody(lblNameMetod, choiceMetody);
-					OverallVariablesAddResults.setListSimbolBasikNulideToMetod ( AddDobivViewMetods.getListSimbolBasikNulideToMetod(OverallVariablesAddResults.getSelectedMetod()));
-					OverallVariablesAddResults.setListNucToPok ( AddResultViewMetods.getListNuklideToPokazatel(choicePokazatel));
-					OverallVariablesAddResults.setListSimbolBasikNulide ( AddResultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
-					OverallVariablesAddResults.setMasuveSimbolNuclide(  AddResultViewMetods.getMasiveSimbolNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
+					AddResultViewMetods.setListNuclideToMetodAndToPokaz(choicePokazatel);
 
 					// setValueInChoiceDobiv(selectedMetod);
 				}
 
 			}
 
+			
 			public void mousePressed(MouseEvent e) {
 
 			}

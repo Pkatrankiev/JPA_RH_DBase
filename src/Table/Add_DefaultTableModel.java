@@ -122,6 +122,7 @@ public class Add_DefaultTableModel  {
 	public static Boolean checkKorektFileNameAndMetod(Choice choiceMetody, String codeSamample,List<Destruct_Result> destruct_Result_List) {
 		Boolean fl = false;
 			String codeSamampleFromExcelFile = ReadExcelFile.getCod_sample();
+			
 			if (AddResultViewMetods.checkKorektFileName(codeSamampleFromExcelFile, codeSamample)) {
 			if( AddResultViewMetods.checkForKoretMetod(destruct_Result_List, choiceMetody)){
 				fl = true;

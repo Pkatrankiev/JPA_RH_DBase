@@ -177,7 +177,7 @@ public class TestClases  {
 	public static void testNewRequestVew(){
 		 JFrame f = new JFrame();
 		 Users user = UsersDAO.getValueUsersById(3);
-		 Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "3009");
+		 Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "4069");
 		 TranscluentWindow round = new TranscluentWindow();
 			
 		 final Thread thread = new Thread(new Runnable() {
@@ -209,8 +209,8 @@ public class TestClases  {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-//		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
+//		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
 		    	 
 //		 		new OldClases.AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
 		 		

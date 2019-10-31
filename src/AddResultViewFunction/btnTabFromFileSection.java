@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,7 +22,7 @@ import WindowView.ReadGamaFile;
 public class btnTabFromFileSection {
 
 	public static void btnTabFromFileListener(AddResultsView addResultsViewWithTable,JPanel basic_panel, JButton btnTabFromFile, Choice choiceMetody, JTextField txtRqstCode,
-			Choice choiceSmplCode, Choice choiceOIR, Choice choicePokazatel) {
+			Choice choiceSmplCode, Choice choiceOIR, Choice choicePokazatel, Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv) {
 		
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -49,12 +50,23 @@ public class btnTabFromFileSection {
 								break;
 
 							case 0:
-								Object[][] ssExcel = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
-								List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults.getDestruct_Result_List();
+								Object[][] ssExcel_0 = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
+								List<Destruct_Result> destruct_Result_List_0 = OverallVariablesAddResults.getDestruct_Result_List();
 								
-								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List)){
+								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List_0)){
 									Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
-									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel);
+									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel_0);
+								}
+								break;
+								
+							case 1:
+								Object[][] ssExcel_1 = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
+								List<Destruct_Result> destruct_Result_List_1 = OverallVariablesAddResults.getDestruct_Result_List();
+								
+								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List_1)){
+									Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
+									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel_1);
+									DobivSection.setValueInChoiceDobivFromORTECFile(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv);
 								}
 								break;
 							}
@@ -82,6 +94,9 @@ public class btnTabFromFileSection {
 	private static int selestTypeReadFileByChoiceMetod(JPanel basic_panel, Metody selectedMetod) {
 		if (selectedMetod.getCode_metody().indexOf("10") > 1) {
 			return 10;
+		}
+		if (selectedMetod.getCode_metody().indexOf("01") > 1) {
+			return 1;
 		}
 		return 0;
 	}

@@ -62,9 +62,8 @@ public class btnPaneAddDobivSection {
 
 	});
 	}
-	
-	
-	static int ExixtStandartCodeInBase(List<String> listStandartCodeAllDobiv, Dobiv results) {
+		
+	public static int ExixtStandartCodeInBase(List<String> listStandartCodeAllDobiv, Dobiv results) {
 		int fl = 0;
 		for (String str : listStandartCodeAllDobiv) {
 			if (str.equals(results.getCode_Standart())) {

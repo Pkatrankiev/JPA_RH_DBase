@@ -472,7 +472,8 @@ public class AddResultsView extends JDialog {
 		panelTable.setBorder(new MatteBorder(1, 1, 0, 0, Color.GRAY));
 		panelTable.setLayout(new BorderLayout(0, 0));
 
-		
+	
+			
 		tableResults = AddResultViewMetods.CreateTableResults(isNewRow,  btnAddRow,  header, 
 				choiceSmplCode);
 		countRowTabResults = OverallVariablesAddResults.getDataTable().length;
@@ -487,7 +488,7 @@ public class AddResultsView extends JDialog {
 		SwingUtilities.updateComponentTreeUI(addResultsViewWithTable);
 		panelTable.add(header, BorderLayout.NORTH);
 		panelTable.add(tableResults, BorderLayout.CENTER);
-
+		
 //		panelTable.validate();
 //		panelTable.repaint();
 //
@@ -499,8 +500,8 @@ public class AddResultsView extends JDialog {
 		addResultsViewWithTable.validate();
 		addResultsViewWithTable.repaint();
 		
+		}
 	
-	}
 	
 	private void ButtonPanell() {
 		JPanel buttonPane = new JPanel();
@@ -535,7 +536,7 @@ public class AddResultsView extends JDialog {
 		btnOpenFileSection.btnOpenFileListener(btnOpenFile,  fileChooser, txtRqstCode,
 				choiceSmplCode, txtBasicValueResult, choiceMetody);
 		btnTabFromFileSection.btnTabFromFileListener(addResultsViewWithTable, basic_panel,  btnTabFromFile,  choiceMetody, txtRqstCode,
-				choiceSmplCode,  choiceOIR,  choicePokazatel);
+				choiceSmplCode,  choiceOIR,  choicePokazatel, choiceDobiv, lbl_StoinostiFromDobiv);
 		btnAddRowSection.btmAddRowListener(addResultsViewWithTable, btnAddRow, choicePokazatel);
 		LabelStoinostiFromDobivSection.LabelStoinFromDobivListener(lbl_StoinostiFromDobiv, choiceDobiv);
 		ButtonPanellListener.saveButtonListener(addResultsViewWithTable,  basic_panel,  saveButton, txtRqstCode,  choicePokazatel,  choiceMetody,

@@ -20,17 +20,20 @@ public class Main_Aplication {
 //	 test.convertDocx2pdf("l:/ЛИ-РХ/Протоколи/3793_08.02.2019.docx");
 		
 //		TestClases.testSetText_Ob_na_Izp_Request();
+		
 //		TestClases.testNewRequestVew();
+		
 //		TestClases.startCreateProtokolDocx();
+		
 //		TestClases.testTableSampleList();
 		
-//		TestClases.AddResultsViewWithTable() ;
+		TestClases.AddResultsViewWithTable() ;
 		
 //		TestClases.ChangeStringToNumber();
 		
 //		TestClases.start_Table_Request_List();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

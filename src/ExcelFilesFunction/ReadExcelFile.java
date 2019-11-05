@@ -111,7 +111,7 @@ public class ReadExcelFile {
 				 }
 				System.out.println(cod_sample+" - "+ metod+" - "+  nuclide+" - "+  result+" - "+ uncert+" - "+  mda+" - "+ 
 						tsi+" - "+  quantity+" - "+  dimencion+" - "+  date_Analize+" - "+  user_Analize);
-				 destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, uncert, mda,
+				 destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, "", uncert, mda,
 							tsi, quantity, dimencion, date_Analize, user_Analize)); 
 			 	
 			 }						
@@ -157,7 +157,7 @@ public class ReadExcelFile {
 		FileInputStream fis = null;
 		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "",
 				dimencion = "";
-		String param = "", valume = "", date_Analize= ""  ;
+		String param = "", valume = "", date_Analize= "" , dobiv = "" ;
 		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(GlobalFormatDate.getFORMAT_DATE());
@@ -230,6 +230,10 @@ public class ReadExcelFile {
 								quantity = String.valueOf(cell.getNumericCellValue());
 								quantity = NumberFormatWithRounding(quantity);
 								break;
+							case "Добив":
+								dobiv = String.valueOf(cell.getNumericCellValue());
+								dobiv = NumberFormatWithRounding(quantity);
+								break;
 							case "ТСИ":
 								tsi = valume;
 								break;
@@ -263,7 +267,7 @@ public class ReadExcelFile {
 									uncert = "0.0";
 								}
 								}
-								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, uncert, mda,
+								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, dobiv, uncert, mda,
 										tsi, quantity, dimencion, date_Analize, user_Analize));
 								endNuclideRsult = false;
 							}
@@ -283,7 +287,7 @@ public class ReadExcelFile {
 	}
 
 	public static String[][] getMasivNuclideFromExcelFile(List<Destruct_Result> list_destruct_Result) {
-		String[][] str = new String[list_destruct_Result.size()][11];
+		String[][] str = new String[list_destruct_Result.size()][12];
 		for (int i = 0; i < list_destruct_Result.size(); i++) {
 			str[i][0] = list_destruct_Result.get(i).getCod(); // nuclide Cod
 			str[i][1] = list_destruct_Result.get(i).getMetod(); // nuclide Metod
@@ -301,6 +305,7 @@ public class ReadExcelFile {
 																	// razmernost
 			str[i][9] = list_destruct_Result.get(i).getDate_Analize();
 			str[i][10] = list_destruct_Result.get(i).getUser_Analize();
+			str[i][11] = list_destruct_Result.get(i).getDobiv();
 
 		}
 		return str;

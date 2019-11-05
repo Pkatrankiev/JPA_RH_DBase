@@ -29,7 +29,7 @@ public class btnOpenFileSection {
 
 				// destruct_Result_List = new ArrayList<Destruct_Result>();
 				int sizeExcelList = 0, sizeGamaList = 0;
-				try {
+//				try {
 					String pathfileName = fileChooser.getSelectedFile().toString();
 					String stringfileName = fileChooser.getSelectedFile().getName();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
@@ -40,8 +40,9 @@ public class btnOpenFileSection {
 
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							String selectMetodStr = choiceMetody.getSelectedItem();
+							int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod());
 							
-							if (selectMetodStr.indexOf("01") > 0) {
+							if (switCase== 1) {
 								Boolean forResults = true;
 								List<Destruct_Result> destruct_Result_List = ReadExcelFile
 										.getDestruct_Result_ListFromOrtecExcelFile(pathfileName, forResults);
@@ -55,12 +56,12 @@ public class btnOpenFileSection {
 								System.out.println("-----------------------------------" + sizeExcelList);
 							}
 
-							if (choiceMetody.getSelectedItem().indexOf("10") > 0) {
+							if (switCase == 10) {
 
 								ReadGamaFile.getReadGamaFile(pathfileName);
 								sizeGamaList = ReadGamaFile.getListNuclideMDA();
 							}
-							if (choiceMetody.getSelectedItem().indexOf("16") > 0) {
+							if (switCase == 16 || switCase == 3) {
 								Boolean forResults = true;
 								OverallVariablesAddResults.setDestruct_Result_List(
 										ReadExcelFile.getDestruct_Result_ListFromExcelFile(pathfileName, forResults));
@@ -71,20 +72,20 @@ public class btnOpenFileSection {
 								OverallVariablesAddResults.setFlagIncertedFile(true);
 							} else {
 								OverallVariablesAddResults.setFlagIncertedFile(false);
-								JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+								JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!\n"+"error 75", "Грешни данни",
 										JOptionPane.ERROR_MESSAGE);
 
 							}
 						} else {
 							OverallVariablesAddResults.setFlagIncertedFile(false);
-							JOptionPane.showMessageDialog(null, "Не сте избрали метод", "Грешни данни",
+							JOptionPane.showMessageDialog(null, "Не сте избрали метод!\n"+"error 81", "Грешни данни",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
-				} catch (NullPointerException e2) {
-					JOptionPane.showMessageDialog(null, "Не сте избрали файл!", "Грешни данни",
-							JOptionPane.ERROR_MESSAGE);
-				}
+//				} catch (NullPointerException e2) {
+//					JOptionPane.showMessageDialog(null, "Не сте избрали файл!\n"+"error 86", "Грешни данни",
+//							JOptionPane.ERROR_MESSAGE);
+//				}
 
 			}
 

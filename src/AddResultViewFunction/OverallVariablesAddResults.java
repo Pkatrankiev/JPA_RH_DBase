@@ -29,6 +29,7 @@ public class OverallVariablesAddResults {
 	private static List<Results> resultListForSave;
 	private static List<Results> resultListForDelete;
 	private static List<Destruct_Result> destruct_Result_List;
+	private static List<Double> destruct_DobivFromResults_List;
 
 	private static String[] masuveSimbolNuclide;
 	private static String[] masive_NuclideToPokazatel;
@@ -302,6 +303,14 @@ public class OverallVariablesAddResults {
 
 	public static Color getColorFromFile() {
 		return colorFromFile;
+	}
+
+	public static List<Double> getDestruct_DobivFromResults_List() {
+		return destruct_DobivFromResults_List;
+	}
+
+	public static void setDestruct_DobivFromResults_List(List<Double> destruct_DobivFromResults_List) {
+		OverallVariablesAddResults.destruct_DobivFromResults_List = destruct_DobivFromResults_List;
 	}
 
 	

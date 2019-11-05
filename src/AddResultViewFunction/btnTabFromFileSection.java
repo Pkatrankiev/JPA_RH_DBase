@@ -33,7 +33,7 @@ public class btnTabFromFileSection {
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
-							int switCase =selestTypeReadFileByChoiceMetod(basic_panel, OverallVariablesAddResults.getSelectedMetod());
+							int switCase =AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod());
 							System.out.println(switCase+ " switCase------------------------------------------------");
 							switch (switCase) {
 							case 10:
@@ -49,7 +49,8 @@ public class btnTabFromFileSection {
 								}
 								break;
 
-							case 0:
+							case 16:
+							case  3:
 								Object[][] ssExcel_0 = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
 								List<Destruct_Result> destruct_Result_List_0 = OverallVariablesAddResults.getDestruct_Result_List();
 								
@@ -91,15 +92,7 @@ public class btnTabFromFileSection {
 
 	}
 
-	private static int selestTypeReadFileByChoiceMetod(JPanel basic_panel, Metody selectedMetod) {
-		if (selectedMetod.getCode_metody().indexOf("10") > 1) {
-			return 10;
-		}
-		if (selectedMetod.getCode_metody().indexOf("01") > 1) {
-			return 1;
-		}
-		return 0;
-	}
+	
 	
 	private static void checkFor10SysError() {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());

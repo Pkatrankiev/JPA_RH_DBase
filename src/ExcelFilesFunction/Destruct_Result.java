@@ -5,6 +5,7 @@ public class Destruct_Result {
 	private String metod;
 	private String nuclide;
 	private String result;
+	private String dobiv;
 	private String uncert;
 	private String mda;
 	private String tsi;
@@ -17,12 +18,13 @@ public class Destruct_Result {
 	public Destruct_Result() {
 	}
 
-	public Destruct_Result(String cod, String metod, String nuclide, String result, String uncert, 
+	public Destruct_Result(String cod, String metod, String nuclide, String result, String dobiv, String uncert, 
 			String mda, String tsi, String quantity, String dimencion, String date_Analize, String user_Analize) {
 		this.cod = cod;
 		this.metod = metod;
 		this.nuclide = nuclide;
 		this.result = result;
+		this.dobiv=dobiv;
 		this.uncert = uncert;
 		this.mda = mda;
 		this.tsi = tsi;
@@ -33,6 +35,14 @@ public class Destruct_Result {
 	}
 
 	
+
+	public String getDobiv() {
+		return dobiv;
+	}
+
+	public void setDobiv(String dobiv) {
+		this.dobiv = dobiv;
+	}
 
 	public void setDimencion(String dimencion) {
 		this.dimencion = dimencion;

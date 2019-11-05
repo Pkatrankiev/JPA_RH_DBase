@@ -27,13 +27,13 @@ public class Main_Aplication {
 		
 //		TestClases.testTableSampleList();
 		
-//		TestClases.AddResultsViewWithTable() ;
+		TestClases.AddResultsViewWithTable() ;
 		
 //		TestClases.ChangeStringToNumber();
 		
 //		TestClases.start_Table_Request_List();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

@@ -83,7 +83,9 @@ public class FunctionForGenerateWordDocFile {
 
 		}
 		// "$$razmernost$$"
-		substitutionData.put(masive_column_table_result[3], result.getRtazmernosti().getName_razmernosti());
+		String razmernost =result.getRtazmernosti().getName_razmernosti();
+		razmernost = razmernost.replaceAll("2", "²").replaceAll("3","³");
+		substitutionData.put(masive_column_table_result[3], razmernost);
 
 		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
 

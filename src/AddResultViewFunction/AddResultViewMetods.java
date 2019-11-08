@@ -579,7 +579,7 @@ public class AddResultViewMetods {
 					inProtokol = "";
 				}
 				int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod());
-				if(switCase!=3){
+				if(switCase!=3 && switCase!=10){
 				Double dobivValue = 0.0;
 				List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults.getDestruct_Result_List();
 				for (Destruct_Result destruct_Result : destruct_Result_List) {
@@ -592,7 +592,7 @@ public class AddResultViewMetods {
 							.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString());
 					if (listDobiv.size() > 0) {
 						for (Dobiv dobiv : listDobiv) {
-							if (dobivValue != dobiv.getValue_result()) {
+							if (dobivValue+0.00005 > dobiv.getValue_result() && dobiv.getValue_result() > dobivValue-0.00005) {
 								errDobiv = "несъвпадащи стойности за добиви" + "\n";
 							}
 						}

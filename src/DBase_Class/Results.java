@@ -215,11 +215,11 @@ public class Results implements Serializable {
 		this.pokazatel = pokazatel;
 	}
 
-	public Razmernosti getRtazmernosti() {
+	public Razmernosti getRazmernosti() {
 		return rtazmernosti;
 	}
 
-	public void setRtazmernosti(Razmernosti rtazmernosti) {
+	public void setRazmernosti(Razmernosti rtazmernosti) {
 		this.rtazmernosti = rtazmernosti;
 	}
 

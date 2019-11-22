@@ -275,7 +275,7 @@ public class Table_Results_List extends JDialog {
 								tableResult[i][uncrt_Colum] = results.getUncertainty();
 								tableResult[i][sigma_Colum] = results.getSigma();
 								tableResult[i][mda_Colum] = results.getMda();
-								tableResult[i][razm_Colum] = results.getRtazmernosti().getName_razmernosti();
+								tableResult[i][razm_Colum] = results.getRazmernosti().getName_razmernosti();
 								tableResult[i][qunt_Colum] = results.getQuantity();
 								tableResult[i][dimen_Colum] = "";
 								if (results.getDimension() != null) {
@@ -338,7 +338,7 @@ public class Table_Results_List extends JDialog {
 						tableSample[i][uncrt_Colum] = results.getUncertainty();
 						tableSample[i][sigma_Colum] = results.getSigma();
 						tableSample[i][mda_Colum] = results.getMda();
-						tableSample[i][razm_Colum] = results.getRtazmernosti().getName_razmernosti();
+						tableSample[i][razm_Colum] = results.getRazmernosti().getName_razmernosti();
 						tableSample[i][qunt_Colum] = results.getQuantity();
 						tableSample[i][dimen_Colum] = "";
 						if (results.getDimension() != null) {
@@ -495,7 +495,7 @@ public class Table_Results_List extends JDialog {
 		result.setUncertainty((Double) model.getValueAt(row, uncrt_Colum));
 		result.setSigma((Integer) model.getValueAt(row, sigma_Colum));
 		result.setMda((Double) model.getValueAt(row, mda_Colum));
-		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) model.getValueAt(row, razm_Colum)));
+		result.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) model.getValueAt(row, razm_Colum)));
 		result.setQuantity((Double) model.getValueAt(row, qunt_Colum));
 
 		if ((model.getValueAt(row, dimen_Colum).equals(""))) {

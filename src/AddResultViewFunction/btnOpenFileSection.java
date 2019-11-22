@@ -21,7 +21,7 @@ import WindowView.ReadGamaFile;
 public class btnOpenFileSection {
 
 	public static void btnOpenFileListener(JButton btnOpenFile, JFileChooser fileChooser, JTextField txtRqstCode,
-			Choice choiceSmplCode, JTextField txtBasicValueResult, Choice choiceMetody) {
+			Choice choiceSmplCode, JTextField txtBasicValueResult, Choice choiceMetody, Choice choicePokazatel) {
 		btnOpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -40,7 +40,7 @@ public class btnOpenFileSection {
 
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							String selectMetodStr = choiceMetody.getSelectedItem();
-							int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod());
+							int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString());
 							
 							if (switCase== 1) {
 								Boolean forResults = true;

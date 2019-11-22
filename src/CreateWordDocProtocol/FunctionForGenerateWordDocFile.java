@@ -66,7 +66,7 @@ public class FunctionForGenerateWordDocFile {
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();
-		if (pokaz.indexOf("гама") >= 0 || pokaz.indexOf("алфа") >= 0) {
+		if (pokaz.indexOf("гама") >= 0 || pokaz.indexOf("алфа") >= 0 || pokaz.indexOf("фракция") >= 0) {
 			String[] nuclide = new String[] { "", "" };
 			nuclide = getNumberFromNuclide(result.getNuclide().getSymbol_nuclide());
 			substitutionData.put("$$s_txt$$", "");
@@ -83,7 +83,7 @@ public class FunctionForGenerateWordDocFile {
 
 		}
 		// "$$razmernost$$"
-		String razmernost =result.getRtazmernosti().getName_razmernosti();
+		String razmernost =result.getRazmernosti().getName_razmernosti();
 		razmernost = razmernost.replaceAll("2", "²").replaceAll("3","³");
 		substitutionData.put(masive_column_table_result[3], razmernost);
 
@@ -282,7 +282,7 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put("$$c_nucl$$", nuclide[1]);
 
 		substitutionData.put("$$MDA$$", " " + formatter(result.getMda()));
-		substitutionData.put("$$razmernost$$", result.getRtazmernosti().getName_razmernosti());
+		substitutionData.put("$$razmernost$$", result.getRazmernosti().getName_razmernosti().replaceAll("2", "²").replaceAll("3","³"));
 		return substitutionData;
 	}
 

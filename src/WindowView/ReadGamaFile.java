@@ -266,9 +266,9 @@ public class ReadGamaFile {
 				results.setQuantity(Double.parseDouble(quantity));
 				results.setDimension(DimensionDAO.getValueDimensionByName(dimension));
 				if(dimension.length()>0){
-					results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/"+dimension));
+					results.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/"+dimension));
 				}else{
-					results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
+					results.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
 				}
 				results.setSigma(Integer.parseInt(sigma.trim().substring(0, sigma.indexOf("."))));
 				listResults.add(results);
@@ -316,10 +316,10 @@ public class ReadGamaFile {
 			masiveResultsMDA[k].setDimension(DimensionDAO.getValueDimensionByName(dimension));
 			if (dimension.length() > 0) {
 				
-				masiveResultsMDA[k].setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/" + dimension));
+				masiveResultsMDA[k].setRazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq/" + dimension));
 				
 			} else {
-				masiveResultsMDA[k].setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
+				masiveResultsMDA[k].setRazmernosti(RazmernostiDAO.getValueRazmernostiByName("Bq"));
 			}
 			masiveResultsMDA[k].setSigma(Integer.parseInt(sigma.substring(0,1)));
 			k++;

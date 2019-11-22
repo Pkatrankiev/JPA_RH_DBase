@@ -22,6 +22,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.xml.bind.JAXBException;
+
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 
 import AddDobivViewFunction.AddDobivViewMetods;
 import AddDobivViewFunction.OverallVariablesAddDobiv;
@@ -332,7 +335,7 @@ public class AddResultViewMetods {
 		rowFromTableResult[actv_value_Colum] = result.getValue_result();
 		rowFromTableResult[uncrt_Colum] = result.getUncertainty();
 		rowFromTableResult[mda_Colum] = result.getMda();
-		rowFromTableResult[razm_Colum] = result.getRtazmernosti().getName_razmernosti();
+		rowFromTableResult[razm_Colum] = result.getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = result.getSigma();
 		rowFromTableResult[qunt_Colum] = result.getQuantity();
 		rowFromTableResult[dimen_Colum] = result.getDimension().getName_dimension();
@@ -352,7 +355,7 @@ public class AddResultViewMetods {
 			rowFromTableResult[actv_value_Colum] = results.getValue_result();
 			rowFromTableResult[uncrt_Colum] = results.getUncertainty();
 			rowFromTableResult[mda_Colum] = results.getMda();
-			rowFromTableResult[razm_Colum] = results.getRtazmernosti().getName_razmernosti();
+			rowFromTableResult[razm_Colum] = results.getRazmernosti().getName_razmernosti();
 			rowFromTableResult[sigma_Colum] = results.getSigma();
 			rowFromTableResult[qunt_Colum] = results.getQuantity();
 			rowFromTableResult[dimen_Colum] = "";
@@ -519,7 +522,7 @@ public class AddResultViewMetods {
 		return tableResult;
 	}
 
-	static String strCurrentDataInDataTable(Object[][] dataTable, Choice choiceDobiv) {
+	static String strCurrentDataInDataTable(Object[][] dataTable, Choice choiceDobiv, Choice choicePokazatel) {
 		String errDuplic = "";
 		String errTSI = "";
 		String uncrtError = "";
@@ -578,14 +581,19 @@ public class AddResultViewMetods {
 					}
 					inProtokol = "";
 				}
-				int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod());
+				int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString() );
 				if(switCase!=3 && switCase!=10){
 				Double dobivValue = 0.0;
+				try{
 				List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults.getDestruct_Result_List();
+				if(destruct_Result_List!=null){
+				
 				for (Destruct_Result destruct_Result : destruct_Result_List) {
+					
 					if (dataTable[i][nuclide_Colum].toString().equals(destruct_Result.getNuclide())) {
 						dobivValue = Double.parseDouble((String) destruct_Result.getDobiv());
 					}
+				}
 				}
 				if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
 					List<Dobiv> listDobiv = DobivDAO
@@ -599,6 +607,13 @@ public class AddResultViewMetods {
 					}
 
 				}
+				
+				} catch ( NumberFormatException e) {
+					 e.printStackTrace();
+					 JOptionPane.showMessageDialog(null, "Липсва добив във файла", "Грешни данни",
+								JOptionPane.ERROR_MESSAGE);
+				}
+				
 				}
 
 			}
@@ -696,7 +711,7 @@ public class AddResultViewMetods {
 		result.setNuclide(nuclide);
 		result.setPokazatel(
 				List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem()));
-		result.setRtazmernosti(RazmernostiDAO
+		result.setRazmernosti(RazmernostiDAO
 				.getValueRazmernostiByName(OverallVariablesAddResults.getDataTable()[i][razm_Colum].toString()));
 		result.setSample(sample);
 		String choiceUser_ORHO = choiceORHO.getSelectedItem();
@@ -720,12 +735,13 @@ public class AddResultViewMetods {
 
 		if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
 			List<Dobiv> listDobiv = DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString());
+			
 			if (listDobiv.size() > 0) {
-				for (Dobiv dobiv : listDobiv) {
-					if (dobiv.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
-						result.setDobiv(dobiv);
-					}
-				}
+//				for (Dobiv dobiv : listDobiv) {
+//					if (dobiv.getNuclide().getSymbol_nuclide().replaceAll("[0123456789]","").equals(nuclide.getSymbol_nuclide().replaceAll("[0123456789]",""))) {
+						result.setDobiv(listDobiv.get(0));
+//					}
+//				}
 			} else {
 				Dobiv dobiv = OverallVariablesAddDobiv.getListChoisedDobiv().get(0);
 				dobiv.setDate_chim_oper(OverallVariablesAddResults.getDataTable()[i][dateHimObr_Colum].toString());
@@ -768,11 +784,17 @@ public class AddResultViewMetods {
 		}
 	}
 	
-	public static int selestTypeReadFileByChoiceMetod(Metody selectedMetod) {
+	public static int selestTypeReadFileByChoiceMetod (Metody selectedMetod, String pokazatel) {
 		if (selectedMetod.getCode_metody().indexOf("-10") > 1) {
 			return 10;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-01") > 1) {
+			System.out.println("----------++++++++++++++++ "+pokazatel);
+			if(pokazatel.indexOf("90Sr")>0){
+				System.out.println("----------++++++++++++++++ "+pokazatel);
+				
+				return 16;
+			}
 			return 1;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-16") > 1 || selectedMetod.getCode_metody().indexOf("-15") > 1) {

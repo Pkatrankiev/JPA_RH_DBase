@@ -33,8 +33,8 @@ public class btnTabFromFileSection {
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							OverallVariablesAddResults.setSelectedMetod ( MetodyDAO.getValueList_MetodyByCode(choiceMetody.getSelectedItem()));
 							String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
-							int switCase =AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod());
-							System.out.println(switCase+ " switCase------------------------------------------------");
+							int switCase =AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString());
+//							System.out.println(switCase+ " switCase------------------------------------------------");
 							switch (switCase) {
 							case 10:
 								String codeSamampleFromGamaFile = ReadGamaFile.getCod_sample();

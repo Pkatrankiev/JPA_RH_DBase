@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +17,14 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.*;
 
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.List_izpitvan_pokazatelDAO;
+import Aplication.Nuclide_to_PokazatelDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Naredbi;
+import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -33,7 +38,6 @@ public class GenerateDocProtokol {
 	private static String strKeyTemplateText = "РЕЗУЛТАТИ ОТ ИЗПИТВАНЕТО";
 	private static String strKeyTemplateNewPage = "#$%";
 	private static String strKeyTemplateZabel = "$$zab$$";
-	
 
 	private static String strKeyTemplateNewRow = "##$$%%";
 	private static String strKeyTemplateMDA = "$$MDA$$";
@@ -47,9 +51,7 @@ public class GenerateDocProtokol {
 
 	public static void GenerateProtokolWordDoc(String nameTaplateProtokol, Request recuest,
 			Map<String, String> substitutionData, TranscluentWindow round) {
-		
-		
-		
+
 		BasicConfigurator.configure();
 
 		// List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
@@ -143,10 +145,16 @@ public class GenerateDocProtokol {
 				coutRow++;
 			}
 		}
+
+		// Alpha fraction
+		String pokazAlpha = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(2).getName_pokazatel();
+		boolean flagAlphaFraction = isАlphaFraction(pokazatel_list);
+		// Alpha fraction
+
 		FunctionForGenerateWordDocFile.clearListDokladMDA();
 
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
-		
+
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
 		int idexSample = 0;
 
@@ -154,29 +162,38 @@ public class GenerateDocProtokol {
 
 			if (idexSample > lastSampleIndex) {
 				masiveMergeRow[idexSample] = coutRow++;
-				
+
 				mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
 				tempTable = newTable(substitutionData, template, pargraphTemplateProtokol, pargraphTemplateText,
 						pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable, headerRow_1, headerRow_2,
 						repl_results);
 
 				coutRow = 2;
-				// if (result_list.size() == 1) {
-				// coutRow = 2;
-				// }
+
 				lastSampleIndex = CreateListForMultiTable
 						.lastIndexSampleForFirstTab(smple_list.subList(lastSampleIndex, smple_list.size() - 1));
-//				System.out.println("lastSampleIndex2 " + lastSampleIndex);
 
 				masiveMergeRow = new int[lastSampleIndex + 2];
 				idexSample = 0;
 			}
 
-//			System.out.println("idexSample " + idexSample);
 			masiveMergeRow[idexSample] = coutRow;
 
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
+			if (flagAlphaFraction) {
+				coutRow++;
+				CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
+						repl_request_pokazarel, pokazAlpha);
+				
+				result_list = arrangementListResultsByAlphaFraction(result_list);
+			}
+			System.out.println("2----- "+result_list.size());
 			for (Results result : result_list) {
+				System.out.println("----- "+result.getNuclide().getSymbol_nuclide());
+			}
+			
+			for (Results result : result_list) {
+
 				repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
 						masive_column_table_result);
 				AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
@@ -197,7 +214,7 @@ public class GenerateDocProtokol {
 		if (FunctionForGenerateWordDocFile.isZabContain10pecent(string_zab)) {
 			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel,
 					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* " + string_zab));
-			
+
 		}
 
 		Naredbi naredba = FunctionForGenerateWordDocFile.getNaredba();
@@ -219,10 +236,10 @@ public class GenerateDocProtokol {
 			AplicationDocTemplate.writeDocxToStream(template,
 					GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 			round.StopWindow();
-			
-			if(recuest.getInd_num_doc()==null || recuest.getInd_num_doc().getId_ind_num_doc()==1 ){
+
+			if (recuest.getInd_num_doc() == null || recuest.getInd_num_doc().getId_ind_num_doc() == 1) {
 				JOptionPane.showMessageDialog(null, "Изпринтете два оригинала на този протокол", "Внимание",
-						JOptionPane.INFORMATION_MESSAGE);	
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
@@ -234,21 +251,73 @@ public class GenerateDocProtokol {
 			e.printStackTrace();
 		}
 
-//		for (int i = 0; i < masiveMergeRow.length; i++) {
-//			System.out.println("masiveMergeRow [" + i + "] " + masiveMergeRow[i]);
-//		}
-//		for (int i = 0; i < masiveMergeColumn.length; i++) {
-//			System.out.println("MergeCol [" + i + "] " + masiveMergeColumn[i]);
-//		}
+	}
+
+	private static List<Results> arrangementListResultsByAlphaFraction(List<Results> result_list) {
+		List<Results> newResultList = new ArrayList<>();
+		List<List_izpitvan_pokazatel> listFractionPokazatel = new ArrayList<>();
+		Iterator<Results> itr = result_list.iterator();
+		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("Pu-фракция"));
+		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("Am-фракция"));
+		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("U-фракция"));
+		System.out.println("1----- "+result_list.size());
+		while (itr.hasNext()) {
+		for (List_izpitvan_pokazatel list_izpitvan_pokazatel : listFractionPokazatel) {
+			System.out.println("list_izpitvan_pokazatel = "+list_izpitvan_pokazatel.getName_pokazatel());
+			List<Nuclide> listNuclide = Nuclide_to_PokazatelDAO.getListNuclideByPokazatel(list_izpitvan_pokazatel);
+			for (Nuclide nuclide : listNuclide) {
+				System.out.println("nuclide = "+nuclide.getSymbol_nuclide());
+				
+					Results rsult = itr.next();
+					System.out.println(nuclide.getSymbol_nuclide()+" - "+rsult.getNuclide().getSymbol_nuclide());
+					if (nuclide == rsult.getNuclide()) {
+						newResultList.add(rsult);
+						itr.remove();
+					}
+				}
+				
+			}
+		}
+		
+		for (Results rsult : result_list) {
+			newResultList.add(rsult);
+				
+			}
+		return newResultList;
+	}
+
+	private static boolean isАlphaFraction(List<IzpitvanPokazatel> pokazatel_list) {
+		@SuppressWarnings("unused")
+		Boolean sendOnePokazatel;
+		boolean flagAlphaFraction = false;
+		for (IzpitvanPokazatel pokazat : pokazatel_list) {
+			if (pokazat.getPokazatel().getName_pokazatel().indexOf("фракция") > 0)
+				flagAlphaFraction = true;
+		}
+		if (flagAlphaFraction) {
+			// String pokazAlpha =
+			// List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(2).getName_pokazatel();
+			// Boolean fl =
+			// CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable,
+			// templateRow_pokazatel,
+			// repl_request_pokazarel, pokazAlpha);
+			// if (fl) {
+			sendOnePokazatel = true;
+			// coutRow++;
+			// }
+		}
+		// Alpha fraction
+		return flagAlphaFraction;
 	}
 
 	private static void mergeCelsInTAble(Tbl tempTable, int[] numberMergeCells, Request recuest) {
-		
+
 		for (int i = 0; i < numberMergeCells.length - 1; i++) {
 			for (int numbereMergeColumn : masiveMergeColumn) {
-				MergeCellsAplication.mergeCellsVertically(tempTable, numbereMergeColumn, numberMergeCells[i], numberMergeCells[i + 1]);
+				MergeCellsAplication.mergeCellsVertically(tempTable, numbereMergeColumn, numberMergeCells[i],
+						numberMergeCells[i + 1]);
 			}
-	}
+		}
 		int max = 0;
 		for (int i = 1; i < numberMergeCells.length; i++) {
 			if (max <= numberMergeCells[i] - numberMergeCells[i - 1]) {
@@ -258,8 +327,8 @@ public class GenerateDocProtokol {
 		System.out.println("max= " + max);
 		if (FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size() == 1 && max < 2) {
 			for (int i = 1; i < masiveMergeColumn.length; i++) {
-			MergeCellsAplication.mergeCellsVertically(tempTable, masiveMergeColumn[i], numberMergeCells[0],
-					numberMergeCells[numberMergeCells.length - 1]);
+				MergeCellsAplication.mergeCellsVertically(tempTable, masiveMergeColumn[i], numberMergeCells[0],
+						numberMergeCells[numberMergeCells.length - 1]);
 			}
 		}
 	}
@@ -291,7 +360,8 @@ public class GenerateDocProtokol {
 													// CTTbl
 
 		AplicationDocTemplate.addRowToTable(new_table, headerRow_1, repl_results);
-//		AplicationDocTemplate.addRowToTable(new_table, headerRow_2, repl_results);
+		// AplicationDocTemplate.addRowToTable(new_table, headerRow_2,
+		// repl_results);
 		return new_table;
 	}
 

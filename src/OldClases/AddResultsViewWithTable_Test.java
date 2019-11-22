@@ -557,7 +557,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 		result.setNuclide(NuclideDAO.getValueNuclideBySymbol(dataTable[i][nuclide_Colum].toString()));
 		result.setPokazatel(
 				List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(choicePokazatel.getSelectedItem()));
-		result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(dataTable[i][razm_Colum].toString()));
+		result.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(dataTable[i][razm_Colum].toString()));
 		result.setSample(sample);
 		String choiceUser = choiceORHO.getSelectedItem();
 		for (Users user : list_Users) {
@@ -1708,7 +1708,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 		rowFromTableResult[actv_value_Colum] = result.getValue_result();
 		rowFromTableResult[uncrt_Colum] = result.getUncertainty();
 		rowFromTableResult[mda_Colum] = result.getMda();
-		rowFromTableResult[razm_Colum] = result.getRtazmernosti().getName_razmernosti();
+		rowFromTableResult[razm_Colum] = result.getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = result.getSigma();
 		rowFromTableResult[qunt_Colum] = result.getQuantity();
 		rowFromTableResult[dimen_Colum] = result.getDimension().getName_dimension();
@@ -1748,7 +1748,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 			rowFromTableResult[actv_value_Colum] = results.getValue_result();
 			rowFromTableResult[uncrt_Colum] = results.getUncertainty();
 			rowFromTableResult[mda_Colum] = results.getMda();
-			rowFromTableResult[razm_Colum] = results.getRtazmernosti().getName_razmernosti();
+			rowFromTableResult[razm_Colum] = results.getRazmernosti().getName_razmernosti();
 			rowFromTableResult[sigma_Colum] = results.getSigma();
 			rowFromTableResult[qunt_Colum] = results.getQuantity();
 			rowFromTableResult[dimen_Colum] = "";

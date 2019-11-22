@@ -381,5 +381,8 @@ public class TestClases  {
 		return num;
 	}
 
-	
+	public static void createProtocolWordDoc() {
+	JFrame f = new JFrame();
+	 new FrameChoiceGenerateWordDoc(f, "Генериране на Протокол") ;
+	}
 }

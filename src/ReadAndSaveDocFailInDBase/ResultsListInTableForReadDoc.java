@@ -100,7 +100,7 @@ public class ResultsListInTableForReadDoc {
 					tableSample[i][uncrt_Colum ] = results.getUncertainty();
 					tableSample[i][sigma_Colum ] = results.getSigma();
 					tableSample[i][mda_Colum ] = results.getMda();
-					tableSample[i][razm_Colum ] = results.getRtazmernosti().getName_razmernosti();
+					tableSample[i][razm_Colum ] = results.getRazmernosti().getName_razmernosti();
 					tableSample[i][qunt_Colum ] = results.getQuantity();
 					tableSample[i][dimen_Colum ] = "";
 					if (results.getDimension() != null) {
@@ -305,7 +305,7 @@ public class ResultsListInTableForReadDoc {
 			result.setUncertainty((Double) table.getValueAt(i, uncrt_Colum ));
 			result.setSigma((Integer) table.getValueAt(i, sigma_Colum ));
 			result.setMda((Double) table.getValueAt(i, mda_Colum ));
-			result.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(i, razm_Colum )));
+			result.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName((String) table.getValueAt(i, razm_Colum )));
 			result.setQuantity((Double) table.getValueAt(i, qunt_Colum ));
 
 			if ((table.getValueAt(i, dimen_Colum ).equals(""))) {

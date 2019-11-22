@@ -1,5 +1,6 @@
 package Aplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -117,6 +118,15 @@ public class Nuclide_to_PokazatelDAO {
 		entitymanager.close();
 		emfactory.close();
 
+		return list;
+	}
+	
+	
+	public static List<Nuclide> getListNuclideByPokazatel(List_izpitvan_pokazatel volume_check) {
+		List<Nuclide> list = new ArrayList<>();
+		for (Nuclide_to_Pokazatel nuclideToPok : getListNuclide_to_PokazatelByPokazatel(volume_check)) {
+			list.add(nuclideToPok.getNuclide());
+		}
 		return list;
 	}
 

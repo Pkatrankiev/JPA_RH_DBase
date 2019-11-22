@@ -59,7 +59,7 @@ public class ResultsDAO {
 		valueEnt.setPokazatel(pokazatel); 
 		valueEnt.setMetody(metody);
 		valueEnt.setSample(sample);
-		valueEnt.setRtazmernosti(rtazmernosti);
+		valueEnt.setRazmernosti(rtazmernosti);
 
 		valueEnt.setBasic_value(basic_value);
 		valueEnt.setValue_result(value_result);

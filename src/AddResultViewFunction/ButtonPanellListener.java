@@ -163,8 +163,8 @@ import WindowView.AddResultsView;
 			saveCheck = false;
 		}
 
-		if (!AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv).trim().isEmpty()) {
-			str_Error = str_Error + AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv);
+		if (!AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv, choicePokazatel).trim().isEmpty()) {
+			str_Error = str_Error + AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv, choicePokazatel);
 			System.out.println(str_Error);
 			saveCheck = false;
 		}

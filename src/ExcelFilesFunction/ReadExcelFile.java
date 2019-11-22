@@ -366,7 +366,7 @@ public class ReadExcelFile {
 						results.setDate_chim_oper("");
 						results.setTsi(ReadGamaFile.getTSIObjectFromFileString(masiveActiveResults[i][7]));
 						String dim = masiveActiveResults[i][8];
-						results.setRtazmernosti(RazmernostiDAO.getValueRazmernostiByName(dim));
+						results.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(dim));
 						if (dim.indexOf("/") > 0) {
 							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq/","")));
 						} else {
@@ -394,6 +394,7 @@ public class ReadExcelFile {
 		if( Double.parseDouble(num)==0){
 			return num;
 		}
+
 		String formatNum;
 		String head = num.substring(0, num.indexOf("."));
 		if( Integer.parseInt(head)==0){
@@ -408,7 +409,7 @@ public class ReadExcelFile {
 		formatNum = num;
 		}else{
 		Double boubVal = Double.parseDouble(num);
-		 DecimalFormat df = new DecimalFormat("#.####");
+		 DecimalFormat df = new DecimalFormat("#.##############");
 		    df.setRoundingMode(RoundingMode.HALF_UP);
 		    formatNum =df.format(boubVal);
 		

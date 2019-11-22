@@ -77,10 +77,10 @@ public class CreateListForMultiTable {
 			countResultsInSample[i] = ResultsDAO.getListResultsFromCurentSampleInProtokol(listAllSamp.get(i)).size();
 			countAllResults=countAllResults+countResultsInSample[i];
 			}
-		for (int i = 0; i < countResultsInSample.length; i++) {
-			System.out.println("countResultsInSample["+i+"] "+countResultsInSample[i]);
-		}
-		System.out.println("countAllResults "+countAllResults);
+//		for (int i = 0; i < countResultsInSample.length; i++) {
+//			System.out.println("countResultsInSample["+i+"] "+countResultsInSample[i]);
+//		}
+//		System.out.println("countAllResults "+countAllResults);
 		if (countAllResults < maxRowInOneTableOnePage) {
 			return listAllSamp.size()-1;
 			}
@@ -90,15 +90,15 @@ public class CreateListForMultiTable {
 				int countRowInLastTable = 0;	
 				int index_countResultsInSample  = countResultsInSample.length;
 				
-				System.out.println("index_countResultsInSample "+index_countResultsInSample);
+//				System.out.println("index_countResultsInSample "+index_countResultsInSample);
 				
 				do  {
 					index_countResultsInSample--;
 					countRowInLastTable = countRowInLastTable + countResultsInSample[index_countResultsInSample];
 				}while(countRowInLastTable < 4 && index_countResultsInSample >= 0);
 				
-				System.out.println("countRowInLastTable "+countRowInLastTable);
-				System.out.println("index_countResultsInSample "+index_countResultsInSample);
+//				System.out.println("countRowInLastTable "+countRowInLastTable);
+//				System.out.println("index_countResultsInSample "+index_countResultsInSample);
 				for (int j = 0; j < countResultsInSample.length; j++) {
 					if (j < index_countResultsInSample) {
 						listSampl.add(listAllSamp.get(j));
@@ -177,7 +177,7 @@ public class CreateListForMultiTable {
 				}
 				listNumberSampleCount.add(masive1);
 				listNumberSampleCount.add(masive2);
-				System.out.println("masive1= " + masive1.length + " " + "masive2= " + masive2.length);
+//				System.out.println("masive1= " + masive1.length + " " + "masive2= " + masive2.length);
 				return listNumberSampleCount;
 
 			}

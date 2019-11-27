@@ -24,13 +24,14 @@ public class Main_Aplication {
 		
 //		TestClases.testNewRequestVew();
 		
-//		TestClases.startCreateProtokolDocx();
+		TestClases.startCreateProtokolDocx();
 		
 //		TestClases.testTableSampleList();
 		
 //		TestClases.AddResultsViewWithTable() ;
 		
-		TestClases.createProtocolWordDoc();
+//		TestClases.createProtocolWordDoc();
+//		TestClases.createRazprFormWordDoc();
 		
 //		System.out.println(ReadExcelFile.NumberFormatWithRounding("1.09531E-11"));
 		

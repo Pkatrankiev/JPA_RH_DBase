@@ -16,7 +16,6 @@ import java.awt.Panel;
 import java.util.List;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
 import java.awt.Component;
 import java.text.DecimalFormat;

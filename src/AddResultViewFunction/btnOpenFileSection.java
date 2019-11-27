@@ -15,7 +15,7 @@ import AddDobivViewFunction.OverallVariablesAddDobiv;
 import DBase_Class.Dobiv;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
-import ExcelFilesFunction.ReadOrtecExcelReport;
+
 import WindowView.ReadGamaFile;
 
 public class btnOpenFileSection {

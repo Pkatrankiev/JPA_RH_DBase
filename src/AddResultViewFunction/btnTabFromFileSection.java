@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Aplication.MetodyDAO;
-import DBase_Class.Metody;
+
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import Table.Add_DefaultTableModel;

@@ -385,4 +385,9 @@ public class TestClases  {
 	JFrame f = new JFrame();
 	 new FrameChoiceGenerateWordDoc(f, "Генериране на Протокол") ;
 	}
+	
+	public static void createRazprFormWordDoc() {
+		JFrame f = new JFrame();
+		 new FrameChoiceGenerateWordDoc(f, "Генериране на Разпределителен формуляр") ;
+		}
 }

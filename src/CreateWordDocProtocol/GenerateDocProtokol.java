@@ -159,11 +159,12 @@ public class GenerateDocProtokol {
 		int idexSample = 0;
 
 		for (Sample sample : smple_list) {
-
+			
 			if (idexSample > lastSampleIndex) {
 				masiveMergeRow[idexSample] = coutRow++;
-
+				if (!flagAlphaFraction) {
 				mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
+				}
 				tempTable = newTable(substitutionData, template, pargraphTemplateProtokol, pargraphTemplateText,
 						pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable, headerRow_1, headerRow_2,
 						repl_results);
@@ -178,19 +179,16 @@ public class GenerateDocProtokol {
 			}
 
 			masiveMergeRow[idexSample] = coutRow;
-
+			
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
 			if (flagAlphaFraction) {
-				coutRow++;
 				CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
 						repl_request_pokazarel, pokazAlpha);
-				
+				coutRow++;
+				masiveMergeRow[idexSample] = masiveMergeRow[idexSample]+1;
 				result_list = arrangementListResultsByAlphaFraction(result_list);
 			}
-			System.out.println("2----- "+result_list.size());
-			for (Results result : result_list) {
-				System.out.println("----- "+result.getNuclide().getSymbol_nuclide());
-			}
+			
 			
 			for (Results result : result_list) {
 
@@ -202,7 +200,10 @@ public class GenerateDocProtokol {
 			idexSample++;
 		}
 		masiveMergeRow[idexSample] = coutRow++;
+		if (!flagAlphaFraction) {
 		mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
+		}
+		
 
 		if (!FunctionForGenerateWordDocFile.getStringDopIzisk(smple_list.get(0)).equals("")) {
 			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {
@@ -256,26 +257,33 @@ public class GenerateDocProtokol {
 	private static List<Results> arrangementListResultsByAlphaFraction(List<Results> result_list) {
 		List<Results> newResultList = new ArrayList<>();
 		List<List_izpitvan_pokazatel> listFractionPokazatel = new ArrayList<>();
-		Iterator<Results> itr = result_list.iterator();
+		
 		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("Pu-фракция"));
 		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("Am-фракция"));
 		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("U-фракция"));
 		System.out.println("1----- "+result_list.size());
-		while (itr.hasNext()) {
+		
 		for (List_izpitvan_pokazatel list_izpitvan_pokazatel : listFractionPokazatel) {
 			System.out.println("list_izpitvan_pokazatel = "+list_izpitvan_pokazatel.getName_pokazatel());
 			List<Nuclide> listNuclide = Nuclide_to_PokazatelDAO.getListNuclideByPokazatel(list_izpitvan_pokazatel);
 			for (Nuclide nuclide : listNuclide) {
 				System.out.println("nuclide = "+nuclide.getSymbol_nuclide());
-				
+			}
+			for (Nuclide nuclide : listNuclide) {
+				System.out.println("nuclide = "+nuclide.getSymbol_nuclide());
+				System.out.println("result_list.size "+result_list.size());
+				Iterator<Results> itr = result_list.iterator();
+				while (itr.hasNext()) {
 					Results rsult = itr.next();
 					System.out.println(nuclide.getSymbol_nuclide()+" - "+rsult.getNuclide().getSymbol_nuclide());
-					if (nuclide == rsult.getNuclide()) {
+					if (nuclide.getSymbol_nuclide().equals(rsult.getNuclide().getSymbol_nuclide())) {
+						System.out.println("************** "+rsult.getNuclide().getSymbol_nuclide());
 						newResultList.add(rsult);
 						itr.remove();
 					}
+					
 				}
-				
+			
 			}
 		}
 		
@@ -314,8 +322,10 @@ public class GenerateDocProtokol {
 
 		for (int i = 0; i < numberMergeCells.length - 1; i++) {
 			for (int numbereMergeColumn : masiveMergeColumn) {
+			
 				MergeCellsAplication.mergeCellsVertically(tempTable, numbereMergeColumn, numberMergeCells[i],
 						numberMergeCells[i + 1]);
+				
 			}
 		}
 		int max = 0;
@@ -327,8 +337,10 @@ public class GenerateDocProtokol {
 		System.out.println("max= " + max);
 		if (FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size() == 1 && max < 2) {
 			for (int i = 1; i < masiveMergeColumn.length; i++) {
+			
 				MergeCellsAplication.mergeCellsVertically(tempTable, masiveMergeColumn[i], numberMergeCells[0],
 						numberMergeCells[numberMergeCells.length - 1]);
+			
 			}
 		}
 	}

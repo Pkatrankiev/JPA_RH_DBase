@@ -45,7 +45,7 @@ import AddDobivViewFunction.btnTabFromFileAddDobivSection;
 import AddResultViewFunction.OverallVariablesAddResults;
 import DBase_Class.Users;
 import Table.Add_DefaultTableModel;
-import javax.swing.ScrollPaneConstants;
+
 
 public class AddDobivView extends JDialog {
 
@@ -472,6 +472,7 @@ public class AddDobivView extends JDialog {
 				 choiceMetody, choiceOIR,   txtStandartCode);
 	}
 	
+	@SuppressWarnings("unused")
 	private void GetVisibleLAF(final JFrame win) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");

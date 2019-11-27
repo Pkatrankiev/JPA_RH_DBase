@@ -51,7 +51,6 @@ import DBase_Class.External_applicant;
 import DBase_Class.Extra_module;
 import DBase_Class.Ind_num_doc;
 import DBase_Class.Internal_applicant;
-import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Obekt_na_izpitvane_sample;
@@ -998,7 +997,7 @@ public class RequestView extends JDialog {
 				String ref_Date_Time = txt_fid_date_time_reference.getText(); // refDate
 				LocalDate.parse(ref_Date_Time, DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)); // check
 																								// refDate
-				String period = txt_fid_date_time_reference.getText();
+				String period = choice_Period.getSelectedItem();
 
 				try {
 

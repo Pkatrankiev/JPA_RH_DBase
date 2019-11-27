@@ -6,8 +6,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
-import AddDobivViewFunction.OverallVariablesAddDobiv;
-import DBase_Class.Dobiv;
 
 public class LabelStoinostiFromDobivSection {
 

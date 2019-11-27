@@ -63,11 +63,17 @@ public class MergeCellsAplication {
 	        if (col < 0 || fromRow < 0 || toRow < 0) {  
 	            return;  
 	        }  
-	        for (int rowIndex = fromRow; rowIndex <= toRow; rowIndex++) {  
-	            Tc tc = getTc(tbl, rowIndex, col);  
+	    
+	        for (int rowIndex = fromRow; rowIndex <= toRow; rowIndex++) {
+	        	
+	        	
+	            Tc tc = getTc(tbl, rowIndex, col); 
+	          
+	        
 	            if (tc == null) {  
 	                break;  
 	            }  
+	           
 	            TcPr tcPr = getTcPr(tc);  
 	            VMerge vMerge = tcPr.getVMerge();  
 	            if (vMerge == null) {  
@@ -82,6 +88,9 @@ public class MergeCellsAplication {
 	        }  
 	    }  
 	
+	 
+	 
+	 
 	 public static TcPr getTcPr(Tc tc) {  
 	        TcPr tcPr = tc.getTcPr();  
 	        if (tcPr == null) {  

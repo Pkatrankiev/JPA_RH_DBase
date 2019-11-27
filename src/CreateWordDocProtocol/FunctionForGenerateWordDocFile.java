@@ -229,17 +229,21 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	public static String generate_str_Ob_izp_samp(Sample sample, Boolean isDiferent_Ob_Izp_Req) {
+		String obIzpRequest = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane();
+		String obIzpSample = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 		String str_ob_izp_sam ="";
 		if(isDiferent_Ob_Izp_Req){
-		str_ob_izp_sam =
-		sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane();
+		str_ob_izp_sam = obIzpRequest;
 		String str_ob_izp_req_simpl = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name();
 		if(!str_ob_izp_req_simpl.equals("")){
 			str_ob_izp_sam = str_ob_izp_req_simpl;
 		}
+		if(!str_ob_izp_sam.isEmpty()){
 		str_ob_izp_sam += ", ";
 		}
-		str_ob_izp_sam += sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
+		}
+		if(!obIzpRequest.equals(obIzpSample))
+		str_ob_izp_sam += obIzpSample;
 		return str_ob_izp_sam;
 	}
 

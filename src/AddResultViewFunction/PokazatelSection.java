@@ -7,8 +7,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import AddDobivViewFunction.AddDobivViewMetods;
-import Aplication.MetodyDAO;
+
 import DBase_Class.IzpitvanPokazatel;
 
 public class PokazatelSection {

@@ -22,9 +22,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import javax.xml.bind.JAXBException;
-
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 
 import AddDobivViewFunction.AddDobivViewMetods;
 import AddDobivViewFunction.OverallVariablesAddDobiv;
@@ -789,15 +786,14 @@ public class AddResultViewMetods {
 			return 10;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-01") > 1) {
-			System.out.println("----------++++++++++++++++ "+pokazatel);
 			if(pokazatel.indexOf("90Sr")>0){
-				System.out.println("----------++++++++++++++++ "+pokazatel);
 				
 				return 16;
 			}
 			return 1;
 		}
-		if (selectedMetod.getCode_metody().indexOf("-16") > 1 || selectedMetod.getCode_metody().indexOf("-15") > 1) {
+		if (selectedMetod.getCode_metody().indexOf("-16") > 1 || selectedMetod.getCode_metody().indexOf("-15") > 1
+				|| selectedMetod.getCode_metody().indexOf("-07") > 1) {
 			return 16;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-03") > 1) {

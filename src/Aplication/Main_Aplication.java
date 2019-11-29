@@ -24,7 +24,7 @@ public class Main_Aplication {
 		
 //		TestClases.testNewRequestVew();
 		
-		TestClases.startCreateProtokolDocx();
+//		TestClases.startCreateProtokolDocx();
 		
 //		TestClases.testTableSampleList();
 		
@@ -38,6 +38,8 @@ public class Main_Aplication {
 //		TestClases.ChangeStringToNumber();
 		
 //		TestClases.start_Table_Request_List();
+		
+		TestClases.StartMainWindow_Test();
 		
 //		StartMainWindow();
 		

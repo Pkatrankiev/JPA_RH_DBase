@@ -220,7 +220,22 @@ public class TestClases  {
 			
 	}
 	
-	
+	public static void StartMainWindow_Test() {
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 new MainWindow_Test(round);
+		 		
+		 			    	
+		     }
+		    });
+		    thread.start();
+		
+
+	}
 	
 	public	static void Table_RequestToObektNaIzp() {
 		TranscluentWindow round = new TranscluentWindow();

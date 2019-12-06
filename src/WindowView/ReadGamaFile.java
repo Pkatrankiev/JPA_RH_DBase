@@ -133,13 +133,12 @@ public class ReadGamaFile {
 							break;
 						case "Количество":
 							quantity = stringLine[j][3];
-							dimension = stringLine[j][4];
-//							dimension ="";
-//							if (stringLine[j].length > 4) {
-//								dimension = stringLine[j][4];
+							dimension ="";
+							if (stringLine[j].length > 4) {
+								dimension = stringLine[j][4];
 //								dimension = dimension.replaceAll("2", "²");
 //								dimension = dimension.replaceAll("3","³");
-//							}
+							}
 							break;
 						case "Неопределеност":
 							uncertainy = stringLine[j][1];

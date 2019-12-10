@@ -47,7 +47,7 @@ public class ReadExcelFile {
 	private static String user_Analize="";
 	private static String value_Standatd;
 	private static String nuclide_StandardStr;
-	private static String nuclide_Standard;
+//	private static String nuclide_Standard;
 	public static String getCod_sample() {
 		return cod_sample;
 	}
@@ -84,8 +84,8 @@ public class ReadExcelFile {
 			 dimencion = sheet.getRow(68).getCell(10).getStringCellValue().replace("^", "");
 			 date_Analize = sheet.getRow(3).getCell(9).getStringCellValue().replace("/", ".");
 			 nuclide_StandardStr = sheet.getRow(17).getCell(6).getStringCellValue().replace("Tracer Nuclide:", "");
-			 int indexNuclideStandart = nuclide_StandardStr.indexOf("-");
-			 nuclide_Standard = nuclide_StandardStr.substring(indexNuclideStandart+1)+nuclide_StandardStr.substring(0,indexNuclideStandart);
+//			 int indexNuclideStandart = nuclide_StandardStr.indexOf("-");
+//			 nuclide_Standard = nuclide_StandardStr.substring(indexNuclideStandart+1)+nuclide_StandardStr.substring(0,indexNuclideStandart);
 			 nuclide_StandardStr =  nuclide_StandardStr.substring(0, nuclide_StandardStr.indexOf("-"));
 			
 			 value_Standatd = sheet.getRow(19).getCell(6).getStringCellValue().replace("Tracer Recovery:", "").replace(",", ".").replace("%", "");
@@ -165,7 +165,7 @@ public class ReadExcelFile {
 		try {
 			dateNull = sdf.parse("01.01.1910");
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
+		
 			e1.printStackTrace();
 		}
 		try {

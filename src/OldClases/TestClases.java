@@ -37,7 +37,6 @@ import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;
-
 import WindowView.MainWindow;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
@@ -67,7 +66,7 @@ public class TestClases  {
 	public static void testTableSampleList(){
 		JButton loginMenu = new JButton();
 		Frame win = new Frame();
-		MainWindow.StartLoginMenu(win,  loginMenu);
+		MainWindow_Old.StartLoginMenu(win,  loginMenu);
 		TranscluentWindow round = new TranscluentWindow();
 		
 		 final Thread thread = new Thread(new Runnable() {
@@ -227,7 +226,7 @@ public class TestClases  {
 		     @Override
 		     public void run() {
 		    	 
-		    	 new MainWindow_Test(round);
+		    	 new MainWindow(round);
 		 		
 		 			    	
 		     }

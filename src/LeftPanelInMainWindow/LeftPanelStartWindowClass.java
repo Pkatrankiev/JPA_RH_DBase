@@ -1,4 +1,4 @@
-package MainWindow;
+package LeftPanelInMainWindow;
 
 public class LeftPanelStartWindowClass {
 	private String lblLabel_Code;

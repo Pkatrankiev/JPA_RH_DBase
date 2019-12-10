@@ -1,46 +1,28 @@
-package MainWindow;
+package LeftPanelInMainWindow;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.border.MatteBorder;
 
-import org.apache.commons.compress.utils.Lists;
 
-import Aplication.IzpitvanPokazatelDAO;
-import Aplication.PeriodDAO;
-import Aplication.RequestDAO;
-import Aplication.SampleDAO;
-import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.Period;
-import DBase_Class.Request;
-import GlobalVariable.GlobalPathForDocFile;
-import OldClases.FindFile;
-
-import Table.Table_RequestToObektNaIzp;
-import WindowView.DatePicker;
-
-public class createLeftPalenInfo {
-
+public class CreateLeftPanelInfo {
 		
-   	private void createLeftPalenInfo(JPanel under_panel_Left,  JLabel lblNewLabel) {
+   
+	public static void creatLeftPanel(JPanel under_panel_Left,  JLabel lblNewLabel) {
 
+		List<List<LeftPanelStartWindowClass>> listleftPanelStartWindow = VariableFromLeftPanel.getListLeftPanelStartWindow();
 		
-		// under_panel_Left.removeAll();
-		String month = MySuperAwesomeLongRunningTask.getPreviousMesec(1);
+		String month = CreateListLeftPanelStartWindowClass.getPreviousMesec(1);
 		lblNewLabel.setText("Проби от програма периодичен мониторинг за м." + month);
 
-		List<List<LeftPanelStartWindowClass>> listleftPanelStartWindow = MySuperAwesomeLongRunningTask.createListLeftPanelStartWindowClass();
-	
+		
 		String inLabel = "";
 		for (List<LeftPanelStartWindowClass> groupList : listleftPanelStartWindow) {
 			System.out.println(groupList.get(0).getMonitoringGroup());
@@ -49,6 +31,10 @@ public class createLeftPalenInfo {
 			panel2.setMaximumSize(new Dimension(32767, 20));
 			under_panel_Left.add(panel2);
 			panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			if(string.equals("Вода")){
+				inLabel = " за м." + CreateListLeftPanelStartWindowClass.getPreviousMesec(2); ;
+				
+			}
 			JLabel lbl_Grup_ = new JLabel(string + inLabel);
 			panel2.add(lbl_Grup_);
 
@@ -60,7 +46,8 @@ public class createLeftPalenInfo {
 		}
 	}
 
-	private JPanel createRowLeftPanel(JPanel under_panel_Left, LeftPanelStartWindowClass leftPanelStartWindow) {
+	
+	private static JPanel createRowLeftPanel(JPanel under_panel_Left, LeftPanelStartWindowClass leftPanelStartWindow) {
 		JPanel panel = new JPanel();
 		under_panel_Left.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 1));
@@ -95,6 +82,8 @@ public class createLeftPalenInfo {
 
 		return panel;
 	}
+
+	
 
 	
 

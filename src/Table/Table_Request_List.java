@@ -122,7 +122,7 @@ public class Table_Request_List extends JDialog {
 		listRowForUpdate = new ArrayList<Integer>();
 		values_Id_Num_Doc = Ind_num_docDAO.getMasiveStringAllValueValueInd_num_doc();
 		values_I_P = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();
-		values_O_I_R = Obekt_na_izpitvane_requestDAO.getMasiveStringAllValueObekt_na_izpitvane();
+		values_O_I_R = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
 		values_Razmernosti = RazmernostiDAO.getMasiveStringAllValueRazmernosti();
 		value_Zabelejki = ZabelejkiDAO.getMasiveStringAllValueZabelejki();
 		value_users = UsersDAO.getMasiveStringAllName_FamilyUsers();

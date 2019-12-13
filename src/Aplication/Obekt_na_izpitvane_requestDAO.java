@@ -62,17 +62,18 @@ public class Obekt_na_izpitvane_requestDAO {
 		return values;
 	}
 
-	public static List<String > getMasiveStringAllValueObekt_na_izpitvane() {
+	public static String [] getMasiveStringAllValueObekt_na_izpitvane() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 	List<Obekt_na_izpitvane_request> list = getInListAllValueObekt_na_izpitvane();
-	List<String > values = new ArrayList<String >();
+	String [] values = new String [list.size()];
 		int i = 0;
 		for (Obekt_na_izpitvane_request e : list) { 
-			values.add( e.getName_obekt_na_izpitvane());
+			values[i] = e.getName_obekt_na_izpitvane();
 			i++;
 			}
 		return values;
 	}
+	
 	
 	@GET
 	@QueryParam("{id}")
@@ -116,7 +117,7 @@ public class Obekt_na_izpitvane_requestDAO {
 	}
 	
 	public static void saveValueObekt_na_izpitvaneWitchCheck(String value) {
-		List<String > masive_Obekt_na_izpitvane =  getMasiveStringAllValueObekt_na_izpitvane();
+		List<String > masive_Obekt_na_izpitvane =  getListStringAllValueObekt_na_izpitvane();
 		
 		Boolean fl_Obekt_na_izpitvane = false;
 		for (String string : masive_Obekt_na_izpitvane) {

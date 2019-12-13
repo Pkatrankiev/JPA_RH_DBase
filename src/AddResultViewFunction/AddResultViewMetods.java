@@ -407,6 +407,7 @@ public class AddResultViewMetods {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				
 				DefaultTableModel dtm = Add_DefaultTableModel.Add_DefaultTableModel_dd(
 						OverallVariablesAddResults.getDataTable(), masiveNameFortableHeader, masiveClassColumn,
 						masiveTipeColumn, check_Colum);

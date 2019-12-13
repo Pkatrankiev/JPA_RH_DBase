@@ -29,20 +29,22 @@ public class Main_Aplication {
 		
 //		TestClases.testTableSampleList();
 		
-//		TestClases.AddResultsViewWithTable() ;
+//		TestClases.AddResultsViewWithTable(3) ;
 		
 //		TestClases.createProtocolWordDoc();
+		
 //		TestClases.createRazprFormWordDoc();
 		
 //		System.out.println(ReadExcelFile.NumberFormatWithRounding("1.09531E-11"));
 		
 //		TestClases.ChangeStringToNumber();
 		
-//		TestClases.start_Table_Request_List();
+		TestClases.start_Table_Request_List_Test(4);
+		
 		
 //		TestClases.StartMainWindow_Test();
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

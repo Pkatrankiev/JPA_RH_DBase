@@ -191,7 +191,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		repaint();
 	}
 	
-	static Boolean EditRequestObektIzpit  (JTable table, int row, Request request, Map<Integer, List<String>> mapListForStrObektNaIzp,
+	public static Boolean EditRequestObektIzpit  (JTable table, int row, Request request, Map<Integer, List<String>> mapListForStrObektNaIzp,
 			List<String> bsic_listObektNaIzpit) {
 	
 		List<String>  OriginalListObektNaIzp = getListStringOfRequest_To_ObektNaIzpitvaneRequest(request);
@@ -333,7 +333,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		round.StopWindow();
 	}
 
-	static List<Obekt_na_izpitvane_request> creadListStrFromMap(
+	public static List<Obekt_na_izpitvane_request> creadListStrFromMap(
 			Map<Integer, List<String>> mapListForStrObektNaIzp, int rowUpdateObject) {
 		List<Obekt_na_izpitvane_request> listObektIzpit_request = new ArrayList<Obekt_na_izpitvane_request>();
 		for (String strNameObektIzpit : mapListForStrObektNaIzp.get(rowUpdateObject)){
@@ -343,7 +343,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		return listObektIzpit_request;
 	}
 
-	static List<String> creatListStringfromListObekt_na_izpitvane_request(
+	public static List<String> creatListStringfromListObekt_na_izpitvane_request(
 			List<Obekt_na_izpitvane_request> listObektIzpit_request) {
 	List<String> list = new ArrayList<String>();
 		for (Obekt_na_izpitvane_request obekt_na_izpitvane_request : listObektIzpit_request) {
@@ -352,7 +352,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		return list;
 	}
 	
-	static void updateRequestToObIzpObject(Request request, List<Obekt_na_izpitvane_request> listObektIzpit_requet ) {
+	public static void updateRequestToObIzpObject(Request request, List<Obekt_na_izpitvane_request> listObektIzpit_requet ) {
 		List<Request_To_ObektNaIzpitvaneRequest> listRequestInBase = 
 				Request_To_ObektNaIzpitvaneRequestDAO.getRequest_To_ObektNaIzpitvaneRequestByRequest(request);
 		

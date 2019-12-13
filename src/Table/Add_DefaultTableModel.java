@@ -16,8 +16,8 @@ public class Add_DefaultTableModel  {
 	 
 	private static Boolean fromDBase = false;
 
-	public static DefaultTableModel Add_DefaultTableModel_dd (Object masiveDataTable[][], Object columnNames[], @SuppressWarnings("rawtypes") Class[] types, String[] tipeColumn,
-			int check_Colum) {
+	public static DefaultTableModel Add_DefaultTableModel_dd (Object masiveDataTable[][], Object columnNames[],
+ @SuppressWarnings("rawtypes") Class[] types, String[] tipeColumn,	int check_Colum) {
 		
 		DefaultTableModel model = new DefaultTableModel(masiveDataTable, columnNames) {
 			
@@ -96,7 +96,88 @@ public class Add_DefaultTableModel  {
 		 };
 		return model;
 	}
-        
+  
+	public static DefaultTableModel Default_Data_TableModel (Object masiveDataTable[][], Object columnNames[], 
+			@SuppressWarnings("rawtypes") Class[] types, String[] tipeColumn, Boolean isEditable) {
+		
+		DefaultTableModel model = new DefaultTableModel(masiveDataTable, columnNames) {
+			
+			private static final long serialVersionUID = 1L;
+		
+			@SuppressWarnings("rawtypes")
+			private Class[] classTypes = types;
+								
+
+				@SuppressWarnings({})
+				@Override
+				public Class<?> getColumnClass(int columnIndex) {
+					return this.classTypes[columnIndex];
+				}
+
+				
+				public Object getValueAt(int row, int col) {
+					return masiveDataTable[row][col];
+				}
+
+				@Override
+				public boolean isCellEditable(int row, int col) {
+					if (isEditable) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+
+				public void setValueAt(Object value, int row, int col) {
+
+					if (!masiveDataTable[row][col].equals(value)) {
+						
+						switch (tipeColumn[col]) {
+						
+						case "DatePicker":
+							if (!DatePicker.incorrectDate((String) value, false)) {
+								masiveDataTable[row][col] = value;
+								fireTableCellUpdated(row, col);
+							}
+							break;
+							
+						case "Double":
+							try {
+								Double.parseDouble((String) value);
+								masiveDataTable[row][col] = value;
+								fireTableCellUpdated(row, col);
+							} catch (NumberFormatException e) {
+							}
+							break;
+							
+						case  "Choice":
+							masiveDataTable[row][col] = value;
+							fireTableCellUpdated(row, col);
+							break;
+							
+						case  "Boolean_Check":
+							masiveDataTable[row][col] = value;
+							fireTableCellUpdated(row, col);
+							break;
+						}
+						
+
+					}
+
+				}
+
+				public int getColumnCount() {
+					return columnNames.length;
+				}
+
+				public int getRowCount() {
+					return masiveDataTable.length;
+				}
+		 
+		 };
+		return model;
+	}
+  
 	public static void setInvisibleColumn (JTable table, int rsult_Id_Colum){
 		table.getColumnModel().getColumn(rsult_Id_Colum).setWidth(0);
 		table.getColumnModel().getColumn(rsult_Id_Colum).setMinWidth(0);

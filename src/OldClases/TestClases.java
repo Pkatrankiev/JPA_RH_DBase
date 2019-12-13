@@ -1,6 +1,7 @@
 package OldClases;
 
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
 import java.awt.font.TextAttribute;
 import java.math.RoundingMode;
 import java.text.AttributedString;
@@ -37,6 +38,7 @@ import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;
+import WindowView.Login;
 import WindowView.MainWindow;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
@@ -113,20 +115,22 @@ public class TestClases  {
 		
 	}
 	
-	public static void start_Table_Request_List(){
+	public static void start_Table_Request_List_Test(int i){
 	TranscluentWindow round = new TranscluentWindow();
-	Users user = UsersDAO.getValueUsersById(4);
+	Users user = UsersDAO.getValueUsersById(i);
 	 final Thread thread = new Thread(new Runnable() {
 	     @Override
 	     public void run() {
 	    	 
 	    	 JFrame f = new JFrame();
-	 		new Table_Request_List(f,round,user,null);
+	 		new Table_Request_List_Test(f,round,user);
    	
 	     }
 	    });
 	    thread.start();
 }  
+	
+
 	
 	public static void test2() {
 		TranscluentWindow round = new TranscluentWindow();	
@@ -200,7 +204,7 @@ public class TestClases  {
 	 
 	@SuppressWarnings("unused")
 	public
-	static void AddResultsViewWithTable() {
+	static void AddResultsViewWithTable(int i) {
 		TranscluentWindow round = new TranscluentWindow();
 		
 		 final Thread thread = new Thread(new Runnable() {
@@ -209,7 +213,7 @@ public class TestClases  {
 		    	 
 		    	 JFrame f = new JFrame();
 //		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(3)); 
+		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(i)); 
 		    	 
 //		 		new OldClases.AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
 		 		

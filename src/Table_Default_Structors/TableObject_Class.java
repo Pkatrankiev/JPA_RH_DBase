@@ -1,4 +1,4 @@
-package Table;
+package Table_Default_Structors;
 
 public class TableObject_Class {
 	private int numberColum;

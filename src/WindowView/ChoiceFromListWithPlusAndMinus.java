@@ -327,6 +327,9 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 	}
 	
 	public static List<String> getMasiveStringFromChoice() {
+		if(masiveStringFromChoice==null){
+			return old_incomingValueStringList;
+		}
 		return masiveStringFromChoice;
 	}
 }

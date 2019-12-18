@@ -1,97 +1,28 @@
 package Table;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.swing.JCheckBox;
+
+import DBase_Class.Users;
+import Table_Default_Structors.TableObject_Class;
 
 public class OverallVariablesTableRequestList {
-
-	private static String rqst_code_ColumName = "№ на Заявката";
-	private static String id_ND_ColumName = "Ид.№ на документа";
-	private static String rqst_Date_ColumName = "Дата на заявката";
-	private static String izp_Prod_ColumName = "Изпитван продукт";
-	private static String obk_Izp_ColumName = "Обект на изпитване";
-	private static String izp_Pok_ColumName = "Показател";
-	private static String razmer_ColumName =  "Размерност";
-	private static String cunt_Smpl_ColumName = "Брой проби";
-	private static String dscr_Smpl_ColumName = "Описание на пробите";
-	private static String ref_Date_ColumName = "Референтна дата";
-	private static String exec_Date_ColumName = "Срок на изпълнение";
-	private static String rcpt_Date_ColumName =  "Време на приемане";
-	private static String user_ColumName = "Приел заявката";
-	private static String zab_ColumName = "Забележка";
-	private static String in_Acredit_ColumName = "В акредитация";
-	private static String user_Id_ColumName = "Id User";
-
+		
 	
-	public static String getRqst_code_ColumName() {
-		return rqst_code_ColumName;
-	}
-
-	public static String getId_ND_ColumName() {
-		return id_ND_ColumName;
-	}
-
-	public static String getRqst_Date_ColumName() {
-		return rqst_Date_ColumName;
-	}
-
-	public static String getIzp_Prod_ColumName() {
-		return izp_Prod_ColumName;
-	}
-
-	public static String getObk_Izp_ColumName() {
-		return obk_Izp_ColumName;
-	}
-
-	public static String getIzp_Pok_ColumName() {
-		return izp_Pok_ColumName;
-	}
-
-	public static String getRazmer_ColumName() {
-		return razmer_ColumName;
-	}
-
-	public static String getCunt_Smpl_ColumName() {
-		return cunt_Smpl_ColumName;
-	}
-
-	public static String getDscr_Smpl_ColumName() {
-		return dscr_Smpl_ColumName;
-	}
-
-	public static String getRef_Date_ColumName() {
-		return ref_Date_ColumName;
-	}
-
-	public static String getExec_Date_ColumName() {
-		return exec_Date_ColumName;
-	}
-
-	public static String getRcpt_Date_ColumName() {
-		return rcpt_Date_ColumName;
-	}
-
-	public static String getUser_ColumName() {
-		return user_ColumName;
-	}
-
-	public static String getZab_ColumName() {
-		return zab_ColumName;
-	}
-
-	public static String getIn_Acredit_ColumName() {
-		return in_Acredit_ColumName;
-	}
-
-	public static String getUser_Id_ColumName() {
-		return user_Id_ColumName;
-	}
 
 	private static List<Integer> listRowForUpdate;
+	private static List<Users> listAllUsers;
+	private static JCheckBox chckbxNewCheckBox;
+	private static Users user;
 	private static Object[][] dataTable;
+	private static List<String> values_O_I_R;
+	private static Map<String, TableObject_Class> map_TableObject_Class;
+	private static List<TableObject_Class> list_TableObject_Class;	
+	private static int[] masive_Invizible_Colum;
 	
-	
-	
-	
+
 	public static List<Integer> getListRowForUpdate() {
 		return listRowForUpdate;
 	}
@@ -107,5 +38,68 @@ public class OverallVariablesTableRequestList {
 	public static void setDataTable(Object[][] dataTable) {
 		OverallVariablesTableRequestList.dataTable = dataTable;
 	}
+
+	public static Map<String, TableObject_Class> getMap_TableObject_Class() {
+		return map_TableObject_Class;
+	}
+
+	public static void setMap_TableObject_Class(Map<String, TableObject_Class> map_TableObject_Class) {
+		OverallVariablesTableRequestList.map_TableObject_Class = map_TableObject_Class;
+	}
+
+	public static void setList_TableObject_Class(List<TableObject_Class> list_TableObject_Class) {
+		OverallVariablesTableRequestList.list_TableObject_Class = list_TableObject_Class;
+	}
 	
-}
+	public static List<TableObject_Class> getList_TableObject_Class() {
+		return list_TableObject_Class;
+	}
+
+	public static JCheckBox getChckbxNewCheckBox() {
+		return chckbxNewCheckBox;
+	}
+
+	public static void setChckbxNewCheckBox(JCheckBox chckbxNewCheckBox) {
+		OverallVariablesTableRequestList.chckbxNewCheckBox = chckbxNewCheckBox;
+	}
+
+	public static Users getUser() {
+		return user;
+	}
+
+	public static void setUser(Users user) {
+		OverallVariablesTableRequestList.user = user;
+	}
+
+	public static List<String> getValues_O_I_R() {
+		return values_O_I_R;
+	}
+
+	public static void setValues_O_I_R(List<String> values_O_I_R) {
+		OverallVariablesTableRequestList.values_O_I_R = values_O_I_R;
+	}
+
+	public static int[] getMasive_Invizible_Colum() {
+		return masive_Invizible_Colum;
+	}
+
+	public static void setMasive_Invizible_Colum(int[] masive_Invizible_Colum) {
+		OverallVariablesTableRequestList.masive_Invizible_Colum = masive_Invizible_Colum;
+	}
+
+	public static List<Users> getListAllUsers() {
+		return listAllUsers;
+	}
+
+	public static void setListAllUsers(List<Users> listAllUsers) {
+		OverallVariablesTableRequestList.listAllUsers = listAllUsers;
+	}
+	
+	public static boolean isEditableTable() {
+		if(getUser() == null){
+			return false;
+		}
+		return getChckbxNewCheckBox().isSelected()	&& getUser().getIsAdmin();
+	}
+	
+	}

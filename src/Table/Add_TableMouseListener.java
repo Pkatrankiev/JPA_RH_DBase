@@ -67,7 +67,7 @@ public class Add_TableMouseListener {
 	
 
 	
-	static String getDateFromDatePicker(JTable table, int col) {
+	public static String getDateFromDatePicker(JTable table, int col) {
 		 String date = table.getValueAt(table.getSelectedRow(), col).toString();
 		final JFrame f = new JFrame();
 		DatePicker dPicer = new DatePicker(f, false, date);

@@ -59,9 +59,8 @@ public class Table_Request_List_Test extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Map<String, TableObject_Class>  mapListTableRequest = new HashMap<String, TableObject_Class> ();
-	private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp = new HashMap<Integer, List<String>>();
-
+	
+	
 
 	public Table_Request_List_Test(JFrame parent, TranscluentWindow round, Users user) {
 		super(parent, "Списък на Заявките", true);
@@ -73,7 +72,7 @@ public class Table_Request_List_Test extends JDialog {
 		OverallVariablesTableRequestList.setListAllUsers(UsersDAO.getInListAllValueUsers());
 		OverallVariablesTableRequestList.setUser(user);
 		OverallVariablesTableRequestList.setValues_O_I_R(Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane());
-		mapListTableRequest = OverallVariablesTableRequestList.getMap_TableObject_Class();
+//		Map<String, TableObject_Class> mapListTableRequest = OverallVariablesTableRequestList.getMap_TableObject_Class();
 		JPanel panel = new JPanel();
 		panel.setSize(new Dimension(2, 0));
 		panel.setAlignmentY(0.0f);
@@ -217,7 +216,7 @@ public class Table_Request_List_Test extends JDialog {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 	
 		int rqst_code_Colum = DefauiltTableMouseListener.getIndexColumnByKeyMap("rqst_code");
-
+		 Map<Integer, List<String>> mapListForChangedStrObektNaIzp = OverallVariablesTableRequestList.getMapListForChangedStrObektNaIzp();
 		for (int rowForUpdate : listStrRequestCodeForUpdate) {
 			Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code",
 					model.getValueAt(rowForUpdate, rqst_code_Colum));

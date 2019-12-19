@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 13 дек 2019 в 14:04
+-- Generation Time: 19 дек 2019 в 14:50
 -- Версия на сървъра: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -893,7 +893,8 @@ INSERT INTO `izpitvanpokazatel` (`ID_POKAZATEL`, `METODY_ID_METODY`, `POKAZATEL_
 (606, 4, 8, 379),
 (607, 17, 1, 380),
 (608, 17, 1, 381),
-(609, 17, 1, 382);
+(609, 17, 1, 382),
+(610, 17, 1, 383);
 
 -- --------------------------------------------------------
 
@@ -2396,7 +2397,8 @@ INSERT INTO `request` (`ID_RECUEST`, `ACCREDITATION`, `COUNTS_SAMPLES`, `DATE_EX
 (379, 0, 7, '27.12.2019', '05.12.2019', '05.12.2019', 'Водни проби     за м. декември ', '4142', 1, 61, 5, 4, NULL, 4, 3, 5, 'Сондажни кладенци от територията на СП \"РАО\"    '),
 (380, 0, 1, '27.12.2019', '06.12.2019', '06.12.2019', 'Вода от резервоар на ЦНРД         за м. декември ', '4143', 1, 49, 5, 4, NULL, 4, 3, 5, 'Резервоар 03D-SS02T01, ЦНРД'),
 (381, 0, 5, '27.12.2019', '05.12.2019', '11.12.2019', 'Проби намазки от повърхността на контейнери от площ 100cm2', '4144', 1, 69, 1, 12, NULL, 8, 3, 5, 'Контейнери за свежо гориво'),
-(382, 0, 9, '10.01.2020', '12.12.2019', '12.12.2019', 'Водни проби   за м. декември ', '4145', 1, 49, 5, 4, NULL, 4, 3, 5, 'Ревизионни шахти от района на блокове 1÷4');
+(382, 0, 9, '10.01.2020', '12.12.2019', '12.12.2019', 'Водни проби   за м. декември ', '4145', 1, 49, 5, 4, NULL, 4, 3, 5, 'Ревизионни шахти от района на блокове 1÷4'),
+(383, 0, 1, '27.12.2019', '18.12.2019', '18.12.2019', 'Вода от резервоар на ЦНРД     ', '4146', 1, 49, 5, 4, NULL, 4, 3, 5, 'Резервоар 03D-SS02T02, ЦНРД');
 
 -- --------------------------------------------------------
 
@@ -2839,7 +2841,8 @@ INSERT INTO `request_to_obektnaizpitvanerequest` (`ID`, `OBEKTNAIZP_ID_OBEKT_NA_
 (472, 170, 379),
 (473, 118, 380),
 (474, 206, 381),
-(475, 12, 382);
+(475, 12, 382),
+(476, 115, 383);
 
 -- --------------------------------------------------------
 
@@ -8324,7 +8327,13 @@ INSERT INTO `results` (`ID_RESULTS`, `BASIC_VALUE`, `DATE_CHIM_OPER`, `DATE_MEAS
 (5545, 'C:\\GENIE2K\\REPFILES\\4145-5.RPT', '13.12.2019', '13.12.2019', '13.12.2019', 0, 0.849, 0.5, 2, 0, 0, 3, 17, 24, 1, 4, 1555, 8, 3, 3, NULL, 2, NULL),
 (5546, 'C:\\GENIE2K\\REPFILES\\4145-5.RPT', '13.12.2019', '13.12.2019', '13.12.2019', 0, 0.919, 0.5, 2, 0, 0, 3, 17, 30, 1, 4, 1555, 8, 3, 3, NULL, 2, NULL),
 (5547, 'C:\\GENIE2K\\REPFILES\\4145-5.RPT', '13.12.2019', '13.12.2019', '13.12.2019', 1, 0.892, 0.5, 2, 0, 0, 3, 17, 31, 1, 4, 1555, 8, 3, 3, NULL, 2, NULL),
-(5548, 'C:\\GENIE2K\\REPFILES\\4145-5.RPT', '13.12.2019', '13.12.2019', '13.12.2019', 0, 4, 0.5, 2, 0, 0, 3, 17, 45, 1, 4, 1555, 8, 3, 3, NULL, 2, NULL);
+(5548, 'C:\\GENIE2K\\REPFILES\\4145-5.RPT', '13.12.2019', '13.12.2019', '13.12.2019', 0, 4, 0.5, 2, 0, 0, 3, 17, 45, 1, 4, 1555, 8, 3, 3, NULL, 2, NULL),
+(5549, 'C:\\GENIE2K\\REPFILES\\4146-1.RPT', '18.12.2019', '18.12.2019', '18.12.2019', 0, 0.244, 1, 2, 0, 0, 3, 17, 5, 1, 4, 1560, 8, 3, 3, NULL, 2, NULL),
+(5550, 'C:\\GENIE2K\\REPFILES\\4146-1.RPT', '18.12.2019', '18.12.2019', '18.12.2019', 1, 0.28, 1, 2, 0, 0, 3, 17, 9, 1, 4, 1560, 8, 3, 3, NULL, 2, NULL),
+(5551, 'C:\\GENIE2K\\REPFILES\\4146-1.RPT', '18.12.2019', '18.12.2019', '18.12.2019', 0, 0.274, 1, 2, 0, 0, 3, 17, 24, 1, 4, 1560, 8, 3, 3, NULL, 2, NULL),
+(5552, 'C:\\GENIE2K\\REPFILES\\4146-1.RPT', '18.12.2019', '18.12.2019', '18.12.2019', 0, 0.287, 1, 2, 0, 0, 3, 17, 30, 1, 4, 1560, 8, 3, 3, NULL, 2, NULL),
+(5553, 'C:\\GENIE2K\\REPFILES\\4146-1.RPT', '18.12.2019', '18.12.2019', '18.12.2019', 1, 0.308, 1, 2, 0, 0, 3, 17, 31, 1, 4, 1560, 8, 3, 3, NULL, 2, NULL),
+(5554, 'C:\\GENIE2K\\REPFILES\\4146-1.RPT', '18.12.2019', '18.12.2019', '18.12.2019', 0, 1.39, 1, 2, 0, 0, 3, 17, 45, 1, 4, 1560, 8, 3, 3, NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -9779,7 +9788,8 @@ INSERT INTO `sample` (`ID_SAMPLE`, `DATE_TIME_REFERENCE`, `DESCRIPTION_SAMPLE`, 
 (1556, '12.12.2019 10:00', '', 2019, '6', 131, 12, 382, 475),
 (1557, '12.12.2019 10:00', '', 2019, '7', 132, 12, 382, 475),
 (1558, '12.12.2019 10:00', '', 2019, '8', 134, 12, 382, 475),
-(1559, '12.12.2019 10:00', '', 2019, '9', 135, 12, 382, 475);
+(1559, '12.12.2019 10:00', '', 2019, '9', 135, 12, 382, 475),
+(1560, '18.12.2019 10:00', '', 2019, '1', 107, NULL, 383, 476);
 
 -- --------------------------------------------------------
 
@@ -10150,7 +10160,7 @@ ALTER TABLE `internal_applicant`
 -- AUTO_INCREMENT for table `izpitvanpokazatel`
 --
 ALTER TABLE `izpitvanpokazatel`
-  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=610;
+  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=611;
 
 --
 -- AUTO_INCREMENT for table `izpitvan_produkt`
@@ -10246,25 +10256,25 @@ ALTER TABLE `razmernosti`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=383;
+  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=384;
 
 --
 -- AUTO_INCREMENT for table `request_to_obektnaizpitvanerequest`
 --
 ALTER TABLE `request_to_obektnaizpitvanerequest`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=476;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=477;
 
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5549;
+  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5555;
 
 --
 -- AUTO_INCREMENT for table `sample`
 --
 ALTER TABLE `sample`
-  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1560;
+  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1561;
 
 --
 -- AUTO_INCREMENT for table `tsi`

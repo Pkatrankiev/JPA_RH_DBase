@@ -21,7 +21,7 @@ public class OverallVariablesTableRequestList {
 	private static Map<String, TableObject_Class> map_TableObject_Class;
 	private static List<TableObject_Class> list_TableObject_Class;	
 	private static int[] masive_Invizible_Colum;
-	
+	private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp;
 
 	public static List<Integer> getListRowForUpdate() {
 		return listRowForUpdate;
@@ -100,6 +100,14 @@ public class OverallVariablesTableRequestList {
 			return false;
 		}
 		return getChckbxNewCheckBox().isSelected()	&& getUser().getIsAdmin();
+	}
+
+	public static Map<Integer, List<String>> getMapListForChangedStrObektNaIzp() {
+		return mapListForChangedStrObektNaIzp;
+	}
+
+	public static void setMapListForChangedStrObektNaIzp(Map<Integer, List<String>> mapListForChangedStrObektNaIzp) {
+		OverallVariablesTableRequestList.mapListForChangedStrObektNaIzp = mapListForChangedStrObektNaIzp;
 	}
 	
 	}

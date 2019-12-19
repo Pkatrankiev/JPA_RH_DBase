@@ -30,7 +30,7 @@ import WindowView.TranscluentWindow;
 public class DefauiltTableMouseListener {
 
 	static Object[][] dataForTable;
-	private  static JTable table;
+	private static JTable table;
 	private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp = new HashMap<Integer, List<String>>();
 
 	public DefauiltTableMouseListener(JTable tableNew) {
@@ -53,14 +53,17 @@ public class DefauiltTableMouseListener {
 						String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn())
 								.getHeaderValue().toString();
 						int selectedColumnIndex = getColumnIndex(table, nameSelectedColumn);
-						
-//						int selectedColumnIndex = getIndexColumnByColumnName(nameSelectedColumn);
-						String reqCodeStr = getSelectedCode_Request( model, selectedRow);
-						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
-						System.out.println("nameSelectedColumn = "+nameSelectedColumn+" selectedColumnIndex = "+
-						selectedColumnIndex+" choiseRequest = "+reqCodeStr);
-						switch (getTipeColumnByNameColumn(nameSelectedColumn)) {
 
+						// int selectedColumnIndex =
+						// getIndexColumnByColumnName(nameSelectedColumn);
+						String reqCodeStr = getSelectedCode_Request(model, selectedRow);
+						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+						System.out.println("nameSelectedColumn = " + nameSelectedColumn + " selectedColumnIndex = "
+								+ selectedColumnIndex + " choiseRequest = " + reqCodeStr);
+						selectedColumnIndex = getModdelIndexColumnByColumnName(nameSelectedColumn);
+						
+						switch (getTipeColumnByNameColumn(nameSelectedColumn)) {
+						
 						case "code_Request":
 							new RequestMiniFrame(new JFrame(), choiseRequest);
 							break;
@@ -74,17 +77,17 @@ public class DefauiltTableMouseListener {
 							break;
 
 						case "Table_RequestToObektNaIzp":
-							Table_RequestToObektNaIzp( model, selectedRow, selectedColumnIndex, choiseRequest);
+							Table_RequestToObektNaIzp(model, selectedRow, selectedColumnIndex, choiseRequest);
 							break;
 
 						case "Pokazatel":
 							EditColumnPokazatel(model, selectedRow);
 							break;
-							
+
 						case "count_Simple":
 							startViewSampleTableList(reqCodeStr);
 							break;
-							
+
 						case "Date-TimePicer":
 							DatePicker_Function(model, selectedRow, selectedColumnIndex, true);
 							break;
@@ -94,11 +97,8 @@ public class DefauiltTableMouseListener {
 				}
 			}
 
-			
-
 			private void startViewSampleTableList(String reqCodeStr) {
-				Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code",
-						reqCodeStr);
+				Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 				new JFrame();
 				TranscluentWindow round = new TranscluentWindow();
 
@@ -111,7 +111,7 @@ public class DefauiltTableMouseListener {
 					}
 				});
 				thread.start();
-				
+
 			}
 
 		});
@@ -130,11 +130,10 @@ public class DefauiltTableMouseListener {
 	}
 
 	private String getTipeColumnByNameColumn(String nameColumn) {
-		List< TableObject_Class> map_TableObject_Class = OverallVariablesTableRequestList
-				.getList_TableObject_Class();
+		List<TableObject_Class> map_TableObject_Class = OverallVariablesTableRequestList.getList_TableObject_Class();
 		for (TableObject_Class tableObject_Class : map_TableObject_Class) {
-			if(tableObject_Class.getColumName_Header().equals(nameColumn)){
-			return 	tableObject_Class.getTipeColumn();
+			if (tableObject_Class.getColumName_Header().equals(nameColumn)) {
+				return tableObject_Class.getTipeColumn();
 			}
 		}
 		return null;
@@ -154,12 +153,13 @@ public class DefauiltTableMouseListener {
 			model.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(listFromChoiceObektNaIzp, false),
 					selectedRow, columnIndex);
 			mapListForChangedStrObektNaIzp.put(selectedRow, listFromChoiceObektNaIzp);
-		
+			OverallVariablesTableRequestList.setMapListForChangedStrObektNaIzp(mapListForChangedStrObektNaIzp);
+
 		}
 	}
 
-	
 	private void DatePicker_Function(DefaultTableModel model, int selectedRow, int columnIndex, Boolean withTime) {
+
 		String strDate = model.getValueAt(selectedRow, columnIndex).toString();
 		final JFrame f = new JFrame();
 		DatePicker dPicer = new DatePicker(f, withTime, strDate);
@@ -184,8 +184,8 @@ public class DefauiltTableMouseListener {
 	private static void EditColumnPokazatel(DefaultTableModel model, int selectedRow) {
 		int columnIndex = getIndexColumnByKeyMap("izp_Pok");
 		String strPokazatel = model.getValueAt(selectedRow, columnIndex).toString().trim();
-		System.out.println(columnIndex+" ++++++++++++++ "+strPokazatel);
-		List<String> list = ReadListPokazatelInCell( strPokazatel);
+		System.out.println(columnIndex + " ++++++++++++++ " + strPokazatel);
+		List<String> list = ReadListPokazatelInCell(strPokazatel);
 		System.out.println(list.size());
 		JFrame f = new JFrame();
 		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false);
@@ -195,37 +195,37 @@ public class DefauiltTableMouseListener {
 		} else {
 			JOptionPane.showMessageDialog(null, "Не можете да променяте броя Показатели", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
-			
+
 		}
 	}
 
 	private static List<String> ReadListPokazatelInCell(String strPokazatel) {
 		List<String> list = new ArrayList<String>();
-		System.out.println(strPokazatel+" -----------------------");
+		System.out.println(strPokazatel + " -----------------------");
 		String str = "";
 		while (!strPokazatel.isEmpty()) {
-			System.out.println(strPokazatel+" //////");
+			System.out.println(strPokazatel + " //////");
 			str = strPokazatel.substring(0, strPokazatel.indexOf(";") + 1);
 			list.add(str.replaceAll(";", "").trim());
 			strPokazatel = strPokazatel.replaceFirst(str, "");
 		}
 		return list;
 	}
-	
-//	private static List<String> ReadListPokazatelInCell(JTable table, int row) {
-//		List<String> list = new ArrayList<String>();
-//		DefaultTableModel model = (DefaultTableModel) table.getModel();
-//		String strPokazatel = model.getValueAt(row, izp_Pok_Colum).toString().trim();
-//		String str = "";
-//		while (!strPokazatel.isEmpty()) {
-//			str = strPokazatel.substring(0, strPokazatel.indexOf(";") + 1);
-//			list.add(str.replaceAll(";", "").trim());
-//			strPokazatel = strPokazatel.replaceFirst(str, "");
-//		}
-//		return list;
-//	}
-	
-	
+
+	// private static List<String> ReadListPokazatelInCell(JTable table, int
+	// row) {
+	// List<String> list = new ArrayList<String>();
+	// DefaultTableModel model = (DefaultTableModel) table.getModel();
+	// String strPokazatel = model.getValueAt(row,
+	// izp_Pok_Colum).toString().trim();
+	// String str = "";
+	// while (!strPokazatel.isEmpty()) {
+	// str = strPokazatel.substring(0, strPokazatel.indexOf(";") + 1);
+	// list.add(str.replaceAll(";", "").trim());
+	// strPokazatel = strPokazatel.replaceFirst(str, "");
+	// }
+	// return list;
+	// }
 
 	@SuppressWarnings("static-access")
 	public static String CreateStringListIzpPokaz(ChoiceL_I_P choiceLP) {
@@ -240,7 +240,16 @@ public class DefauiltTableMouseListener {
 		return table.convertRowIndexToModel(table.getSelectedRow());
 	}
 
-	public static int getIndexColumnByColumnName(String columnName) {
+	public static int getModdelIndexColumnByColumnName(String columnName) {
+		for (TableObject_Class object : OverallVariablesTableRequestList.getList_TableObject_Class()) {
+			if (object.getColumName_Header().equalsIgnoreCase(columnName)) {
+				return object.getNumberColum();
+			}
+		}
+		return -1;
+	}
+
+	public static int getIndexColumnByColumnName2(String columnName) {
 		int columnCount = table.getColumnCount();
 
 		for (int column = 0; column < columnCount; column++) {
@@ -252,19 +261,24 @@ public class DefauiltTableMouseListener {
 		return -1;
 	}
 
-//	private static void AddInUpdateList(int row) {
-//		Map<String, TableObject_Class> map_TableObject_Class = OverallVariablesTableRequestList
-//				.getMap_TableObject_Class();
-//		String rqst_code_ColumName = map_TableObject_Class.get("rqst_code").getColumName_Header();
-//		List<Integer> listRowForUpdate = OverallVariablesTableRequestList.getListRowForUpdate();
-//		if (listRowForUpdate.isEmpty()) {
-//			listRowForUpdate.add(row);
-//		} else {
-//			if (!listRowForUpdate.equals(dataForTable[row][getIndexColumnByColumnName(rqst_code_ColumName)])) {
-//				listRowForUpdate.add(row);
-//			}
-//		}
-//	}
+	// private static void AddInUpdateList(int row) {
+	// Map<String, TableObject_Class> map_TableObject_Class =
+	// OverallVariablesTableRequestList
+	// .getMap_TableObject_Class();
+	// String rqst_code_ColumName =
+	// map_TableObject_Class.get("rqst_code").getColumName_Header();
+	// List<Integer> listRowForUpdate =
+	// OverallVariablesTableRequestList.getListRowForUpdate();
+	// if (listRowForUpdate.isEmpty()) {
+	// listRowForUpdate.add(row);
+	// } else {
+	// if
+	// (!listRowForUpdate.equals(dataForTable[row][getIndexColumnByColumnName(rqst_code_ColumName)]))
+	// {
+	// listRowForUpdate.add(row);
+	// }
+	// }
+	// }
 
 	// public static String getKeyMapByHeaderNameColumn(String headerNameColumn,
 	// Map<String, TableObject_Class> map_TableObject_Class){
@@ -278,16 +292,16 @@ public class DefauiltTableMouseListener {
 	//
 	// }
 
-	 public static int getColumnIndex(JTable table, String columnTitle) {
-		 int columnCount = table.getColumnCount();
-		    for (int column = 0; column < columnCount; column++) {
-		        if (table.getColumnName(column).equalsIgnoreCase(columnTitle)) {
-		            return column;
-		        }
-		    }
+	public static int getColumnIndex(JTable table, String columnTitle) {
+		int columnCount = table.getColumnCount();
+		for (int column = 0; column < columnCount; column++) {
+			if (table.getColumnName(column).equalsIgnoreCase(columnTitle)) {
+				return column;
+			}
+		}
 
-		    return -1;
-	 }
+		return -1;
+	}
 
 	// public static String getColumnName(JTable table, int c) {
 	//

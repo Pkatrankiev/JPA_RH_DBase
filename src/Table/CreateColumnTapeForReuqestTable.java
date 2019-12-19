@@ -58,7 +58,7 @@ public class CreateColumnTapeForReuqestTable {
 	private static String zab_ColumName =  "Забележка";
 	private static String zab = "zab";
 	
-	private static String in_Acredit_ColumName =  "В акредитация";
+	private static String in_Acredit_ColumName =  "Извън обхват";
 	private static String in_Acredit = "in_Acredit";
 	
 //	private static String user_Id_ColumName ="Id User";
@@ -212,6 +212,13 @@ public class CreateColumnTapeForReuqestTable {
 //	list_TableObject_Class.add(columObject);
 //	mapListTableRequest.put(user_Id,columObject);
 	
+	for (int i = 0; i < list_TableObject_Class.size(); i++) {
+		list_TableObject_Class.get(i).setNumberColum(i);
+		
+	}
+	for (TableObject_Class tableObject_Class : list_TableObject_Class) {
+		System.out.println(tableObject_Class.getColumName_Header()+"  --   "+tableObject_Class.getNumberColum());
+	}
 	OverallVariablesTableRequestList.setList_TableObject_Class(list_TableObject_Class);
 	OverallVariablesTableRequestList.setMap_TableObject_Class( mapListTableRequest);
 	

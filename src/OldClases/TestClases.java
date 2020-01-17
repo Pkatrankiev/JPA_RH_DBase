@@ -123,7 +123,7 @@ public class TestClases  {
 	     public void run() {
 	    	 
 	    	 JFrame f = new JFrame();
-	 		new Table_Request_List_Test(f,round,user);
+	 		new Table_Request_List_Test(f,round,user,"request", "Списък на Заявките");
    	
 	     }
 	    });
@@ -366,7 +366,7 @@ public class TestClases  {
 	}
 	
 	public static String ChangeStringToNumber() {
-		String num = "0.0000407408419115";
+		String num = "0.000000123449419115";
 		String head = num.substring(0, num.indexOf("."));
 		System.out.println("head= "+head);
 		if( Integer.parseInt(head)==0){
@@ -396,12 +396,97 @@ public class TestClases  {
 //
 		    double roundOff = Math.round(boubVal * 10000.0000) / 10000.0000;
 		    System.out.println(roundOff);
+		    System.out.println(num);
+		    
+		    
 		return num;
 	}
 
-	public static void createProtocolWordDoc() {
+	public static String NumberFormatWithRounding(String num) {
+		num = "1234567.123456789";
+		Double boubVal2 = Double.parseDouble(num);
+		System.out.println(boubVal2);
+		if( Double.parseDouble(num)==0){
+			return num;
+		}
+
+		String formatNum;
+		String head = num.substring(0, num.indexOf("."));
+		if( Integer.parseInt(head)==0){
+		String body = num.substring(num.indexOf(".")+1);
+		while (body.substring(0,1).equals("0")) {
+			body = body.substring(1);
+		}
+		if(body.length()>5){
+			body = body.substring(0,5);
+		}
+		num = num.substring(0,num.indexOf(body)+body.length());
+		formatNum = num;
+		}else{
+		Double boubVal = Double.parseDouble(num);
+		 DecimalFormat df = new DecimalFormat("#.##############");
+		    df.setRoundingMode(RoundingMode.HALF_UP);
+		    formatNum =df.format(boubVal);
+		
+		}
+		formatNum = formatNum.replaceAll(",",".");
+		
+		ReformatDoubleTo4decimalExponet(formatNum);
+		System.out.println("-------------------------------");
+		ChangeStringToNumber();
+		
+		
+		
+		return formatNum.replaceAll(",",".");
+	}
+
+	public static String ReformatDoubleTo4decimalExponet(String formatNum) {
+	
+		String stt =  "16.09985";
+		
+		formatNum = stt;
+		System.out.println(stt);
+		
+		double dob2 = Double.parseDouble(stt);
+		System.out.println(dob2);
+		
+		 DecimalFormat df = new DecimalFormat("0.0000E00");
+		    df.setRoundingMode(RoundingMode.HALF_UP);
+		    String num =df.format(dob2);
+		    System.out.println(num); 
+		    stt = num.replaceAll(",",".");
+	
+		    String expon = num.substring(num.indexOf("E")+1);
+		System.out.println(expon);
+		
+		int kk = Integer.parseInt(expon);
+		System.out.println(kk);
+		
+		if(kk<2 && kk>=-2){
+			
+			 DecimalFormat df4 = new DecimalFormat("#.####");
+			    df4.setRoundingMode(RoundingMode.HALF_UP);
+			    stt = df4.format(dob2);
+			 
+		}
+		System.out.println(stt);
+		return stt;
+	}
+	
+	private static int roundUP(double d){
+	    double dAbs = Math.abs(d);
+	    int i = (int) dAbs;
+	    double result = dAbs - (double) i;
+	    if(result==0.0){ 
+	        return (int) d;
+	    }else{
+	        return (int) d<0 ? -(i+1) : i+1;          
+	    }
+	}
+	
+	public static void createProtocolWordDoc(String str) {
 	JFrame f = new JFrame();
-	 new FrameChoiceGenerateWordDoc(f, "Генериране на Протокол") ;
+	 new FrameChoiceGenerateWordDoc(f, str) ;
 	}
 	
 	public static void createRazprFormWordDoc() {

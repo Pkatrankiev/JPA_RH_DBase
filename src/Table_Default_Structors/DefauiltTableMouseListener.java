@@ -12,12 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 import Aplication.RequestDAO;
 import DBase_Class.Request;
-import Table.Add_TableMouseListener;
-import Table.OverallVariablesTableRequestList;
+import Table.RequestTableList_OverallVariables;
 import Table.Table_RequestToObektNaIzp;
 import Table.Table_Sample_List;
 import WindowView.ChoiceFromListWithPlusAndMinus;
@@ -35,7 +33,7 @@ public class DefauiltTableMouseListener {
 
 	public DefauiltTableMouseListener(JTable tableNew) {
 		table = tableNew;
-		dataForTable = OverallVariablesTableRequestList.getDataTable();
+		dataForTable = RequestTableList_OverallVariables.getDataTable();
 
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -44,11 +42,12 @@ public class DefauiltTableMouseListener {
 
 			public void mousePressed(MouseEvent e) {
 
+				if (SwingUtilities.isLeftMouseButton(e)){
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				int selectedRow = getSelectedModelRow();
 
 				if (selectedRow != -1) {
-					if (OverallVariablesTableRequestList.isEditableTable()) {
+					if (RequestTableList_OverallVariables.isEditableTable()) {
 
 						String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn())
 								.getHeaderValue().toString();
@@ -85,16 +84,18 @@ public class DefauiltTableMouseListener {
 							break;
 
 						case "count_Simple":
+						case "Date-TimePicker":
 							startViewSampleTableList(reqCodeStr);
 							break;
 
-						case "Date-TimePicer":
-							DatePicker_Function(model, selectedRow, selectedColumnIndex, true);
-							break;
+//						case "Date-TimePicker":
+//							DatePicker_Function(model, selectedRow, selectedColumnIndex, true);
+//							break;
 
 						}
 					}
 				}
+			}
 			}
 
 			private void startViewSampleTableList(String reqCodeStr) {
@@ -124,13 +125,13 @@ public class DefauiltTableMouseListener {
 	}
 
 	public static int getIndexColumnByKeyMap(String keyMap) {
-		Map<String, TableObject_Class> map_TableObject_Class = OverallVariablesTableRequestList
+		Map<String, TableObject_Class> map_TableObject_Class = RequestTableList_OverallVariables
 				.getMap_TableObject_Class();
 		return map_TableObject_Class.get(keyMap).getNumberColum();
 	}
 
 	private String getTipeColumnByNameColumn(String nameColumn) {
-		List<TableObject_Class> map_TableObject_Class = OverallVariablesTableRequestList.getList_TableObject_Class();
+		List<TableObject_Class> map_TableObject_Class = RequestTableList_OverallVariables.getList_TableObject_Class();
 		for (TableObject_Class tableObject_Class : map_TableObject_Class) {
 			if (tableObject_Class.getColumName_Header().equals(nameColumn)) {
 				return tableObject_Class.getTipeColumn();
@@ -140,7 +141,7 @@ public class DefauiltTableMouseListener {
 	}
 
 	public static String getNameColumnByKeyMap(String keyMap) {
-		Map<String, TableObject_Class> map_TableObject_Class = OverallVariablesTableRequestList
+		Map<String, TableObject_Class> map_TableObject_Class = RequestTableList_OverallVariables
 				.getMap_TableObject_Class();
 		return map_TableObject_Class.get(keyMap).getColumName_Header();
 	}
@@ -148,12 +149,12 @@ public class DefauiltTableMouseListener {
 	private void Table_RequestToObektNaIzp(DefaultTableModel model, int selectedRow, int columnIndex,
 			Request choiseRequest) {
 		if (Table_RequestToObektNaIzp.EditRequestObektIzpit(table, selectedRow, choiseRequest,
-				mapListForChangedStrObektNaIzp, OverallVariablesTableRequestList.getValues_O_I_R())) {
+				mapListForChangedStrObektNaIzp, RequestTableList_OverallVariables.getValues_O_I_R())) {
 			List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
 			model.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(listFromChoiceObektNaIzp, false),
 					selectedRow, columnIndex);
 			mapListForChangedStrObektNaIzp.put(selectedRow, listFromChoiceObektNaIzp);
-			OverallVariablesTableRequestList.setMapListForChangedStrObektNaIzp(mapListForChangedStrObektNaIzp);
+			RequestTableList_OverallVariables.setMapListForChangedStrObektNaIzp(mapListForChangedStrObektNaIzp);
 
 		}
 	}
@@ -241,7 +242,7 @@ public class DefauiltTableMouseListener {
 	}
 
 	public static int getModdelIndexColumnByColumnName(String columnName) {
-		for (TableObject_Class object : OverallVariablesTableRequestList.getList_TableObject_Class()) {
+		for (TableObject_Class object : RequestTableList_OverallVariables.getList_TableObject_Class()) {
 			if (object.getColumName_Header().equalsIgnoreCase(columnName)) {
 				return object.getNumberColum();
 			}

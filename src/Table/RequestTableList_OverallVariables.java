@@ -8,7 +8,7 @@ import javax.swing.JCheckBox;
 import DBase_Class.Users;
 import Table_Default_Structors.TableObject_Class;
 
-public class OverallVariablesTableRequestList {
+public class RequestTableList_OverallVariables {
 		
 	
 
@@ -28,7 +28,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setListRowForUpdate(List<Integer> listRowForUpdate) {
-		OverallVariablesTableRequestList.listRowForUpdate = listRowForUpdate;
+		RequestTableList_OverallVariables.listRowForUpdate = listRowForUpdate;
 	}
 
 	public static Object[][] getDataTable() {
@@ -36,7 +36,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setDataTable(Object[][] dataTable) {
-		OverallVariablesTableRequestList.dataTable = dataTable;
+		RequestTableList_OverallVariables.dataTable = dataTable;
 	}
 
 	public static Map<String, TableObject_Class> getMap_TableObject_Class() {
@@ -44,11 +44,11 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setMap_TableObject_Class(Map<String, TableObject_Class> map_TableObject_Class) {
-		OverallVariablesTableRequestList.map_TableObject_Class = map_TableObject_Class;
+		RequestTableList_OverallVariables.map_TableObject_Class = map_TableObject_Class;
 	}
 
 	public static void setList_TableObject_Class(List<TableObject_Class> list_TableObject_Class) {
-		OverallVariablesTableRequestList.list_TableObject_Class = list_TableObject_Class;
+		RequestTableList_OverallVariables.list_TableObject_Class = list_TableObject_Class;
 	}
 	
 	public static List<TableObject_Class> getList_TableObject_Class() {
@@ -60,7 +60,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setChckbxNewCheckBox(JCheckBox chckbxNewCheckBox) {
-		OverallVariablesTableRequestList.chckbxNewCheckBox = chckbxNewCheckBox;
+		RequestTableList_OverallVariables.chckbxNewCheckBox = chckbxNewCheckBox;
 	}
 
 	public static Users getUser() {
@@ -68,7 +68,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setUser(Users user) {
-		OverallVariablesTableRequestList.user = user;
+		RequestTableList_OverallVariables.user = user;
 	}
 
 	public static List<String> getValues_O_I_R() {
@@ -76,7 +76,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setValues_O_I_R(List<String> values_O_I_R) {
-		OverallVariablesTableRequestList.values_O_I_R = values_O_I_R;
+		RequestTableList_OverallVariables.values_O_I_R = values_O_I_R;
 	}
 
 	public static int[] getMasive_Invizible_Colum() {
@@ -84,7 +84,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setMasive_Invizible_Colum(int[] masive_Invizible_Colum) {
-		OverallVariablesTableRequestList.masive_Invizible_Colum = masive_Invizible_Colum;
+		RequestTableList_OverallVariables.masive_Invizible_Colum = masive_Invizible_Colum;
 	}
 
 	public static List<Users> getListAllUsers() {
@@ -92,7 +92,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setListAllUsers(List<Users> listAllUsers) {
-		OverallVariablesTableRequestList.listAllUsers = listAllUsers;
+		RequestTableList_OverallVariables.listAllUsers = listAllUsers;
 	}
 	
 	public static boolean isEditableTable() {
@@ -107,7 +107,7 @@ public class OverallVariablesTableRequestList {
 	}
 
 	public static void setMapListForChangedStrObektNaIzp(Map<Integer, List<String>> mapListForChangedStrObektNaIzp) {
-		OverallVariablesTableRequestList.mapListForChangedStrObektNaIzp = mapListForChangedStrObektNaIzp;
+		RequestTableList_OverallVariables.mapListForChangedStrObektNaIzp = mapListForChangedStrObektNaIzp;
 	}
 	
 	}

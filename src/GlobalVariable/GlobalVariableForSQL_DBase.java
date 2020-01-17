@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -36,8 +37,10 @@ static Boolean isRemoteDBase = true;
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("JPA_RH_DBase", createLokalDataBase());
 			emfactory.createEntityManager();
 		} catch (PersistenceException e) {
-
-			JOptionPane.showMessageDialog(null, "Не се свързвам с базата данни:");
+			JFrame jf=new JFrame();
+	        jf.setAlwaysOnTop(true);
+	        JOptionPane.showMessageDialog(jf, "Не се свързвам с базата данни:");
+			System.exit (0);
 		}		
 			return Persistence.createEntityManagerFactory("JPA_RH_DBase", createLokalDataBase());
 		}

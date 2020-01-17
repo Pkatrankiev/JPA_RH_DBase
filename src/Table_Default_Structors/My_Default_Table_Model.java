@@ -13,7 +13,7 @@ import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
 import Table.Add_DefaultTableModel;
-import Table.OverallVariablesTableRequestList;
+import Table.RequestTableList_OverallVariables;
 import WindowView.DatePicker;
 
 public abstract class My_Default_Table_Model{
@@ -21,8 +21,8 @@ public abstract class My_Default_Table_Model{
 		
 	public static DefaultTableModel Default_Data_Table_Model() {
 
-		List<TableObject_Class> list_TableObject_Class = OverallVariablesTableRequestList.getList_TableObject_Class();
-		Object[][] masiveDataTable = OverallVariablesTableRequestList.getDataTable();
+		List<TableObject_Class> list_TableObject_Class = RequestTableList_OverallVariables.getList_TableObject_Class();
+		Object[][] masiveDataTable = RequestTableList_OverallVariables.getDataTable();
 		
 		
 		Object columnNames[] = getColumnHeaderName(list_TableObject_Class);
@@ -45,7 +45,7 @@ public abstract class My_Default_Table_Model{
 
 			@Override
 			public boolean isCellEditable(int row, int col) {
-				if (OverallVariablesTableRequestList.isEditableTable()) {
+				if (RequestTableList_OverallVariables.isEditableTable()) {
 					return true;
 				} else {
 					return false;
@@ -71,7 +71,7 @@ public abstract class My_Default_Table_Model{
 		
 	
 	private static void AddInUpdateList(int row) {
-		List<Integer> listRowForUpdate = OverallVariablesTableRequestList.getListRowForUpdate();
+		List<Integer> listRowForUpdate = RequestTableList_OverallVariables.getListRowForUpdate();
 		if (listRowForUpdate.isEmpty()) {
 			listRowForUpdate.add(row);
 		} else {
@@ -114,7 +114,7 @@ public abstract class My_Default_Table_Model{
 	}
 
 	public static void setInvisibleColumn(JTable table) {
-		int[] masive_Invizible_Colum = OverallVariablesTableRequestList.getMasive_Invizible_Colum();
+		int[] masive_Invizible_Colum = RequestTableList_OverallVariables.getMasive_Invizible_Colum();
 		if(masive_Invizible_Colum!=null)
 		for (int i = 0; i < masive_Invizible_Colum.length; i++) {
 			table.getColumnModel().getColumn(masive_Invizible_Colum[i]).setWidth(0);

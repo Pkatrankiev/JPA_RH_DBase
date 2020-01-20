@@ -29,7 +29,8 @@ public class Main_Aplication {
 		
 //		TestClases.testTableSampleList();
 		
-//		TestClases.AddResultsViewWithTable(3) ;
+		
+		TestClases.AddResultsViewWithTable(3) ;
 		
 //		TestClases.createProtocolWordDoc("Генериране на Разпределителен формуляр");
 		
@@ -40,7 +41,7 @@ public class Main_Aplication {
 //		TestClases.ChangeStringToNumber();
 		
 		
-		TestClases.ReformatDoubleTo4decimalExponet("0.00000123456789");
+//		TestClases.ReformatDoubleTo4decimalExponet("0.00000123456789");
 		
 //		TestClases.start_Table_Request_List_Test(4);
 		

@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import AddResultViewFunction.SortListObjectByField;
 import DBase_Class.Nuclide;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
@@ -82,7 +83,7 @@ public class NuclideDAO {
 		entitymanager.close();
 		emfactory.close();
 		
-		return list;
+		return SortListObjectByField.sortListNuclideByCodedNuclide(list);
 	}
 
 	public static void setBasicValueNuclide() {

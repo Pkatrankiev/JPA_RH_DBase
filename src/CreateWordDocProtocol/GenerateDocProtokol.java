@@ -181,6 +181,8 @@ public class GenerateDocProtokol {
 			masiveMergeRow[idexSample] = coutRow;
 			
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
+			
+			
 			if (flagAlphaFraction) {
 				CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
 						repl_request_pokazarel, pokazAlpha);

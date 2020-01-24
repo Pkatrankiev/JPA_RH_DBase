@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import AddResultViewFunction.SortListObjectByField;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
@@ -84,7 +85,7 @@ public class Nuclide_to_PokazatelDAO {
 		List<Nuclide_to_Pokazatel> list = query.getResultList();
 		entitymanager.close();
 		emfactory.close();
-		return list;
+		return SortListObjectByField.sortListNuclide_to_PokazatelByCodedNuclide(list);
 	}
 
 	@GET
@@ -118,7 +119,7 @@ public class Nuclide_to_PokazatelDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return SortListObjectByField.sortListNuclide_to_PokazatelByCodedNuclide(list);
 	}
 	
 	
@@ -145,7 +146,7 @@ public class Nuclide_to_PokazatelDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return SortListObjectByField.sortListNuclide_to_PokazatelByCodedNuclide(list);
 	}
 	
 	public static void deleteNuclide_to_Pokazatel(Nuclide_to_Pokazatel pokazatel) {

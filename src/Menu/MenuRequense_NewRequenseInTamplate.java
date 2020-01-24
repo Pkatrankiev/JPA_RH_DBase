@@ -31,7 +31,7 @@ public class MenuRequense_NewRequenseInTamplate extends AbstractMenuAction{
 			    	 
 			    	 JFrame f = new JFrame();
 			    	 f.setName("tamplete");
-				 		new Table_Request_List(f,round,Login.getCurentUser(),null);
+			    	 new Table_Request_List(f,round,Login.getCurentUser(),"request", "Нова Заявка от Шаблон");
 
 			    	
 			     }

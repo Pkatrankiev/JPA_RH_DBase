@@ -24,9 +24,11 @@ import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import Table_Default_Structors.DefauiltTableMouseListener;
 import Table_Default_Structors.TableObject_Class;
+import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
@@ -35,11 +37,12 @@ import WindowView.TranscluentWindow;
 
 public class RequestTableList_Functions {
 
-	public static void OverallVariablesForRequestTable(Users user) {
+	public static void OverallVariablesForRequestTable(String frame_name, Users user) {
 		RequestTableList_OverallVariables.setListRowForUpdate(new ArrayList<Integer>());
 		RequestTableList_OverallVariables.setDataTable(getDataTable());
 		RequestTableList_OverallVariables.setListAllUsers(UsersDAO.getInListAllValueUsers());
 		RequestTableList_OverallVariables.setUser(user);
+		RequestTableList_OverallVariables.setFrame_name(frame_name);
 		RequestTableList_OverallVariables.setValues_O_I_R(Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane());
 	}
 	
@@ -230,4 +233,20 @@ public class RequestTableList_Functions {
 		}
 	}
 	
+	
+	static boolean check_ChangedVisibleColumn(List<String> list_StringChoisedVisibleColumn) {
+		List<TableColumn> list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
+		int i=0;
+		for (TableColumn tableColumn : list_TableColumn) {
+			if(tableColumn.getInVisible()){
+				if(! ChoiceL_I_P.reformatString(tableColumn.getName_Column()).
+						contains(list_StringChoisedVisibleColumn.get(i))){
+					return true;
+				}
+			}
+			i++;
+		}	
+		
+		return false;
+	}
 }

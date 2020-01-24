@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import Aplication.Ind_num_docDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
@@ -67,7 +66,7 @@ public class CreateColumnTapeForTable {
 
 	RequestTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
 	RequestTableList_OverallVariables.setMap_TableObject_Class( mapListTableRequest);
-	
+	RequestTableList_OverallVariables.setList_TableColumn(list_TableColumn);
 	}
 
 	private static Class<?> getClassByStringClass(String class_Column) {

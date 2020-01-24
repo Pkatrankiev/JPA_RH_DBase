@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JCheckBox;
-
+import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import Table_Default_Structors.TableObject_Class;
 
@@ -16,13 +16,15 @@ public class RequestTableList_OverallVariables {
 	private static List<Users> listAllUsers;
 	private static JCheckBox chckbxNewCheckBox;
 	private static Users user;
+	private static String frame_name;
 	private static Object[][] dataTable;
 	private static List<String> values_O_I_R;
+	private static List<String> list_StringNewVizibleColumn;
 	private static Map<String, TableObject_Class> map_TableObject_Class;
 	private static List<TableObject_Class> list_TableObject_Class;	
 	private static int[] masive_Invizible_Colum;
 	private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp;
-
+	private static List<TableColumn> list_TableColumn;
 	public static List<Integer> getListRowForUpdate() {
 		return listRowForUpdate;
 	}
@@ -108,6 +110,32 @@ public class RequestTableList_OverallVariables {
 
 	public static void setMapListForChangedStrObektNaIzp(Map<Integer, List<String>> mapListForChangedStrObektNaIzp) {
 		RequestTableList_OverallVariables.mapListForChangedStrObektNaIzp = mapListForChangedStrObektNaIzp;
+	}
+
+
+	public static String getFrame_name() {
+		return frame_name;
+	}
+
+	public static void setFrame_name(String frame_name) {
+		RequestTableList_OverallVariables.frame_name = frame_name;
+	}
+
+	
+	public static List<TableColumn> getList_TableColumn() {
+		return list_TableColumn;
+	}
+
+	public static void setList_TableColumn(List<TableColumn> list_TableColumn) {
+		RequestTableList_OverallVariables.list_TableColumn = list_TableColumn;
+	}
+
+	public static List<String> getList_StringNewVizibleColumn() {
+		return list_StringNewVizibleColumn;
+	}
+
+	public static void setList_StringNewVizibleColumn(List<String> list_StringNewVizibleColumn) {
+		RequestTableList_OverallVariables.list_StringNewVizibleColumn = list_StringNewVizibleColumn;
 	}
 	
 	}

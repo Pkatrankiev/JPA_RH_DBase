@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.TableColumn;
+import Table.RequestTableList_OverallVariables;
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;
@@ -32,15 +34,39 @@ public class ChoiceL_I_P extends JDialog {
 
 	
 	private static final long serialVersionUID = 1L;
-	static ArrayList<String> bsic_list = RequestViewAplication.getStringListLIP();
-	static int countL_I_P = bsic_list.size();
+	static ArrayList<String> bsic_list;
+	static List<String> list_incommingObject;
+	static int countL_I_P ;
 
-	Panel[] check_panel = new Panel[countL_I_P];
-	static JLabel[] label = new JLabel[countL_I_P];
-	static JCheckBox[] checkBox = new JCheckBox[countL_I_P];
+	Panel[] check_panel ;
+	static JLabel[] label ;
+	static JCheckBox[] checkBox ;
 
-	public ChoiceL_I_P(JFrame parent, List<String> list_izpitvan_pokazatel, Boolean fromTamplate) {
-		super(parent, "Избор на Изпитван Показател", true);
+	public ChoiceL_I_P(JFrame parent, List<String> incomming_list_izpitvan_pokazatel, Boolean fromTamplate, String name_Frame) {
+		super(parent, name_Frame, true);
+		
+		switch (name_Frame) {
+		case "Избор на Изпитван Показател":
+			bsic_list = RequestViewAplication.getStringListLIP();
+			list_incommingObject = incomming_list_izpitvan_pokazatel;
+			countL_I_P = bsic_list.size();
+			break;
+
+		case "Избор на колони":
+			List<TableColumn> list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
+			bsic_list = getListString_NameColumn(list_TableColumn);
+			list_incommingObject  = getListString_VizibleColumn(list_TableColumn);
+			countL_I_P = bsic_list.size();
+			break;
+			
+		default:
+			break;
+		}
+		
+		label = new JLabel[countL_I_P];
+		check_panel = new Panel[countL_I_P];
+		checkBox = new JCheckBox[countL_I_P];
+		
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
@@ -66,7 +92,7 @@ public class ChoiceL_I_P extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 
-		JLabel lblNewLabel_1 = new JLabel("Изберете Изпитван Показател");
+		JLabel lblNewLabel_1 = new JLabel("Изберете:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblNewLabel_1);
@@ -99,9 +125,9 @@ public class ChoiceL_I_P extends JDialog {
 			checkBox[i] = new JCheckBox();
 			check_panel[i].add(checkBox[i]);
 
-			if (!list_izpitvan_pokazatel.isEmpty()) {
+			if (!list_incommingObject.isEmpty()) {
 
-				for (String str : list_izpitvan_pokazatel) {
+				for (String str : list_incommingObject) {
 					if (str.equals(string))
 						checkBox[i].setSelected(true);
 				}
@@ -132,10 +158,10 @@ public class ChoiceL_I_P extends JDialog {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("  +++ " + list_izpitvan_pokazatel.size());
+				System.out.println("  +++ " + list_incommingObject.size());
 				for (int j = 0; j < bsic_list.size(); j++)
 					checkBox[j].setSelected(false);
-				for (String string : list_izpitvan_pokazatel) {
+				for (String string : list_incommingObject) {
 					for (int j = 0; j < bsic_list.size(); j++) {
 						if (label[j].getText().equals(string)) {
 
@@ -168,6 +194,31 @@ public class ChoiceL_I_P extends JDialog {
 			setVisible(true);
 	}
 
+	private List<String> getListString_VizibleColumn(List<TableColumn> list_TableColumn) {
+		ArrayList<String> listStringName = new ArrayList<>();
+		for (TableColumn tableColumn : list_TableColumn) {
+			if(tableColumn.getInVisible()){
+			listStringName.add(tableColumn.getName_Column().replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", ""));
+			}
+		}
+		return listStringName;
+	}
+
+	private ArrayList<String> getListString_NameColumn(List<TableColumn> list_TableColumn) {
+		ArrayList<String> listStringName = new ArrayList<>();
+		for (TableColumn tableColumn : list_TableColumn) {
+			listStringName.add(reformatString(tableColumn.getName_Column()));
+
+		}
+		return listStringName;
+	}
+
+	
+	
+	public static String reformatString(String name_Column) {
+		return name_Column.replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", "");
+	}
+	
 	public static ArrayList<String> getChoiceL_P() {
 		ArrayList<String> arr = new ArrayList<String>();
 		for (int i = 0; i < countL_I_P; i++) {

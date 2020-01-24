@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
-import Table.Table_Request_List;
+import OldClases.Table_Request_List_old;
 import WindowView.TranscluentWindow;
 
 
@@ -25,7 +25,7 @@ public class MenuRequense_RequenseList extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Request_List(f,round,null,null);
+		 		new Table_Request_List_old(f,round,null,null);
 
 		    	
 		     }

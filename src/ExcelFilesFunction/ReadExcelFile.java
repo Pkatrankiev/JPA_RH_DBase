@@ -216,23 +216,23 @@ public class ReadExcelFile {
 								break;
 							case "Резултат":
 								result = String.valueOf(cell.getNumericCellValue());
-								result = NumberFormatWithRounding(result);
+								result = ReformatDoubleTo4decimalExponet(result);
 								break;
 							case "Неопределеност":
 								uncert = String.valueOf(cell.getNumericCellValue());
-								uncert = NumberFormatWithRounding(uncert);
+								uncert = ReformatDoubleTo4decimalExponet(uncert);
 								break;
 							case "МДА":
 								mda = String.valueOf(cell.getNumericCellValue());
-								mda = NumberFormatWithRounding(mda);
+								mda = ReformatDoubleTo4decimalExponet(mda);
 								break;
 							case "Количество":
 								quantity = String.valueOf(cell.getNumericCellValue());
-								quantity = NumberFormatWithRounding(quantity);
+								quantity = ReformatDoubleTo4decimalExponet(quantity);
 								break;
 							case "Добив":
 								dobiv = String.valueOf(cell.getNumericCellValue());
-								dobiv = NumberFormatWithRounding(quantity);
+								dobiv = ReformatDoubleTo4decimalExponet(quantity);
 								break;
 							case "ТСИ":
 								tsi = valume;
@@ -390,7 +390,7 @@ public class ReadExcelFile {
 		return masiveResultsnew;
 	}
 	
-	public static String NumberFormatWithRounding(String num) {
+	public static String NumberFormatWithRounding1(String num) {
 		if( Double.parseDouble(num)==0){
 			return num;
 		}
@@ -417,6 +417,26 @@ public class ReadExcelFile {
 		return formatNum.replaceAll(",",".");
 	}
 
+	public static String ReformatDoubleTo4decimalExponet(String formatNum) {
+		String stt =  formatNum;
+		double dob2 = Double.parseDouble(stt);
+		 DecimalFormat df = new DecimalFormat("0.0000E00");
+		    df.setRoundingMode(RoundingMode.HALF_UP);
+		    String num =df.format(dob2);
+		    stt = num.replaceAll(",",".");
+	  String expon = num.substring(num.indexOf("E")+1);
+		int kk = Integer.parseInt(expon);
+		if(kk<4 && kk>=-4){
+			 DecimalFormat df4 = new DecimalFormat("#.####");
+			    df4.setRoundingMode(RoundingMode.HALF_UP);
+			    stt = df4.format(dob2).replaceAll(",",".");
+			 
+		}
+		System.out.println(stt);
+		return stt;
+	}
+
+	
 	public  static Users getUserFromExcelFile() {
 		System.out.println("--------------------------------- ////////////// "+user_Analize);
 		String str = user_Analize;

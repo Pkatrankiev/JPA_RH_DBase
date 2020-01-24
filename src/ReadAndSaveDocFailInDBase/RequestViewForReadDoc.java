@@ -545,7 +545,7 @@ public class RequestViewForReadDoc extends JFrame {
 			s++;
 			}
 			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
+			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true,"Избор на Изпитван Показател");
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
 			for (String string : choiceLP.getChoiceL_P()) {
@@ -567,7 +567,7 @@ public class RequestViewForReadDoc extends JFrame {
 					System.out.println(list_I_P.size());
 				}
 				final JFrame f = new JFrame();
-				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false);
+				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false,"Избор на Изпитван Показател");
 
 				String str = "";
 				txtArea_list_izpitvan_pokazatel.setText("");

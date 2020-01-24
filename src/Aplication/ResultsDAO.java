@@ -1,6 +1,20 @@
 package Aplication;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -10,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.*;
 import javax.ws.rs.QueryParam;
 
+import AddResultViewFunction.SortListObjectByField;
 import DBase_Class.Dobiv;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
@@ -141,7 +156,7 @@ public class ResultsDAO {
 		entitymanager.close();
 		emfactory.close();
 		
-		return list;
+		return SortListObjectByField.sortListResultsByCodedNuclide(list);
 	}
 	
 	@GET
@@ -175,9 +190,15 @@ public class ResultsDAO {
 		List<Results>  list =  query.getResultList();
 		entitymanager.close();
 		emfactory.close();
+		
+		
 
-		return list;
+		return SortListObjectByField.sortListResultsByCodedNuclide(list);
 	}
+	
+
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public static List<Results> getListResultsFromCurentSampleInProtokol(Sample samp) {
@@ -196,7 +217,7 @@ public class ResultsDAO {
 		entitymanager.close();
 		emfactory.close();
 
-		return list;
+		return SortListObjectByField.sortListResultsByCodedNuclide(list);
 	}
 
 	public static void updateResults(Results results) {
@@ -223,3 +244,5 @@ public class ResultsDAO {
 	
 	
 }
+
+

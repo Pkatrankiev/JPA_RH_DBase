@@ -222,9 +222,12 @@ public class AddResultViewMetods {
 	public static void setListNuclideToMetodAndToPokaz(Choice choicePokazatel) {
 		OverallVariablesAddResults.setListSimbolBasikNulideToMetod(
 				AddDobivViewMetods.getListSimbolBasikNulideToMetod(OverallVariablesAddResults.getSelectedMetod()));
+		
 		OverallVariablesAddResults.setListNucToPok(AddResultViewMetods.getListNuklideToPokazatel(choicePokazatel));
+		
 		OverallVariablesAddResults.setListSimbolBasikNulide(AddResultViewMetods
 				.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
+		
 		OverallVariablesAddResults.setMasuveSimbolNuclide(
 				AddResultViewMetods.getMasiveSimbolNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
 	}

@@ -1,19 +1,18 @@
 package OldClases;
 
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
 import java.awt.font.TextAttribute;
 import java.math.RoundingMode;
 import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,11 +33,9 @@ import DBase_Class.Users;
 import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
-import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceGenerateWordDoc;
-import WindowView.Login;
 import WindowView.MainWindow;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
@@ -123,7 +120,7 @@ public class TestClases  {
 	     public void run() {
 	    	 
 	    	 JFrame f = new JFrame();
-	 		new Table_Request_List_Test(f,round,user,"request", "Списък на Заявките");
+	 		new Table_Request_List(f,round,user,"request", "Списък на Заявките");
    	
 	     }
 	    });
@@ -202,7 +199,6 @@ public class TestClases  {
 		}
 	}
 	 
-	@SuppressWarnings("unused")
 	public
 	static void AddResultsViewWithTable(int i) {
 		TranscluentWindow round = new TranscluentWindow();
@@ -257,7 +253,6 @@ public class TestClases  {
 			
 	}
 
-	@SuppressWarnings("unused")
 	public
 	static void startCreateProtokolDocx() {
 		JFrame f = new JFrame();
@@ -441,48 +436,34 @@ public class TestClases  {
 	}
 
 	public static String ReformatDoubleTo4decimalExponet(String formatNum) {
-	
-		String stt =  "16.09985";
-		
-		formatNum = stt;
-		System.out.println(stt);
-		
+		String stt =  formatNum;
 		double dob2 = Double.parseDouble(stt);
-		System.out.println(dob2);
-		
 		 DecimalFormat df = new DecimalFormat("0.0000E00");
 		    df.setRoundingMode(RoundingMode.HALF_UP);
 		    String num =df.format(dob2);
-		    System.out.println(num); 
 		    stt = num.replaceAll(",",".");
-	
-		    String expon = num.substring(num.indexOf("E")+1);
-		System.out.println(expon);
-		
+	  String expon = num.substring(num.indexOf("E")+1);
 		int kk = Integer.parseInt(expon);
-		System.out.println(kk);
-		
-		if(kk<2 && kk>=-2){
-			
+		if(kk<4 && kk>=-4){
 			 DecimalFormat df4 = new DecimalFormat("#.####");
 			    df4.setRoundingMode(RoundingMode.HALF_UP);
-			    stt = df4.format(dob2);
+			    stt = df4.format(dob2).replaceAll(",",".");
 			 
 		}
 		System.out.println(stt);
 		return stt;
 	}
 	
-	private static int roundUP(double d){
-	    double dAbs = Math.abs(d);
-	    int i = (int) dAbs;
-	    double result = dAbs - (double) i;
-	    if(result==0.0){ 
-	        return (int) d;
-	    }else{
-	        return (int) d<0 ? -(i+1) : i+1;          
-	    }
-	}
+//	private static int roundUP(double d){
+//	    double dAbs = Math.abs(d);
+//	    int i = (int) dAbs;
+//	    double result = dAbs - (double) i;
+//	    if(result==0.0){ 
+//	        return (int) d;
+//	    }else{
+//	        return (int) d<0 ? -(i+1) : i+1;          
+//	    }
+//	}
 	
 	public static void createProtocolWordDoc(String str) {
 	JFrame f = new JFrame();

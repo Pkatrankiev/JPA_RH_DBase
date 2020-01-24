@@ -86,7 +86,6 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
 import WindowView.CheckResultClass;
-import WindowView.CheckViewValueDialogFrame;
 import WindowView.DatePicker;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;

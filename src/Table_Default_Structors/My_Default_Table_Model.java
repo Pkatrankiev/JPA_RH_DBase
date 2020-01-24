@@ -4,17 +4,12 @@ import java.awt.Choice;
 import java.util.List;
 
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
-import AddResultViewFunction.AddResultViewMetods;
-import Aplication.UsersDAO;
 import DBase_Class.Users;
-import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
-import Table.Add_DefaultTableModel;
 import Table.RequestTableList_OverallVariables;
-import WindowView.DatePicker;
+
 
 public abstract class My_Default_Table_Model{
 	

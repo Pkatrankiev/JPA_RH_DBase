@@ -700,7 +700,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
 			JFrame f = new JFrame();
-			new ChoiceL_I_P(f, list_String_I_P_Tamplate, true);
+			new ChoiceL_I_P(f, list_String_I_P_Tamplate, true,"Избор на Изпитван Показател");
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
 			for (String string : ChoiceL_I_P.getChoiceL_P()) {
@@ -1740,7 +1740,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 			System.out.println(list_I_P.size());
 		}
 		final JFrame f = new JFrame();
-		new ChoiceL_I_P(f, list_I_P, false);
+		new ChoiceL_I_P(f, list_I_P, false,"Избор на Изпитван Показател");
 
 		String str = "";
 		txtArea_list_izpitvan_pokazatel.setText("");

@@ -32,6 +32,7 @@ import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
+import OldClases.Table_Request_List_old;
 import WindowView.DatePicker;
 import WindowView.Login;
 import WindowView.MiniComboBoxFrame;
@@ -429,7 +430,7 @@ public class Table_Sample_List extends JDialog {
 			public void run() {
 
 				JFrame f = new JFrame();
-				new Table_Request_List(f, round, Login.getCurentUser(), choiseRequest);
+				new Table_Request_List_old(f, round, Login.getCurentUser(), choiseRequest);
 
 			}
 		});

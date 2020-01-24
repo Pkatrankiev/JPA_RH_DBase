@@ -23,6 +23,7 @@ import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.RequestMiniFrame;
+import WindowView.RequestView;
 import WindowView.TranscluentWindow;
 
 public class DefauiltTableMouseListener {
@@ -47,6 +48,9 @@ public class DefauiltTableMouseListener {
 				int selectedRow = getSelectedModelRow();
 
 				if (selectedRow != -1) {
+					
+					String reqCodeStr = getSelectedCode_Request(model, selectedRow);
+					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					if (RequestTableList_OverallVariables.isEditableTable()) {
 
 						String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn())
@@ -55,8 +59,7 @@ public class DefauiltTableMouseListener {
 
 						// int selectedColumnIndex =
 						// getIndexColumnByColumnName(nameSelectedColumn);
-						String reqCodeStr = getSelectedCode_Request(model, selectedRow);
-						Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+						
 						System.out.println("nameSelectedColumn = " + nameSelectedColumn + " selectedColumnIndex = "
 								+ selectedColumnIndex + " choiseRequest = " + reqCodeStr);
 						selectedColumnIndex = getModdelIndexColumnByColumnName(nameSelectedColumn);
@@ -93,7 +96,15 @@ public class DefauiltTableMouseListener {
 //							break;
 
 						}
-					}
+					}else {
+						if (e.getClickCount() == 2) {
+													
+						if (RequestTableList_OverallVariables.getFrame_name().equals("Нова Заявка от Шаблон")) {
+							JFrame f = new JFrame();
+							TranscluentWindow round = new TranscluentWindow();
+							new RequestView(f, RequestTableList_OverallVariables.getUser(), choiseRequest, round,false);
+						}
+						}}
 				}
 			}
 			}
@@ -189,7 +200,7 @@ public class DefauiltTableMouseListener {
 		List<String> list = ReadListPokazatelInCell(strPokazatel);
 		System.out.println(list.size());
 		JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false);
+		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false,"Избор на Изпитван Показател");
 		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
 			System.out.println(CreateStringListIzpPokaz(choiceLP));
 			model.setValueAt(CreateStringListIzpPokaz(choiceLP), selectedRow, columnIndex);

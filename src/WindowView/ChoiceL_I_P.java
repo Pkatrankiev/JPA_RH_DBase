@@ -227,6 +227,16 @@ public class ChoiceL_I_P extends JDialog {
 		}
 		return arr;
 	}
+	
+	public static String[] getMasiveChoiceL_P() {
+		 ArrayList<String> list = getChoiceL_P();
+		String[] arr = new String[list.size()];
+		int i =0;
+		for (String str:list) {
+			arr[i] = str;
+		}
+		return arr;
+	}
 
 	public static ArrayList<List_izpitvan_pokazatel> getListI_PFormChoiceL_P() {
 		ArrayList<List_izpitvan_pokazatel> arr = new ArrayList<List_izpitvan_pokazatel>();

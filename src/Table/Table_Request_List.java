@@ -22,7 +22,9 @@ import javax.swing.SwingConstants;
 
 import DBase_Class.Users;
 import Table_Default_Structors.CreateTable;
+import Table_Default_Structors.DefauiltTableMouseListener;
 import WindowView.ChoiceL_I_P;
+import WindowView.Login;
 import WindowView.TranscluentWindow;
 import javax.swing.JCheckBox;
 import java.awt.ComponentOrientation;
@@ -39,14 +41,7 @@ public class Table_Request_List extends JDialog {
 			String frame_name) {
 		super(parent, frame_name, true);
 
-		CreateColumnTapeForTable.CreateListColumnTapeForTable(tipe_Table);
-		switch (tipe_Table) {
-
-		case "request":
-			RequestTableList_Functions.OverallVariablesForRequestTable(frame_name, user);
-			break;
-
-		}
+		final JTable table = createTable(tipe_Table, frame_name, user);
 
 		// JPanel top_panel = new JPanel();
 		// top_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -70,6 +65,93 @@ public class Table_Request_List extends JDialog {
 		lblColumnChoice.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblColumnChoice.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		left_panel.add(lblColumnChoice);
+		
+
+		JPanel raide_panel = new JPanel();
+		raide_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		raide_panel.setSize(new Dimension(2, 0));
+		raide_panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+		top_panel.add(raide_panel, BorderLayout.NORTH);
+
+		JCheckBox chckbxNewCheckBox = new JCheckBox("редактиране на данните");
+		raide_panel.add(chckbxNewCheckBox);
+		chckbxNewCheckBox.setBorder(null);
+		chckbxNewCheckBox.setMargin(new Insets(0, 2, 0, 2));
+
+		chckbxNewCheckBox.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		chckbxNewCheckBox.setHorizontalTextPosition(SwingConstants.LEFT);
+		RequestTableList_OverallVariables.setChckbxNewCheckBox(chckbxNewCheckBox);
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RequestTableList_OverallVariables.setChckbxNewCheckBox(chckbxNewCheckBox);
+			}
+		});
+
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		setSize(1200, 800);
+		setLocationRelativeTo(null);
+		
+		JLabel ll = new JLabel("kjsbkadflaksdfbalk");
+		scrollPane.add(ll);
+		round.StopWindow();
+		JPanel panel_Btn = new JPanel();
+		panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
+		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+
+		JButton btnSave = new JButton("Запис");
+		btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
+		btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		if (user != null && user.getIsAdmin()) {
+			panel_Btn.add(btnSave);
+		}
+		JButton btnCancel = new JButton("Изход");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+		panel_Btn.add(btnCancel);
+
+		columnChoiceListener(this, scrollPane, tipe_Table, frame_name, user, lblColumnChoice);
+		btnSaveListener(tipe_Table, table, btnSave);
+		
+		
+		setVisible(true);
+	}
+
+	private void btnSaveListener(String tipe_Table, final JTable table, JButton btnSave) {
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				TranscluentWindow round = new TranscluentWindow();
+
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+
+						List<Integer> listRowForUpdate = RequestTableList_OverallVariables.getListRowForUpdate();
+
+						switch (tipe_Table) {
+
+						case "request":
+							RequestTableList_Functions.updateData(table, listRowForUpdate, round);
+							break;
+
+						}
+
+					}
+				});
+				thread.start();
+
+			}
+		});
+	}
+
+	private void columnChoiceListener(Table_Request_List table_Request_List, JScrollPane scrollPane, String tipe_Table, 
+			String frame_name, Users user, JLabel lblColumnChoice) {
 		lblColumnChoice.addMouseListener(new MouseListener() {
 			
 			
@@ -101,88 +183,57 @@ public class Table_Request_List extends JDialog {
 				new ChoiceL_I_P(f, null, false,"Избор на колони");
 				List<String> list_StringChoisedVisibleColumn = ChoiceL_I_P.getChoiceL_P();
 				changedVisibleColumn = 	RequestTableList_Functions.check_ChangedVisibleColumn(list_StringChoisedVisibleColumn);
-
 				
+				if(changedVisibleColumn){
+					RequestTableList_OverallVariables.setMasive_Invizible_Colum(getMasiveIndexColumnFromMasiveNameColumn(
+							ChoiceL_I_P.getMasiveChoiceL_P()));
+					table_Request_List.dispose();
+					TranscluentWindow round = new TranscluentWindow();
+					
+					 final Thread thread = new Thread(new Runnable() {
+					     @Override
+					     public void run() {
+					    	 
+					    	 JFrame f = new JFrame();
+					 		new Table_Request_List(f,round,Login.getCurentUser(),tipe_Table, frame_name);
+				    	
+					     }
+					    });
+					    thread.start();
+				
+				}
 			}
 
-		
-		
-		});
-
-		JPanel raide_panel = new JPanel();
-		raide_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		raide_panel.setSize(new Dimension(2, 0));
-		raide_panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-		top_panel.add(raide_panel, BorderLayout.NORTH);
-
-		JCheckBox chckbxNewCheckBox = new JCheckBox("редактиране на данните");
-		raide_panel.add(chckbxNewCheckBox);
-		chckbxNewCheckBox.setBorder(null);
-		chckbxNewCheckBox.setMargin(new Insets(0, 2, 0, 2));
-
-		chckbxNewCheckBox.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		chckbxNewCheckBox.setHorizontalTextPosition(SwingConstants.LEFT);
-		RequestTableList_OverallVariables.setChckbxNewCheckBox(chckbxNewCheckBox);
-		chckbxNewCheckBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				RequestTableList_OverallVariables.setChckbxNewCheckBox(chckbxNewCheckBox);
-			}
-		});
-
-		final JTable table = CreateTable.CreateDefaultTable(tipe_Table);
-
-		JScrollPane scrollPane = new JScrollPane(table);
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
-		setSize(1200, 800);
-		setLocationRelativeTo(null);
-
-		round.StopWindow();
-		JPanel panel_Btn = new JPanel();
-		panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
-		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-		JButton btnSave = new JButton("Запис");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				TranscluentWindow round = new TranscluentWindow();
-
-				final Thread thread = new Thread(new Runnable() {
-					@Override
-					public void run() {
-
-						List<Integer> listRowForUpdate = RequestTableList_OverallVariables.getListRowForUpdate();
-
-						switch (tipe_Table) {
-
-						case "request":
-							RequestTableList_Functions.updateData(table, listRowForUpdate, round);
-							break;
-
-						}
-
-					}
-				});
-				thread.start();
-
-			}
-		});
-		btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
-		btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		if (user != null && user.getIsAdmin()) {
-			panel_Btn.add(btnSave);
-		}
-		JButton btnCancel = new JButton("Изход");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-		});
-		panel_Btn.add(btnCancel);
-
-		setVisible(true);
-	}
 	
 
+		
+		
+		});
+	}
+	
+	private  int[] getMasiveIndexColumnFromMasiveNameColumn(String[] masiveNameColumn){
+		int[] arr = new int[masiveNameColumn.length];
+		
+		for (int i = 0; i < masiveNameColumn.length; i++) {
+			arr[i] = DefauiltTableMouseListener.getModdelIndexColumnByColumnName(masiveNameColumn[i]);
+		}
+		
+		return arr;
+		
+	}
+	
+	private JTable createTable(String tipe_Table, String frame_name, Users user) {
+		CreateColumnTapeForTable.CreateListColumnTapeForTable(tipe_Table);
+	
+		switch (tipe_Table) {
+
+		case "request":
+			RequestTableList_Functions.OverallVariablesForRequestTable(frame_name, user);
+			break;
+
+		}
+		final JTable table = CreateTable.CreateDefaultTable(tipe_Table);
+		return table;
+	}
+	
 }

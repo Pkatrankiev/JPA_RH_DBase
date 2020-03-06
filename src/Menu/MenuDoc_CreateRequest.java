@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
-import WindowView.FrameChoiceGenerateWordDoc;
+import WindowView.FrameChoiceRequestByCode;
 
 public class MenuDoc_CreateRequest extends AbstractMenuAction{
 	
@@ -20,7 +20,7 @@ public class MenuDoc_CreateRequest extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceGenerateWordDoc(f, "Генериране на Заявка") ;
+			    	 new FrameChoiceRequestByCode(f, "Генериране на Заявка") ;
 			
 	}
 

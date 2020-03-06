@@ -398,4 +398,22 @@ public class RequestDAO {
 		return list;
 	}
 	
+	public static void DeleteRequest(Request valueEnt) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		Request request = entitymanager.find(Request.class, valueEnt.getId_recuest());
+		entitymanager.remove(request);
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null,  "Прблем при изтриване на заявка: "+request.getRecuest_code(), "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
 }

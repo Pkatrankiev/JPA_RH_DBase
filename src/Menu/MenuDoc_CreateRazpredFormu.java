@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
-import WindowView.FrameChoiceGenerateWordDoc;
+import WindowView.FrameChoiceRequestByCode;
 
 public class MenuDoc_CreateRazpredFormu extends AbstractMenuAction{
 	
@@ -20,7 +20,7 @@ public class MenuDoc_CreateRazpredFormu extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceGenerateWordDoc(f, "Генериране на Разпределителен формуляр") ;
+			    	 new FrameChoiceRequestByCode(f, "Генериране на Разпределителен формуляр") ;
 			
 	}
 

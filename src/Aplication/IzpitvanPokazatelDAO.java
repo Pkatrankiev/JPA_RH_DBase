@@ -142,8 +142,6 @@ public class IzpitvanPokazatelDAO {
 
 		return null;
 	}
-
-	
 	
 	
 	@SuppressWarnings("unchecked")

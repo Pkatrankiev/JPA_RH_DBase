@@ -35,7 +35,7 @@ import Table.Table_Request_List;
 import Table.Table_Sample_List;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
-import WindowView.FrameChoiceGenerateWordDoc;
+import WindowView.FrameChoiceRequestByCode;
 import WindowView.MainWindow;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
@@ -256,7 +256,7 @@ public class TestClases  {
 	public
 	static void startCreateProtokolDocx() {
 		JFrame f = new JFrame();
-   	 new FrameChoiceGenerateWordDoc(f, "Генериране на Протокол") ;
+   	 new FrameChoiceRequestByCode(f, "Генериране на Протокол") ;
 //		String codeRequest = "3833";
 //		
 //		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
@@ -467,11 +467,11 @@ public class TestClases  {
 	
 	public static void createProtocolWordDoc(String str) {
 	JFrame f = new JFrame();
-	 new FrameChoiceGenerateWordDoc(f, str) ;
+	 new FrameChoiceRequestByCode(f, str) ;
 	}
 	
 	public static void createRazprFormWordDoc() {
 		JFrame f = new JFrame();
-		 new FrameChoiceGenerateWordDoc(f, "Генериране на Разпределителен формуляр") ;
+		 new FrameChoiceRequestByCode(f, "Генериране на Разпределителен формуляр") ;
 		}
 }

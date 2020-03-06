@@ -35,7 +35,7 @@ public class Main_Aplication {
 		
 //		TestClases.AddResultsViewWithTable(3) ;
 		
-//		TestClases.createProtocolWordDoc("Генериране на Разпределителен формуляр");
+//		TestClases.createProtocolWordDoc("Изтриване на Заявка");
 		
 //		TestClases.createRazprFormWordDoc();
 		

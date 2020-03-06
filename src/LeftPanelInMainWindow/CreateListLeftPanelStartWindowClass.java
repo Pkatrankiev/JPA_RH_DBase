@@ -2,6 +2,7 @@ package LeftPanelInMainWindow;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -42,6 +43,7 @@ public static  List<List<LeftPanelStartWindowClass>> createListLeftPanelStartWin
 	
 	FindFile ff = new FindFile();
 	String month = getPreviousMesec(1);
+	
 	String monitGroup = "";
 		
 	int ProgressBarSize = 0;
@@ -54,8 +56,10 @@ public static  List<List<LeftPanelStartWindowClass>> createListLeftPanelStartWin
 
 		}
 		List<Request> techniIzh = cerateList(month, monitGroup);
-		double stepForProgressBar = 25 / techniIzh.size();
-
+		double stepForProgressBar=25;
+		if(techniIzh.size()>0){
+		stepForProgressBar = 25 / techniIzh.size();
+		}
 		List<LeftPanelStartWindowClass> list = new ArrayList<>();
 		if (list.isEmpty()) {
 			LeftPanelStartWindowClass object = new LeftPanelStartWindowClass();
@@ -90,6 +94,7 @@ public static  List<List<LeftPanelStartWindowClass>> createListLeftPanelStartWin
 }
 
 private static List<Request> cerateList(String monthPeriod, String zpitvan_produkt) {
+	int curentYear = getYar();
 	List<Request> list = new ArrayList<Request>();
 	List<Request> listRequest = RequestDAO.getListRequestFromProgramm(zpitvan_produkt);
 
@@ -104,9 +109,10 @@ private static List<Request> cerateList(String monthPeriod, String zpitvan_produ
 	}
 	for (Request request : listRequest.subList(min, max)) {
 		Period period = SampleDAO.getListSampleFromColumnByVolume("request", request).get(0).getPeriod();
+		int year = SampleDAO.getListSampleFromColumnByVolume("request", request).get(0).getGodina_period();
 		if (period != null) {
 			String str = period.getValue();
-			if (str.equals(monthPeriod)) {
+			if (str.equals(monthPeriod)&& curentYear==year) {
 				list.add(request);
 			}
 		}
@@ -143,6 +149,16 @@ static String getPreviousMesec(int koregMount) {
 		month--;
 	}
 	return PeriodDAO.getPeriodById(month).getValue();
+}
+
+
+static int getYar() {
+	int year = Calendar.getInstance().get(Calendar.YEAR);
+	int month = DatePicker.getActualyMonth() + 1;
+	if (month == 1) {
+		year -=1;
+	} 
+	return year;
 }
 
 public void performTask() {

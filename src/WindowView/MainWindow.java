@@ -36,6 +36,7 @@ import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
 import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_AddResultsFrame;
+import Menu.MenuRequense_DeleteRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
@@ -119,6 +120,7 @@ public class MainWindow extends JFrame {
 			
 		
 		JButton btnProgressBar = new JButton("׀ופנור");
+		btnProgressBar.setEnabled(false);
 		panel_1.add(btnProgressBar);
 		
 		btnProgressBar.addActionListener(new ActionListener() {
@@ -130,7 +132,6 @@ public class MainWindow extends JFrame {
 					under_panel_Left.repaint();
 					btnProgressBar.setEnabled(false);
 					new StartCreateListForRowInLeftPanelWithProgrssBar(progressBar,under_panel_Left, lblNewLabel, btnProgressBar).execute();
-					
 				}
 				
 			}
@@ -234,7 +235,7 @@ public class MainWindow extends JFrame {
 		sequenseMenu.add(new MenuRequense_AddDobiveFrame());
 		sequenseMenu.add(new MenuRequense_AddResultsFrame());
 		sequenseMenu.addSeparator();
-		sequenseMenu.add(new MenuRequense_RequenseList());
+		sequenseMenu.add(new MenuRequense_DeleteRequense());
 		return sequenseMenu;
 	}
 

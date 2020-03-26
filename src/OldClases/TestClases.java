@@ -360,20 +360,45 @@ public class TestClases  {
 	
 	}
 	
-	public static String ChangeStringToNumber() {
-		String num = "0.000000123449419115";
+	public static String ChangeStringToNumber(String num) {
+		
 		String head = num.substring(0, num.indexOf("."));
 		System.out.println("head= "+head);
 		if( Integer.parseInt(head)==0){
+			head="0.";
 		String body = num.substring(num.indexOf(".")+1);
 		while (body.substring(0,1).equals("0")) {
+			head=head+"0";
 			body = body.substring(1);
 		}
+		System.out.println("head= "+head);
 		System.out.println("body= "+body);
+		 System.out.println("-------------------------------");
+	
+		 
+
+		String olt;
+		int bodyInt = 0;
+		double dob2 = 0;
 		if(body.length()>5){
 			body = body.substring(0,5);
+			System.out.println("body= "+ body);
+			 bodyInt = Integer.parseInt(body);
+			olt ="0."+ body.substring(4);
+			System.out.println("olt= "+ olt);	
+			 dob2 = Double.parseDouble(olt);
+		
+			if(dob2+0.5>=1){
+				bodyInt ++;
+			}
 		}
-		System.out.println("body1= "+body);
+		System.out.println("bodyInt= "+ bodyInt);		
+		System.out.println("-------------------------------");
+		
+		num =head+bodyInt;
+		 System.out.println("num= "+num);
+		 System.out.println("-------------------------------");
+		
 		System.out.println(num+"  num.indexOf(body)= "+num.indexOf(body));
 		num = num.substring(0,num.indexOf(body)+body.length());
 		}
@@ -397,8 +422,56 @@ public class TestClases  {
 		return num;
 	}
 
+public static String NumberToMAXDigitAftrerZerro(String num) {
+		int MAXDigit = 4;
+		
+		String head = num.substring(0, num.indexOf("."));
+		if( Integer.parseInt(head)==0){
+			head="0.";
+		String body = num.substring(num.indexOf(".")+1);
+		
+		while (body.substring(0,1).equals("0")) {
+			head=head+"0";
+			body = body.substring(1);
+		}
+		
+		if(body.length()>=MAXDigit){
+			String olt;
+			int bodyInt = 0;
+			double dob2 = 0;
+			body = body.substring(0,5);
+			 bodyInt = Integer.parseInt(body);
+			olt ="0."+ body.substring(MAXDigit-1);
+			 dob2 = Double.parseDouble(olt);
+		
+			 
+			if(dob2+0.5>=1){
+				bodyInt ++;
+			}
+			
+			num =head+bodyInt;
+		}
+		
+		
+		}
+		
+		return num;
+	}
+	
+	
 	public static String NumberFormatWithRounding(String num) {
-		num = "1234567.123456789";
+		num = "0.00135256";
+		String numm1 = num;
+		
+		double dob2 = Double.parseDouble(num);
+		
+		 DecimalFormat dfA1 = new DecimalFormat("0.0000E00");
+		 dfA1.setRoundingMode(RoundingMode.HALF_UP);
+		    String numA1 = dfA1.format(dob2);
+		    System.out.println("numA1 ="+numA1);   
+		    System.out.println("-------------------------------");
+		    
+		    
 		Double boubVal2 = Double.parseDouble(num);
 		System.out.println(boubVal2);
 		if( Double.parseDouble(num)==0){
@@ -428,27 +501,28 @@ public class TestClases  {
 		
 		ReformatDoubleTo4decimalExponet(formatNum);
 		System.out.println("-------------------------------");
-		ChangeStringToNumber();
-		
-		
+		ChangeStringToNumber(numm1);
 		
 		return formatNum.replaceAll(",",".");
 	}
 
 	public static String ReformatDoubleTo4decimalExponet(String formatNum) {
-		String stt =  formatNum;
-		double dob2 = Double.parseDouble(stt);
+		String stt =  "";
+		double dob2 = Double.parseDouble(formatNum);
 		 DecimalFormat df = new DecimalFormat("0.0000E00");
 		    df.setRoundingMode(RoundingMode.HALF_UP);
-		    String num =df.format(dob2);
-		    stt = num.replaceAll(",",".");
-	  String expon = num.substring(num.indexOf("E")+1);
+		   stt = df.format(dob2).replaceAll(",",".");
+		   
+		   String expon = stt.substring(stt.indexOf("E")+1);
 		int kk = Integer.parseInt(expon);
-		if(kk<4 && kk>=-4){
-			 DecimalFormat df4 = new DecimalFormat("#.####");
+		if(kk>=-4 && kk<=0){
+			stt = NumberToMAXDigitAftrerZerro(formatNum);
+		}
+		
+			if(kk>1 && kk<=4){
+			DecimalFormat df4 = new DecimalFormat("#.####");
 			    df4.setRoundingMode(RoundingMode.HALF_UP);
 			    stt = df4.format(dob2).replaceAll(",",".");
-			 
 		}
 		System.out.println(stt);
 		return stt;

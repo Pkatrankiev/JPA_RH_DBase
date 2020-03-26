@@ -40,14 +40,14 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
 public class ReadExcelFile {
 
 	private static String cod_sample;
-	private static String user_Analize="";
+	private static String user_Analize = "";
 	private static String value_Standatd;
 	private static String nuclide_StandardStr;
-//	private static String nuclide_Standard;
+
+	// private static String nuclide_Standard;
 	public static String getCod_sample() {
 		return cod_sample;
 	}
@@ -59,15 +59,14 @@ public class ReadExcelFile {
 				+ destruct_Result.getUncert();
 	}
 
-	public static List<Destruct_Result> getDestruct_Result_ListFromOrtecExcelFile(String FILE_PATH, Boolean forResults) {
+	public static List<Destruct_Result> getDestruct_Result_ListFromOrtecExcelFile(String FILE_PATH,
+			Boolean forResults) {
 		DataFormatter formatter = new DataFormatter();
 		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
 		FileInputStream fis = null;
-		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "",
-				dimencion = "";
-		String date_Analize= ""  ;
-	
-		
+		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "", dimencion = "";
+		String date_Analize = "";
+
 		try {
 			fis = new FileInputStream(FILE_PATH);
 
@@ -75,47 +74,51 @@ public class ReadExcelFile {
 			@SuppressWarnings("resource")
 			Workbook workbook = new HSSFWorkbook(fis);
 
-			 Sheet sheet = workbook.getSheetAt(0);
-			 
-			 cod_sample = sheet.getRow(5).getCell(0).getStringCellValue().replaceFirst("Sample:", "");
-			 metod = "М.ЛИ-РХ-01";
-			 quantity = sheet.getRow(5).getCell(6).getStringCellValue().replaceFirst("Sample Volume :", "").replace(",", ".");
-			 tsi = "T04";
-			 dimencion = sheet.getRow(68).getCell(10).getStringCellValue().replace("^", "");
-			 date_Analize = sheet.getRow(3).getCell(9).getStringCellValue().replace("/", ".");
-			 nuclide_StandardStr = sheet.getRow(17).getCell(6).getStringCellValue().replace("Tracer Nuclide:", "");
-//			 int indexNuclideStandart = nuclide_StandardStr.indexOf("-");
-//			 nuclide_Standard = nuclide_StandardStr.substring(indexNuclideStandart+1)+nuclide_StandardStr.substring(0,indexNuclideStandart);
-			 nuclide_StandardStr =  nuclide_StandardStr.substring(0, nuclide_StandardStr.indexOf("-"));
-			
-			 value_Standatd = sheet.getRow(19).getCell(6).getStringCellValue().replace("Tracer Recovery:", "").replace(",", ".").replace("%", "");
-			 user_Analize ="";
-						
-			 for (int i = 70; i <= sheet.getLastRowNum(); i+=2) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			cod_sample = sheet.getRow(5).getCell(0).getStringCellValue().replaceFirst("Sample:", "");
+			metod = "М.ЛИ-РХ-01";
+			quantity = sheet.getRow(5).getCell(6).getStringCellValue().replaceFirst("Sample Volume :", "").replace(",",
+					".");
+			tsi = "T04";
+			dimencion = sheet.getRow(68).getCell(10).getStringCellValue().replace("^", "");
+			date_Analize = sheet.getRow(3).getCell(9).getStringCellValue().replace("/", ".");
+			nuclide_StandardStr = sheet.getRow(17).getCell(6).getStringCellValue().replace("Tracer Nuclide:", "");
+			// int indexNuclideStandart = nuclide_StandardStr.indexOf("-");
+			// nuclide_Standard =
+			// nuclide_StandardStr.substring(indexNuclideStandart+1)+nuclide_StandardStr.substring(0,indexNuclideStandart);
+			nuclide_StandardStr = nuclide_StandardStr.substring(0, nuclide_StandardStr.indexOf("-"));
+
+			value_Standatd = sheet.getRow(19).getCell(6).getStringCellValue().replace("Tracer Recovery:", "")
+					.replace(",", ".").replace("%", "");
+			user_Analize = "";
+
+			for (int i = 70; i <= sheet.getLastRowNum(); i += 2) {
 				if (!formatter.formatCellValue(sheet.getRow(i).getCell(0)).isEmpty()) {
 					nuclide = sheet.getRow(i).getCell(0).getStringCellValue();
 					int index = nuclide.indexOf("-");
-					nuclide = nuclide.substring(index+1)+nuclide.substring(0,index);
-					
-					 result = sheet.getRow(i).getCell(10).getStringCellValue(); 
-					 double dub_result = Double.valueOf(result);
-					 uncert =  sheet.getRow(i).getCell(11).getStringCellValue(); 
-					 mda = sheet.getRow(i).getCell(13).getStringCellValue(); 
-					 double dub_MDA = Double.valueOf(mda);	
-					 if(forResults){
-							if(dub_MDA > dub_result) {
-								result = "0.0";
-								uncert = "0.0";
+					nuclide = nuclide.substring(index + 1) + nuclide.substring(0, index);
+
+					result = sheet.getRow(i).getCell(10).getStringCellValue();
+					double dub_result = Double.valueOf(result);
+					uncert = sheet.getRow(i).getCell(11).getStringCellValue();
+					mda = sheet.getRow(i).getCell(13).getStringCellValue();
+					double dub_MDA = Double.valueOf(mda);
+					if (forResults) {
+						if (dub_MDA > dub_result) {
+							result = "0.0";
+							uncert = "0.0";
 						}
-				 }
-				 }
-				System.out.println(cod_sample+" - "+ metod+" - "+  nuclide+" - "+  result+" - "+ uncert+" - "+  mda+" - "+ 
-						tsi+" - "+  quantity+" - "+  dimencion+" - "+  date_Analize+" - "+  user_Analize);
-				 destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, "", uncert, mda,
-							tsi, quantity, dimencion, date_Analize, user_Analize)); 
-			 	
-			 }						
- 
+					}
+				}
+				System.out.println(cod_sample + " - " + metod + " - " + nuclide + " - " + result + " - " + uncert
+						+ " - " + mda + " - " + tsi + " - " + quantity + " - " + dimencion + " - " + date_Analize
+						+ " - " + user_Analize);
+				destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, "", uncert, mda, tsi,
+						quantity, dimencion, date_Analize, user_Analize));
+
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
@@ -123,19 +126,21 @@ public class ReadExcelFile {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 		return destruct_Result_List;
 	}
-	
-	public static Dobiv  getDobivFromOrtecExcelFile(List<Destruct_Result> destruct_Result_List, Choice choiceSmplCode, String selectMetodStr){
+
+	public static Dobiv getDobivFromOrtecExcelFile(List<Destruct_Result> destruct_Result_List, Choice choiceSmplCode,
+			String selectMetodStr) {
 		Destruct_Result destruct_Result = destruct_Result_List.get(0);
 		Dobiv dobiv = new Dobiv();
-		Sample sample = SampleCodeSection.getSampleObjectFromChoiceSampleCode( choiceSmplCode);
+		Sample sample = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
 		Izpitvan_produkt izpitProd = sample.getRequest().getIzpitvan_produkt();
-		dobiv.setCode_Standart(nuclide_StandardStr+cod_sample);
+		dobiv.setCode_Standart(nuclide_StandardStr + cod_sample);
 		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(selectMetodStr));
 		dobiv.setIzpitvan_produkt(izpitProd);
-		dobiv.setDescription(sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name()+", "+sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
+		dobiv.setDescription(sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name() + ", "
+				+ sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclide_StandardStr));
 		dobiv.setValue_result(Double.parseDouble(value_Standatd));
 		dobiv.setUncertainty(0.0);
@@ -144,28 +149,23 @@ public class ReadExcelFile {
 		dobiv.setDate_redac(RequestViewFunction.DateNaw(false));
 		dobiv.setUser_redac(OverallVariablesAddDobiv.getUser_Redac());
 
-
 		return dobiv;
 	}
-	
-	
-	
+
 	public static List<Destruct_Result> getDestruct_Result_ListFromExcelFile(String FILE_PATH, Boolean forResults) {
 
 		DataFormatter formatter = new DataFormatter();
 		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
 		FileInputStream fis = null;
-		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "",
-				dimencion = "";
-		String param = "", valume = "", date_Analize= "" , dobiv = "" ;
-		
-		
+		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "", dimencion = "";
+		String param = "", valume = "", date_Analize = "", dobiv = "";
+
 		SimpleDateFormat sdf = new SimpleDateFormat(GlobalFormatDate.getFORMAT_DATE());
 		Date dateNull = null;
 		try {
 			dateNull = sdf.parse("01.01.1910");
 		} catch (ParseException e1) {
-		
+
 			e1.printStackTrace();
 		}
 		try {
@@ -241,16 +241,16 @@ public class ReadExcelFile {
 								dimencion = cell.getStringCellValue();
 								break;
 							case "Дата на анализа":
-								if(cell.getDateCellValue().after(dateNull)){
-								date_Analize = sdf.format(cell.getDateCellValue());
+								if (cell.getDateCellValue().after(dateNull)) {
+									date_Analize = sdf.format(cell.getDateCellValue());
 								}
 								break;
 							case "Извършил анализа":
-								try{
-								user_Analize = cell.getStringCellValue();
-							} catch (IllegalStateException e) {
-								user_Analize ="";
-							}
+								try {
+									user_Analize = cell.getStringCellValue();
+								} catch (IllegalStateException e) {
+									user_Analize = "";
+								}
 								break;
 							case "end":
 								endNuclideRsult = true;
@@ -261,14 +261,14 @@ public class ReadExcelFile {
 							if (endNuclideRsult) {
 								double dub_MDA = Double.valueOf(mda);
 								double dub_result = Double.valueOf(result);
-								if(forResults){
-								if(dub_MDA > dub_result) {
-									result = "0.0";
-									uncert = "0.0";
+								if (forResults) {
+									if (dub_MDA > dub_result) {
+										result = "0.0";
+										uncert = "0.0";
+									}
 								}
-								}
-								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, dobiv, uncert, mda,
-										tsi, quantity, dimencion, date_Analize, user_Analize));
+								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, dobiv,
+										uncert, mda, tsi, quantity, dimencion, date_Analize, user_Analize));
 								endNuclideRsult = false;
 							}
 						}
@@ -328,12 +328,12 @@ public class ReadExcelFile {
 						dobiv.setDate_measur(masiveActiveResults[i][9]);
 						dobiv.setDate_chim_oper("");
 						dobiv.setTsi(ReadGamaFile.getTSIObjectFromFileString(masiveActiveResults[i][7]));
-						
+
 						listDobivs.add(dobiv);
 
 					} catch (NumberFormatException e) {
 					}
-			}
+				}
 			}
 		}
 		Dobiv[] masiveDobivsnew = new Dobiv[listDobivs.size()];
@@ -342,7 +342,7 @@ public class ReadExcelFile {
 		}
 		return masiveDobivsnew;
 	}
-	
+
 	public static Results[] getMasivResultsFromExcelFile(List<Destruct_Result> list_destruct_Result,
 			List<String> listSimbolBasicNuclide) {
 		String[][] masiveActiveResults = getMasivNuclideFromExcelFile(list_destruct_Result);
@@ -350,12 +350,12 @@ public class ReadExcelFile {
 		List<Results> listResults = new ArrayList<Results>();
 		for (int i = 0; i < masiveActiveResults.length; i++) {
 			String nuclideResult = masiveActiveResults[i][2].trim();
-			
+
 			for (String nuclideBasic : listSimbolBasicNuclide) {
-				System.out.println(nuclideResult+" -+ "+nuclideBasic);		
-				if (nuclideBasic.contains( nuclideResult)) {
+				System.out.println(nuclideResult + " -+ " + nuclideBasic);
+				if (nuclideBasic.contains(nuclideResult)) {
 					try {
-						System.out.println(nuclideResult+" - "+nuclideBasic);
+						System.out.println(nuclideResult + " - " + nuclideBasic);
 						Results results = new Results();
 						results.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
 						results.setValue_result(Double.parseDouble(masiveActiveResults[i][3]));
@@ -368,83 +368,89 @@ public class ReadExcelFile {
 						String dim = masiveActiveResults[i][8];
 						results.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(dim));
 						if (dim.indexOf("/") > 0) {
-							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq/","")));
+							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq/", "")));
 						} else {
-							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq","")));
+							results.setDimension(DimensionDAO.getValueDimensionByName(dim.replace("Bq", "")));
 						}
 						results.setSigma(2);
-						
+
 						listResults.add(results);
 
 					} catch (NumberFormatException e) {
 					}
-			}
+				}
 			}
 		}
-		System.out.println(listResults.size()+" +-+ ");
-			Results[] masiveResultsnew = new Results[listResults.size()];
+		System.out.println(listResults.size() + " +-+ ");
+		Results[] masiveResultsnew = new Results[listResults.size()];
 		for (int j = 0; j < listResults.size(); j++) {
 			masiveResultsnew[j] = listResults.get(j);
 		}
-		System.out.println(listResults.size()+" - "+masiveResultsnew.length);
+		System.out.println(listResults.size() + " - " + masiveResultsnew.length);
 		return masiveResultsnew;
-	}
-	
-	public static String NumberFormatWithRounding1(String num) {
-		if( Double.parseDouble(num)==0){
-			return num;
-		}
-
-		String formatNum;
-		String head = num.substring(0, num.indexOf("."));
-		if( Integer.parseInt(head)==0){
-		String body = num.substring(num.indexOf(".")+1);
-		while (body.substring(0,1).equals("0")) {
-			body = body.substring(1);
-		}
-		if(body.length()>5){
-			body = body.substring(0,5);
-		}
-		num = num.substring(0,num.indexOf(body)+body.length());
-		formatNum = num;
-		}else{
-		Double boubVal = Double.parseDouble(num);
-		 DecimalFormat df = new DecimalFormat("#.##############");
-		    df.setRoundingMode(RoundingMode.HALF_UP);
-		    formatNum =df.format(boubVal);
-		
-		}
-		return formatNum.replaceAll(",",".");
 	}
 
 	public static String ReformatDoubleTo4decimalExponet(String formatNum) {
-		String stt =  formatNum;
-		double dob2 = Double.parseDouble(stt);
-		 DecimalFormat df = new DecimalFormat("0.0000E00");
-		    df.setRoundingMode(RoundingMode.HALF_UP);
-		    String num =df.format(dob2);
-		    stt = num.replaceAll(",",".");
-	  String expon = num.substring(num.indexOf("E")+1);
+		String stt = "";
+		double dob2 = Double.parseDouble(formatNum);
+		DecimalFormat df = new DecimalFormat("0.0000E00");
+		df.setRoundingMode(RoundingMode.HALF_UP);
+		stt = df.format(dob2).replaceAll(",", ".");
+
+		String expon = stt.substring(stt.indexOf("E") + 1);
 		int kk = Integer.parseInt(expon);
-		if(kk<4 && kk>=-4){
-			 DecimalFormat df4 = new DecimalFormat("#.####");
-			    df4.setRoundingMode(RoundingMode.HALF_UP);
-			    stt = df4.format(dob2).replaceAll(",",".");
-			 
+		if (kk >= -4 && kk <= 0) {
+			stt = NumberToMAXDigitAftrerZerro(formatNum);
+		}
+
+		if (kk > 1 && kk <= 4) {
+			DecimalFormat df4 = new DecimalFormat("#.####");
+			df4.setRoundingMode(RoundingMode.HALF_UP);
+			stt = df4.format(dob2).replaceAll(",", ".");
 		}
 		System.out.println(stt);
 		return stt;
 	}
 
-	
-	public  static Users getUserFromExcelFile() {
-		System.out.println("--------------------------------- ////////////// "+user_Analize);
+	public static String NumberToMAXDigitAftrerZerro(String num) {
+		int MAXDigit = 4;
+
+		String head = num.substring(0, num.indexOf("."));
+		if (Integer.parseInt(head) == 0) {
+			head = "0.";
+			String body = num.substring(num.indexOf(".") + 1);
+
+			while (body.substring(0, 1).equals("0")) {
+				head = head + "0";
+				body = body.substring(1);
+			}
+
+			if (body.length() >= MAXDigit) {
+				String olt;
+				int bodyInt = 0;
+				double dob2 = 0;
+				body = body.substring(0, 5);
+				bodyInt = Integer.parseInt(body);
+				olt = "0." + body.substring(MAXDigit - 1);
+				dob2 = Double.parseDouble(olt);
+
+				if (dob2 + 0.5 >= 1) {
+					bodyInt++;
+				}
+				num = head + bodyInt;
+			}
+		}
+		return num;
+	}
+
+	public static Users getUserFromExcelFile() {
+		System.out.println("--------------------------------- ////////////// " + user_Analize);
 		String str = user_Analize;
 		Users user = UsersDAO.getValueUsersById(10);
-		
+
 		if (user_Analize.length() > 0) {
 			if (user_Analize.contains(".")) {
-				str = user_Analize.substring(user_Analize.indexOf(".")+1);
+				str = user_Analize.substring(user_Analize.indexOf(".") + 1);
 			}
 			user = UsersDAO.getValueUsersByFamily(str);
 		}

@@ -375,7 +375,7 @@ public class FunctionForGenerateWordDocFile {
 	
 
 	private static String formatter(double number) {
-		DecimalFormat formatter = new DecimalFormat("0.00E00");
+		DecimalFormat formatter = new DecimalFormat("0.000E00");
 		String fnumber = formatter.format(number);
 		if (!fnumber.contains("E-")) { // don't blast a negative sign
 			fnumber = fnumber.replace("E", "E+");

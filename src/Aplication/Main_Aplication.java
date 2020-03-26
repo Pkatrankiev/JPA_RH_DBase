@@ -44,7 +44,8 @@ public class Main_Aplication {
 //		TestClases.ChangeStringToNumber();
 		
 		
-//		TestClases.ReformatDoubleTo4decimalExponet("123.56789");
+//		TestClases.ReformatDoubleTo4decimalExponet("0.00095");
+//		TestClases.NumberFormatWithRounding("0.00135256");
 		
 //		TestClases.start_Table_Request_List_Test(4);
 		

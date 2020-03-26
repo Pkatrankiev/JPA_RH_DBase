@@ -232,6 +232,7 @@ public class MainWindow extends JFrame {
 		sequenseMenu.add(new MenuRequense_NewRequense());
 		// sequenseMenu.add(new MenuRequense_NewExtraRequense());
 		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
+		sequenseMenu.addSeparator();
 		sequenseMenu.add(new MenuRequense_AddDobiveFrame());
 		sequenseMenu.add(new MenuRequense_AddResultsFrame());
 		sequenseMenu.addSeparator();
@@ -245,9 +246,9 @@ public class MainWindow extends JFrame {
 		dataMenu.add(new MenuData_EnableRequestList());
 		dataMenu.add(new MenuData_EnableSampleList());
 		dataMenu.add(new MenuData_EnableResultsList());
-		dataMenu.add(new MenuData_EnableInternalAplicant());
-		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
-		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
+//		dataMenu.add(new MenuData_EnableInternalAplicant());
+//		dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
+
 
 		return dataMenu;
 	}

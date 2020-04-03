@@ -1273,6 +1273,7 @@ public class AddResultsViewWithTable extends JDialog {
 					if (checkKorektFileName(fileName, codeSamample)) {
 					txtBasicValueResult.setText(fileName);
 					if (!choiceMetody.getSelectedItem().trim().isEmpty()){
+						
 					if (choiceMetody.getSelectedItem().indexOf("10")>0){
 					
 						ReadGamaFile.getReadGamaFile(fileName);

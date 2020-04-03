@@ -2,6 +2,8 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
+
+import OldClases.Table_Results_List_Test;
 import Table.Table_Results_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
@@ -24,7 +26,8 @@ public class MenuData_EnableResultsList extends AbstractMenuAction{
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
+		 		new Table_Results_List_Test(f,round,Login.getCurentUser(), null);
+//		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
 		 			    	
 		     }
 		    });

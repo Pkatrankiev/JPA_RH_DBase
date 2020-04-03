@@ -12,7 +12,7 @@ public class Add_DefaultTableCellRenderer  {
 
 	public static DefaultTableCellRenderer Add_MyDefaultTableCellRenderer(int active_value_column, int mda_column) {
 
-			
+		
 		DefaultTableCellRenderer dcr = new DefaultTableCellRenderer(){
 			
 			private static final long serialVersionUID = 1L;
@@ -27,9 +27,8 @@ public class Add_DefaultTableCellRenderer  {
 				}
 					
 				String s1 = table.getValueAt(row, active_value_column).toString();
-			
-
-				if ((Double.parseDouble((String) s1) + (Double.parseDouble((String) s2))) == 0) {
+							
+				if (Double.compare(Double.parseDouble((String) s1), (Double.parseDouble((String) s2))) == 0) {
 					// setBackground(Color.BLACK);
 					setForeground(Color.LIGHT_GRAY);
 				} else {

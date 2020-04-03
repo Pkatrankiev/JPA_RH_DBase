@@ -44,8 +44,8 @@ public class ReadExcelFile {
 
 	private static String cod_sample;
 	private static String user_Analize = "";
-	private static String value_Standatd;
-	private static String nuclide_StandardStr;
+	private static String value_Standatd="";
+	private static String nuclide_StandardStr="";
 
 	// private static String nuclide_Standard;
 	public static String getCod_sample() {
@@ -152,6 +152,89 @@ public class ReadExcelFile {
 		return dobiv;
 	}
 
+	public static List<Destruct_Result> getDestruct_Result_ListMDAAlfaExcelFile(String FILE_PATH,
+			Boolean forResults) {
+		DataFormatter formatter = new DataFormatter();
+		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
+		FileInputStream fis = null;
+		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "", dimencion = "";
+		String date_Analize = "", cellValue = "";
+
+		try {
+			fis = new FileInputStream(FILE_PATH);
+
+			// Using XSSF for xlsx format, for xls use HSSF
+			@SuppressWarnings("resource")
+			Workbook workbook = new HSSFWorkbook(fis);
+
+			Sheet sheet = workbook.getSheetAt(0);
+
+			metod = "М.ЛИ-РХ-01";
+		
+			tsi = "T04";
+	
+			date_Analize = "01.01.2020";
+
+			user_Analize = "";
+
+			for (int i = 1; i <= sheet.getLastRowNum(); i += 2) {
+				for (int colum = 1; i <= 30; i += 1) {
+				if (!formatter.formatCellValue(sheet.getRow(i).getCell(colum)).isEmpty()) {
+					
+					cellValue = sheet.getRow(i).getCell(colum).getStringCellValue();
+					if(cellValue.equals("Код на пробата")){
+						cod_sample = sheet.getRow(i).getCell(colum+1).getStringCellValue();	
+					}
+					if(cellValue.equals("Количество")){
+						quantity = sheet.getRow(i).getCell(colum+1).getStringCellValue();
+					}
+					if(colum>22){
+						
+						if(cellValue.equals("Активност на алфа-изотоп")){
+							dimencion =  sheet.getRow(i).getCell(colum+1).getStringCellValue();
+						}
+						if(cellValue.equals("-")){
+							
+					nuclide = sheet.getRow(i).getCell(colum).getStringCellValue();
+					int index = nuclide.indexOf("-");
+					nuclide = nuclide.substring(index + 1) + nuclide.substring(0, index);
+
+					result = sheet.getRow(i+1).getCell(colum).getStringCellValue();
+					double dub_result = Double.valueOf(result);
+					uncert = sheet.getRow(i+2).getCell(colum).getStringCellValue();
+					mda = sheet.getRow(i+3).getCell(colum).getStringCellValue().replace("<", "");
+					double dub_MDA = Double.valueOf(mda);
+					if (forResults) {
+						if (dub_MDA > dub_result) {
+							result = "0.0";
+							uncert = "0.0";
+						}
+					}
+						}
+						
+					}
+				}
+				System.out.println(cod_sample + " - " + metod + " - " + nuclide + " - " + result + " - " + uncert
+						+ " - " + mda + " - " + tsi + " - " + quantity + " - " + dimencion + " - " + date_Analize
+						+ " - " + user_Analize);
+				destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, "", uncert, mda, tsi,
+						quantity, dimencion, date_Analize, user_Analize));
+
+			}
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+		}
+
+		return destruct_Result_List;
+	}
+	
+	
 	public static List<Destruct_Result> getDestruct_Result_ListFromExcelFile(String FILE_PATH, Boolean forResults) {
 
 		DataFormatter formatter = new DataFormatter();
@@ -227,12 +310,18 @@ public class ReadExcelFile {
 								mda = ReformatDoubleTo4decimalExponet(mda);
 								break;
 							case "Количество":
-								quantity = String.valueOf(cell.getNumericCellValue());
+								try {
+									quantity = String.valueOf(cell.getNumericCellValue());
+									quantity = ReformatDoubleTo4decimalExponet(quantity);
+								} catch (IllegalStateException e) {
+									quantity = "8.06";
+								}
+
 								quantity = ReformatDoubleTo4decimalExponet(quantity);
 								break;
 							case "Добив":
 								dobiv = String.valueOf(cell.getNumericCellValue());
-								dobiv = ReformatDoubleTo4decimalExponet(quantity);
+								dobiv = ReformatDoubleTo4decimalExponet(dobiv);
 								break;
 							case "ТСИ":
 								tsi = valume;
@@ -282,6 +371,9 @@ public class ReadExcelFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+		}
+		for (Destruct_Result destruct_Result : destruct_Result_List) {
+			System.out.println(destruct_Result.getMda()+"---------------------------------");
 		}
 		return destruct_Result_List;
 	}
@@ -386,7 +478,7 @@ public class ReadExcelFile {
 		for (int j = 0; j < listResults.size(); j++) {
 			masiveResultsnew[j] = listResults.get(j);
 		}
-		System.out.println(listResults.size() + " - " + masiveResultsnew.length);
+
 		return masiveResultsnew;
 	}
 
@@ -399,45 +491,49 @@ public class ReadExcelFile {
 
 		String expon = stt.substring(stt.indexOf("E") + 1);
 		int kk = Integer.parseInt(expon);
-		if (kk >= -4 && kk <= 0) {
+		if (kk >= -4 && kk < 0) {
+		
 			stt = NumberToMAXDigitAftrerZerro(formatNum);
 		}
 
-		if (kk > 1 && kk <= 4) {
+		if (kk >= 0 && kk <= 4) {
 			DecimalFormat df4 = new DecimalFormat("#.####");
 			df4.setRoundingMode(RoundingMode.HALF_UP);
 			stt = df4.format(dob2).replaceAll(",", ".");
 		}
-		System.out.println(stt);
+	
 		return stt;
 	}
 
 	public static String NumberToMAXDigitAftrerZerro(String num) {
 		int MAXDigit = 4;
+		double dd = Double.parseDouble(num);
+		if (Double.compare(dd, 0.0) != 0) {
+		
+			String head = num.substring(0, num.indexOf("."));
+			if (Integer.parseInt(head) == 0) {
+				head = "0.";
+				String body = num.substring(num.indexOf(".") + 1);
 
-		String head = num.substring(0, num.indexOf("."));
-		if (Integer.parseInt(head) == 0) {
-			head = "0.";
-			String body = num.substring(num.indexOf(".") + 1);
-
-			while (body.substring(0, 1).equals("0")) {
-				head = head + "0";
-				body = body.substring(1);
-			}
-
-			if (body.length() >= MAXDigit) {
-				String olt;
-				int bodyInt = 0;
-				double dob2 = 0;
-				body = body.substring(0, 5);
-				bodyInt = Integer.parseInt(body);
-				olt = "0." + body.substring(MAXDigit - 1);
-				dob2 = Double.parseDouble(olt);
-
-				if (dob2 + 0.5 >= 1) {
-					bodyInt++;
+				while (body.substring(0, 1).equals("0")) {
+					head = head + "0";
+					body = body.substring(1);
 				}
-				num = head + bodyInt;
+
+				if (body.length() >= MAXDigit) {
+					String olt;
+					int bodyInt = 0;
+					double dob2 = 0;
+					body = body.substring(0, MAXDigit);
+					bodyInt = Integer.parseInt(body);
+					olt = "0." + body.substring(MAXDigit - 1);
+					dob2 = Double.parseDouble(olt);
+
+					if (dob2 + 0.5 >= 1) {
+						bodyInt++;
+					}
+					num = head + bodyInt;
+				}
 			}
 		}
 		return num;

@@ -199,8 +199,7 @@ public class TestClases  {
 		}
 	}
 	 
-	public
-	static void AddResultsViewWithTable(int i) {
+	public 	static void AddResultsViewWithTable(int i) {
 		TranscluentWindow round = new TranscluentWindow();
 		
 		 final Thread thread = new Thread(new Runnable() {
@@ -212,6 +211,24 @@ public class TestClases  {
 		 		new AddResultsView(f,round, UsersDAO.getValueUsersById(i)); 
 		    	 
 //		 		new OldClases.AddResultsViewWithTable(f,round, UsersDAO.getValueUsersById(3));
+		 		
+		     }
+		    });
+		    thread.start();
+			
+	}
+	
+	public 	static void Table_Results_List_Test(int i) {
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 JFrame f = new JFrame();
+//		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+		 		new Table_Results_List_Test(f,round, UsersDAO.getValueUsersById(i),null); 
+		 		
 		 		
 		     }
 		    });

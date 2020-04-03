@@ -44,14 +44,21 @@ public class btnOpenFileSection {
 							
 							if (switCase== 1) {
 								Boolean forResults = true;
-								List<Destruct_Result> destruct_Result_List = ReadExcelFile
-										.getDestruct_Result_ListFromOrtecExcelFile(pathfileName, forResults);
-								OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
-								Dobiv dobiv = ReadExcelFile.getDobivFromOrtecExcelFile(destruct_Result_List,
-										choiceSmplCode, selectMetodStr);
-								List<Dobiv> listChoisedDobiv = new ArrayList<Dobiv>();
-								listChoisedDobiv.add(dobiv);
-								OverallVariablesAddDobiv.setListChoisedDobiv(listChoisedDobiv);
+								if(pathfileName.equals("MDA")){
+									List<Destruct_Result> destruct_Result_List = ReadExcelFile
+											.getDestruct_Result_ListMDAAlfaExcelFile(pathfileName, forResults);
+									OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
+								}else{
+									List<Destruct_Result> destruct_Result_List = ReadExcelFile
+											.getDestruct_Result_ListFromOrtecExcelFile(pathfileName, forResults);
+									OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
+									Dobiv dobiv = ReadExcelFile.getDobivFromOrtecExcelFile(destruct_Result_List,
+											choiceSmplCode, selectMetodStr);
+									List<Dobiv> listChoisedDobiv = new ArrayList<Dobiv>();
+									listChoisedDobiv.add(dobiv);
+									OverallVariablesAddDobiv.setListChoisedDobiv(listChoisedDobiv);
+									
+								}
 								sizeExcelList = OverallVariablesAddResults.getDestruct_Result_List().size();
 								System.out.println("-----------------------------------" + sizeExcelList);
 							}

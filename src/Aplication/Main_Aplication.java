@@ -35,6 +35,9 @@ public class Main_Aplication {
 		
 //		TestClases.AddResultsViewWithTable(3) ;
 		
+		
+//		TestClases.Table_Results_List_Test(3) ;
+		
 //		TestClases.createProtocolWordDoc("Изтриване на Заявка");
 		
 //		TestClases.createRazprFormWordDoc();
@@ -44,7 +47,7 @@ public class Main_Aplication {
 //		TestClases.ChangeStringToNumber();
 		
 		
-//		TestClases.ReformatDoubleTo4decimalExponet("0.00095");
+//		ReadExcelFile.ReformatDoubleTo4decimalExponet("0.0000969769462295195");
 //		TestClases.NumberFormatWithRounding("0.00135256");
 		
 //		TestClases.start_Table_Request_List_Test(4);

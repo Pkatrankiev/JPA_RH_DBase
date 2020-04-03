@@ -36,12 +36,19 @@ public class MetodSection {
 			public void mouseEntered(MouseEvent e) {
 
 				choiceMetody.setBackground(Color.WHITE);
+				System.out.println(choicePokazatel.getSelectedItem()+"+++++++++++++++++++++++++++++++++++++");
 				if (!choicePokazatel.getSelectedItem().trim().isEmpty()) {
+					System.out.println(choicePokazatel.getSelectedItem()+"///////////////////////////////");	
 					if (OverallVariablesAddResults.getFlagNotReadListMetody()) {
 						choiceMetody.removeAll();
+//						System.out.println(choicePokazatel.getSelectedItem()+"-------------------------------");
+						
+						
+					
 						if (getListMetodyFormMetody_To_Pokaztel(choicePokazatel).isEmpty()) {
 							choiceMetody.add("");
 						}
+					System.out.println(choicePokazatel.getSelectedItem()+"***********************************");
 						for (Metody metod : getListMetodyFormMetody_To_Pokaztel(choicePokazatel)) {
 							choiceMetody.add(metod.getCode_metody());
 							OverallVariablesAddResults.setFlagNotReadListMetody (false);

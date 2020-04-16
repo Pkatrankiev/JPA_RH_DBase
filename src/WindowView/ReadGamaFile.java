@@ -27,6 +27,7 @@ public class ReadGamaFile {
 	private static int countLine;
 	private static List<String> listNuclideAkv;
 	private static List<String> listNuclideMDA;
+	private static String[] stringArray;
 	private static String cod_sample;
 	private static String user_mesure;
 	private static String quantity = "";
@@ -81,11 +82,13 @@ public class ReadGamaFile {
 	public static int getListNuclideMDA() {
 		return listNuclideMDA.size();
 	}
-		
+	public static String[] getStringArray() {
+		return stringArray;
+	}
 
 	public static void getReadGamaFile(String FILENAME) {
 
-		String[] stringArray = CreadMasiveFromReadFile(FILENAME);
+		stringArray = CreadMasiveFromReadFile(FILENAME);
 		
 		date_mesur = DatePicker.reformarDateMeasur(StringUtils.split(stringArray[0])[0]);
 		int flagNuclidy = 0;
@@ -211,6 +214,12 @@ public class ReadGamaFile {
 
 	}
 	
+	public static List<String> getListStringMDA(){
+		
+		return listNuclideMDA;
+
+	}
+	
 	public static String[][] getMasivNuclideMDA() {
 		String[][] listActiveNuclide = getMasivNuclideAktiv();
 		String[][] str1 = new String[listNuclideMDA.size()][2];
@@ -243,6 +252,7 @@ public class ReadGamaFile {
 		return newStr;
 
 	}
+	
 	
 	public static Results[] getMasivResultsWithAktiv(){
 		String[][] masiveActiveResults = getMasivNuclideAktiv();
@@ -340,7 +350,8 @@ public class ReadGamaFile {
 	private static String[] CreadMasiveFromReadFile(String FILENAME) {
 		BufferedReader br = null;
 		FileReader fr = null;
-		String[] stringArray = new String[1000];
+		List<String> listString = new ArrayList<String>();
+		String[] newStringArray = null ;
 		try {
 			// br = new BufferedReader(new FileReader(FILENAME));
 //			fr = new FileReader(FILENAME);
@@ -350,14 +361,18 @@ public class ReadGamaFile {
 	        br = new BufferedReader(
 	           new InputStreamReader(new FileInputStream(fileDir),"Cp1251"));
 			String sCurrentLine;
-			int i = 0;
+			
 			while ((sCurrentLine = br.readLine()) != null) {
-				stringArray[i] = sCurrentLine;
+				listString.add(sCurrentLine);
 				System.out.println(sCurrentLine);
-				i++;
+				
 			}
-			countLine = i;
-
+						
+			countLine = listString.size();
+			newStringArray = new String[countLine];
+			for (int i = 0; i < newStringArray.length; i++) {
+				newStringArray[i]=listString.get(i);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -370,7 +385,7 @@ public class ReadGamaFile {
 				ex.printStackTrace();
 			}
 		}
-		return stringArray;
+		return newStringArray;
 	}
 
 	public  static Users getUserFromFile() {

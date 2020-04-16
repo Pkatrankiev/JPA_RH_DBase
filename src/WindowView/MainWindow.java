@@ -34,6 +34,7 @@ import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
+import Menu.MenuOder;
 import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_DeleteRequense;
@@ -220,24 +221,37 @@ public class MainWindow extends JFrame {
 		menu.add(createRequenseMenu());
 		menu.add(createDataMenu());
 		menu.add(createWordDocMenu());
+		menu.add(createOderMenu());
 		menu.add(createLoginMenu(win), BorderLayout.EAST);
 
 		return menu;
 	}
 
-	private JMenu createRequenseMenu() {
-		JMenu sequenseMenu = new JMenu("Заявки");
-		sequenseMenu.setMnemonic(KeyEvent.VK_Z);
+	private JMenu createOderMenu() {
+		JMenu oderMenu = new JMenu("Други");
+		oderMenu.setMnemonic(KeyEvent.VK_D);
 
-		sequenseMenu.add(new MenuRequense_NewRequense());
+		oderMenu.add(new MenuOder());
+		return oderMenu;
+	}
+
+
+
+
+
+	private JMenu createRequenseMenu() {
+		JMenu requenseMenu = new JMenu("Заявки");
+		requenseMenu.setMnemonic(KeyEvent.VK_Z);
+
+		requenseMenu.add(new MenuRequense_NewRequense());
 		// sequenseMenu.add(new MenuRequense_NewExtraRequense());
-		sequenseMenu.add(new MenuRequense_NewRequenseInTamplate());
-		sequenseMenu.addSeparator();
-		sequenseMenu.add(new MenuRequense_AddDobiveFrame());
-		sequenseMenu.add(new MenuRequense_AddResultsFrame());
-		sequenseMenu.addSeparator();
-		sequenseMenu.add(new MenuRequense_DeleteRequense());
-		return sequenseMenu;
+		requenseMenu.add(new MenuRequense_NewRequenseInTamplate());
+		requenseMenu.addSeparator();
+		requenseMenu.add(new MenuRequense_AddDobiveFrame());
+		requenseMenu.add(new MenuRequense_AddResultsFrame());
+		requenseMenu.addSeparator();
+		requenseMenu.add(new MenuRequense_DeleteRequense());
+		return requenseMenu;
 	}
 
 	private JMenu createDataMenu() {

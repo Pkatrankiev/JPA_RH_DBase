@@ -1,20 +1,21 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
+import java.util.Map;
 
 import javax.swing.JDialog;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_InternalApplicant_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
 public class MenuData_EnableInternalAplicant extends AbstractMenuAction{
-
-		
+	
 		private static final long serialVersionUID = 1L;
 
 		public MenuData_EnableInternalAplicant() {
-			super("Редактиране на Вътрешни Клиенти");
+			super(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableInternalAplicantTitleName"));
 			// TODO Auto-generated constructor stub
 		}
 

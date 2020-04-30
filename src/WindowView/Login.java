@@ -140,7 +140,7 @@ public class Login extends JDialog {
 		return txt_nik_name.getText().trim();
 	}
 
-	public static Users getCurentUser() {
+	public static  Users getCurentUser() {
 		return curentUser;
 	}
 

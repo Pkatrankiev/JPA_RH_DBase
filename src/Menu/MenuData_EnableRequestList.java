@@ -1,9 +1,11 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_Request_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
@@ -11,9 +13,11 @@ import WindowView.TranscluentWindow;
 public class MenuData_EnableRequestList extends AbstractMenuAction {
 
 	private static final long serialVersionUID = 1L;
+	static String EnableRequestList_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName");
 
 	public MenuData_EnableRequestList() {
-		super("Списък на Заявките");
+		
+		super(EnableRequestList_TitleName);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -27,7 +31,7 @@ public class MenuData_EnableRequestList extends AbstractMenuAction {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Request_List(f,round,Login.getCurentUser(),"request", "Списък на Заявките");
+		 		new Table_Request_List(f,round,Login.getCurentUser(),"request", EnableRequestList_TitleName);
 	    	
 		     }
 		    });

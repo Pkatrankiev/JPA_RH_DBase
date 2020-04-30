@@ -1,7 +1,6 @@
 package OldClases;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -29,7 +28,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DimensionDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
@@ -42,13 +40,10 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
-import Table.Add_DefaultTableCellRenderer;
 import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
-
-import OldClases.DecimalFormatRenderer;
 
 public class Table_Results_List_Test extends JDialog {
 

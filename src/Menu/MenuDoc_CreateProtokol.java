@@ -2,15 +2,18 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
+
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.FrameChoiceRequestByCode;
 
 public class MenuDoc_CreateProtokol extends AbstractMenuAction{
 	
 	
 	private static final long serialVersionUID = 1L;
-
+	static String CreateProtokol_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("CreateProtokol_TitleName");
+	
 	public MenuDoc_CreateProtokol() {
-		super("Генериране на Протокол");
+		super(CreateProtokol_TitleName);
 		
 	}
 
@@ -18,7 +21,7 @@ public class MenuDoc_CreateProtokol extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceRequestByCode(f, "Генериране на Протокол") ;
+			    	 new FrameChoiceRequestByCode(f, CreateProtokol_TitleName) ;
 			
 	}
 

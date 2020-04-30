@@ -1,15 +1,18 @@
 package GlobalVariable;
 
+import java.util.Map;
 
 public class GlobalPathForIcons {
 	
-	private static final String destinationIcons = "ICONS/";
-	private static final String modifiIcon = "Modify.gif";
-	private static final String addIcon = "add-icon.gif";
-	private static final String SaveIcon = "Save.gif";
-	private static final String OpenIcon = "Open.gif";
-	private static final String winIcon = "winIcon.png";
-	private static final String ajaxLoader = "ajaxLoader.gif";
+	private static 	Map<String, String> globalTextVariableMap = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap();
+
+	private static final String destinationIcons = globalTextVariableMap.get("destinationIcons");
+	private static final String modifiIcon = globalTextVariableMap.get("modifiIcon");
+	private static final String addIcon = globalTextVariableMap.get("addIcon");
+	private static final String SaveIcon = globalTextVariableMap.get("SaveIcon");
+	private static final String OpenIcon = globalTextVariableMap.get("OpenIcon");
+	private static final String winIcon = globalTextVariableMap.get("winIcon");
+	private static final String ajaxLoader = globalTextVariableMap.get("ajaxLoader");
 	
 	
 	

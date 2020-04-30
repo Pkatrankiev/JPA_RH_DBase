@@ -2,6 +2,8 @@ package AddResultViewFunction;
 
 import java.awt.Choice;
 import java.awt.Cursor;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -592,21 +594,29 @@ public class AddResultViewMetods {
 				for (Destruct_Result destruct_Result : destruct_Result_List) {
 					
 					if (dataTable[i][nuclide_Colum].toString().equals(destruct_Result.getNuclide())) {
+						
 						dobivValue = Double.parseDouble((String) destruct_Result.getDobiv());
 					}
 				}
 				}
 				if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
+					if(!OverallVariablesAddResults.getValueFromDBase()){
 					List<Dobiv> listDobiv = DobivDAO
 							.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString());
 					if (listDobiv.size() > 0) {
 						for (Dobiv dobiv : listDobiv) {
-							if (dobivValue+0.00005 > dobiv.getValue_result() && dobiv.getValue_result() > dobivValue-0.00005) {
-								errDobiv = "несъвпадащи стойности за добиви" + "\n";
+							Double dobiveValueResult = reformatDoubleValue (dobiv.getValue_result());
+							Double dobiveValuePlus = reformatDoubleValue (dobivValue+0.00005);
+							Double dobiveValueMinus = reformatDoubleValue (dobivValue-0.00006);
+							System.out.println(dobivValue+"  "+dobiveValueMinus+"  "+dobiveValueResult+" "+ dobiveValuePlus);
+							if(Double.compare ( dobiveValueResult, dobiveValuePlus) <= 0 && Double.compare (dobiveValueMinus, dobiveValueResult  ) <= 0){
+								
+							}else{
+								errDobiv = "несъвпадащи стойности за добиви" + "\n ";
 							}
 						}
 					}
-
+					}
 				}
 				
 				} catch ( NumberFormatException e) {
@@ -635,6 +645,15 @@ public class AddResultViewMetods {
 		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim + inProtokol + errDobiv);
 	}
 
+	public static Double reformatDoubleValue (Double value){
+		DecimalFormat df4 = new DecimalFormat("#.####");
+		df4.setRoundingMode(RoundingMode.HALF_UP);
+		String stt = df4.format(value).replaceAll(",", ".");
+		 
+		return Double.parseDouble(stt);
+		
+	}
+	
 	public static List<Results> creadResultListForSave(Sample sample, JTextField txtBasicValueResult,
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 		List<Results> listResultsForSave = new ArrayList<Results>();

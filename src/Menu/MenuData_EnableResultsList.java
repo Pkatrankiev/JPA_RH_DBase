@@ -1,19 +1,21 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
+import java.util.Map;
+
 import javax.swing.JFrame;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.Table_Results_List_Test;
-import Table.Table_Results_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 
 public class MenuData_EnableResultsList extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	public MenuData_EnableResultsList() {
-		super("Списък на Резултатите");
+		super(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"));
 		// TODO Auto-generated constructor stub
 	}
 

@@ -24,13 +24,12 @@ import javax.swing.border.EmptyBorder;
 
 
 import CreateWordDocProtocol.GenerateRequestWordDoc;
+import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
 import LeftPanelInMainWindow.StartCreateListForRowInLeftPanelWithProgrssBar;
-import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
-import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
@@ -40,7 +39,6 @@ import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_DeleteRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
-import Menu.MenuRequense_RequenseList;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -60,7 +58,7 @@ public class MainWindow extends JFrame {
 	
 	
 	private static final long serialVersionUID = 8880252554988817126L;
-		private JPanel contentPane;
+	private JPanel contentPane;
 	private static String loginStr = "logIn";
 	private static Login loginDlg;
 	
@@ -289,7 +287,7 @@ public class MainWindow extends JFrame {
 					round.StopWindow();
 					Login.logOut();
 					loginMenu.setText("LogIn");
-					win.setTitle("my RHA");
+					win.setTitle("ДП РАО, с-р Радиохимия");
 				} else {
 					final Thread thread = new Thread(new Runnable() {
 						@Override
@@ -314,7 +312,9 @@ public class MainWindow extends JFrame {
 		loginDlg.setVisible(true);
 
 		if (loginDlg.isSucceeded()) {
-			win.setTitle("my RHA" + " -> Hi " + loginDlg.getUsername() + "!");
+			@SuppressWarnings("static-access")
+			Users user = loginDlg.getCurentUser();
+			win.setTitle("ДП РАО, с-р Радиохимия" + " -> работи " + user.getName_users()+" "+user.getFamily_users());
 			loginMenu.setText("LogOut");
 
 		}

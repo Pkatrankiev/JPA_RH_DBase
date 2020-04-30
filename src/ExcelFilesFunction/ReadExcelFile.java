@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import AddDobivViewFunction.OverallVariablesAddDobiv;
+import AddResultViewFunction.OverallVariablesAddResults;
 import AddResultViewFunction.SampleCodeSection;
 import Aplication.DimensionDAO;
 import Aplication.MetodyDAO;
@@ -18,8 +19,10 @@ import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Metody;
+import DBase_Class.Razmernosti;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import DBase_Class.TSI;
 import DBase_Class.Users;
 import GlobalVariable.GlobalFormatDate;
 import WindowView.ReadGamaFile;
@@ -46,6 +49,7 @@ public class ReadExcelFile {
 	private static String user_Analize = "";
 	private static String value_Standatd="";
 	private static String nuclide_StandardStr="";
+	
 
 	// private static String nuclide_Standard;
 	public static String getCod_sample() {
@@ -241,7 +245,7 @@ public class ReadExcelFile {
 		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
 		FileInputStream fis = null;
 		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "", dimencion = "";
-		String param = "", valume = "", date_Analize = "", dobiv = "";
+		String param = "", date_Analize = "", dobiv = "";
 
 		SimpleDateFormat sdf = new SimpleDateFormat(GlobalFormatDate.getFORMAT_DATE());
 		Date dateNull = null;
@@ -261,6 +265,9 @@ public class ReadExcelFile {
 			int numberOfSheets = workbook.getNumberOfSheets();
 
 			// looping over each workbook sheet
+			String errKod = "",  errMetod = "", errNuclide = "", errRezultat = "", errNeopred = "",
+					errMDA = "", errKolichestvo = "", errDobiv = "", errTSI = "", errRazmer = "", 
+					errData = "", errIzvurshiAnaliza = "";
 			for (int i = 0; i < numberOfSheets; i++) {
 				Boolean endNuclideRsult = false;
 				Sheet sheet = workbook.getSheetAt(i);
@@ -285,59 +292,147 @@ public class ReadExcelFile {
 							param = formatter.formatCellValue(cell);
 
 							cell = (Cell) cellIterator.next();
-							valume = formatter.formatCellValue(cell);
+//							valume = formatter.formatCellValue(cell);
 
 							switch (param) {
 							case "Код":
+								try{
 								cod_sample = cell.getStringCellValue();
+								}catch (IllegalStateException e) {
+									errKod = "Код -> не е коректен текст\n";
+									cod_sample ="_";
+								}
 								break;
 							case "Метод":
-								metod = valume;
+								try{
+								metod = cell.getStringCellValue();
+							}catch (IllegalStateException e) {
+								errMetod = "Метод -> не е коректен текст\n";
+								metod ="";
+							}
+								
 								break;
 							case "Нуклид":
-								nuclide = valume;
+								try{
+								nuclide = cell.getStringCellValue();
+								errNuclide = "Нуклид "+ nuclide+" не е в избрания метод\n";
+								for (String basicNuklide : OverallVariablesAddResults.getListSimbolBasikNulideToMetod()) {
+									if(basicNuklide.equals(nuclide)){
+										errNuclide = "";
+								}
+								}
+							}catch (IllegalStateException e) {
+								errNuclide = "Нуклид -> не е коректен текст\n";
+								nuclide = " ";
+							}
+								
+								
 								break;
 							case "Резултат":
+								try{
 								result = String.valueOf(cell.getNumericCellValue());
 								result = ReformatDoubleTo4decimalExponet(result);
+							}catch (IllegalStateException e) {
+								errRezultat = "Резултат -> не е число\n";
+								result ="0.0";
+							}
 								break;
 							case "Неопределеност":
+								try{
 								uncert = String.valueOf(cell.getNumericCellValue());
 								uncert = ReformatDoubleTo4decimalExponet(uncert);
+							}catch (IllegalStateException e) {
+								errNeopred = "Неопределеност -> не е число\n";
+								uncert ="0.0";
+							}
 								break;
 							case "МДА":
+								try{
 								mda = String.valueOf(cell.getNumericCellValue());
 								mda = ReformatDoubleTo4decimalExponet(mda);
+							}catch (IllegalStateException e) {
+								errMDA = "МДА -> не е число\n";
+								mda = "0.0";
+							}
 								break;
 							case "Количество":
 								try {
 									quantity = String.valueOf(cell.getNumericCellValue());
 									quantity = ReformatDoubleTo4decimalExponet(quantity);
 								} catch (IllegalStateException e) {
-									quantity = "8.06";
+									errKolichestvo = "Количество -> не е число\n";
+									quantity = "0.0";
 								}
 
 								quantity = ReformatDoubleTo4decimalExponet(quantity);
 								break;
 							case "Добив":
+								try{
 								dobiv = String.valueOf(cell.getNumericCellValue());
 								dobiv = ReformatDoubleTo4decimalExponet(dobiv);
+							}catch (IllegalStateException e) {
+								errDobiv = "Добив -> не е число\n";
+								dobiv = "0.0";
+							}
 								break;
 							case "ТСИ":
-								tsi = valume;
+								try{
+								tsi = cell.getStringCellValue();
+								errTSI = "ТСИ "+ tsi+" не е в списъка\n";
+								String str = tsi.replaceAll("[TtAaТтАа/]", "");
+								for (TSI basicTSI :  TSI_DAO.getListAllValueTSI()) {
+								
+									if(basicTSI.getName().contains(str)){
+										errTSI = "";
+								}
+								}
+								if(!errTSI.isEmpty()){
+									tsi = "    ";
+								}
+							}catch (IllegalStateException e) {
+								errTSI = "ТСИ -> не е коректен текст\n";
+								tsi = "    ";
+							}
 								break;
 							case "Размерност":
+								try{
 								dimencion = cell.getStringCellValue();
+								errRazmer = "Размерност "+ dimencion+" не е в списъка\n";
+								for (Razmernosti basicRazmernosti :  RazmernostiDAO.getInListAllValueRazmernosti()) {
+								
+									if(basicRazmernosti.getName_razmernosti().contains(dimencion)){
+										errRazmer = "";
+								}
+								}
+							}catch (IllegalStateException e) {
+								errRazmer = "Размерност -> не е коректен текст\n";
+								dimencion = " ";
+							}
 								break;
 							case "Дата на анализа":
+								try{
+									
 								if (cell.getDateCellValue().after(dateNull)) {
+									
 									date_Analize = sdf.format(cell.getDateCellValue());
 								}
+							}catch (IllegalStateException e) {
+								errData = "Дата на анализа -> не е коректна дата\n";
+							}
 								break;
 							case "Извършил анализа":
 								try {
 									user_Analize = cell.getStringCellValue();
+									errIzvurshiAnaliza = "Извършил анализа: "+ user_Analize+" не е в списъка\n";
+									for (String basicUser :  UsersDAO.getMasiveStringAllName_FamilyUsers()) {
+										basicUser = basicUser.substring(basicUser.indexOf(" ")+1);
+										System.out.println(basicUser);
+										if(user_Analize.contains(basicUser)){
+											errIzvurshiAnaliza = "";
+									}
+									}
 								} catch (IllegalStateException e) {
+									errIzvurshiAnaliza = "Извършил анализа -> не е коректен текст\n";
 									user_Analize = "";
 								}
 								break;
@@ -365,6 +460,14 @@ public class ReadExcelFile {
 
 				}
 			}
+			
+			String errString = errKod + errMetod + errNuclide + errRezultat + errNeopred +errMDA 
+					+ errKolichestvo + errDobiv + errTSI+ errRazmer+ errData + errIzvurshiAnaliza ;
+			
+			if(!errString.isEmpty()){
+				JOptionPane.showMessageDialog(null, "Във Файла има грашки за:\n"+errString, "Грешни данни", JOptionPane.ERROR_MESSAGE);
+				
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
@@ -372,9 +475,10 @@ public class ReadExcelFile {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
-		for (Destruct_Result destruct_Result : destruct_Result_List) {
-			System.out.println(destruct_Result.getMda()+"---------------------------------");
-		}
+		
+			
+		
+	
 		return destruct_Result_List;
 	}
 

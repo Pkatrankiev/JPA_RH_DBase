@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class DecimalFormatRenderer {
-	public static DefaultTableCellRenderer DecimalFormatRenderer(int mda_column) {
+	public static DefaultTableCellRenderer Decimal_FormatRenderer(int mda_column) {
 
 		
 		DefaultTableCellRenderer dcr = new DefaultTableCellRenderer(){

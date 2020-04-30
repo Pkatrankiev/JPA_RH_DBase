@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.AddDobivView;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
@@ -11,9 +12,9 @@ import WindowView.TranscluentWindow;
 public class MenuRequense_AddDobiveFrame extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
-
+		
 	public MenuRequense_AddDobiveFrame() {
-		super("Въвеждане на Добив");
+		super(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("AddDobiveFrame_TitleName"));
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +22,7 @@ public class MenuRequense_AddDobiveFrame extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		Users loginDlg = Login.getCurentUser();
 		if (loginDlg == null) {
-			JOptionPane.showMessageDialog(null, "Логнете се");
+			JOptionPane.showMessageDialog(null, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("logInMesege "));
 		} else {
 		TranscluentWindow round = new TranscluentWindow();
 		

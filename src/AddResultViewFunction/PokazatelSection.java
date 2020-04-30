@@ -18,6 +18,7 @@ public class PokazatelSection {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				AddResultViewMetods.setListNuclideToMetodAndToPokaz(choicePokazatel);
+				OverallVariablesAddResults.setFlagNotReadListMetody (true);
 		}
 		});
 		
@@ -46,7 +47,7 @@ public class PokazatelSection {
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-		
+			AddResultViewMetods.setListNuclideToMetodAndToPokaz(choicePokazatel);
 
 		}
 

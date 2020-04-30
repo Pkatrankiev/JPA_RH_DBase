@@ -26,7 +26,8 @@ public class btnTabFromFileSection {
 		
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				OverallVariablesAddResults.setValueFromDBase(false);
+				
 				if (OverallVariablesAddResults.getFlagIncertedFile()) {
 										
 					AddResultViewMetods.setWaitCursor(basic_panel);

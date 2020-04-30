@@ -11,8 +11,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import AddResultViewFunction.AddResultViewMetods;
-import Table.Add_DefaultTableCellRenderer;
 import Table.RequestTableList_OverallVariables;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;

@@ -1,18 +1,20 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_Sample_List;
 import WindowView.TranscluentWindow;
 
 public class MenuData_EnableSampleList extends AbstractMenuAction{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	public MenuData_EnableSampleList() {
-		super("Списък на Пробите");
+		super(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableSampleList_TitleName"));
 		// TODO Auto-generated constructor stub
 	}
 

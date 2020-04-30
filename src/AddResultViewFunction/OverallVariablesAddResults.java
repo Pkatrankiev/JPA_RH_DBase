@@ -46,6 +46,7 @@ public class OverallVariablesAddResults {
 	private static Boolean flagNotReadListMetody = true;
 	private static Boolean viewAddRowButton = false;
 	private static Boolean flagIncertedFile = false;
+	private static Boolean valueFromDBase = false;
 	
 	
 	private static Color colorFromDBase = new Color(0, 120, 0);
@@ -311,6 +312,14 @@ public class OverallVariablesAddResults {
 
 	public static void setDestruct_DobivFromResults_List(List<Double> destruct_DobivFromResults_List) {
 		OverallVariablesAddResults.destruct_DobivFromResults_List = destruct_DobivFromResults_List;
+	}
+
+	public static Boolean getValueFromDBase() {
+		return valueFromDBase;
+	}
+
+	public static void setValueFromDBase(Boolean valueFromDBase) {
+		OverallVariablesAddResults.valueFromDBase = valueFromDBase;
 	}
 
 	

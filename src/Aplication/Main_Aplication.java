@@ -1,5 +1,7 @@
 package Aplication;
 
+import java.util.Map;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
@@ -7,6 +9,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
 import Table.Table_Results_List;
@@ -18,6 +21,9 @@ import WindowView.TranscluentWindow;
 public class Main_Aplication {
 
 	public static void main(String[] args) {
+		
+		
+		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
 	
 //		TestClases.Table_RequestToObektNaIzp();
 		
@@ -31,7 +37,7 @@ public class Main_Aplication {
 		
 //		TestClases.testTableSampleList();
 		
-		
+//		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
 		
 //		TestClases.AddResultsViewWithTable(3) ;
 		
@@ -54,6 +60,11 @@ public class Main_Aplication {
 		
 		
 //		TestClases.StartMainWindow_Test();
+		
+		Map<String, String> globalIntVariableMap = ReadFileWithGlobalTextVariable.getGlobalIntVariableMap();
+		for (String entry : globalIntVariableMap.values()) {
+			System.out.println(Integer.parseInt(entry));	
+		}
 		
 		StartMainWindow();
 		

@@ -343,6 +343,7 @@ public class ReadGamaFile {
 	}
 
 	public static TSI getTSIObjectFromFileString(String t_s_i) {
+		System.out.println("--------------------- "+t_s_i);
 		return TSI_DAO.getValueTSIByNumberFromName(t_s_i.substring(1,3).trim());
 		
 	}

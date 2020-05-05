@@ -62,8 +62,6 @@ public abstract class My_Default_Table_Model{
 		};
 		return model;
 	}
-
-		
 	
 	private static void AddInUpdateList(int row) {
 		List<Integer> listRowForUpdate = RequestTableList_OverallVariables.getListRowForUpdate();

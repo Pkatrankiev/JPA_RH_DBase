@@ -16,6 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+
 import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.JScrollPane;
@@ -105,7 +108,7 @@ public class AddInChoice extends JDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-		JButton okButton = new JButton("OK");
+		JButton okButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("OK_Btn_Text"));
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				getChoice();
@@ -118,7 +121,7 @@ public class AddInChoice extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();

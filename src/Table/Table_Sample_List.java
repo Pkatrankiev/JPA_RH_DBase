@@ -32,6 +32,7 @@ import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
+import OldClases.Table_RequestToObektNaIzp;
 import OldClases.Table_Request_List_old;
 import WindowView.DatePicker;
 import WindowView.Login;

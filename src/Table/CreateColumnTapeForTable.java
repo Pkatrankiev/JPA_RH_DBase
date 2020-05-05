@@ -60,9 +60,6 @@ public class CreateColumnTapeForTable {
 			mapListTableRequest.put(tableColumn.getKeyMap(),colum_Object);
 			k++;
 		}
-	
-
-//	System.out.println("**************************** "+rqst_code_ColumName.replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", ""));
 
 	RequestTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
 	RequestTableList_OverallVariables.setMap_TableObject_Class( mapListTableRequest);

@@ -62,7 +62,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import GlobalVariable.GlobalFormatDate;
-import Table.Table_RequestToObektNaIzp;
+import OldClases.Table_RequestToObektNaIzp;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;

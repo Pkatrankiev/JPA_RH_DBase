@@ -51,7 +51,6 @@ import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuRequense_RequenseList;
-import Table.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 import WindowView.Login;
 import WindowView.TranscluentWindow;

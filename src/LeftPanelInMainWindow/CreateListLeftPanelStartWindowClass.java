@@ -19,7 +19,7 @@ import DBase_Class.Period;
 import DBase_Class.Request;
 import GlobalVariable.GlobalPathForDocFile;
 import OldClases.FindFile;
-import Table.Table_RequestToObektNaIzp;
+import OldClases.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 
 public class CreateListLeftPanelStartWindowClass {

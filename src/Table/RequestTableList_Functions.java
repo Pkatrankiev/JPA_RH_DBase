@@ -26,6 +26,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
+import OldClases.Table_RequestToObektNaIzp;
 import Table_Default_Structors.DefauiltTableMouseListener;
 import Table_Default_Structors.TableObject_Class;
 import WindowView.ChoiceL_I_P;

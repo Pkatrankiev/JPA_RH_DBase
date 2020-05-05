@@ -11,13 +11,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.RequestTableList_OverallVariables;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
 public class CreateTable {
 	private static List< TableObject_Class> list_TableObject_Class;
-	
+	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("clickToChoice");
 	public static JTable CreateDefaultTable(String tipe_Table) {
 		
 switch (tipe_Table) {
@@ -67,7 +68,7 @@ switch (tipe_Table) {
 		comboBox.setEnabled(true);
 		Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		Column.setCellRenderer(renderer);
 	}
 

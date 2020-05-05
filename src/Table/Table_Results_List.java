@@ -38,6 +38,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
@@ -72,6 +73,8 @@ public class Table_Results_List extends JDialog {
 	private static int dimen_Colum = 12;
 	private static int in_Prot_Colum = 13;
 	private static int rsult_Id_Colum = 14;
+	
+	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("clickToChoice");
 
 	public Table_Results_List(JFrame parent, TranscluentWindow round, Users user, Request request) {
 		super(parent, "", true);
@@ -81,7 +84,7 @@ public class Table_Results_List extends JDialog {
 		Class[] types = getTypes();
 		dataTable = getDataTable(request);
 
-		setTitle("Списък на Резултатите");
+		setTitle(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Results_List_Table_TitleName "));
 		values_Metody = MetodyDAO.getMasiveStringAllValueMetody();
 		values_Izpit_Pokazatel = List_izpitvan_pokazatelDAO.getMasiveStringAllValueList_Izpitvan_Pokazatel();
 		values_Nuclide = NuclideDAO.getMasiveStringAllValueNuclide();
@@ -110,8 +113,7 @@ public class Table_Results_List extends JDialog {
 				if (e.getClickCount() == 2 && getSelectedModelRow(table) != -1) {
 					model.getValueAt(getSelectedModelRow(table), rqst_code_Colum ).toString();
 							}
-				System.out.println(getSelectedModelRow(table)+"   "+table.getSelectedRow());
-			}
+							}
 		});
 
 		new TableFilterHeader(table, AutoChoices.ENABLED);
@@ -203,7 +205,7 @@ public class Table_Results_List extends JDialog {
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -224,7 +226,7 @@ public class Table_Results_List extends JDialog {
 					panel_Btn.add(btnSave);
 				}
 
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
@@ -268,9 +270,7 @@ public class Table_Results_List extends JDialog {
 								tableResult[i][mtd_Izp_Colum] = results.getMetody().getCode_metody();
 								tableResult[i][izp_Pok_Colum] = results.getPokazatel().getName_pokazatel();
 								tableResult[i][nuclide_Colum] = results.getNuclide().getSymbol_nuclide();
-								// tableSample[i][actv_value_Colum ] =
-								// BigDecimal.valueOf(results.getValue_result()).setScale(2,
-								// RoundingMode.HALF_UP);
+								
 								tableResult[i][actv_value_Colum] = results.getValue_result();
 								tableResult[i][uncrt_Colum] = results.getUncertainty();
 								tableResult[i][sigma_Colum] = results.getSigma();
@@ -288,10 +288,12 @@ public class Table_Results_List extends JDialog {
 							
 						}
 						} catch (NullPointerException e) {
-							JOptionPane.showInputDialog("Грешни данни за резултат:"+results.getId_results(), JOptionPane.ERROR_MESSAGE);
-						} catch (NumberFormatException e) {
-							JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-						}
+							JOptionPane.showInputDialog(
+									ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
+							} catch (NumberFormatException e) {
+								JOptionPane.showInputDialog(
+										ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
+							}
 					}
 				}
 			}
@@ -331,9 +333,6 @@ public class Table_Results_List extends JDialog {
 						tableSample[i][mtd_Izp_Colum] = results.getMetody().getCode_metody();
 						tableSample[i][izp_Pok_Colum] = results.getPokazatel().getName_pokazatel();
 						tableSample[i][nuclide_Colum] = results.getNuclide().getSymbol_nuclide();
-						// tableSample[i][actv_value_Colum ] =
-						// BigDecimal.valueOf(results.getValue_result()).setScale(2,
-						// RoundingMode.HALF_UP);
 						tableSample[i][actv_value_Colum] = results.getValue_result();
 						tableSample[i][uncrt_Colum] = results.getUncertainty();
 						tableSample[i][sigma_Colum] = results.getSigma();
@@ -349,9 +348,12 @@ public class Table_Results_List extends JDialog {
 
 						i++;
 					} catch (NullPointerException e) {
-						JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showInputDialog(
+								ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
 					} catch (NumberFormatException e) {
-						JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showInputDialog(
+								ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
+					
 					}
 
 				}
@@ -389,9 +391,22 @@ public class Table_Results_List extends JDialog {
 	
 	
 	private String[] getTabHeader() {
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
-				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
-				"Количество", "Мярка", "В протокол", "Id" };
+		String[] tableHeader = {
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_CodeSample"),
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_ObjectSample "), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_MetodNaIzpitvane"),
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_IzpitvanPokazatel "), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Nuclide"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Ativity"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Uncertainty"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Sigma"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_MDA"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Razmernosti"),
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Quantity"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_Dimension"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TableHeaderColumnName_InProtokol"), 
+				"Id" };
 		return tableHeader;
 	}
 
@@ -434,7 +449,7 @@ public class Table_Results_List extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Izpit_Pokazatel);
 		izpit_Pokazatel_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		izpit_Pokazatel_Column.setCellRenderer(renderer);
 	}
 
@@ -442,7 +457,7 @@ public class Table_Results_List extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Period);
 		Period_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		Period_Column.setCellRenderer(renderer);
 	}
 
@@ -450,7 +465,7 @@ public class Table_Results_List extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Metody);
 		Metody_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		Metody_Column.setCellRenderer(renderer);
 	}
 
@@ -458,7 +473,7 @@ public class Table_Results_List extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Nuclide);
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		Nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -466,7 +481,7 @@ public class Table_Results_List extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
 
@@ -474,7 +489,7 @@ public class Table_Results_List extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Dimension);
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText(clickToChoice);
 		Dimension_Column.setCellRenderer(renderer);
 	}
 

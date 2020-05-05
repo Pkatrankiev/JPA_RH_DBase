@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -76,7 +77,8 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		panel.add(lblFirst, gbc_lblFirst);
 		
 		
-		JButton add_Button = new JButton("Добавяне");
+		JButton add_Button = new JButton(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_Add"));
 		add_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();

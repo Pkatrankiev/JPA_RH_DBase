@@ -44,6 +44,7 @@ import AddDobivViewFunction.btnPaneAddDobivSection;
 import AddDobivViewFunction.btnTabFromFileAddDobivSection;
 import AddResultViewFunction.OverallVariablesAddResults;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Add_DefaultTableModel;
 
 
@@ -92,7 +93,7 @@ public class AddDobivView extends JDialog {
 	
 
 	public AddDobivView(JFrame parent, TranscluentWindow round, Users user) {
-		super(parent, "Въвеждане на Добив", true);
+		super(parent, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("AddDobivView_TitleName"), true);
 	
 //		GetVisibleLAF(parent);
 		OverallVariablesAddDobiv.clearAllVariables() ;
@@ -166,7 +167,8 @@ public class AddDobivView extends JDialog {
 		basic_panel.add(lblError, gbc_lblError);
 		lblError.setVisible(false);
 
-		JLabel lblStandartCode = new JLabel("Код на стандарта");
+		JLabel lblStandartCode = new JLabel(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("AddDobivView_LabelText_CodeForStandart"));
 		GridBagConstraints gbc_lblStandartCode = new GridBagConstraints();
 		gbc_lblStandartCode.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblStandartCode.insets = new Insets(0, 0, 5, 5);
@@ -187,7 +189,8 @@ public class AddDobivView extends JDialog {
 
 	private void DobivDescriptionSection() {
 
-		JLabel lblDobivDescrip = new JLabel("Описание");
+		JLabel lblDobivDescrip = new JLabel(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("AddDobivView_LabelText_Opisanie"));
 		GridBagConstraints gbc_lblDobivDescrip = new GridBagConstraints();
 		gbc_lblDobivDescrip.gridwidth = 2;
 		gbc_lblDobivDescrip.insets = new Insets(0, 0, 5, 5);
@@ -208,7 +211,8 @@ public class AddDobivView extends JDialog {
 	}
 
 	public void IzpitvanProduktSection() {
-		JLabel lblIzpitProd = new JLabel("Изпитван продукт");
+		JLabel lblIzpitProd = new JLabel(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("AddDobivView_LabelText_IzpitvanProdukt"));
 		GridBagConstraints gbc_lblIzpitProd = new GridBagConstraints();
 		gbc_lblIzpitProd.anchor = GridBagConstraints.EAST;
 		gbc_lblIzpitProd.insets = new Insets(0, 0, 5, 5);
@@ -230,7 +234,8 @@ public class AddDobivView extends JDialog {
 	}
 
 	private void ChoiceORHO_Section() {
-	JLabel lblNewLabel_1 = new JLabel("Извършил Хим. обработ.");
+	JLabel lblNewLabel_1 = new JLabel(
+			ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_IzvarshilHimObrabotka"));
 	GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 	gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 	gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
@@ -251,7 +256,8 @@ public class AddDobivView extends JDialog {
 	
 	private void MetodSection() {
 		Dimension dim = new Dimension(550, 14);
-		JLabel lblMetody = new JLabel("Метод");
+		JLabel lblMetody = new JLabel(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_Metod"));
 		GridBagConstraints gbc_lblMetody = new GridBagConstraints();
 		gbc_lblMetody.anchor = GridBagConstraints.EAST;
 		gbc_lblMetody.insets = new Insets(0, 0, 5, 5);
@@ -289,7 +295,8 @@ public class AddDobivView extends JDialog {
 
 	private void ChoiceOIR_Section() {
 
-		JLabel lblNewLabel_2 = new JLabel("Извършил анализа");
+		JLabel lblNewLabel_2 = new JLabel(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_IzvarshilAnaliza"));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -309,7 +316,8 @@ public class AddDobivView extends JDialog {
 
 	private void btnDataFromDBase() {
 
-		btnDataFromDBase = new JButton("Данни от базата");
+		btnDataFromDBase = new JButton(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("BtnText_DataOfDBase"));
 		btnDataFromDBase.setForeground(OverallVariablesAddResults.getColorFromDBase());
 		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
 		gbc_btnCreadTable.gridwidth = 2;
@@ -324,10 +332,10 @@ public class AddDobivView extends JDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-		okButton = new JButton("Запис");
+		okButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
 		buttonPane.add(okButton);
 		
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -339,7 +347,7 @@ public class AddDobivView extends JDialog {
 	}
 
 	private void btnOpenFile() {
-		btnOpenFile = new JButton("Отвори");
+		btnOpenFile = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("openBtn_Text"));
 		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
 		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
 		gbc_btnBasicDataFile.insets = new Insets(0, 0, 5, 5);
@@ -350,7 +358,7 @@ public class AddDobivView extends JDialog {
 	}
 
 	private void btnAddRow() {
-		btnAddRow = new JButton("нов Нуклид");
+		btnAddRow = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("newNuclideBtn_Text"));
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
 		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
 		gbc_btnAddRow.insets = new Insets(0, 0, 5, 0);
@@ -361,7 +369,8 @@ public class AddDobivView extends JDialog {
 	}
 	
 	private void btnTabFromFile() {
-		btnTabFromFile = new JButton("Данни от файл");
+		btnTabFromFile = new JButton(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("BtnText_DataOfFile"));
 		btnTabFromFile.setForeground(OverallVariablesAddResults.getColorFromFile());
 		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
 		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
@@ -372,7 +381,8 @@ public class AddDobivView extends JDialog {
 	}
 	
 	private void TextFieldBasicValueFileSection() {
-		JLabel lblBasicValueRsltsFile = new JLabel("Път до файла");
+		JLabel lblBasicValueRsltsFile = new JLabel(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_PatToFile"));
 		GridBagConstraints gbc_lblBasicValueRsltsFile = new GridBagConstraints();
 		gbc_lblBasicValueRsltsFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBasicValueRsltsFile.anchor = GridBagConstraints.EAST;

@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 
 import Aplication.DobivDAO;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 
 import javax.swing.border.BevelBorder;
 
@@ -38,7 +39,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 
 	public CheckViewValueDialogFrame(JFrame parent,
 			List<CheckResultClass> listCheckResultObject, Double check_actv_value, Double check_mda,  TranscluentWindow round) {
-		super(parent, "Проверка на резултати", true);
+		super(parent, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("CheckViewValueDialogFrame_TitleName"), true);
 
 		int maxCountList = listCheckResultObject.size();
 		if(maxViewVolume < maxCountList){
@@ -58,7 +59,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JButton cancellButton = new JButton("Отказ");
+		JButton cancellButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancellButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -69,7 +70,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 		buttonPane.add(cancellButton);
 //		getRootPane().setDefaultButton(cancellButton);
 		
-		JButton okButton = new JButton("Покажи");
+		JButton okButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("showBtn_Text"));
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 //		getRootPane().setDefaultButton(okButton);
@@ -89,9 +90,9 @@ public class CheckViewValueDialogFrame extends JDialog {
 		panel_ValueLabel.setPreferredSize(new Dimension(210, 20));
 		PanelValue.add(panel_ValueLabel);
 		panel_ValueLabel.setLayout(new BoxLayout(panel_ValueLabel, BoxLayout.X_AXIS));
-		JLabel lblStrReuqestCode = new JLabel("№ заявка");
+		JLabel lblStrReuqestCode = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("CheckViewValueDialogFrame_NumberForRequest"));
 		if(check_mda==null){
-		lblStrReuqestCode.setText("Стандарт");	
+		lblStrReuqestCode.setText(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("CheckViewValueDialogFrame_Standart"));
 		}
 		
 		lblStrReuqestCode.setMaximumSize(new Dimension(70, 16));
@@ -101,7 +102,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 		lblStrReuqestCode.setPreferredSize(new Dimension(70, 20));
 
 		
-		JLabel lblStringValue = new JLabel("Value");
+		JLabel lblStringValue = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_Activity"));
 		lblStringValue.setMaximumSize(new Dimension(70, 16));
 		lblStringValue.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_ValueLabel.add(lblStringValue);
@@ -109,7 +110,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 		lblStringValue.setPreferredSize(new Dimension(70, 20));
 
 		if(check_mda!=null){
-		JLabel lblStringMDA = new JLabel("MDA");
+		JLabel lblStringMDA = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_MDA"));
 		lblStringMDA.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblStringMDA.setMaximumSize(new Dimension(70, 16));
 		panel_ValueLabel.add(lblStringMDA);
@@ -271,9 +272,9 @@ public class CheckViewValueDialogFrame extends JDialog {
 		panel_Graph_Value.setLayout(new BoxLayout(panel_Graph_Value, BoxLayout.X_AXIS));
 		JPointGraph2D chart ;
 		if(check_mda!=null){
-			chart = new JPointGraph2D(yData_Value, "Активност", choice);
+			chart = new JPointGraph2D(yData_Value, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_Activity"), choice);
 		}else{
-				chart = new JPointGraph2D(yData_Value, "Добив", choice);	
+				chart = new JPointGraph2D(yData_Value, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_Dobiv"), choice);	
 			}
 		chart.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), Color.GRAY, null, null));
 		chart.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
@@ -283,7 +284,7 @@ public class CheckViewValueDialogFrame extends JDialog {
 		if(check_mda!=null){
 		JPanel panel_Graph_MDA = new JPanel();
 		panel_Graph_MDA.setLayout(new BoxLayout(panel_Graph_MDA, BoxLayout.X_AXIS));
-		chart_1 = new JPointGraph2D(yData_MDA, "MDA", choice);
+		chart_1 = new JPointGraph2D(yData_MDA, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("LabelText_MDA"), choice);
 		chart_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		chart_1.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		chart_1.setLineColor(new Color(0, 28, 28));

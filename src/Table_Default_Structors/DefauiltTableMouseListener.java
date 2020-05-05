@@ -15,8 +15,9 @@ import javax.swing.table.DefaultTableModel;
 
 import Aplication.RequestDAO;
 import DBase_Class.Request;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+import OldClases.Table_RequestToObektNaIzp;
 import Table.RequestTableList_OverallVariables;
-import Table.Table_RequestToObektNaIzp;
 import Table.Table_Sample_List;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
@@ -56,12 +57,7 @@ public class DefauiltTableMouseListener {
 						String nameSelectedColumn = table.getColumnModel().getColumn(table.getSelectedColumn())
 								.getHeaderValue().toString();
 						int selectedColumnIndex = getColumnIndex(table, nameSelectedColumn);
-
-						// int selectedColumnIndex =
-						// getIndexColumnByColumnName(nameSelectedColumn);
-						
-						System.out.println("nameSelectedColumn = " + nameSelectedColumn + " selectedColumnIndex = "
-								+ selectedColumnIndex + " choiseRequest = " + reqCodeStr);
+					
 						selectedColumnIndex = getModdelIndexColumnByColumnName(nameSelectedColumn);
 						
 						switch (getTipeColumnByNameColumn(nameSelectedColumn)) {
@@ -99,7 +95,8 @@ public class DefauiltTableMouseListener {
 					}else {
 						if (e.getClickCount() == 2) {
 													
-						if (RequestTableList_OverallVariables.getFrame_name().equals("Нова Заявка от Шаблон")) {
+						if (RequestTableList_OverallVariables.getFrame_name().
+								equals(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("NewRequenseInTamplate_TitleName"))) {
 							JFrame f = new JFrame();
 							TranscluentWindow round = new TranscluentWindow();
 							new RequestView(f, RequestTableList_OverallVariables.getUser(), choiseRequest, round,false);
@@ -196,16 +193,18 @@ public class DefauiltTableMouseListener {
 	private static void EditColumnPokazatel(DefaultTableModel model, int selectedRow) {
 		int columnIndex = getIndexColumnByKeyMap("izp_Pok");
 		String strPokazatel = model.getValueAt(selectedRow, columnIndex).toString().trim();
-		System.out.println(columnIndex + " ++++++++++++++ " + strPokazatel);
 		List<String> list = ReadListPokazatelInCell(strPokazatel);
 		System.out.println(list.size());
 		JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false,"Избор на Изпитван Показател");
+		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false,
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DefauiltTableMouseListener_EditColumnPokazatel"));
 		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
 			System.out.println(CreateStringListIzpPokaz(choiceLP));
 			model.setValueAt(CreateStringListIzpPokaz(choiceLP), selectedRow, columnIndex);
 		} else {
-			JOptionPane.showMessageDialog(null, "Не можете да променяте броя Показатели", "Грешка в данните",
+			JOptionPane.showMessageDialog(null,
+					ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("noChengeNumberOfPokazateli"), 
+					ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData"),
 					JOptionPane.ERROR_MESSAGE);
 
 		}
@@ -216,7 +215,6 @@ public class DefauiltTableMouseListener {
 		System.out.println(strPokazatel + " -----------------------");
 		String str = "";
 		while (!strPokazatel.isEmpty()) {
-			System.out.println(strPokazatel + " //////");
 			str = strPokazatel.substring(0, strPokazatel.indexOf(";") + 1);
 			list.add(str.replaceAll(";", "").trim());
 			strPokazatel = strPokazatel.replaceFirst(str, "");

@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table_Default_Structors.CreateTable;
 import Table_Default_Structors.DefauiltTableMouseListener;
 import WindowView.ChoiceL_I_P;
@@ -42,13 +43,7 @@ public class Table_Request_List extends JDialog {
 		super(parent, frame_name, true);
 
 		final JTable table = createTable(tipe_Table, frame_name, user);
-
-		// JPanel top_panel = new JPanel();
-		// top_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		// top_panel.setSize(new Dimension(2, 0));
-		// getContentPane().add(top_panel, BorderLayout.NORTH);
-		// top_panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-
+	
 		JPanel top_panel = new JPanel();
 		top_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		top_panel.setSize(new Dimension(2, 0));
@@ -61,7 +56,7 @@ public class Table_Request_List extends JDialog {
 		left_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		top_panel.add(left_panel, BorderLayout.NORTH);
 
-		JLabel lblColumnChoice = new JLabel("Избор на колони");
+		JLabel lblColumnChoice = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
 		lblColumnChoice.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblColumnChoice.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		left_panel.add(lblColumnChoice);
@@ -73,13 +68,17 @@ public class Table_Request_List extends JDialog {
 		raide_panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		top_panel.add(raide_panel, BorderLayout.NORTH);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("редактиране на данните");
+		JCheckBox chckbxNewCheckBox = new JCheckBox(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_EditingData"));
+		chckbxNewCheckBox.setEnabled(false);
 		raide_panel.add(chckbxNewCheckBox);
 		chckbxNewCheckBox.setBorder(null);
 		chckbxNewCheckBox.setMargin(new Insets(0, 2, 0, 2));
 
 		chckbxNewCheckBox.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		chckbxNewCheckBox.setHorizontalTextPosition(SwingConstants.LEFT);
+		if (user != null && user.getIsAdmin()) {
+			chckbxNewCheckBox.setEnabled(true);
+		}
 		RequestTableList_OverallVariables.setChckbxNewCheckBox(chckbxNewCheckBox);
 		chckbxNewCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -93,7 +92,7 @@ public class Table_Request_List extends JDialog {
 		setSize(1200, 800);
 		setLocationRelativeTo(null);
 		
-		JLabel ll = new JLabel("kjsbkadflaksdfbalk");
+		JLabel ll = new JLabel();
 		scrollPane.add(ll);
 		round.StopWindow();
 		JPanel panel_Btn = new JPanel();
@@ -101,13 +100,13 @@ public class Table_Request_List extends JDialog {
 		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-		JButton btnSave = new JButton("Запис");
+		JButton btnSave = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
 		btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		if (user != null && user.getIsAdmin()) {
 			panel_Btn.add(btnSave);
 		}
-		JButton btnCancel = new JButton("Изход");
+		JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
@@ -180,7 +179,7 @@ public class Table_Request_List extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFrame f = new JFrame();
-				new ChoiceL_I_P(f, null, false,"Избор на колони");
+				new ChoiceL_I_P(f, null, false,ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
 				List<String> list_StringChoisedVisibleColumn = ChoiceL_I_P.getChoiceL_P();
 				changedVisibleColumn = 	RequestTableList_Functions.check_ChangedVisibleColumn(list_StringChoisedVisibleColumn);
 				

@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import Aplication.Internal_applicantDAO;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -51,7 +52,7 @@ public class Table_InternalApplicant_List extends JDialog {
 		Object[][] dataTable = getDataTable();
 		int counRow = dataTable.length;
 		
-		setTitle("Списък на Вътрешни Клиенти");
+		setTitle(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("InternalApplicant_List_TableTitle"));
 		setBounds(100, 100, 650, counRow*25+50);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -162,7 +163,7 @@ public class Table_InternalApplicant_List extends JDialog {
 					panel_Btn.add(btnSave);
 				}
 				
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
@@ -187,7 +188,7 @@ public class Table_InternalApplicant_List extends JDialog {
 				tableSample[i][aplic_Id_Colum] = intApplic.getId_internal_applicant();
 				i++;
 			} catch (NumberFormatException e) {
-				JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showInputDialog(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		return tableSample;
@@ -200,7 +201,11 @@ public class Table_InternalApplicant_List extends JDialog {
 	}
 
 	private String[] getTabHeader() {
-		String[] tableHeader = { "Организация", "Адрес", "Телефон", "Id" };
+		String[] tableHeader = { 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("InternalApplicant_List_HeaderColumnName_Organization"),
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("InternalApplicant_List_HeaderColumnName_Adress"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("InternalApplicant_List_HeaderColumnName_Telephon"), 
+				"Id" };
 		return tableHeader;
 	}
 

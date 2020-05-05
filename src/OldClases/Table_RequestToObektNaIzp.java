@@ -1,4 +1,4 @@
-package Table;
+package OldClases;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

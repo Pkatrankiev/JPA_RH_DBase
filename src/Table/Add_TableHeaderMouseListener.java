@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+
 
 
 
@@ -74,7 +76,7 @@ public class Add_TableHeaderMouseListener {
 	private static String getStringOfQuantyti(JTable table, int col) {
 		final JFrame f = new JFrame();
 		String incertData = table.getValueAt(table.getSelectedRow(), col).toString();
-		String string = (String) JOptionPane.showInputDialog(f, "Въведете стойност за всички редове", "",
+		String string = (String) JOptionPane.showInputDialog(f, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("ValueForAllRow_Text"), "",
 				JOptionPane.PLAIN_MESSAGE, null, null, incertData);
 
 		return string;

@@ -1,8 +1,6 @@
 package Menu;
 
 import java.awt.event.ActionEvent;
-import java.util.Map;
-
 import javax.swing.JFrame;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;

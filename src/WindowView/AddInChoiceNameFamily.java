@@ -14,6 +14,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+
 import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.JScrollPane;
@@ -57,7 +60,7 @@ public class AddInChoiceNameFamily extends JDialog {
 			flowLayout.setAlignment(FlowLayout.LEFT);
 			contentPanel.add(panel_1, BorderLayout.NORTH);
 
-			JLabel lblNewLabel = new JLabel("Име");
+			JLabel lblNewLabel = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("name_Label_Text"));
 			panel_1.add(lblNewLabel);
 			textField_Name = new JTextField();
 			panel_1.add(textField_Name);
@@ -66,7 +69,7 @@ public class AddInChoiceNameFamily extends JDialog {
 			textField_Name.setColumns(10);
 			textField_Name.setText(name);
 
-			JLabel lblNewLabel_1 = new JLabel("Фамилия");
+			JLabel lblNewLabel_1 = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("family_Label_Text"));
 			panel_1.add(lblNewLabel_1);
 
 			textField_Family = new JTextField();
@@ -178,7 +181,7 @@ public class AddInChoiceNameFamily extends JDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-		JButton okButton = new JButton("OK");
+		JButton okButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("OK_Btn_Text"));
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				getChoice();
@@ -191,7 +194,7 @@ public class AddInChoiceNameFamily extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();

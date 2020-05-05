@@ -8,7 +8,6 @@ public class CheckResultClass {
 	private int requestCode;
 	
 	public CheckResultClass ( Double value,	Double mda,	int requestCode) {
-		
 		super();
 		
 		this.value = value;

@@ -1,0 +1,135 @@
+#Sring
+TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
+destinationDir = DIRECTORY/
+destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/
+name_tamplate_Protocols = Protokol_NEW.docx
+text_dopalneniq_izklucheniq = ____________________
+name_tamplate_Request = Zaqvka_new.docx
+name_tamplate_RazpredForm = Razpred.docx
+
+logInMesege = Логнете се
+
+destinationIcons = ICONS/
+modifiIcon = Modify.gif
+addIcon = add-icon.gif
+SaveIcon = Save.gif
+OpenIcon = Open.gif
+winIcon = winIcon.png
+ajaxLoader = ajaxLoader.gif
+
+dataBaseName = JPA_RH_DBase
+noConectionInDBseMesage = Не се свързвам с базата данни:
+
+$$MenuClasses
+EnableInternalAplicantTitleName = Редактиране на Вътрешни Клиенти
+EnableRequestList_TitleName = Списък на Заявките
+EnableSampleList_TitleName = Списък на Пробите
+EnableResultsList_TitleName = Списък на Резултатите
+ReadDataFromDocFileSaveInDBase_TitleName = Четене от Word и запис
+CreateProtokol_TitleName  = Генериране на Протокол
+CreateRazpredFormu_TitleName = Генериране на Разпределителен формуляр
+CreateRequest_TitleName = Генериране на Заявка
+MenuOder_TitleName = Гама Кал. Екстракт
+AddDobiveFrame_TitleName = Въвеждане на Добив
+AddResultsFrame_TitleName = Въвеждане на Резултати
+DeleteRequense_TitleName = Изтриване на Заявка
+NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
+NewRequense_TitleName = Генериране на Нова Заявка
+NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
+
+$$Text_MessageDialog
+LogInText = Логнете се
+ValueForAllRow_Text = Въведете стойност за всички редове
+errorDataForResult_Text = Грешни данни за резултат:
+errorOfData = Грешка в данните
+noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
+clickToChoice = Натисни за избор
+
+DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
+
+$$Text_Table
+TableHeaderColumnName_NumberRequest = № на Заявката
+TableHeaderColumnName_CodeSample = Код на пробата
+TableHeaderColumnName_ObjectSample = Обект на пробата
+TableHeaderColumnName_MetodNaIzpitvane = Метод на изпитване
+TableHeaderColumnName_IzpitvanPokazatel = Изпитван показател
+TableHeaderColumnName_Nuclide = Нуклид
+TableHeaderColumnName_Ativity = Активност
+TableHeaderColumnName_Uncertainty = Неопределеност
+TableHeaderColumnName_Sigma = Сигма
+TableHeaderColumnName_MDA = МДА
+TableHeaderColumnName_Razmernosti = Размерност
+TableHeaderColumnName_Quantity = Количество
+TableHeaderColumnName_Dimension = Мярка
+TableHeaderColumnName_InProtokol = В протокол
+
+
+
+InternalApplicant_List_TableTitle = Списък на Вътрешни Клиенти
+InternalApplicant_List_HeaderColumnName_Organization = Организация
+InternalApplicant_List_HeaderColumnName_Adress = Адрес
+InternalApplicant_List_HeaderColumnName_Telephon = Телефон
+
+Request_List_Table_LabelText_ChoiceColumn = Избор на колони
+Request_List_Table_LabelText_EditingData =  редактиране на данните
+
+Results_List_Table_TitleName = Списък на Резултатите
+
+AddDobivView_TitleName = Въвеждане на Добив
+AddDobivView_LabelText_CodeForStandart = Код на стандарта
+AddDobivView_LabelText_Opisanie = Описание
+AddDobivView_LabelText_IzpitvanProdukt = Изпитван продукт
+
+
+
+
+
+
+AddResultsView_TitleName = Въвеждане на Резултати
+AddResultsView_LabelText_CodeForRequest = Код на заявка
+AddResultsView_LabelText_NumberForSample = № на проба
+AddResultsView_LabelText_Pokazatel = Показател
+
+CheckViewValueDialogFrame_TitleName = Проверка на резултати
+CheckViewValueDialogFrame_NumberForRequest = № заявка
+CheckViewValueDialogFrame_Standart = Стандарт
+
+name_Label_Text = Име
+family_Label_Text = Фамилия
+LabelText_IzvarshilAnaliza = Извършил анализа
+LabelText_IzvarshilHimObrabotka = Извършил Хим. обработ.
+LabelText_PatToFile = Път до файла
+LabelText_Metod = Метод
+LabelText_Dobiv = Добив
+LabelText_Activity = Активност
+LabelText_MDA = МДА
+LabelText_Add = Добавяне
+
+
+$$Button_Text
+exitBtn_Text = Изход
+saveBtn_Text = Запис
+openBtn_Text = Отвори
+showBtn_Text = Покажи
+OK_Btn_Text = OK
+newNuclideBtn_Text = Нов Нуклид
+BtnText_DataOfDBase = Данни от базата
+BtnText_DataOfFile = Данни от файл
+
+
+#int
+maxRowInOneTableOnePage = 24
+maxRowInFullTableOnePage = 32
+masiveMergeColumn-1 = 0
+masiveMergeColumn-2 = 1
+masiveMergeColumn-3 = 4
+
+#DBasePersisLokal
+javax.persistence.jdbc.url = jdbc:mysql://localhost:3306/rhdbase?characterEncoding=UTF-8
+javax.persistence.jdbc.user = root
+javax.persistence.jdbc.password = root
+
+#DBasePersisRemote
+javax.persistence.jdbc.url = jdbc:mysql://192.168.21.27:3306/rhdbase?characterEncoding=UTF-8
+javax.persistence.jdbc.user = someuser
+javax.persistence.jdbc.password = 123

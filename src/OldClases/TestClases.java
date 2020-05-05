@@ -30,7 +30,6 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
-import Table.Table_RequestToObektNaIzp;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
 import WindowView.AddResultsView;

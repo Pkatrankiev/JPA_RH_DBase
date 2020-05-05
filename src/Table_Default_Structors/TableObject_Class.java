@@ -7,7 +7,6 @@ public class TableObject_Class {
 	private String tipeColumn;
 	private String[] masiveValueForChoice;
 
-
 	public Class<?> getClassColumn() {
 		return classColumn;
 	}

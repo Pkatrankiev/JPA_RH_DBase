@@ -60,7 +60,7 @@ public class AddInChoiceNameFamily extends JDialog {
 			flowLayout.setAlignment(FlowLayout.LEFT);
 			contentPanel.add(panel_1, BorderLayout.NORTH);
 
-			JLabel lblNewLabel = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("name_Label_Text"));
+			JLabel lblNewLabel = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Label_Text_Name"));
 			panel_1.add(lblNewLabel);
 			textField_Name = new JTextField();
 			panel_1.add(textField_Name);
@@ -69,7 +69,7 @@ public class AddInChoiceNameFamily extends JDialog {
 			textField_Name.setColumns(10);
 			textField_Name.setText(name);
 
-			JLabel lblNewLabel_1 = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("family_Label_Text"));
+			JLabel lblNewLabel_1 = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Label_Text_Family"));
 			panel_1.add(lblNewLabel_1);
 
 			textField_Family = new JTextField();

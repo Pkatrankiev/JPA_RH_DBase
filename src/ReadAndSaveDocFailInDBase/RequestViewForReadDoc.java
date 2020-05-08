@@ -44,6 +44,7 @@ import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.AddInChoice;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice;
@@ -100,7 +101,7 @@ public class RequestViewForReadDoc extends JFrame {
 	private ArrayList<String> array_O_I_R;
 	private Request request = null;;
 	private Font font = new Font("Tahoma", Font.PLAIN, 11);
-
+	private String editColumnPokazatel_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DefauiltTableMouseListener_EditColumnPokazatel");
 	private Border border;
 //	private String FORMAT_DATE_TIME = GlobalVariable.getFORMAT_DATE_TIME();
 
@@ -545,7 +546,7 @@ public class RequestViewForReadDoc extends JFrame {
 			s++;
 			}
 			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true,"Избор на Изпитван Показател");
+			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true,editColumnPokazatel_TitleName);
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
 			for (String string : choiceLP.getChoiceL_P()) {
@@ -567,7 +568,7 @@ public class RequestViewForReadDoc extends JFrame {
 					System.out.println(list_I_P.size());
 				}
 				final JFrame f = new JFrame();
-				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false,"Избор на Изпитван Показател");
+				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false,editColumnPokazatel_TitleName);
 
 				String str = "";
 				txtArea_list_izpitvan_pokazatel.setText("");

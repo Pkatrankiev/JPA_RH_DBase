@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+
 public class DateChoice_period extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +37,7 @@ public class DateChoice_period extends JDialog {
 	Boolean correctDate = true;
 
 	public DateChoice_period(Frame parent, String incoming_date_time, Boolean withTime, Boolean forDateReception, Boolean fromTable) {
-		super(parent, "Избор на референтна дата и време", true);
+		super(parent, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DateChoice_period_TitleName"), true);
 
 		if (forDateReception) {
 			setTitle("Избор на дата / период на вземане");
@@ -66,7 +68,8 @@ public class DateChoice_period extends JDialog {
 		contentPanel.setLayout(gbl_contentPanel);
 
 		if (!forDateReception) {
-			JLabel lbl_date_time_reception = new JLabel("Референтна дата (средата на периода)");
+			JLabel lbl_date_time_reception = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("DateChoice_period_Label_FerferenceDate_Period"));
 			GridBagConstraints gbc_lbl_date_time_reception = new GridBagConstraints();
 			gbc_lbl_date_time_reception.gridwidth = 2;
 			gbc_lbl_date_time_reception.insets = new Insets(0, 0, 0, 5);
@@ -135,7 +138,8 @@ public class DateChoice_period extends JDialog {
 		// StartDate of date_time_reception
 		// ----------------------------------------------------------------------
 		{
-			JLabel lblNewLabel = new JLabel("Начална дата");
+			JLabel lblNewLabel = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("DateChoice_period_Label_Start_Date"));
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;

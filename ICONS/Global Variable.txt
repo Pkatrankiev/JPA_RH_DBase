@@ -44,6 +44,7 @@ errorDataForResult_Text = Грешни данни за резултат:
 errorOfData = Грешка в данните
 noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
 clickToChoice = Натисни за избор
+ThereAreDublikataElements = Има повтарящи се елементи
 
 DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
 
@@ -72,17 +73,12 @@ InternalApplicant_List_HeaderColumnName_Telephon = Телефон
 
 Request_List_Table_LabelText_ChoiceColumn = Избор на колони
 Request_List_Table_LabelText_EditingData =  редактиране на данните
-
 Results_List_Table_TitleName = Списък на Резултатите
 
 AddDobivView_TitleName = Въвеждане на Добив
 AddDobivView_LabelText_CodeForStandart = Код на стандарта
 AddDobivView_LabelText_Opisanie = Описание
 AddDobivView_LabelText_IzpitvanProdukt = Изпитван продукт
-
-
-
-
 
 
 AddResultsView_TitleName = Въвеждане на Резултати
@@ -94,8 +90,12 @@ CheckViewValueDialogFrame_TitleName = Проверка на резултати
 CheckViewValueDialogFrame_NumberForRequest = № заявка
 CheckViewValueDialogFrame_Standart = Стандарт
 
-name_Label_Text = Име
-family_Label_Text = Фамилия
+DateChoice_period_TitleName = Избор на референтна дата и време
+DateChoice_period_Label_FerferenceDate_Period = Референтна дата (средата на периода)
+DateChoice_period_Label_Start_Date = Начална дата
+
+Label_Text_Name = Име
+Label_Text_Family= Фамилия
 LabelText_IzvarshilAnaliza = Извършил анализа
 LabelText_IzvarshilHimObrabotka = Извършил Хим. обработ.
 LabelText_PatToFile = Път до файла
@@ -104,6 +104,7 @@ LabelText_Dobiv = Добив
 LabelText_Activity = Активност
 LabelText_MDA = МДА
 LabelText_Add = Добавяне
+LabelText_Select = Изберете:
 
 
 $$Button_Text

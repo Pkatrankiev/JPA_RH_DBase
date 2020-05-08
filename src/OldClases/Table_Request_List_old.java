@@ -45,6 +45,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_Sample_List;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
@@ -511,7 +512,8 @@ public class Table_Request_List_old extends JDialog {
 		int columnIndex = Table_Sample_List.getColumnIndex(table, nameSelectedColumn); 
 		List<String> list = ReadListPokazatelInCell(table, row);
 		JFrame f = new JFrame();
-		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false,"Избор на Изпитван Показател");
+		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
+				get("DefauiltTableMouseListener_EditColumnPokazatel"));
 		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
 			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, columnIndex);
 		} else {

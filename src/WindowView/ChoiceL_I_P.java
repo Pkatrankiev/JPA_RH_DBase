@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.TableColumn;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.RequestTableList_OverallVariables;
 
 import javax.swing.JScrollPane;
@@ -45,23 +46,24 @@ public class ChoiceL_I_P extends JDialog {
 	public ChoiceL_I_P(JFrame parent, List<String> incomming_list_izpitvan_pokazatel, Boolean fromTamplate, String name_Frame) {
 		super(parent, name_Frame, true);
 		
-		switch (name_Frame) {
-		case "Избор на Изпитван Показател":
+		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
+				get("DefauiltTableMouseListener_EditColumnPokazatel"))) {
+		
 			bsic_list = RequestViewAplication.getStringListLIP();
 			list_incommingObject = incomming_list_izpitvan_pokazatel;
 			countL_I_P = bsic_list.size();
-			break;
+		}
 
-		case "Избор на колони":
+		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
+				get("Request_List_Table_LabelText_ChoiceColumn"))){
 			List<TableColumn> list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
 			bsic_list = getListString_NameColumn(list_TableColumn);
 			list_incommingObject  = getListString_VizibleColumn(list_TableColumn);
 			countL_I_P = bsic_list.size();
-			break;
-			
-		default:
-			break;
 		}
+			
+		
+		
 		
 		label = new JLabel[countL_I_P];
 		check_panel = new Panel[countL_I_P];
@@ -92,7 +94,8 @@ public class ChoiceL_I_P extends JDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 
-		JLabel lblNewLabel_1 = new JLabel("Изберете:");
+		JLabel lblNewLabel_1 = new JLabel(ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("LabelText_Select"));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblNewLabel_1);
@@ -142,7 +145,8 @@ public class ChoiceL_I_P extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
-			JButton okButton = new JButton("OK");
+			JButton okButton = new JButton(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("OK_Btn_Text"));
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					getChoiceL_P();
@@ -155,7 +159,8 @@ public class ChoiceL_I_P extends JDialog {
 			getRootPane().setDefaultButton(okButton);
 		}
 
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("  +++ " + list_incommingObject.size());

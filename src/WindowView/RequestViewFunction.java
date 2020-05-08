@@ -31,6 +31,7 @@ import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalFormatDate;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 
 public class RequestViewFunction {
 	private static String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
@@ -208,7 +209,8 @@ public class RequestViewFunction {
 
 	private static String generateStringFromCoice_L_I_P(List<String> list_String_I_P_Tamplate, Boolean fromTamplate) {
 		JFrame f = new JFrame();
-		new ChoiceL_I_P(f, list_String_I_P_Tamplate, fromTamplate,"Избор на Изпитван Показател");
+		new ChoiceL_I_P(f, list_String_I_P_Tamplate, fromTamplate,ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
+				get("DefauiltTableMouseListener_EditColumnPokazatel"));
 		String strTamplate = "";
 		
 		for (String string : ChoiceL_I_P.getChoiceL_P()) {

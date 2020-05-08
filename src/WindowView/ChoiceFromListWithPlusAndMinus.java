@@ -222,7 +222,6 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 				gbc_choice[countCoice].gridx = 1;
 				gbc_choice[countCoice].gridy = 1 + countCoice;
 				panel.add(choice[countCoice], gbc_choice[countCoice]);
-				System.out.println("Data + = " + countCoice);
 				if (countCoice > 0) {
 					btnMinus.setVisible(true);
 				} else {
@@ -247,11 +246,11 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JButton okButton = new JButton("OK");
+		JButton okButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("OK_Btn_Text"));
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(checkDuplicates(createMasiveStringFromChoice())){
-					JOptionPane.showMessageDialog(null, "Има повтарящи се елементи");
+					JOptionPane.showMessageDialog(null, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("ThereAreDublikataElements"));
 						
 				}else{
 					cancelBtnTurn = false; 
@@ -268,7 +267,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		
 		
 		
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					if (old_incomingValueStringList != null) {

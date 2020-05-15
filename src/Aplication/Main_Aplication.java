@@ -40,7 +40,7 @@ public class Main_Aplication {
 		
 //		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
 		
-		TestClases.AddResultsViewWithTable(3) ;
+//		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 //		TestClases.Table_Results_List_Test(3) ;
@@ -55,6 +55,7 @@ public class Main_Aplication {
 		
 		
 //		ReadExcelFile.ReformatDoubleTo4decimalExponet("0.0000969769462295195");
+		
 //		TestClases.NumberFormatWithRounding("0.00135256");
 		
 //		TestClases.start_Table_Request_List_Test(4);
@@ -64,7 +65,7 @@ public class Main_Aplication {
 		
 	
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

@@ -594,7 +594,7 @@ public class AddResultViewMetods {
 				for (Destruct_Result destruct_Result : destruct_Result_List) {
 					
 					if (dataTable[i][nuclide_Colum].toString().equals(destruct_Result.getNuclide())) {
-						
+						System.out.println("---------------------"+destruct_Result.getDobiv());
 						dobivValue = Double.parseDouble((String) destruct_Result.getDobiv());
 					}
 				}

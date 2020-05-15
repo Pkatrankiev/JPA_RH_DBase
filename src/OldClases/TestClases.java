@@ -476,7 +476,10 @@ public static String NumberToMAXDigitAftrerZerro(String num) {
 	
 	
 	public static String NumberFormatWithRounding(String num) {
-		num = "0.00135256";
+		num = "Pu-325";
+		;
+		System.out.println(num.replaceAll("\\D+","")+ "-------------------------------");
+		
 		String numm1 = num;
 		
 		double dob2 = Double.parseDouble(num);

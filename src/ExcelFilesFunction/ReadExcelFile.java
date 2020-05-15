@@ -50,6 +50,7 @@ public class ReadExcelFile {
 	private static String user_Analize = "";
 	private static String value_Standatd = "";
 	private static String nuclide_StandardStr = "";
+	private static String nuclideSimbol_StandardStr = "";
 
 	// private static String nuclide_Standard;
 	public static String getCod_sample() {
@@ -120,9 +121,11 @@ public class ReadExcelFile {
 							cell = sheet.getRow(row).getCell(col);
 							if (CellNOEmpty(cell) && cell.getStringCellValue().startsWith("Tracer Nuclide:")) {
 								nuclide_StandardStr = sheet.getRow(row).getCell(col).getStringCellValue()
-										.replace("Tracer Nuclide:", "");
+										.replace("Tracer Nuclide:", "").trim();
+								nuclideSimbol_StandardStr = reformatNuclideSimbol(nuclide_StandardStr);
 								nuclide_StandardStr = nuclide_StandardStr.substring(0,
 										nuclide_StandardStr.indexOf("-"));
+								
 							}
 						}
 					}
@@ -133,6 +136,7 @@ public class ReadExcelFile {
 							if (CellNOEmpty(cell) && cell.getStringCellValue().startsWith("Tracer Recovery:")) {
 								value_Standatd = sheet.getRow(row).getCell(col).getStringCellValue()
 										.replace("Tracer Recovery:", "").replace(",", ".").replace("%", "");
+								
 							}
 						}
 					}
@@ -165,8 +169,7 @@ public class ReadExcelFile {
 				if (!formatter.formatCellValue(sheet.getRow(i).getCell(0)).isEmpty()) {
 					nuclide = sheet.getRow(i).getCell(0).getStringCellValue();
 					System.out.println(i+"  -  "+nuclide);
-					int index = nuclide.indexOf("-");
-					nuclide = nuclide.substring(index + 1) + nuclide.substring(0, index);
+					nuclide = reformatNuclideSimbol(nuclide);
 
 					result = sheet.getRow(i).getCell(col-3).getStringCellValue();
 					double dub_result = Double.valueOf(result);
@@ -182,8 +185,10 @@ public class ReadExcelFile {
 				}
 				System.out.println(cod_sample + " - " + metod + " - " + nuclide + " - " + result + " - " + uncert
 						+ " - " + mda + " - " + tsi + " - " + quantity + " - " + dimencion + " - " + date_Analize
-						+ " - " + user_Analize);
-				destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, "", uncert, mda, tsi,
+						+ " - " + user_Analize+" ***  "+nuclideSimbol_StandardStr);
+				
+				if(!nuclideSimbol_StandardStr.equals(nuclide))
+				destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, value_Standatd, uncert, mda, tsi,
 						quantity, dimencion, date_Analize, user_Analize));
 
 			}
@@ -197,6 +202,12 @@ public class ReadExcelFile {
 		}
 
 		return destruct_Result_List;
+	}
+
+	private static String reformatNuclideSimbol(String nuclide) {
+		int index = nuclide.indexOf("-");
+		nuclide = nuclide.substring(index + 1) + nuclide.substring(0, index);
+		return nuclide;
 	}
 
 	public static boolean CellNOEmpty(Cell cell) {
@@ -268,8 +279,7 @@ public class ReadExcelFile {
 							if (cellValue.equals("-")) {
 
 								nuclide = sheet.getRow(i).getCell(colum).getStringCellValue();
-								int index = nuclide.indexOf("-");
-								nuclide = nuclide.substring(index + 1) + nuclide.substring(0, index);
+								nuclide = reformatNuclideSimbol(nuclide);
 
 								result = sheet.getRow(i + 1).getCell(colum).getStringCellValue();
 								double dub_result = Double.valueOf(result);
@@ -614,7 +624,11 @@ public class ReadExcelFile {
 
 			for (String nuclideBasic : listSimbolBasicNuclide) {
 				System.out.println(nuclideResult + " -+ " + nuclideBasic);
-				if (nuclideBasic.contains(nuclideResult)) {
+				if (nuclideBasic.contains(nuclideResult.replaceAll("\\D+",""))
+						&& nuclideBasic.contains(nuclideResult.replaceAll("[^a-zA-Z ]", ""))) {
+					if(!nuclideBasic.equals(nuclideResult)){
+						nuclideResult = nuclideBasic;
+					}
 					try {
 						System.out.println(nuclideResult + " - " + nuclideBasic);
 						Results results = new Results();
@@ -646,6 +660,7 @@ public class ReadExcelFile {
 		Results[] masiveResultsnew = new Results[listResults.size()];
 		for (int j = 0; j < listResults.size(); j++) {
 			masiveResultsnew[j] = listResults.get(j);
+			System.out.println(masiveResultsnew[j].getNuclide().getSymbol_nuclide());
 		}
 
 		return masiveResultsnew;

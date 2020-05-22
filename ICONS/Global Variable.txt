@@ -20,6 +20,12 @@ ajaxLoader = ajaxLoader.gif
 dataBaseName = JPA_RH_DBase
 noConectionInDBseMesage = Не се свързвам с базата данни:
 
+$$MainWindow_MenusTitle
+MainWindow_Title = ДП РАО, с-р Радиохимия
+MainWindow_Title_work =  -> работи
+MainWindow_LogInStr_Btn = logIn
+
+
 $$MenuClasses
 EnableInternalAplicantTitleName = Редактиране на Вътрешни Клиенти
 EnableRequestList_TitleName = Списък на Заявките

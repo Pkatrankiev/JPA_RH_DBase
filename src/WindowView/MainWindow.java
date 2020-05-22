@@ -26,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import CreateWordDocProtocol.GenerateRequestWordDoc;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import LeftPanelInMainWindow.StartCreateListForRowInLeftPanelWithProgrssBar;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
@@ -59,6 +60,7 @@ public class MainWindow extends JFrame {
 	
 	private static final long serialVersionUID = 8880252554988817126L;
 	private JPanel contentPane;
+	private static String mainWindow_Title  = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title");
 	private static String loginStr = "logIn";
 	private static Login loginDlg;
 	
@@ -69,7 +71,7 @@ public class MainWindow extends JFrame {
 		
 		setMinimumSize(new Dimension(900, 600));
 		GetVisibleLAF(this);
-		setTitle("my RHA_Test");
+		setTitle(mainWindow_Title);
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GlobalPathForIcons.get_destination_winIcon()));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -287,7 +289,7 @@ public class MainWindow extends JFrame {
 					round.StopWindow();
 					Login.logOut();
 					loginMenu.setText("LogIn");
-					win.setTitle("ДП РАО, с-р Радиохимия");
+					win.setTitle(mainWindow_Title);
 				} else {
 					final Thread thread = new Thread(new Runnable() {
 						@Override
@@ -314,7 +316,9 @@ public class MainWindow extends JFrame {
 		if (loginDlg.isSucceeded()) {
 			@SuppressWarnings("static-access")
 			Users user = loginDlg.getCurentUser();
-			win.setTitle("ДП РАО, с-р Радиохимия" + " -> работи " + user.getName_users()+" "+user.getFamily_users());
+			win.setTitle(mainWindow_Title + 
+					" "+ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title_work")+" "
+					+ user.getName_users()+" "+user.getFamily_users());
 			loginMenu.setText("LogOut");
 
 		}

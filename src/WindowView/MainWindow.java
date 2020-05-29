@@ -61,7 +61,8 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 8880252554988817126L;
 	private JPanel contentPane;
 	private static String mainWindow_Title  = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title");
-	private static String loginStr = "logIn";
+	private static String loginStr = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_LogInStr_Btn");
+	private static String logOutStr = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_LogOutStr_Btn"); 
 	private static Login loginDlg;
 	
 	
@@ -120,7 +121,8 @@ public class MainWindow extends JFrame {
 		under_panel_Left.add(lblNewLabel);
 			
 		
-		JButton btnProgressBar = new JButton("Рефреш");
+		JButton btnProgressBar = new JButton(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Btn_Refresh"));
 		btnProgressBar.setEnabled(false);
 		panel_1.add(btnProgressBar);
 		
@@ -228,7 +230,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JMenu createOderMenu() {
-		JMenu oderMenu = new JMenu("Други");
+		JMenu oderMenu = new JMenu(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Oder"));
 		oderMenu.setMnemonic(KeyEvent.VK_D);
 
 		oderMenu.add(new MenuOder());
@@ -240,7 +242,7 @@ public class MainWindow extends JFrame {
 
 
 	private JMenu createRequenseMenu() {
-		JMenu requenseMenu = new JMenu("Заявки");
+		JMenu requenseMenu = new JMenu(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Request"));
 		requenseMenu.setMnemonic(KeyEvent.VK_Z);
 
 		requenseMenu.add(new MenuRequense_NewRequense());
@@ -255,7 +257,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JMenu createDataMenu() {
-		JMenu dataMenu = new JMenu("Данни");
+		JMenu dataMenu = new JMenu(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Data"));
 		dataMenu.setMnemonic(KeyEvent.VK_D);
 		dataMenu.add(new MenuData_EnableRequestList());
 		dataMenu.add(new MenuData_EnableSampleList());
@@ -268,7 +270,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JMenu createWordDocMenu() {
-		JMenu docMenu = new JMenu("Документи");
+		JMenu docMenu = new JMenu(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Documents"));
 		docMenu.setMnemonic(KeyEvent.VK_W);
 		docMenu.add(new MenuDoc_CreateProtokol());
 		docMenu.add(new MenuDoc_CreateRequest());
@@ -285,10 +287,10 @@ public class MainWindow extends JFrame {
 				TranscluentWindow round = new TranscluentWindow();
 				String textBtnLogin = loginMenu.getText();
 
-				if (textBtnLogin.equals("LogOut")) {
+				if (textBtnLogin.equals(logOutStr)) {
 					round.StopWindow();
 					Login.logOut();
-					loginMenu.setText("LogIn");
+					loginMenu.setText(loginStr);
 					win.setTitle(mainWindow_Title);
 				} else {
 					final Thread thread = new Thread(new Runnable() {
@@ -319,7 +321,7 @@ public class MainWindow extends JFrame {
 			win.setTitle(mainWindow_Title + 
 					" "+ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title_work")+" "
 					+ user.getName_users()+" "+user.getFamily_users());
-			loginMenu.setText("LogOut");
+			loginMenu.setText(logOutStr);
 
 		}
 	}

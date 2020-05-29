@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
@@ -29,7 +28,7 @@ public class DobivDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 			
 		entitymanager.persist(valueEnt);
@@ -57,8 +56,8 @@ public class DobivDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+			entitymanager.getTransaction().begin();
 		Dobiv valueEnt = new Dobiv();
 		
 		valueEnt.setCode_Standart(code_Standart);
@@ -89,8 +88,8 @@ public class DobivDAO {
 		
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+			entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getListAllDobiv");
 		List<Dobiv> list = query.getResultList();
 		entitymanager.close();
@@ -103,8 +102,8 @@ public class DobivDAO {
 		public static Dobiv getDobivById(@QueryParam("id") int id) {
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 			Dobiv naredbi = entitymanager.find(Dobiv.class, id);
 
 			entitymanager.close();
@@ -118,8 +117,8 @@ public class DobivDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findNDobivByCode_Standart");
 			query.setParameter("text", name);
@@ -139,8 +138,8 @@ public class DobivDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findDobivByMetody");
 			query.setParameter("text", name);
@@ -158,8 +157,8 @@ public class DobivDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findDobivByIzpitvan_produkt");
 			query.setParameter("text", name);
@@ -177,8 +176,8 @@ public class DobivDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findDobivByNuclide");
 			query.setParameter("text", name);
@@ -196,8 +195,8 @@ public class DobivDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 
 			String hql = "SELECT e FROM Dobiv e WHERE e."+column_name+" = :text ORDER BY e.code_Standart ASC";
 
@@ -215,8 +214,8 @@ public class DobivDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 		
 			entitymanager.find(Dobiv.class, dobiv.getId_dobiv());
 			entitymanager.merge(dobiv);
@@ -236,8 +235,8 @@ public class DobivDAO {
 		public static void deleteDobivById(int id) {
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
-			EntityTransaction updateTranzaction = entitymanager.getTransaction();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				EntityTransaction updateTranzaction = entitymanager.getTransaction();
 			updateTranzaction.begin();
 			Query query = entitymanager.createQuery(" delete from Dobiv where id =:id");
 			query.setParameter("id", id);

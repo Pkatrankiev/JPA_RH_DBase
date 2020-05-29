@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
@@ -32,7 +31,7 @@ public class DimensionDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Dimension valueEnt = new Dimension();
 		valueEnt.setName_dimension(value);
@@ -47,7 +46,7 @@ public class DimensionDAO {
 	public static List<Dimension> getInListAllValueDimension() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Dimension e  ORDER BY e.name ASC");
 		List<Dimension> list = query.getResultList();
@@ -66,7 +65,7 @@ public class DimensionDAO {
 	public static Dimension getValueDimensionById(@QueryParam("id") int id) {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Dimension razmernosti = (Dimension) entitymanager.find(Dimension.class, id);
@@ -82,7 +81,7 @@ public class DimensionDAO {
 		Dimension dim;
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		String hql = "SELECT e FROM Dimension e WHERE e.name = :text";

@@ -24,7 +24,7 @@ public class Obekt_na_izpitvane_requestDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Obekt_na_izpitvane_request valueEnt = new Obekt_na_izpitvane_request();
 		valueEnt.setName_obekt_na_izpitvane(name);
@@ -38,7 +38,7 @@ public class Obekt_na_izpitvane_requestDAO {
 	public static List<Obekt_na_izpitvane_request> getInListAllValueObekt_na_izpitvane() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Obekt_na_izpitvane_request e ORDER BY e.name ASC");
 		@SuppressWarnings("unchecked")
@@ -80,8 +80,8 @@ public class Obekt_na_izpitvane_requestDAO {
 	public static Obekt_na_izpitvane_request getValueObekt_na_izpitvaneById(@QueryParam("id") int id) {
 //	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-	EntityManager entitymanager = emfactory.createEntityManager();
-	entitymanager.getTransaction().begin();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
 	Obekt_na_izpitvane_request  obekt_na_izpitvane = (Obekt_na_izpitvane_request) entitymanager.find(Obekt_na_izpitvane_request.class, id);
 	
 	entitymanager.close();
@@ -96,7 +96,7 @@ public class Obekt_na_izpitvane_requestDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		String hql = "SELECT e FROM Obekt_na_izpitvane_request e WHERE e.name = :text";

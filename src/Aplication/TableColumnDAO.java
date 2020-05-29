@@ -13,7 +13,7 @@ public class TableColumnDAO {
 	public static void setValueTableColumn(String tipe_Table, String name_Column, String Class_Column,
 			String tipe_Column, String keyMap, Boolean inVisible) {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		TableColumn valueEnt = new TableColumn();
 		valueEnt.setTipe_Table(tipe_Table);
@@ -31,7 +31,7 @@ public class TableColumnDAO {
 	@SuppressWarnings("unchecked")
 	public static List<TableColumn> getListAllTableColumn() {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getListAllTableColumn");
 		List<TableColumn> list = query.getResultList();
@@ -43,7 +43,7 @@ public class TableColumnDAO {
 	@SuppressWarnings("unchecked")
 	public static List<TableColumn> getListTableColumnByTipe_Table(String name) {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Query query = entitymanager.createNamedQuery("getListTableColumnByTipe_Table");

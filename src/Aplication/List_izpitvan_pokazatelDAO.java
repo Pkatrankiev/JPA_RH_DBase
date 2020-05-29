@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
@@ -35,7 +34,7 @@ public static void setBasikValuePokazatel(){
 		
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		List_izpitvan_pokazatel pokazatal = new List_izpitvan_pokazatel();
 		
@@ -51,7 +50,7 @@ public static void setBasikValuePokazatel(){
 	public static List<List_izpitvan_pokazatel> getInListAllValuePokazatel() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM List_izpitvan_pokazatel e");
 		List<List_izpitvan_pokazatel> list = query.getResultList();
@@ -71,8 +70,8 @@ public static void setBasikValuePokazatel(){
 	public static List_izpitvan_pokazatel getValueIzpitvan_pokazatelById(@QueryParam("id") int id) {
 //	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-	EntityManager entitymanager = emfactory.createEntityManager();
-	entitymanager.getTransaction().begin();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
 	
 	List_izpitvan_pokazatel  izpitvan_pokazatel = (List_izpitvan_pokazatel) entitymanager.find(List_izpitvan_pokazatel.class, id);
 	
@@ -87,7 +86,7 @@ public static void setBasikValuePokazatel(){
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		String hql = "SELECT e FROM List_izpitvan_pokazatel e WHERE e.name = :text";

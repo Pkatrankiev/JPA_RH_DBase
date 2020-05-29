@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
@@ -25,7 +24,7 @@ public class NormiDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Normi valueEnt = new Normi();
 		valueEnt.setNaredbi(naredbi);
@@ -43,8 +42,8 @@ public class NormiDAO {
 		
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+				entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("getListAllNormi");
 		List<Normi> list = query.getResultList();
 		entitymanager.close();
@@ -57,7 +56,7 @@ public class NormiDAO {
 		public static Normi getValueNaredbiById(@QueryParam("id") int id) {
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 			entitymanager.getTransaction().begin();
 			Normi naredbi = entitymanager.find(Normi.class, id);
 
@@ -72,7 +71,7 @@ public class NormiDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 			entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findNormiByNaredbi");
@@ -91,7 +90,7 @@ public class NormiDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 			entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findNormiByNuclide");
@@ -110,7 +109,7 @@ public class NormiDAO {
 
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-			EntityManager entitymanager = emfactory.createEntityManager();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 			entitymanager.getTransaction().begin();
 			
 			Query query = entitymanager.createNamedQuery("findNormiByValue_norna");

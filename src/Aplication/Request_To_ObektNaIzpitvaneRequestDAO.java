@@ -16,9 +16,10 @@ import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Request_To_ObektNaIzpitvaneRequestDAO {
 
-	public static void setValueRequest_To_ObektNaIzpitvaneRequest(Request request, Obekt_na_izpitvane_request obektNaIzp){
+	public static void setValueRequest_To_ObektNaIzpitvaneRequest(Request request,
+			Obekt_na_izpitvane_request obektNaIzp) {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp = new Request_To_ObektNaIzpitvaneRequest();
 
@@ -30,12 +31,14 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		entitymanager.close();
 		emfactory.close();
 	}
-	
-	public static void setValueRequest_To_ObektNaIzpitvaneRequest(Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp) {
 
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	public static void setValueRequest_To_ObektNaIzpitvaneRequest(
+			Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp) {
+
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		entitymanager.persist(request_to_ObectNaIzp);
@@ -44,20 +47,25 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		emfactory.close();
 	}
 
-	public static void updateValueRequest_To_ObektNaIzpitvaneRequest(Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp) {
+	public static void updateValueRequest_To_ObektNaIzpitvaneRequest(
+			Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp) {
 
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
-		entitymanager.find(Request_To_ObektNaIzpitvaneRequest.class, request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
+		entitymanager.find(Request_To_ObektNaIzpitvaneRequest.class,
+				request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
 		entitymanager.merge(request_to_ObectNaIzp);
 
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на заявака-обект на изпитване: " + request_to_ObectNaIzp.getRequest().getRecuest_code(),
+			JOptionPane.showMessageDialog(null,
+					"Прблем при обновяване на заявака-обект на изпитване: "
+							+ request_to_ObectNaIzp.getRequest().getRecuest_code(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -68,9 +76,10 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 	@SuppressWarnings("unchecked")
 	@GET
 	public static List<Request_To_ObektNaIzpitvaneRequest> getInListAllRequest_To_ObektNaIzpitvaneRequest() {
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createNamedQuery("ListAllRequest_To_ObektNaIzpitvaneRequest");
 		List<Request_To_ObektNaIzpitvaneRequest> list = query.getResultList();
@@ -81,13 +90,16 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 
 	@GET
 	@QueryParam("{id}")
-	public static Request_To_ObektNaIzpitvaneRequest getRequest_To_ObektNaIzpitvaneRequestById(@QueryParam("id") int id) {
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	public static Request_To_ObektNaIzpitvaneRequest getRequest_To_ObektNaIzpitvaneRequestById(
+			@QueryParam("id") int id) {
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
-		Request_To_ObektNaIzpitvaneRequest requestToObectIzp = (Request_To_ObektNaIzpitvaneRequest) entitymanager.find(Request_To_ObektNaIzpitvaneRequest.class, id);
+		Request_To_ObektNaIzpitvaneRequest requestToObectIzp = (Request_To_ObektNaIzpitvaneRequest) entitymanager
+				.find(Request_To_ObektNaIzpitvaneRequest.class, id);
 
 		entitymanager.close();
 		emfactory.close();
@@ -96,11 +108,13 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Request_To_ObektNaIzpitvaneRequest> getRequest_To_ObektNaIzpitvaneRequestByRequest(Request request) {
+	public static List<Request_To_ObektNaIzpitvaneRequest> getRequest_To_ObektNaIzpitvaneRequestByRequest(
+			Request request) {
 
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Query query = entitymanager.createNamedQuery("findRequest_To_ObektNaIzpitvaneRequestByRequest");
@@ -114,11 +128,13 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Request_To_ObektNaIzpitvaneRequest getRequest_To_ObektNaIzpitvaneRequestByRequestAndObektNaIzp(Request request, Obekt_na_izpitvane_request obektNaIzp) {
+	public static Request_To_ObektNaIzpitvaneRequest getRequest_To_ObektNaIzpitvaneRequestByRequestAndObektNaIzp(
+			Request request, Obekt_na_izpitvane_request obektNaIzp) {
 
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Query query = entitymanager.createNamedQuery("ListAllRequest_To_ObektNaIzpitvaneRequestByRequestAndObektNaIzp");
@@ -131,13 +147,15 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 
 		return list.get(0);
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static List<Request_To_ObektNaIzpitvaneRequest> getRequest_To_ObektNaIzpitvaneRequestByObektNaIzp(Obekt_na_izpitvane_request obektNaIzp) {
 
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	@SuppressWarnings("unchecked")
+	public static List<Request_To_ObektNaIzpitvaneRequest> getRequest_To_ObektNaIzpitvaneRequestByObektNaIzp(
+			Obekt_na_izpitvane_request obektNaIzp) {
+
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Query query = entitymanager.createNamedQuery("findRequest_To_ObektNaIzpitvaneRequestByObektNaIzp");
@@ -150,20 +168,24 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		return list;
 	}
 
-	public static void deleteRequest_To_ObektNaIzpitvaneRequest(Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp) {
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+	public static void deleteRequest_To_ObektNaIzpitvaneRequest(
+			Request_To_ObektNaIzpitvaneRequest request_to_ObectNaIzp) {
+		// EntityManagerFactory emfactory =
+		// Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
-System.out.println(request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
-Request_To_ObektNaIzpitvaneRequest req_to_ObectNaIzp = entitymanager.find(Request_To_ObektNaIzpitvaneRequest.class, request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
+		Request_To_ObektNaIzpitvaneRequest req_to_ObectNaIzp = entitymanager.find(
+				Request_To_ObektNaIzpitvaneRequest.class,
+				request_to_ObectNaIzp.getId_Request_To_ObektNaIzpitvaneRequest());
 		entitymanager.remove(req_to_ObectNaIzp);
 
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			JOptionPane.showMessageDialog(null,
-					"Прблем при изтриване на заявка-обект на изпитване: " + request_to_ObectNaIzp.getRequest().getRecuest_code(),
+					"Прблем при изтриване на заявка-обект на изпитване: "
+							+ request_to_ObectNaIzp.getRequest().getRecuest_code(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
 

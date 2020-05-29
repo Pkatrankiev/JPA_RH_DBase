@@ -25,7 +25,7 @@ public class Metody_to_PokazatelDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Metody_to_Pokazatel metody_to_Pokazatel = new Metody_to_Pokazatel();
 
@@ -42,7 +42,7 @@ public class Metody_to_PokazatelDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		entitymanager.persist(pokazatal);
@@ -55,7 +55,7 @@ public class Metody_to_PokazatelDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		entitymanager.find(Metody_to_Pokazatel.class, metody_to_Pokazatel.getId_Metody_to_Pokazatel());
@@ -77,7 +77,7 @@ public class Metody_to_PokazatelDAO {
 	public static List<Metody_to_Pokazatel> getInListAllMetody_to_Pokazatel() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("SELECT e FROM Metody_to_Pokazatel e");
 		List<Metody_to_Pokazatel> list = query.getResultList();
@@ -91,7 +91,7 @@ public class Metody_to_PokazatelDAO {
 	public static Metody_to_Pokazatel getMetody_to_PokazatelById(@QueryParam("id") int id) {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Metody_to_Pokazatel ìetody_to_Pokazatel = (Metody_to_Pokazatel) entitymanager.find(Metody_to_Pokazatel.class, id);
@@ -107,7 +107,7 @@ public class Metody_to_PokazatelDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Query query = entitymanager.createNamedQuery("findMetody_to_PokazatelByPokazatel");
@@ -125,7 +125,7 @@ public class Metody_to_PokazatelDAO {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		Query query = entitymanager.createNamedQuery("findMetody_to_PokazatelByMetody");
@@ -141,7 +141,7 @@ public class Metody_to_PokazatelDAO {
 	public static void deleteMetody_to_Pokazatel(Metody_to_Pokazatel pokazatel) {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = emfactory.createEntityManager();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
 		entitymanager.find(Metody_to_Pokazatel.class, pokazatel.getId_Metody_to_Pokazatel());

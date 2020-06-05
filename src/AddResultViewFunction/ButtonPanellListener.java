@@ -162,9 +162,9 @@ import WindowView.AddResultsView;
 			str_Error = str_Error + "добив" + "\n";
 			saveCheck = false;
 		}
-
-		if (!AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv, choicePokazatel).trim().isEmpty()) {
-			str_Error = str_Error + AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv, choicePokazatel);
+		String chekstrCurrentDataInDataTable = AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv, choicePokazatel);
+		if (!chekstrCurrentDataInDataTable.isEmpty()) {
+			str_Error = str_Error +chekstrCurrentDataInDataTable ;
 			System.out.println(str_Error);
 			saveCheck = false;
 		}

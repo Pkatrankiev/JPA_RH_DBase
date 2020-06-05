@@ -57,6 +57,7 @@ public class btnTabFromFileSection {
 								
 								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List_0)){
 									Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
+									
 									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel_0);
 								}
 								break;
@@ -66,9 +67,13 @@ public class btnTabFromFileSection {
 								List<Destruct_Result> destruct_Result_List_1 = OverallVariablesAddResults.getDestruct_Result_List();
 								
 								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List_1)){
+									System.out.println(" **********************************************");	
+									
 									Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
 									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel_1);
+									
 									DobivSection.setValueInChoiceDobivFromORTECFile(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv);
+//									System.out.println(destruct_Result_List_1.length+"--------------------------------***************");
 								}
 								break;
 							}

@@ -62,7 +62,8 @@ public class FunctionForGenerateWordDocFile {
 		// "$$sample_metod$$"
 		String code_samp_metody = result.getMetody().getCode_metody();
 		substitutionData.put(masive_column_table_result[1], code_samp_metody);
-//		substitutionData.put(masive_column_table_result[1], code_samp_metody.substring(0, code_samp_metody.indexOf("/")));
+		// substitutionData.put(masive_column_table_result[1],
+		// code_samp_metody.substring(0, code_samp_metody.indexOf("/")));
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();
@@ -83,8 +84,8 @@ public class FunctionForGenerateWordDocFile {
 
 		}
 		// "$$razmernost$$"
-		String razmernost =result.getRazmernosti().getName_razmernosti();
-		razmernost = razmernost.replaceAll("2", "²").replaceAll("3","³");
+		String razmernost = result.getRazmernosti().getName_razmernosti();
+		razmernost = razmernost.replaceAll("2", "²").replaceAll("3", "³");
 		substitutionData.put(masive_column_table_result[3], razmernost);
 
 		String string_zab = sample.getRequest().getZabelejki().getName_zabelejki();
@@ -229,23 +230,27 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	public static String generate_str_Ob_izp_samp(Sample sample, Boolean isDiferent_Ob_Izp_Req) {
-		String obIzpRequest = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getName_obekt_na_izpitvane();
+		String obIzpRequest = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp()
+				.getName_obekt_na_izpitvane();
 		String obIzpSample = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
-		String str_ob_izp_sam ="";
-		if(isDiferent_Ob_Izp_Req){
-		str_ob_izp_sam = obIzpRequest;
-		String str_ob_izp_req_simpl = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name();
-		if(!str_ob_izp_req_simpl.equals("")){
-			str_ob_izp_sam = str_ob_izp_req_simpl;
+		String str_ob_izp_req_simpl = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp()
+				.getSimple_Name();
+		String str_ob_izp_sam = "";
+
+		if (isDiferent_Ob_Izp_Req) {
+			if (str_ob_izp_req_simpl.equals("")) {
+				str_ob_izp_sam = obIzpRequest;
+			} else {
+				str_ob_izp_sam = str_ob_izp_req_simpl;
 			}
-		
 		}
-		if(!obIzpRequest.equals(obIzpSample)){
-			if(!str_ob_izp_sam.equals("")){
-				str_ob_izp_sam +=", ";
+
+		if (!obIzpRequest.equals(obIzpSample)) {
+			if (!str_ob_izp_sam.equals("")) {
+				str_ob_izp_sam += ", ";
 			}
-		str_ob_izp_sam += obIzpSample;
-		}else{
+			str_ob_izp_sam += obIzpSample;
+		} else {
 			str_ob_izp_sam += obIzpSample;
 		}
 		return str_ob_izp_sam;
@@ -290,7 +295,8 @@ public class FunctionForGenerateWordDocFile {
 		substitutionData.put("$$c_nucl$$", nuclide[1]);
 
 		substitutionData.put("$$MDA$$", " " + formatter(result.getMda()));
-		substitutionData.put("$$razmernost$$", result.getRazmernosti().getName_razmernosti().replaceAll("2", "²").replaceAll("3","³"));
+		substitutionData.put("$$razmernost$$",
+				result.getRazmernosti().getName_razmernosti().replaceAll("2", "²").replaceAll("3", "³"));
 		return substitutionData;
 	}
 
@@ -353,17 +359,17 @@ public class FunctionForGenerateWordDocFile {
 		double expon = Double.valueOf("1.0" + str_bas.substring(str_bas.indexOf("E")));
 		foll = foll / expon;
 		String str_foll = frm_foll.format(foll);
-		
+
 		// zastoto metoda ne zakarglqva ot 0.045 na 0.05
 		String str_follA = frm_follA.format(foll);
-		if(str_follA.substring(4).equals("5")){
-			str_follA=str_follA.substring(0, 4);
-			str_follA=str_follA+"6";
+		if (str_follA.substring(4).equals("5")) {
+			str_follA = str_follA.substring(0, 4);
+			str_follA = str_follA + "6";
 			str_follA = str_follA.replace(",", ".");
 			double d = Double.parseDouble(str_follA);
 			str_foll = frm_foll.format(d);
 		}
-		
+
 		str_foll = str_foll + str_bas.substring(str_bas.indexOf("E"));
 		if (!str_foll.contains("E-")) { // don't blast a negative sign
 			str_foll = str_foll.replace("E", "E+");
@@ -371,8 +377,6 @@ public class FunctionForGenerateWordDocFile {
 		str_foll = str_foll.replace(",", ".");
 		return str_foll;
 	}
-
-	
 
 	private static String formatter(double number) {
 		DecimalFormat formatter = new DecimalFormat("0.00E00");

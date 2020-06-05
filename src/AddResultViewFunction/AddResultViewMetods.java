@@ -224,12 +224,12 @@ public class AddResultViewMetods {
 	public static void setListNuclideToMetodAndToPokaz(Choice choicePokazatel) {
 		OverallVariablesAddResults.setListSimbolBasikNulideToMetod(
 				AddDobivViewMetods.getListSimbolBasikNulideToMetod(OverallVariablesAddResults.getSelectedMetod()));
-		
+
 		OverallVariablesAddResults.setListNucToPok(AddResultViewMetods.getListNuklideToPokazatel(choicePokazatel));
-		
+
 		OverallVariablesAddResults.setListSimbolBasikNulide(AddResultViewMetods
 				.getListSimbolBasikNulideFNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
-		
+
 		OverallVariablesAddResults.setMasuveSimbolNuclide(
 				AddResultViewMetods.getMasiveSimbolNuclideToPokazatel(OverallVariablesAddResults.getListNucToPok()));
 	}
@@ -412,7 +412,7 @@ public class AddResultViewMetods {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				
+
 				DefaultTableModel dtm = Add_DefaultTableModel.Add_DefaultTableModel_dd(
 						OverallVariablesAddResults.getDataTable(), masiveNameFortableHeader, masiveClassColumn,
 						masiveTipeColumn, check_Colum);
@@ -584,47 +584,46 @@ public class AddResultViewMetods {
 					}
 					inProtokol = "";
 				}
-				int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString() );
-				if(switCase!=3 && switCase!=10){
-				Double dobivValue = 0.0;
-				try{
-				List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults.getDestruct_Result_List();
-				if(destruct_Result_List!=null){
-				
-				for (Destruct_Result destruct_Result : destruct_Result_List) {
-					
-					if (dataTable[i][nuclide_Colum].toString().equals(destruct_Result.getNuclide())) {
-						System.out.println("---------------------"+destruct_Result.getDobiv());
-						dobivValue = Double.parseDouble((String) destruct_Result.getDobiv());
-					}
-				}
-				}
-				if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
-					if(!OverallVariablesAddResults.getValueFromDBase()){
-					List<Dobiv> listDobiv = DobivDAO
-							.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString());
-					if (listDobiv.size() > 0) {
-						for (Dobiv dobiv : listDobiv) {
-							Double dobiveValueResult = reformatDoubleValue (dobiv.getValue_result());
-							Double dobiveValuePlus = reformatDoubleValue (dobivValue+0.00005);
-							Double dobiveValueMinus = reformatDoubleValue (dobivValue-0.00006);
-							System.out.println(dobivValue+"  "+dobiveValueMinus+"  "+dobiveValueResult+" "+ dobiveValuePlus);
-							if(Double.compare ( dobiveValueResult, dobiveValuePlus) <= 0 && Double.compare (dobiveValueMinus, dobiveValueResult  ) <= 0){
-								
-							}else{
-								errDobiv = "несъвпадащи стойности за добиви" + "\n ";
+				int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(
+						OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString());
+				if (switCase != 3 && switCase != 10) {
+					Double dobivValue = 0.0;
+					try {
+						List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults
+								.getDestruct_Result_List();
+						if (destruct_Result_List != null) {
+							
+							
+							for (Destruct_Result destruct_Result : destruct_Result_List) {
+
+								if (dataTable[i][nuclide_Colum].toString().equals(destruct_Result.getNuclide())|| switCase == 1) {
+									System.out.println("---------------------" + destruct_Result.getDobiv());
+									dobivValue = Double.parseDouble((String) destruct_Result.getDobiv());
+								}
 							}
 						}
-					}
-					}
-				}
-				
-				} catch ( NumberFormatException e) {
-					 e.printStackTrace();
-					 JOptionPane.showMessageDialog(null, "Липсва добив във файла", "Грешни данни",
+						if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
+							if (!OverallVariablesAddResults.getValueFromDBase()) {
+								List<Dobiv> listDobiv = DobivDAO
+										.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString());
+								System.out.println(listDobiv.size());
+								if (listDobiv.size() > 0) {
+									for (Dobiv dobiv : listDobiv) {
+										System.out.println(CompareDoubleUnits(dobiv.getValue_result(), dobivValue));
+										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValue)) {
+											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
+										}
+									}
+								}
+							}
+						}
+
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Липсва добив във файла", "Грешни данни",
 								JOptionPane.ERROR_MESSAGE);
-				}
-				
+					}
+
 				}
 
 			}
@@ -645,15 +644,28 @@ public class AddResultViewMetods {
 		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim + inProtokol + errDobiv);
 	}
 
-	public static Double reformatDoubleValue (Double value){
-		DecimalFormat df4 = new DecimalFormat("#.####");
+	public static Double reformatDoubleValue(Double value) {
+		DecimalFormat df4 = new DecimalFormat("#.######");
 		df4.setRoundingMode(RoundingMode.HALF_UP);
 		String stt = df4.format(value).replaceAll(",", ".");
-		 
+
 		return Double.parseDouble(stt);
-		
+
 	}
+
+	public static Boolean CompareDoubleUnits(Double dobivValue1, Double dobivValue2) {
+
+		int intdobivValue1 = (int) (AddResultViewMetods.reformatDoubleValue(dobivValue1) * 100000);
+		int intdobivValue2 = (int) (AddResultViewMetods.reformatDoubleValue(dobivValue2) * 100000);
+		int dobiveValuePlus = (int) ((AddResultViewMetods.reformatDoubleValue(dobivValue1 + 0.00005)) * 100000);
+		int dobiveValueMinus = (int) ((AddResultViewMetods.reformatDoubleValue(dobivValue1 - 0.00005)) * 100000);
+
+		System.out.println(intdobivValue1 + " " + intdobivValue2 + " " + dobiveValuePlus + " " + dobiveValueMinus);
 	
+		return (dobiveValuePlus >= intdobivValue2 && dobiveValueMinus <= intdobivValue2);
+
+	}
+
 	public static List<Results> creadResultListForSave(Sample sample, JTextField txtBasicValueResult,
 			Choice choiceMetody, Choice choicePokazatel, Choice choiceORHO, Choice choiceOIR, Choice choiceDobiv) {
 		List<Results> listResultsForSave = new ArrayList<Results>();
@@ -755,13 +767,15 @@ public class AddResultViewMetods {
 
 		if (!choiceDobiv.getSelectedItem().toString().isEmpty()) {
 			List<Dobiv> listDobiv = DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem().toString());
-			
+
 			if (listDobiv.size() > 0) {
-//				for (Dobiv dobiv : listDobiv) {
-//					if (dobiv.getNuclide().getSymbol_nuclide().replaceAll("[0123456789]","").equals(nuclide.getSymbol_nuclide().replaceAll("[0123456789]",""))) {
-						result.setDobiv(listDobiv.get(0));
-//					}
-//				}
+				// for (Dobiv dobiv : listDobiv) {
+				// if
+				// (dobiv.getNuclide().getSymbol_nuclide().replaceAll("[0123456789]","").equals(nuclide.getSymbol_nuclide().replaceAll("[0123456789]","")))
+				// {
+				result.setDobiv(listDobiv.get(0));
+				// }
+				// }
 			} else {
 				Dobiv dobiv = OverallVariablesAddDobiv.getListChoisedDobiv().get(0);
 				dobiv.setDate_chim_oper(OverallVariablesAddResults.getDataTable()[i][dateHimObr_Colum].toString());
@@ -803,14 +817,14 @@ public class AddResultViewMetods {
 			root.getGlassPane().setVisible(false);
 		}
 	}
-	
-	public static int selestTypeReadFileByChoiceMetod (Metody selectedMetod, String pokazatel) {
+
+	public static int selestTypeReadFileByChoiceMetod(Metody selectedMetod, String pokazatel) {
 		if (selectedMetod.getCode_metody().indexOf("-10") > 1) {
 			return 10;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-01") > 1) {
-			if(pokazatel.indexOf("90Sr")>0){
-				
+			if (pokazatel.indexOf("90Sr") > 0) {
+
 				return 16;
 			}
 			return 1;

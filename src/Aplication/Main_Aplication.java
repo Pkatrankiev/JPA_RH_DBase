@@ -13,6 +13,7 @@ import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
 import Table.Table_Results_List;
+import WindowView.AddDobivView;
 import WindowView.Login;
 import WindowView.MainWindow;
 import WindowView.MesejePanelInAddResultsView;
@@ -63,9 +64,23 @@ public class Main_Aplication {
 		
 //		TestClases.StartMainWindow_Test();
 		
-	
+//		TestClases. CompareDoubleUnits(0.33,0.55);
 		
-		StartMainWindow();
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 JFrame f = new JFrame();
+		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+		 			    	
+		     }
+		    });
+		    thread.start();
+ 		
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

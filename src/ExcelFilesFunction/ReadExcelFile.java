@@ -629,14 +629,17 @@ public class ReadExcelFile {
 					if(!nuclideBasic.equals(nuclideResult)){
 						nuclideResult = nuclideBasic;
 					}
-					try {
+//					try {
 						System.out.println(nuclideResult + " - " + nuclideBasic);
 						Results results = new Results();
+						String qantity = masiveActiveResults[i][6].replaceAll("[^0-9.,\\s]", "").trim();
+						 qantity = qantity.replaceAll(" ","");
+						System.out.println(qantity+"********************"+qantity.indexOf(" "));
 						results.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
 						results.setValue_result(Double.parseDouble(masiveActiveResults[i][3]));
 						results.setUncertainty(Double.parseDouble(masiveActiveResults[i][4]));
 						results.setMda(Double.parseDouble(masiveActiveResults[i][5]));
-						results.setQuantity(Double.parseDouble(masiveActiveResults[i][6]));
+						results.setQuantity(Double.parseDouble(qantity));
 						results.setDate_measur(masiveActiveResults[i][9]);
 						results.setDate_chim_oper("");
 						results.setTsi(ReadGamaFile.getTSIObjectFromFileString(masiveActiveResults[i][7]));
@@ -651,8 +654,9 @@ public class ReadExcelFile {
 
 						listResults.add(results);
 
-					} catch (NumberFormatException e) {
-					}
+//					} catch (NumberFormatException e) {
+//						JOptionPane.showMessageDialog(null, "NumberFormatException "+nuclideResult,"text frame", JOptionPane.PLAIN_MESSAGE);	
+//					}
 				}
 			}
 		}

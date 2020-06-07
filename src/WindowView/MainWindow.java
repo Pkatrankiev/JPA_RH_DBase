@@ -60,9 +60,11 @@ public class MainWindow extends JFrame {
 	
 	private static final long serialVersionUID = 8880252554988817126L;
 	private JPanel contentPane;
+
 	private static String mainWindow_Title  = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title");
 	private static String loginStr = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_LogInStr_Btn");
 	private static String logOutStr = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_LogOutStr_Btn"); 
+
 	private static Login loginDlg;
 	
 	
@@ -72,7 +74,7 @@ public class MainWindow extends JFrame {
 		
 		setMinimumSize(new Dimension(900, 600));
 		GetVisibleLAF(this);
-		setTitle(mainWindow_Title);
+		setTitle("my RHA_Test");
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GlobalPathForIcons.get_destination_winIcon()));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -290,8 +292,10 @@ public class MainWindow extends JFrame {
 				if (textBtnLogin.equals(logOutStr)) {
 					round.StopWindow();
 					Login.logOut();
+
 					loginMenu.setText(loginStr);
 					win.setTitle(mainWindow_Title);
+
 				} else {
 					final Thread thread = new Thread(new Runnable() {
 						@Override
@@ -318,10 +322,12 @@ public class MainWindow extends JFrame {
 		if (loginDlg.isSucceeded()) {
 			@SuppressWarnings("static-access")
 			Users user = loginDlg.getCurentUser();
+
 			win.setTitle(mainWindow_Title + 
 					" "+ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title_work")+" "
 					+ user.getName_users()+" "+user.getFamily_users());
 			loginMenu.setText(logOutStr);
+
 
 		}
 	}

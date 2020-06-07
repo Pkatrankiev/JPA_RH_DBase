@@ -323,8 +323,9 @@ public class ReadExcelFile {
 		FileInputStream fis = null;
 		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "", dimencion = "";
 		String param = "", date_Analize = "", dobiv = "";
-
+		String errString ="";
 		SimpleDateFormat sdf = new SimpleDateFormat(GlobalFormatDate.getFORMAT_DATE());
+		List<String> listSimbolBasikNuclideToMetod = new ArrayList<String>();
 		Date dateNull = null;
 		try {
 			dateNull = sdf.parse("01.01.1910");
@@ -393,8 +394,14 @@ public class ReadExcelFile {
 								try {
 									nuclide = cell.getStringCellValue();
 									errNuclide = "Нуклид " + nuclide + " не е в избрания метод\n";
-									for (String basicNuklide : OverallVariablesAddResults
-											.getListSimbolBasikNulideToMetod()) {
+									if (forResults) {
+										listSimbolBasikNuclideToMetod =  OverallVariablesAddResults
+												.getListSimbolBasikNulideToMetod();
+									}else {
+										listSimbolBasikNuclideToMetod =  OverallVariablesAddDobiv.getListSimbolBasikNulide ();	
+									}
+									for (String basicNuklide : listSimbolBasikNuclideToMetod) {
+										System.out.println(basicNuklide+" ****************************************");
 										if (basicNuklide.equals(nuclide)) {
 											errNuclide = "";
 										}
@@ -538,7 +545,7 @@ public class ReadExcelFile {
 				}
 			}
 
-			String errString = errKod + errMetod + errNuclide + errRezultat + errNeopred + errMDA + errKolichestvo
+			 errString = errKod + errMetod + errNuclide + errRezultat + errNeopred + errMDA + errKolichestvo
 					+ errDobiv + errTSI + errRazmer + errData + errIzvurshiAnaliza;
 
 			if (!errString.isEmpty()) {
@@ -547,6 +554,7 @@ public class ReadExcelFile {
 
 			}
 		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, errString, "Грешни данни", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 
 		} catch (IOException e) {

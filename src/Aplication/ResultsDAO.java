@@ -18,6 +18,7 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
 import DBase_Class.Razmernosti;
+import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
@@ -34,6 +35,7 @@ public class ResultsDAO {
 			Nuclide nuclide, 
 			List_izpitvan_pokazatel pokazatel,
 			Metody metody,
+			Request request,
 			Sample sample,
 			Razmernosti rtazmernosti,
 			String basic_value, 
@@ -62,6 +64,7 @@ public class ResultsDAO {
 		valueEnt.setPokazatel(pokazatel); 
 		valueEnt.setMetody(metody);
 		valueEnt.setSample(sample);
+		valueEnt.setRequest(request);
 		valueEnt.setRazmernosti(rtazmernosti);
 
 		valueEnt.setBasic_value(basic_value);

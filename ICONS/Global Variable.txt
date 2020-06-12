@@ -22,8 +22,8 @@ noConectionInDBseMesage_textMesage = Не се свързвам с базата данни
 noConectionInDBaseDialog_BTN_Exit = Изход
 noConectionInDBaseDialog_BTN_Вaiting = Изчакване
 
-<<<<<<< master
 $$MainWindow_MenusTitle
+MainWindow_Ver = Ver.0620
 MainWindow_Title = ДП РАО, с-р Радиохимия
 MainWindow_Title_work =  -> работи
 MainWindow_LogInStr_Btn = logIn
@@ -35,8 +35,6 @@ MainWindow_BtnMenu_Data = Данни
 MainWindow_BtnMenu_Documents = Документи
 
 
-=======
->>>>>>> 38aa997 new office 220520
 $$MenuClasses
 EnableInternalAplicantTitleName = Редактиране на Вътрешни Клиенти
 EnableRequestList_TitleName = Списък на Заявките

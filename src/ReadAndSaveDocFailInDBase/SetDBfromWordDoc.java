@@ -599,7 +599,7 @@ public class SetDBfromWordDoc {
 
 				for (int k = 0; k <= max_num_results[i][p]; k++) {
 
-					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp,
+					Results resul = new Results(nuclide_sample[i][p][k], pokazatel_sample[0][p], metody_sample, samp,samp.getRequest(),
 							razmernost_recuest, basic_value, results_value_result[i][p][k], sigma,
 							results_uncertainty[i][p][k], results_MDA[i][p][k], note, user_chim_oper, date_chim,
 							user_measur, date_measur, user_redac, date_redac, inProtokol, quantity, dimension,null,null);

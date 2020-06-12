@@ -20,7 +20,7 @@ public class TableColumn  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id_TableColumn;
+	private int id_TableColumn;
 	private String tipe_Table;
 	private String name_Column;
 	private String Class_Column;
@@ -42,6 +42,10 @@ public class TableColumn  implements Serializable{
 		super();
 	}
 
+	public int getId_TableColumn() {
+		return id_TableColumn;
+	}
+	
 	public String getName_Column() {
 		return name_Column;
 	}

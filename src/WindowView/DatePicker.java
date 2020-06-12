@@ -2,6 +2,7 @@ package WindowView;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -20,7 +21,7 @@ public class DatePicker {
 
 	// define variables
 	static int month = Calendar.getInstance().get(Calendar.MONTH);
-	int year = Calendar.getInstance().get(Calendar.YEAR);
+	static int year = Calendar.getInstance().get(Calendar.YEAR);
 	int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	int minute = Calendar.getInstance().get(Calendar.MINUTE);
 	int day1 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -363,6 +364,22 @@ public class DatePicker {
 
 	}
 
+	public static Boolean checkStringDateAfterCurentYear(int startYear, String curentDate){
+		DateFormat df = new SimpleDateFormat("dd.mm.yyyy");
+		Calendar cal  = Calendar.getInstance();
+		try {
+			cal.setTime(df.parse(curentDate));
+			
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		if(startYear <=cal.get(Calendar.YEAR)){
+			return true;
+		}
+		return false;
+	}
+	
 	public static int getActualyMonth() {
 		return month;
 	}

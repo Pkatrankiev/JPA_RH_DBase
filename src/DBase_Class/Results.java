@@ -58,12 +58,15 @@ public class Results implements Serializable {
 	private TSI tsi;
 	@ManyToOne
 	private Dobiv dobiv;
+	@ManyToOne
+	private Request request;
 
 	public Results( 
 			Nuclide nuclide, 
 			List_izpitvan_pokazatel pokazatel,
 			Metody metody,
 			Sample sample,
+			Request request,
 			Razmernosti rtazmernosti,
 			String basic_value,
 			Double value_result,
@@ -90,6 +93,7 @@ public class Results implements Serializable {
 		this.pokazatel = pokazatel;
 		this.metody = metody;
 		this.sample = sample;
+		this.request = request;
 		this.rtazmernosti = rtazmernosti;
 		this.basic_value = basic_value;
 		this.value_result = value_result;
@@ -112,7 +116,19 @@ public class Results implements Serializable {
 		
 	}
 
-	 public Results(){
+	 public Razmernosti getRtazmernosti() {
+		return rtazmernosti;
+	}
+
+	public void setRtazmernosti(Razmernosti rtazmernosti) {
+		this.rtazmernosti = rtazmernosti;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public Results(){
 		 super( );
 		 }
 	 
@@ -305,6 +321,11 @@ public class Results implements Serializable {
 
 	public void setDobiv(Dobiv dobiv) {
 		this.dobiv = dobiv;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+		
 	}
 
 	

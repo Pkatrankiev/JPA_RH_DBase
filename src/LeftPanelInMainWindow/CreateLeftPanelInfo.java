@@ -1,6 +1,7 @@
 package LeftPanelInMainWindow;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
@@ -15,11 +16,14 @@ import javax.swing.border.MatteBorder;
 public class CreateLeftPanelInfo {
 		
    
-	public static void creatLeftPanel(JPanel under_panel_Left,  JLabel lblNewLabel) {
+	public static void creatLeftPanel(JPanel under_panel_Left) {
 
-		List<List<LeftPanelStartWindowClass>> listleftPanelStartWindow = VariableFromLeftPanel.getListLeftPanelStartWindow();
+		List<List<LeftPanelStartWindowClass>> listleftPanelStartWindow = VariableFromStartWindowPanel.getListLeftPanelStartWindow();
 		
 		String month = CreateListLeftPanelStartWindowClass.getPreviousMesec(1);
+		JLabel lblNewLabel = new JLabel();
+		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		under_panel_Left.add(lblNewLabel);
 		lblNewLabel.setText("ѕроби от програма периодичен мониторинг за м." + month);
 
 		
@@ -44,6 +48,8 @@ public class CreateLeftPanelInfo {
 				}
 			}
 		}
+		
+		
 	}
 
 	

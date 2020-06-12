@@ -5,6 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
+
+import DBase_Class.Request;
 import DBase_Class.TableColumn;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
@@ -57,4 +62,40 @@ public class TableColumnDAO {
 		return list;
 	}
 
+
+	@GET
+	@QueryParam("{id}")
+	public static TableColumn getValueTableColumnById(@QueryParam("id") int id) {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		TableColumn tableColumn = (TableColumn) entitymanager.find(TableColumn.class, id);
+
+		entitymanager.close();
+		emfactory.close();
+
+		return tableColumn;
+	}
+	
+	public static void updateObjectTableColumn(TableColumn tableColumn) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		entitymanager.find(TableColumn.class, tableColumn.getId_TableColumn());
+		entitymanager.merge(tableColumn);
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на запис: " + tableColumn.getName_Column(),
+					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
 }

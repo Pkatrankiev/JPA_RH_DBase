@@ -104,7 +104,6 @@ public class RequestDAO {
 		emfactory.close();
 	}
 
-	
 	public static void updateObjectRequest(Request request) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -277,8 +276,6 @@ public class RequestDAO {
 
 	}
 
-
-
 	@GET
 	@QueryParam("{id}")
 	public static Request getValueRequestById(@QueryParam("id") int id) {
@@ -378,7 +375,7 @@ public class RequestDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Request> getListRequestFromProgramm(String izp_prod) {
+	public static List<Request> getListRequestFromMonitoringProgramm(String izp_prod) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();

@@ -10,6 +10,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import LeftPanelInMainWindow.CreateListLeftPanelStartWindowClass;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
 import Table.Table_Results_List;
@@ -55,32 +56,24 @@ public class Main_Aplication {
 //		TestClases.ChangeStringToNumber();
 		
 		
-//		ReadExcelFile.ReformatDoubleTo4decimalExponet("0.0000969769462295195");
+//		ReadExcelFile.ReformatDoubleTo4decimalExponet("0.8775");
 		
 //		TestClases.NumberFormatWithRounding("0.00135256");
 		
 //		TestClases.start_Table_Request_List_Test(4);
 		
+//		CreateListLeftPanelStartWindowClass.createListMissingRequest(2020);
 		
 //		TestClases.StartMainWindow_Test();
 		
 //		TestClases. CompareDoubleUnits(0.33,0.55);
 		
-		TranscluentWindow round = new TranscluentWindow();
+//		TestClases. creatInDBaseRequestInResultsClass();
 		
-		 final Thread thread = new Thread(new Runnable() {
-		     @Override
-		     public void run() {
-		    	 
-		    	 JFrame f = new JFrame();
-		 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-		 			    	
-		     }
-		    });
-		    thread.start();
+//		CreateListLeftPanelStartWindowClass.createListMissingResults(null);
  		
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

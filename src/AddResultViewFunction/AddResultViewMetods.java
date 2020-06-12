@@ -587,7 +587,7 @@ public class AddResultViewMetods {
 				int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(
 						OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString());
 				if (switCase != 3 && switCase != 10) {
-					Double dobivValue = 0.0;
+					Double dobivValueFromDestruct_Result = 0.0;
 					try {
 						List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults
 								.getDestruct_Result_List();
@@ -598,7 +598,7 @@ public class AddResultViewMetods {
 
 								if (dataTable[i][nuclide_Colum].toString().equals(destruct_Result.getNuclide())|| switCase == 1) {
 									System.out.println("---------------------" + destruct_Result.getDobiv());
-									dobivValue = Double.parseDouble((String) destruct_Result.getDobiv());
+									dobivValueFromDestruct_Result = Double.parseDouble((String) destruct_Result.getDobiv());
 								}
 							}
 						}
@@ -609,8 +609,11 @@ public class AddResultViewMetods {
 								System.out.println(listDobiv.size());
 								if (listDobiv.size() > 0) {
 									for (Dobiv dobiv : listDobiv) {
-										System.out.println(CompareDoubleUnits(dobiv.getValue_result(), dobivValue));
-										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValue)) {
+										System.out.println(CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result));
+//										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result)) {
+//											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
+//										}
+										if (Double.compare(dobiv.getValue_result(), dobivValueFromDestruct_Result)!=0) {
 											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
 										}
 									}
@@ -654,7 +657,7 @@ public class AddResultViewMetods {
 	}
 
 	public static Boolean CompareDoubleUnits(Double dobivValue1, Double dobivValue2) {
-
+		System.out.println(dobivValue1 + " " + dobivValue2+"  //////////////////////////");
 		int intdobivValue1 = (int) (AddResultViewMetods.reformatDoubleValue(dobivValue1) * 100000);
 		int intdobivValue2 = (int) (AddResultViewMetods.reformatDoubleValue(dobivValue2) * 100000);
 		int dobiveValuePlus = (int) ((AddResultViewMetods.reformatDoubleValue(dobivValue1 + 0.00005)) * 100000);

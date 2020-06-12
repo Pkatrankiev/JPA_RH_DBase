@@ -467,7 +467,7 @@ public class MainWindow_Old extends JFrame {
 	
 	private List<Request> cerateList(String monthPeriod, String zpitvan_produkt) {
 		List<Request> list = new ArrayList<Request>();		
-		List<Request> listRequest = RequestDAO.getListRequestFromProgramm(zpitvan_produkt);
+		List<Request> listRequest = RequestDAO.getListRequestFromMonitoringProgramm(zpitvan_produkt);
 		
 		int countNeseseryRequest = 15;
 		

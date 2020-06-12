@@ -32,6 +32,7 @@ import DBase_Class.TSI;
 import DBase_Class.Users;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
+import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.FrameChoiceRequestByCode;
@@ -88,6 +89,21 @@ public class TestClases {
 		}
 	}
 
+	public static void testAddDobivView() {
+	TranscluentWindow round = new TranscluentWindow();
+	
+	 final Thread thread = new Thread(new Runnable() {
+	     @Override
+	     public void run() {
+	    	 
+	    	 JFrame f = new JFrame();
+	 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+	 			    	
+	     }
+	    });
+	    thread.start();
+	}
+	
 	public static void test3() {
 		List<String> list = new ArrayList<String>();
 		String strObektIzpit = "Спецкорпус-1; Бак 4 и 5 (Изход 2)";
@@ -459,6 +475,14 @@ public class TestClases {
 		return num;
 	}
 
+	public static void creatInDBaseRequestInResultsClass(){
+	List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
+	for (Results results : listAllResults) {
+		Request request = results.getSample().getRequest();
+		results.setRequest(request);
+		ResultsDAO.updateResults(results);
+	}
+	}
 	public static String NumberToMAXDigitAftrerZerro(String num) {
 		int MAXDigit = 4;
 

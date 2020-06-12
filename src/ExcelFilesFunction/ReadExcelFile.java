@@ -346,6 +346,7 @@ public class ReadExcelFile {
 			String errKod = "", errMetod = "", errNuclide = "", errRezultat = "", errNeopred = "", errMDA = "",
 					errKolichestvo = "", errDobiv = "", errTSI = "", errRazmer = "", errData = "",
 					errIzvurshiAnaliza = "";
+			String dobiv1 = "";
 			for (int i = 0; i < numberOfSheets; i++) {
 				Boolean endNuclideRsult = false;
 				Sheet sheet = workbook.getSheetAt(i);
@@ -452,8 +453,8 @@ public class ReadExcelFile {
 								break;
 							case "Добив":
 								try {
-									dobiv = String.valueOf(cell.getNumericCellValue());
-									dobiv = ReformatDoubleTo4decimalExponet(dobiv);
+									 dobiv1 = String.valueOf(cell.getNumericCellValue());
+									dobiv = ReformatDoubleTo4decimalExponet(dobiv1);
 								} catch (IllegalStateException e) {
 									errDobiv = "Добив -> не е число\n";
 									dobiv = "0.0";
@@ -537,6 +538,8 @@ public class ReadExcelFile {
 								}
 								destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, dobiv,
 										uncert, mda, tsi, quantity, dimencion, date_Analize, user_Analize));
+								System.out.println(cod_sample+" "+metod+" "+ nuclide+" "+ result+" "+ dobiv+" "+
+										uncert+" "+mda+" "+tsi+" "+ quantity+" "+ dimencion+" "+ date_Analize+" "+ user_Analize+"  "+ dobiv1);
 								endNuclideRsult = false;
 							}
 						}
@@ -680,29 +683,31 @@ public class ReadExcelFile {
 
 	public static String ReformatDoubleTo4decimalExponet(String formatNum) {
 		String stt = "";
+		System.out.println("1 "+formatNum);
 		double dob2 = Double.parseDouble(formatNum);
-		DecimalFormat df = new DecimalFormat("0.0000E00");
+		DecimalFormat df = new DecimalFormat("0.00000E00");
 		df.setRoundingMode(RoundingMode.HALF_UP);
 		stt = df.format(dob2).replaceAll(",", ".");
-
+		System.out.println("2 "+stt);
 		String expon = stt.substring(stt.indexOf("E") + 1);
 		int kk = Integer.parseInt(expon);
 		if (kk >= -4 && kk < 0) {
 
 			stt = NumberToMAXDigitAftrerZerro(formatNum);
+			System.out.println("3 "+stt);
 		}
-
+		System.out.println("4 "+stt);
 		if (kk >= 0 && kk <= 4) {
-			DecimalFormat df4 = new DecimalFormat("#.####");
+			DecimalFormat df4 = new DecimalFormat("#.#####");
 			df4.setRoundingMode(RoundingMode.HALF_UP);
 			stt = df4.format(dob2).replaceAll(",", ".");
 		}
-
+		System.out.println("5 "+stt);
 		return stt;
 	}
 
 	public static String NumberToMAXDigitAftrerZerro(String num) {
-		int MAXDigit = 4;
+		int MAXDigit = 5;
 		double dd = Double.parseDouble(num);
 		if (Double.compare(dd, 0.0) != 0) {
 

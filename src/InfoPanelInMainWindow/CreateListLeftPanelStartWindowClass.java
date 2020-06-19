@@ -1,10 +1,11 @@
-package LeftPanelInMainWindow;
+package InfoPanelInMainWindow;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -135,15 +136,15 @@ public class CreateListLeftPanelStartWindowClass {
 	}
 
 	public static List<Integer> createListMissingResults(List<Request> listCeckRequest) {
-		List<Request> listCeckRequest1 = createListCheckRequest(2020);
-
+	
 		List<Integer> listMissingResults = new ArrayList<Integer>();
 		List<Sample> listSampleResults = new ArrayList<Sample>();
 		int sampleCount = 0;
-		for (Request request : listCeckRequest1) {
+		for (Request request : listCeckRequest) {
 
 			sampleCount = request.getCounts_samples();
 			List<Results> listResultsByRequest = ResultsDAO.getListResultsFromColumnByVolume("request", request);
+			
 			System.out.println("listResultsByRequest.size " + listResultsByRequest.size());
 			for (Results results : listResultsByRequest) {
 				listSampleResults.add(results.getSample());
@@ -155,7 +156,7 @@ public class CreateListLeftPanelStartWindowClass {
 			if (sampleCount != mySet.size()) {
 				listMissingResults.add(Integer.parseInt(request.getRecuest_code()));
 			}
-			System.out.println("listMissingResults.size " + listMissingResults.size());
+
 			listSampleResults.clear();
 		}
 		for (int sample : listMissingResults) {
@@ -165,19 +166,55 @@ public class CreateListLeftPanelStartWindowClass {
 	}
 
 	public static List<Integer> createListMissingProtokols(List<Request> listCeckRequest) {
+		
 		String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
-		FindFile ff = new FindFile();
+
 		List<Integer> listMissingProtokol = new ArrayList<Integer>();
+		List<File> listFile = getListFile(dir_Protocols);
+		Boolean fl = false;
+		String requestCode = "";
 		for (Request request : listCeckRequest) {
-			System.out.println("request.getRecuest_code() " + request.getRecuest_code());
+			Iterator<File> itr = listFile.iterator();
+			System.out.println("Recuest_code " + request.getRecuest_code() + "  " + listFile.size());
+			requestCode = request.getRecuest_code();
+			while (itr.hasNext()) {
+				File file = (File) itr.next();
+				if (file.getName().contains(requestCode)) {
 			
-			if (ff.findFile(request.getRecuest_code(), new File(dir_Protocols)).isEmpty()) {
-				listMissingProtokol.add(Integer.parseInt(request.getRecuest_code()));
-
+					fl = true;
+					itr.remove();
+				}
+			
 			}
-		}
 
+			if (!fl) {
+				System.out.println(requestCode + "///////////////////////////////////////////////");
+				listMissingProtokol.add(Integer.parseInt(requestCode));
+			} else {
+				fl = false;
+			}
+
+		}
+		for (Integer integer : listMissingProtokol) {
+			System.out.println(integer);
+		}
 		return listMissingProtokol;
+	}
+
+	private static List<File> getListFile(String fileDir) {
+		File dir = new File(fileDir);
+		
+		List<File> listFile = new ArrayList<File>();
+		File[] matches = dir.listFiles(new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".doc");
+			}
+		});
+		
+		for (File file : matches) {
+			listFile.add(file);
+		}
+		return listFile;
 	}
 
 	private static List<Request> createListCheckRequest(int startCheckYear) {

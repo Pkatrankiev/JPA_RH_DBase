@@ -20,7 +20,7 @@ public class TranscluentWindow {
 				JPanel pan = new JPanel();
 				pan.setOpaque(false);
 				frame.setContentPane(pan);
-				ImageIcon pic = new ImageIcon(GlobalPathForIcons.get_destination_ajaxLoader());
+				ImageIcon pic = new ImageIcon(getClass().getClassLoader().getResource(GlobalPathForIcons.get_destination_ajaxLoader()));
 				frame.getContentPane().add(new JLabel(pic));
 				frame.pack();
 				frame.setLocationRelativeTo(null);

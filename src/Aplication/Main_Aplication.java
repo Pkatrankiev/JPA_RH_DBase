@@ -10,7 +10,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import LeftPanelInMainWindow.CreateListLeftPanelStartWindowClass;
+import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
 import Table.Table_Results_List;
@@ -23,9 +23,9 @@ import WindowView.TranscluentWindow;
 public class Main_Aplication {
 
 	public static void main(String[] args) {
-		
-		
+	
 		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
+	
 		
 	
 //		TestClases.Table_RequestToObektNaIzp();
@@ -45,7 +45,7 @@ public class Main_Aplication {
 //		TestClases.AddResultsViewWithTable(3) ;
 		
 		
-//		TestClases.Table_Results_List_Test(3) ;
+		TestClases.Table_Results_List_Test(3) ;
 		
 //		TestClases.createProtocolWordDoc("Изтриване на Заявка");
 		
@@ -72,8 +72,9 @@ public class Main_Aplication {
 		
 //		CreateListLeftPanelStartWindowClass.createListMissingResults(null);
  		
+//		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

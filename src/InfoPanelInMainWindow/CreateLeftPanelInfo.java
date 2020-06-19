@@ -1,4 +1,4 @@
-package LeftPanelInMainWindow;
+package InfoPanelInMainWindow;
 
 import java.awt.Color;
 import java.awt.Component;

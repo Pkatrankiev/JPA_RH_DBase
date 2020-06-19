@@ -1,4 +1,4 @@
-package LeftPanelInMainWindow;
+package InfoPanelInMainWindow;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -10,7 +10,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
-public class StartCreateListForRowInLeftPanelAndColumnInRightPanelWithProgrssBar extends SwingWorker<List<List<LeftPanelStartWindowClass>>, Integer> {
+public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<List<LeftPanelStartWindowClass>>, Integer> {
 
     JProgressBar jpb;
     JPanel under_panel_Left;
@@ -19,7 +19,7 @@ public class StartCreateListForRowInLeftPanelAndColumnInRightPanelWithProgrssBar
     JButton btnProgressBar;
     JTextField textField_Panel_Right;
     JPanel under_column_Panel_Right;
-    public StartCreateListForRowInLeftPanelAndColumnInRightPanelWithProgrssBar(JProgressBar jProgressBar, JPanel under_panel_Left, 
+    public CreateMainWindowInfoPanelWithProgrssBar(JProgressBar jProgressBar, JPanel under_panel_Left, 
     		JPanel under_column_Panel_Right , JButton btnProgressBar, JTextField textField_Panel_Right  ) {
        this.jpb = jProgressBar;
        this.under_panel_Left = under_panel_Left;

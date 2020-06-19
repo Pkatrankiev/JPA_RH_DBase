@@ -3,6 +3,9 @@ package WindowView;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -12,6 +15,8 @@ import javax.swing.JLabel;
 
 import DBase_Class.Request;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 public class RequestMiniFrame extends JDialog {
 
@@ -19,8 +24,23 @@ public class RequestMiniFrame extends JDialog {
 	private static final long serialVersionUID = 1L;
 	public RequestMiniFrame(JFrame parent, Request request) {
 			super(parent, "", true);
-			setBounds(100, 100, 450, 200);
-			this.addMouseListener(new MouseAdapter() {
+			
+			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			int width = gd.getDisplayMode().getWidth();
+			int height = gd.getDisplayMode().getHeight();
+			
+			PointerInfo a = MouseInfo.getPointerInfo();
+			Point b = a.getLocation();
+			int x = (int) b.getX();
+			int y = (int) b.getY();
+			
+			if((x+450)>width)
+				x=x-450;
+			if((y+200)>height)
+				y=y-200;
+			
+			setBounds(x, y, 450, 200);
+			addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseEntered(MouseEvent e) {}
 

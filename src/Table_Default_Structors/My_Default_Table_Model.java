@@ -108,6 +108,11 @@ public abstract class My_Default_Table_Model{
 
 	public static void setInvisibleColumn(JTable table) {
 		int[] masive_Invizible_Colum = RequestTableList_OverallVariables.getMasive_Invizible_Colum();
+		if(masive_Invizible_Colum!=null){
+		System.out.println("++++++++++++++++++++++++++++++++++++ "+masive_Invizible_Colum.length);
+		for (int i = 0; i < masive_Invizible_Colum.length; i++) {
+			System.out.println(masive_Invizible_Colum[i]+" *************************");
+		}
 		if(masive_Invizible_Colum!=null)
 		for (int i = 0; i < masive_Invizible_Colum.length; i++) {
 			table.getColumnModel().getColumn(masive_Invizible_Colum[i]).setWidth(0);
@@ -115,6 +120,7 @@ public abstract class My_Default_Table_Model{
 			table.getColumnModel().getColumn(masive_Invizible_Colum[i]).setMaxWidth(0);
 			table.getColumnModel().getColumn(masive_Invizible_Colum[i]).setPreferredWidth(0);
 		}
+	}
 	}
 
 	public static void setInChoiceOIR(Choice choiceOIR) {

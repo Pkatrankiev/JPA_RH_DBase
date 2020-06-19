@@ -85,7 +85,7 @@ public class RequestTableList_OverallVariables {
 		return masive_Invizible_Colum;
 	}
 
-	public static void setMasive_Invizible_Colum(int[] masive_Invizible_Colum) {
+	public static void setMasiveIndexInvizible_Colum(int[] masive_Invizible_Colum) {
 		RequestTableList_OverallVariables.masive_Invizible_Colum = masive_Invizible_Colum;
 	}
 

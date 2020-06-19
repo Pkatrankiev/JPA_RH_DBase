@@ -184,8 +184,8 @@ public class Table_Request_List extends JDialog {
 				changedVisibleColumn = 	RequestTableList_Functions.check_ChangedVisibleColumn(list_StringChoisedVisibleColumn);
 				
 				if(changedVisibleColumn){
-					RequestTableList_OverallVariables.setMasive_Invizible_Colum(getMasiveIndexColumnFromMasiveNameColumn(
-							ChoiceL_I_P.getMasiveChoiceL_P()));
+//					RequestTableList_OverallVariables.setMasive_Invizible_Colum(getMasiveIndexColumnFromMasiveNameColumn(
+//							ChoiceL_I_P.getMasiveChoiceL_P()));
 					table_Request_List.dispose();
 					TranscluentWindow round = new TranscluentWindow();
 					
@@ -227,7 +227,7 @@ public class Table_Request_List extends JDialog {
 		switch (tipe_Table) {
 
 		case "request":
-			RequestTableList_Functions.OverallVariablesForRequestTable(frame_name, user);
+//			RequestTableList_Functions.OverallVariablesForRequestTable(frame_name, user);
 			break;
 
 		}

@@ -588,6 +588,7 @@ public class AddResultViewMetods {
 						OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString());
 				if (switCase != 3 && switCase != 10) {
 					Double dobivValueFromDestruct_Result = 0.0;
+					
 					try {
 						List<Destruct_Result> destruct_Result_List = OverallVariablesAddResults
 								.getDestruct_Result_List();
@@ -610,11 +611,12 @@ public class AddResultViewMetods {
 								if (listDobiv.size() > 0) {
 									for (Dobiv dobiv : listDobiv) {
 										System.out.println(CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result));
-//										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result)) {
-//											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
-//										}
-										if (Double.compare(dobiv.getValue_result(), dobivValueFromDestruct_Result)!=0) {
+								
+										if(dobiv.getNuclide().getSymbol_nuclide().equals(dataTable[i][nuclide_Colum].toString())){
+											System.out.println(dobiv.getNuclide().getSymbol_nuclide()+""+(dataTable[i][nuclide_Colum].toString()));	
+										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result)) {
 											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
+										}
 										}
 									}
 								}
@@ -749,6 +751,7 @@ public class AddResultViewMetods {
 		result.setRazmernosti(RazmernostiDAO
 				.getValueRazmernostiByName(OverallVariablesAddResults.getDataTable()[i][razm_Colum].toString()));
 		result.setSample(sample);
+		result.setRequest(sample.getRequest());
 		String choiceUser_ORHO = choiceORHO.getSelectedItem();
 		for (Users user : OverallVariablesAddResults.getList_Users()) {
 			if (choiceUser_ORHO.substring(0, choiceUser_ORHO.indexOf(" ")).equals(user.getName_users())

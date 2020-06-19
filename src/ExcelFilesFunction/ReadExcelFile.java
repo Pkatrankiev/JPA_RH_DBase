@@ -109,7 +109,8 @@ public class ReadExcelFile {
 						cod_sample = textNulCell.replaceFirst("Sample:", "");
 						for (int col = 1; col <= 20; col += 1) {
 							cell = sheet.getRow(row).getCell(col);
-							if (CellNOEmpty(cell) && cell.getStringCellValue().startsWith("Sample Volume :")) {
+							if (CellNOEmpty(cell) && (cell.getStringCellValue().startsWith("Sample Volume :")||
+									cell.getStringCellValue().startsWith("Sample Weight :"))) {
 								quantity = sheet.getRow(row).getCell(col).getStringCellValue()
 										.replaceFirst("Sample Volume :", "").replace(",", ".");
 							}

@@ -29,7 +29,7 @@ public class btnOpenFileSection {
 
 				// destruct_Result_List = new ArrayList<Destruct_Result>();
 				int sizeExcelList = 0, sizeGamaList = 0;
-//				try {
+				try {
 					String pathfileName = fileChooser.getSelectedFile().toString();
 					String stringfileName = fileChooser.getSelectedFile().getName();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
@@ -89,10 +89,10 @@ public class btnOpenFileSection {
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
-//				} catch (NullPointerException e2) {
-//					JOptionPane.showMessageDialog(null, "Не сте избрали файл!\n"+"error 86", "Грешни данни",
-//							JOptionPane.ERROR_MESSAGE);
-//				}
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(null, "Не сте избрали файл!\n"+"error 86", "Грешни данни",
+							JOptionPane.ERROR_MESSAGE);
+				}
 
 			}
 

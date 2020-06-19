@@ -30,6 +30,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_Request_List;
 import Table.Table_Sample_List;
 import WindowView.AddDobivView;
@@ -257,7 +258,11 @@ public class TestClases {
 
 				JFrame f = new JFrame();
 				// new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-				new Table_Results_List_Test(f, round, UsersDAO.getValueUsersById(i), null);
+				new Table_Request_List_Test2(f, round, UsersDAO.getValueUsersById(i), "request",
+						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"), true);
+//				new Table.Table_Request_List(f, round, UsersDAO.getValueUsersById(i), "request",
+//						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"));
+
 
 			}
 		});
@@ -478,11 +483,16 @@ public class TestClases {
 	public static void creatInDBaseRequestInResultsClass(){
 	List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
 	for (Results results : listAllResults) {
+		if(results.getRequest()==null){
+//			System.out.println(results.getSample().);
+		
 		Request request = results.getSample().getRequest();
 		results.setRequest(request);
 		ResultsDAO.updateResults(results);
 	}
 	}
+	}
+	
 	public static String NumberToMAXDigitAftrerZerro(String num) {
 		int MAXDigit = 4;
 

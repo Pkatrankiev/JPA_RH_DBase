@@ -13,6 +13,7 @@ import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.TableColumn;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import Table.RequestTableList_Functions;
 import Table.RequestTableList_OverallVariables;
 
 import javax.swing.JScrollPane;
@@ -57,8 +58,8 @@ public class ChoiceL_I_P extends JDialog {
 		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
 				get("Request_List_Table_LabelText_ChoiceColumn"))){
 			List<TableColumn> list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
-			bsic_list = getListString_NameColumn(list_TableColumn);
-			list_incommingObject  = getListString_VizibleColumn(list_TableColumn);
+			bsic_list = RequestTableList_Functions.getListString_NameColumn(list_TableColumn);
+			list_incommingObject  = incomming_list_izpitvan_pokazatel;
 			countL_I_P = bsic_list.size();
 		}
 			
@@ -199,46 +200,40 @@ public class ChoiceL_I_P extends JDialog {
 			setVisible(true);
 	}
 
-	private List<String> getListString_VizibleColumn(List<TableColumn> list_TableColumn) {
-		ArrayList<String> listStringName = new ArrayList<>();
-		for (TableColumn tableColumn : list_TableColumn) {
-			if(tableColumn.getInVisible()){
-			listStringName.add(tableColumn.getName_Column().replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", ""));
-			}
-		}
-		return listStringName;
-	}
-
-	private ArrayList<String> getListString_NameColumn(List<TableColumn> list_TableColumn) {
-		ArrayList<String> listStringName = new ArrayList<>();
-		for (TableColumn tableColumn : list_TableColumn) {
-			listStringName.add(reformatString(tableColumn.getName_Column()));
-
-		}
-		return listStringName;
-	}
+	
 
 	
 	
-	public static String reformatString(String name_Column) {
-		return name_Column.replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", "");
-	}
+	
 	
 	public static ArrayList<String> getChoiceL_P() {
 		ArrayList<String> arr = new ArrayList<String>();
 		for (int i = 0; i < countL_I_P; i++) {
-			if (checkBox[i].isSelected())
+			if (checkBox[i].isSelected()){
 				arr.add(label[i].getText());
+			System.out.println("+++ "+label[i].getText());
+			}
 		}
 		return arr;
 	}
 	
-	public static String[] getMasiveChoiceL_P() {
-		 ArrayList<String> list = getChoiceL_P();
+	public static ArrayList<String> getNotChoiceL_P() {
+		ArrayList<String> arr = new ArrayList<String>();
+		for (int i = 0; i < countL_I_P; i++) {
+			if (!checkBox[i].isSelected()){
+				arr.add(label[i].getText());
+			System.out.println("+++ "+label[i].getText());
+			}
+		}
+		return arr;
+	}
+	public static String[] getMasiveNotChoiceL_P() {
+		 ArrayList<String> list = getNotChoiceL_P();
 		String[] arr = new String[list.size()];
 		int i =0;
 		for (String str:list) {
 			arr[i] = str;
+			i++;
 		}
 		return arr;
 	}

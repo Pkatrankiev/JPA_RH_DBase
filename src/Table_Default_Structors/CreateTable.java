@@ -19,6 +19,7 @@ import net.coderazzi.filters.gui.TableFilterHeader;
 public class CreateTable {
 	private static List< TableObject_Class> list_TableObject_Class;
 	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("clickToChoice");
+	
 	public static JTable CreateDefaultTable(String tipe_Table) {
 		
 switch (tipe_Table) {

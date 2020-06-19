@@ -1,17 +1,16 @@
 package GlobalVariable;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ReadFileWithGlobalTextVariable {
+public class ReadFileWithGlobalTextVariable  {
 
 	private static 	Map<String, String> globalTextVariableMap;
 	private static 	Map<String, String> globalIntVariableMap;
@@ -31,11 +30,14 @@ public class ReadFileWithGlobalTextVariable {
 		globalDBasePersisRemoteMap = new HashMap<String, String>();
 		
 		try {
-
-			File fileDir = new File("ICONS/Global Variable.txt");
-
-	        br = new BufferedReader(
-	           new InputStreamReader(new FileInputStream(fileDir),"Cp1251"));
+			
+			String respath = "/ICONS/Global Variable.txt";
+			InputStream in = ReadFileWithGlobalTextVariable.class.getResourceAsStream(respath);
+			if ( in == null ){
+				System.out.println("***********************************");
+			}
+				
+	        br = new BufferedReader(new InputStreamReader(in,"Cp1251"));
 			String sCurrentLine;
 			String flagTypeValue = "";
 			int index;

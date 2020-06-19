@@ -17,6 +17,7 @@ import Aplication.RequestDAO;
 import DBase_Class.Request;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.Table_RequestToObektNaIzp;
+import Table.RequestTableList_Functions;
 import Table.RequestTableList_OverallVariables;
 import Table.Table_Sample_List;
 import WindowView.ChoiceFromListWithPlusAndMinus;
@@ -159,6 +160,7 @@ public class DefauiltTableMouseListener {
 		if (Table_RequestToObektNaIzp.EditRequestObektIzpit(table, selectedRow, choiseRequest,
 				mapListForChangedStrObektNaIzp, RequestTableList_OverallVariables.getValues_O_I_R())) {
 			List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
+			System.out.println(selectedRow+"  "+selectedRow+"  "+Table_RequestToObektNaIzp.createStringListObektNaIzp(listFromChoiceObektNaIzp, false));
 			model.setValueAt(Table_RequestToObektNaIzp.createStringListObektNaIzp(listFromChoiceObektNaIzp, false),
 					selectedRow, columnIndex);
 			mapListForChangedStrObektNaIzp.put(selectedRow, listFromChoiceObektNaIzp);
@@ -252,13 +254,26 @@ public class DefauiltTableMouseListener {
 
 	public static int getModdelIndexColumnByColumnName(String columnName) {
 		for (TableObject_Class object : RequestTableList_OverallVariables.getList_TableObject_Class()) {
-			if (object.getColumName_Header().equalsIgnoreCase(columnName)) {
+			if (RequestTableList_Functions.reformatString(object.getColumName_Header()).equalsIgnoreCase(columnName)) {
 				return object.getNumberColum();
 			}
 		}
 		return -1;
 	}
 
+	public static  int[] getMasiveIndexColumnFromMasiveNameColumn(String[] masiveNameColumn){
+		int[] arr = new int[masiveNameColumn.length];
+		
+		for (int i = 0; i < masiveNameColumn.length; i++) {
+			System.out.println("masiveNameColumn["+i+"] "+masiveNameColumn[i]);
+			arr[i] = DefauiltTableMouseListener.getModdelIndexColumnByColumnName(masiveNameColumn[i]);
+			System.out.println("indexColumn "+arr[i]);
+		}
+		
+		return arr;
+		
+	}
+	
 	public static int getIndexColumnByColumnName2(String columnName) {
 		int columnCount = table.getColumnCount();
 

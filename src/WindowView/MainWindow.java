@@ -1,36 +1,19 @@
 package WindowView;
 
-import java.awt.BorderLayout;
 
-import java.awt.Frame;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
+
 
 import CreateWordDocProtocol.GenerateRequestWordDoc;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import LeftPanelInMainWindow.CreatRightPanel;
-import LeftPanelInMainWindow.IntegerDocumentFilter;
-import LeftPanelInMainWindow.StartCreateListForRowInLeftPanelAndColumnInRightPanelWithProgrssBar;
+import InfoPanelInMainWindow.CreatRightPanel;
+import InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar;
+import InfoPanelInMainWindow.IntegerDocumentFilter;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
@@ -43,25 +26,37 @@ import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_DeleteRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
-import Table_Default_Structors.TableObject_Class;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import javax.swing.JScrollPane;
-import java.awt.FlowLayout;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
-import java.awt.Color;
-import java.awt.Component;
-import javax.swing.border.MatteBorder;
+import javax.swing.JProgressBar;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 import Aplication.RequestDAO;
 import Aplication.TableColumnDAO;
 
-import javax.swing.JProgressBar;
-import javax.swing.JTextField;
-import javax.swing.DropMode;
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.ComponentOrientation;
 
@@ -87,7 +82,7 @@ public class MainWindow extends JFrame {
 		GetVisibleLAF(this);
 		setTitle(mainWindow_Title);
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(GlobalPathForIcons.get_destination_winIcon()));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(GlobalPathForIcons.get_destination_winIcon())));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(269, 149);
 		setLocationRelativeTo(null);
@@ -157,6 +152,8 @@ public class MainWindow extends JFrame {
 			under_panel_Right.add(text_Panel_Right);
 			
 			JLabel lbl_text_Last_Request = new JLabel("Последната заявка: "+RequestDAO.getMaxRequestCode());
+			
+			
 			text_Panel_Right.add(lbl_text_Last_Request);
 
 
@@ -221,7 +218,7 @@ public class MainWindow extends JFrame {
 						
 						
 						btnProgressBar.setEnabled(false);
-						new StartCreateListForRowInLeftPanelAndColumnInRightPanelWithProgrssBar(progressBar, under_panel_Left,
+						new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
 								under_column_Panel_Right, btnProgressBar, textField_Panel_Right).execute();
 						
 					}
@@ -250,7 +247,7 @@ public class MainWindow extends JFrame {
 		round.StopWindow();
 		setVisible(true);
 
-		new StartCreateListForRowInLeftPanelAndColumnInRightPanelWithProgrssBar(progressBar, under_panel_Left,
+		new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
 				under_column_Panel_Right, btnProgressBar, textField_Panel_Right)
 				.execute();
 		basicPanel .revalidate();

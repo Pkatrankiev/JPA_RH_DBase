@@ -32,7 +32,7 @@ static String titleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMa
 			    	 
 			    	 JFrame f = new JFrame();
 //			    	 f.setName("tamplete");
-			    	 new Table_Request_List(f,round,Login.getCurentUser(),"request", titleName);
+			    	 new Table_Request_List(f,round,Login.getCurentUser(),"request", titleName,true);
 
 			    	
 			     }

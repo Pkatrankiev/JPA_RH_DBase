@@ -42,6 +42,7 @@ public class Table_Request_List_Test2 extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private boolean changedVisibleColumn;
+	private List<TableColumn> list_TableColumnFromDBase;
 	private List<TableColumn> list_TableColumn;
 	private List<String> listNameVisibleColumn = null;
 
@@ -54,14 +55,19 @@ public class Table_Request_List_Test2 extends JDialog {
 		if (firstLoad) {
 			System.out.println("firstLoad " + firstLoad);
 			firstLoad = false;
-			list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table(tipe_Table);
-			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumn);
+			list_TableColumnFromDBase = TableColumnDAO.getListTableColumnByTipe_Table(tipe_Table);
+			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumnFromDBase);
 		}
 		
 		list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
+	
 		for (TableColumn string : RequestTableList_OverallVariables.getList_TableColumn()) {
 			System.out.println("first " + string.getName_Column()+" "+string.getInVisible());
 		}
+		
+		
+		changedVisibleColumn = RequestTableList_Functions.check_ChangedVisibleColumn2(listNameVisibleColumn);
+		
 		RequestTableList_OverallVariables.setMasiveIndexInvizible_Colum(getMasiveIndexInvisibleColumn(list_TableColumn));
 
 		
@@ -218,10 +224,9 @@ public class Table_Request_List_Test2 extends JDialog {
 				listNameVisibleColumn = ChoiceL_I_P.getChoiceL_P();
 			
 				
-				changedVisibleColumn = RequestTableList_Functions
-						.check_ChangedVisibleColumn(listNameVisibleColumn);
+				
 
-				if (changedVisibleColumn) {
+				if (RequestTableList_Functions.check_ChangedVisibleColumn2(listNameVisibleColumn)) {
 					List<TableColumn> listTC = RequestTableList_Functions.ghangeInvisibleInTableColunmObject(
 							listNameVisibleColumn, list_TableColumn);
 				

@@ -1,6 +1,7 @@
 package Table;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -308,7 +309,7 @@ public class RequestTableList_Functions {
 			fl = false;
 			if (tableColumn.getInVisible()) {
 			for (String nameVisibleColumn : list_StringChoisedVisibleColumn) {
-			System.out.println(reformatString(tableColumn.getName_Column())+" "+nameVisibleColumn);
+			System.out.println(reformatString(tableColumn.getName_Column())+" + "+nameVisibleColumn);
 			if (reformatString(tableColumn.getName_Column()).contains(nameVisibleColumn)) {
 					fl= true;
 				}
@@ -324,6 +325,40 @@ public class RequestTableList_Functions {
 		return false;
 	}
 
+	public static boolean check_ChangedVisibleColumn2(List<String> list_StringChoisedVisibleColumn) {
+			if(list_StringChoisedVisibleColumn==null){
+				return false;
+			}
+		Collection<String> listOne = extractNameInVisibleColumn();
+		Collection<String> listTwo = list_StringChoisedVisibleColumn;
+
+
+		    List<String> sourceList = new ArrayList<String>(listOne);
+		    List<String> destinationList = new ArrayList<String>(listTwo);
+
+		    sourceList.removeAll( listTwo );
+		    destinationList.removeAll( listOne );
+
+
+    System.out.println( sourceList );
+    System.out.println( destinationList );
+    if(sourceList.size()+destinationList.size()>0){
+    	return true;
+    }
+	
+    return false;
+	}
+
+	private static List<String> extractNameInVisibleColumn() {
+		List<String> list = new ArrayList<>();
+for (TableColumn tableColumn : RequestTableList_OverallVariables.getList_TableColumn()) {
+		if (tableColumn.getInVisible()) {
+			list.add(reformatString(tableColumn.getName_Column()));
+		}
+}
+		return list;
+	}
+	
 	public static String reformatString(String name_Column) {
 		return name_Column.replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", "");
 	}

@@ -45,7 +45,9 @@ public class Main_Aplication {
 //		TestClases.AddResultsViewWithTable(3) ;
 		
 		
-		TestClases.Table_Results_List_Test(3) ;
+//		TestClases.Table_Results_List_Test(3) ;
+		
+		
 		
 //		TestClases.createProtocolWordDoc("Изтриване на Заявка");
 		
@@ -74,7 +76,7 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

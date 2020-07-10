@@ -20,8 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import Aplication.TableColumnDAO;
+import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import OldClases.Table_Request_List_Test2;
 import Table_Default_Structors.CreateTable;
 import Table_Default_Structors.DefauiltTableMouseListener;
 import WindowView.ChoiceL_I_P;
@@ -36,14 +39,38 @@ import java.awt.GridLayout;
 public class Table_Request_List extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private boolean changedVisibleColumn=false;
+	private boolean changedVisibleColumn;
+	private List<TableColumn> list_TableColumnFromDBase;
+	private List<TableColumn> list_TableColumn;
+	private List<String> listNameVisibleColumn = null;
 
 	public Table_Request_List(JFrame parent, TranscluentWindow round, Users user, String tipe_Table,
-			String frame_name) {
+			String frame_name, Boolean firstLoad) {
 		super(parent, frame_name, true);
 
-		final JTable table = createTable(tipe_Table, frame_name, user);
+		final JTable table = createTable(tipe_Table, frame_name, user, firstLoad);
+		
+		if (firstLoad) {
+			System.out.println("firstLoad " + firstLoad);
+			firstLoad = false;
+			list_TableColumnFromDBase = TableColumnDAO.getListTableColumnByTipe_Table(tipe_Table);
+			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumnFromDBase);
+		}
+			
+		
+		list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
 	
+		for (TableColumn string : RequestTableList_OverallVariables.getList_TableColumn()) {
+			System.out.println("first " + string.getName_Column()+" "+string.getInVisible());
+		}
+		
+		
+		changedVisibleColumn = RequestTableList_Functions.check_ChangedVisibleColumn2(listNameVisibleColumn);
+				
+		RequestTableList_OverallVariables.setMasiveIndexInvizible_Colum(getMasiveIndexInvisibleColumn(list_TableColumn));
+
+		
+
 		JPanel top_panel = new JPanel();
 		top_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		top_panel.setSize(new Dimension(2, 0));
@@ -56,11 +83,11 @@ public class Table_Request_List extends JDialog {
 		left_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		top_panel.add(left_panel, BorderLayout.NORTH);
 
-		JLabel lblColumnChoice = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
+		JLabel lblColumnChoice = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("Request_List_Table_LabelText_ChoiceColumn"));
 		lblColumnChoice.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblColumnChoice.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		left_panel.add(lblColumnChoice);
-		
 
 		JPanel raide_panel = new JPanel();
 		raide_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -68,7 +95,8 @@ public class Table_Request_List extends JDialog {
 		raide_panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		top_panel.add(raide_panel, BorderLayout.NORTH);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_EditingData"));
+		JCheckBox chckbxNewCheckBox = new JCheckBox(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("Request_List_Table_LabelText_EditingData"));
 		chckbxNewCheckBox.setEnabled(false);
 		raide_panel.add(chckbxNewCheckBox);
 		chckbxNewCheckBox.setBorder(null);
@@ -86,12 +114,11 @@ public class Table_Request_List extends JDialog {
 			}
 		});
 
-		
 		JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		setSize(1200, 800);
 		setLocationRelativeTo(null);
-		
+
 		JLabel ll = new JLabel();
 		scrollPane.add(ll);
 		round.StopWindow();
@@ -116,8 +143,7 @@ public class Table_Request_List extends JDialog {
 
 		columnChoiceListener(this, scrollPane, tipe_Table, frame_name, user, lblColumnChoice);
 		btnSaveListener(tipe_Table, table, btnSave);
-		
-		
+
 		setVisible(true);
 	}
 
@@ -149,85 +175,96 @@ public class Table_Request_List extends JDialog {
 		});
 	}
 
-	private void columnChoiceListener(Table_Request_List table_Request_List, JScrollPane scrollPane, String tipe_Table, 
-			String frame_name, Users user, JLabel lblColumnChoice) {
+	private void columnChoiceListener(Table_Request_List table_Request_List, JScrollPane scrollPane,
+			String tipe_Table, String frame_name, Users user, JLabel lblColumnChoice) {
 		lblColumnChoice.addMouseListener(new MouseListener() {
-			
-			
 
 			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
+			public void mouseReleased(MouseEvent e) {
+			}
+
 			@Override
-			public void mousePressed(MouseEvent e) {}
-			
+			public void mousePressed(MouseEvent e) {
+			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
-				if(changedVisibleColumn){
+				if (changedVisibleColumn) {
 					lblColumnChoice.setForeground(Color.RED);
-				}else{
-				lblColumnChoice.setForeground(Color.BLACK);
+				} else {
+					lblColumnChoice.setForeground(Color.BLACK);
 				}
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				lblColumnChoice.setForeground(Color.BLUE);
-				
+
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFrame f = new JFrame();
-				new ChoiceL_I_P(f, null, false,ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
-				List<String> list_StringChoisedVisibleColumn = ChoiceL_I_P.getChoiceL_P();
-				changedVisibleColumn = 	RequestTableList_Functions.check_ChangedVisibleColumn(list_StringChoisedVisibleColumn);
+				listNameVisibleColumn = RequestTableList_Functions.getMasiveFromNameVISIBLEColumn(list_TableColumn);
+			
+								
+				new ChoiceL_I_P(f, listNameVisibleColumn, false, ReadFileWithGlobalTextVariable
+						.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
+				listNameVisibleColumn = ChoiceL_I_P.getChoiceL_P();
+			
 				
-				if(changedVisibleColumn){
-//					RequestTableList_OverallVariables.setMasive_Invizible_Colum(getMasiveIndexColumnFromMasiveNameColumn(
-//							ChoiceL_I_P.getMasiveChoiceL_P()));
+				
+
+				if (RequestTableList_Functions.check_ChangedVisibleColumn2(listNameVisibleColumn)) {
+					List<TableColumn> listTC = RequestTableList_Functions.ghangeInvisibleInTableColunmObject(
+							listNameVisibleColumn, list_TableColumn);
+				
+					RequestTableList_OverallVariables.setList_TableColumn(listTC);
+					
+					list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
+								
 					table_Request_List.dispose();
 					TranscluentWindow round = new TranscluentWindow();
-					
-					 final Thread thread = new Thread(new Runnable() {
-					     @Override
-					     public void run() {
-					    	 
-					    	 JFrame f = new JFrame();
-					 		new Table_Request_List(f,round,Login.getCurentUser(),tipe_Table, frame_name);
-				    	
-					     }
-					    });
-					    thread.start();
-				
+
+					final Thread thread = new Thread(new Runnable() {
+						@Override
+						public void run() {
+
+							JFrame f = new JFrame();
+							new Table_Request_List(f, round, Login.getCurentUser(), tipe_Table, frame_name,false);
+
+						}
+					});
+					thread.start();
+
 				}
 			}
 
-	
+			
 
-		
-		
 		});
 	}
+
 	
-	private  int[] getMasiveIndexColumnFromMasiveNameColumn(String[] masiveNameColumn){
-		int[] arr = new int[masiveNameColumn.length];
-		
-		for (int i = 0; i < masiveNameColumn.length; i++) {
-			arr[i] = DefauiltTableMouseListener.getModdelIndexColumnByColumnName(masiveNameColumn[i]);
-		}
-		
-		return arr;
-		
+
+	private int[] getMasiveIndexInvisibleColumn(List<TableColumn> list_TableColumn) {
+		String[] masiveNameInvisibleColumn = RequestTableList_Functions
+				.getMasiveFromNameInvisbleColumn(list_TableColumn);
+
+		int[] masiveIndexInvisbleColumn = DefauiltTableMouseListener
+				.getMasiveIndexColumnFromMasiveNameColumn(masiveNameInvisibleColumn);
+		return masiveIndexInvisbleColumn;
 	}
+
 	
-	private JTable createTable(String tipe_Table, String frame_name, Users user) {
-		CreateColumnTapeForTable.CreateListColumnTapeForTable(tipe_Table);
-	
+	private JTable createTable(String tipe_Table, String frame_name, Users user, Boolean firstLoad) {
+		if(firstLoad){
+			CreateColumnTapeForTable.CreateListColumnTapeForTable(tipe_Table);
+		}
 		switch (tipe_Table) {
 
 		case "request":
-//			RequestTableList_Functions.OverallVariablesForRequestTable(frame_name, user);
+			RequestTableList_Functions.OverallVariablesForRequestTable(frame_name, user, firstLoad);
 			break;
 
 		}

@@ -2,24 +2,55 @@ package AddResultViewFunction;
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import AddDobivViewFunction.OverallVariablesAddDobiv;
 import Aplication.DobivDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.Metody;
+import WindowView.AddDobivView;
+import WindowView.Login;
+import WindowView.TranscluentWindow;
 
 public class DobivSection {
 
 	
-	public static  void choiceDobivListener(Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv) {
-		choiceDobiv.addItemListener(new ItemListener() {
+	public static  void choiceDobivListener(Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv, JButton btnAddDobiv) {
+	
+		btnAddDobiv.addActionListener(new ActionListener() {
 
+			public void actionPerformed(ActionEvent e) {
+				
+				TranscluentWindow round = new TranscluentWindow();
+				
+				 final Thread thread = new Thread(new Runnable() {
+				     @Override
+				     public void run() {
+				    	 
+				    	 JFrame f = new JFrame();
+				 		new AddDobivView(f,round, Login.getCurentUser());
+				 			    	
+				     }
+				    });
+				    thread.start();
+				
+			}
+		
+		
+		 });
+		
+		
+		choiceDobiv.addItemListener(new ItemListener() {
+		
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (choiceDobiv.getSelectedItem() == null)

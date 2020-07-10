@@ -81,6 +81,7 @@ public class AddResultsView extends JDialog {
 	private static JButton btnOpenFile = null;
 	private static JButton btnTabFromFile = null;
 	private static JButton saveButton = null;
+	private static JButton btnAddDobiv =null;
 	
 	private static JFileChooser fileChooser = new JFileChooser();
 	private static JTable tableResults = null;
@@ -445,7 +446,16 @@ public class AddResultsView extends JDialog {
 		basic_panel.add(choiceDobiv, gbc_choiceDobiv);
 		choiceDobiv.addItem("");
 		
-
+		
+			btnAddDobiv = new JButton(
+					ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("AddDobiveFrame_TitleName"));
+			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+			gbc_btnNewButton.anchor = GridBagConstraints.EAST;
+			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+			gbc_btnNewButton.gridx = 7;
+			gbc_btnNewButton.gridy = 4;
+			basic_panel.add(btnAddDobiv, gbc_btnNewButton);
+		
 		
 	}
 	
@@ -553,7 +563,7 @@ public class AddResultsView extends JDialog {
 		LabelStoinostiFromDobivSection.LabelStoinFromDobivListener(lbl_StoinostiFromDobiv, choiceDobiv);
 		ButtonPanellListener.saveButtonListener(addResultsViewWithTable,  basic_panel,  saveButton, txtRqstCode,  choicePokazatel,  choiceMetody,
 				 choiceOIR,  choiceORHO, choiceDobiv,  choiceSmplCode, txtBasicValueResult);
-		DobivSection.choiceDobivListener(choiceDobiv, lbl_StoinostiFromDobiv);
+		DobivSection.choiceDobivListener(choiceDobiv, lbl_StoinostiFromDobiv,btnAddDobiv);
 		
 	}
 

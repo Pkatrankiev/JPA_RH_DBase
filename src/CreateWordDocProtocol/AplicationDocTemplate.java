@@ -50,7 +50,7 @@ public class AplicationDocTemplate {
 		try {
 			template = WordprocessingMLPackage.load(new FileInputStream(new File(name)));
 		} catch (FileNotFoundException | Docx4JException e) {
-			JOptionPane.showMessageDialog(null, "Преформатиране на Датата", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Не намирам тамплет-документа", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}

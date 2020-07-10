@@ -137,7 +137,7 @@ public class TestClases {
 			public void run() {
 
 				JFrame f = new JFrame();
-				new Table_Request_List(f, round, user, "request", "Списък на Заявките");
+				new Table_Request_List(f, round, user, "request", "Списък на Заявките",true);
 
 			}
 		});

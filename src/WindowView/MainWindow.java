@@ -73,8 +73,7 @@ public class MainWindow extends JFrame {
 			.get("MainWindow_LogOutStr_Btn");
 	private static String version = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Ver");
 	private static Login loginDlg;
-	private JTextField textField_Panel_Right;
-	private Boolean korektYearInTxtField=true;
+	
 
 	public MainWindow(TranscluentWindow round) {
 
@@ -145,60 +144,7 @@ public class MainWindow extends JFrame {
 			scrollPane_Right.setViewportView(under_panel_Right);
 			under_panel_Right.setLayout(new BoxLayout(under_panel_Right, BoxLayout.Y_AXIS));
 
-			JPanel text_Panel_Right = new JPanel();
-			FlowLayout fl_text_Panel_Right = (FlowLayout) text_Panel_Right.getLayout();
-			fl_text_Panel_Right.setAlignment(FlowLayout.RIGHT);
-			text_Panel_Right.setMaximumSize(new Dimension(32767, 20));
-			under_panel_Right.add(text_Panel_Right);
-			
-			JLabel lbl_text_Last_Request = new JLabel("Последната заявка: "+RequestDAO.getMaxRequestCode());
-			
-			
-			text_Panel_Right.add(lbl_text_Last_Request);
 
-
-			JLabel lbl_text_Panel_Right = new JLabel("Пропуснати записи в базата от началото на ");
-			text_Panel_Right.add(lbl_text_Panel_Right);
-
-			textField_Panel_Right = new JTextField();
-			textField_Panel_Right.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-			textField_Panel_Right.setMargin(new Insets(2, 0, 2, 0));
-			textField_Panel_Right.setBorder(null);
-//			textField_Panel_Right.setPreferredSize(new Dimension(2, 16));
-			textField_Panel_Right.setMaximumSize(new Dimension(6, 50));
-			text_Panel_Right.add(textField_Panel_Right);
-			textField_Panel_Right.setColumns(3);
-			textField_Panel_Right.setText(getTextStartYear());
-			textField_Panel_Right.addKeyListener(new KeyListener() {
-
-				@Override
-				public void keyTyped(KeyEvent event) {
-
-				}
-
-				@Override
-				public void keyReleased(KeyEvent event) {
-					korektYearInTxtField = CreatRightPanel.checkEnterKorektYearForTextField(textField_Panel_Right);
-
-				}
-
-				@Override
-				public void keyPressed(KeyEvent event) {
-
-				}
-			});
-			IntegerDocumentFilter.addTo(textField_Panel_Right);
-
-			JLabel lbl2_text_Panel_Right = new JLabel("г. за:");
-			text_Panel_Right.add(lbl2_text_Panel_Right);
-
-			JPanel column_Panel_Right = new JPanel();
-			under_panel_Right.add(column_Panel_Right);
-			column_Panel_Right.setLayout(new BorderLayout(0, 0));
-
-			JPanel under_column_Panel_Right = new JPanel();
-			column_Panel_Right.add(under_column_Panel_Right);
-			under_column_Panel_Right.setLayout(new BoxLayout(under_column_Panel_Right, BoxLayout.X_AXIS));
 			
 			
 
@@ -211,15 +157,15 @@ public class MainWindow extends JFrame {
 						under_panel_Left.revalidate();
 						under_panel_Left.repaint();
 						
-						under_column_Panel_Right.removeAll();
-						under_column_Panel_Right.revalidate();
-						under_column_Panel_Right.repaint();
+						under_panel_Right.removeAll();
+						under_panel_Right.revalidate();
+						under_panel_Right.repaint();
 						
 						
 						
 						btnProgressBar.setEnabled(false);
 						new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
-								under_column_Panel_Right, btnProgressBar, textField_Panel_Right).execute();
+								under_panel_Right, btnProgressBar).execute();
 						
 					}
 
@@ -234,9 +180,9 @@ public class MainWindow extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				GenerateRequestWordDoc.deleteTempDataDir();
 				setVisible(false);
-				if(korektYearInTxtField){
+				if(CreatRightPanel.getKorektYearInTxtField()){
 				List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table("MainWindow_text");
-				list_TableColumn.get(0).setName_Column(textField_Panel_Right.getText());
+				list_TableColumn.get(0).setName_Column(CreatRightPanel.getYearInTxtField());
 				TableColumnDAO.updateObjectTableColumn(list_TableColumn.get(0));
 				}
 				dispose();
@@ -248,7 +194,7 @@ public class MainWindow extends JFrame {
 		setVisible(true);
 
 		new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
-				under_column_Panel_Right, btnProgressBar, textField_Panel_Right)
+				under_panel_Right, btnProgressBar)
 				.execute();
 		basicPanel .revalidate();
 		basicPanel .repaint();
@@ -276,14 +222,7 @@ public class MainWindow extends JFrame {
 		return menu;
 	}
 	
-	private String getTextStartYear(){
-		String startYear = "2020";
-	List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table("MainWindow_text");
-	startYear = list_TableColumn.get(0).getName_Column();
-	
-	return startYear;
-	}
-	
+
 	private JMenu createOderMenu() {
 		JMenu oderMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Oder"));

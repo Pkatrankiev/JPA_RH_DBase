@@ -1,8 +1,14 @@
 package InfoPanelInMainWindow;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,14 +24,85 @@ import javax.swing.JTextField;
 
 
 import Aplication.RequestDAO;
+import Aplication.TableColumnDAO;
 import DBase_Class.Request;
+import DBase_Class.TableColumn;
+import WindowView.DatePicker;
 import WindowView.RequestMiniFrame;
 
 public class CreatRightPanel {
-
-	public static void creatRightPanel(JPanel under_column_Panel_Right) {
+	
+	private static JTextField textField_Panel_Right;
+	private static Boolean korektYearInTxtField=true;
+	
+	public static void creatRightPanel(JPanel under_panel_Right) {
 
 		List<Integer> listMissingRequest = VariableFromStartWindowPanel.getListMissingRequestRightPanelStartWindow();
+		
+		
+		JPanel text_Panel_Right = new JPanel();
+		FlowLayout fl_text_Panel_Right = (FlowLayout) text_Panel_Right.getLayout();
+		fl_text_Panel_Right.setAlignment(FlowLayout.RIGHT);
+		text_Panel_Right.setMaximumSize(new Dimension(32767, 20));
+		under_panel_Right.add(text_Panel_Right);
+		
+		String curentData = DatePicker.getCurentDate(true);
+		
+		curentData = "Към "+curentData+" Последната заявка е ";
+		JLabel lbl_text_Last_Request = new JLabel(curentData+RequestDAO.getMaxRequestCode()+". ");
+		
+		
+		text_Panel_Right.add(lbl_text_Last_Request);
+
+
+		JLabel lbl_text_Panel_Right = new JLabel("Пропуснати записи от ");
+		text_Panel_Right.add(lbl_text_Panel_Right);
+
+		textField_Panel_Right = new JTextField();
+		textField_Panel_Right.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		textField_Panel_Right.setMargin(new Insets(2, 0, 2, 0));
+		textField_Panel_Right.setBorder(null);
+//		textField_Panel_Right.setPreferredSize(new Dimension(2, 16));
+		textField_Panel_Right.setMaximumSize(new Dimension(6, 50));
+		text_Panel_Right.add(textField_Panel_Right);
+		textField_Panel_Right.setColumns(3);
+		textField_Panel_Right.setText(getTextStartYear());
+		
+		textField_Panel_Right.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent event) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent event) {
+				setKorektYearInTxtField(CreatRightPanel.checkEnterKorektYearForTextField(textField_Panel_Right));
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent event) {
+
+			}
+		});
+		IntegerDocumentFilter.addTo(textField_Panel_Right);
+
+		JLabel lbl2_text_Panel_Right = new JLabel("г.:");
+		text_Panel_Right.add(lbl2_text_Panel_Right);
+
+		JPanel column_Panel_Right = new JPanel();
+		under_panel_Right.add(column_Panel_Right);
+		column_Panel_Right.setLayout(new BorderLayout(0, 0));
+
+		JPanel under_column_Panel_Right = new JPanel();
+		column_Panel_Right.add(under_column_Panel_Right);
+		under_column_Panel_Right.setLayout(new BoxLayout(under_column_Panel_Right, BoxLayout.X_AXIS));
+		
+		
+		
+		
+		
 
 		Component horizontalStrut_1 = Box.createHorizontalStrut(15);
 		under_column_Panel_Right.add(horizontalStrut_1);
@@ -126,6 +203,15 @@ public class CreatRightPanel {
 		}
 	}
 
+	static String getTextStartYear(){
+		String startYear = "2020";
+	List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table("MainWindow_text");
+	startYear = list_TableColumn.get(0).getName_Column();
+	
+	return startYear;
+	}
+	
+	
 	public static Boolean checkEnterKorektYearForTextField(JTextField txtField_RequestCode) {
 		int curentYear = Calendar.getInstance().get(Calendar.YEAR);
 		int yearFromTxtField = Integer.parseInt(txtField_RequestCode.getText());
@@ -139,6 +225,18 @@ public class CreatRightPanel {
 			corectRequestCode = true;
 		}
 		return corectRequestCode;
+	}
+
+	public static Boolean getKorektYearInTxtField() {
+		return korektYearInTxtField;
+	}
+
+	public static String getYearInTxtField() {
+		return textField_Panel_Right.getText();
+	}
+	
+	public static void setKorektYearInTxtField(Boolean korektYearInTxtField) {
+		CreatRightPanel.korektYearInTxtField = korektYearInTxtField;
 	}
 
 }

@@ -22,9 +22,10 @@ public class DatePicker {
 	// define variables
 	static int month = Calendar.getInstance().get(Calendar.MONTH);
 	static int year = Calendar.getInstance().get(Calendar.YEAR);
-	int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-	int minute = Calendar.getInstance().get(Calendar.MINUTE);
-	int day1 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+	static int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+	static int minute = Calendar.getInstance().get(Calendar.MINUTE);
+	static int dayOfMont = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+	static int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 	final Calendar cal_time = Calendar.getInstance();
 	private Font font = new Font("Tahoma", Font.PLAIN, 14);
 
@@ -395,11 +396,27 @@ public class DatePicker {
 			cal.set(year, month, Integer.parseInt(day), hour, minute);
 		} else {
 			sdf = new SimpleDateFormat(FORMAT_DATE);
+			
 			cal.set(year, month, Integer.parseInt(day));
 		}
 		return sdf.format(cal.getTime());
 	}
 
+	public static String getCurentDate(Boolean inTime) {
+	String FORMAT_DATE_TIME ="dd-MM-yy HH:mm";
+	SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+	Calendar cal = Calendar.getInstance();
+	if (inTime) {
+		cal.set(year, month, dayOfMont, hour, minute);
+	} else {
+		sdf = new SimpleDateFormat(FORMAT_DATE);
+		cal.set(year, month, dayOfMont);
+	}
+	return sdf.format(cal.getTime());
+}
+	
+	
+	
 	private static long getSecondDuration(LocalDateTime t) {
 		long h = t.getHour();
 		long m = t.getMinute();

@@ -143,7 +143,7 @@ public class ReadExcelFile {
 					}
 
 					if (!textNulCell.isEmpty() && textNulCell.contains("Nuclide")) {
-						dimencion = sheet.getRow(row).getCell(10).getStringCellValue().replace("^", "");
+						dimencion = getStringInCell(sheet.getRow(row).getCell(10)).replace("^", "");
 						System.out.println(dimencion+"  - ***************/////////// Nuclide");
 						rowAcrivitiNuclide = row;
 						row = sheet.getLastRowNum();
@@ -168,14 +168,14 @@ public class ReadExcelFile {
 			col--;
 			for (int i = rowAcrivitiNuclide + 2; i <= sheet.getLastRowNum(); i += 2) {
 				if (!formatter.formatCellValue(sheet.getRow(i).getCell(0)).isEmpty()) {
-					nuclide = sheet.getRow(i).getCell(0).getStringCellValue();
+					nuclide = getStringInCell(sheet.getRow(i).getCell(0));
 					System.out.println(i+"  -  "+nuclide);
 					nuclide = reformatNuclideSimbol(nuclide);
 
-					result = sheet.getRow(i).getCell(col-3).getStringCellValue();
+					result = getStringInCell(sheet.getRow(i).getCell(col-3));
 					double dub_result = Double.valueOf(result);
-					uncert = sheet.getRow(i).getCell(col-2).getStringCellValue();
-					mda = sheet.getRow(i).getCell(col).getStringCellValue();
+					uncert = getStringInCell(sheet.getRow(i).getCell(col-2));
+					mda = getStringInCell(sheet.getRow(i).getCell(col));
 					double dub_MDA = Double.valueOf(mda);
 					if (forResults) {
 						if (dub_MDA > dub_result) {
@@ -203,6 +203,17 @@ public class ReadExcelFile {
 		}
 
 		return destruct_Result_List;
+	}
+	
+	
+	private static String getStringInCell(Cell cell){
+		
+		if(cell.getCellType()==CellType.NUMERIC){
+			return String.valueOf(cell.getNumericCellValue());
+		}
+		
+		return cell.getStringCellValue();
+		
 	}
 
 	private static String reformatNuclideSimbol(String nuclide) {

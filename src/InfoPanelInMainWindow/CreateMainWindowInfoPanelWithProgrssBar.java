@@ -17,16 +17,14 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
 //    JLabel lblNewLabel;
     JLabel label;
     JButton btnProgressBar;
-    JTextField textField_Panel_Right;
-    JPanel under_column_Panel_Right;
+    JPanel under_panel_Right;
     public CreateMainWindowInfoPanelWithProgrssBar(JProgressBar jProgressBar, JPanel under_panel_Left, 
-    		JPanel under_column_Panel_Right , JButton btnProgressBar, JTextField textField_Panel_Right  ) {
+    		JPanel under_panel_Right , JButton btnProgressBar  ) {
        this.jpb = jProgressBar;
        this.under_panel_Left = under_panel_Left;
 //       this.lblNewLabel = lblNewLabel;
        this.btnProgressBar = btnProgressBar;
-       this.textField_Panel_Right = textField_Panel_Right;
-       this.under_column_Panel_Right = under_column_Panel_Right;
+       this.under_panel_Right = under_panel_Right;
      
     }
 
@@ -39,7 +37,7 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
 
     @Override
     protected List<List<LeftPanelStartWindowClass>> doInBackground() throws Exception {
-    	int startCheckYear = Integer.parseInt(textField_Panel_Right.getText());
+    	int startCheckYear = Integer.parseInt(CreatRightPanel.getTextStartYear());
     	 List<List<LeftPanelStartWindowClass>> ss = CreateListLeftPanelStartWindowClass.createListLeftPanelStartWindowClass(jpb, startCheckYear);
         return ss;
     }
@@ -50,7 +48,7 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
             VariableFromStartWindowPanel.setListLeftPanelStartWindow(ss);
             btnProgressBar.setEnabled(true);
             jpb.setValue(100);
-            CreatRightPanel.creatRightPanel(under_column_Panel_Right);
+            CreatRightPanel.creatRightPanel(under_panel_Right);
             CreateLeftPanelInfo.creatLeftPanel(under_panel_Left);
            
         } catch (ExecutionException | InterruptedException e) {

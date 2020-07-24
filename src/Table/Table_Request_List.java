@@ -26,7 +26,7 @@ import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.Table_Request_List_Test2;
 import Table_Default_Structors.CreateTable;
-import Table_Default_Structors.DefauiltTableMouseListener;
+import Table_Default_Structors.DefauiltRequestTableMouseListener;
 import WindowView.ChoiceL_I_P;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
@@ -209,7 +209,7 @@ public class Table_Request_List extends JDialog {
 			
 								
 				new ChoiceL_I_P(f, listNameVisibleColumn, false, ReadFileWithGlobalTextVariable
-						.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
+						.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"),null);
 				listNameVisibleColumn = ChoiceL_I_P.getChoiceL_P();
 			
 				
@@ -251,7 +251,7 @@ public class Table_Request_List extends JDialog {
 		String[] masiveNameInvisibleColumn = RequestTableList_Functions
 				.getMasiveFromNameInvisbleColumn(list_TableColumn);
 
-		int[] masiveIndexInvisbleColumn = DefauiltTableMouseListener
+		int[] masiveIndexInvisbleColumn = DefauiltRequestTableMouseListener
 				.getMasiveIndexColumnFromMasiveNameColumn(masiveNameInvisibleColumn);
 		return masiveIndexInvisbleColumn;
 	}
@@ -268,7 +268,7 @@ public class Table_Request_List extends JDialog {
 			break;
 
 		}
-		final JTable table = CreateTable.CreateDefaultTable(tipe_Table);
+		final JTable table = CreateTable.CreateDefaultTable(null, tipe_Table);
 		return table;
 	}
 	

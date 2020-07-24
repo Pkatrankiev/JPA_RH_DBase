@@ -9,9 +9,7 @@ import DBase_Class.Users;
 import Table_Default_Structors.TableObject_Class;
 
 public class RequestTableList_OverallVariables {
-		
 	
-
 	private static List<Integer> listRowForUpdate;
 	private static List<Users> listAllUsers;
 	private static JCheckBox chckbxNewCheckBox;
@@ -25,6 +23,8 @@ public class RequestTableList_OverallVariables {
 	private static int[] masive_Invizible_Colum;
 	private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp;
 	private static List<TableColumn> list_TableColumn;
+	
+	
 	public static List<Integer> getListRowForUpdate() {
 		return listRowForUpdate;
 	}
@@ -101,7 +101,7 @@ public class RequestTableList_OverallVariables {
 		if(getUser() == null){
 			return false;
 		}
-		return getChckbxNewCheckBox().isSelected()	&& getUser().getIsAdmin();
+		return getChckbxNewCheckBox()!=null && getChckbxNewCheckBox().isSelected()	&& getUser().getIsAdmin();
 	}
 
 	public static Map<Integer, List<String>> getMapListForChangedStrObektNaIzp() {

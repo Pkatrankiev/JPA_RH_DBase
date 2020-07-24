@@ -15,6 +15,9 @@ import DBase_Class.TableColumn;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.RequestTableList_Functions;
 import Table.RequestTableList_OverallVariables;
+import Table_Default_Structors.TableList_Functions;
+import Table_Results.ResultsTableList_Functions;
+import Table_Results.ResultsTableList_OverallVariables;
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;
@@ -44,26 +47,27 @@ public class ChoiceL_I_P extends JDialog {
 	static JLabel[] label ;
 	static JCheckBox[] checkBox ;
 
-	public ChoiceL_I_P(JFrame parent, List<String> incomming_list_izpitvan_pokazatel, Boolean fromTamplate, String name_Frame) {
+	@SuppressWarnings("static-access")
+	public ChoiceL_I_P(JFrame parent, List<String> incomming_list, Boolean fromTamplate, String name_Frame, 
+			ResultsTableList_OverallVariables objectTableList_OverallVariables) {
 		super(parent, name_Frame, true);
 		
 		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
 				get("DefauiltTableMouseListener_EditColumnPokazatel"))) {
+		bsic_list = RequestViewAplication.getStringListLIP();
 		
-			bsic_list = RequestViewAplication.getStringListLIP();
-			list_incommingObject = incomming_list_izpitvan_pokazatel;
-			countL_I_P = bsic_list.size();
 		}
 
 		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
 				get("Request_List_Table_LabelText_ChoiceColumn"))){
-			List<TableColumn> list_TableColumn = RequestTableList_OverallVariables.getList_TableColumn();
-			bsic_list = RequestTableList_Functions.getListString_NameColumn(list_TableColumn);
-			list_incommingObject  = incomming_list_izpitvan_pokazatel;
-			countL_I_P = bsic_list.size();
+			List<TableColumn> list_TableColumn = objectTableList_OverallVariables.getList_TableColumn();
+			bsic_list = TableList_Functions.getListString_NameColumn(list_TableColumn);
 		}
-			
 		
+		
+			
+		list_incommingObject  = incomming_list;
+		countL_I_P = bsic_list.size();
 		
 		
 		label = new JLabel[countL_I_P];
@@ -165,32 +169,20 @@ public class ChoiceL_I_P extends JDialog {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("  +++ " + list_incommingObject.size());
-				for (int j = 0; j < bsic_list.size(); j++)
-					checkBox[j].setSelected(false);
-				for (String string : list_incommingObject) {
-					for (int j = 0; j < bsic_list.size(); j++) {
-						if (label[j].getText().equals(string)) {
-
-							checkBox[j].setSelected(true);
-						}
-					}
-
-				}
-				for (int j = 0; j < bsic_list.size(); j++) {
-
-				}
+				cancelFunction();
+				
 				dispose();
 			}
+
+		
 		});
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
 		dialog.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
-				for (int j = 0; j < bsic_list.size(); j++) {
-					checkBox[j].setSelected(false);
-				}
-				// dispose();
+				cancelFunction();
+				 dispose();
 			}
 		});
 
@@ -201,7 +193,19 @@ public class ChoiceL_I_P extends JDialog {
 	}
 
 	
+	private void cancelFunction() {
+		for (int j = 0; j < bsic_list.size(); j++)
+			checkBox[j].setSelected(false);
+		for (String string : list_incommingObject) {
+			for (int j = 0; j < bsic_list.size(); j++) {
+				if (label[j].getText().equals(string)) {
 
+					checkBox[j].setSelected(true);
+				}
+			}
+
+		}
+	}
 	
 	
 	

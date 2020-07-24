@@ -546,7 +546,7 @@ public class RequestViewForReadDoc extends JFrame {
 			s++;
 			}
 			JFrame f = new JFrame();
-			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true,editColumnPokazatel_TitleName);
+			ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_String_I_P_Tamplate, true,editColumnPokazatel_TitleName,null);
 			String strTamplate = "";
 			txtArea_list_izpitvan_pokazatel.setText("");
 			for (String string : choiceLP.getChoiceL_P()) {
@@ -568,7 +568,7 @@ public class RequestViewForReadDoc extends JFrame {
 					System.out.println(list_I_P.size());
 				}
 				final JFrame f = new JFrame();
-				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false,editColumnPokazatel_TitleName);
+				ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list_I_P, false,editColumnPokazatel_TitleName,null);
 
 				String str = "";
 				txtArea_list_izpitvan_pokazatel.setText("");

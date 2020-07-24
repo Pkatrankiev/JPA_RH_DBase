@@ -129,7 +129,7 @@ public class TestClases {
 
 	}
 
-	public static void start_Table_Request_List_Test(int i) {
+	public static void start_Table_List_Test(int i) {
 		TranscluentWindow round = new TranscluentWindow();
 		Users user = UsersDAO.getValueUsersById(i);
 		final Thread thread = new Thread(new Runnable() {
@@ -137,7 +137,7 @@ public class TestClases {
 			public void run() {
 
 				JFrame f = new JFrame();
-				new Table_Request_List(f, round, user, "request", "Списък на Заявките",true);
+				new Table_List_Test2(f, round, user, "Results", "Списък на Резултатите",true);
 
 			}
 		});
@@ -249,7 +249,7 @@ public class TestClases {
 
 	}
 
-	public static void Table_Results_List_Test(int i) {
+	public static void Table_Results_List_Test(int i, String table_Taipe) {
 		TranscluentWindow round = new TranscluentWindow();
 
 		final Thread thread = new Thread(new Runnable() {
@@ -258,11 +258,15 @@ public class TestClases {
 
 				JFrame f = new JFrame();
 				// new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-				new Table_Request_List_Test2(f, round, UsersDAO.getValueUsersById(i), "request",
-						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"), true);
-//				new Table.Table_Request_List(f, round, UsersDAO.getValueUsersById(i), "request",
-//						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"));
+		
+//				new Table_Request_List_Test2(f, round, UsersDAO.getValueUsersById(i), "request",
+//						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"), true);
 
+				//				new Table.Table_Request_List(f, round, UsersDAO.getValueUsersById(i), "request",
+//						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"));
+	
+				new Table_List_Test2(f, round, UsersDAO.getValueUsersById(i), table_Taipe, 
+						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"),true);
 
 			}
 		});

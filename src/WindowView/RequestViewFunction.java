@@ -210,7 +210,7 @@ public class RequestViewFunction {
 	private static String generateStringFromCoice_L_I_P(List<String> list_String_I_P_Tamplate, Boolean fromTamplate) {
 		JFrame f = new JFrame();
 		new ChoiceL_I_P(f, list_String_I_P_Tamplate, fromTamplate,ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
-				get("DefauiltTableMouseListener_EditColumnPokazatel"));
+				get("DefauiltTableMouseListener_EditColumnPokazatel"),null);
 		String strTamplate = "";
 		
 		for (String string : ChoiceL_I_P.getChoiceL_P()) {

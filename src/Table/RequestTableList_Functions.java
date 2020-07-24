@@ -29,7 +29,7 @@ import DBase_Class.Sample;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import OldClases.Table_RequestToObektNaIzp;
-import Table_Default_Structors.DefauiltTableMouseListener;
+import Table_Default_Structors.DefauiltRequestTableMouseListener;
 import Table_Default_Structors.TableObject_Class;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
@@ -134,7 +134,7 @@ public class RequestTableList_Functions {
 	public static void updateData(JTable table, List<Integer> listStrRequestCodeForUpdate, TranscluentWindow round) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 
-		int rqst_code_Colum = DefauiltTableMouseListener.getIndexColumnByKeyMap("rqst_code");
+		int rqst_code_Colum = DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("rqst_code");
 		Map<Integer, List<String>> mapListForChangedStrObektNaIzp = RequestTableList_OverallVariables
 				.getMapListForChangedStrObektNaIzp();
 		for (int rowForUpdate : listStrRequestCodeForUpdate) {
@@ -160,40 +160,40 @@ public class RequestTableList_Functions {
 
 	private static void updateRequestObject(JTable table, int row, Request request) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		String str_rqst_Date = model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("rqst_Date"))
+		String str_rqst_Date = model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("rqst_Date"))
 				.toString();
 		str_rqst_Date = reformatDate(str_rqst_Date);
 
 		request.setDate_request(str_rqst_Date);
 		request.setInd_num_doc(Ind_num_docDAO.getValueIByName(
-				model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("id_ND")).toString()));
+				model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("id_ND")).toString()));
 		request.setIzpitvan_produkt(Izpitvan_produktDAO.getValueIzpitvan_produktByName(
-				model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("izp_Prod")).toString()));
+				model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("izp_Prod")).toString()));
 
 		request.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName(
-				model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("razmer")).toString()));
+				model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("razmer")).toString()));
 		request.setCounts_samples(
-				(int) model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("cunt_Smpl")));
+				(int) model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("cunt_Smpl")));
 		request.setDescription_sample_group(
-				model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("dscr_Smpl")).toString());
+				model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("dscr_Smpl")).toString());
 
-		String str_exec_Date = model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("exec_Date"))
+		String str_exec_Date = model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("exec_Date"))
 				.toString();
 		str_exec_Date = reformatDate(str_exec_Date);
 		request.setDate_execution(str_exec_Date);
 
-		String str_recept_Date = model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("rcpt_Date"))
+		String str_recept_Date = model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("rcpt_Date"))
 				.toString();
 		str_recept_Date = DateChoice_period.reformatPeriodDateFromTable(str_recept_Date);
 		request.setDate_reception(str_recept_Date);
 		request.setAccreditation(
-				(Boolean) model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("in_Acredit")));
+				(Boolean) model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("in_Acredit")));
 
 		request.setUsers(getUserByName(
-				model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("user")).toString()));
+				model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("user")).toString()));
 
 		request.setZabelejki(ZabelejkiDAO.getValueZabelejkiByName(
-				model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("zab")).toString()));
+				model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("zab")).toString()));
 
 		RequestDAO.updateObjectRequest(request);
 	}
@@ -233,7 +233,7 @@ public class RequestTableList_Functions {
 	private static List<String> ReadListPokazatelInCell(JTable table, int row) {
 		List<String> list = new ArrayList<String>();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		String strPokazatel = model.getValueAt(row, DefauiltTableMouseListener.getIndexColumnByKeyMap("izp_Pok"))
+		String strPokazatel = model.getValueAt(row, DefauiltRequestTableMouseListener.getIndexColumnByKeyMap("izp_Pok"))
 				.toString().trim();
 		String str = "";
 		while (!strPokazatel.isEmpty()) {

@@ -86,9 +86,12 @@ InternalApplicant_List_HeaderColumnName_Organization = Организация
 InternalApplicant_List_HeaderColumnName_Adress = Адрес
 InternalApplicant_List_HeaderColumnName_Telephon = Телефон
 
-Request_List_Table_LabelText_ChoiceColumn = Избор на колони
+Request_List_Table_LabelText_ChoiceColumn = Избор на колони - заявки
 Request_List_Table_LabelText_EditingData =  редактиране на данните
 Results_List_Table_TitleName = Списък на Резултатите
+
+Results_List_Table_LabelText_ChoiceColumn = Избор на колони - резултати
+
 
 AddDobivView_TitleName = Въвеждане на Добив
 AddDobivView_LabelText_CodeForStandart = Код на стандарта

@@ -513,7 +513,7 @@ public class Table_Request_List_old extends JDialog {
 		List<String> list = ReadListPokazatelInCell(table, row);
 		JFrame f = new JFrame();
 		ChoiceL_I_P choiceLP = new ChoiceL_I_P(f, list, false, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
-				get("DefauiltTableMouseListener_EditColumnPokazatel"));
+				get("DefauiltTableMouseListener_EditColumnPokazatel"),null);
 		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
 			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, columnIndex);
 		} else {

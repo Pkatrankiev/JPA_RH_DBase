@@ -1,4 +1,4 @@
-package OldClases;
+package DefaultTableList;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -19,51 +20,41 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import Aplication.TableColumnDAO;
+import DBase_Class.Request;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.CreateColumnTapeForTable;
-
-import Table.RequestTableList_OverallVariables;
-
-import Table_Default_Structors.CreateTable;
-
-import Table_Default_Structors.TableList_Functions;
-
-
-import Table_Results.ResultsTableList_OverallVariables;
+import Table_Request.UpdateDataFor_RequestTalbeList;
+import Table_Results.UpdateDataFor_ResultsTalbeList;
 import WindowView.ChoiceL_I_P;
-
 import WindowView.TranscluentWindow;
 
-public class Table_List_Test2 extends JDialog {
+public class ViewTableList extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	// private boolean changedVisibleColumn;
-	// private List<TableColumn> list_TableColumnFromDBase;
-	// private List<TableColumn> list_TableColumn;
-	// private List<String> listNameVisibleColumn = null;
-	// private String lblColumnChoiceString = "";
+
 
 	@SuppressWarnings("static-access")
-	public Table_List_Test2(JFrame parent, TranscluentWindow round, Users user, String tipe_Table, String frame_name,
-			Boolean firstLoad) {
+	public ViewTableList(JFrame parent, TranscluentWindow round, Users user, String tipe_Table, String frame_name,
+			Boolean firstLoad, Request choisetRequest) {
 		super(parent, frame_name, true);
 		
-		ResultsTableList_OverallVariables objectTableList_OverallVariables = new ResultsTableList_OverallVariables();
+		TableList_OverallVariables objectTableList_OverallVariables = new TableList_OverallVariables();
 		objectTableList_OverallVariables.setTipe_Table(tipe_Table);
 		objectTableList_OverallVariables.setFrame_name(frame_name);
 		
 		createVisibleTableColumn(objectTableList_OverallVariables, firstLoad);
 
-		final JTable table = createTable( objectTableList_OverallVariables, user, firstLoad);
+		final JTable table = createTable( objectTableList_OverallVariables, user, firstLoad, choisetRequest);
 
+		
 		JPanel top_panel = new JPanel();
 		top_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		top_panel.setSize(new Dimension(2, 0));
@@ -94,7 +85,6 @@ public class Table_List_Test2 extends JDialog {
 		raide_panel.add(chckbxNewCheckBox);
 		chckbxNewCheckBox.setBorder(null);
 		chckbxNewCheckBox.setMargin(new Insets(0, 2, 0, 2));
-
 		chckbxNewCheckBox.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		chckbxNewCheckBox.setHorizontalTextPosition(SwingConstants.LEFT);
 
@@ -114,25 +104,32 @@ public class Table_List_Test2 extends JDialog {
 		JButton btnSave = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
 		btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-		if (check_UserIsAdmin(user)) {
-			panel_Btn.add(btnSave);
-		}
+		panel_Btn.add(btnSave);
+		btnSave.setVisible(false);
+	
+		
 		JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-		});
 		panel_Btn.add(btnCancel);
 
 		coloredLabelIfChangeSelectedColumn(tipe_Table, objectTableList_OverallVariables.getList_TableColumn(),
 				lblColumnChoice);
 		chckbxNewCheckBoxListener( objectTableList_OverallVariables, chckbxNewCheckBox);
-		columnChoiceListener(this, user, objectTableList_OverallVariables, lblColumnChoice);
+		columnChoiceListener(this, user, objectTableList_OverallVariables, lblColumnChoice, choisetRequest);
+		if (check_UserIsAdmin(user)) {
+			btnSave.setVisible(true);
+		}
 		btnSaveListener(objectTableList_OverallVariables, tipe_Table, table, btnSave);
+		btnCancelListener(btnCancel);
 
 		setVisible(true);
+	}
+
+	private void btnCancelListener(JButton btnCancel) {
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
 	}
 
 	private boolean check_UserIsAdmin(Users user) {
@@ -140,21 +137,17 @@ public class Table_List_Test2 extends JDialog {
 	}
 
 	@SuppressWarnings("static-access")
-	private void createVisibleTableColumn(ResultsTableList_OverallVariables objectTableList_OverallVariables, Boolean firstLoad) {
-		
-		List<TableColumn> list_TableColumn = null;
-		
+	private void createVisibleTableColumn(TableList_OverallVariables objectTableList_OverallVariables, Boolean firstLoad) {
 		
 		if (firstLoad) {
-			System.out.println("firstLoad " + firstLoad);
-			firstLoad = false;
+//			firstLoad = false;
 			List<TableColumn> list_TableColumnFromDBase = TableColumnDAO.getListTableColumnByTipe_Table(objectTableList_OverallVariables.getTipe_Table());
-			
 			objectTableList_OverallVariables.setList_TableColumn(list_TableColumnFromDBase);
 
 		}
 
-		list_TableColumn = objectTableList_OverallVariables.getList_TableColumn();
+		List<TableColumn> list_TableColumn = objectTableList_OverallVariables.getList_TableColumn();
+		System.out.println("masiveLength "+objectTableList_OverallVariables.getList_TableColumn().size());
 		objectTableList_OverallVariables
 				.setMasive_Invizible_Colum(getMasiveIndexInvisibleColumnResults(objectTableList_OverallVariables, list_TableColumn));
 
@@ -183,7 +176,7 @@ public class Table_List_Test2 extends JDialog {
 	}
 
 	@SuppressWarnings("static-access")
-	private void chckbxNewCheckBoxListener(ResultsTableList_OverallVariables objectTableList_OverallVariables, JCheckBox chckbxNewCheckBox) {
+	private void chckbxNewCheckBoxListener(TableList_OverallVariables objectTableList_OverallVariables, JCheckBox chckbxNewCheckBox) {
 
 		objectTableList_OverallVariables.setChckbxNewCheckBox(chckbxNewCheckBox);
 		chckbxNewCheckBox.addActionListener(new ActionListener() {
@@ -195,8 +188,8 @@ public class Table_List_Test2 extends JDialog {
 
 	}
 
-	@SuppressWarnings("unused")
-	private int[] getMasiveIndexInvisibleColumnResults(ResultsTableList_OverallVariables objectTableList_OverallVariables, List<TableColumn> list_TableColumn) {
+	
+	private int[] getMasiveIndexInvisibleColumnResults(TableList_OverallVariables objectTableList_OverallVariables, List<TableColumn> list_TableColumn) {
 		String[] masiveNameInvisibleColumn = TableList_Functions
 				.getMasiveFromNameInvisbleColumn(list_TableColumn);
 
@@ -205,35 +198,42 @@ public class Table_List_Test2 extends JDialog {
 		return masiveIndexInvisbleColumn;
 	}
 
-	private void btnSaveListener(ResultsTableList_OverallVariables objectTableList_OverallVariables, String tipe_Table, final JTable table, JButton btnSave) {
+	private void btnSaveListener(TableList_OverallVariables objectTableList_OverallVariables, String tipe_Table, final JTable table, JButton btnSave) {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				TranscluentWindow round = new TranscluentWindow();
 
 				final Thread thread = new Thread(new Runnable() {
+					
+					
 					@SuppressWarnings("static-access")
-					@Override
 					public void run() {
 						
-						TableList_Functions.updateDataFor_RequestTalbeList(objectTableList_OverallVariables, table,
-								objectTableList_OverallVariables.getListRowForUpdate(), round);
-						
-//						switch (tipe_Table) {
-//
-//						case "request":
-//							RequestTableList_Functions.updateData(table,
-//									RequestTableList_OverallVariables.getListRowForUpdate(), round);
-//							break;
-//						case "Results":
-//
-//							// ResultsTableList_Functions.updateData(table,
-//							// ResultsTableList_OverallVariables.getListRowForUpdate(),
-//							// round);
-//							break;
-//
-//						}
+						switch (tipe_Table) {
 
+						case "request":
+							UpdateDataFor_RequestTalbeList.updateDataFor_RequestTalbeList(objectTableList_OverallVariables, table, round);
+							break;
+						case "Results":
+							UpdateDataFor_ResultsTalbeList.updateData(objectTableList_OverallVariables, table, round);
+							break;
+
+						}
+						
+						if (check_ChangedColumn(tipe_Table, objectTableList_OverallVariables.getList_TableColumn())) {
+							if(OptionDialog()>0){
+							updateTableColumn(objectTableList_OverallVariables.getList_TableColumn());	
+							}
+						}
+
+					}
+
+					private void updateTableColumn(List<TableColumn> list_TableColumn) {
+						for (TableColumn tableColumn : list_TableColumn) {
+							TableColumnDAO.updateObjectTableColumn(tableColumn);
+						}
+						
 					}
 				});
 				thread.start();
@@ -242,9 +242,23 @@ public class Table_List_Test2 extends JDialog {
 		});
 	}
 
+	public static int OptionDialog() {
+		String[] options = {"Да", "Не"};
+;
+		ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_EditingData");
+        int x = JOptionPane.showOptionDialog(null,
+        		ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn"),
+                "Click a button",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        System.out.println(x);
+		return x;
+       
+	}
+	
+	
 	@SuppressWarnings("static-access")
-	private void columnChoiceListener(Table_List_Test2 table_List,  Users user, ResultsTableList_OverallVariables objectTableList_OverallVariables, 
-			JLabel lblColumnChoice) {
+	private void columnChoiceListener(ViewTableList table_List,  Users user, TableList_OverallVariables objectTableList_OverallVariables, 
+			JLabel lblColumnChoice, Request choisetRequest) {
 
 		List<TableColumn> list_TableColumn = null;
 		
@@ -263,7 +277,7 @@ public class Table_List_Test2 extends JDialog {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				coloredLabelIfChangeSelectedColumn(objectTableList_OverallVariables.getTipe_Table(), ResultsTableList_OverallVariables.getList_TableColumn(),
+				coloredLabelIfChangeSelectedColumn(objectTableList_OverallVariables.getTipe_Table(), objectTableList_OverallVariables.getList_TableColumn(),
 						lblColumnChoice);
 			}
 
@@ -328,7 +342,8 @@ public class Table_List_Test2 extends JDialog {
 						public void run() {
 
 							JFrame f = new JFrame();
-							new Table_List_Test2(f, round, user, objectTableList_OverallVariables.getTipe_Table(), objectTableList_OverallVariables.getFrame_name(), false);
+							new ViewTableList(f, round, user, objectTableList_OverallVariables.getTipe_Table(),
+									objectTableList_OverallVariables.getFrame_name(), false,  choisetRequest);
 
 						}
 					});
@@ -377,14 +392,13 @@ public class Table_List_Test2 extends JDialog {
 
 	}
 
-
-	private JTable createTable(ResultsTableList_OverallVariables objectTableList_OverallVariables,  Users user, Boolean firstLoad) {
+	private JTable createTable(TableList_OverallVariables objectTableList_OverallVariables,  Users user, Boolean firstLoad, Request choisetRequest) {
 		if (firstLoad) {
 			CreateColumnTapeForTable.CreateListColumnTapeForTable_Test(objectTableList_OverallVariables);
 		}
-		TableList_Functions.OverallVariablesForResultstTable(objectTableList_OverallVariables, user, firstLoad);
-		final JTable table = CreateTable.CreateDefaultTable_Test(objectTableList_OverallVariables);
-		return table;
+		TableList_Functions.SetDataInOverallVariablesForTable(objectTableList_OverallVariables, user, firstLoad, choisetRequest);
+		
+		return CreateTable.CreateDefaultTable(objectTableList_OverallVariables);
 	}
 
 }

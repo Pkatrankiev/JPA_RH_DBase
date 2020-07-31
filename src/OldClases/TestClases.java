@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import AddResultViewFunction.AddResultViewMetods;
+import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
@@ -25,14 +26,17 @@ import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
+import DBase_Class.Dobiv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.Table_Request_List;
 import Table.Table_Sample_List;
+import Table_Request.Table_RequestToObektNaIzp;
+import Table_Results.DialogView_DobivFromResultTableList;
 import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
@@ -137,7 +141,7 @@ public class TestClases {
 			public void run() {
 
 				JFrame f = new JFrame();
-				new Table_List_Test2(f, round, user, "Results", "Списък на Резултатите",true);
+				new ViewTableList(f, round, user, "Results", "Списък на Резултатите",true, null);
 
 			}
 		});
@@ -265,8 +269,8 @@ public class TestClases {
 				//				new Table.Table_Request_List(f, round, UsersDAO.getValueUsersById(i), "request",
 //						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"));
 	
-				new Table_List_Test2(f, round, UsersDAO.getValueUsersById(i), table_Taipe, 
-						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"),true);
+				new ViewTableList(f, round, UsersDAO.getValueUsersById(i), table_Taipe, 
+						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"),true, null);
 
 			}
 		});
@@ -288,7 +292,15 @@ public class TestClases {
 		thread.start();
 
 	}
-
+	public static void DialogView_DobivFromResultTableList_test (int i){
+	Dobiv selectDobiv = DobivDAO.getDobivById(i);
+	
+	List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(selectDobiv.getNuclide());
+	DialogView_DobivFromResultTableList dobivFromResultTableList =  new DialogView_DobivFromResultTableList(new JFrame(),
+			listNameDobivs, selectDobiv);
+	System.out.println(dobivFromResultTableList.getSelectDobiv().getId_dobiv());
+	}
+	
 	public static void Table_RequestToObektNaIzp() {
 		TranscluentWindow round = new TranscluentWindow();
 

@@ -1,4 +1,4 @@
-package Table;
+package OldClases;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
-import Table_Default_Structors.TableObject_Class;
+import DefaultTableList.TableObject_Class;
 
 public class RequestTableList_OverallVariables {
 	

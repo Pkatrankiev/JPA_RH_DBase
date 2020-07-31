@@ -1,4 +1,4 @@
-package Table;
+package OldClases;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,9 +28,8 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
-import OldClases.Table_RequestToObektNaIzp;
-import Table_Default_Structors.DefauiltRequestTableMouseListener;
-import Table_Default_Structors.TableObject_Class;
+import DefaultTableList.TableObject_Class;
+import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;

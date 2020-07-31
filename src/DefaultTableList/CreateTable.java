@@ -1,4 +1,4 @@
-package Table_Default_Structors;
+package DefaultTableList;
 
 import java.util.List;
 import javax.swing.DefaultCellEditor;
@@ -10,11 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.RequestTableList_OverallVariables;
-import Table.RequestTableMouseListener;
-import Table_Results.DefauiltResultsTableMouseListener;
-import Table_Results.ResultsTableList_Functions;
-import Table_Results.ResultsTableList_OverallVariables;
+import Table_Request.RequestTableMouseListener;
+import Table_Results.ResultsTableMouseListener;
+
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
@@ -23,20 +21,18 @@ public class CreateTable {
 	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 			.get("clickToChoice");
 
-	public static JTable CreateDefaultTable(ResultsTableList_OverallVariables objectTableList_OverallVariables, String tipe_Table) {
+	public static JTable CreateDefaultTable_Old(TableList_OverallVariables objectTableList_OverallVariables, String tipe_Table) {
 		JTable table = new JTable();
-	
+		list_TableObject_Class = TableList_OverallVariables.getList_TableObject_Class();
 		
 		switch (tipe_Table) {
 
 		case "request":
-			list_TableObject_Class = RequestTableList_OverallVariables.getList_TableObject_Class();
-			new DefauiltRequestTableMouseListener(table);
+			new RequestTableMouseListener(objectTableList_OverallVariables,table);
 			break;
 
 		case "Results":
-			list_TableObject_Class = ResultsTableList_OverallVariables.getList_TableObject_Class();
-			new DefauiltResultsTableMouseListener(objectTableList_OverallVariables, table);
+			new ResultsTableMouseListener(objectTableList_OverallVariables, table);
 			break;
 
 		}
@@ -46,13 +42,13 @@ public class CreateTable {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				DefaultTableModel dtm = My_Default_Table_Model.Default_Data_Table_Model(tipe_Table);
+				DefaultTableModel dtm = My_Default_Table_Model.Default_Data_Table_Model(objectTableList_OverallVariables);
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
 				setValueInChoiceColumn(table, list_TableObject_Class);
 
 				System.out.println("------------------------------My_Default_Table_Model  Masive_Invizible_Colum "
-						+ ResultsTableList_OverallVariables.getMasive_Invizible_Colum().length);
+						+ TableList_OverallVariables.getMasive_Invizible_Colum().length);
 
 				My_Default_Table_Model.setInvisibleColumn(table);
 
@@ -63,7 +59,7 @@ public class CreateTable {
 	}
 
 	@SuppressWarnings("static-access")
-	public static JTable CreateDefaultTable_Test(ResultsTableList_OverallVariables objectTableList_OverallVariables) {
+	public static JTable CreateDefaultTable(TableList_OverallVariables objectTableList_OverallVariables) {
 		JTable table = new JTable();
 		
 		list_TableObject_Class = objectTableList_OverallVariables.getList_TableObject_Class();
@@ -77,7 +73,7 @@ public class CreateTable {
 
 		case "Results":
 			
-			new DefauiltResultsTableMouseListener(objectTableList_OverallVariables,table);
+			new ResultsTableMouseListener(objectTableList_OverallVariables,table);
 			break;
 
 		}
@@ -87,13 +83,13 @@ public class CreateTable {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				DefaultTableModel dtm = My_Default_Table_Model.Default_Data_Table_Model_Test( objectTableList_OverallVariables);
+				DefaultTableModel dtm = My_Default_Table_Model.Default_Data_Table_Model( objectTableList_OverallVariables);
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
 				setValueInChoiceColumn(table, list_TableObject_Class);
 
 				System.out.println("------------------------------My_Default_Table_Model  Masive_Invizible_Colum "
-						+ ResultsTableList_OverallVariables.getMasive_Invizible_Colum().length);
+						+ TableList_OverallVariables.getMasive_Invizible_Colum().length);
 
 				My_Default_Table_Model.setInvisibleColumn(table);
 

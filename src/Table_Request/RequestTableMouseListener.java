@@ -1,4 +1,4 @@
-package Table;
+package Table_Request;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
 
 import Aplication.RequestDAO;
 import DBase_Class.Request;
-import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Table_RequestToObektNaIzp;
-import Table_Default_Structors.TableList_Functions;
-import Table_Default_Structors.TableObject_Class;
 
-import Table_Results.ResultsTableList_OverallVariables;
+import DefaultTableList.TableList_Functions;
+import DefaultTableList.TableList_OverallVariables;
+import DefaultTableList.TableObject_Class;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+import Table.Table_Sample_List;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;
@@ -36,7 +36,7 @@ public class RequestTableMouseListener {
 		private static Map<Integer, List<String>> mapListForChangedStrObektNaIzp = new HashMap<Integer, List<String>>();
 
 		@SuppressWarnings("static-access")
-		public RequestTableMouseListener(ResultsTableList_OverallVariables objectTableList_OverallVariables, JTable tableNew) {
+		public RequestTableMouseListener(TableList_OverallVariables objectTableList_OverallVariables, JTable tableNew) {
 			table = tableNew;
 			dataForTable = objectTableList_OverallVariables.getDataTable();
 
@@ -63,7 +63,7 @@ public class RequestTableMouseListener {
 						
 							int selectedColumnIndex = getModdelIndexColumnByColumnName(objectTableList_OverallVariables,nameSelectedColumn);
 							
-							switch (getTipeColumnByNameColumn(objectTableList_OverallVariables, nameSelectedColumn)) {
+							switch (TableList_Functions.getTipeColumnByNameColumn(objectTableList_OverallVariables, nameSelectedColumn)) {
 							
 							case "code_Request":
 								new RequestMiniFrame(new JFrame(), choiseRequest);
@@ -110,7 +110,7 @@ public class RequestTableMouseListener {
 				}
 
 				private void startViewSampleTableList(String reqCodeStr) {
-					Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
+					Request choisetRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 					new JFrame();
 					TranscluentWindow round = new TranscluentWindow();
 
@@ -119,7 +119,11 @@ public class RequestTableMouseListener {
 						public void run() {
 
 							JFrame f = new JFrame();
-							new Table_Sample_List(f, round, choiseRequest);
+
+//							new ViewTableList(f, round, Login.getCurentUser(),  "Results", 
+//									ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"),true,  choisetRequest);
+							
+							new Table_Sample_List(f, round, choisetRequest);
 						}
 					});
 					thread.start();
@@ -129,14 +133,9 @@ public class RequestTableMouseListener {
 			});
 		}
 
-//		public static String getNameColumnByKeyMap(String keyMap) {
-//			Map<String, TableObject_Class> map_TableObject_Class = objectTableList_OverallVariables
-//					.getMap_TableObject_Class();
-//			return map_TableObject_Class.get(keyMap).getColumName_Header();
-//		}
 
 		@SuppressWarnings("static-access")
-		private void Table_RequestToObektNaIzp(ResultsTableList_OverallVariables objectTableList_OverallVariables,DefaultTableModel model, int selectedRow, int columnIndex,
+		private void Table_RequestToObektNaIzp(TableList_OverallVariables objectTableList_OverallVariables,DefaultTableModel model, int selectedRow, int columnIndex,
 				Request choiseRequest) {
 			if (Table_RequestToObektNaIzp.EditRequestObektIzpit(table, selectedRow, choiseRequest,
 					mapListForChangedStrObektNaIzp, objectTableList_OverallVariables.getValues_O_I_R())) {
@@ -173,8 +172,8 @@ public class RequestTableMouseListener {
 			model.setValueAt(DateChoice_period.get_str_period_sample(forDateReception, forTable), selectedRow, columnIndex);
 		}
 
-		private static void EditColumnPokazatel(ResultsTableList_OverallVariables objectTableList_OverallVariables, DefaultTableModel model, int selectedRow) {
-			int columnIndex = getIndexColumnByKeyMap(objectTableList_OverallVariables, "izp_Pok");
+		private static void EditColumnPokazatel(TableList_OverallVariables objectTableList_OverallVariables, DefaultTableModel model, int selectedRow) {
+			int columnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables, "izp_Pok");
 			String strPokazatel = model.getValueAt(selectedRow, columnIndex).toString().trim();
 			List<String> list = ReadListPokazatelInCell(strPokazatel);
 			System.out.println(list.size());
@@ -215,7 +214,7 @@ public class RequestTableMouseListener {
 		}
 
 		@SuppressWarnings("static-access")
-		public static int getModdelIndexColumnByColumnName(ResultsTableList_OverallVariables objectTableList_OverallVariables, String columnName) {
+		public static int getModdelIndexColumnByColumnName(TableList_OverallVariables objectTableList_OverallVariables, String columnName) {
 			for (TableObject_Class object : objectTableList_OverallVariables.getList_TableObject_Class()) {
 				System.out.println(TableList_Functions.reformatString(object.getColumName_Header())+" - "+columnName);
 				if (object.getColumName_Header().equalsIgnoreCase(columnName)) {
@@ -229,37 +228,12 @@ public class RequestTableMouseListener {
 			return table.convertRowIndexToModel(table.getSelectedRow());
 		}
 
-		private String getSelectedCode_Request(ResultsTableList_OverallVariables objectTableList_OverallVariables,DefaultTableModel model, int selectedRow) {
-			int code_RequestColumnIndex = getIndexColumnByKeyMap( objectTableList_OverallVariables,"rqst_code");
+		private String getSelectedCode_Request(TableList_OverallVariables objectTableList_OverallVariables,DefaultTableModel model, int selectedRow) {
+			int code_RequestColumnIndex = TableList_Functions.getIndexColumnByKeyMap( objectTableList_OverallVariables,"rqst_code");
 			String reqCodeStr = model.getValueAt(selectedRow, code_RequestColumnIndex).toString();
 			return reqCodeStr;
 		}
-		@SuppressWarnings("static-access")
-		public static int getIndexColumnByKeyMap(ResultsTableList_OverallVariables objectTableList_OverallVariables,String keyMap) {
-			Map<String, TableObject_Class> map_TableObject_Class = objectTableList_OverallVariables
-					.getMap_TableObject_Class();
-			return map_TableObject_Class.get(keyMap).getNumberColum();
-		}
-		public static int getColumnIndex(JTable table, String columnTitle) {
-			int columnCount = table.getColumnCount();
-			for (int column = 0; column < columnCount; column++) {
-				if (table.getColumnName(column).equalsIgnoreCase(columnTitle)) {
-					return column;
-				}
-			}
-
-			return -1;
-		}
-		@SuppressWarnings("static-access")
-		private String getTipeColumnByNameColumn(ResultsTableList_OverallVariables objectTableList_OverallVariables, String nameColumn) {
-			List<TableObject_Class> map_TableObject_Class = objectTableList_OverallVariables.getList_TableObject_Class();
-			for (TableObject_Class tableObject_Class : map_TableObject_Class) {
-				if (tableObject_Class.getColumName_Header().equals(nameColumn)) {
-					return tableObject_Class.getTipeColumn();
-				}
-			}
-			return null;
-		}	
-
+	
+	
 
 }

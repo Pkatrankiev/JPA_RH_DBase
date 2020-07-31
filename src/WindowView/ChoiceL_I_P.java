@@ -12,12 +12,10 @@ import javax.swing.border.EmptyBorder;
 import Aplication.List_izpitvan_pokazatelDAO;
 import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.TableColumn;
+import DefaultTableList.TableList_Functions;
+import DefaultTableList.TableList_OverallVariables;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.RequestTableList_Functions;
-import Table.RequestTableList_OverallVariables;
-import Table_Default_Structors.TableList_Functions;
-import Table_Results.ResultsTableList_Functions;
-import Table_Results.ResultsTableList_OverallVariables;
+
 
 import javax.swing.JScrollPane;
 import java.awt.Panel;
@@ -49,7 +47,7 @@ public class ChoiceL_I_P extends JDialog {
 
 	@SuppressWarnings("static-access")
 	public ChoiceL_I_P(JFrame parent, List<String> incomming_list, Boolean fromTamplate, String name_Frame, 
-			ResultsTableList_OverallVariables objectTableList_OverallVariables) {
+			TableList_OverallVariables objectTableList_OverallVariables) {
 		super(parent, name_Frame, true);
 		
 		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
@@ -57,9 +55,9 @@ public class ChoiceL_I_P extends JDialog {
 		bsic_list = RequestViewAplication.getStringListLIP();
 		
 		}
-
+System.out.println(name_Frame+"  -  "+ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
 		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
-				get("Request_List_Table_LabelText_ChoiceColumn"))){
+				get("List_Table_LabelText_ChoiceColumn"))){
 			List<TableColumn> list_TableColumn = objectTableList_OverallVariables.getList_TableColumn();
 			bsic_list = TableList_Functions.getListString_NameColumn(list_TableColumn);
 		}

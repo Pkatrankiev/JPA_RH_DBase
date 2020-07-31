@@ -23,12 +23,9 @@ import javax.swing.SwingConstants;
 import Aplication.TableColumnDAO;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
+import DefaultTableList.CreateColumnTapeForTable;
+import DefaultTableList.CreateTable;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.CreateColumnTapeForTable;
-import Table.RequestTableList_Functions;
-import Table.RequestTableList_OverallVariables;
-import Table_Default_Structors.CreateTable;
-import Table_Default_Structors.DefauiltRequestTableMouseListener;
 import WindowView.ChoiceL_I_P;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
@@ -257,8 +254,11 @@ public class Table_Request_List_Test2 extends JDialog {
 	}
 
 	private JTable createTable(String tipe_Table, String frame_name, Users user, Boolean firstLoad) {
-	if(firstLoad){
-		CreateColumnTapeForTable.CreateListColumnTapeForTable(tipe_Table);
+	
+//		tipe_Table -> null
+		
+		if(firstLoad){
+		CreateColumnTapeForTable.CreateListColumnTapeForTable(null);
 	}
 		switch (tipe_Table) {
 
@@ -267,7 +267,7 @@ public class Table_Request_List_Test2 extends JDialog {
 			break;
 
 		}
-		final JTable table = CreateTable.CreateDefaultTable(null, tipe_Table);
+		final JTable table = CreateTable.CreateDefaultTable_Old(null, tipe_Table);
 		return table;
 	}
 

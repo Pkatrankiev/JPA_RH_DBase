@@ -1,4 +1,4 @@
-package Table_Results;
+package OldClases;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,11 +27,9 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
+import DefaultTableList.TableList_OverallVariables;
+import DefaultTableList.TableObject_Class;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Table_RequestToObektNaIzp;
-import Table.RequestTableList_OverallVariables;
-import Table_Default_Structors.DefauiltRequestTableMouseListener;
-import Table_Default_Structors.TableObject_Class;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
@@ -41,7 +39,7 @@ import WindowView.TranscluentWindow;
 public class ResultsTableList_Functions {
 
 	@SuppressWarnings("static-access")
-	public static void OverallVariablesForResultstTable1(ResultsTableList_OverallVariables objectTableList_OverallVariables, String frame_name, Users user, Boolean firstLoad) {
+	public static void OverallVariablesForResultstTable(TableList_OverallVariables objectTableList_OverallVariables, String frame_name, Users user, Boolean firstLoad) {
 		if (firstLoad) {
 			objectTableList_OverallVariables.setDataTable(getDataTable(null));
 			objectTableList_OverallVariables.setListRowForUpdate(new ArrayList<Integer>());
@@ -53,7 +51,7 @@ public class ResultsTableList_Functions {
 	}
 
 	private static Object[][] getDataTable(Request BasicRequest) {
-		Map<String, TableObject_Class> mapTableObject = ResultsTableList_OverallVariables.getMap_TableObject_Class();
+		Map<String, TableObject_Class> mapTableObject = TableList_OverallVariables.getMap_TableObject_Class();
 		int tbl_Colum = mapTableObject.size();
 		List<Request> listAllRequest = new ArrayList<Request>();
 		if (BasicRequest != null) {
@@ -141,45 +139,7 @@ public class ResultsTableList_Functions {
 
 		return tableSampleNew;
 	}
-
-	@SuppressWarnings("unused")
-	private static void updateData(JTable table, List<Integer> listWhithChangeRow, TranscluentWindow round) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		Map<String, TableObject_Class> mapTableObject = ResultsTableList_OverallVariables.getMap_TableObject_Class();
-		for (int changeRoe : listWhithChangeRow) {
-			Results result = ResultsDAO.getValueResultsById(
-					(int) model.getValueAt(changeRoe, mapTableObject.get("Id_Results").getNumberColum()));
-			udateResultObject(table, changeRoe, result, mapTableObject);
-		}
-		round.StopWindow();
-	}
-
-	private static void udateResultObject(JTable table, int row, Results result,
-			Map<String, TableObject_Class> mapTableObject) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		result.setMetody(MetodyDAO.getValueList_MetodyByCode(
-				model.getValueAt(row, mapTableObject.get("MetodNaIzpitvane").getNumberColum()) + ""));
-		result.setNuclide(NuclideDAO.getValueNuclideBySymbol(
-				(String) model.getValueAt(row, mapTableObject.get("Nuclide").getNumberColum())));
-		// result.setValue_result((Double) model.getValueAt(row,
-		// actv_value_Colum));
-		// result.setUncertainty((Double) model.getValueAt(row, uncrt_Colum));
-		// result.setSigma((Integer) model.getValueAt(row, sigma_Colum));
-		// result.setMda((Double) model.getValueAt(row, mda_Colum));
-		// result.setRazmernosti(RazmernostiDAO.getValueRazmernostiByName((String)
-		// model.getValueAt(row, razm_Colum)));
-		// result.setQuantity((Double) model.getValueAt(row, qunt_Colum));
-		//
-		// if ((model.getValueAt(row, dimen_Colum).equals(""))) {
-		// result.setDimension(null);
-		// } else {
-		// result.setDimension(DimensionDAO.getValueDimensionByName((String)
-		// model.getValueAt(row, dimen_Colum)));
-		// }
-		// result.setInProtokol((Boolean) model.getValueAt(row, in_Prot_Colum));
-		ResultsDAO.updateResults(result);
-	}
-
+	
 	public static ArrayList<String> getListString_NameColumn(List<TableColumn> list_TableColumn) {
 		ArrayList<String> listStringName = new ArrayList<>();
 		for (TableColumn tableColumn : list_TableColumn) {
@@ -238,7 +198,7 @@ public class ResultsTableList_Functions {
 		if (list_StringChoisedVisibleColumn == null) {
 			return false;
 		}
-		Collection<String> listOne = extractNameInColumn(ResultsTableList_OverallVariables.getList_TableColumn());
+		Collection<String> listOne = extractNameInColumn(TableList_OverallVariables.getList_TableColumn());
 		Collection<String> listTwo = list_StringChoisedVisibleColumn;
 
 		List<String> sourceList = new ArrayList<String>(listOne);

@@ -47,6 +47,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_Sample_List;
+import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;

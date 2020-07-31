@@ -1,4 +1,4 @@
-package Table_Default_Structors;
+package DefaultTableList;
 
 
 import java.util.ArrayList;
@@ -8,10 +8,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-import Table.RequestTableList_OverallVariables;
-import Table_Results.ResultsTableList_OverallVariables;
-
-
 public abstract class My_Default_Table_Model{
 	
 	static List<TableObject_Class> list_TableObject_Class = new ArrayList<TableObject_Class>();
@@ -19,79 +15,86 @@ public abstract class My_Default_Table_Model{
 	static int[] masive_Invizible_Colum = null;
 	static List<Integer> listRowForUpdate;
 	
-	public static DefaultTableModel Default_Data_Table_Model(String tipe_Table) {
-		
-		switch (tipe_Table) {
-		
-		case "request":
-			list_TableObject_Class = RequestTableList_OverallVariables.getList_TableObject_Class();
-			masiveDataTable = RequestTableList_OverallVariables.getDataTable();
-			masive_Invizible_Colum = RequestTableList_OverallVariables.getMasive_Invizible_Colum();
-			listRowForUpdate = RequestTableList_OverallVariables.getListRowForUpdate();
-			break;
-		case "Results":
-			list_TableObject_Class = ResultsTableList_OverallVariables.getList_TableObject_Class();
-			 masiveDataTable = ResultsTableList_OverallVariables.getDataTable();
-				masive_Invizible_Colum = ResultsTableList_OverallVariables.getMasive_Invizible_Colum();
-				listRowForUpdate = ResultsTableList_OverallVariables.getListRowForUpdate();
-			break;
-
-	}
-		
-		
-		
-		Object columnNames[] = getColumnHeaderName(list_TableObject_Class);
-	
-		DefaultTableModel model = new DefaultTableModel(masiveDataTable, columnNames) {
-
-			private static final long serialVersionUID = 1L;
-
-			Class<?>[] classTypes = getColumnTypesClass(list_TableObject_Class);
-
-			@SuppressWarnings({})
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return this.classTypes[columnIndex];
-			}
-
-			public Object getValueAt(int row, int col) {
-				return masiveDataTable[row][col];
-			}
-
-			@Override
-			public boolean isCellEditable(int row, int col) {
-				boolean isEditableTable = false;
-				switch (tipe_Table) {
-				case "request":
-					isEditableTable = RequestTableList_OverallVariables.isEditableTable();
-					break;
-				case "Results":
-					isEditableTable = ResultsTableList_OverallVariables.isEditableTable();
-					break;
-				}
-				return isEditableTable;
-					 
-				
-			}
-
-			public void setValueAt(Object value, int row, int col) {
-
-				if (!masiveDataTable[row][col].equals(value)) {
-					
-						masiveDataTable[row][col] = value;
-						fireTableCellUpdated(row, col);
-						AddInUpdateList(row);
-					
-				}
-
-			}
-	
-		};
-		return model;
-	}
+//	@SuppressWarnings("static-access")
+//	public static DefaultTableModel Default_Data_Table_Model(TableList_OverallVariables objectTableList_OverallVariables) {
+//		
+//		list_TableObject_Class = objectTableList_OverallVariables.getList_TableObject_Class();
+//		masiveDataTable = objectTableList_OverallVariables.getDataTable();
+//		masive_Invizible_Colum = objectTableList_OverallVariables.getMasive_Invizible_Colum();
+//		listRowForUpdate = objectTableList_OverallVariables.getListRowForUpdate();
+//		
+////		switch (tipe_Table) {
+////		
+////		case "request":
+////			list_TableObject_Class = RequestTableList_OverallVariables.getList_TableObject_Class();
+////			masiveDataTable = RequestTableList_OverallVariables.getDataTable();
+////			masive_Invizible_Colum = RequestTableList_OverallVariables.getMasive_Invizible_Colum();
+////			listRowForUpdate = RequestTableList_OverallVariables.getListRowForUpdate();
+////			break;
+////		case "Results":
+////			list_TableObject_Class = TableList_OverallVariables.getList_TableObject_Class();
+////			 masiveDataTable = TableList_OverallVariables.getDataTable();
+////				masive_Invizible_Colum = TableList_OverallVariables.getMasive_Invizible_Colum();
+////				listRowForUpdate = TableList_OverallVariables.getListRowForUpdate();
+////			break;
+////
+////	}
+//		
+//		
+//		
+//		Object columnNames[] = getColumnHeaderName(list_TableObject_Class);
+//	
+//		DefaultTableModel model = new DefaultTableModel(masiveDataTable, columnNames) {
+//
+//			private static final long serialVersionUID = 1L;
+//
+//			Class<?>[] classTypes = getColumnTypesClass(list_TableObject_Class);
+//
+//			@SuppressWarnings({})
+//			@Override
+//			public Class<?> getColumnClass(int columnIndex) {
+//				return this.classTypes[columnIndex];
+//			}
+//
+//			public Object getValueAt(int row, int col) {
+//				return masiveDataTable[row][col];
+//			}
+//
+//			@Override
+//			public boolean isCellEditable(int row, int col) {
+////				boolean isEditableTable = false;
+////				
+////				switch (tipe_Table) {
+////				case "request":
+////					isEditableTable = RequestTableList_OverallVariables.isEditableTable();
+////					break;
+////				case "Results":
+////					isEditableTable = TableList_OverallVariables.isEditableTable();
+////					break;
+////				}
+//				return objectTableList_OverallVariables.isEditableTable();
+//					 
+//				
+//			}
+//
+//			public void setValueAt(Object value, int row, int col) {
+//
+//				if (!masiveDataTable[row][col].equals(value)) {
+//					
+//						masiveDataTable[row][col] = value;
+//						fireTableCellUpdated(row, col);
+//						AddInUpdateList(row);
+//					
+//				}
+//
+//			}
+//	
+//		};
+//		return model;
+//	}
 	
 @SuppressWarnings("static-access")
-public static DefaultTableModel Default_Data_Table_Model_Test(ResultsTableList_OverallVariables objectTableList_OverallVariables) {
+public static DefaultTableModel Default_Data_Table_Model(TableList_OverallVariables objectTableList_OverallVariables) {
 		
 	list_TableObject_Class = objectTableList_OverallVariables.getList_TableObject_Class();
 	masiveDataTable = objectTableList_OverallVariables.getDataTable();

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.Table_Request_List;
+import OldClases.Table_Request_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 

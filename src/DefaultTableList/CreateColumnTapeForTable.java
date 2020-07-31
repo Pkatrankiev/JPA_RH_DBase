@@ -1,4 +1,4 @@
-package Table;
+package DefaultTableList;
 
 
 import java.util.ArrayList;
@@ -19,18 +19,17 @@ import Aplication.TableColumnDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.TableColumn;
-import Table_Default_Structors.TableObject_Class;
-import Table_Results.ResultsTableList_Functions;
-import Table_Results.ResultsTableList_OverallVariables;
+
 
 public class CreateColumnTapeForTable {
 	
 	
-	public static void CreateListColumnTapeForTable(String tipeTable){ 
+	@SuppressWarnings("static-access")
+	public static void CreateListColumnTapeForTable(TableList_OverallVariables objectTableList_OverallVariables){ 
 		Map<String, TableObject_Class> mapListTable = new HashMap<String, TableObject_Class>();
 		List<TableObject_Class> list_TableObject_Class = new ArrayList<>();
 		
-		List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table(tipeTable);
+		List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table(objectTableList_OverallVariables.getTipe_Table());
 		int k=0;
 		for (TableColumn tableColumn : list_TableColumn) {
 			TableObject_Class colum_Object = new TableObject_Class();
@@ -78,9 +77,9 @@ public class CreateColumnTapeForTable {
 				colum_Object.setMasiveValueForChoice(NuclideDAO.getMasiveStringAllValueNuclide());
 				break;
 				
-			case "Nuclide_Dobiv":
-				colum_Object.setMasiveValueForChoice(NuclideDAO.getMasiveStringAllValueNuclide());
-				break;
+//			case "Nuclide_Dobiv":
+//				colum_Object.setMasiveValueForChoice(NuclideDAO.getMasiveStringAllValueNuclide());
+//				break;
 				
 			case "Dimension":
 				colum_Object.setMasiveValueForChoice(DimensionDAO.getMasiveStringAllValueDimension());
@@ -92,28 +91,30 @@ public class CreateColumnTapeForTable {
 			k++;
 		}
 		
+		objectTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
+		objectTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
+		objectTableList_OverallVariables.setList_TableColumn(list_TableColumn);
 		
-		
-		switch (tipeTable) {
-
-		case "request":
-			RequestTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
-			RequestTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
-			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumn);
-			break;
-
-		case "Results":
-			ResultsTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
-			ResultsTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
-			ResultsTableList_OverallVariables.setList_TableColumn(list_TableColumn);
-			break;
-
-		}
+//		switch (tipeTable) {
+//
+//		case "request":
+//			RequestTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
+//			RequestTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
+//			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumn);
+//			break;
+//
+//		case "Results":
+//			TableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
+//			TableList_OverallVariables.setMap_TableObject_Class( mapListTable);
+//			TableList_OverallVariables.setList_TableColumn(list_TableColumn);
+//			break;
+//
+//		}
 	
 	}
 
 	@SuppressWarnings("static-access")
-	public static void CreateListColumnTapeForTable_Test(ResultsTableList_OverallVariables objectTableList_OverallVariables){ 
+	public static void CreateListColumnTapeForTable_Test(TableList_OverallVariables objectTableList_OverallVariables){ 
 		Map<String, TableObject_Class> mapListTable = new HashMap<String, TableObject_Class>();
 		List<TableObject_Class> list_TableObject_Class = new ArrayList<>();
 		

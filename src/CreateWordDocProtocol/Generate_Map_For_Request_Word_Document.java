@@ -14,7 +14,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
-import OldClases.Table_RequestToObektNaIzp;
+import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;

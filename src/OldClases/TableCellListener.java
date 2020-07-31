@@ -1,4 +1,4 @@
-package Table;
+package OldClases;
 import java.awt.event.*;
 import javax.swing.*;
 import java.beans.*;

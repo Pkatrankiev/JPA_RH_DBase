@@ -25,7 +25,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
 import OldClases.FindFile;
-import OldClases.Table_RequestToObektNaIzp;
+import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 
 public class CreateListLeftPanelStartWindowClass {

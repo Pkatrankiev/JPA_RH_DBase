@@ -1,4 +1,4 @@
-package Table_Default_Structors;
+package OldClases;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,13 +15,12 @@ import javax.swing.table.DefaultTableModel;
 
 import Aplication.RequestDAO;
 import DBase_Class.Request;
+import DefaultTableList.TableList_OverallVariables;
+import DefaultTableList.TableObject_Class;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Table_RequestToObektNaIzp;
-import Table.RequestTableList_Functions;
-import Table.RequestTableList_OverallVariables;
 import Table.Table_Sample_List;
-import Table_Results.DefauiltResultsTableMouseListener;
-import Table_Results.ResultsTableList_OverallVariables;
+import Table_Request.Table_RequestToObektNaIzp;
+import Table_Results.ResultsTableMouseListener;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;

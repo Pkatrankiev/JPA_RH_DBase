@@ -1,4 +1,4 @@
-package Table_Results;
+package DefaultTableList;
 
 import java.util.List;
 import java.util.Map;
@@ -6,9 +6,8 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
-import Table_Default_Structors.TableObject_Class;
 
-public class ResultsTableList_OverallVariables {
+public class TableList_OverallVariables {
 
 	private static List<Integer> listRowForUpdate;
 	private static List<Users> listAllUsers;
@@ -31,7 +30,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setChckbxNewCheckBox(JCheckBox chckbxNewCheckBox) {
-		ResultsTableList_OverallVariables.chckbxNewCheckBox = chckbxNewCheckBox;
+		TableList_OverallVariables.chckbxNewCheckBox = chckbxNewCheckBox;
 	}
 
 	public static Users getUser() {
@@ -39,7 +38,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setUser(Users user) {
-		ResultsTableList_OverallVariables.user = user;
+		TableList_OverallVariables.user = user;
 	}
 
 	public static String getFrame_name() {
@@ -47,7 +46,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setFrame_name(String frame_name) {
-		ResultsTableList_OverallVariables.frame_name = frame_name;
+		TableList_OverallVariables.frame_name = frame_name;
 	}
 
 	public static Object[][] getDataTable() {
@@ -55,7 +54,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setDataTable(Object[][] dataTable) {
-		ResultsTableList_OverallVariables.dataTable = dataTable;
+		TableList_OverallVariables.dataTable = dataTable;
 	}
 
 	public static List<String> getValues_O_I_R() {
@@ -63,7 +62,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setValues_O_I_R(List<String> values_O_I_R) {
-		ResultsTableList_OverallVariables.values_O_I_R = values_O_I_R;
+		TableList_OverallVariables.values_O_I_R = values_O_I_R;
 	}
 
 	public static List<String> getList_StringNewVizibleColumn() {
@@ -71,7 +70,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setList_StringNewVizibleColumn(List<String> list_StringNewVizibleColumn) {
-		ResultsTableList_OverallVariables.list_StringNewVizibleColumn = list_StringNewVizibleColumn;
+		TableList_OverallVariables.list_StringNewVizibleColumn = list_StringNewVizibleColumn;
 	}
 
 	public static Map<String, TableObject_Class> getMap_TableObject_Class() {
@@ -79,7 +78,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setMap_TableObject_Class(Map<String, TableObject_Class> map_TableObject_Class) {
-		ResultsTableList_OverallVariables.map_TableObject_Class = map_TableObject_Class;
+		TableList_OverallVariables.map_TableObject_Class = map_TableObject_Class;
 	}
 
 	public static List<TableObject_Class> getList_TableObject_Class() {
@@ -87,7 +86,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setList_TableObject_Class(List<TableObject_Class> list_TableObject_Class) {
-		ResultsTableList_OverallVariables.list_TableObject_Class = list_TableObject_Class;
+		TableList_OverallVariables.list_TableObject_Class = list_TableObject_Class;
 	}
 
 	public static int[] getMasive_Invizible_Colum() {
@@ -95,7 +94,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setMasive_Invizible_Colum(int[] masive_Invizible_Colum) {
-		ResultsTableList_OverallVariables.masive_Invizible_Colum = masive_Invizible_Colum;
+		TableList_OverallVariables.masive_Invizible_Colum = masive_Invizible_Colum;
 	}
 
 	public static Map<Integer, List<String>> getMapListForChangedStrObektNaIzp() {
@@ -103,7 +102,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setMapListForChangedStrObektNaIzp(Map<Integer, List<String>> mapListForChangedStrObektNaIzp) {
-		ResultsTableList_OverallVariables.mapListForChangedStrObektNaIzp = mapListForChangedStrObektNaIzp;
+		TableList_OverallVariables.mapListForChangedStrObektNaIzp = mapListForChangedStrObektNaIzp;
 	}
 
 	public static List<TableColumn> getList_TableColumn() {
@@ -111,7 +110,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setList_TableColumn(List<TableColumn> list_TableColumn) {
-		ResultsTableList_OverallVariables.list_TableColumn = list_TableColumn;
+		TableList_OverallVariables.list_TableColumn = list_TableColumn;
 	}
 
 	public static List<Integer> getListRowForUpdate() {
@@ -119,7 +118,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setListRowForUpdate(List<Integer> listRowForUpdate) {
-		ResultsTableList_OverallVariables.listRowForUpdate = listRowForUpdate;
+		TableList_OverallVariables.listRowForUpdate = listRowForUpdate;
 	}
 
 	public static List<Users> getListAllUsers() {
@@ -127,7 +126,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setListAllUsers(List<Users> listAllUsers) {
-		ResultsTableList_OverallVariables.listAllUsers = listAllUsers;
+		TableList_OverallVariables.listAllUsers = listAllUsers;
 	}
 
 	public static boolean isEditableTable() {
@@ -147,7 +146,7 @@ public class ResultsTableList_OverallVariables {
 	}
 
 	public static void setTipe_Table(String tipe_Table) {
-		ResultsTableList_OverallVariables.tipe_Table = tipe_Table;
+		TableList_OverallVariables.tipe_Table = tipe_Table;
 	}
 
 }

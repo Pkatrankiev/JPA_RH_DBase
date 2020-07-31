@@ -80,6 +80,11 @@ TableHeaderColumnName_Dimension = Мярка
 TableHeaderColumnName_InProtokol = В протокол
 
 
+TableDobivFromResult_windowTitle_Text = Избор на добив
+TableDobivFromResult_Text = Изберете добив от списъка!
+TableDobivFromResult_Nuclide = Нуклид
+TableDobivFromResult_Dobiv = Добив
+
 
 InternalApplicant_List_TableTitle = Списък на Вътрешни Клиенти
 InternalApplicant_List_HeaderColumnName_Organization = Организация
@@ -91,7 +96,8 @@ Request_List_Table_LabelText_EditingData =  редактиране на данните
 Results_List_Table_TitleName = Списък на Резултатите
 
 Results_List_Table_LabelText_ChoiceColumn = Избор на колони - резултати
-
+List_Table_LabelText_ChoiceColumn = Избор на колони
+List_Table_DialogSave_ChoiceColumn = <html>Има промени в показваните колони<br>Ще запишете ли промените?</html>
 
 AddDobivView_TitleName = Въвеждане на Добив
 AddDobivView_LabelText_CodeForStandart = Код на стандарта

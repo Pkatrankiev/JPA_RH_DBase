@@ -62,12 +62,12 @@ public class Main_Aplication {
 		
 //		TestClases.NumberFormatWithRounding("0.00135256");
 		
-//		request
+//		request  Results
 		
-		TestClases.Table_Results_List_Test(3, "request");
+		TestClases.Table_Results_List_Test(3, "Results");
 		
 		
-		
+//		TestClases.DialogView_DobivFromResultTableList_test (430);
 		
 		
 //		CreateListLeftPanelStartWindowClass.createListMissingRequest(2020);

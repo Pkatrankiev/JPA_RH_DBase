@@ -1,4 +1,4 @@
-package Table_Default_Structors;
+package DefaultTableList;
 
 public class TableObject_Class {
 	private int numberColum;

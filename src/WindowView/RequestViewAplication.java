@@ -80,8 +80,6 @@ public class RequestViewAplication {
 		return str;
 	}
 
-	
-
 	public static String[][] getMasiveSampleFromReques(Request request) {
 		int countSample = request.getCounts_samples();
 		String[][] volSampleView = new String[countSample][6];
@@ -102,8 +100,6 @@ public class RequestViewAplication {
 		}
 		return volSampleView;
 	}
-
-
 
 	public static String get_String_Ind_Num_Doc_From_Request(Request request) {
 		String str_I_N_D = "";
@@ -294,7 +290,6 @@ public class RequestViewAplication {
 		}
 		return volSampleView;
 	}
-
 	
 	private static String padString(String str, int n) {
 		if (str.length() <= n) {
@@ -306,14 +301,6 @@ public class RequestViewAplication {
 		}
 		return str;
 	}
-
-
-
-	// List_Izpitvan_Pokazatel
-	
-	
-
-
 		
 	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {
 		Boolean underMaximum = true;

@@ -3,6 +3,8 @@ package Menu;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
+import Aplication.UsersDAO;
+import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.Table_Request_List;
 import WindowView.Login;
@@ -29,8 +31,11 @@ public class MenuData_EnableRequestList extends AbstractMenuAction {
 		     public void run() {
 		    	 
 		    	 JFrame f = new JFrame();
-		 		new Table_Request_List(f,round,Login.getCurentUser(),"request", EnableRequestList_TitleName,true);
+//		 		new Table_Request_List(f,round,Login.getCurentUser(),"request", EnableRequestList_TitleName,true);
 	    	
+		 		new ViewTableList(f, round, Login.getCurentUser(), "request", EnableRequestList_TitleName,true, null);
+
+		 		
 		     }
 		    });
 		    thread.start();

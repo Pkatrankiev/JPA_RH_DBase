@@ -20,6 +20,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class DialogView_DobivFromResultTableList extends JDialog {
@@ -43,7 +45,7 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 		
 
 		listAllDobivs = listNameDobivs;
-		 
+		selectDobiv = incomingDobiv;
 
 		setSize(new Dimension(200, 200));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -99,9 +101,10 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 				getContentPane().add(comboBoxNameDobivs, gbc_comboBoxNameDobivs);
 				
 				setDobivToComboBox(listAllDobivs , comboBoxNameDobivs);
+				if(incomingDobiv!=null){
 				setFirstDobivToComboBox(incomingDobiv,  comboBoxNameDobivs, 
 						   lblNukcideVolume, lblDobivVolume);
-				
+				}
 				comboBoxNameDobivs.addItemListener(new ItemListener() {
 					@Override
 					public void itemStateChanged(ItemEvent e) {
@@ -133,7 +136,7 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectDobiv = incomingDobiv;
-				System.out.println("cancel "+selectDobiv.getId_dobiv());
+				
 				dispose();
 			}
 		});
@@ -141,10 +144,16 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 		btnOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				System.out.println("ok "+selectDobiv.getId_dobiv());
+				
 				dispose();
 			}
 		});
+		
+		addWindowListener(new WindowAdapter() {
+	            public void windowClosing(WindowEvent e) {
+	            	selectDobiv = incomingDobiv; 
+	            }
+	        });
 
 		setVisible(true);
 		repaint();

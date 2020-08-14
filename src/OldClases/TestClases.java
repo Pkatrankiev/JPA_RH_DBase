@@ -7,6 +7,7 @@ import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.NuclideDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
 import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
@@ -292,6 +294,7 @@ public class TestClases {
 		thread.start();
 
 	}
+	
 	public static void DialogView_DobivFromResultTableList_test (int i){
 	Dobiv selectDobiv = DobivDAO.getDobivById(i);
 	
@@ -299,6 +302,21 @@ public class TestClases {
 	DialogView_DobivFromResultTableList dobivFromResultTableList =  new DialogView_DobivFromResultTableList(new JFrame(),
 			listNameDobivs, selectDobiv);
 	System.out.println(dobivFromResultTableList.getSelectDobiv().getId_dobiv());
+	}
+	
+	public static void Change_In_Dobiv_Nuclide (){
+
+		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(NuclideDAO.getValueSNuclideById(75));
+		for (Dobiv dobiv : listNameDobivs) {
+			String code = dobiv.getCode_Standart().replaceAll( "[^\\d]", "" ).replaceAll("-", "").trim();
+//			System.out.println(code);
+			int kod = Integer.valueOf(code.substring(0, 4));
+			if(kod>4220){
+				System.out.println(kod);
+			dobiv.setNuclide(NuclideDAO.getValueSNuclideById(55));
+			DobivDAO.updateDobiv(dobiv);
+			}
+		}
 	}
 	
 	public static void Table_RequestToObektNaIzp() {

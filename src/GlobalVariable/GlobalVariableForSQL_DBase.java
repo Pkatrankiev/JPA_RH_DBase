@@ -15,7 +15,7 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 public class GlobalVariableForSQL_DBase {
 
-	static Boolean isRemoteDBase = false;
+	static Boolean isRemoteDBase = true;
 
 	private static Map<String, String> globalTextVariableMap = ReadFileWithGlobalTextVariable
 			.getGlobalTextVariableMap();

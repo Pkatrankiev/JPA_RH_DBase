@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import DBase_Class.Users;
+import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.Table_Request_List;
 import WindowView.Login;
@@ -32,8 +33,8 @@ static String titleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMa
 			    	 
 			    	 JFrame f = new JFrame();
 //			    	 f.setName("tamplete");
-			    	 new Table_Request_List(f,round,Login.getCurentUser(),"request", titleName,true);
-
+//			    	 new Table_Request_List(f,round,Login.getCurentUser(),"request", titleName,true);
+			    		new ViewTableList(f, round, Login.getCurentUser(), "request", titleName,true, null);
 			    	
 			     }
 			    });

@@ -77,9 +77,9 @@ public class CreateColumnTapeForTable {
 				colum_Object.setMasiveValueForChoice(NuclideDAO.getMasiveStringAllValueNuclide());
 				break;
 				
-//			case "Nuclide_Dobiv":
-//				colum_Object.setMasiveValueForChoice(NuclideDAO.getMasiveStringAllValueNuclide());
-//				break;
+			case "Nuclide_Dobiv":
+				colum_Object.setMasiveValueForChoice(NuclideDAO.getMasiveStringAllValueNuclide());
+				break;
 				
 			case "Dimension":
 				colum_Object.setMasiveValueForChoice(DimensionDAO.getMasiveStringAllValueDimension());

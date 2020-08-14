@@ -64,8 +64,11 @@ public class Main_Aplication {
 		
 //		request  Results
 		
-		TestClases.Table_Results_List_Test(3, "Results");
 		
+		
+//		TestClases.Table_Results_List_Test(3, "Results");
+		
+//		TestClases.Change_In_Dobiv_Nuclide ();
 		
 //		TestClases.DialogView_DobivFromResultTableList_test (430);
 		
@@ -82,7 +85,7 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

@@ -232,12 +232,12 @@ public class ReadExcelFile {
 		Dobiv dobiv = new Dobiv();
 		Sample sample = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
 		Izpitvan_produkt izpitProd = sample.getRequest().getIzpitvan_produkt();
-		dobiv.setCode_Standart(nuclide_StandardStr + cod_sample);
+		dobiv.setCode_Standart(nuclideSimbol_StandardStr + cod_sample);
 		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(selectMetodStr));
 		dobiv.setIzpitvan_produkt(izpitProd);
 		dobiv.setDescription(sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name() + ", "
 				+ sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
-		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclide_StandardStr));
+		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideSimbol_StandardStr));
 		dobiv.setValue_result(Double.parseDouble(value_Standatd));
 		dobiv.setUncertainty(0.0);
 		dobiv.setTsi(TSI_DAO.getValueTSIByName(destruct_Result.getTsi()));

@@ -12,8 +12,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import Aplication.DobivDAO;
+import Aplication.MetodyDAO;
 import Aplication.RequestDAO;
 import DBase_Class.Dobiv;
+import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DefaultTableList.TableList_Functions;
@@ -61,7 +63,11 @@ public class ResultsTableMouseListener {
 
 							switch (getTipeColumnByNameColumn(objectTableList_OverallVariables, nameSelectedColumn)) {
 
+							
 							case "code_Request":
+								new RequestMiniFrame(new JFrame(), choiseRequest);
+								break;
+								
 							case "Dobiv":
 								Table_DobivInResults(objectTableList_OverallVariables, model, selectedRow);
 								break;
@@ -122,21 +128,34 @@ public class ResultsTableMouseListener {
 				"result_Dobiv");
 		int dobivNuclide_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
 				"Nuclide_Dobiv");
+		int metody_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
+				"MetodNaIzpitvane");
+		int izpitPokazatel_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
+				"IzpitvanPokazatel");
 		
-		if(!model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString().isEmpty()){
+		String idDobiv = model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString().trim();
+		List<Dobiv> listNameDobivs = null;
+//		if(!idDobiv.isEmpty() && !idDobiv.equals("0")){
 		Dobiv selectDobiv = DobivDAO.getDobivById((int) model.getValueAt(selectedRow, idDobiv_ColumnIndex));
-				
-		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(selectDobiv.getNuclide());
+		System.out.println("****************"+model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString());
+		if(selectDobiv==null){
+			Metody metod = MetodyDAO.getValueList_MetodyByCode(model.getValueAt(selectedRow, metody_ColumnIndex).toString());
+			 listNameDobivs = DobivDAO.getListDobivByMetody(metod);
+		}else{
+		 listNameDobivs = DobivDAO.getListDobivByNuclide(selectDobiv.getNuclide());
+		}
+		
 		DialogView_DobivFromResultTableList dobivFromResultTableList = new DialogView_DobivFromResultTableList(new JFrame(),
 				listNameDobivs, selectDobiv);
 		
-
+if(dobivFromResultTableList.getSelectDobiv()!=null){
 		model.setValueAt(dobivFromResultTableList.getSelectDobiv().getNuclide().getSymbol_nuclide(), selectedRow,
 				dobivNuclide_ColumnIndex);
 		model.setValueAt(dobivFromResultTableList.getSelectDobiv().getValue_result(), selectedRow,
 				dobivResult_ColumnIndex);
 		model.setValueAt(dobivFromResultTableList.getSelectDobiv().getId_dobiv(), selectedRow, idDobiv_ColumnIndex);
-		}
+}
+//		}
 	}
 
 	public static Boolean isEditableDobivObjectInResults(Results choiseResults, Dobiv newDobiv) {

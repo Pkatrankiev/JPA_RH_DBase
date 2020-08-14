@@ -802,6 +802,8 @@ public class AddResultViewMetods {
 				} else {
 					DobivDAO.setValueDobiv(dobiv);
 				}
+				
+				result.setDobiv(dobiv);
 			}
 		}
 

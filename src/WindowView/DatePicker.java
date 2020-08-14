@@ -403,18 +403,19 @@ public class DatePicker {
 	}
 
 	public static String getCurentDate(Boolean inTime) {
-	String FORMAT_DATE_TIME ="dd-MM-yy HH:mm";
-	SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATE_TIME);
+	SimpleDateFormat sdf =new SimpleDateFormat(FORMAT_DATE) ;
 	Calendar cal = Calendar.getInstance();
 	if (inTime) {
-		cal.set(year, month, dayOfMont, hour, minute);
-	} else {
-		sdf = new SimpleDateFormat(FORMAT_DATE);
-		cal.set(year, month, dayOfMont);
-	}
+		sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
+	} 
 	return sdf.format(cal.getTime());
 }
 	
+	public static String getCurentDate2() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
+		return sdf.format(cal.getTime());
+	}
 	
 	
 	private static long getSecondDuration(LocalDateTime t) {

@@ -45,7 +45,9 @@ public class Extra_moduleDAO {
 		entitymanager.close();
 		emfactory.close();
 	}
-
+	
+	
+	
 	public static void setValueExtra_module(Extra_module xtra_module) {
 
 		// EntityManagerFactory emfactory =

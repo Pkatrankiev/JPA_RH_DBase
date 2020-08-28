@@ -64,7 +64,7 @@ public class Main_Aplication {
 		
 //		request  Results
 		
-		
+		TestClases.backupDBase();
 		
 //		TestClases.Table_Results_List_Test(3, "Results");
 		
@@ -85,7 +85,7 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

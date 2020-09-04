@@ -1,0 +1,1 @@
+C:\MySQL\bin\mysql.exe  --host=jdbc:mysql://192.168.21.27 --port=3306 --user=someuser --password=123 < D:\back.sql

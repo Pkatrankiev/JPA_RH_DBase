@@ -1,11 +1,20 @@
 package OldClases;
 
 import java.awt.Frame;
+
 import java.awt.font.TextAttribute;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.RoundingMode;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.CodeSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -16,11 +25,17 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.AttributedString;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -35,6 +50,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.CallableStatement;
+
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import Aplication.IzpitvanPokazatelDAO;
@@ -46,6 +63,7 @@ import Aplication.ResultsDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
+import DBase_Class.DopalnIziskv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -115,20 +133,20 @@ public class TestClases {
 	}
 
 	public static void testAddDobivView() {
-	TranscluentWindow round = new TranscluentWindow();
-	
-	 final Thread thread = new Thread(new Runnable() {
-	     @Override
-	     public void run() {
-	    	 
-	    	 JFrame f = new JFrame();
-	 		new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-	 			    	
-	     }
-	    });
-	    thread.start();
+		TranscluentWindow round = new TranscluentWindow();
+
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				JFrame f = new JFrame();
+				new AddDobivView(f, round, UsersDAO.getValueUsersById(3));
+
+			}
+		});
+		thread.start();
 	}
-	
+
 	public static void test3() {
 		List<String> list = new ArrayList<String>();
 		String strObektIzpit = "Спецкорпус-1; Бак 4 и 5 (Изход 2)";
@@ -161,7 +179,7 @@ public class TestClases {
 			public void run() {
 
 				JFrame f = new JFrame();
-				new ViewTableList(f, round, user, "Results", "Списък на Резултатите",true, null);
+				new ViewTableList(f, round, user, "Results", "Списък на Резултатите", true, null);
 
 			}
 		});
@@ -282,15 +300,19 @@ public class TestClases {
 
 				JFrame f = new JFrame();
 				// new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-		
-//				new Table_Request_List_Test2(f, round, UsersDAO.getValueUsersById(i), "request",
-//						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"), true);
 
-				//				new Table.Table_Request_List(f, round, UsersDAO.getValueUsersById(i), "request",
-//						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"));
-	
-				new ViewTableList(f, round, UsersDAO.getValueUsersById(i), table_Taipe, 
-						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"),true, null);
+				// new Table_Request_List_Test2(f, round,
+				// UsersDAO.getValueUsersById(i), "request",
+				// ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"),
+				// true);
+
+				// new Table.Table_Request_List(f, round,
+				// UsersDAO.getValueUsersById(i), "request",
+				// ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableRequestList_TitleName"));
+
+				new ViewTableList(f, round, UsersDAO.getValueUsersById(i), table_Taipe,
+						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("EnableResultsList_TitleName"),
+						true, null);
 
 			}
 		});
@@ -312,31 +334,31 @@ public class TestClases {
 		thread.start();
 
 	}
-	
-	public static void DialogView_DobivFromResultTableList_test (int i){
-	Dobiv selectDobiv = DobivDAO.getDobivById(i);
-	
-	List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(selectDobiv.getNuclide());
-	DialogView_DobivFromResultTableList dobivFromResultTableList =  new DialogView_DobivFromResultTableList(new JFrame(),
-			listNameDobivs, selectDobiv);
-	System.out.println(dobivFromResultTableList.getSelectDobiv().getId_dobiv());
+
+	public static void DialogView_DobivFromResultTableList_test(int i) {
+		Dobiv selectDobiv = DobivDAO.getDobivById(i);
+
+		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(selectDobiv.getNuclide());
+		DialogView_DobivFromResultTableList dobivFromResultTableList = new DialogView_DobivFromResultTableList(
+				new JFrame(), listNameDobivs, selectDobiv);
+		System.out.println(dobivFromResultTableList.getSelectDobiv().getId_dobiv());
 	}
-	
-	public static void Change_In_Dobiv_Nuclide (){
+
+	public static void Change_In_Dobiv_Nuclide() {
 
 		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(NuclideDAO.getValueSNuclideById(75));
 		for (Dobiv dobiv : listNameDobivs) {
-			String code = dobiv.getCode_Standart().replaceAll( "[^\\d]", "" ).replaceAll("-", "").trim();
-//			System.out.println(code);
+			String code = dobiv.getCode_Standart().replaceAll("[^\\d]", "").replaceAll("-", "").trim();
+			// System.out.println(code);
 			int kod = Integer.valueOf(code.substring(0, 4));
-			if(kod>4220){
+			if (kod > 4220) {
 				System.out.println(kod);
-			dobiv.setNuclide(NuclideDAO.getValueSNuclideById(55));
-			DobivDAO.updateDobiv(dobiv);
+				dobiv.setNuclide(NuclideDAO.getValueSNuclideById(55));
+				DobivDAO.updateDobiv(dobiv);
 			}
 		}
 	}
-	
+
 	public static void Table_RequestToObektNaIzp() {
 		TranscluentWindow round = new TranscluentWindow();
 
@@ -532,19 +554,19 @@ public class TestClases {
 		return num;
 	}
 
-	public static void creatInDBaseRequestInResultsClass(){
-	List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
-	for (Results results : listAllResults) {
-		if(results.getRequest()==null){
-//			System.out.println(results.getSample().);
-		
-		Request request = results.getSample().getRequest();
-		results.setRequest(request);
-		ResultsDAO.updateResults(results);
+	public static void creatInDBaseRequestInResultsClass() {
+		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
+		for (Results results : listAllResults) {
+			if (results.getRequest() == null) {
+				// System.out.println(results.getSample().);
+
+				Request request = results.getSample().getRequest();
+				results.setRequest(request);
+				ResultsDAO.updateResults(results);
+			}
+		}
 	}
-	}
-	}
-	
+
 	public static String NumberToMAXDigitAftrerZerro(String num) {
 		int MAXDigit = 4;
 
@@ -650,290 +672,131 @@ public class TestClases {
 		return stt;
 	}
 
-	// private static int roundUP(double d){
-	// double dAbs = Math.abs(d);
-	// int i = (int) dAbs;
-	// double result = dAbs - (double) i;
-	// if(result==0.0){
-	// return (int) d;
-	// }else{
-	// return (int) d<0 ? -(i+1) : i+1;
-	// }
-	// }
 
 	public static void createProtocolWordDoc(String str) {
 		JFrame f = new JFrame();
 		new FrameChoiceRequestByCode(f, str);
 	}
 
-	public static void backupDBase() {
-		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
-		
 	
-//	
-//		TypedQuery<Thread> backupQuery =
-//				entitymanager.createQuery("BACKUP TO 'backup.zip", Thread.class);
-//		    Thread backupThread = backupQuery.getSingleResult();
-//		    try {
-//				backupThread.join();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} // Wait until the backup is completed.
-//		    // Do something with the backup (e.g. upload it to Amazon S3).
-		
-		
-		String sql = "SELECT * FROM student";
-		 
-		
-		 
-		
-		 
-	
-		
-		Query backupQuery = entitymanager.createQuery("BACKUP TO 'backup.zip");
-//	    backupQuery.setParameter("target", new java.io.File("c:\\backup"));
-	    backupQuery.getSingleResult();
-	    entitymanager.getTransaction().commit();
-		entitymanager.close();
-		emfactory.close();
-		}
-	
-	  Connection dbConn = null;
-      DatabaseMetaData dbMetaData = null;
-	
-		public String dumpDB(DataSource dataSource) {
-		String url = "jdbc:mysql://localhost:3306/rhdbase?characterEncoding=UTF-8";
-		
-		Connection connection = null;
+
+	public static boolean tbBackup() {
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.forLanguageTag("bg"));
+		java.util.Date currentDate = new java.util.Date();
+		Process p = null;
+
+		Runtime runtime = Runtime.getRuntime();
+		String bDump = "C:\\MySQL\\bin\\mysqldump.exe  --default-character-set=utf8 -uroot -p123 -c  -B shch2 -r "
+				+ "D:/" + dateFormat.format(currentDate) + "_backup" + ".sql";
+		// String executeCmd = LOCATION+" -u " + DBUSER + " --add-drop-database
+		// -B " + DBNAME + " -r " + PATH + ""+FILENAME
+		// Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+
+		String executeCmd = "c:\\xampp\\mysql\\bin\\mysqldump.exe -u root -proot --add-drop-database -B rhdbase -r D:\\000\\1234.sql";
+		String[] restoreCmd = new String[] { "c:\\xampp\\mysql\\bin\\mysql.exe ", "--user=root", "--password=root",
+				"-e", "source " + "D:\\000\\1233.sql" };
+		// String[] executeCmd = new
+		// String[]{"c:\\xampp\\mysql\\bin\\mysqldump.exe ", " -u root", "
+		// -proot",
+		// "--add-drop-database", " -B rhdbase" + " -r D:\\000\\1238.sql"};
+
+		String[] comm = new String[5];
+		comm[0] = "c:\\xampp\\mysql\\bin\\mysqldump.exe";
+		comm[1] = " -u root";
+		comm[2] = " -proot";
+		comm[3] = " rhdbase";
+		comm[4] = " -r D:\\000\\1232.sql";
+
+		// String executeCmd = "mysqldump -u " + dbUserName + " -p" + dbPassword
+		// + " --add-drop-database -B " + dbName + " -r " + path;
+		Process runtimeProcess;
 		try {
-			connection = DriverManager.getConnection(url, "root", "root");
-			dbMetaData = connection.getMetaData();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println(executeCmd);// this out put works in mysql shell
+			runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
+
+			int processComplete = runtimeProcess.waitFor();
+
+			if (processComplete == 0) {
+				System.out.println("Backup created successfully");
+				return true;
+			} else {
+				System.out.println("Could not create the backup");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
+		return false;
+	}
+
+
+
+
+	
+	public static void backupDB_From_RemoteServer() {
+		Date backupDate = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy_HHmm");
+		String backupDateStr = format.format(backupDate);
+
+		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
+		String HOSTIP = "192.168.21.27";
+		String PORT = "3306";
+		String USER = "someuser";
+		String PASS = "123";
+		String database = "rhdbase";
+		String path = "l:/Петър/DB_backup_" + backupDateStr + ".sql";
+
+		try {
+			String executeCmd = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
+					+ PASS + " " + database + " -r " + path;
+			Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+			int processComplete = runtimeProcess.waitFor();
+			if (processComplete == 0) {
+				System.out.println("Backup taken successfully");
+			} else {
+				System.out.println("Could not take mysql backup");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
+	public static void restoreDB_From_RemoteServer() {
 		
-		
-      
-        String columnNameQuote = "\"";
-//        try {
-//            dbConn = dataSource.getConnection();
-//            dbMetaData = dbConn.getMetaData();
-//        }
-//        catch( Exception e ) {
-//            System.err.println("Unable to connect to database: "+e);
-//            return null;
-//        }
+		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
+		String HOSTIP = "192.168.21.27";
+		String PORT = "3306";
+		String USER = "someuser";
+		String PASS = "123";
+		String database = "rhdbase";
+		String path = "l:/Петър/";
+//		String fileName = "DB_backup_" + backupDateStr + ".sql";
 
-        try {
-            StringBuffer result = new StringBuffer();
-            String catalog = "*";//props.getProperty("catalog");
-            String schema = "*";//props.getProperty("schemaPattern");
-            String tables = "*";//props.getProperty("tableName");
-//            ResultSet rs = dbMetaData.getTables(catalog, schema, tables, null);
-//  To get all table and schema, we can use null
-            ResultSet rs = dbMetaData.getTables(null, null, null, null);
+		try {
+			String executeCmd = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
+					+ PASS + " " + database + " -r " + path;
+			String restoreCmd = PathToMySqlDumpFile + "mysql -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
+					+ PASS + "-e " + path+"DB_backup_02-09-20_1418.sql" ;	
+			
+			Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
+			int processComplete = runtimeProcess.waitFor();
+			if (processComplete == 0) {
+				System.out.println("Backup taken successfully");
+			} else {
+				System.out.println("Could not take mysql backup");
+			}
 
-            if (! rs.next()) {
-                System.err.println("Unable to find any tables matching: catalog="+catalog+" schema="+schema+" tables="+tables);
-                rs.close();
-            } else {
-                // Right, we have some tables, so we can go to work.
-                // the details we have are
-                // TABLE_CAT String => table catalog (may be null)
-                // TABLE_SCHEM String => table schema (may be null)
-                // TABLE_NAME String => table name
-                // TABLE_TYPE String => table type. Typical types are "TABLE", "VIEW", "SYSTEM TABLE", "GLOBAL TEMPORARY", "LOCAL TEMPORARY", "ALIAS", "SYNONYM".
-                // REMARKS String => explanatory comment on the table
-                // TYPE_CAT String => the types catalog (may be null)
-                // TYPE_SCHEM String => the types schema (may be null)
-                // TYPE_NAME String => type name (may be null)
-                // SELF_REFERENCING_COL_NAME String => name of the designated "identifier" column of a typed table (may be null)
-                // REF_GENERATION String => specifies how values in SELF_REFERENCING_COL_NAME are created. Values are "SYSTEM", "USER", "DERIVED". (may be null)
-                // We will ignore the schema and stuff, because people might want to import it somewhere else
-                // We will also ignore any tables that aren't of type TABLE for now.
-                // We use a do-while because we've already caled rs.next to see if there are any rows
-                do {
-                    String tableName = rs.getString("TABLE_NAME");
-                    String tableType = rs.getString("TABLE_TYPE");
-                    if ("TABLE".equalsIgnoreCase(tableType)) {
-                        result.append("\n\n-- "+tableName);
-                        result.append("\nCREATE TABLE "+tableName+" (\n");
-                        ResultSet tableMetaData = dbMetaData.getColumns(null, null, tableName, "%");
-                        boolean firstLine = true;
-                        while (tableMetaData.next()) {
-                            if (firstLine) {
-                                firstLine = false;
-                            } else {
-                                // If we're not the first line, then finish the previous line with a comma
-                                result.append(",\n");
-                            }
-                            String columnName = tableMetaData.getString("COLUMN_NAME");
-                            String columnType = tableMetaData.getString("TYPE_NAME");
-                            // WARNING: this may give daft answers for some types on some databases (eg JDBC-ODBC link)
-                            int columnSize = tableMetaData.getInt("COLUMN_SIZE");
-                            String nullable = tableMetaData.getString("IS_NULLABLE");
-                            String nullString = "NULL";
-                            if ("NO".equalsIgnoreCase(nullable)) {
-                                nullString = "NOT NULL";
-                            }
-                            result.append("    "+columnNameQuote+columnName+columnNameQuote+" "+columnType+" ("+columnSize+")"+" "+nullString);
-                        }
-                        tableMetaData.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-                        // Now we need to put the primary key constraint
-                        try {
-                            ResultSet primaryKeys = dbMetaData.getPrimaryKeys(catalog, schema, tableName);
-                            // What we might get:
-                            // TABLE_CAT String => table catalog (may be null)
-                            // TABLE_SCHEM String => table schema (may be null)
-                            // TABLE_NAME String => table name
-                            // COLUMN_NAME String => column name
-                            // KEY_SEQ short => sequence number within primary key
-                            // PK_NAME String => primary key name (may be null)
-                            String primaryKeyName = null;
-                            StringBuffer primaryKeyColumns = new StringBuffer();
-                            while (primaryKeys.next()) {
-                                String thisKeyName = primaryKeys.getString("PK_NAME");
-                                if ((thisKeyName != null && primaryKeyName == null)
-                                        || (thisKeyName == null && primaryKeyName != null)
-                                        || (thisKeyName != null && ! thisKeyName.equals(primaryKeyName))
-                                        || (primaryKeyName != null && ! primaryKeyName.equals(thisKeyName))) {
-                                    // the keynames aren't the same, so output all that we have so far (if anything)
-                                    // and start a new primary key entry
-                                    if (primaryKeyColumns.length() > 0) {
-                                        // There's something to output
-                                        result.append(",\n    PRIMARY KEY ");
-                                        if (primaryKeyName != null) { result.append(primaryKeyName); }
-                                        result.append("("+primaryKeyColumns.toString()+")");
-                                    }
-                                    // Start again with the new name
-                                    primaryKeyColumns = new StringBuffer();
-                                    primaryKeyName = thisKeyName;
-                                }
-                                // Now append the column
-                                if (primaryKeyColumns.length() > 0) {
-                                    primaryKeyColumns.append(", ");
-                                }
-                                primaryKeyColumns.append(primaryKeys.getString("COLUMN_NAME"));
-                            }
-                            if (primaryKeyColumns.length() > 0) {
-                                // There's something to output
-                                result.append(",\n    PRIMARY KEY ");
-                                if (primaryKeyName != null) { result.append(primaryKeyName); }
-                                result.append(" ("+primaryKeyColumns.toString()+")");
-                            }
-                        } catch (SQLException e) {
-                            // NB you will get this exception with the JDBC-ODBC link because it says
-                            // [Microsoft][ODBC Driver Manager] Driver does not support this function
-                            System.err.println("Unable to get primary keys for table "+tableName+" because "+e);
-                        }
+	}
 
-                        result.append("\n);\n");
+	
 
-                        // Right, we have a table, so we can go and dump it
-                        dumpTable(dbConn, result, tableName);
-                    }
-                } while (rs.next());
-                rs.close();
-            }
-            dbConn.close();
-            return result.toString();
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use Options | File Templates.
-        }
-        return null;
-    }
-
-    /** dump this particular table to the string buffer */
-    private static void dumpTable(Connection dbConn, StringBuffer result, String tableName) {
-        try {
-            // First we output the create table stuff
-            PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM "+tableName);
-            ResultSet rs = stmt.executeQuery();
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            // Now we can output the actual data
-            result.append("\n\n-- Data for "+tableName+"\n");
-            while (rs.next()) {
-                result.append("INSERT INTO "+tableName+" VALUES (");
-                for (int i=0; i<columnCount; i++) {
-                    if (i > 0) {
-                        result.append(", ");
-                    }
-                    Object value = rs.getObject(i+1);
-                    if (value == null) {
-                        result.append("NULL");
-                    } else {
-                        String outputValue = value.toString();
-                        outputValue = outputValue.replaceAll("'","\\'");
-                        result.append("'"+outputValue+"'");
-                    }
-                }
-                result.append(");\n");
-            }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.err.println("Unable to dump table "+tableName+" because: "+e);
-        }
-    }
-	
-	
-	
-	
-	
-	
-//	public static void Backupdbtosql() {
-//	    try {
-//
-//	        /*NOTE: Getting path to the Jar file being executed*/
-//	        /*NOTE: YourImplementingClass-> replace with the class executing the code*/
-//	        CodeSource codeSource = YourImplementingClass.class.getProtectionDomain().getCodeSource();
-//	        File jarFile = new File(codeSource.getLocation().toURI().getPath());
-//	        String jarDir = jarFile.getParentFile().getPath();
-//
-//
-//	        /*NOTE: Creating Database Constraints*/
-//	        String dbName = "YourDBName";
-//	        String dbUser = "YourUserName";
-//	        String dbPass = "YourUserPassword";
-//
-//	        /*NOTE: Creating Path Constraints for folder saving*/
-//	        /*NOTE: Here the backup folder is created for saving inside it*/
-//	        String folderPath = jarDir + "\\backup";
-//
-//	        /*NOTE: Creating Folder if it does not exist*/
-//	        File f1 = new File(folderPath);
-//	        f1.mkdir();
-//
-//	        /*NOTE: Creating Path Constraints for backup saving*/
-//	        /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-//	         String savePath = "\"" + jarDir + "\\backup\\" + "backup.sql\"";
-//
-//	        /*NOTE: Used to create a cmd command*/
-//	        String executeCmd = "mysqldump -u" + dbUser + " -p" + dbPass + " --database " + dbName + " -r " + savePath;
-//
-//	        /*NOTE: Executing the command here*/
-//	        Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-//	        int processComplete = runtimeProcess.waitFor();
-//
-//	        /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-//	        if (processComplete == 0) {
-//	            System.out.println("Backup Complete");
-//	        } else {
-//	            System.out.println("Backup Failure");
-//	        }
-//
-//	    } catch (URISyntaxException | IOException | InterruptedException ex) {
-//	        JOptionPane.showMessageDialog(null, "Error at Backuprestore" + ex.getMessage());
-//	    }
-//	}
-	
-	
 	public static void createRazprFormWordDoc() {
 		JFrame f = new JFrame();
 		new FrameChoiceRequestByCode(f, "Генериране на Разпределителен формуляр");

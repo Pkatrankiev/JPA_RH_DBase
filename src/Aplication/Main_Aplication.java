@@ -1,7 +1,6 @@
 package Aplication;
 
 import java.util.Map;
-
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
@@ -11,6 +10,7 @@ import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
+import OldClases.DBAutoBackupController;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
 import Table.Table_Results_List;
@@ -64,7 +64,22 @@ public class Main_Aplication {
 		
 //		request  Results
 		
-		TestClases.backupDBase();
+//		TestClases.tbBackup("rhdbase","someuser","123","D:/000/123.sql");
+		
+		
+		
+		
+//		TestClases.backupDB_From_RemoteServer();
+		
+		
+		
+		
+//		try {
+//			TestClases.getData();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 //		TestClases.Table_Results_List_Test(3, "Results");
 		
@@ -85,7 +100,7 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

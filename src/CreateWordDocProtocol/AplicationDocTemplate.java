@@ -1,19 +1,15 @@
 package CreateWordDocProtocol;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -40,6 +34,7 @@ import org.docx4j.wml.P;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
+
 
 public class AplicationDocTemplate {
 	
@@ -370,37 +365,7 @@ k++;
 		    return c_str;
 		  }
 	
-	public static void toExcel(JTable table) throws UnsupportedEncodingException, FileNotFoundException{
-//		 File file = new File("Some name.xls");
-		 	
-		    Writer excel = new BufferedWriter(
-		            new OutputStreamWriter(new FileOutputStream(
-		            		"Some2 name.xls"), "cp1251"
-		            				+ ""
-		            				+ ""));
-		 
-	    try{
-	        TableModel model = table.getModel();
-//	        FileWriter excel = new FileWriter(out);
-
-	        for(int i = 0; i < model.getColumnCount(); i++){ 
-	            excel.write(model.getColumnName(i) + "\t");
-	        }
-
-	        excel.write("\n");
-
-	        for(int i=0; i< model.getRowCount(); i++) {
-	            for(int j=0; j < model.getColumnCount(); j++) {
-	                excel.write(model.getValueAt(i,j).toString()+"\t");
-	            }
-	            excel.write("\n");
-	        }
-
-	        excel.close();
-
-	    }catch(IOException e){ System.out.println(e); }
-	}
-
+		
 
 	
 	public static void addTable(WordprocessingMLPackage wordMLPackage, Tbl table) {

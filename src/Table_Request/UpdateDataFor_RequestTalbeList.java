@@ -25,14 +25,13 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import DefaultTableList.TableList_Functions;
 import DefaultTableList.TableList_OverallVariables;
-import Table_Results.ResultsTableMouseListener;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.TranscluentWindow;
 
 public class UpdateDataFor_RequestTalbeList {
 	
-	@SuppressWarnings({ "static-access", "unused" })
+	@SuppressWarnings("static-access")
 	public static void updateDataFor_RequestTalbeList(TableList_OverallVariables objectTableList_OverallVariables, JTable table, TranscluentWindow round) {
 		List<Integer> listStrRequestCodeForUpdate = objectTableList_OverallVariables.getListRowForUpdate();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();

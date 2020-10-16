@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +31,7 @@ import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
+import ExcelFilesFunction.CreateExcelFile;
 import OldClases.Table_Request_List_old;
 import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
@@ -234,24 +234,24 @@ public class Table_Sample_List extends JDialog {
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				JButton btnNewButton = new JButton("export");
+				JButton btnExportButton = new JButton("export");
 
-				btnNewButton.addActionListener(new ActionListener() {
+				btnExportButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
-						TranscluentWindow round = new TranscluentWindow();
+//						TranscluentWindow p = new TranscluentWindow();
 
 						final Thread thread = new Thread(new Runnable() {
 							@Override
 							public void run() {
 
-								DefaultTableModel model = (DefaultTableModel) table.getModel();
-								List<Integer> listRow = new ArrayList<Integer>();
-								for (int i = 0; i < model.getRowCount(); i++) {
-									listRow.add(i);
-								}
-
-								updateChangedSampleObject(table, listRow, round);
+									table.getRowSorter();
+//								List<Integer> listRow = new ArrayList<Integer>();
+//								for (int i = 0; i < model.getRowCount(); i++) {
+//									listRow.add(i);
+//								}								
+									CreateExcelFile.toExcel(null, table, "Sample");
+												
 						
 							}
 						});
@@ -259,7 +259,7 @@ public class Table_Sample_List extends JDialog {
 
 					}
 				});
-				panel_Btn.add(btnNewButton);
+				panel_Btn.add(btnExportButton);
 
 				JButton btnSave = new JButton("Запис");
 				btnSave.addActionListener(new ActionListener() {

@@ -1,7 +1,6 @@
 package Table_Results;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -13,7 +12,6 @@ import javax.swing.JLabel;
 import DBase_Class.Dobiv;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.JButton;

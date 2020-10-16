@@ -13,7 +13,6 @@ import GlobalVariable.GlobalPathForIcons;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import InfoPanelInMainWindow.CreatRightPanel;
 import InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar;
-import InfoPanelInMainWindow.IntegerDocumentFilter;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
@@ -31,7 +30,6 @@ import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -42,7 +40,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import Aplication.RequestDAO;
 import Aplication.TableColumnDAO;
 
 import java.awt.BorderLayout;
@@ -51,14 +48,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
-import java.awt.Insets;
-import java.awt.ComponentOrientation;
 
 public class MainWindow extends JFrame {
 

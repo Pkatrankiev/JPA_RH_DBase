@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Table_Results_List_Test;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 

@@ -3,10 +3,8 @@ package Menu;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
-import Aplication.UsersDAO;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Table_Request_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 

@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
-import DBase_Class.Request;
 import DBase_Class.TableColumn;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 

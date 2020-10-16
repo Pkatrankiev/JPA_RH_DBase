@@ -12,8 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Iterator;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,11 +28,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import Aplication.TableColumnDAO;
+import CreateWordDocProtocol.AplicationDocTemplate;
 import DBase_Class.Request;
 import DBase_Class.TableColumn;
 import DBase_Class.Users;
+import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table_Request.UpdateDataFor_RequestTalbeList;
 import Table_Results.UpdateDataFor_ResultsTalbeList;
@@ -96,11 +102,15 @@ public class ViewTableList extends JDialog {
 		JLabel ll = new JLabel();
 		scrollPane.add(ll);
 		round.StopWindow();
+		
 		JPanel panel_Btn = new JPanel();
 		panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
+		JButton btnExportButton = new JButton("export");
+		panel_Btn.add(btnExportButton);
+		
 		JButton btnSave = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
 		btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -118,6 +128,9 @@ public class ViewTableList extends JDialog {
 		if (check_UserIsAdmin(user)) {
 			btnSave.setVisible(true);
 		}
+		
+		
+		btnExportListener(objectTableList_OverallVariables, frame_name, btnExportButton,  table);
 		btnSaveListener(objectTableList_OverallVariables, tipe_Table, table, btnSave);
 		btnCancelListener(btnCancel);
 
@@ -242,6 +255,41 @@ public class ViewTableList extends JDialog {
 		});
 	}
 
+	private void  btnExportListener( TableList_OverallVariables objectTableList_OverallVariables, String frame_name, JButton btnExportButton, JTable table){
+	btnExportButton.addActionListener(new ActionListener() {
+		
+		public void actionPerformed(ActionEvent arg0) {
+			;
+//			TranscluentWindow p = new TranscluentWindow();
+
+			final Thread thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					CreateExcelFile.toExcel(createMasiveTableTypeColumn(objectTableList_OverallVariables, table), table, frame_name);
+					}
+			});
+			thread.start();
+
+		}
+
+		private String[] createMasiveTableTypeColumn(TableList_OverallVariables objectTableList_OverallVariables,
+				JTable table) {
+			@SuppressWarnings("static-access")
+			List<TableColumn> list_TableColumn = objectTableList_OverallVariables.getList_TableColumn();
+			String tableTypeColumn[] = new String [table.getColumnCount()] ;
+			for (int i = 0; i < table.getColumnCount(); i++) {
+				for (TableColumn obTableColumn : list_TableColumn) {
+					if(obTableColumn.getName_Column().equals(table.getColumnName(i))){
+						tableTypeColumn[i] = obTableColumn.getTipe_Column();
+					}
+				}
+				
+			}
+			return tableTypeColumn;
+		}
+	});
+	}
+	
 	public static int OptionDialog() {
 		String[] options = {"Да", "Не"};
 ;

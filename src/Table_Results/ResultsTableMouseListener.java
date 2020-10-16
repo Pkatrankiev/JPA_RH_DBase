@@ -1,10 +1,8 @@
 package Table_Results;
 
-import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -21,8 +19,6 @@ import DBase_Class.Results;
 import DefaultTableList.TableList_Functions;
 import DefaultTableList.TableList_OverallVariables;
 import DefaultTableList.TableObject_Class;
-import Table_Request.Table_RequestToObektNaIzp;
-import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.RequestMiniFrame;
 
 public class ResultsTableMouseListener {
@@ -95,7 +91,6 @@ public class ResultsTableMouseListener {
 		return reqCodeStr;
 	}
 
-	@SuppressWarnings("static-access")
 
 	public static int getColumnIndex(JTable table, String columnTitle) {
 		int columnCount = table.getColumnCount();
@@ -130,11 +125,12 @@ public class ResultsTableMouseListener {
 				"Nuclide_Dobiv");
 		int metody_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
 				"MetodNaIzpitvane");
-		int izpitPokazatel_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
-				"IzpitvanPokazatel");
+//		int izpitPokazatel_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
+//				"IzpitvanPokazatel");
 		
-		String idDobiv = model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString().trim();
+//		String idDobiv = model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString().trim();
 		List<Dobiv> listNameDobivs = null;
+		
 //		if(!idDobiv.isEmpty() && !idDobiv.equals("0")){
 		Dobiv selectDobiv = DobivDAO.getDobivById((int) model.getValueAt(selectedRow, idDobiv_ColumnIndex));
 		System.out.println("****************"+model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString());

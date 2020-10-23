@@ -3,9 +3,9 @@ TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
 destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/
 name_tamplate_Protocols = Protokol_NEW.docx
-text_dopalneniq_izklucheniq = ____________________
 name_tamplate_Request = Zaqvka_new.docx
 name_tamplate_RazpredForm = Razpred.docx
+text_dopalneniq_izklucheniq = ____________________
 
 logInMesege = Логнете се
 
@@ -94,6 +94,8 @@ InternalApplicant_List_HeaderColumnName_Telephon = Телефон
 Request_List_Table_LabelText_ChoiceColumn = Избор на колони - заявки
 Request_List_Table_LabelText_EditingData =  редактиране на данните
 Results_List_Table_TitleName = Списък на Резултатите
+
+Sample_List_Table_LabelText_ChoiceColumn = Избор на колони - проби
 
 Results_List_Table_LabelText_ChoiceColumn = Избор на колони - резултати
 List_Table_LabelText_ChoiceColumn = Избор на колони

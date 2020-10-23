@@ -14,6 +14,7 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.TableColumn;
 import DefaultTableList.TableList_Functions;
 import DefaultTableList.TableList_OverallVariables;
+import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 
 
@@ -45,7 +46,7 @@ public class ChoiceL_I_P extends JDialog {
 	static JLabel[] label ;
 	static JCheckBox[] checkBox ;
 
-	@SuppressWarnings("static-access")
+	
 	public ChoiceL_I_P(JFrame parent, List<String> incomming_list, Boolean fromTamplate, String name_Frame, 
 			TableList_OverallVariables objectTableList_OverallVariables) {
 		super(parent, name_Frame, true);
@@ -58,7 +59,8 @@ public class ChoiceL_I_P extends JDialog {
 System.out.println(name_Frame+"  -  "+ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_ChoiceColumn"));
 		if(name_Frame.contains(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
 				get("List_Table_LabelText_ChoiceColumn"))){
-			List<TableColumn> list_TableColumn = objectTableList_OverallVariables.getList_TableColumn();
+			List<TableColumn> list_TableColumn = ViewTableList.getList_TableColumn_WithOut_PermanentInVisibleColumn(
+					objectTableList_OverallVariables);
 			bsic_list = TableList_Functions.getListString_NameColumn(list_TableColumn);
 		}
 		

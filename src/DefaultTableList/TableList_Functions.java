@@ -70,6 +70,10 @@ public class TableList_Functions {
 						.setValues_O_I_R(Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane());
 						break;
 			
+					case "Sample":
+						objectTableList_OverallVariables.setDataTable(getDataTableSample(choisetRequest));
+						break;
+						
 					case "Results":
 						objectTableList_OverallVariables.setDataTable(getDataTableResults(choisetRequest));
 						break;
@@ -166,6 +170,53 @@ public class TableList_Functions {
 		}
 
 		return tableRequest;
+	}
+
+	private static Object[][] getDataTableSample(Request templateRequest) {
+		
+		List<Sample> listSample = new ArrayList<Sample>();
+		if (templateRequest == null) {
+			listSample = SampleDAO.getInListAllValueSample();
+		} else {
+			listSample = SampleDAO.getListSampleFromColumnByVolume("request", templateRequest);
+
+		}
+
+		Object[][] tableSample = new Object[listSample.size()][tbl_Colum];
+		int i = 0;
+
+		for (Sample sample : listSample) {
+
+			try {
+				Integer.parseInt(sample.getRequest().getRecuest_code());
+				tableSample[i][rqst_code_Colum] = sample.getRequest().getRecuest_code();
+				tableSample[i][smpl_code_Colum] = sample.getSample_code();
+				if (sample.getRequest_to_obekt_na_izpitvane_request() != null) {
+					tableSample[i][O_I_R_Colum] = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp()
+							.getName_obekt_na_izpitvane();
+				} else {
+					tableSample[i][O_I_R_Colum] = "";
+					// tableSample[i][O_I_R_Colum] =
+					// sample.getRequest().getText_obekt_na_izpitvane_request();
+				}
+				tableSample[i][O_I_S_Colum] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
+				tableSample[i][smpl_group_descrp_Colum] = sample.getRequest().getDescription_sample_group();
+				tableSample[i][smpl_descrip_Colum] = sample.getDescription_sample();
+				tableSample[i][date_time_ref_Colum] = sample.getDate_time_reference();
+				if (sample.getPeriod() == null) {
+					tableSample[i][period_Colum] = "";
+				} else {
+					tableSample[i][period_Colum] = sample.getPeriod().getValue();
+				}
+				tableSample[i][yar_Colum] = sample.getGodina_period();
+				tableSample[i][smpl_Id_Colum] = sample.getId_sample();
+
+				i++;
+			} catch (NumberFormatException e) {
+
+			}
+		}
+		return tableSample;
 	}
 
 	
@@ -265,6 +316,7 @@ public class TableList_Functions {
 		return tableSampleNew;
 	}
 
+	
 	public static boolean check_ChangedVisibleColumn(List<String> list_StringChoisedVisibleColumn) {
 		if (list_StringChoisedVisibleColumn == null) {
 			return false;
@@ -360,7 +412,7 @@ public class TableList_Functions {
 	public static int getModdelIndexColumnByColumnName(TableList_OverallVariables objectTableList_OverallVariables, String columnName) {
 		
 		System.out.println("ssssssssssssss "+objectTableList_OverallVariables.getList_TableObject_Class());
-		
+		System.out.println("sssssssssssxsxsxsxsxsxsxsxsxsxsxsxsxsxssss" );
 		for (TableObject_Class object : objectTableList_OverallVariables.getList_TableObject_Class()) {
 			if (TableList_Functions.reformatString(object.getColumName_Header()).equalsIgnoreCase(columnName)) {
 				return object.getNumberColum();

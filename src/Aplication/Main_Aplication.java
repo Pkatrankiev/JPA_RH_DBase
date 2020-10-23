@@ -83,7 +83,7 @@ public class Main_Aplication {
 //			e.printStackTrace();
 //		}
 		
-		TestClases.Table_Results_List_Test(3, "Results");
+		TestClases.Table_Results_List_Test(3, "Sample");
 		
 		
 //			CreateExcelFile.toExcel_exper();

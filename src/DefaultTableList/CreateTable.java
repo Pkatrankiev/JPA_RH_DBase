@@ -12,7 +12,7 @@ import javax.swing.table.TableColumn;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table_Request.RequestTableMouseListener;
 import Table_Results.ResultsTableMouseListener;
-
+import Table_Sample.SampleTableMouseListener;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
@@ -30,7 +30,11 @@ public class CreateTable {
 		case "request":
 			new RequestTableMouseListener(objectTableList_OverallVariables,table);
 			break;
-
+		case "Sample":
+			new SampleTableMouseListener(objectTableList_OverallVariables,table);
+			break;
+			
+			
 		case "Results":
 			new ResultsTableMouseListener(objectTableList_OverallVariables, table);
 			break;
@@ -70,7 +74,11 @@ public class CreateTable {
 		case "request":
 			new RequestTableMouseListener(objectTableList_OverallVariables, table);
 			break;
-
+			
+		case "Sample":
+			new SampleTableMouseListener(objectTableList_OverallVariables,table);
+			break;
+			
 		case "Results":
 			
 			new ResultsTableMouseListener(objectTableList_OverallVariables,table);
@@ -87,10 +95,7 @@ public class CreateTable {
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
 				setValueInChoiceColumn(table, list_TableObject_Class);
-
-				System.out.println("------------------------------My_Default_Table_Model  Masive_Invizible_Colum "
-						+ TableList_OverallVariables.getMasive_Invizible_Colum().length);
-
+			
 				My_Default_Table_Model.setInvisibleColumn(table);
 
 			}

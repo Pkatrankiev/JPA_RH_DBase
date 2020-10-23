@@ -65,6 +65,7 @@ public class ResultsTableMouseListener {
 								break;
 								
 							case "Dobiv":
+							case "Dobiv_Nuclide":
 								Table_DobivInResults(objectTableList_OverallVariables, model, selectedRow);
 								break;
 
@@ -154,7 +155,7 @@ if(dobivFromResultTableList.getSelectDobiv()!=null){
 //		}
 	}
 
-	public static Boolean isEditableDobivObjectInResults(Results choiseResults, Dobiv newDobiv) {
+	public static Boolean isEditableDobivObjectInResults1(Results choiseResults, Dobiv newDobiv) {
 		Dobiv originalDobiv = choiseResults.getDobiv();
 		if (newDobiv != null && originalDobiv != null) {
 			return newDobiv.getId_dobiv() != originalDobiv.getId_dobiv();

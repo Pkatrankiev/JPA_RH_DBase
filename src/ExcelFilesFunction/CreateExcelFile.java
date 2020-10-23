@@ -36,6 +36,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import DefaultTableList.TableList_Functions;
+import GlobalVariable.GlobalPathForDocFile;
 
 public class CreateExcelFile {
 
@@ -284,7 +285,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 	}
 
 	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName) {
-		String excelFilePath = "home.xls";
+		String excelFilePath =GlobalPathForDocFile.get_destinationDir() + "export.xls";
 		try {
 			TableColumnModel tcm = table.getColumnModel();
 			
@@ -361,7 +362,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 				        
 				        case "code_Request":
 				        case "count_Simple":
-				        case "code_Results":
+				        case "code_Sample":
 				        case "Integer":
 				        	
 				        	cell = row.createCell(excelColumnCount, CellType.NUMERIC);

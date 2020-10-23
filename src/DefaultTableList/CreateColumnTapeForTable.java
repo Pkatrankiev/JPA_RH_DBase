@@ -90,7 +90,7 @@ public class CreateColumnTapeForTable {
 			mapListTable.put(tableColumn.getKeyMap(),colum_Object);
 			k++;
 		}
-		
+	
 		objectTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
 		objectTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
 		objectTableList_OverallVariables.setList_TableColumn(list_TableColumn);
@@ -179,26 +179,11 @@ public class CreateColumnTapeForTable {
 			mapListTable.put(tableColumn.getKeyMap(),colum_Object);
 			k++;
 		}
-		
 		objectTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
 		objectTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
 		objectTableList_OverallVariables.setList_TableColumn(list_TableColumn);	
 		
-//		switch (tipeTable) {
-//
-//		case "request":
-//			RequestTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
-//			RequestTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
-//			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumn);
-//			break;
-//
-//		case "Results":
-//			ResultsTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
-//			ResultsTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
-//			ResultsTableList_OverallVariables.setList_TableColumn(list_TableColumn);
-//			break;
-//
-//		}
+
 	
 	}
 

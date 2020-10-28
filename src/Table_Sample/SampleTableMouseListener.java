@@ -90,7 +90,7 @@ public class SampleTableMouseListener {
 	}
 
 	private String getSelectedCode_Request(TableList_OverallVariables objectTableList_OverallVariables,DefaultTableModel model, int selectedRow) {
-		int code_RequestColumnIndex = TableList_Functions.getIndexColumnByKeyMap( objectTableList_OverallVariables,"rqst_code");
+		int code_RequestColumnIndex = TableList_Functions.getIndexColumnByKeyMap( objectTableList_OverallVariables,"NumberRequest");
 		String reqCodeStr = model.getValueAt(selectedRow, code_RequestColumnIndex).toString();
 		return reqCodeStr;
 	}
@@ -115,7 +115,8 @@ public class SampleTableMouseListener {
 
 		DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception,
 				withTime, forDateReception,	fromTable);
-		model.setValueAt(date_time_reference, selectedRow, selectedColumnIndex);
+		date_time_reference.setVisible(true);
+		model.setValueAt( DateChoice_period.get_date_time_reference(), selectedRow, selectedColumnIndex);
 	}
 	
 	private void setObectNaIzpitvaneRequest(TableList_OverallVariables objectTableList_OverallVariables, Request choiseRequest,int selectedRow) {

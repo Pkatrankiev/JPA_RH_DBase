@@ -126,13 +126,9 @@ public class ResultsTableMouseListener {
 				"Nuclide_Dobiv");
 		int metody_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
 				"MetodNaIzpitvane");
-//		int izpitPokazatel_ColumnIndex = TableList_Functions.getIndexColumnByKeyMap(objectTableList_OverallVariables,
-//				"IzpitvanPokazatel");
-		
-//		String idDobiv = model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString().trim();
+
 		List<Dobiv> listNameDobivs = null;
 		
-//		if(!idDobiv.isEmpty() && !idDobiv.equals("0")){
 		Dobiv selectDobiv = DobivDAO.getDobivById((int) model.getValueAt(selectedRow, idDobiv_ColumnIndex));
 		System.out.println("****************"+model.getValueAt(selectedRow, idDobiv_ColumnIndex).toString());
 		if(selectDobiv==null){
@@ -151,8 +147,12 @@ if(dobivFromResultTableList.getSelectDobiv()!=null){
 		model.setValueAt(dobivFromResultTableList.getSelectDobiv().getValue_result(), selectedRow,
 				dobivResult_ColumnIndex);
 		model.setValueAt(dobivFromResultTableList.getSelectDobiv().getId_dobiv(), selectedRow, idDobiv_ColumnIndex);
+}else{
+	model.setValueAt("", selectedRow, dobivNuclide_ColumnIndex);
+	model.setValueAt(0.0, selectedRow, dobivResult_ColumnIndex);
+	model.setValueAt(0, selectedRow, idDobiv_ColumnIndex);
 }
-//		}
+
 	}
 
 	public static Boolean isEditableDobivObjectInResults1(Results choiseResults, Dobiv newDobiv) {

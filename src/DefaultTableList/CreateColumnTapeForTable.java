@@ -14,6 +14,7 @@ import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.Obekt_na_izpitvane_sampleDAO;
+import Aplication.PeriodDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.TableColumnDAO;
 import Aplication.UsersDAO;
@@ -84,6 +85,10 @@ public class CreateColumnTapeForTable {
 			case "Dimension":
 				colum_Object.setMasiveValueForChoice(DimensionDAO.getMasiveStringAllValueDimension());
 				break;
+				
+			case "Period":
+				colum_Object.setMasiveValueForChoice(PeriodDAO.getMasiveStringAllValuePeriod());
+				break;
 			}
 			
 			list_TableObject_Class.add(colum_Object);
@@ -95,21 +100,6 @@ public class CreateColumnTapeForTable {
 		objectTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
 		objectTableList_OverallVariables.setList_TableColumn(list_TableColumn);
 		
-//		switch (tipeTable) {
-//
-//		case "request":
-//			RequestTableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
-//			RequestTableList_OverallVariables.setMap_TableObject_Class( mapListTable);
-//			RequestTableList_OverallVariables.setList_TableColumn(list_TableColumn);
-//			break;
-//
-//		case "Results":
-//			TableList_OverallVariables.setList_TableObject_Class(list_TableObject_Class);
-//			TableList_OverallVariables.setMap_TableObject_Class( mapListTable);
-//			TableList_OverallVariables.setList_TableColumn(list_TableColumn);
-//			break;
-//
-//		}
 	
 	}
 
@@ -173,6 +163,11 @@ public class CreateColumnTapeForTable {
 			case "Dimension":
 				colum_Object.setMasiveValueForChoice(DimensionDAO.getMasiveStringAllValueDimension());
 				break;
+				
+			case "Period":
+				colum_Object.setMasiveValueForChoice(PeriodDAO.getMasiveStringAllValuePeriod());
+				break;
+				
 			}
 			
 			list_TableObject_Class.add(colum_Object);

@@ -231,6 +231,8 @@ public class ViewTableList extends JDialog {
 
 						}
 						
+						objectTableList_OverallVariables.setListRowForUpdate(new ArrayList<Integer>());
+						
 						if (check_ChangedColumn(tipe_Table, objectTableList_OverallVariables.getList_TableColumn())) {
 							if(OptionDialog()>0){
 							updateTableColumn(objectTableList_OverallVariables.getList_TableColumn());	

@@ -41,7 +41,7 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 	public  DialogView_DobivFromResultTableList(Frame parent, List<Dobiv> listNameDobivs, Dobiv incomingDobiv) {
 		super(parent, window_Title, true);
 		
-
+		
 		listAllDobivs = listNameDobivs;
 		selectDobiv = incomingDobiv;
 
@@ -107,8 +107,16 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 					@Override
 					public void itemStateChanged(ItemEvent e) {
 						selectDobiv = getDobivFromComboBox(comboBoxNameDobivs.getSelectedItem());
-						lblDobivVolume.setText(selectDobiv.getValue_result().toString());
-						lblNukcideVolume.setText(selectDobiv.getNuclide().getSymbol_nuclide());
+						if(selectDobiv==null){
+							lblDobivVolume.setText("0");
+							lblNukcideVolume.setText("");
+						}
+						else{
+							lblDobivVolume.setText(selectDobiv.getValue_result().toString());
+							lblNukcideVolume.setText(selectDobiv.getNuclide().getSymbol_nuclide());
+						
+						}
+						
 						
 					}
 
@@ -173,7 +181,7 @@ public class DialogView_DobivFromResultTableList extends JDialog {
 	}
 	
 	private void setDobivToComboBox(List<Dobiv> listname, JComboBox<String> comboBoxNameDobivs) {
-		
+		comboBoxNameDobivs.addItem("");
 		for (Dobiv dobiv : listname) {
 			comboBoxNameDobivs.addItem(dobiv.getCode_Standart());
 			}

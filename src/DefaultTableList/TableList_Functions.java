@@ -174,6 +174,9 @@ public class TableList_Functions {
 
 	private static Object[][] getDataTableSample(Request templateRequest) {
 		
+		Map<String, TableObject_Class> mapTableObject = TableList_OverallVariables.getMap_TableObject_Class();
+		int tbl_Colum = mapTableObject.size();
+		
 		List<Sample> listSample = new ArrayList<Sample>();
 		if (templateRequest == null) {
 			listSample = SampleDAO.getInListAllValueSample();
@@ -181,7 +184,8 @@ public class TableList_Functions {
 			listSample = SampleDAO.getListSampleFromColumnByVolume("request", templateRequest);
 
 		}
-
+		
+	
 		Object[][] tableSample = new Object[listSample.size()][tbl_Colum];
 		int i = 0;
 
@@ -189,27 +193,27 @@ public class TableList_Functions {
 
 			try {
 				Integer.parseInt(sample.getRequest().getRecuest_code());
-				tableSample[i][rqst_code_Colum] = sample.getRequest().getRecuest_code();
-				tableSample[i][smpl_code_Colum] = sample.getSample_code();
+				tableSample[i][mapTableObject.get("NumberRequest").getNumberColum()] = sample.getRequest().getRecuest_code();
+				tableSample[i][mapTableObject.get("CodeSample").getNumberColum()] = sample.getSample_code();
 				if (sample.getRequest_to_obekt_na_izpitvane_request() != null) {
-					tableSample[i][O_I_R_Colum] = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp()
+					tableSample[i][mapTableObject.get("obk_Izp").getNumberColum()] = sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp()
 							.getName_obekt_na_izpitvane();
 				} else {
-					tableSample[i][O_I_R_Colum] = "";
+					tableSample[i][mapTableObject.get("obk_Izp").getNumberColum()] = "";
 					// tableSample[i][O_I_R_Colum] =
 					// sample.getRequest().getText_obekt_na_izpitvane_request();
 				}
-				tableSample[i][O_I_S_Colum] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
-				tableSample[i][smpl_group_descrp_Colum] = sample.getRequest().getDescription_sample_group();
-				tableSample[i][smpl_descrip_Colum] = sample.getDescription_sample();
-				tableSample[i][date_time_ref_Colum] = sample.getDate_time_reference();
+				tableSample[i][mapTableObject.get("Object_Sample").getNumberColum()] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
+				tableSample[i][mapTableObject.get("dscr_Smpl").getNumberColum()] = sample.getRequest().getDescription_sample_group();
+				tableSample[i][mapTableObject.get("dscr_Sam_Smpl").getNumberColum()] = sample.getDescription_sample();
+				tableSample[i][mapTableObject.get("ref_Date").getNumberColum()] = sample.getDate_time_reference();
 				if (sample.getPeriod() == null) {
-					tableSample[i][period_Colum] = "";
+					tableSample[i][mapTableObject.get("Period").getNumberColum()] = "";
 				} else {
-					tableSample[i][period_Colum] = sample.getPeriod().getValue();
+					tableSample[i][mapTableObject.get("Period").getNumberColum()] = sample.getPeriod().getValue();
 				}
-				tableSample[i][yar_Colum] = sample.getGodina_period();
-				tableSample[i][smpl_Id_Colum] = sample.getId_sample();
+				tableSample[i][mapTableObject.get("Godina_Period").getNumberColum()] = sample.getGodina_period();
+				tableSample[i][mapTableObject.get("Id_Sample").getNumberColum()] = sample.getId_sample();
 
 				i++;
 			} catch (NumberFormatException e) {
@@ -411,8 +415,6 @@ public class TableList_Functions {
 	@SuppressWarnings("static-access")
 	public static int getModdelIndexColumnByColumnName(TableList_OverallVariables objectTableList_OverallVariables, String columnName) {
 		
-		System.out.println("ssssssssssssss "+objectTableList_OverallVariables.getList_TableObject_Class());
-		System.out.println("sssssssssssxsxsxsxsxsxsxsxsxsxsxsxsxsxssss" );
 		for (TableObject_Class object : objectTableList_OverallVariables.getList_TableObject_Class()) {
 			if (TableList_Functions.reformatString(object.getColumName_Header()).equalsIgnoreCase(columnName)) {
 				return object.getNumberColum();

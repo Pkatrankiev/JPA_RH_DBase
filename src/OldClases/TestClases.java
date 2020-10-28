@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -49,6 +50,7 @@ import javax.sql.DataSource;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.CallableStatement;
 
@@ -60,6 +62,7 @@ import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
 import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
+import Aplication.SampleDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
@@ -67,8 +70,11 @@ import DBase_Class.DopalnIziskv;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Request;
 import DBase_Class.Results;
+import DBase_Class.Sample;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import DefaultTableList.TableList_OverallVariables;
+import DefaultTableList.TableObject_Class;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
@@ -78,6 +84,7 @@ import Table_Results.DialogView_DobivFromResultTableList;
 import WindowView.AddDobivView;
 import WindowView.AddResultsView;
 import WindowView.ChoiceFromListWithPlusAndMinus;
+import WindowView.DateChoice_period;
 import WindowView.FrameChoiceRequestByCode;
 import WindowView.MainWindow;
 import WindowView.RequestView;
@@ -122,6 +129,18 @@ public class TestClases {
 		thread.start();
 	}
 
+	public static void setDataTime_Referense(String str_date_period_reception) {
+		final JFrame f = new JFrame();
+		Boolean forDateReception = false;
+		Boolean withTime = true;
+		Boolean fromTable = true;
+		
+		DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception,
+				withTime, forDateReception,	fromTable);
+		date_time_reference.setVisible(true);
+		System.out.println( DateChoice_period.get_date_time_reference());
+	}
+	
 	public static void testSetText_Ob_na_Izp_Request() {
 		List<Request> list_Requestv = RequestDAO.getInListAllValueRequest();
 		for (Request request : list_Requestv) {
@@ -728,7 +747,6 @@ public class TestClases {
 		}
 		return false;
 	}
-
 
 
 

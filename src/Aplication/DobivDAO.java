@@ -100,16 +100,17 @@ public class DobivDAO {
 		@GET
 		@QueryParam("{id}")
 		public static Dobiv getDobivById(@QueryParam("id") int id) {
+//			Dobiv dobiv = null;
 //			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 				entitymanager.getTransaction().begin();
-			Dobiv naredbi = entitymanager.find(Dobiv.class, id);
+				Dobiv  dobiv = entitymanager.find(Dobiv.class, id);
 
 			entitymanager.close();
 			emfactory.close();
 
-			return naredbi;
+			return dobiv;
 		}
 		
 		@SuppressWarnings("unchecked")

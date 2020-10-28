@@ -67,6 +67,8 @@ public class CreateTable {
 		JTable table = new JTable();
 		
 		list_TableObject_Class = objectTableList_OverallVariables.getList_TableObject_Class();
+	
+		System.out.println("****************************************** " + list_TableObject_Class.size());
 		
 		
 		switch (objectTableList_OverallVariables.getTipe_Table()) {

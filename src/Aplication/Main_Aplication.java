@@ -83,8 +83,11 @@ public class Main_Aplication {
 //			e.printStackTrace();
 //		}
 		
-		TestClases.Table_Results_List_Test(3, "Sample");
+//		TestClases.Table_Results_List_Test(3, "Results");
 		
+		
+//		TestClases.setDataTime_Referense("28.10.2020 12:55");
+				
 		
 //			CreateExcelFile.toExcel_exper();
 		
@@ -106,7 +109,7 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

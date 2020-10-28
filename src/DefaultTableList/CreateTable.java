@@ -21,14 +21,14 @@ public class CreateTable {
 	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 			.get("clickToChoice");
 
-	public static JTable CreateDefaultTable_Old(TableList_OverallVariables objectTableList_OverallVariables, String tipe_Table) {
+	public static JTable CreateDefaultTable_Old(ViewTableList viewTableList,TableList_OverallVariables objectTableList_OverallVariables, String tipe_Table) {
 		JTable table = new JTable();
 		list_TableObject_Class = TableList_OverallVariables.getList_TableObject_Class();
 		
 		switch (tipe_Table) {
 
 		case "request":
-			new RequestTableMouseListener(objectTableList_OverallVariables,table);
+			new RequestTableMouseListener( viewTableList, objectTableList_OverallVariables,table);
 			break;
 		case "Sample":
 			new SampleTableMouseListener(objectTableList_OverallVariables,table);
@@ -63,7 +63,7 @@ public class CreateTable {
 	}
 
 	@SuppressWarnings("static-access")
-	public static JTable CreateDefaultTable(TableList_OverallVariables objectTableList_OverallVariables) {
+	public static JTable CreateDefaultTable(ViewTableList viewTableList, TableList_OverallVariables objectTableList_OverallVariables) {
 		JTable table = new JTable();
 		
 		list_TableObject_Class = objectTableList_OverallVariables.getList_TableObject_Class();
@@ -74,7 +74,7 @@ public class CreateTable {
 		switch (objectTableList_OverallVariables.getTipe_Table()) {
 
 		case "request":
-			new RequestTableMouseListener(objectTableList_OverallVariables, table);
+			new RequestTableMouseListener( viewTableList,objectTableList_OverallVariables, table);
 			break;
 			
 		case "Sample":

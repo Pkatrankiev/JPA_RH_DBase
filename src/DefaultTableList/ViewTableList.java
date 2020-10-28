@@ -54,7 +54,7 @@ public class ViewTableList extends JDialog {
 		
 		
 
-		final JTable table = createTable( objectTableList_OverallVariables, user, firstLoad, choisetRequest);
+		final JTable table = createTable( this,objectTableList_OverallVariables, user, firstLoad, choisetRequest);
 
 		
 		JPanel top_panel = new JPanel();
@@ -411,14 +411,14 @@ public class ViewTableList extends JDialog {
 
 	}
 
-	private JTable createTable(TableList_OverallVariables objectTableList_OverallVariables,  Users user, Boolean firstLoad, Request choisetRequest) {
+	private JTable createTable(ViewTableList viewTableList, TableList_OverallVariables objectTableList_OverallVariables,  Users user, Boolean firstLoad, Request choisetRequest) {
 		if (firstLoad) {
 			CreateColumnTapeForTable.CreateListColumnTapeForTable_Test(objectTableList_OverallVariables);
 				}
 		createVisibleTableColumn(objectTableList_OverallVariables, firstLoad);
 		TableList_Functions.SetDataInOverallVariablesForTable(objectTableList_OverallVariables, user, firstLoad, choisetRequest);
 		
-		return CreateTable.CreateDefaultTable(objectTableList_OverallVariables);
+		return CreateTable.CreateDefaultTable( viewTableList,objectTableList_OverallVariables);
 	}
 
 }

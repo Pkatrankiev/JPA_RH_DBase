@@ -26,6 +26,7 @@ import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
+import WindowView.DialogOption_Yes_No;
 import WindowView.Login;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
@@ -94,15 +95,20 @@ public class RequestTableMouseListener {
 
 							case "count_Simple":
 							case "Date-TimePicker":
+								String frame_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_frame_Text");
+								String info_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_DialogForCloseTable");
+								String change_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_DialogForChangeData");
+								if(!objectTableList_OverallVariables.getListRowForUpdate().isEmpty()){
+									info_Text = info_Text.replace("<html>", change_Text); 
+									}
+								if(DialogOption_Yes_No.DialogOption_Yes_No(frame_Text, info_Text)){
+									viewTableList.setVisible(false);
+									startViewSampleTableList( reqCodeStr);
+								}
 								
-								startViewSampleTableList( viewTableList,reqCodeStr);
 								break;
 
-							// case "Date-TimePicker":
-							// DatePicker_Function(model, selectedRow,
-							// selectedColumnIndex, true);
-							// break;
-
+						
 							}
 						} else {
 							if (e.getClickCount() == 2) {
@@ -121,11 +127,12 @@ public class RequestTableMouseListener {
 				}
 			}
 
-			private void startViewSampleTableList(ViewTableList viewTableList,String reqCodeStr) {
+			private void startViewSampleTableList(String reqCodeStr) {
 				Request choisetRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", reqCodeStr);
 				new JFrame();
 				TranscluentWindow round = new TranscluentWindow();
-				viewTableList.setVisible(false);
+				
+				
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {

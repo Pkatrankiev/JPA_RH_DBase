@@ -93,13 +93,17 @@ InternalApplicant_List_HeaderColumnName_Telephon = Телефон
 
 Request_List_Table_LabelText_ChoiceColumn = Избор на колони - заявки
 Request_List_Table_LabelText_EditingData =  редактиране на данните
-Results_List_Table_TitleName = Списък на Резултатите
+Request_List_Table_DialogForCloseTable = <html>За да се отворят пробите от тази заявка<br>ще затворя този прозорец</html>
+Request_List_Table_DialogForChangeData =  <html>Има променени данни за заявки, които на са запазени<br>
 
 Sample_List_Table_LabelText_ChoiceColumn = Избор на колони - проби
 
 Results_List_Table_LabelText_ChoiceColumn = Избор на колони - резултати
+Results_List_Table_TitleName = Списък на Резултатите
+
 List_Table_LabelText_ChoiceColumn = Избор на колони
-List_Table_DialogSave_ChoiceColumn = <html>Има промени в показваните колони<br>Ще запишете ли промените?</html>
+List_Table_DialogSave_ChoiceColumn_frame_Text = Направете своя избор
+List_Table_DialogSave_ChoiceColumn_info_Text = <html>Има промени в показваните колони<br>Ще запишете ли промените?</html>
 
 AddDobivView_TitleName = Въвеждане на Добив
 AddDobivView_LabelText_CodeForStandart = Код на стандарта
@@ -139,6 +143,8 @@ saveBtn_Text = Запис
 openBtn_Text = Отвори
 showBtn_Text = Покажи
 OK_Btn_Text = OK
+Yes_Btn_Text = Да
+No_Btn_Text = Не
 newNuclideBtn_Text = Нов Нуклид
 BtnText_DataOfDBase = Данни от базата
 BtnText_DataOfFile = Данни от файл

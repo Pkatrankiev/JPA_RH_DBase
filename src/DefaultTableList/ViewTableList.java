@@ -36,6 +36,7 @@ import Table_Request.UpdateDataFor_RequestTalbeList;
 import Table_Results.UpdateDataFor_ResultsTalbeList;
 import Table_Sample.UpdateDataFor_SampleTalbeList;
 import WindowView.ChoiceL_I_P;
+import WindowView.DialogOption_Yes_No;
 import WindowView.TranscluentWindow;
 
 public class ViewTableList extends JDialog {
@@ -133,14 +134,7 @@ public class ViewTableList extends JDialog {
 		setVisible(true);
 	}
 
-	private void btnCancelListener(JButton btnCancel) {
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-		});
-	}
-
+	
 	private boolean check_UserIsAdmin(Users user) {
 		return user != null && user.getIsAdmin();
 	}
@@ -234,7 +228,8 @@ public class ViewTableList extends JDialog {
 						objectTableList_OverallVariables.setListRowForUpdate(new ArrayList<Integer>());
 						
 						if (check_ChangedColumn(tipe_Table, objectTableList_OverallVariables.getList_TableColumn())) {
-							if(OptionDialog()>0){
+							if(DialogOption_Yes_No.DialogOption_Yes_No(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_frame_Text"), 
+									ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_info_Text"))){
 							updateTableColumn(objectTableList_OverallVariables.getList_TableColumn());	
 							}
 						}
@@ -255,6 +250,15 @@ public class ViewTableList extends JDialog {
 		});
 	}
 
+	private void btnCancelListener(JButton btnCancel) {
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+	}
+
+	
 	private void  btnExportListener( TableList_OverallVariables objectTableList_OverallVariables, String frame_name, JButton btnExportButton, JTable table){
 	btnExportButton.addActionListener(new ActionListener() {
 		
@@ -290,18 +294,7 @@ public class ViewTableList extends JDialog {
 	});
 	}
 	
-	public static int OptionDialog() {
-		String[] options = {"Не", "Да"};
-;
-		ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_LabelText_EditingData");
-        int x = JOptionPane.showOptionDialog(null,
-        		ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn"),
-                "Click a button",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-        System.out.println(x);
-		return x;
-       
-	}
+	
 	
 	
 	@SuppressWarnings({ "static-access" })

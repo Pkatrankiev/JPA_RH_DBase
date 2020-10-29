@@ -74,7 +74,7 @@ public class CreateTable {
 		switch (objectTableList_OverallVariables.getTipe_Table()) {
 
 		case "request":
-			new RequestTableMouseListener( viewTableList,objectTableList_OverallVariables, table);
+			new RequestTableMouseListener( viewTableList, objectTableList_OverallVariables, table);
 			break;
 			
 		case "Sample":

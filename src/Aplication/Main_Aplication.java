@@ -44,7 +44,7 @@ public class Main_Aplication {
 		
 //		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
 		
-//		TestClases.AddResultsViewWithTable(3) ;
+		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 //		TestClases.Table_Results_List_Test(3) ;

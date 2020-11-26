@@ -20,7 +20,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -84,7 +83,7 @@ public class ViewTableList extends JDialog {
 		JCheckBox chckbxNewCheckBox = new JCheckBox(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("Request_List_Table_LabelText_EditingData"));
 
-		chckbxNewCheckBox.setEnabled(check_UserIsAdmin(user));
+		chckbxNewCheckBox.setEnabled(check_UserUsed(user));
 		raide_panel.add(chckbxNewCheckBox);
 		chckbxNewCheckBox.setBorder(null);
 		chckbxNewCheckBox.setMargin(new Insets(0, 2, 0, 2));
@@ -122,13 +121,13 @@ public class ViewTableList extends JDialog {
 				lblColumnChoice);
 		chckbxNewCheckBoxListener( objectTableList_OverallVariables, chckbxNewCheckBox);
 		columnChoiceListener(this, user, objectTableList_OverallVariables, lblColumnChoice, choisetRequest);
-		if (check_UserIsAdmin(user)) {
+		if (check_UserUsed(user)) {
 			btnSave.setVisible(true);
 		}
 		
 		
 		btnExportListener(objectTableList_OverallVariables, frame_name, btnExportButton,  table);
-		btnSaveListener(objectTableList_OverallVariables, tipe_Table, table, btnSave);
+		btnSaveListener(this, user , choisetRequest, objectTableList_OverallVariables, tipe_Table, table, btnSave);
 		btnCancelListener(btnCancel);
 
 		setVisible(true);
@@ -139,6 +138,10 @@ public class ViewTableList extends JDialog {
 		return user != null && user.getIsAdmin();
 	}
 
+	private boolean check_UserUsed(Users user) {
+		return user != null ;
+	}
+	
 	@SuppressWarnings("static-access")
 	private void createVisibleTableColumn(TableList_OverallVariables objectTableList_OverallVariables, Boolean firstLoad) {
 		
@@ -189,7 +192,6 @@ public class ViewTableList extends JDialog {
 		
 
 	}
-
 	
 	private int[] getMasiveIndexInvisibleColumn(TableList_OverallVariables objectTableList_OverallVariables, List<TableColumn> list_TableColumn) {
 		String[] masiveNameInvisibleColumn = TableList_Functions
@@ -199,7 +201,7 @@ public class ViewTableList extends JDialog {
 	return masiveIndexInvisbleColumn;
 	}
 
-	private void btnSaveListener(TableList_OverallVariables objectTableList_OverallVariables, String tipe_Table, final JTable table, JButton btnSave) {
+	private void btnSaveListener(ViewTableList table_List, Users user, Request choisetRequest, TableList_OverallVariables objectTableList_OverallVariables, String tipe_Table, final JTable table, JButton btnSave) {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -235,19 +237,42 @@ public class ViewTableList extends JDialog {
 						}
 
 					}
-
-					private void updateTableColumn(List<TableColumn> list_TableColumn) {
-						for (TableColumn tableColumn : list_TableColumn) {
-							System.out.println(tableColumn.getId_TableColumn());
-							TableColumnDAO.updateObjectTableColumn(tableColumn);
-						}
-						
-					}
-				});
+					
+					
+					});
 				thread.start();
+
+				refresh_ViewTaleList(table_List, user, objectTableList_OverallVariables, choisetRequest);
+			}
+		});
+	}
+
+	private void refresh_ViewTaleList(ViewTableList table_List, Users user,
+			TableList_OverallVariables objectTableList_OverallVariables, Request choisetRequest) {
+		table_List.dispose();
+		TranscluentWindow round = new TranscluentWindow();
+
+		final Thread thread = new Thread(new Runnable() {
+			@SuppressWarnings("static-access")
+			@Override
+			public void run() {
+
+				JFrame f = new JFrame();
+				new ViewTableList(f, round, user, objectTableList_OverallVariables.getTipe_Table(),
+						objectTableList_OverallVariables.getFrame_name(), false,  choisetRequest);
 
 			}
 		});
+		thread.start();
+	}
+
+
+	private void updateTableColumn(List<TableColumn> list_TableColumn) {
+		for (TableColumn tableColumn : list_TableColumn) {
+			System.out.println(tableColumn.getId_TableColumn());
+			TableColumnDAO.updateObjectTableColumn(tableColumn);
+		}
+		
 	}
 
 	private void btnCancelListener(JButton btnCancel) {
@@ -257,7 +282,6 @@ public class ViewTableList extends JDialog {
 			}
 		});
 	}
-
 	
 	private void  btnExportListener( TableList_OverallVariables objectTableList_OverallVariables, String frame_name, JButton btnExportButton, JTable table){
 	btnExportButton.addActionListener(new ActionListener() {
@@ -293,9 +317,6 @@ public class ViewTableList extends JDialog {
 		}
 	});
 	}
-	
-	
-	
 	
 	@SuppressWarnings({ "static-access" })
 	private void columnChoiceListener(ViewTableList table_List,  Users user, TableList_OverallVariables objectTableList_OverallVariables, 
@@ -347,36 +368,27 @@ public class ViewTableList extends JDialog {
 							TableList_Functions.ghangeInvisibleInTableColunmObject(listForNameVisibleColumn,objectTableList_OverallVariables.getList_TableColumn()));
 
 
-					table_List.dispose();
-					TranscluentWindow round = new TranscluentWindow();
-
-					final Thread thread = new Thread(new Runnable() {
-						@Override
-						public void run() {
-
-							JFrame f = new JFrame();
-							new ViewTableList(f, round, user, objectTableList_OverallVariables.getTipe_Table(),
-									objectTableList_OverallVariables.getFrame_name(), false,  choisetRequest);
-
-						}
-					});
-					thread.start();
+					refresh_ViewTaleList(table_List, user, objectTableList_OverallVariables, choisetRequest);
 
 				}
 			}
 
-			private Boolean isChangedVisibleColumn(String tipe_Table, List<String> listForNameVisibleColumn) {
-				boolean changedVisibleColumn = false;
-				
-				changedVisibleColumn = TableList_Functions
-						.check_ChangedVisibleColumn(listForNameVisibleColumn);
+	
 
-				return changedVisibleColumn;
-			}
-
+			
 		});
 	}
 
+	private Boolean isChangedVisibleColumn(String tipe_Table, List<String> listForNameVisibleColumn) {
+		boolean changedVisibleColumn = false;
+		
+		changedVisibleColumn = TableList_Functions
+				.check_ChangedVisibleColumn(listForNameVisibleColumn);
+
+		return changedVisibleColumn;
+	}
+
+	
 	@SuppressWarnings({ "static-access" })
 	public static List<TableColumn> getList_TableColumn_WithOut_PermanentInVisibleColumn(
 			TableList_OverallVariables objectTableList_OverallVariables) {

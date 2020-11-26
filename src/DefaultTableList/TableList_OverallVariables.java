@@ -138,9 +138,17 @@ public class TableList_OverallVariables {
 		}
 		System.out.println("+- "+getChckbxNewCheckBox().isSelected());
 		System.out.println(getChckbxNewCheckBox().isSelected()	&& getUser().getIsAdmin());
-		return getChckbxNewCheckBox().isSelected()	&& getUser().getIsAdmin();
+		return  getChckbxNewCheckBox().isSelected() && getUser().getIsAdmin();
 	}
 
+	public static boolean isSelectedCheckBox() {
+		
+		if( getChckbxNewCheckBox()==null){
+			return false;	
+		}
+		return  getChckbxNewCheckBox().isSelected();
+	}
+	
 	public static String getTipe_Table() {
 		return tipe_Table;
 	}

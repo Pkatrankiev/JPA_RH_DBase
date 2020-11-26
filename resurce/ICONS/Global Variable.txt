@@ -23,7 +23,9 @@ noConectionInDBaseDialog_BTN_Exit = Изход
 noConectionInDBaseDialog_BTN_Вaiting = Изчакване
 
 $$MainWindow_MenusTitle
-MainWindow_Ver = Ver.281020
+
+MainWindow_Ver = Ver.261120
+
 MainWindow_Title = ДП РАО, с-р Радиохимия
 MainWindow_Title_work =  -> работи
 MainWindow_LogInStr_Btn = logIn

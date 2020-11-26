@@ -44,7 +44,7 @@ public class Main_Aplication {
 		
 //		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
 		
-		TestClases.AddResultsViewWithTable(3) ;
+//		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 //		TestClases.Table_Results_List_Test(3) ;
@@ -83,7 +83,7 @@ public class Main_Aplication {
 //			e.printStackTrace();
 //		}
 		
-//		TestClases.Table_Results_List_Test(3, "request");
+//		TestClases.Table_Results_List_Test(2, "request");
 		
 		
 //		TestClases.setDataTime_Referense("28.10.2020 12:55");

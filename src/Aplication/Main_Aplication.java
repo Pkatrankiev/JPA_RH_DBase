@@ -23,11 +23,11 @@ import WindowView.MesejePanelInAddResultsView;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
-
+	
 	public static void main(String[] args) {
 	
 		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
-	
+		
 		
 	
 //		TestClases.Table_RequestToObektNaIzp();
@@ -51,7 +51,10 @@ public class Main_Aplication {
 		
 		
 		
-//		TestClases.createProtocolWordDoc("Изтриване на Заявка");
+//		TestClases.createProtocolWordDoc("Генериране на Протокол");
+		
+		
+		
 		
 //		TestClases.createRazprFormWordDoc();
 		
@@ -120,7 +123,7 @@ public class Main_Aplication {
 		     public void run() {
 		    	 
 		    	 new MainWindow(round);
-		 		
+		    	
 		 			    	
 		     }
 		    });

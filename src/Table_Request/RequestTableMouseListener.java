@@ -21,7 +21,6 @@ import DefaultTableList.TableList_OverallVariables;
 import DefaultTableList.TableObject_Class;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.Table_Sample_List;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;
@@ -101,7 +100,7 @@ public class RequestTableMouseListener {
 								if(!objectTableList_OverallVariables.getListRowForUpdate().isEmpty()){
 									info_Text = info_Text.replace("<html>", change_Text); 
 									}
-								if(DialogOption_Yes_No.DialogOption_Yes_No(frame_Text, info_Text)){
+								if(DialogOption_Yes_No.DialogOption_YesNo(frame_Text, info_Text)){
 									viewTableList.setVisible(false);
 									startViewSampleTableList( reqCodeStr);
 								}

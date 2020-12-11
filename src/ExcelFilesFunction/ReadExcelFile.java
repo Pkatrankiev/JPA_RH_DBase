@@ -1,5 +1,6 @@
 package ExcelFilesFunction;
 
+import org.apache.poi.hssf.OldExcelFormatException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -76,6 +77,9 @@ public class ReadExcelFile {
 			fis = new FileInputStream(FILE_PATH);
 
 			// Using XSSF for xlsx format, for xls use HSSF
+
+
+			try {	
 			@SuppressWarnings("resource")
 			Workbook workbook = new HSSFWorkbook(fis);
 
@@ -196,7 +200,12 @@ public class ReadExcelFile {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-
+			
+		} catch (OldExcelFormatException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Excel файлът трябва да е версия 97/2000/XP/2003", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+		}
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);

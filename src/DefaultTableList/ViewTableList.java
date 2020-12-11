@@ -134,9 +134,9 @@ public class ViewTableList extends JDialog {
 	}
 
 	
-	private boolean check_UserIsAdmin(Users user) {
-		return user != null && user.getIsAdmin();
-	}
+//	private boolean check_UserIsAdmin(Users user) {
+//		return user != null && user.getIsAdmin();
+//	}
 
 	private boolean check_UserUsed(Users user) {
 		return user != null ;
@@ -230,7 +230,7 @@ public class ViewTableList extends JDialog {
 						objectTableList_OverallVariables.setListRowForUpdate(new ArrayList<Integer>());
 						
 						if (check_ChangedColumn(tipe_Table, objectTableList_OverallVariables.getList_TableColumn())) {
-							if(DialogOption_Yes_No.DialogOption_Yes_No(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_frame_Text"), 
+							if(DialogOption_Yes_No.DialogOption_YesNo(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_frame_Text"), 
 									ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_info_Text"))){
 							updateTableColumn(objectTableList_OverallVariables.getList_TableColumn());	
 							}

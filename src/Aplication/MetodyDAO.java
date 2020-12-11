@@ -130,6 +130,27 @@ public class MetodyDAO {
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@GET
+	@PersistenceContext
+	public static List<Metody> getList_MetodyByActingAndArrangement(Boolean acting) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createNamedQuery("getList_MetodyByActingAndArrangement");
+		query.setParameter("text", acting);
+		
+		List<Metody> list = query.getResultList();;
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
 	public static String[] getMasiveStringAllValueMetody(){
 		 List<Metody> list = getInListAllValueMetody();
 		String[] values = new String[list.size()];

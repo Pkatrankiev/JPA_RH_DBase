@@ -18,11 +18,13 @@ import org.docx4j.wml.*;
 
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
+import Aplication.MetodyDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Naredbi;
 import DBase_Class.Nuclide;
 import DBase_Class.Request;
@@ -62,6 +64,7 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
+		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
 
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
@@ -156,14 +159,16 @@ public class GenerateDocProtokol {
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
 
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
+		int[] masiveMergeRow2 = new int[lastSampleIndex + 2];
+		
 		int idexSample = 0;
 
 		for (Sample sample : smple_list) {
-			
+
 			if (idexSample > lastSampleIndex) {
 				masiveMergeRow[idexSample] = coutRow++;
 				if (!flagAlphaFraction) {
-				mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
+					mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
 				}
 				tempTable = newTable(substitutionData, template, pargraphTemplateProtokol, pargraphTemplateText,
 						pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable, headerRow_1, headerRow_2,
@@ -179,19 +184,19 @@ public class GenerateDocProtokol {
 			}
 
 			masiveMergeRow[idexSample] = coutRow;
-			
+
 			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
-			
-			
+
+			result_list = arrangementListResultsByMetody(result_list);
+
 			if (flagAlphaFraction) {
 				CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
 						repl_request_pokazarel, pokazAlpha);
 				coutRow++;
-				masiveMergeRow[idexSample] = masiveMergeRow[idexSample]+1;
+				masiveMergeRow[idexSample] = masiveMergeRow[idexSample] + 1;
 				result_list = arrangementListResultsByAlphaFraction(result_list);
 			}
-			
-			
+
 			for (Results result : result_list) {
 
 				repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
@@ -203,9 +208,8 @@ public class GenerateDocProtokol {
 		}
 		masiveMergeRow[idexSample] = coutRow++;
 		if (!flagAlphaFraction) {
-		mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
+			mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
 		}
-		
 
 		if (!FunctionForGenerateWordDocFile.getStringDopIzisk(smple_list.get(0)).equals("")) {
 			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {
@@ -256,43 +260,293 @@ public class GenerateDocProtokol {
 
 	}
 
+	public static void GenerateProtokolWordDocORGINAL(String nameTaplateProtokol, Request recuest,
+			Map<String, String> substitutionData, TranscluentWindow round) {
+
+		BasicConfigurator.configure();
+
+		// List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
+		nameTaplateProtokol = GlobalPathForDocFile.get_TEMPLATE_DIRECTORY_ROOT() + nameTaplateProtokol;
+		String[] masive_column_table_result = new String[] { "$$sample_code$$", "$$sample_metod$$", "$$cod$$",
+				"$$razmernost$$", "$$value$$", "$$norma$$" };
+
+		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
+		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
+				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
+		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
+
+		// zarejdame dokumenta
+		WordprocessingMLPackage template = null;
+		try {
+			template = AplicationDocTemplate.getTemplate(nameTaplateProtokol);
+		} catch (FileNotFoundException | Docx4JException e) {
+			e.printStackTrace();
+		}
+		// zamestvane na elementite v parvata stranica na documanta
+		AplicationDocTemplate.replaceBasicValueInDoc(template, substitutionData);
+
+		P pargraphTemplateProtokol = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateProtokol);
+		P pargraphTemplateText = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateText);
+
+		P pargraphTemplateNewPage = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateNewPage);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateNewPage);
+
+		P pargraphTemplateZabel = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateZabel);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateZabel);
+
+		P pargraphTemplateNewRow = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateNewRow);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateNewRow);
+
+		P pargraphTemplateMDA = AplicationDocTemplate.getTemplateParagraph(template, strKeyTemplateMDA);
+		AplicationDocTemplate.removeTemplateParagraph(template, strKeyTemplateMDA);
+
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateProtokol, substitutionData);
+
+		// izvlichane na tablicite ot documenta
+		List<Object> tables = AplicationDocTemplate.getAllElementFromObject(template.getMainDocumentPart(), Tbl.class);
+
+		// find the table
+		Tbl tempTable = null;
+		Tbl podpisiTable = null;
+		Tbl sertifikatTable = null;
+		Tbl zabTable = null;
+		try {
+			sertifikatTable = AplicationDocTemplate.getTemplateTable(tables, strKeyUser);
+			if (recuest.getAccreditation()) {
+				AplicationDocTemplate.removeTable(template, sertifikatTable);
+			}
+			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_column_table_result[0]);
+			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, strKeyPodpisiTable);
+			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
+
+		} catch (Docx4JException | JAXBException e3) {
+			e3.printStackTrace();
+		}
+
+		// prochitane na redovete v tablicata
+		List<Object> rows = AplicationDocTemplate.getAllElementFromObject(tempTable, Tr.class);
+
+		Tr headerRow_1 = AplicationDocTemplate.getRowEqualsText(rows, strKeyHeaderRow_1);
+		Tr headerRow_2 = AplicationDocTemplate.getRowEqualsText(rows, strKeyHeaderRow_2);
+		Tr templateRow_pokazatel = AplicationDocTemplate.getRowEqualsText(rows, strKeyRow_pokazatel);
+		Tr templateRow = AplicationDocTemplate.getRowEqualsText(rows, masive_column_table_result[0]);
+
+		tempTable.getContent().remove(templateRow);
+		tempTable.getContent().remove(templateRow_pokazatel);
+
+		AplicationDocTemplate.removeTable(template, podpisiTable);
+		AplicationDocTemplate.removeTable(template, zabTable);
+
+		Map<String, String> repl_request_pokazarel = new HashMap<String, String>();
+		List<Results> result_list = new ArrayList<>();
+		Map<String, String> repl_results = new HashMap<String, String>();
+		// int[] numberMergeCells = new int[smple_list.size() + 1];
+
+		int coutRow = 1;
+		// List<int[]> list = createMsasiveRowTable(smple_list,
+		// pokazatel_list,coutRow);
+
+		String pokaz = pokazatel_list.get(0).getPokazatel().getName_pokazatel();
+		@SuppressWarnings("unused")
+		Boolean sendOnePokazatel = false;
+		if (pokazatel_list.size() == 1) {
+			Boolean fl = CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
+					repl_request_pokazarel, pokaz);
+			if (fl) {
+				sendOnePokazatel = true;
+				coutRow++;
+			}
+		}
+
+		// Alpha fraction
+		String pokazAlpha = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelById(2).getName_pokazatel();
+		boolean flagAlphaFraction = isАlphaFraction(pokazatel_list);
+		// Alpha fraction
+
+		FunctionForGenerateWordDocFile.clearListDokladMDA();
+
+		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
+
+		int[] masiveMergeRow = new int[lastSampleIndex + 2];
+		int[] masiveMergeRow2 = new int[lastSampleIndex + 2];
+		int idexSample = 0;
+
+		for (Sample sample : smple_list) {
+
+			if (idexSample > lastSampleIndex) {
+				masiveMergeRow[idexSample] = coutRow++;
+				if (!flagAlphaFraction) {
+					mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
+				}
+				tempTable = newTable(substitutionData, template, pargraphTemplateProtokol, pargraphTemplateText,
+						pargraphTemplateNewPage, pargraphTemplateNewRow, tempTable, headerRow_1, headerRow_2,
+						repl_results);
+
+				coutRow = 2;
+
+				lastSampleIndex = CreateListForMultiTable
+						.lastIndexSampleForFirstTab(smple_list.subList(lastSampleIndex, smple_list.size() - 1));
+
+				masiveMergeRow = new int[lastSampleIndex + 2];
+				idexSample = 0;
+			}
+
+			masiveMergeRow[idexSample] = coutRow;
+
+			result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
+
+			result_list = arrangementListResultsByMetody(result_list);
+
+			if (flagAlphaFraction) {
+				CreateListForMultiTable.addRowPokazatelIfGamaOrAlpha(tempTable, templateRow_pokazatel,
+						repl_request_pokazarel, pokazAlpha);
+				coutRow++;
+				masiveMergeRow[idexSample] = masiveMergeRow[idexSample] + 1;
+				result_list = arrangementListResultsByAlphaFraction(result_list);
+			}
+
+			for (Results result : result_list) {
+
+				repl_results = FunctionForGenerateWordDocFile.generateResultsMap(sample, result,
+						masive_column_table_result);
+				AplicationDocTemplate.addRowToTable(tempTable, templateRow, repl_results);
+				coutRow++;
+			}
+			idexSample++;
+		}
+		masiveMergeRow[idexSample] = coutRow++;
+		if (!flagAlphaFraction) {
+			mergeCelsInTAble(tempTable, masiveMergeRow, recuest);
+		}
+
+		if (!FunctionForGenerateWordDocFile.getStringDopIzisk(smple_list.get(0)).equals("")) {
+			for (Results result : FunctionForGenerateWordDocFile.getListDokladMDA()) {
+				AplicationDocTemplate.addparagToDoc(template, pargraphTemplateMDA,
+						FunctionForGenerateWordDocFile.generateMapMDA(result));
+			}
+		}
+		String string_zab = smple_list.get(0).getRequest().getZabelejki().getRequest_name();
+		if (FunctionForGenerateWordDocFile.isZabContain10pecent(string_zab)) {
+			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel,
+					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* " + string_zab));
+
+		}
+
+		Naredbi naredba = FunctionForGenerateWordDocFile.getNaredba();
+		if (naredba != null) {
+			AplicationDocTemplate.addparagToDoc(template, pargraphTemplateZabel,
+					AplicationDocTemplate.createReplaceMap(strKeyTemplateZabel, "* " + naredba.getName_protokol()));
+		}
+		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow, AplicationDocTemplate.createEmptiMap("##$$%%"));
+		AplicationDocTemplate.addTable(template, zabTable);
+
+		AplicationDocTemplate.addParagraph(template, pargraphTemplateNewRow);
+		AplicationDocTemplate.replaceParagraph(pargraphTemplateNewRow, AplicationDocTemplate.createEmptiMap("##$$%%"));
+		AplicationDocTemplate.addTable(template, podpisiTable);
+		AplicationDocTemplate.replaceTable(zabTable, AplicationDocTemplate.createEmptiMap(strKeyzabTable));
+
+		try {
+			String newNameProtokol = recuest.getRecuest_code() + "_" + RequestViewFunction.DateNaw(false) + ".docx";
+			AplicationDocTemplate.writeDocxToStream(template,
+					GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
+			round.StopWindow();
+
+			if (recuest.getInd_num_doc() == null || recuest.getInd_num_doc().getId_ind_num_doc() == 1) {
+				JOptionPane.showMessageDialog(null, "Изпринтете два оригинала на този протокол", "Внимание",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} catch (Docx4JException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	
+	private static List<Results> arrangementListResultsByMetody(List<Results> result_list) {
+		String[] alphaNuclide = { "Am", "Cm", "Pu", "U","Sr" };
+		
+		List<Results> newResultList = new ArrayList<>();
+		List<Metody> AllListMetody = MetodyDAO.getList_MetodyByActingAndArrangement(true);
+	
+
+		for (Metody list_Metody : AllListMetody) {
+
+			if(list_Metody.getCode_metody().contains("01")){
+				
+				for (String nucklideAlpha : alphaNuclide) {
+					System.out.println("****   "+nucklideAlpha);
+				for (Results rtesult : result_list) {
+					System.out.println("nuclide " + rtesult.getNuclide().getSymbol_nuclide()+"  "+nucklideAlpha);
+					System.out.println("****>>>>>> ");
+					if (list_Metody.getId_metody() == (rtesult.getMetody().getId_metody()) && rtesult.getNuclide().getSymbol_nuclide().contains(nucklideAlpha)) {
+						newResultList.add(rtesult);
+					}
+				}
+			}
+			}else
+			
+			for (Results rtesult : result_list) {
+				if (list_Metody.getId_metody() == (rtesult.getMetody().getId_metody())) {
+					newResultList.add(rtesult);
+				}
+			}
+
+		}
+
+		for (Results rsult : newResultList) {
+			System.out.println("****>>>>>> " + rsult.getNuclide().getSymbol_nuclide());
+
+		}
+		System.out.println("****>>>>>> ");
+		System.out.println("****>>>>>> ");
+
+		return newResultList;
+	}
+
 	private static List<Results> arrangementListResultsByAlphaFraction(List<Results> result_list) {
 		List<Results> newResultList = new ArrayList<>();
 		List<List_izpitvan_pokazatel> listFractionPokazatel = new ArrayList<>();
-		
+
 		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("Pu-фракция"));
 		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("Am-фракция"));
 		listFractionPokazatel.add(List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName("U-фракция"));
-		System.out.println("1----- "+result_list.size());
-		
+		System.out.println("1----- " + result_list.size());
+
 		for (List_izpitvan_pokazatel list_izpitvan_pokazatel : listFractionPokazatel) {
-			System.out.println("list_izpitvan_pokazatel = "+list_izpitvan_pokazatel.getName_pokazatel());
+			System.out.println("list_izpitvan_pokazatel = " + list_izpitvan_pokazatel.getName_pokazatel());
 			List<Nuclide> listNuclide = Nuclide_to_PokazatelDAO.getListNuclideByPokazatel(list_izpitvan_pokazatel);
 			for (Nuclide nuclide : listNuclide) {
-				System.out.println("nuclide = "+nuclide.getSymbol_nuclide());
+				System.out.println("nuclide = " + nuclide.getSymbol_nuclide());
 			}
 			for (Nuclide nuclide : listNuclide) {
-				System.out.println("nuclide = "+nuclide.getSymbol_nuclide());
-				System.out.println("result_list.size "+result_list.size());
+				System.out.println("nuclide = " + nuclide.getSymbol_nuclide());
+				System.out.println("result_list.size " + result_list.size());
 				Iterator<Results> itr = result_list.iterator();
 				while (itr.hasNext()) {
 					Results rsult = itr.next();
-					System.out.println(nuclide.getSymbol_nuclide()+" - "+rsult.getNuclide().getSymbol_nuclide());
+					System.out.println(nuclide.getSymbol_nuclide() + " - " + rsult.getNuclide().getSymbol_nuclide());
 					if (nuclide.getSymbol_nuclide().equals(rsult.getNuclide().getSymbol_nuclide())) {
-						System.out.println("************** "+rsult.getNuclide().getSymbol_nuclide());
+						System.out.println("************** " + rsult.getNuclide().getSymbol_nuclide());
 						newResultList.add(rsult);
 						itr.remove();
 					}
-					
+
 				}
-			
+
 			}
 		}
-		
+
 		for (Results rsult : result_list) {
 			newResultList.add(rsult);
-				
-			}
+
+		}
 		return newResultList;
 	}
 
@@ -324,10 +578,10 @@ public class GenerateDocProtokol {
 
 		for (int i = 0; i < numberMergeCells.length - 1; i++) {
 			for (int numbereMergeColumn : masiveMergeColumn) {
-			
+
 				MergeCellsAplication.mergeCellsVertically(tempTable, numbereMergeColumn, numberMergeCells[i],
 						numberMergeCells[i + 1]);
-				
+
 			}
 		}
 		int max = 0;
@@ -339,10 +593,10 @@ public class GenerateDocProtokol {
 		System.out.println("max= " + max);
 		if (FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size() == 1 && max < 2) {
 			for (int i = 1; i < masiveMergeColumn.length; i++) {
-			
+
 				MergeCellsAplication.mergeCellsVertically(tempTable, masiveMergeColumn[i], numberMergeCells[0],
 						numberMergeCells[numberMergeCells.length - 1]);
-			
+
 			}
 		}
 	}

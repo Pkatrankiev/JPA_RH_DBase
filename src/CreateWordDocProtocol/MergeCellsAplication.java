@@ -73,7 +73,13 @@ public class MergeCellsAplication {
 	            if (tc == null) {  
 	                break;  
 	            }  
-	           
+	            Tc tc1 = getTc(tbl, rowIndex, col); 
+	            Tc tc2 = getTc(tbl, rowIndex+1, col); 
+	            if (tc2 != null) {
+	           if( tc1.toString().equals(tc2.toString())){
+	        	   tc2.setParent("");
+	           }
+	            }
 	            TcPr tcPr = getTcPr(tc);  
 	            VMerge vMerge = tcPr.getVMerge();  
 	            if (vMerge == null) {  

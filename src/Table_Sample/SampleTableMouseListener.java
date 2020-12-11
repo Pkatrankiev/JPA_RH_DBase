@@ -2,9 +2,7 @@ package Table_Sample;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -16,14 +14,10 @@ import DBase_Class.Request;
 import DefaultTableList.TableList_Functions;
 import DefaultTableList.TableList_OverallVariables;
 import DefaultTableList.TableObject_Class;
-import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.Table_Sample_List;
 import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DateChoice_period;
 import WindowView.MiniComboBoxFrame;
 import WindowView.RequestMiniFrame;
-import WindowView.RequestView;
-import WindowView.TranscluentWindow;
 
 public class SampleTableMouseListener {
 

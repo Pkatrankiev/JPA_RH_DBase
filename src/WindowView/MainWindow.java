@@ -179,6 +179,7 @@ public class MainWindow extends JFrame {
 				list_TableColumn.get(0).setName_Column(CreatRightPanel.getYearInTxtField());
 				TableColumnDAO.updateObjectTableColumn(list_TableColumn.get(0));
 				}
+				 
 				dispose();
 				System.exit(0);
 			}

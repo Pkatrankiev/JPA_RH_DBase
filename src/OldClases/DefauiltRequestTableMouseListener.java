@@ -15,12 +15,10 @@ import javax.swing.table.DefaultTableModel;
 
 import Aplication.RequestDAO;
 import DBase_Class.Request;
-import DefaultTableList.TableList_OverallVariables;
 import DefaultTableList.TableObject_Class;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Table.Table_Sample_List;
 import Table_Request.Table_RequestToObektNaIzp;
-import Table_Results.ResultsTableMouseListener;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.ChoiceL_I_P;
 import WindowView.DateChoice_period;

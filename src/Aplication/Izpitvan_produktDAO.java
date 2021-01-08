@@ -71,7 +71,7 @@ public class Izpitvan_produktDAO {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e");
+		Query query = entitymanager.createQuery("SELECT e FROM Izpitvan_produkt e ORDER BY e.name ASC");
 		@SuppressWarnings("unchecked")
 		List<Izpitvan_produkt> list = query.getResultList();
 		entitymanager.close();

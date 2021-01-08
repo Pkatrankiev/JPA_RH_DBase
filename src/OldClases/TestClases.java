@@ -68,6 +68,7 @@ import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.DopalnIziskv;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -166,6 +167,23 @@ public class TestClases {
 		thread.start();
 	}
 
+	public static void testReferenceView() {
+		TranscluentWindow round = new TranscluentWindow();
+
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				JFrame f = new JFrame();
+				new Reference(f, round);
+
+			}
+		});
+		thread.start();
+	}
+
+	
+	
 	public static void test3() {
 		List<String> list = new ArrayList<String>();
 		String strObektIzpit = "Спецкорпус-1; Бак 4 и 5 (Изход 2)";
@@ -586,6 +604,26 @@ public class TestClases {
 		}
 	}
 
+	public static void TestIterator() {
+		
+		@SuppressWarnings("rawtypes")
+		List<Integer> listPeriod = new ArrayList(Arrays.asList(1,2,3,4,5,6));
+		List<Integer> kperiod = new ArrayList(Arrays.asList(1,2,3,4,5,6,7));
+		
+	for (int period : listPeriod) {
+		
+		for (Iterator<Integer> it = kperiod.iterator(); it.hasNext();) {
+		    int sample = it.next();
+		    System.out.println(period+"  "+sample);
+		    if(period==sample){
+		        it.remove();
+		    }
+		}
+	
+	}
+	}
+	
+	
 	public static String NumberToMAXDigitAftrerZerro(String num) {
 		int MAXDigit = 4;
 

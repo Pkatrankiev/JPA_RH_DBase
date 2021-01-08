@@ -50,8 +50,35 @@ public class PeriodDAO {
 
 		return list;
 	}
-
 	
+	@SuppressWarnings("unchecked")
+	public static List<Period> getInListPeriod_Mesechni() {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		Query query = entitymanager.createQuery("SELECT e FROM Period e WHERE e.Id_period < 20");
+		List<Period> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public static List<Period> getInListPeriod_TriMesechni() {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		Query query = entitymanager.createQuery("SELECT e FROM Period e WHERE e.Id_period BETWEEN 20 AND 40");
+		List<Period> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
 	
 	public static String [] getMasiveStringAllValuePeriod() {
 		List<Period> list = getInListAllValuePeriod();

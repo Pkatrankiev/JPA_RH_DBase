@@ -152,7 +152,7 @@ public class IzpitvanPokazatelDAO {
 		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
-		String hql = "SELECT e FROM IzpitvanPokazatel e WHERE e.List_izpitvan_pokazatel = :text";
+		String hql = "SELECT e FROM IzpitvanPokazatel e WHERE e.pokazatel = :text";
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", pokazatel);

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.ws.rs.QueryParam;
 
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -112,7 +113,11 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-		StartMainWindow();
+		TestClases.testReferenceView();
+		
+//		TestClases.TestIterator();
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

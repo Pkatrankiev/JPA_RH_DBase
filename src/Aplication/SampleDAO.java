@@ -152,6 +152,62 @@ public class SampleDAO {
 		return list;
 	}
 
+	
+		@SuppressWarnings("unchecked")
+	public static List<Sample> getListSampleFrom3ColumnByVolume(String column_name1, Object volume_check1, 
+			String column_name2, Object volume_check2) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Sample e WHERE e." + column_name1 + " = :text1 "
+				+ " AND e." + column_name2 + " = :text2";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text1", volume_check1);
+		query.setParameter("text2", volume_check2);
+		
+
+		List<Sample> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public static Object[] getListNonRecurringObjectFromColumn(String column_name) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+//		String hql = "SELECT e FROM Sample e WHERE e." + column_name + " = :text";
+		
+		String hql = "SELECT DISTINCT e." + column_name + " FROM Sample e  ORDER BY e." + column_name;
+		
+		Query query = entitymanager.createQuery(hql);
+		
+
+		List<Object> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		Object[] masive = new Object[list.size()];
+		int i = 0;
+		for (Object object : list) {
+			masive[i] = object;
+			i++;
+		}
+
+		return masive;
+	}
+	
+	 
+	
 	@GET
 	@QueryParam("{id}")
 	public static Sample getValueSampleById(@QueryParam("id") int id) {

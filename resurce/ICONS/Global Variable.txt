@@ -142,13 +142,18 @@ Reference_TitleName = Справки
 Reference_LabelText_IzpitvanProdukt = Изпитван продукт
 Reference_LabelText_Obekt_Na_Izpitvane = Обект на изпитване
 Reference_LabelText_Pokazatel = Показател
+Reference_LabelText_Neopredelenost = Неопределеност
 Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata = Обект на пробата
 Reference_LabelText_Godina = Година
 Reference_LabelRadioButton_mesechni = месечни
 Reference_LabelRadioButton_TriMesechni = тримесечни
 Reference_LabelRadioButton_MDA = МДА
+Reference_LabelRadioButton_OtnNeopred = Относителна
+Reference_LabelRadioButton_AbsNeopred = Абсолютна
 Reference_LabelRadioButton_Activnost = Активност
+Reference_LabelTextRazmernost = Размерност
 Reference_LabelButton_Start = Старт
+Reference_ReportString = Няма намерени резултати
 
 $$Button_Text
 exitBtn_Text = Изход

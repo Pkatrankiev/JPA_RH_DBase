@@ -154,7 +154,7 @@ public class SampleDAO {
 
 	
 		@SuppressWarnings("unchecked")
-	public static List<Sample> getListSampleFrom3ColumnByVolume(String column_name1, Object volume_check1, 
+	public static List<Sample> getListSampleFrom2ColumnByVolume(String column_name1, Object volume_check1, 
 			String column_name2, Object volume_check2) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

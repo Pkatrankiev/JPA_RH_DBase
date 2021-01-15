@@ -378,7 +378,7 @@ public class FunctionForGenerateWordDocFile {
 		return str_foll;
 	}
 
-	private static String formatter(double number) {
+	public static String formatter(double number) {
 		DecimalFormat formatter = new DecimalFormat("0.00E00");
 		String fnumber = formatter.format(number);
 		if (!fnumber.contains("E-")) { // don't blast a negative sign

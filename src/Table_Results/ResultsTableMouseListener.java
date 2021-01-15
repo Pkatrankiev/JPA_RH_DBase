@@ -54,8 +54,8 @@ public class ResultsTableMouseListener {
 									.getHeaderValue().toString();
 							int selectedColumnIndex = TableList_Functions.getModdelIndexColumnByColumnName(
 									objectTableList_OverallVariables, nameSelectedColumn);
-							selectedColumnIndex = TableList_Functions.getModdelIndexColumnByColumnName(
-									objectTableList_OverallVariables, nameSelectedColumn);
+//							selectedColumnIndex = TableList_Functions.getModdelIndexColumnByColumnName(
+//									objectTableList_OverallVariables, nameSelectedColumn);
 
 							switch (getTipeColumnByNameColumn(objectTableList_OverallVariables, nameSelectedColumn)) {
 

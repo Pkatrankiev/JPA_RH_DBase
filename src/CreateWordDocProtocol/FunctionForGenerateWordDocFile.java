@@ -384,7 +384,7 @@ public class FunctionForGenerateWordDocFile {
 		if (!fnumber.contains("E-")) { // don't blast a negative sign
 			fnumber = fnumber.replace("E", "E+");
 		}
-		fnumber = fnumber.replace(",", ".");
+		fnumber = fnumber.replace(",", ".").replace("E", "E");
 		return fnumber;
 	}
 

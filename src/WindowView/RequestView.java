@@ -16,13 +16,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -43,8 +41,6 @@ import Aplication.ZabelejkiDAO;
 import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
-import CreateWordDocProtocol.GenerateRequestWordDoc;
-import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import DBase_Class.Aplicant;
 import DBase_Class.DopalnIziskv;
 import DBase_Class.External_applicant;
@@ -985,8 +981,7 @@ public class RequestView extends JDialog {
 		}
 
 	}
-	
-	
+		
 
 	private void createPanelSample_Description() {
 		comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
@@ -1186,8 +1181,6 @@ public class RequestView extends JDialog {
 		txtFld_Count_Sample.setColumns(3);
 
 	}
-
-	
 
 	private void Section_Date_Execution() {
 		JLabel lbl_date_execution = new JLabel("Срок за изпълнение:");
@@ -1690,37 +1683,6 @@ public class RequestView extends JDialog {
 		return request;
 
 	}
-
-	private void Button_Preview() {
-		JButton btn_Preview = new JButton("Превю");
-		btn_Preview.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				if (checkRequest()) {
-					try {
-						createPreviewRequestWordDoc();
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-			}
-
-		});
-
-		btn_Preview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GridBagConstraints gbc_btn_Preview = new GridBagConstraints();
-		gbc_btn_Preview.anchor = GridBagConstraints.EAST;
-		gbc_btn_Preview.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_Preview.gridx = 3;
-		gbc_btn_Preview.gridy = 26;
-		basicPanel.add(btn_Preview, gbc_btn_Preview);
-	}
-
 	
 	private Boolean checkRequest() {
 
@@ -1843,29 +1805,6 @@ public class RequestView extends JDialog {
 
 	}
 
-	private void createPreviewRequestWordDoc() throws ParseException {
-		Extra_module extra_mod = createExtraModuleForPreview();
-		request = createRequestObject(extra_mod);
-		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
-		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
-		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromMasiveSample(masiveSampleValue);
-
-		Map<String, String> substitutionData = Generate_Map_For_Request_Word_Document.GenerateMapForRequestWordDocument(
-				request, txtArea_list_izpitvan_pokazatel.getText(), masiveSampleValue, date_time_reference);
-
-		TranscluentWindow round = new TranscluentWindow();
-		final Thread thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				GenerateRequestWordDoc.generateAndSend_Request_Docx("Zaqvka.docx",
-						"Z-" + request.getRecuest_code() + "_" + request.getDate_request(), substitutionData, round);
-
-			}
-		});
-		thread.start();
-
-	}
-
 	private void saveSample() {
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewAdd.getVolumeSampleView(count_Sample);
@@ -1946,26 +1885,6 @@ public class RequestView extends JDialog {
 		Aplicant aplic = AplicantDAO.getAplicantByNameFamily(choice_AplicantNameFamily.getSelectedItem());
 		DopalnIziskv dopIzis = DopalnIziskvDAO.getValueDopalnIziskvByName(choice_dopIzis.getSelectedItem());
 		if (!dopDogov.equals("") || aplic != null || dopIzis.getId_dopIzis() != 1 || externalAplic != null
-				|| internalAplic != null) {
-			extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
-			extra_module.setAdditional_arrangements("");
-			extra_module.setReturn_samples(rdbtn_Yes.isSelected());
-			extra_module.setAplicant(aplic);
-			extra_module.setDoplIzisk(dopIzis);
-			extra_module.setExternal_applicant(externalAplic);
-			extra_module.setInternal_applicant(internalAplic);
-		}
-		return extra_module;
-	}
-
-	private Extra_module createExtraModuleForPreview() {
-		String dopDogov = txtArea_DopalnDogovorenosti.getText();
-
-		Extra_module extra_module = new Extra_module();
-		Aplicant aplic = AplicantDAO.getAplicantByNameFamily(choice_AplicantNameFamily.getSelectedItem());
-
-		DopalnIziskv dopIzis = DopalnIziskvDAO.getValueDopalnIziskvByName(choice_dopIzis.getSelectedItem());
-		if (!dopDogov.equals("") || aplic != null || dopIzis != null || externalAplic != null
 				|| internalAplic != null) {
 			extra_module.setAdditional_requirements(txtArea_DopalnDogovorenosti.getText());
 			extra_module.setAdditional_arrangements("");

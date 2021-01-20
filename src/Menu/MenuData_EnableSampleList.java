@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Table.Table_Sample_List;
 import WindowView.Login;
 import WindowView.TranscluentWindow;
 

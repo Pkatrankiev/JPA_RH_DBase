@@ -613,10 +613,13 @@ public class AddResultViewMetods {
 										System.out.println(CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result));
 								
 										if(dobiv.getNuclide().getSymbol_nuclide().equals(dataTable[i][nuclide_Colum].toString())){
+											
 											System.out.println(dobiv.getNuclide().getSymbol_nuclide()+""+(dataTable[i][nuclide_Colum].toString()));	
 										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result)) {
 											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
 										}
+										}else{
+											errDobiv = "несъвпадащи нуклиди за добиви" + "\n ";
 										}
 									}
 								}

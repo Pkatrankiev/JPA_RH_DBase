@@ -64,7 +64,7 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
-		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
+//		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
 
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
@@ -159,7 +159,7 @@ public class GenerateDocProtokol {
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
 
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
-		int[] masiveMergeRow2 = new int[lastSampleIndex + 2];
+		
 		
 		int idexSample = 0;
 
@@ -273,7 +273,7 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
-		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
+//		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
 
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
@@ -368,8 +368,7 @@ public class GenerateDocProtokol {
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
 
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
-		int[] masiveMergeRow2 = new int[lastSampleIndex + 2];
-		int idexSample = 0;
+			int idexSample = 0;
 
 		for (Sample sample : smple_list) {
 

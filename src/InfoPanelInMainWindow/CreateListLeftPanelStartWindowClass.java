@@ -46,7 +46,7 @@ public class CreateListLeftPanelStartWindowClass {
 		List<List<LeftPanelStartWindowClass>> groupList = Lists.newArrayList();
 
 		FindFile ff = new FindFile();
-		String month = getPreviousMesec(1);
+		
 
 		String monitGroup = "";
 
@@ -54,12 +54,9 @@ public class CreateListLeftPanelStartWindowClass {
 		progressBarView.setValue(ProgressBarSize);
 		for (int i = 0; i < listMonitoringGroup.length; i++) {
 			monitGroup = listMonitoringGroup[i];
-
-			if (monitGroup.equals("Вода")) {
-				month = getPreviousMesec(2);
-
-			}
-			List<Request> techniIzh = cerateList(month, monitGroup);
+			
+		
+			List<Request> techniIzh = cerateList(monitGroup);
 
 			double stepForProgressBar = 25;
 
@@ -229,10 +226,16 @@ public class CreateListLeftPanelStartWindowClass {
 		return listCeckRequest;
 	}
 
-	private static List<Request> cerateList(String monthPeriod, String izpitvan_produkt) {
+	private static List<Request> cerateList( String monitGroup) {
 		int curentYear = getYar();
+		
+		String month = getPreviousMesec(1);
+		if (monitGroup.equals("Вода")) {
+			month = getPreviousMesec(2);
+			curentYear++;
+		}
 		List<Request> list = new ArrayList<Request>();
-		List<Request> listRequest = RequestDAO.getListRequestFromMonitoringProgramm(izpitvan_produkt);
+		List<Request> listRequest = RequestDAO.getListRequestFromMonitoringProgramm(monitGroup);
 
 		int countNeseseryRequest = 15;
 
@@ -248,7 +251,7 @@ public class CreateListLeftPanelStartWindowClass {
 			int year = SampleDAO.getListSampleFromColumnByVolume("request", request).get(0).getGodina_period();
 			if (period != null) {
 				String str = period.getValue();
-				if (str.equals(monthPeriod) && curentYear == year) {
+				if (str.equals(month) && curentYear == year) {
 					list.add(request);
 				}
 			}
@@ -289,7 +292,7 @@ public class CreateListLeftPanelStartWindowClass {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		int month = DatePicker.getActualyMonth() + 1;
 		if (month == 1) {
-			year -= 1;
+			year --;
 		}
 		return year;
 	}

@@ -79,7 +79,7 @@ import DefaultTableList.TableObject_Class;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import Reference.Reference;
+import Reference.PeriodicReference;
 import Table.Table_Sample_List;
 import Table_Request.Table_RequestToObektNaIzp;
 import Table_Results.DialogView_DobivFromResultTableList;
@@ -89,6 +89,7 @@ import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.DateChoice_period;
 import WindowView.FrameChoiceRequestByCode;
 import WindowView.MainWindow;
+import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
 
@@ -176,7 +177,7 @@ public class TestClases {
 			public void run() {
 
 				JFrame f = new JFrame();
-				new Reference(f, round);
+				new PeriodicReference(f, round);
 
 			}
 		});
@@ -503,6 +504,10 @@ public class TestClases {
 		return str;
 	}
 
+	public static void TestRequestMiniFrame(String code) {
+	new RequestMiniFrame(new JFrame(), RequestDAO.getRequestFromColumnByVolume("recuest_code", code));
+	}
+	
 	public static void setAllValueToRequestToObektNaIzpit() {
 		List<Request> list = RequestDAO.getInListAllValueRequest();
 		for (Request request : list) {

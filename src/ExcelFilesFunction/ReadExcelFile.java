@@ -72,7 +72,7 @@ public class ReadExcelFile {
 		FileInputStream fis = null;
 		String metod = "", nuclide = "", result = "", uncert = "", mda = "", quantity = "", tsi = "", dimencion = "";
 		String date_Analize = "";
-
+	
 		try {
 			fis = new FileInputStream(FILE_PATH);
 
@@ -82,10 +82,10 @@ public class ReadExcelFile {
 			try {	
 			@SuppressWarnings("resource")
 			Workbook workbook = new HSSFWorkbook(fis);
-
+			
 			Sheet sheet = workbook.getSheetAt(0);
 			user_Analize = "";
-			metod = "М.ЛИ-РХ-01";
+			metod = "Рњ.Р›Р-Р РҐ-01";
 			tsi = "T04";
 			String textNulCell = "";
 			int rowAcrivitiNuclide = 0;
@@ -101,11 +101,12 @@ public class ReadExcelFile {
 					textNulCell = cell.getStringCellValue();
 					System.out.println(row + "  -  " + textNulCell);
 
-					if (!textNulCell.isEmpty() && textNulCell.equals("Analyst: ORTEC")) {
+					if (!textNulCell.isEmpty() && (textNulCell.equals("Analyst: ORTEC")||textNulCell.equals("AlphaVision v5.3"))) {
 						for (int col = 1; col <= 20; col += 1) {
 							cell = sheet.getRow(row).getCell(col);
-							if (CellNOEmpty(cell) && cell.getStringCellValue().indexOf(":") < 0) {
-								date_Analize = cell.getStringCellValue().replace("/", ".").replace("г.", "");
+							if (CellNOEmpty(cell) && (cell.getStringCellValue().indexOf("ГЈ.") > 0 || cell.getStringCellValue().indexOf("Рі.")>0)) {
+								System.out.println("  - ***************"+cell.getStringCellValue());
+								date_Analize = cell.getStringCellValue().replace("/", ".").replace("ГЈ.", "").replace("Рі.", ""); 
 							}
 						}
 					}
@@ -117,6 +118,7 @@ public class ReadExcelFile {
 									cell.getStringCellValue().startsWith("Sample Weight :"))) {
 								quantity = sheet.getRow(row).getCell(col).getStringCellValue()
 										.replaceFirst("Sample Volume :", "").replace(",", ".");
+								System.out.println("  - "+quantity);
 							}
 						}
 					}
@@ -135,7 +137,6 @@ public class ReadExcelFile {
 						}
 					}
 					if (!textNulCell.isEmpty() && textNulCell.contains("Tracer Activity:")) {
-						System.out.println(dimencion+"  - ***************///////////Tracer Activity:");
 						for (int col = 1; col <= 20; col += 1) {
 							cell = sheet.getRow(row).getCell(col);
 							if (CellNOEmpty(cell) && cell.getStringCellValue().startsWith("Tracer Recovery:")) {
@@ -148,15 +149,9 @@ public class ReadExcelFile {
 
 					if (!textNulCell.isEmpty() && textNulCell.contains("Nuclide")) {
 						dimencion = getStringInCell(sheet.getRow(row).getCell(10)).replace("^", "");
-						System.out.println(dimencion+"  - ***************/////////// Nuclide");
 						rowAcrivitiNuclide = row;
 						row = sheet.getLastRowNum();
 					}
-
-					// int indexNuclideStandart =
-					// nuclide_StandardStr.indexOf("-");
-					// nuclide_Standard =
-					// nuclide_StandardStr.substring(indexNuclideStandart+1)+nuclide_StandardStr.substring(0,indexNuclideStandart);
 
 				}
 
@@ -167,13 +162,15 @@ public class ReadExcelFile {
 			while (sheet.getRow(row).getCell(col) != null && sheet.getRow(row).getCell(col) .getCellType() != CellType.BLANK) {
 				col++;
 					}
-				
-			System.out.println(col+"  - **************** ");
 			col--;
-			for (int i = rowAcrivitiNuclide + 2; i <= sheet.getLastRowNum(); i += 2) {
-				if (!formatter.formatCellValue(sheet.getRow(i).getCell(0)).isEmpty()) {
+			
+			for (int i = rowAcrivitiNuclide + 2; i <= sheet.getLastRowNum(); i += 1) {
+				
+				Row row2 = sheet.getRow(i);
+
+				if (row2 != null ) {
+					if(!(formatter.formatCellValue(sheet.getRow(i).getCell(0))).isEmpty()){
 					nuclide = getStringInCell(sheet.getRow(i).getCell(0));
-					System.out.println(i+"  -  "+nuclide);
 					nuclide = reformatNuclideSimbol(nuclide);
 
 					result = getStringInCell(sheet.getRow(i).getCell(col-3));
@@ -186,16 +183,16 @@ public class ReadExcelFile {
 							result = "0.0";
 							uncert = "0.0";
 						}
-					}
+					
+					
 				}
-				System.out.println(cod_sample + " - " + metod + " - " + nuclide + " - " + result + " - " + uncert
-						+ " - " + mda + " - " + tsi + " - " + quantity + " - " + dimencion + " - " + date_Analize
-						+ " - " + user_Analize+" ***  "+nuclideSimbol_StandardStr);
+				
 				
 				if(!nuclideSimbol_StandardStr.equals(nuclide))
 				destruct_Result_List.add(new Destruct_Result(cod_sample, metod, nuclide, result, value_Standatd, uncert, mda, tsi,
 						quantity, dimencion, date_Analize, user_Analize));
-
+				}
+				}
 			}
 
 		} catch (FileNotFoundException e) {
@@ -203,12 +200,12 @@ public class ReadExcelFile {
 			
 		} catch (OldExcelFormatException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Excel файлът трябва да е версия 97/2000/XP/2003", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Excel С„Р°Р№Р»СЉС‚ С‚СЂСЏР±РІР° РґР° Рµ РІРµСЂСЃРёСЏ 97/2000/XP/2003", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ excel С„Р°Р№Р»", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 
 		return destruct_Result_List;
@@ -273,7 +270,7 @@ public class ReadExcelFile {
 
 			Sheet sheet = workbook.getSheetAt(0);
 
-			metod = "М.ЛИ-РХ-01";
+			metod = "Рњ.Р›Р-Р РҐ-01";
 
 			tsi = "T04";
 
@@ -286,15 +283,15 @@ public class ReadExcelFile {
 					if (!formatter.formatCellValue(sheet.getRow(i).getCell(colum)).isEmpty()) {
 
 						cellValue = sheet.getRow(i).getCell(colum).getStringCellValue();
-						if (cellValue.equals("Код на пробата")) {
+						if (cellValue.equals("РљРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°")) {
 							cod_sample = sheet.getRow(i).getCell(colum + 1).getStringCellValue();
 						}
-						if (cellValue.equals("Количество")) {
+						if (cellValue.equals("РљРѕР»РёС‡РµСЃС‚РІРѕ")) {
 							quantity = sheet.getRow(i).getCell(colum + 1).getStringCellValue();
 						}
 						if (colum > 22) {
 
-							if (cellValue.equals("Активност на алфа-изотоп")) {
+							if (cellValue.equals("РђРєС‚РёРІРЅРѕСЃС‚ РЅР° Р°Р»С„Р°-РёР·РѕС‚РѕРї")) {
 								dimencion = sheet.getRow(i).getCell(colum + 1).getStringCellValue();
 							}
 							if (cellValue.equals("-")) {
@@ -331,7 +328,7 @@ public class ReadExcelFile {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ excel С„Р°Р№Р»", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 
 		return destruct_Result_List;
@@ -395,27 +392,27 @@ public class ReadExcelFile {
 							// valume = formatter.formatCellValue(cell);
 
 							switch (param) {
-							case "Код":
+							case "РљРѕРґ":
 								try {
 									cod_sample = cell.getStringCellValue();
 								} catch (IllegalStateException e) {
-									errKod = "Код -> не е коректен текст\n";
+									errKod = "РљРѕРґ -> РЅРµ Рµ РєРѕСЂРµРєС‚РµРЅ С‚РµРєСЃС‚\n";
 									cod_sample = "_";
 								}
 								break;
-							case "Метод":
+							case "РњРµС‚РѕРґ":
 								try {
 									metod = cell.getStringCellValue();
 								} catch (IllegalStateException e) {
-									errMetod = "Метод -> не е коректен текст\n";
+									errMetod = "РњРµС‚РѕРґ -> РЅРµ Рµ РєРѕСЂРµРєС‚РµРЅ С‚РµРєСЃС‚\n";
 									metod = "";
 								}
 
 								break;
-							case "Нуклид":
+							case "РќСѓРєР»РёРґ":
 								try {
 									nuclide = cell.getStringCellValue();
-									errNuclide = "Нуклид " + nuclide + " не е в избрания метод\n";
+									errNuclide = "РќСѓРєР»РёРґ " + nuclide + " РЅРµ Рµ РІ РёР·Р±СЂР°РЅРёСЏ РјРµС‚РѕРґ\n";
 									if (forResults) {
 										listSimbolBasikNuclideToMetod =  OverallVariablesAddResults
 												.getListSimbolBasikNulideToMetod();
@@ -429,63 +426,63 @@ public class ReadExcelFile {
 										}
 									}
 								} catch (IllegalStateException e) {
-									errNuclide = "Нуклид -> не е коректен текст\n";
+									errNuclide = "РќСѓРєР»РёРґ -> РЅРµ Рµ РєРѕСЂРµРєС‚РµРЅ С‚РµРєСЃС‚\n";
 									nuclide = " ";
 								}
 
 								break;
-							case "Резултат":
+							case "Р РµР·СѓР»С‚Р°С‚":
 								try {
 									result = String.valueOf(cell.getNumericCellValue());
 									result = ReformatDoubleTo4decimalExponet(result);
 								} catch (IllegalStateException e) {
-									errRezultat = "Резултат -> не е число\n";
+									errRezultat = "Р РµР·СѓР»С‚Р°С‚ -> РЅРµ Рµ С‡РёСЃР»Рѕ\n";
 									result = "0.0";
 								}
 								break;
-							case "Неопределеност":
+							case "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚":
 								try {
 									uncert = String.valueOf(cell.getNumericCellValue());
 									uncert = ReformatDoubleTo4decimalExponet(uncert);
 								} catch (IllegalStateException e) {
-									errNeopred = "Неопределеност -> не е число\n";
+									errNeopred = "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚ -> РЅРµ Рµ С‡РёСЃР»Рѕ\n";
 									uncert = "0.0";
 								}
 								break;
-							case "МДА":
+							case "РњР”Рђ":
 								try {
 									mda = String.valueOf(cell.getNumericCellValue());
 									mda = ReformatDoubleTo4decimalExponet(mda);
 								} catch (IllegalStateException e) {
-									errMDA = "МДА -> не е число\n";
+									errMDA = "РњР”Рђ -> РЅРµ Рµ С‡РёСЃР»Рѕ\n";
 									mda = "0.0";
 								}
 								break;
-							case "Количество":
+							case "РљРѕР»РёС‡РµСЃС‚РІРѕ":
 								try {
 									quantity = String.valueOf(cell.getNumericCellValue());
 									quantity = ReformatDoubleTo4decimalExponet(quantity);
 								} catch (IllegalStateException e) {
-									errKolichestvo = "Количество -> не е число\n";
+									errKolichestvo = "РљРѕР»РёС‡РµСЃС‚РІРѕ -> РЅРµ Рµ С‡РёСЃР»Рѕ\n";
 									quantity = "0.0";
 								}
 
 								quantity = ReformatDoubleTo4decimalExponet(quantity);
 								break;
-							case "Добив":
+							case "Р”РѕР±РёРІ":
 								try {
 									 dobiv1 = String.valueOf(cell.getNumericCellValue());
 									dobiv = ReformatDoubleTo4decimalExponet(dobiv1);
 								} catch (IllegalStateException e) {
-									errDobiv = "Добив -> не е число\n";
+									errDobiv = "Р”РѕР±РёРІ -> РЅРµ Рµ С‡РёСЃР»Рѕ\n";
 									dobiv = "0.0";
 								}
 								break;
-							case "ТСИ":
+							case "РўРЎР":
 								try {
 									tsi = cell.getStringCellValue();
-									errTSI = "ТСИ " + tsi + " не е в списъка\n";
-									String str = tsi.replaceAll("[TtAaТтАа/]", "");
+									errTSI = "РўРЎР " + tsi + " РЅРµ Рµ РІ СЃРїРёСЃСЉРєР°\n";
+									String str = tsi.replaceAll("[TtAaРўС‚РђР°/]", "");
 									for (TSI basicTSI : TSI_DAO.getListAllValueTSI()) {
 
 										if (basicTSI.getName().contains(str)) {
@@ -496,14 +493,14 @@ public class ReadExcelFile {
 										tsi = "    ";
 									}
 								} catch (IllegalStateException e) {
-									errTSI = "ТСИ -> не е коректен текст\n";
+									errTSI = "РўРЎР -> РЅРµ Рµ РєРѕСЂРµРєС‚РµРЅ С‚РµРєСЃС‚\n";
 									tsi = "    ";
 								}
 								break;
-							case "Размерност":
+							case "Р Р°Р·РјРµСЂРЅРѕСЃС‚":
 								try {
 									dimencion = cell.getStringCellValue();
-									errRazmer = "Размерност " + dimencion + " не е в списъка\n";
+									errRazmer = "Р Р°Р·РјРµСЂРЅРѕСЃС‚ " + dimencion + " РЅРµ Рµ РІ СЃРїРёСЃСЉРєР°\n";
 									for (Razmernosti basicRazmernosti : RazmernostiDAO.getInListAllValueRazmernosti()) {
 
 										if (basicRazmernosti.getName_razmernosti().contains(dimencion)) {
@@ -511,11 +508,11 @@ public class ReadExcelFile {
 										}
 									}
 								} catch (IllegalStateException e) {
-									errRazmer = "Размерност -> не е коректен текст\n";
+									errRazmer = "Р Р°Р·РјРµСЂРЅРѕСЃС‚ -> РЅРµ Рµ РєРѕСЂРµРєС‚РµРЅ С‚РµРєСЃС‚\n";
 									dimencion = " ";
 								}
 								break;
-							case "Дата на анализа":
+							case "Р”Р°С‚Р° РЅР° Р°РЅР°Р»РёР·Р°":
 								try {
 
 									if (cell.getDateCellValue().after(dateNull)) {
@@ -523,13 +520,13 @@ public class ReadExcelFile {
 										date_Analize = sdf.format(cell.getDateCellValue());
 									}
 								} catch (IllegalStateException e) {
-									errData = "Дата на анализа -> не е коректна дата\n";
+									errData = "Р”Р°С‚Р° РЅР° Р°РЅР°Р»РёР·Р° -> РЅРµ Рµ РєРѕСЂРµРєС‚РЅР° РґР°С‚Р°\n";
 								}
 								break;
-							case "Извършил анализа":
+							case "РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°":
 								try {
 									user_Analize = cell.getStringCellValue();
-									errIzvurshiAnaliza = "Извършил анализа: " + user_Analize + " не е в списъка\n";
+									errIzvurshiAnaliza = "РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°: " + user_Analize + " РЅРµ Рµ РІ СЃРїРёСЃСЉРєР°\n";
 									for (String basicUser : UsersDAO.getMasiveStringAllName_FamilyUsers()) {
 										basicUser = basicUser.substring(basicUser.indexOf(" ") + 1);
 										System.out.println(basicUser);
@@ -538,7 +535,7 @@ public class ReadExcelFile {
 										}
 									}
 								} catch (IllegalStateException e) {
-									errIzvurshiAnaliza = "Извършил анализа -> не е коректен текст\n";
+									errIzvurshiAnaliza = "РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р° -> РЅРµ Рµ РєРѕСЂРµРєС‚РµРЅ С‚РµРєСЃС‚\n";
 									user_Analize = "";
 								}
 								break;
@@ -573,17 +570,17 @@ public class ReadExcelFile {
 					+ errDobiv + errTSI + errRazmer + errData + errIzvurshiAnaliza;
 
 			if (!errString.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Във Файла има грашки за:\n" + errString, "Грешни данни",
+				JOptionPane.showMessageDialog(null, "Р’СЉРІ Р¤Р°Р№Р»Р° РёРјР° РіСЂР°С€РєРё Р·Р°:\n" + errString, "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 						JOptionPane.ERROR_MESSAGE);
 
 			}
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, errString, "Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, errString, "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ excel С„Р°Р№Р»", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 
 		return destruct_Result_List;
@@ -661,12 +658,19 @@ public class ReadExcelFile {
 					if(!nuclideBasic.equals(nuclideResult)){
 						nuclideResult = nuclideBasic;
 					}
-//					try {
-						System.out.println(nuclideResult + " - " + nuclideBasic);
-						Results results = new Results();
-						String qantity = masiveActiveResults[i][6].replaceAll("[^0-9.,\\s]", "").trim();
+					System.out.println(nuclideResult + " - " + nuclideBasic);
+					Results results = new Results();
+					String qantity ="";
+					try {
+						Double.parseDouble( masiveActiveResults[i][6]);
+						qantity = masiveActiveResults[i][6];
+						
+					} catch (NumberFormatException e) {
+						qantity = masiveActiveResults[i][6].replaceAll("[^0-9.,\\s]", "").trim();
 						 qantity = qantity.replaceAll(" ","");
-						System.out.println(qantity+"********************"+qantity.indexOf(" "));
+//						JOptionPane.showMessageDialog(null, "NumberFormatException "+nuclideResult,"text frame", JOptionPane.PLAIN_MESSAGE);	
+					}
+					System.out.println(qantity+"********************"+qantity.indexOf(" "));
 						results.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideResult));
 						results.setValue_result(Double.parseDouble(masiveActiveResults[i][3]));
 						results.setUncertainty(Double.parseDouble(masiveActiveResults[i][4]));
@@ -686,9 +690,7 @@ public class ReadExcelFile {
 
 						listResults.add(results);
 
-//					} catch (NumberFormatException e) {
-//						JOptionPane.showMessageDialog(null, "NumberFormatException "+nuclideResult,"text frame", JOptionPane.PLAIN_MESSAGE);	
-//					}
+					
 				}
 			}
 		}

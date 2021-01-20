@@ -12,23 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -37,9 +25,7 @@ import javax.swing.JPanel;
 
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Nuclide;
 import DBase_Class.Period;
-import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -51,13 +37,10 @@ import javax.swing.border.EmptyBorder;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
-import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.PeriodDAO;
 import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
-import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 
-public class Reference extends JDialog {
+public class PeriodicReference extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,8 +59,8 @@ public class Reference extends JDialog {
 	static String lbl_Text_MDA_Actyvnost = "";
 	
 
-	public Reference(JFrame parent, TranscluentWindow round) {
-		super(parent, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_TitleName"), true);
+	public PeriodicReference(JFrame parent, TranscluentWindow round) {
+		super(parent, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("PeriodicReference_TitleName"), true);
 		setResizable(false);
 
 		setSize(650, 250);
@@ -290,6 +273,18 @@ public class Reference extends JDialog {
 
 		listener_rbtnTrimesechni(rdbtnMesechni, rdbtnTrimesechni);
 		listener_rdbtnMesechni(rdbtnMesechni, rdbtnTrimesechni);
+		
+		JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.anchor = GridBagConstraints.EAST;
+		gbc_btnCancel.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCancel.gridx = 4;
+		gbc_btnCancel.gridy = 6;
+		basic_panel_1.add(btnCancel, gbc_btnCancel);
+		
+		
+		btnCancelListener(btnCancel);
+		
 
 		round.StopWindow();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -297,6 +292,14 @@ public class Reference extends JDialog {
 
 	}
 
+	private void btnCancelListener(JButton btnCancel) {
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+	}
+	
 	private void llistener_rdbtnActivnost(JRadioButton rdbtnMDA, JRadioButton rdbtnActivnost,
 			JRadioButton rdbtnOtnNeopred, JRadioButton rdbtnAbsNeopred, JLabel lblNeopredelenost) {
 		VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost);
@@ -379,7 +382,7 @@ public class Reference extends JDialog {
 					public void run() {
 
 						JFrame f = new JFrame();
-						String titleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_TitleName");
+						String titleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("PeriodicReference_TitleName");
 						new ViewReferenceTable(f, round,titleName, choicePokazatel, choiceObectNaIzpit, choiceObectNaProbata,
 								choiceGodina, choiceIzpitProd,   rdbtnMDA,  rdbtnMesechni,  rdbtnAbsNeopred);
 						
@@ -431,15 +434,21 @@ public class Reference extends JDialog {
 					.equals(izpitvanProdukt)) {
 				List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request",
 						izpitvanPokazatel.getRequest());
+				
+				
 				for (Sample samp : listSample) {
+					if(samp.getRequest().getInd_num_doc().getId_ind_num_doc()>1){
 					listObectNaIzpitvaneSample.add(samp.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
+					}
 				}
 
 				List<Request_To_ObektNaIzpitvaneRequest> listObectNaIzpit = Request_To_ObektNaIzpitvaneRequestDAO
 						.getRequest_To_ObektNaIzpitvaneRequestByRequest(izpitvanPokazatel.getRequest());
 				for (Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest : listObectNaIzpit) {
+					if(request_To_ObektNaIzpitvaneRequest.getRequest().getInd_num_doc().getId_ind_num_doc()>1){
 					listObectNaIzpitvane
 							.add(request_To_ObektNaIzpitvaneRequest.getObektNaIzp().getName_obekt_na_izpitvane());
+					}
 				}
 			}
 		}

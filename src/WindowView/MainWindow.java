@@ -20,6 +20,7 @@ import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
 import Menu.MenuOder;
+import Menu.MenuReference;
 import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_DeleteRequense;
@@ -211,12 +212,21 @@ public class MainWindow extends JFrame {
 		menu.add(createRequenseMenu());
 		menu.add(createDataMenu());
 		menu.add(createWordDocMenu());
+		menu.add(createReferenceMenu());
 		menu.add(createOderMenu());
 		menu.add(createLoginMenu(win), BorderLayout.EAST);
 
 		return menu;
 	}
 	
+	private JMenu createReferenceMenu() {
+		JMenu oderMenu = new JMenu(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Reference"));
+		oderMenu.setMnemonic(KeyEvent.VK_S);
+
+		oderMenu.add(new MenuReference());
+		return oderMenu;
+	}
 
 	private JMenu createOderMenu() {
 		JMenu oderMenu = new JMenu(
@@ -226,7 +236,7 @@ public class MainWindow extends JFrame {
 		oderMenu.add(new MenuOder());
 		return oderMenu;
 	}
-
+	
 	private JMenu createRequenseMenu() {
 		JMenu requenseMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Request"));

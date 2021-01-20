@@ -45,6 +45,8 @@ public class Main_Aplication {
 		
 //		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
 		
+		
+		
 //		TestClases.AddResultsViewWithTable(3) ;
 		
 		
@@ -100,6 +102,7 @@ public class Main_Aplication {
 		
 //		TestClases.DialogView_DobivFromResultTableList_test (430);
 		
+//		TestClases.TestRequestMiniFrame("4460");
 		
 //		CreateListLeftPanelStartWindowClass.createListMissingRequest(2020);
 		
@@ -113,12 +116,12 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-		TestClases.testReferenceView();
+//		TestClases.testReferenceView();
 //		TestClases.testRef();
 		
 //		TestClases.TestIterator();
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

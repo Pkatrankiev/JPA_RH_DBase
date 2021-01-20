@@ -1,4 +1,7 @@
 #Sring
+
+MainWindow_Ver = Ver.260121
+
 TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
 destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/
@@ -24,14 +27,13 @@ noConectionInDBaseDialog_BTN_Вaiting = Изчакване
 
 $$MainWindow_MenusTitle
 
-MainWindow_Ver = Ver.261120
-
 MainWindow_Title = ДП РАО, с-р Радиохимия
 MainWindow_Title_work =  -> работи
 MainWindow_LogInStr_Btn = logIn
 MainWindow_LogOutStr_Btn = logOut
 MainWindow_Btn_Refresh = Рефреш
 MainWindow_BtnMenu_Oder = Други
+MainWindow_BtnMenu_Reference = Справки
 MainWindow_BtnMenu_Request = Заявки
 MainWindow_BtnMenu_Data = Данни  
 MainWindow_BtnMenu_Documents = Документи
@@ -53,6 +55,7 @@ DeleteRequense_TitleName = Изтриване на Заявка
 NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
 NewRequense_TitleName = Генериране на Нова Заявка
 NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
+MenuPeriodicReference_TitleName = Справки - Периодичен мониторинг
 
 $$Text_MessageDialog
 LogInText = Логнете се
@@ -138,7 +141,7 @@ LabelText_MDA = МДА
 LabelText_Add = Добавяне
 LabelText_Select = Изберете:
 
-Reference_TitleName = Справки
+PeriodicReference_TitleName = Справки - Периодичен мониторинг
 Reference_LabelText_IzpitvanProdukt = Изпитван продукт
 Reference_LabelText_Obekt_Na_Izpitvane = Обект на изпитване
 Reference_LabelText_Pokazatel = Показател
@@ -152,8 +155,25 @@ Reference_LabelRadioButton_OtnNeopred = Относителна
 Reference_LabelRadioButton_AbsNeopred = Абсолютна
 Reference_LabelRadioButton_Activnost = Активност
 Reference_LabelTextRazmernost = Размерност
+Reference_Table_Column_Nuclide = Нуклид
 Reference_LabelButton_Start = Старт
 Reference_ReportString = Няма намерени резултати
+Reference_LabelText_CodeRequest = № на Заявката
+Reference_LabelText_CountSample = Брои проби
+Reference_LabelText_DateRequest = Дата на заявката
+Reference_LabelText_Applicant = Заявител
+Reference_LabelText_InAcredition = В акредитация
+Reference_LabelText_Comment = <html>Описание на<br>пробите</html>
+Reference_LabelText_TSI = ТСИ
+Reference_LabelText_DateHimOper = Дата на Хим. обработ.
+Reference_LabelText_DateMeasurOper = Дата на анализа
+Reference_LabelText_InProtokol = В протокол
+Reference_LabelText_FileLokation = Основен файл
+Reference_LabelText_SampleCode = Код на пробата
+Reference_LabelText_CommentSample = <html>Описание на<br>пробата</html>t_
+Reference_LabelText_
+
+
 
 $$Button_Text
 exitBtn_Text = Изход

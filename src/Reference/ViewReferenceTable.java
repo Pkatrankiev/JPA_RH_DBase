@@ -72,7 +72,8 @@ public class ViewReferenceTable extends JDialog {
 		int countRow = masiveValueDataTable.length;
 		int widshRow = 20;
 		String reportString = "";
-		String separatorInColumnName = "_";
+		String separatorInColumnName = ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("Reference_LabelText_separatorInColumnName");
 
 		if (countRow < 2) {
 			reportString = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_ReportString");

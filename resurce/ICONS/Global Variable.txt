@@ -68,6 +68,49 @@ ThereAreDublikataElements = Има повтарящи се елементи
 
 DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
 
+RequestView_TitleFrame = Заявка за изпитване
+RequestView_Text = ЗАЯВКА ЗА ИЗПИТВАНЕ
+RequestView_Text_Formuliar = Ф 704-2
+RequestView_Text_InternalText = <html>За изпитвания извън обема,<br>предвиден във вътрешните документи</html>
+RequestView_Text_ExternalText = За изпитвания от външни клиенти
+RequestView_Section_Ind_Num_Doc_Text = Ид. номер на документа, изискващ изпитването: 
+RequestView_Section_Izpitvan_Produkt_Text = Изпитван продукт
+RequestView_obekt_na_izpitvane_Text = Обект, от който са взети пробите:
+RequestView_Btn_Izbor = Избор
+RequestView_CheckBox_InAccreditation_Text = Извън обхват
+RequestView_Section_Razmernost_Text = Размерност
+RequestView_Section_Pokazatel_Text = Изпитван показател:
+RequestView_Btn_Pokazatel_Text = Избор на показател
+RequestView_Sestion_Date_Time_Reference_Text = Референтна дата (средата на периода)
+RequestView_Section_Choice_Period_Text = Периодичност
+RequestView_Section_Sample_Description_Text = Описание на пробите 
+RequestView_DialogError_CountSamples = Некоректен брой на пробите!
+
+
+RequestView_Btn_InternetAplikant = Звено на ДП РАО
+RequestView_InternetAplikant_TitleFrame = Вътрешен за ДП РАО Заявител
+RequestView_InternalAplikant_Aplikant = Заявител
+RequestView_InternalAplikant_Adress = Адрес
+RequestView_InternalAplikant_Tell = Тел.:
+RequestView_InternalAplikant_AddToList = Вмъкване от списък:
+RequestView_InternalAplikant_Btn_Read = Прочети
+RequestView_External_Aplicant_TitleFrame = Външен за ДП РАО Заявител
+RequestView_Btn_External_Aplicant = Външни клиенти
+RequestView_Btn_External_Aplicant_Organization = Организация / Име:
+RequestView_Btn_External_Aplicant_Dogovor = Договор №:
+
+
+RequestViewFunction_ErrorDialog = Заявка с този номер вече съществува
+RequestViewFunction_ErrorNumber = Некоректен номер
+RequestViewFunction_Probe = проба
+RequestViewFunction_Sborna = Сборна
+RequestViewFunction_Probs = проби
+RequestViewFunction_Sborni = Сборни
+RequestViewFunction_za = за
+RequestViewFunction_mesec = м.
+
+ChoiceFromListWithPlusAndMinus_choiceText = Обект на изпитване
+
 $$Text_Table
 TableHeaderColumnName_NumberRequest = № на Заявката
 TableHeaderColumnName_CodeSample = Код на пробата

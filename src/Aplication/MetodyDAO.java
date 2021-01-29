@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Emition;
 import DBase_Class.Metody;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
@@ -142,6 +143,24 @@ public class MetodyDAO {
 
 		Query query = entitymanager.createNamedQuery("getList_MetodyByActingAndArrangement");
 		query.setParameter("text", acting);
+		
+		List<Metody> list = query.getResultList();;
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Metody> getList_MetodyByEmitionAndArrangement(Object emition) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createNamedQuery("getList_MetodyByEmitionAndArrangement");
+		query.setParameter("text", emition);
 		
 		List<Metody> list = query.getResultList();;
 		entitymanager.close();

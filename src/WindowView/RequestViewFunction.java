@@ -41,13 +41,15 @@ public class RequestViewFunction {
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));
 		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 			txtField_RequestCode.setForeground(Color.red);
-			lblError.setText("Заявка с този номер вече съществува");
+			lblError.setText(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("RequestViewFunction_ErrorDialog"));
 			corectRequestCode = false;
 		} else {
 
 			if (checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 				txtField_RequestCode.setForeground(Color.red);
-				lblError.setText("Некоректен номер");
+				lblError.setText(ReadFileWithGlobalTextVariable.
+						getGlobalTextVariableMap().get("RequestViewFunction_ErrorNumber"));
 				corectRequestCode = false;
 			} else {
 				txtField_RequestCode.setForeground(Color.BLACK);
@@ -161,7 +163,8 @@ public class RequestViewFunction {
 			incomingValueStringList.remove(incomingValueStringList.size() - 1);
 			incomingValueStringList.add(str);
 		}
-		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit, "Обект на изпитване");
+		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit, ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("ChoiceFromListWithPlusAndMinus_choiceText"));
 
 	}
 
@@ -225,8 +228,10 @@ public class RequestViewFunction {
 		String txtInDescriptGrupSample = "";
 		String strMesec = "";
 		String strChoice_Period = choice_Period.getSelectedItem();
-		String prob = "пробa";
-		String sbor = "Сборна";
+		String prob = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Probe");
+		String sbor = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Sborna");
+		String za = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_za");
+		String mesec = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_mesec");
 		int count = 1;
 		try {
 			count = Integer.parseInt(sampleCount);
@@ -235,8 +240,8 @@ public class RequestViewFunction {
 
 		}
 		if (count > 1) {
-			prob = "проби";
-			sbor = "Сборни";
+			prob = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Probs");
+			sbor = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Sborni");
 		}
 		// String str_period_sample =
 		// DateChoice_period.get_str_period_sample(false);
@@ -251,15 +256,15 @@ public class RequestViewFunction {
 		} else {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
 			if (id_Period < 13) {
-				strMesec = "м. ";
+				strMesec = mesec+" ";
 			}
 			if (str_period_sample.equals("")) {
 				txtInDescriptGrupSample = "";
-				txtInDescriptGrupSample = sbor + " " + prob + " за " + strMesec + strChoice_Period;
+				txtInDescriptGrupSample = sbor + " " + prob + " "+za+" " + strMesec + strChoice_Period;
 			} else {
 				txtInDescriptGrupSample = "";
 
-				txtInDescriptGrupSample = sbor + " " + prob + " за " + strMesec + strChoice_Period + " "
+				txtInDescriptGrupSample = sbor + " " + prob +  " "+za+" "  + strMesec + strChoice_Period + " "
 						+ str_period_sample;
 			}
 		}
@@ -270,8 +275,10 @@ public class RequestViewFunction {
 			String original_Description_sample_group) {
 		String txtInDescriptGrupSample = "";
 
-		String prob = "пробa";
-		String sbor = "Сборна";
+		String prob = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Probe");
+		String sbor = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Sborna");
+		String za = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_za");
+		String mesec = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_mesec");
 		int count = 1;
 		try {
 			count = Integer.parseInt(sampleCount);
@@ -280,8 +287,8 @@ public class RequestViewFunction {
 
 		}
 		if (count > 1) {
-			prob = "проби";
-			sbor = "Сборни";
+			prob = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Probs");
+			sbor = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Sborni");
 		}
 		Boolean forTable = false;
 		String str_period_sample = DateChoice_period.get_str_period_sample(false, forTable);
@@ -295,9 +302,9 @@ public class RequestViewFunction {
 		String strChoice_Period = choice_Period.getSelectedItem();
 		if (strChoice_Period.length() > 0) {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
-			strMesec = " за ";
+			strMesec = " "+za+" ";
 			if (id_Period < 13) {
-				strMesec += "м. ";
+				strMesec = mesec+" ";
 			}
 		}
 		txtInDescriptGrupSample += " " + strMesec + strChoice_Period + " " + str_period_sample;

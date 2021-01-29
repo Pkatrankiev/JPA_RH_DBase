@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DBase_Class.External_applicant;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -42,7 +44,8 @@ public class ExternalAplicantModuleView extends JDialog {
 	
 	public ExternalAplicantModuleView(JFrame parent, External_applicant tamplateExternalAplic,
 			TranscluentWindow round) {
-		super(parent, "", true);
+		super(parent, ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("RequestView_External_Aplicant_TitleFrame"), true);
 		setRootPaneCheckingEnabled(false);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 450, 300);
@@ -66,7 +69,8 @@ public class ExternalAplicantModuleView extends JDialog {
 		}
 
 		{
-			JLabel lblNewLabel = new JLabel("Заявител:");
+			JLabel lblNewLabel = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("RequestView_InternalAplikant_Aplikant"));
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.gridwidth = 2;
 			gbc_lblNewLabel.anchor = GridBagConstraints.SOUTHWEST;
@@ -76,7 +80,8 @@ public class ExternalAplicantModuleView extends JDialog {
 			contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 		}
 		{
-			JLabel lbl_Organiztion = new JLabel("Организация / Име:");
+			JLabel lbl_Organiztion = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("RequestView_Btn_External_Aplicant_Organization"));
 			GridBagConstraints gbc_lbl_Organiztion = new GridBagConstraints();
 			gbc_lbl_Organiztion.gridwidth = 2;
 			gbc_lbl_Organiztion.anchor = GridBagConstraints.SOUTHWEST;
@@ -99,7 +104,8 @@ public class ExternalAplicantModuleView extends JDialog {
 			contentPanel.add(txtArea_Organiztion, gbc_txtArea_Organiztion);
 		}
 		{
-			JLabel lbl_Adress = new JLabel("Адрес:");
+			JLabel lbl_Adress = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("RequestView_InternalAplikant_Adress"));
 			GridBagConstraints gbc_lbl_Adress = new GridBagConstraints();
 			gbc_lbl_Adress.gridwidth = 2;
 			gbc_lbl_Adress.anchor = GridBagConstraints.SOUTHWEST;
@@ -122,7 +128,8 @@ public class ExternalAplicantModuleView extends JDialog {
 			contentPanel.add(txtArea_Adress, gbc_txtArea_Adress);
 		}
 		{
-			JLabel lbl_Tel = new JLabel("Tel.:");
+			JLabel lbl_Tel = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("RequestView_InternalAplikant_Tell"));
 			GridBagConstraints gbc_lbl_Tel = new GridBagConstraints();
 			gbc_lbl_Tel.anchor = GridBagConstraints.WEST;
 			gbc_lbl_Tel.insets = new Insets(0, 0, 5, 5);
@@ -143,7 +150,8 @@ public class ExternalAplicantModuleView extends JDialog {
 			txtField_Tel.setColumns(10);
 		}
 		{
-			JLabel lbl_Dogovor = new JLabel("Договор №:");
+			JLabel lbl_Dogovor = new JLabel(ReadFileWithGlobalTextVariable.
+					getGlobalTextVariableMap().get("RequestView_Btn_External_Aplicant_Dogovor"));
 			GridBagConstraints gbc_lbl_Dogovor = new GridBagConstraints();
 			gbc_lbl_Dogovor.gridwidth = 2;
 			gbc_lbl_Dogovor.anchor = GridBagConstraints.SOUTHWEST;
@@ -168,7 +176,8 @@ public class ExternalAplicantModuleView extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton(ReadFileWithGlobalTextVariable.
+						getGlobalTextVariableMap().get("OK_Btn_Text"));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						external_Aplic = new External_applicant(txtArea_Organiztion.getText().trim(), txtArea_Adress.getText().trim(),
@@ -176,12 +185,14 @@ public class ExternalAplicantModuleView extends JDialog {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand(ReadFileWithGlobalTextVariable.
+						getGlobalTextVariableMap().get("OK_Btn_Text"));
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.
+						getGlobalTextVariableMap().get("exitBtn_Text"));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -189,7 +200,8 @@ public class ExternalAplicantModuleView extends JDialog {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand(ReadFileWithGlobalTextVariable.
+						getGlobalTextVariableMap().get("exitBtn_Text"));
 				buttonPane.add(cancelButton);
 			}
 		}

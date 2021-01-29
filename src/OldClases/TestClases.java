@@ -29,14 +29,18 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -56,7 +60,9 @@ import com.mysql.jdbc.CallableStatement;
 
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
+import Aplication.EmitionDAO;
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
@@ -67,7 +73,9 @@ import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
 import DBase_Class.DopalnIziskv;
+import DBase_Class.Emition;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Metody;
 import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Results;
@@ -77,6 +85,7 @@ import DBase_Class.Users;
 import DefaultTableList.TableList_OverallVariables;
 import DefaultTableList.TableObject_Class;
 import DefaultTableList.ViewTableList;
+import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.PeriodicReference;
@@ -137,13 +146,13 @@ public class TestClases {
 		Boolean forDateReception = false;
 		Boolean withTime = true;
 		Boolean fromTable = true;
-		
-		DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception,
-				withTime, forDateReception,	fromTable);
+
+		DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception, withTime,
+				forDateReception, fromTable);
 		date_time_reference.setVisible(true);
-		System.out.println( DateChoice_period.get_date_time_reference());
+		System.out.println(DateChoice_period.get_date_time_reference());
 	}
-	
+
 	public static void testSetText_Ob_na_Izp_Request() {
 		List<Request> list_Requestv = RequestDAO.getInListAllValueRequest();
 		for (Request request : list_Requestv) {
@@ -184,8 +193,6 @@ public class TestClases {
 		thread.start();
 	}
 
-	
-	
 	public static void test3() {
 		List<String> list = new ArrayList<String>();
 		String strObektIzpit = "Спецкорпус-1; Бак 4 и 5 (Изход 2)";
@@ -505,9 +512,9 @@ public class TestClases {
 	}
 
 	public static void TestRequestMiniFrame(String code) {
-	new RequestMiniFrame(new JFrame(), RequestDAO.getRequestFromColumnByVolume("recuest_code", code));
+		new RequestMiniFrame(new JFrame(), RequestDAO.getRequestFromColumnByVolume("recuest_code", code));
 	}
-	
+
 	public static void setAllValueToRequestToObektNaIzpit() {
 		List<Request> list = RequestDAO.getInListAllValueRequest();
 		for (Request request : list) {
@@ -611,25 +618,24 @@ public class TestClases {
 	}
 
 	public static void TestIterator() {
-		
+
 		@SuppressWarnings("rawtypes")
-		List<Integer> listPeriod = new ArrayList(Arrays.asList(1,2,3,4,5,6));
-		List<Integer> kperiod = new ArrayList(Arrays.asList(1,2,3,4,5,6,7));
-		
-	for (int period : listPeriod) {
-		
-		for (Iterator<Integer> it = kperiod.iterator(); it.hasNext();) {
-		    int sample = it.next();
-		    System.out.println(period+"  "+sample);
-		    if(period==sample){
-		        it.remove();
-		    }
+		List<Integer> listPeriod = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6));
+		List<Integer> kperiod = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+
+		for (int period : listPeriod) {
+
+			for (Iterator<Integer> it = kperiod.iterator(); it.hasNext();) {
+				int sample = it.next();
+				System.out.println(period + "  " + sample);
+				if (period == sample) {
+					it.remove();
+				}
+			}
+
 		}
-	
 	}
-	}
-	
-	
+
 	public static String NumberToMAXDigitAftrerZerro(String num) {
 		int MAXDigit = 4;
 
@@ -735,13 +741,19 @@ public class TestClases {
 		return stt;
 	}
 
-
 	public static void createProtocolWordDoc(String str) {
 		JFrame f = new JFrame();
 		new FrameChoiceRequestByCode(f, str);
 	}
 
-	
+	public static void changeStringDateMeasurInResults(String oldDate, String korektDate) {
+		List<Results> listResults = ResultsDAO.getListResultsFromColumnByVolume("date_measur", oldDate);
+		System.out.println(listResults.size());
+		for (Results results : listResults) {
+			results.setDate_measur(korektDate);
+			ResultsDAO.updateResults(results) ;
+		}
+	}
 
 	public static boolean tbBackup() {
 
@@ -792,9 +804,55 @@ public class TestClases {
 		return false;
 	}
 
+	public static void testReferenceSample() {
+		String start_Date = "01.06.2020";
+		String end_Date = "31.08.2020";
+		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
+		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);
 
-	
-	
+		LocalDate locStartDate = LocalDate.parse(start_Date, sdf);
+		LocalDate locEndDate = LocalDate.parse(end_Date, sdf);
+		LocalDate localDate = null;
+		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
+		List<Sample> listSamle = new ArrayList<>();
+		List<Emition> listEmition = EmitionDAO.getListAllEmition();
+		System.out.println("0-   " + listAllResults.size());
+		// for (Sample sample : listSamle) {
+		// List<Results> listResults =
+		// ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
+		// listAllResults.addAll(listResults);
+		// }
+		List<List<Request>> listFromListResults = new ArrayList<>();
+		for (Emition emition : listEmition) {
+			List<Request> listResultsByEmition = new ArrayList<>();
+			List<Metody> listMetodyByEmition = MetodyDAO.getList_MetodyByEmitionAndArrangement(emition);
+			for (Iterator<Results> it = listAllResults.iterator(); it.hasNext();) {
+				Results results = it.next();
+				localDate = LocalDate.parse(results.getDate_measur(), sdf);
+				if (localDate.isAfter(locStartDate) && localDate.isBefore(locEndDate) && results.getInProtokol()) {
+					for (Metody metody : listMetodyByEmition) {
+						if (results.getMetody().getId_metody() == metody.getId_metody()) {
+							listResultsByEmition.add(results.getRequest());
+							it.remove();
+						}
+					}
+				} else {
+					it.remove();
+				}
+			}
+
+			listFromListResults.add(removeDuplicates(listResultsByEmition));
+		}
+
+		for (int i = 0; i < listFromListResults.size(); i++) {
+			System.out.println(listEmition.get(i).getEmition_name()+" - "+listFromListResults.get(i).size());
+			for (Request samp : listFromListResults.get(i)) {
+//				System.out	.println(samp.getRecuest_code() + " - " + samp.getCounts_samples()+" - "+samp.get);
+			}
+		}
+
+	}
+
 	public static void backupDB_From_RemoteServer() {
 		Date backupDate = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy_HHmm");
@@ -825,9 +883,28 @@ public class TestClases {
 
 	}
 
-	
-	public static void restoreDB_From_RemoteServer() {
+	public static <T> List<T> removeDuplicates(List<T> list) {
+		System.out.println("1   " + list.size());
+		// Create a new LinkedHashSet
+		Set<T> set = new LinkedHashSet<>();
+
+		// Add the elements to set
+		set.addAll(list);
+
+		// Clear the list
+		list.clear();
+
+		// add the elements of set
+		// with no duplicates to the list
+		list.addAll(set);
+		System.out.println("2   " + list.size());
 		
+		// return the list
+		return list;
+	}
+
+	public static void restoreDB_From_RemoteServer() {
+
 		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
 		String HOSTIP = "192.168.21.27";
 		String PORT = "3306";
@@ -835,14 +912,14 @@ public class TestClases {
 		String PASS = "123";
 		String database = "rhdbase";
 		String path = "l:/Петър/";
-//		String fileName = "DB_backup_" + backupDateStr + ".sql";
+		// String fileName = "DB_backup_" + backupDateStr + ".sql";
 
 		try {
 			String executeCmd = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
 					+ PASS + " " + database + " -r " + path;
 			String restoreCmd = PathToMySqlDumpFile + "mysql -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
-					+ PASS + "-e " + path+"DB_backup_02-09-20_1418.sql" ;	
-			
+					+ PASS + "-e " + path + "DB_backup_02-09-20_1418.sql";
+
 			Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
 			int processComplete = runtimeProcess.waitFor();
 			if (processComplete == 0) {
@@ -856,8 +933,6 @@ public class TestClases {
 		}
 
 	}
-
-	
 
 	public static void createRazprFormWordDoc() {
 		JFrame f = new JFrame();

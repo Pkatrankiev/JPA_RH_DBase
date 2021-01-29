@@ -36,6 +36,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Metody_to_NiclideForDobive</class>
 		<class>DBase_Class.Request_To_ObektNaIzpitvaneRequest</class>
 		<class>DBase_Class.TableColumn</class>
+		<class>DBase_Class.Emition</class>
 		
 	
 		<properties>						

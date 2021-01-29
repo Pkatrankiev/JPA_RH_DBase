@@ -117,8 +117,10 @@ public class Main_Aplication {
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
 //		TestClases.testReferenceView();
-//		TestClases.testRef();
 		
+//		TestClases.testReferenceSample();
+//		
+//		TestClases.changeStringDateMeasurInResults("8.4.2019", "08.04.2019");
 //		TestClases.TestIterator();
 		
 		StartMainWindow();

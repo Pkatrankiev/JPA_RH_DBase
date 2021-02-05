@@ -204,7 +204,7 @@ public class CreateListLeftPanelStartWindowClass {
 		List<File> listFile = new ArrayList<File>();
 		File[] matches = dir.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
-				return name.endsWith(".doc");
+				return name.endsWith(".doc")||name.endsWith(".docx");
 			}
 		});
 		
@@ -232,7 +232,7 @@ public class CreateListLeftPanelStartWindowClass {
 		String month = getPreviousMesec(1);
 		if (monitGroup.equals("Вода")) {
 			month = getPreviousMesec(2);
-			curentYear++;
+//			curentYear++;
 		}
 		List<Request> list = new ArrayList<Request>();
 		List<Request> listRequest = RequestDAO.getListRequestFromMonitoringProgramm(monitGroup);

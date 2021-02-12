@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -43,6 +44,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import WindowView.DialogOption_Yes_No;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -72,8 +74,8 @@ public class ViewReferenceTable extends JDialog {
 		int countRow = masiveValueDataTable.length;
 		int widshRow = 20;
 		String reportString = "";
-		String separatorInColumnName = ReadFileWithGlobalTextVariable.
-				getGlobalTextVariableMap().get("Reference_LabelText_separatorInColumnName");
+		String separatorInColumnName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("Reference_LabelText_separatorInColumnName");
 
 		if (countRow < 2) {
 			reportString = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_ReportString");
@@ -260,12 +262,15 @@ public class ViewReferenceTable extends JDialog {
 
 		List<Sample> listSampleByPeriod = extractSubListSampleByPeriod(listSampleByIzpitvanProdukt, listPeriod);
 
+		List<Sample> listSampleByPokazatel = extractSubListSampleByPokazatel(listSampleByPeriod,
+				stringFromChoicePokazatel);
+
 		List<Results> listResultsByPokazatel = generateListResultsFromListSample(stringFromChoicePokazatel,
-				listSampleByPeriod, rdbtnMDA_true);
+				listSampleByPokazatel, rdbtnMDA_true);
 
 		List<String> nuclide = generateListNuclide(listResultsByPokazatel);
 
-		List<Referens> listReferens = generateListReferensObject(listPeriod, listSampleByPeriod, nuclide);
+		List<Referens> listReferens = generateListReferensObject(listPeriod, listSampleByPokazatel, nuclide);
 
 		Object[][] listMasiveReferens = generateMasiveReferenseObjekt(nuclide, listReferens);
 
@@ -312,6 +317,8 @@ public class ViewReferenceTable extends JDialog {
 
 	private static List<Referens> generateListReferensObject(List<Period> listPeriod, List<Sample> listSampleByPeriod,
 			List<String> nuclide) {
+
+		
 		/**
 		 * generirane na spisak s obekti za spravka
 		 */
@@ -363,7 +370,8 @@ public class ViewReferenceTable extends JDialog {
 
 			if (referens.getResult() != null) {
 				System.out.println(referens.getNuclide() + "  " + referens.getPeriod().getValue() + "  "
-						+ referens.getResult().getMda().toString());
+						+ referens.getResult().getMda().toString() + "  "
+						+ referens.getResult().getPokazatel().getName_pokazatel());
 			} else {
 				System.out.println(referens.getNuclide() + "  " + referens.getPeriod().getValue() + " - ");
 
@@ -387,6 +395,36 @@ public class ViewReferenceTable extends JDialog {
 			}
 		}
 		return listSampleByIzpitvanProdukt;
+	}
+
+	private static List<Sample> extractSubListSampleByPokazatel(List<Sample> listSample,
+			String stringFromChoicePokazatel) {
+		List_izpitvan_pokazatel pokazatel = List_izpitvan_pokazatelDAO
+				.getValueIzpitvan_pokazatelByName(stringFromChoicePokazatel);
+		List<Sample> listNewSample = new ArrayList<>();
+		for (Sample sample : listSample) {
+
+			boolean flValueExists = false;
+			for (Results result : ResultsDAO.getListResultsFromColumnByVolume("sample", sample)) {
+
+				if (result.getPokazatel().getId_pokazatel() == pokazatel.getId_pokazatel()) {
+					flValueExists = true;
+				} else {
+					if (pokazatel.getId_pokazatel() == 2) {
+						for (int i = 12; i < 15; i++) {
+							if (result.getPokazatel().getId_pokazatel() == i) {
+								flValueExists = true;
+							}
+
+						}
+					}
+				}
+			}
+			if (flValueExists) {
+				listNewSample.add(sample);
+			}
+		}
+		return listNewSample;
 	}
 
 	private static List<Sample> extractSubListSampleByPeriod(List<Sample> listSample, List<Period> listPeriod) {
@@ -502,16 +540,17 @@ public class ViewReferenceTable extends JDialog {
 
 	private String[][] createMasiveStringDataTable(Object[][] masiveValueDataTable, boolean selectMDA,
 			boolean selectAbsNeopred) {
-		
+
 		String[][] listMasiveStringReferens = new String[masiveValueDataTable.length
 				- 1][masiveValueDataTable[0].length];
 		for (int i = 1; i < masiveValueDataTable.length; i++) {
 			for (int j = 0; j < masiveValueDataTable[0].length; j++) {
 				if (masiveValueDataTable[i][j].getClass().getName().equals(Results.class.getName())) {
 					if (selectMDA) {
-						listMasiveStringReferens[i - 1][j]  = FunctionForGenerateWordDocFile
+						listMasiveStringReferens[i - 1][j] = FunctionForGenerateWordDocFile
 								.formatter(((Results) masiveValueDataTable[i][j]).getMda());
 					} else {
+						if(((Results) masiveValueDataTable[i][j]).getValue_result()!=0){
 						listMasiveStringReferens[i - 1][j] = FunctionForGenerateWordDocFile
 								.formatter(((Results) masiveValueDataTable[i][j]).getValue_result());
 						if (selectAbsNeopred) {
@@ -525,6 +564,9 @@ public class ViewReferenceTable extends JDialog {
 											((Results) masiveValueDataTable[i][j]).getUncertainty()).toString();
 
 						}
+					}else{
+						listMasiveStringReferens[i - 1][j] = "-";
+					}
 					}
 				} else {
 					listMasiveStringReferens[i - 1][j] = ((String) masiveValueDataTable[i][j]);
@@ -562,11 +604,27 @@ public class ViewReferenceTable extends JDialog {
 	private void btnCancelListener(JButton btnCancel) {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+//				String frame_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("List_Table_DialogSave_ChoiceColumn_frame_Text");
+//				String info_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Request_List_Table_DialogForCloseTable");
+//				if(DialogOption_Yes_No.DialogOption_YesNo(frame_Text, info_Text)){
+//					viewTableList.setVisible(false);
+//					startViewSampleTableList( reqCodeStr);
+//				}
 				setVisible(false);
 			}
 		});
 	}
 
+	public static void OptionDialog() {
+		String[] options = {"abc", "def", "ghi", "jkl"};
+       
+        int x = JOptionPane.showOptionDialog(null, "Returns the position of your choice on the array",
+                "Click a button",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        System.out.println(x);
+       
+	}
+	
 	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table) {
 		btnExportButton.addActionListener(new ActionListener() {
 
@@ -583,7 +641,7 @@ public class ViewReferenceTable extends JDialog {
 			}
 
 			private String[] createMasiveTableTypeColumn(JTable table) {
-				
+
 				String tableTypeColumn[] = new String[table.getColumnCount()];
 				for (int i = 0; i < table.getColumnCount(); i++) {
 

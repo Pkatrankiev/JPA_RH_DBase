@@ -110,6 +110,11 @@ RequestViewFunction_za = за
 RequestViewFunction_mesec = м.
 
 ChoiceFromListWithPlusAndMinus_choiceText = Обект на изпитване
+ChoiceNew_O_I_R_choiceText = Нов Обект на изпитване
+ChoiceNew_Zabelejka_choiceText = Нов Текст на забележка
+ChoiceNew_dopIzis_choiceText = Нов Текст на Допълнителни изисквания
+ChoiceNew_New_Client_choiceText = Добавяне на Нов клиент
+
 
 $$Text_Table
 TableHeaderColumnName_NumberRequest = № на Заявката

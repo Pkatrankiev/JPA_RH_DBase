@@ -220,6 +220,8 @@ public class InfoResultMiniFrame extends JDialog {
 		{
 			JLabel lblValueDeskripSample = new JLabel(result.getSample().getDescription_sample());
 			GridBagConstraints gbc_lblValueDeskripSample = new GridBagConstraints();
+			gbc_lblValueDeskripSample.anchor = GridBagConstraints.WEST;
+			gbc_lblValueDeskripSample.gridwidth = 4;
 			gbc_lblValueDeskripSample.insets = new Insets(0, 0, 5, 5);
 			gbc_lblValueDeskripSample.gridx = 1;
 			gbc_lblValueDeskripSample.gridy = 8;

@@ -45,7 +45,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 	public ChoiceFromListWithPlusAndMinus(JFrame parent, List<String> incomingValueStringList, List<String> basic_list,
 			String labelString) {
 				
-		super(parent, "", true);
+		super(parent, labelString, true);
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		

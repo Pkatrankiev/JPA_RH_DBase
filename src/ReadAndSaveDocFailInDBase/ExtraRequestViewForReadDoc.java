@@ -1701,7 +1701,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-		new AddInChoice(f, array_list, choice_obekt.getSelectedItem());
+		new AddInChoice(f, "", array_list, choice_obekt.getSelectedItem());
 		String str = AddInChoice.getChoice();
 		for (String string : array_list) {
 			if (str.equals(string))
@@ -1718,7 +1718,9 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 	private Boolean ChoiceFrameNameFamily(ArrayList<String> array_list, Choice choice_obekt) {
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-		new AddInChoiceNameFamily(f, array_list, choice_obekt.getSelectedItem());
+		String nameFrame = ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("ChoiceNew_New_Client_choiceText");
+		new AddInChoiceNameFamily(f, nameFrame, array_list, choice_obekt.getSelectedItem());
 		String str = AddInChoiceNameFamily.getChoice();
 		for (String string : array_list) {
 			if (str.equals(string))

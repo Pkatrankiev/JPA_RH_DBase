@@ -1349,7 +1349,7 @@ import javax.swing.BoxLayout;
 					Boolean fl = false;
 					final JFrame f = new JFrame();
 
-					new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
+					new AddInChoice(f, "", arrayZab, choice_Zab.getSelectedItem());
 
 					String str = AddInChoice.getChoice();
 					for (String string : arrayZab) {
@@ -1429,7 +1429,7 @@ import javax.swing.BoxLayout;
 
 			Boolean fl = false;
 			final JFrame f = new JFrame();
-			new AddInChoice(f, array_list, choice_obekt.getSelectedItem());
+			new AddInChoice(f, "", array_list, choice_obekt.getSelectedItem());
 			String str = AddInChoice.getChoice();
 			for (String string : array_list) {
 				if (str.equals(string))
@@ -1742,7 +1742,7 @@ import javax.swing.BoxLayout;
 		private Boolean ChoiceFrameNameFamily(ArrayList<String> array_list, Choice choice_obekt) {
 			Boolean fl = false;
 			final JFrame f = new JFrame();
-			new AddInChoiceNameFamily(f, array_list, choice_obekt.getSelectedItem());
+			new AddInChoiceNameFamily(f, "", array_list, choice_obekt.getSelectedItem());
 			String str = AddInChoiceNameFamily.getChoice();
 			for (String string : array_list) {
 				if (str.equals(string))

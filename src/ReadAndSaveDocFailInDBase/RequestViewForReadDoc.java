@@ -1007,7 +1007,7 @@ public class RequestViewForReadDoc extends JFrame {
 				Boolean fl = false;
 				final JFrame f = new JFrame();
 
-				new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
+				new AddInChoice(f, "", arrayZab, choice_Zab.getSelectedItem());
 
 				String str = AddInChoice.getChoice();
 

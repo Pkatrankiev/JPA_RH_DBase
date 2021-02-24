@@ -1702,7 +1702,7 @@ public class ExtraRequestView extends JDialog {
 
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-		new AddInChoice(f, array_list, choice_obekt.getSelectedItem());
+		new AddInChoice(f, "", array_list, choice_obekt.getSelectedItem());
 		String str = AddInChoice.getChoice();
 		for (String string : array_list) {
 			if (str.equals(string))
@@ -1719,7 +1719,7 @@ public class ExtraRequestView extends JDialog {
 	private Boolean ChoiceFrameNameFamily(ArrayList<String> array_list, Choice choice_obekt) {
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-		new AddInChoiceNameFamily(f, array_list, choice_obekt.getSelectedItem());
+		new AddInChoiceNameFamily(f, "",array_list, choice_obekt.getSelectedItem());
 		String str = AddInChoiceNameFamily.getChoice();
 		for (String string : array_list) {
 			if (str.equals(string))

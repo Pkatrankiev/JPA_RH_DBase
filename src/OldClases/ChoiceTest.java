@@ -90,7 +90,7 @@ private Choice choice;
 		private Boolean ChoiceFrame(ArrayList<String> array_list, Choice choice_obekt) {
 			Boolean fl= false;
 			final JFrame f = new JFrame();
-			new AddInChoiceNameFamily(f, array_list, choice_obekt.getSelectedItem());
+			new AddInChoiceNameFamily(f, "", array_list, choice_obekt.getSelectedItem());
 			String str = AddInChoiceNameFamily.getChoice();
 			for (String string : array_list) {
 				if (str.equals(string))

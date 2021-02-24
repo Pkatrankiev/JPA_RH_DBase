@@ -34,8 +34,8 @@ public class AddInChoice extends JDialog {
 	private static JTextField textField;
 	private JPanel panel;
 
-	public AddInChoice(JFrame parent, List<String> massiveO_I_R, String selectItem) {
-		super(parent, "", true);
+	public AddInChoice(JFrame parent, String nameFrame, List<String> massiveO_I_R, String selectItem) {
+		super(parent, nameFrame, true);
 		
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -138,10 +138,10 @@ public class AddInChoice extends JDialog {
 	}
 
 	public List<String> getStrMas(String str, List<String> massiveO_I_R) {
-
+		
 		List<String> masStr = new ArrayList<String>();
 		for (String string : massiveO_I_R) {
-			if (string.indexOf(str) >= 0) {
+			if (string.toLowerCase().contains(str.toLowerCase())) {
 				masStr.add(string);
 			}
 

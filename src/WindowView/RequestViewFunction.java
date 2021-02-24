@@ -41,15 +41,15 @@ public class RequestViewFunction {
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));
 		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 			txtField_RequestCode.setForeground(Color.red);
-			lblError.setText(ReadFileWithGlobalTextVariable.
-					getGlobalTextVariableMap().get("RequestViewFunction_ErrorDialog"));
+			lblError.setText(
+					ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_ErrorDialog"));
 			corectRequestCode = false;
 		} else {
 
 			if (checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 				txtField_RequestCode.setForeground(Color.red);
-				lblError.setText(ReadFileWithGlobalTextVariable.
-						getGlobalTextVariableMap().get("RequestViewFunction_ErrorNumber"));
+				lblError.setText(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+						.get("RequestViewFunction_ErrorNumber"));
 				corectRequestCode = false;
 			} else {
 				txtField_RequestCode.setForeground(Color.BLACK);
@@ -130,8 +130,9 @@ public class RequestViewFunction {
 		ArrayList<String> array_O_I_R = RequestViewAplication.getStringMassiveO_I_R();
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-
-		new AddInChoice(f, array_O_I_R, choice_obekt_na_izpitvane_request.getSelectedItem());
+		String nameFrame = ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("ChoiceNew_O_I_R_choiceText");
+		new AddInChoice(f, nameFrame, array_O_I_R, choice_obekt_na_izpitvane_request.getSelectedItem());
 
 		String str = AddInChoice.getChoice();
 		for (String string : array_O_I_R) {
@@ -150,8 +151,14 @@ public class RequestViewFunction {
 			List<String> incomingValueStringList, List<String> bsic_listObektNaIzpit, String labelString) {
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-
-		new AddInChoice(f, bsic_listObektNaIzpit, incomingValueStringList.get(incomingValueStringList.size() - 1));
+		
+		String selectItem = "";
+		if (incomingValueStringList.size() > 0) {
+			selectItem = incomingValueStringList.get(incomingValueStringList.size() - 1);
+		}
+		String nameFrame = ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("ChoiceNew_O_I_R_choiceText");
+		new AddInChoice(f, nameFrame, bsic_listObektNaIzpit, selectItem);
 
 		String str = AddInChoice.getChoice();
 		for (String string : bsic_listObektNaIzpit) {
@@ -163,8 +170,9 @@ public class RequestViewFunction {
 			incomingValueStringList.remove(incomingValueStringList.size() - 1);
 			incomingValueStringList.add(str);
 		}
-		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit, ReadFileWithGlobalTextVariable.
-				getGlobalTextVariableMap().get("ChoiceFromListWithPlusAndMinus_choiceText"));
+		new ChoiceFromListWithPlusAndMinus(f, incomingValueStringList, bsic_listObektNaIzpit,
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+						.get("ChoiceFromListWithPlusAndMinus_choiceText"));
 
 	}
 
@@ -186,14 +194,12 @@ public class RequestViewFunction {
 					tamplateRequest)) {
 				list_String_I_P_Tamplate.add(izpitPokazatelFormTamplate.getPokazatel().getName_pokazatel());
 			}
-			Boolean fromTamplate=true;
+			Boolean fromTamplate = true;
 			txtArea_list_izpitvan_pokazatel.setText("");
 			String strTamplate = generateStringFromCoice_L_I_P(list_String_I_P_Tamplate, fromTamplate);
 			txtArea_list_izpitvan_pokazatel.setText(strTamplate);
 		}
 	}
-
-	
 
 	public static void generateTextIn_Text_Area_List_Izpitvan_Pokazatel(JTextArea txtArea_list_izpitvan_pokazatel,
 			Border border) {
@@ -201,29 +207,29 @@ public class RequestViewFunction {
 
 		if (!txtArea_list_izpitvan_pokazatel.getText().equals("")) {
 			list_I_P = ChoiceL_I_P.getChoiceL_P();
-			}
+		}
 		txtArea_list_izpitvan_pokazatel.setText("");
-		Boolean fromTamplate=false;
+		Boolean fromTamplate = false;
 		String strTamplate = generateStringFromCoice_L_I_P(list_I_P, fromTamplate);
-		
+
 		txtArea_list_izpitvan_pokazatel.setBorder(border);
 		txtArea_list_izpitvan_pokazatel.setText(strTamplate);
 	}
 
 	private static String generateStringFromCoice_L_I_P(List<String> list_String_I_P_Tamplate, Boolean fromTamplate) {
 		JFrame f = new JFrame();
-		new ChoiceL_I_P(f, list_String_I_P_Tamplate, fromTamplate,ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().
-				get("DefauiltTableMouseListener_EditColumnPokazatel"),null);
+		new ChoiceL_I_P(f, list_String_I_P_Tamplate, fromTamplate, ReadFileWithGlobalTextVariable
+				.getGlobalTextVariableMap().get("DefauiltTableMouseListener_EditColumnPokazatel"), null);
 		String strTamplate = "";
-		
+
 		for (String string : ChoiceL_I_P.getChoiceL_P()) {
 			strTamplate = strTamplate + string + "\n";
 		}
-		strTamplate= strTamplate.substring(0, strTamplate.length() - 1);
-	
+		strTamplate = strTamplate.substring(0, strTamplate.length() - 1);
+
 		return strTamplate;
-	}	
-	
+	}
+
 	public static String generateTxtInDescriptGrupSample(Choice choice_Period, String sampleCount) {
 		String txtInDescriptGrupSample = "";
 		String strMesec = "";
@@ -256,15 +262,15 @@ public class RequestViewFunction {
 		} else {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
 			if (id_Period < 13) {
-				strMesec = mesec+" ";
+				strMesec = mesec + " ";
 			}
 			if (str_period_sample.equals("")) {
 				txtInDescriptGrupSample = "";
-				txtInDescriptGrupSample = sbor + " " + prob + " "+za+" " + strMesec + strChoice_Period;
+				txtInDescriptGrupSample = sbor + " " + prob + " " + za + " " + strMesec + strChoice_Period;
 			} else {
 				txtInDescriptGrupSample = "";
 
-				txtInDescriptGrupSample = sbor + " " + prob +  " "+za+" "  + strMesec + strChoice_Period + " "
+				txtInDescriptGrupSample = sbor + " " + prob + " " + za + " " + strMesec + strChoice_Period + " "
 						+ str_period_sample;
 			}
 		}
@@ -292,7 +298,7 @@ public class RequestViewFunction {
 		}
 		Boolean forTable = false;
 		String str_period_sample = DateChoice_period.get_str_period_sample(false, forTable);
-//		 String str_period_sample = DateChoice.get_str_period_sample();
+		// String str_period_sample = DateChoice.get_str_period_sample();
 
 		txtInDescriptGrupSample = sbor + " " + prob;
 		if (original_Description_sample_group.length() > 0)
@@ -302,9 +308,9 @@ public class RequestViewFunction {
 		String strChoice_Period = choice_Period.getSelectedItem();
 		if (strChoice_Period.length() > 0) {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
-			strMesec = " "+za+" ";
+			strMesec = " " + za + " ";
 			if (id_Period < 13) {
-				strMesec = mesec+" ";
+				strMesec = mesec + " ";
 			}
 		}
 		txtInDescriptGrupSample += " " + strMesec + strChoice_Period + " " + str_period_sample;
@@ -453,8 +459,8 @@ public class RequestViewFunction {
 		String[][] volSampleView = new String[countSample][6];
 		for (int i = 0; i < countSample; i++) {
 			volSampleView[i][0] = request.getRecuest_code() + "-" + list_sample.get(i).getSample_code();
-			volSampleView[i][1] = FunctionForGenerateWordDocFile.
-					generate_str_Ob_izp_samp(list_sample.get(i), isDiferent_Ob_Izp_Req);
+			volSampleView[i][1] = FunctionForGenerateWordDocFile.generate_str_Ob_izp_samp(list_sample.get(i),
+					isDiferent_Ob_Izp_Req);
 			volSampleView[i][2] = list_sample.get(i).getDescription_sample();
 			volSampleView[i][3] = list_sample.get(i).getDate_time_reference();
 			String str = "";
@@ -552,20 +558,19 @@ public class RequestViewFunction {
 		return incorrectReception_date_period;
 	}
 
-	 public static String ConvertNumberInStrToSuperscript(String str) {
-	 	    str = str.replaceAll("0", "⁰");
-	 	    str = str.replaceAll("1", "¹");
-	 	    str = str.replaceAll("2", "²");
-	 	    str = str.replaceAll("3", "³");
-	 	    str = str.replaceAll("4", "⁴");
-	 	    str = str.replaceAll("5", "⁵");
-	 	    str = str.replaceAll("6", "⁶");
-	 	    str = str.replaceAll("7", "⁷");
-	 	    str = str.replaceAll("8", "⁸");
-	 	    str = str.replaceAll("9", "⁹");  
-//	 	    str = str.replaceAll("/", "⸍");  
-	 	    return str;
-	 	}
-
+	public static String ConvertNumberInStrToSuperscript(String str) {
+		str = str.replaceAll("0", "⁰");
+		str = str.replaceAll("1", "¹");
+		str = str.replaceAll("2", "²");
+		str = str.replaceAll("3", "³");
+		str = str.replaceAll("4", "⁴");
+		str = str.replaceAll("5", "⁵");
+		str = str.replaceAll("6", "⁶");
+		str = str.replaceAll("7", "⁷");
+		str = str.replaceAll("8", "⁸");
+		str = str.replaceAll("9", "⁹");
+		// str = str.replaceAll("/", "⸍");
+		return str;
+	}
 
 }

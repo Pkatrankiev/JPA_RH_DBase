@@ -232,7 +232,7 @@ public class SampleViewAdd extends JDialog {
 								Boolean fl = false;
 								final JFrame f = new JFrame();
 
-								new AddInChoice(f, comBox_O_I_S,
+								new AddInChoice(f, "", comBox_O_I_S,
 										(String) comboBox_OI[l].getSelectedItem());
 
 								String str = AddInChoice.getChoice();

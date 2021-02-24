@@ -628,6 +628,7 @@ public class RequestView extends JDialog {
 		txtArea_obekt_na_izpitvane_request = new JTextArea();
 		txtArea_obekt_na_izpitvane_request.setBorder(UIManager.getBorder("ComboBox.border"));
 		txtArea_obekt_na_izpitvane_request.setFont(font);
+		txtArea_obekt_na_izpitvane_request.setEditable(false);
 
 		GridBagConstraints gbc_choice_obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_choice_obekt_na_izpitvane_request.fill = GridBagConstraints.HORIZONTAL;
@@ -1509,8 +1510,9 @@ public class RequestView extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
 				final JFrame f = new JFrame();
-
-				new AddInChoice(f, arrayZab, choice_Zab.getSelectedItem());
+				String nameFrame = ReadFileWithGlobalTextVariable.
+						getGlobalTextVariableMap().get("ChoiceNew_Zabelejka_choiceText");
+				new AddInChoice(f, nameFrame, arrayZab, choice_Zab.getSelectedItem());
 
 				String str = AddInChoice.getChoice();
 				for (String string : arrayZab) {
@@ -1590,7 +1592,9 @@ public class RequestView extends JDialog {
 
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-		new AddInChoice(f, array_list, choice_obekt.getSelectedItem());
+		String nameFrame = ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("ChoiceNew_dopIzis_choiceText");
+		new AddInChoice(f, nameFrame, array_list, choice_obekt.getSelectedItem());
 		String str = AddInChoice.getChoice();
 		for (String string : array_list) {
 			if (str.equals(string))
@@ -1883,7 +1887,9 @@ public class RequestView extends JDialog {
 	private Boolean ChoiceFrameNameFamily(ArrayList<String> array_list, Choice choice_obekt) {
 		Boolean fl = false;
 		final JFrame f = new JFrame();
-		new AddInChoiceNameFamily(f, array_list, choice_obekt.getSelectedItem());
+		String nameFrame = ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("ChoiceNew_New_Client_choiceText");
+		new AddInChoiceNameFamily(f, nameFrame, array_list, choice_obekt.getSelectedItem());
 		String str = AddInChoiceNameFamily.getChoice();
 		for (String string : array_list) {
 			if (str.equals(string))

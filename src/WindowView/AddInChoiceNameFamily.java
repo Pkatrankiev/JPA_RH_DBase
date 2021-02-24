@@ -33,8 +33,9 @@ public class AddInChoiceNameFamily extends JDialog {
 	private JPanel panel;
 	private static JTextField textField_Family;
 
-	public AddInChoiceNameFamily(JFrame parent, ArrayList<String> massiveO_I_R, String selectItem) {
-		super(parent, "", true);
+	public AddInChoiceNameFamily(JFrame parent, String nameFrame, ArrayList<String> massiveO_I_R, String selectItem) {
+		
+		super(parent, nameFrame, true);
 
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

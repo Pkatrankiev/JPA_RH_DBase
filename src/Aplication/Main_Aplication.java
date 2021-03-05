@@ -16,6 +16,7 @@ import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
 import OldClases.DBAutoBackupController;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
+import Reference.SampleMonthlyReference;
 import Table.Table_Results_List;
 import WindowView.AddDobivView;
 import WindowView.Login;
@@ -123,7 +124,10 @@ public class Main_Aplication {
 //		TestClases.changeStringDateMeasurInResults("8.4.2019", "08.04.2019");
 //		TestClases.TestIterator();
 		
-		StartMainWindow();
+		SampleMonthlyReference.SampleMonthlyReference();
+		
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

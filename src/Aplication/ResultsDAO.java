@@ -211,6 +211,41 @@ public class ResultsDAO {
 		return SortListObjectByField.sortListResultsByCodedNuclide(list);
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<Results> getListResultsByDataMeasurANDInProtokol(String dataMeasur) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		String hql = "SELECT e FROM Results e WHERE e.inProtokol = 1 AND e.date_measur REGEXP :text ORDER  BY e.date_measur ASC";
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", dataMeasur);
+		
+		List<Results>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Results> getListResults_LargerByIDANDInProtokol(int id) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		String hql = "SELECT e FROM Results e WHERE e.inProtokol = 1 AND e.Id_results >= :id ORDER BY e.Id_results ASC";
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("id", id);
+		
+		List<Results>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		return list;
+	}
+	
+	
 	public static void updateResults(Results results) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

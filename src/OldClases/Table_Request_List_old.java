@@ -183,7 +183,7 @@ public class Table_Request_List_old extends JDialog {
 						Boolean withTime = false;
 						Boolean fromTable = true;					
 						final JFrame f = new JFrame();
-						DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
+						DateChoice_period date_period_reception = new DateChoice_period(f, "", str_date_period_reception,
 								withTime, forDateReception, fromTable);
 						date_period_reception.setVisible(true);
 						model.setValueAt(DateChoice_period.get_str_period_sample(forDateReception, forTable),selectedRow, columnIndex);

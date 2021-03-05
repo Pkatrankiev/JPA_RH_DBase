@@ -8,13 +8,13 @@ import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.PeriodicReference;
 import WindowView.TranscluentWindow;
 
-public class MenuReference extends AbstractMenuAction{
+public class MenuPeriodicReference extends AbstractMenuAction{
 	
 	
 	private static final long serialVersionUID = 1L;
 	static String MenuReference_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuPeriodicReference_TitleName");
 	
-	public MenuReference() {
+	public MenuPeriodicReference() {
 		super(MenuReference_TitleName);
 		
 	}

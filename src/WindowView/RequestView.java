@@ -864,7 +864,7 @@ public class RequestView extends JDialog {
 					Boolean fromTable = false;
 					String str_date_period_reception = txt_fid_date_time_reference.getText();
 
-					DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception,
+					DateChoice_period date_time_reference = new DateChoice_period(f, "", str_date_period_reception,
 							withTime, forDateReception,	fromTable);
 
 					date_time_reference.setVisible(true);
@@ -1353,13 +1353,15 @@ public class RequestView extends JDialog {
 						str_date_period_reception = RequestViewFunction.DateNaw(false);
 					}
 					final JFrame f = new JFrame();
-					DateChoice_period date_period_reception = new DateChoice_period(f, str_date_period_reception,
+					DateChoice_period date_period_reception = new DateChoice_period(f, "Избор на дата / период на вземане", str_date_period_reception,
 							withTime, forDateReception,fromTable);
 					date_period_reception.setVisible(true);
 					Boolean forTable = false;
 					String textRefDate = "";
 					textRefDate = DateChoice_period.get_str_period_sample(forDateReception, forTable);
 
+					
+					
 					incorrect_date_period_Reception = RequestViewFunction
 							.incorrectReception_Date_Period(txtFld_date_period_reception);
 					if (incorrect_date_period_Reception) {

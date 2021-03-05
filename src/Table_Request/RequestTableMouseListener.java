@@ -184,7 +184,7 @@ public class RequestTableMouseListener {
 		Boolean withTime = false;
 		Boolean fromTable = true;
 		final JFrame frame = new JFrame();
-		DateChoice_period date_period_reception = new DateChoice_period(frame, str_date_period_reception, withTime,
+		DateChoice_period date_period_reception = new DateChoice_period(frame, "",str_date_period_reception, withTime,
 				forDateReception, fromTable);
 		date_period_reception.setVisible(true);
 		model.setValueAt(DateChoice_period.get_str_period_sample(forDateReception, forTable), selectedRow, columnIndex);

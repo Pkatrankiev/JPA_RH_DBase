@@ -20,12 +20,13 @@ import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
 import Menu.MenuOder;
-import Menu.MenuReference;
+import Menu.MenuPeriodicReference;
 import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_DeleteRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
+import Menu.MenuSampleMonthlyReference;
 
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
@@ -220,18 +221,18 @@ public class MainWindow extends JFrame {
 	}
 	
 	private JMenu createReferenceMenu() {
-		JMenu oderMenu = new JMenu(
+		JMenu referenceMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Reference"));
-		oderMenu.setMnemonic(KeyEvent.VK_S);
-
-		oderMenu.add(new MenuReference());
-		return oderMenu;
+		referenceMenu.setMnemonic(KeyEvent.VK_R);
+		referenceMenu.add(new MenuSampleMonthlyReference());
+		referenceMenu.add(new MenuPeriodicReference());
+		return referenceMenu;
 	}
 
 	private JMenu createOderMenu() {
 		JMenu oderMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Oder"));
-		oderMenu.setMnemonic(KeyEvent.VK_D);
+		oderMenu.setMnemonic(KeyEvent.VK_O);
 
 		oderMenu.add(new MenuOder());
 		return oderMenu;

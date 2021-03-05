@@ -221,6 +221,8 @@ Reference_LabelText_SampleCode = Код на пробата
 Reference_LabelText_CommentSample = <html>Описание на<br>пробата</html>t_
 Reference_LabelText_separatorInColumnName = …
 
+MenuSampleMonthlyReference_TitleName = Месечна справка
+SampleMonthlyReference_TitleName = Справка за изработени проби
 
 
 $$Button_Text

@@ -34,13 +34,13 @@ public class DateChoice_period extends JDialog {
 	private static JLabel lbl_errorPeriod;
 	String startIncomingData = "";
 	String endIncomingData = "";
-	Boolean correctDate = true;
+	static Boolean correctDate = true;
 
-	public DateChoice_period(Frame parent, String incoming_date_time, Boolean withTime, Boolean forDateReception, Boolean fromTable) {
+	public DateChoice_period(Frame parent, String title_Name, String incoming_date_time, Boolean withTime, Boolean forDateReception, Boolean fromTable) {
 		super(parent, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DateChoice_period_TitleName"), true);
 
 		if (forDateReception) {
-			setTitle("Избор на дата / период на вземане");
+			setTitle(title_Name);
 			String[] masiveStartAndEndDate = getMasiveDateFromPeriodString(incoming_date_time);
 			if(fromTable){
 				if(incoming_date_time.length()<12){
@@ -337,6 +337,7 @@ public class DateChoice_period extends JDialog {
 		return masiveStartAndEndDate;
 	}
 
+	
 	public static String get_str_period_sample(Boolean forDateReception, Boolean forTable) {
 
 		String str = "";
@@ -401,6 +402,10 @@ public class DateChoice_period extends JDialog {
 		return str;
 	}
 
+	public static Boolean check_correct_DatePeriod(){
+		return correctDate;
+	}
+	
 	private Boolean check_and_collor_incorrect_DateAndReferenceTxt(Boolean withTime, Boolean forDateReception,
 			JTextField txtDate) {
 		Boolean check = true;

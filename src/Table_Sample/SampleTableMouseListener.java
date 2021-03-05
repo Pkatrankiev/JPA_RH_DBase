@@ -107,7 +107,7 @@ public class SampleTableMouseListener {
 		Boolean fromTable = true;
 		String str_date_period_reception = model.getValueAt(selectedRow, selectedColumnIndex).toString();
 
-		DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception,
+		DateChoice_period date_time_reference = new DateChoice_period(f, "", str_date_period_reception,
 				withTime, forDateReception,	fromTable);
 		date_time_reference.setVisible(true);
 		model.setValueAt( DateChoice_period.get_date_time_reference(), selectedRow, selectedColumnIndex);

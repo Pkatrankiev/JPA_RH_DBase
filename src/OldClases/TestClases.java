@@ -147,7 +147,7 @@ public class TestClases {
 		Boolean withTime = true;
 		Boolean fromTable = true;
 
-		DateChoice_period date_time_reference = new DateChoice_period(f, str_date_period_reception, withTime,
+		DateChoice_period date_time_reference = new DateChoice_period(f, "", str_date_period_reception, withTime,
 				forDateReception, fromTable);
 		date_time_reference.setVisible(true);
 		System.out.println(DateChoice_period.get_date_time_reference());

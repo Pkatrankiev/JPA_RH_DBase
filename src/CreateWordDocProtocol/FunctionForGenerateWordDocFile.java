@@ -245,14 +245,24 @@ public class FunctionForGenerateWordDocFile {
 			}
 		}
 
+		
 		if (!obIzpRequest.equals(obIzpSample)) {
+
 			if (!str_ob_izp_sam.equals("")) {
 				str_ob_izp_sam += ", ";
 			}
 			str_ob_izp_sam += obIzpSample;
-		} else {
-			str_ob_izp_sam += obIzpSample;
 		}
+		
+
+		if (str_ob_izp_sam.equals("")) {
+			if (str_ob_izp_req_simpl.equals("")) {
+				str_ob_izp_sam = obIzpRequest;
+			} else {
+				str_ob_izp_sam = str_ob_izp_req_simpl;
+			}
+		}
+
 		return str_ob_izp_sam;
 	}
 

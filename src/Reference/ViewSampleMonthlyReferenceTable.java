@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -87,6 +89,7 @@ public class ViewSampleMonthlyReferenceTable extends JDialog {
 		setSize(800, 200 + countRow * widshRow);
 		setLocationRelativeTo(null);
 	
+		String[][] masiveExtendLamels = createExtendLabels(infoString);
 
 		round.StopWindow();
 
@@ -98,7 +101,7 @@ public class ViewSampleMonthlyReferenceTable extends JDialog {
 		if (!NoReport) {
 			JButton btnExportButton = new JButton("export");
 			panel_Btn.add(btnExportButton);
-			btnExportListener(frame_name, btnExportButton, table);
+			btnExportListener(frame_name, btnExportButton, table, masiveExtendLamels);
 		
 		}
 		JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
@@ -109,6 +112,32 @@ public class ViewSampleMonthlyReferenceTable extends JDialog {
 		setVisible(true);
 	}
 	
+	private String[][] createExtendLabels(String infoString) {
+		
+		infoString = infoString.replace("<html>", "").replace("</html>", "");
+		int indexBr = 0;
+		List<String> listString = new ArrayList<>();
+		while (infoString.length()>0) {
+			indexBr = infoString.indexOf("<br>");
+			if(indexBr>0){
+				listString.add(infoString.substring(0, indexBr));
+				infoString = infoString.substring( indexBr+4);	
+			}else{
+				listString.add(infoString);
+				infoString = "";
+			}
+		}
+		
+		String[][] masiveExtendLamels = new String[listString.size()][1];
+		for (int i = 0; i < listString.size(); i++) {
+			System.out.println("--        "+listString.get(i));
+			masiveExtendLamels[i][0] = listString.get(i);
+		}
+		
+		
+		return masiveExtendLamels;
+	}
+
 	private void btnCancelListener(JButton btnCancel) {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,7 +152,7 @@ public class ViewSampleMonthlyReferenceTable extends JDialog {
 		});
 	}
 
-	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table) {
+	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table, String[][] masiveExtendLamels) {
 		btnExportButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -131,7 +160,8 @@ public class ViewSampleMonthlyReferenceTable extends JDialog {
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name);
+					
+						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, masiveExtendLamels);
 					}
 				});
 				thread.start();

@@ -284,7 +284,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 		}
 	}
 
-	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName) {
+	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName, String[][] masiveExtendLamels) {
 		String excelFilePath =GlobalPathForDocFile.get_destinationDir() + "export.xls";
 		try {
 			TableColumnModel tcm = table.getColumnModel();
@@ -416,8 +416,30 @@ Object[][] masive = {{1,"ass",123.23,true},
 				}
 				rowCount++;
 			}
+			
+			
+			
+			
 			sheet.createFreezePane(0, 1);
 			sheet.setAutoFilter(new CellRangeAddress ( 0, 1, 0, excelColumnCount-1 ));
+			
+
+		if(masiveExtendLamels!=null){
+			rowCount++;
+			for (int rowFromMasive = 0; rowFromMasive < masiveExtendLamels.length; rowFromMasive++) {
+				row = sheet.createRow(rowCount);
+				excelColumnCount = 1;
+				for (int columnFromMasive = 0; columnFromMasive < masiveExtendLamels[0].length; columnFromMasive++) {
+					cell = row.createCell(excelColumnCount, CellType.STRING);
+		        	cell.setCellValue((String) masiveExtendLamels[rowFromMasive][columnFromMasive].toString());
+		        	excelColumnCount++;
+					}
+				rowCount++;
+			}
+		}	
+			
+			
+			
 			FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
 			workbook.write(outFile);
 			outFile.close();

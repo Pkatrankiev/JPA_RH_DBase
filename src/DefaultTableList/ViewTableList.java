@@ -293,7 +293,7 @@ public class ViewTableList extends JDialog {
 			final Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					CreateExcelFile.toExcel(createMasiveTableTypeColumn(objectTableList_OverallVariables, table), table, frame_name);
+					CreateExcelFile.toExcel(createMasiveTableTypeColumn(objectTableList_OverallVariables, table), table, frame_name, null);
 					}
 			});
 			thread.start();

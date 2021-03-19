@@ -5,6 +5,8 @@ import java.awt.Choice;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,12 +46,9 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import WindowView.DialogOption_Yes_No;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 
 @SuppressWarnings("serial")
 public class ViewReferenceTable extends JDialog {
@@ -61,14 +60,37 @@ public class ViewReferenceTable extends JDialog {
 
 		JTable table = null;
 
-		String obekt_Na_Izpitvane_Na_Probata = choiceObectNaProbata.getSelectedItem();
-		String obektNaIzpitRequest = choiceObectNaIzpit.getSelectedItem();
-		String izpitvanProdukt = choiceIzpitProd.getSelectedItem();
-		String godinaStryng = choiceGodina.getSelectedItem();
-		String pokazatelString = choicePokazatel.getSelectedItem();
+		String value_izpitvanProdukt = choiceIzpitProd.getSelectedItem();
+		String value_pokazatelString = choicePokazatel.getSelectedItem();
+		String value_obektNaIzpitRequest = choiceObectNaIzpit.getSelectedItem();
+		String value_obekt_Na_Izpitvane_Na_Probata = choiceObectNaProbata.getSelectedItem();
+		String value_GodinaStryng = choiceGodina.getSelectedItem();
+		
+		String label_IzpitvanProdukt = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_IzpitvanProdukt");
+		String label_pokazatelString = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Pokazatel");
+		String label_obektNaIzpitRequest = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Obekt_Na_Izpitvane");
+		String label_obekt_Na_Izpitvane_Na_Probata = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata");
+		String label_GodinaStryng = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Godina");
+		String label_Razmernost = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelTextRazmernost");
+		
+		String[][] masiveValume = new String [6][2];
+		masiveValume[0][0] = label_IzpitvanProdukt;
+		masiveValume[0][1] = value_izpitvanProdukt;
+		
+		masiveValume[1][0] = label_pokazatelString;
+		masiveValume[1][1] = value_pokazatelString;
+		
+		masiveValume[2][0] = label_obektNaIzpitRequest;
+		masiveValume[2][1] = value_obektNaIzpitRequest;
+		masiveValume[3][0] = label_obekt_Na_Izpitvane_Na_Probata;
+		masiveValume[3][1] = value_obekt_Na_Izpitvane_Na_Probata;
+		masiveValume[4][0] = label_GodinaStryng;
+		masiveValume[4][1] = value_GodinaStryng;
+		
+		
 
-		Object[][] masiveValueDataTable = GenerateMasiveDataForTable(pokazatelString, obekt_Na_Izpitvane_Na_Probata,
-				godinaStryng, obektNaIzpitRequest, izpitvanProdukt, rdbtnMDA.isSelected(), rdbtnMesechni.isSelected());
+		Object[][] masiveValueDataTable = GenerateMasiveDataForTable(value_pokazatelString, value_obekt_Na_Izpitvane_Na_Probata,
+				value_GodinaStryng, value_obektNaIzpitRequest, value_izpitvanProdukt, rdbtnMDA.isSelected(), rdbtnMesechni.isSelected());
 
 		boolean NoReport = false;
 		int countRow = masiveValueDataTable.length;
@@ -99,8 +121,7 @@ public class ViewReferenceTable extends JDialog {
 		gbl_top_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		top_panel.setLayout(gbl_top_panel);
 
-		JLabel lblIzpitProdukt = new JLabel(
-				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_IzpitvanProdukt"));
+		JLabel lblIzpitProdukt = new JLabel(label_IzpitvanProdukt);
 		GridBagConstraints gbc_lblIzpitProdukt = new GridBagConstraints();
 		gbc_lblIzpitProdukt.anchor = GridBagConstraints.EAST;
 		gbc_lblIzpitProdukt.insets = new Insets(0, 0, 5, 5);
@@ -108,7 +129,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_lblIzpitProdukt.gridy = 0;
 		top_panel.add(lblIzpitProdukt, gbc_lblIzpitProdukt);
 
-		JLabel valIzpitProdukt = new JLabel(izpitvanProdukt);
+		JLabel valIzpitProdukt = new JLabel(value_izpitvanProdukt);
 		GridBagConstraints gbc_valIzpitProdukt = new GridBagConstraints();
 		gbc_valIzpitProdukt.anchor = GridBagConstraints.WEST;
 		gbc_valIzpitProdukt.insets = new Insets(0, 0, 5, 5);
@@ -116,8 +137,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_valIzpitProdukt.gridy = 0;
 		top_panel.add(valIzpitProdukt, gbc_valIzpitProdukt);
 
-		JLabel lblPokazatel = new JLabel(
-				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Pokazatel"));
+		JLabel lblPokazatel = new JLabel(label_pokazatelString);
 		GridBagConstraints gbc_lblPokazatel = new GridBagConstraints();
 		gbc_lblPokazatel.anchor = GridBagConstraints.EAST;
 		gbc_lblPokazatel.insets = new Insets(0, 0, 5, 5);
@@ -125,7 +145,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_lblPokazatel.gridy = 1;
 		top_panel.add(lblPokazatel, gbc_lblPokazatel);
 
-		JLabel valPokazatel = new JLabel(pokazatelString);
+		JLabel valPokazatel = new JLabel(value_pokazatelString);
 		GridBagConstraints gbc_valPokazatel = new GridBagConstraints();
 		gbc_valPokazatel.anchor = GridBagConstraints.WEST;
 		gbc_valPokazatel.insets = new Insets(0, 0, 5, 5);
@@ -133,8 +153,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_valPokazatel.gridy = 1;
 		top_panel.add(valPokazatel, gbc_valPokazatel);
 
-		JLabel lblRazmernost = new JLabel(
-				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelTextRazmernost"));
+		JLabel lblRazmernost = new JLabel();
 		GridBagConstraints gbc_lblRazmernost = new GridBagConstraints();
 		gbc_lblRazmernost.anchor = GridBagConstraints.EAST;
 		gbc_lblRazmernost.insets = new Insets(0, 0, 5, 5);
@@ -150,8 +169,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_valRazmernost.gridy = 1;
 		top_panel.add(valRazmernost, gbc_valRazmernost);
 
-		JLabel lblObektNaIzpitRequest = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-				.get("Reference_LabelText_Obekt_Na_Izpitvane"));
+		JLabel lblObektNaIzpitRequest = new JLabel(label_obektNaIzpitRequest);
 		GridBagConstraints gbc_lblObektNaIzpitRequest = new GridBagConstraints();
 		gbc_lblObektNaIzpitRequest.anchor = GridBagConstraints.EAST;
 		gbc_lblObektNaIzpitRequest.insets = new Insets(0, 0, 5, 5);
@@ -159,7 +177,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_lblObektNaIzpitRequest.gridy = 2;
 		top_panel.add(lblObektNaIzpitRequest, gbc_lblObektNaIzpitRequest);
 
-		JLabel valObektNaIzpitRequest = new JLabel(obektNaIzpitRequest);
+		JLabel valObektNaIzpitRequest = new JLabel(value_obektNaIzpitRequest);
 		GridBagConstraints gbc_valObektNaIzpitRequest = new GridBagConstraints();
 		gbc_valObektNaIzpitRequest.anchor = GridBagConstraints.WEST;
 		gbc_valObektNaIzpitRequest.insets = new Insets(0, 0, 5, 5);
@@ -167,8 +185,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_valObektNaIzpitRequest.gridy = 2;
 		top_panel.add(valObektNaIzpitRequest, gbc_valObektNaIzpitRequest);
 
-		JLabel lblObektNaProbata = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-				.get("Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata"));
+		JLabel lblObektNaProbata = new JLabel(label_obekt_Na_Izpitvane_Na_Probata);
 		GridBagConstraints gbc_lblObektNaProbata = new GridBagConstraints();
 		gbc_lblObektNaProbata.anchor = GridBagConstraints.EAST;
 		gbc_lblObektNaProbata.insets = new Insets(0, 0, 5, 5);
@@ -176,7 +193,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_lblObektNaProbata.gridy = 3;
 		top_panel.add(lblObektNaProbata, gbc_lblObektNaProbata);
 
-		JLabel valObektNaProbata = new JLabel(obekt_Na_Izpitvane_Na_Probata);
+		JLabel valObektNaProbata = new JLabel(value_obekt_Na_Izpitvane_Na_Probata);
 		GridBagConstraints gbc_valObektNaProbata = new GridBagConstraints();
 		gbc_valObektNaProbata.anchor = GridBagConstraints.WEST;
 		gbc_valObektNaProbata.insets = new Insets(0, 0, 5, 5);
@@ -184,8 +201,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_valObektNaProbata.gridy = 3;
 		top_panel.add(valObektNaProbata, gbc_valObektNaProbata);
 
-		JLabel lblGodina = new JLabel(
-				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Godina"));
+		JLabel lblGodina = new JLabel(label_GodinaStryng);
 		GridBagConstraints gbc_lblGodina = new GridBagConstraints();
 		gbc_lblGodina.anchor = GridBagConstraints.EAST;
 		gbc_lblGodina.insets = new Insets(0, 0, 5, 5);
@@ -193,7 +209,7 @@ public class ViewReferenceTable extends JDialog {
 		gbc_lblGodina.gridy = 4;
 		top_panel.add(lblGodina, gbc_lblGodina);
 
-		JLabel valGodina = new JLabel(godinaStryng);
+		JLabel valGodina = new JLabel(value_GodinaStryng);
 		GridBagConstraints gbc_valGodina = new GridBagConstraints();
 		gbc_valGodina.anchor = GridBagConstraints.WEST;
 		gbc_valGodina.insets = new Insets(0, 0, 5, 5);
@@ -227,10 +243,14 @@ public class ViewReferenceTable extends JDialog {
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
 		if (!NoReport) {
+			String value_Razmernost = getRazmernost(masiveValueDataTable);
+			masiveValume[5][0] = label_Razmernost;
+			masiveValume[5][1] = value_Razmernost;
 			JButton btnExportButton = new JButton("export");
 			panel_Btn.add(btnExportButton);
-			btnExportListener(frame_name, btnExportButton, table);
-			valRazmernost.setText(getRazmernost(masiveValueDataTable));
+			btnExportListener(frame_name, btnExportButton, table, masiveValume);
+			lblRazmernost.setText(label_Razmernost);
+			valRazmernost.setText(value_Razmernost);
 		}
 		JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		panel_Btn.add(btnCancel);
@@ -239,6 +259,8 @@ public class ViewReferenceTable extends JDialog {
 
 		setVisible(true);
 	}
+
+	
 
 	public static Object[][] GenerateMasiveDataForTable(String stringFromChoicePokazatel,
 			String obekt_na_izpitvane_sample, String godina, String Obekt_na_izpitvane_request, String izpitvanProdukt,
@@ -625,7 +647,7 @@ public class ViewReferenceTable extends JDialog {
        
 	}
 	
-	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table) {
+	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table, String[][] masiveExtendLamels) {
 		btnExportButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -633,7 +655,7 @@ public class ViewReferenceTable extends JDialog {
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, null);
+						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, masiveExtendLamels);
 					}
 				});
 				thread.start();

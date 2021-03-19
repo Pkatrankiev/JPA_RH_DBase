@@ -17,7 +17,7 @@ public class MenuSampleMonthlyReference extends AbstractMenuAction{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		SampleMonthlyReference.SampleMonthlyReference();
+		SampleMonthlyReference.SampleMonthly_Reference();
 	}
 	
 

@@ -124,10 +124,10 @@ public class Main_Aplication {
 //		TestClases.changeStringDateMeasurInResults("8.4.2019", "08.04.2019");
 //		TestClases.TestIterator();
 		
-		SampleMonthlyReference.SampleMonthlyReference();
+//		SampleMonthlyReference.SampleMonthlyReference();
 		
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

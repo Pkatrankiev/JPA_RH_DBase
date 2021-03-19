@@ -19,7 +19,7 @@ import WindowView.TranscluentWindow;
 
 public class SampleMonthlyReference {
 	static String infoString = "";
-	public static void SampleMonthlyReference() {
+	public static void SampleMonthly_Reference() {
 		Boolean forDateReception = true;
 		Boolean withTime = false;
 		Boolean fromTable = false;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 19 март 2021 в 14:48
+-- Generation Time: 26 март 2021 в 14:55
 -- Версия на сървъра: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -2020,7 +2020,8 @@ INSERT INTO `izpitvanpokazatel` (`ID_POKAZATEL`, `METODY_ID_METODY`, `POKAZATEL_
 (1371, 17, 1, 806),
 (1372, 17, 1, 807),
 (1373, 4, 8, 808),
-(1374, NULL, 1, 809);
+(1374, 17, 1, 809),
+(1375, 17, 1, 810);
 
 -- --------------------------------------------------------
 
@@ -4411,7 +4412,8 @@ INSERT INTO `request` (`ID_RECUEST`, `ACCREDITATION`, `COUNTS_SAMPLES`, `DATE_EX
 (806, 0, 8, '31.03.2021', '12.03.2021', '12.03.2021', 'Водни проби        м. март ', '4530', 1, 49, 5, 4, NULL, 4, 3, 5, 'ДСШ на ТГ 1÷8 на блокове 1 ÷ 4'),
 (807, 0, 1, '19.03.2021', '15.03.2021', '15.03.2021', 'Вода от резервоар на ЦНРД   м. март ', '4531', 1, 49, 5, 4, NULL, 4, 3, 5, 'Резервоар 03D-SS02T02, ЦНРД'),
 (808, 0, 9, '31.03.2021', '12.03.2021 ÷ 16.03.2021', '16.03.2021', 'Водни  проби   м. март ', '4532', 1, 61, 5, 4, NULL, 4, 3, 9, 'Сондажни кладенци от територията на СП \"РАО\"    '),
-(809, 0, 1, '26.03.2021', '19.03.2021', '19.03.2021', 'Вода от резервоар на ЦНРД  за  м. март ', '4533', 1, 103, 5, 4, NULL, 4, 3, 5, 'Резервоар 03D-SS02T01, ЦНРД');
+(809, 0, 1, '26.03.2021', '19.03.2021', '19.03.2021', 'Вода от резервоар на ЦНРД  за  м. март ', '4533', 1, 103, 5, 4, NULL, 4, 3, 5, 'Резервоар 03D-SS02T01, ЦНРД'),
+(810, 0, 1, '31.03.2021', '25.03.2021', '25.03.2021', 'Вода от резервоар на ЦНРД   м. март  ', '4534', 1, 49, 5, 4, NULL, 4, 3, 5, 'Резервоар 03D-SS02T02, ЦНРД');
 
 -- --------------------------------------------------------
 
@@ -5360,7 +5362,8 @@ INSERT INTO `request_to_obektnaizpitvanerequest` (`ID`, `OBEKTNAIZP_ID_OBEKT_NA_
 (998, 20, 806),
 (999, 115, 807),
 (1000, 170, 808),
-(1001, 118, 809);
+(1001, 118, 809),
+(1002, 115, 810);
 
 -- --------------------------------------------------------
 
@@ -18092,7 +18095,22 @@ INSERT INTO `results` (`ID_RESULTS`, `BASIC_VALUE`, `DATE_CHIM_OPER`, `DATE_MEAS
 (12781, 'C:\\GENIE2K\\REPFILES\\4530-8.RPT', '15.03.2021', '18.03.2021', '18.03.2021', 0, 1.12, 0.5, 2, 0, 0, 3, 17, 24, 1, 4, 3201, 18, 12, 12, NULL, 3, NULL, 806),
 (12782, 'C:\\GENIE2K\\REPFILES\\4530-8.RPT', '15.03.2021', '18.03.2021', '18.03.2021', 0, 0.941, 0.5, 2, 0, 0, 3, 17, 30, 1, 4, 3201, 18, 12, 12, NULL, 3, NULL, 806);
 INSERT INTO `results` (`ID_RESULTS`, `BASIC_VALUE`, `DATE_CHIM_OPER`, `DATE_MEASUR`, `DATE_REDAC`, `INPROTOKOL`, `MDA`, `QUANTITY`, `SIGMA`, `UNCERTAINTY`, `VALUE_RESULT`, `DIMENSION_ID_DIMENSION`, `METODY_ID_METODY`, `NUCLIDE_ID_NUCLIDE`, `POKAZATEL_ID_POKAZATEL`, `RTAZMERNOSTI_ID_RAZMERNOSTI`, `SAMPLE_ID_SAMPLE`, `USER_CHIM_OPER_ID_USERS`, `USER_MEASUR_ID_USERS`, `USER_REDAC_ID_USERS`, `ZABELEJKI_ID_ZABELEJKI`, `TSI_ID_TSI`, `DOBIV_ID_DOBIV`, `REQUEST_ID_RECUEST`) VALUES
-(12783, 'C:\\GENIE2K\\REPFILES\\4530-8.RPT', '15.03.2021', '18.03.2021', '18.03.2021', 0, 2.59, 0.5, 2, 0, 0, 3, 17, 45, 1, 4, 3201, 18, 12, 12, NULL, 3, NULL, 806);
+(12783, 'C:\\GENIE2K\\REPFILES\\4530-8.RPT', '15.03.2021', '18.03.2021', '18.03.2021', 0, 2.59, 0.5, 2, 0, 0, 3, 17, 45, 1, 4, 3201, 18, 12, 12, NULL, 3, NULL, 806),
+(12784, 'C:\\GENIE2K\\REPFILES\\4533-1.RPT', '22.03.2021', '23.03.2021', '23.03.2021', 0, 0.207, 1, 2, 0, 0, 3, 17, 5, 1, 4, 3212, 15, 11, 11, NULL, 2, NULL, 809),
+(12785, 'C:\\GENIE2K\\REPFILES\\4533-1.RPT', '22.03.2021', '23.03.2021', '23.03.2021', 1, 0.276, 1, 2, 0, 0, 3, 17, 9, 1, 4, 3212, 15, 11, 11, NULL, 2, NULL, 809),
+(12786, 'C:\\GENIE2K\\REPFILES\\4533-1.RPT', '22.03.2021', '23.03.2021', '23.03.2021', 0, 0.273, 1, 2, 0, 0, 3, 17, 24, 1, 4, 3212, 15, 11, 11, NULL, 2, NULL, 809),
+(12787, 'C:\\GENIE2K\\REPFILES\\4533-1.RPT', '22.03.2021', '23.03.2021', '23.03.2021', 0, 0.261, 1, 2, 0, 0, 3, 17, 30, 1, 4, 3212, 15, 11, 11, NULL, 2, NULL, 809),
+(12788, 'C:\\GENIE2K\\REPFILES\\4533-1.RPT', '22.03.2021', '23.03.2021', '23.03.2021', 1, 0.256, 1, 2, 0, 0, 3, 17, 31, 1, 4, 3212, 15, 11, 11, NULL, 2, NULL, 809),
+(12789, 'C:\\GENIE2K\\REPFILES\\4533-1.RPT', '22.03.2021', '23.03.2021', '23.03.2021', 0, 1.23, 1, 2, 0, 0, 3, 17, 45, 1, 4, 3212, 15, 11, 11, NULL, 2, NULL, 809),
+(12790, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.199, 1, 2, 0, 0, 3, 17, 5, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12791, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 1, 0.247, 1, 2, 0, 0, 3, 17, 9, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12792, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.348, 1, 2, 0, 0, 3, 17, 19, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12793, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.278, 1, 2, 0, 0, 3, 17, 24, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12794, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.218, 1, 2, 0, 0, 3, 17, 26, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12795, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.66, 1, 2, 0, 0, 3, 17, 27, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12796, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.256, 1, 2, 0, 0, 3, 17, 30, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12797, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 1, 0.254, 1, 2, 0, 0, 3, 17, 31, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810),
+(12798, 'C:\\GENIE2K\\REPFILES\\4534-1.RPT', '25.03.2021', '26.03.2021', '26.03.2021', 0, 0.842, 1, 2, 0, 0, 3, 17, 45, 1, 4, 3213, 15, 12, 12, NULL, 3, NULL, 810);
 
 -- --------------------------------------------------------
 
@@ -21135,7 +21153,8 @@ INSERT INTO `sample` (`ID_SAMPLE`, `DATE_TIME_REFERENCE`, `DESCRIPTION_SAMPLE`, 
 (3209, '12.03.2021 12:00', '', 2021, '7', 195, 3, 808, 1000),
 (3210, '12.03.2021 12:00', '', 2021, '8', 183, 3, 808, 1000),
 (3211, '12.03.2021 12:00', '', 2021, '9', 184, 3, 808, 1000),
-(3212, '19.03.2021 15:00', '', 2021, '1', 110, 3, 809, 1001);
+(3212, '19.03.2021 15:00', '', 2021, '1', 110, 3, 809, 1001),
+(3213, '25.03.2021 15:00', '', 2021, '1', 107, 3, 810, 1002);
 
 -- --------------------------------------------------------
 
@@ -21601,7 +21620,7 @@ ALTER TABLE `internal_applicant`
 -- AUTO_INCREMENT for table `izpitvanpokazatel`
 --
 ALTER TABLE `izpitvanpokazatel`
-  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1375;
+  MODIFY `ID_POKAZATEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1376;
 
 --
 -- AUTO_INCREMENT for table `izpitvan_produkt`
@@ -21697,25 +21716,25 @@ ALTER TABLE `razmernosti`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=810;
+  MODIFY `ID_RECUEST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=811;
 
 --
 -- AUTO_INCREMENT for table `request_to_obektnaizpitvanerequest`
 --
 ALTER TABLE `request_to_obektnaizpitvanerequest`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
 
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12784;
+  MODIFY `ID_RESULTS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12799;
 
 --
 -- AUTO_INCREMENT for table `sample`
 --
 ALTER TABLE `sample`
-  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3213;
+  MODIFY `ID_SAMPLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3214;
 
 --
 -- AUTO_INCREMENT for table `tablecolumn`

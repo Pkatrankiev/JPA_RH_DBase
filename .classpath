@@ -37,5 +37,6 @@
 	<classpathentry kind="lib" path="Lib/lib/new/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/new/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/new/xmlbeans-3.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/UCanAccess-5.0.1.bin/ucanaccess-5.0.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

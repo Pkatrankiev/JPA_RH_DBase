@@ -61,6 +61,7 @@ import com.mysql.jdbc.CallableStatement;
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import Aplication.EmitionDAO;
+import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
@@ -90,6 +91,7 @@ import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.PeriodicReference;
 import Table.Table_Sample_List;
+import TableBeisicClassDBase.ViewTableBeisicClassDBase;
 import Table_Request.Table_RequestToObektNaIzp;
 import Table_Results.DialogView_DobivFromResultTableList;
 import WindowView.AddDobivView;
@@ -423,6 +425,26 @@ public class TestClases {
 		thread.start();
 
 	}
+	
+	public static void Table_BeisicClasses() {
+		TranscluentWindow round = new TranscluentWindow();
+
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				JFrame f = new JFrame();
+				
+				new ViewTableBeisicClassDBase(f, round, UsersDAO.getValueUsersById(4),Ind_num_docDAO.getCulumnName_Ind_num_doc_ForTable(),
+						Ind_num_docDAO.getCulumnClass_Ind_num_doc_ForTable(), Ind_num_docDAO.getAll_Ind_num_doc_ForTable());
+				// new AddResultsViewWithTable_Test(f,round,
+				// UsersDAO.getValueUsersById(3));
+			}
+		});
+		thread.start();
+
+	}
+	
 
 	public static void startCreateProtokolDocx() {
 		JFrame f = new JFrame();

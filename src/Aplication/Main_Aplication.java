@@ -16,6 +16,7 @@ import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
 import OldClases.DBAutoBackupController;
 import OldClases.MainWindow_Old;
 import OldClases.TestClases;
+import OldClases.extractDBAse;
 import Reference.SampleMonthlyReference;
 import Table.Table_Results_List;
 import WindowView.AddDobivView;
@@ -126,8 +127,13 @@ public class Main_Aplication {
 		
 //		SampleMonthlyReference.SampleMonthlyReference();
 		
+//		AplicantDAO.exctractDBase();
 		
-		StartMainWindow();
+		
+		
+		TestClases.Table_BeisicClasses();
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

@@ -136,4 +136,28 @@ public class AplicantDAO {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@GET
+	public static void exctractDBase() {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		String dbName ="JPA_RH_DBase";
+		String dbUser = "root";
+		String dbPass = "root";
+		String hql =  "mysqldump -u "+dbUser+" -p "+dbPass+" "+dbName+" -r backup.sql";
+
+		Query query = entitymanager.createQuery(hql);
+		
+
+		
+		entitymanager.close();
+		emfactory.close();
+		
+	}
+	
+	
 }

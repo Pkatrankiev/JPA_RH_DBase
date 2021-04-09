@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Ind_num_doc;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 
 public class Ind_num_docDAO {
 
@@ -106,4 +107,43 @@ public class Ind_num_docDAO {
 		}
 		return values;
 	}
+
+	@SuppressWarnings("unchecked")
+	public static Object[][] getAll_Ind_num_doc_ForTable() {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		Query query = entitymanager.createQuery("SELECT e FROM Ind_num_doc e ORDER BY e.Id_ind_num_doc ASC");
+		List<Ind_num_doc> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		int col = 3;
+		int row = list.size();
+		Object[][] values = new Object[row][col];
+		int i = 0;
+		for (Ind_num_doc izpitvan_produkt : list) {
+			values[i][0] = izpitvan_produkt.getId_ind_num_doc();
+			values[i][1] = izpitvan_produkt.getContent();
+			values[i][2] = izpitvan_produkt.getName();
+			i++;
+		}
+			return values;
+	}
+	public static String[] getCulumnName_Ind_num_doc_ForTable() {
+		int col = 3;
+		String[] values = new String[col];
+		values[0] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Id");
+		values[2] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Name");
+		values[2] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Content");
+		return values;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Class[] getCulumnClass_Ind_num_doc_ForTable() {
+		Class[] types = { Integer.class, String.class, String.class};
+
+		return types;
+	}
+
 }

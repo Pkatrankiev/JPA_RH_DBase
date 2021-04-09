@@ -2,6 +2,14 @@
 
 MainWindow_Ver = Ver.260121
 
+
+$$DBase_SampleTableColumnName
+
+DBSTCN_Ind_num_doc_TableTitle = Таблица на Ид.Номер
+DBSTCN_Ind_num_doc_Id = Id
+DBSTCN_Ind_num_doc_Name = Код
+DBSTCN_Ind_num_doc_Content = Описание
+
 TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
 destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/

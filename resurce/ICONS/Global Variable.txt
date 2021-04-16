@@ -9,6 +9,11 @@ DBSTCN_Ind_num_doc_TableTitle = Таблица на Ид.Номер
 DBSTCN_Ind_num_doc_Id = Id
 DBSTCN_Ind_num_doc_Name = Код
 DBSTCN_Ind_num_doc_Content = Описание
+DBSTCN_btnADD_Text = Добавяне ня ред
+DBSTCN_btnDELETE_Text = Изтриване ня ред
+DBSTCN_Delete_Text = Изкате да изтриете запис:
+DBSTCN_InfoDialog_Text = Не сте маркирали ред
+
 
 TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
@@ -32,6 +37,7 @@ dataBaseName = JPA_RH_DBase
 noConectionInDBseMesage_textMesage = Не се свързвам с базата данни
 noConectionInDBaseDialog_BTN_Exit = Изход
 noConectionInDBaseDialog_BTN_Вaiting = Изчакване
+
 
 $$MainWindow_MenusTitle
 

@@ -435,8 +435,9 @@ public class TestClases {
 
 				JFrame f = new JFrame();
 				
-				new ViewTableBeisicClassDBase(f, round, UsersDAO.getValueUsersById(4),Ind_num_docDAO.getCulumnName_Ind_num_doc_ForTable(),
-						Ind_num_docDAO.getCulumnClass_Ind_num_doc_ForTable(), Ind_num_docDAO.getAll_Ind_num_doc_ForTable());
+				new ViewTableBeisicClassDBase(f, round, UsersDAO.getValueUsersById(4), ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_TableTitle"), Ind_num_docDAO.getCulumnName_Ind_num_doc_ForTable(),
+						Ind_num_docDAO.getCulumnClass_Ind_num_doc_ForTable(), Ind_num_docDAO.getAll_Ind_num_doc_ForTable(), 
+						Ind_num_docDAO.getCulumnSize_Ind_num_doc_ForTable(), "Ind_num_doc");
 				// new AddResultsViewWithTable_Test(f,round,
 				// UsersDAO.getValueUsersById(3));
 			}

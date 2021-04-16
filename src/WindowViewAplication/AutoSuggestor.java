@@ -29,7 +29,8 @@ public class AutoSuggestor {
 	    private String typedWord;
 	    private final ArrayList<String> dictionary = new ArrayList<>();
 	    private int currentIndexOfSpace, tW, tH;
-	    private DocumentListener documentListener = new DocumentListener() {
+	    private DocumentListener documentListener = new DocumentListener() 
+{
 	        @Override
 	        public void insertUpdate(DocumentEvent de) {
 	            checkForAndShowSuggestions();
@@ -224,7 +225,7 @@ public class AutoSuggestor {
 	        if (suggestionsPanel.getHeight() > autoSuggestionPopUpWindow.getMinimumSize().height) {
 	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height;
 	        } else {
-	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight();
+	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight()+100;
 	        }
 
 	        autoSuggestionPopUpWindow.setLocation(windowX, windowY);

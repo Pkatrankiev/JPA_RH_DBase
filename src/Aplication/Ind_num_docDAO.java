@@ -5,10 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Ind_num_doc;
+import DBase_Class.Request;
+import DBase_Class.Results;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 
@@ -108,6 +111,46 @@ public class Ind_num_docDAO {
 		return values;
 	}
 
+	public static void updateInd_num_doc(Ind_num_doc object) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+	
+		entitymanager.find(Ind_num_doc.class, object.getId_ind_num_doc());
+		entitymanager.merge(object);
+
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null, "Прблем при обновяване на резултат: "+object.getName(), "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
+	
+	public static void DeleteInd_num_doc(Ind_num_doc valueEnt) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		Ind_num_doc object = entitymanager.find(Ind_num_doc.class, valueEnt.getId_ind_num_doc());
+		entitymanager.remove(object);
+		try {
+			entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			JOptionPane.showMessageDialog(null,  "Прблем при изтриване на ред №: "+object.getId_ind_num_doc()+"Вероятно се използва в базата", "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static Object[][] getAll_Ind_num_doc_ForTable() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -135,14 +178,16 @@ public class Ind_num_docDAO {
 		String[] values = new String[col];
 		values[0] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Id");
 		values[2] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Name");
-		values[2] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Content");
+		values[1] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_Content");
 		return values;
 	}
-
+	public static int[] getCulumnSize_Ind_num_doc_ForTable() {
+		int[] col = {40,300,160,500};
+		return col;
+	}
 	@SuppressWarnings("rawtypes")
 	public static Class[] getCulumnClass_Ind_num_doc_ForTable() {
-		Class[] types = { Integer.class, String.class, String.class};
-
+			Class[] types = { Integer.class, String.class, String.class};
 		return types;
 	}
 

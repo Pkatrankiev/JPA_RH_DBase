@@ -142,6 +142,7 @@ public class ReadExcelFile {
 							if (CellNOEmpty(cell) && cell.getStringCellValue().startsWith("Tracer Recovery:")) {
 								value_Standatd = sheet.getRow(row).getCell(col).getStringCellValue()
 										.replace("Tracer Recovery:", "").replace(",", ".").replace("%", "");
+								value_Standatd = value_Standatd.substring(0, 7);
 								
 							}
 						}

@@ -184,7 +184,7 @@ public class ViewAddNewObject extends JDialog {
 			}
 			
 		}
-		maxStr.
+		
 		return metrics.stringWidth(maxStr);
 	}
 

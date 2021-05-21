@@ -1,7 +1,9 @@
 package OldClases;
 
+import java.awt.Dimension;
 import java.awt.Frame;
-
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.font.TextAttribute;
 import java.io.BufferedReader;
 import java.io.File;
@@ -435,11 +437,21 @@ public class TestClases {
 
 				JFrame f = new JFrame();
 				
-				new ViewTableBeisicClassDBase(f, round, UsersDAO.getValueUsersById(4), ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_TableTitle"), Ind_num_docDAO.getCulumnName_Ind_num_doc_ForTable(),
-						Ind_num_docDAO.getCulumnClass_Ind_num_doc_ForTable(), Ind_num_docDAO.getAll_Ind_num_doc_ForTable(), 
-						Ind_num_docDAO.getCulumnSize_Ind_num_doc_ForTable(), "Ind_num_doc");
-				// new AddResultsViewWithTable_Test(f,round,
-				// UsersDAO.getValueUsersById(3));
+				Users user = UsersDAO.getValueUsersById(4);
+				String titleTable = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("DBSTCN_Ind_num_doc_TableTitle");
+				String[] columnNames = Ind_num_docDAO.getCulumnName_Ind_num_doc_ForTable();
+				@SuppressWarnings("rawtypes")
+				Class[] classTypes = Ind_num_docDAO.getCulumnClass_Ind_num_doc_ForTable();
+				Object[][] data_Table = Ind_num_docDAO.getAll_Ind_num_doc_ForTable();
+				int[] columnSize = Ind_num_docDAO.getCulumnSize_Ind_num_doc_ForTable();
+				String key = "Ind_num_doc";
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				
+
+				
+				
+				new ViewTableBeisicClassDBase(f, round, user, titleTable, columnNames, classTypes, data_Table,	columnSize, key, null);
+				
 			}
 		});
 		thread.start();
@@ -643,8 +655,8 @@ public class TestClases {
 	public static void TestIterator() {
 
 		@SuppressWarnings("rawtypes")
-		List<Integer> listPeriod = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6));
-		List<Integer> kperiod = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+		List<Integer> listPeriod = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6));
+		List<Integer> kperiod = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
 
 		for (int period : listPeriod) {
 

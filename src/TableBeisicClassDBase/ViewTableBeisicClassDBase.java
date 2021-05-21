@@ -2,13 +2,17 @@ package TableBeisicClassDBase;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -49,11 +53,12 @@ public class ViewTableBeisicClassDBase extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> listWhithChangeRow;
 	private static Object[][] dataTable;
+	@SuppressWarnings("unused")
 	private static ArrayList<String>[] words;
 
 	@SuppressWarnings("rawtypes")
 	public ViewTableBeisicClassDBase(JFrame parent, TranscluentWindow round, Users user, String titleTable,
-			String[] columnNames, Class[] types, Object[][] data_Table, int[] columnSize, String key) {
+			String[] columnNames, Class[] types, Object[][] data_Table, int[] columnSize, String key, Point point) {
 		super(parent, "", true);
 
 		int withPluss = 100;
@@ -87,7 +92,7 @@ public class ViewTableBeisicClassDBase extends JDialog {
 		JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		setLocationRelativeTo(null);
+//		setLocationRelativeTo(null);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -165,8 +170,8 @@ public class ViewTableBeisicClassDBase extends JDialog {
 				JButton btnCancel = new JButton(
 						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 
-				btnAddListener(round, user, titleTable, columnNames, types, columnSize, key, rowTable, btnAdd);
-				btnDeleteListener(table, btnDelete);
+				btnAddListener( user, titleTable, columnNames, types, columnSize, key, rowTable, btnAdd);
+				btnDeleteListener(table, user, key, columnNames, types, columnSize, key, btnDelete);
 				btnSaveListener(parent, key, table, btnSave);
 				btnCancelListener(btnCancel);
 
@@ -184,8 +189,14 @@ public class ViewTableBeisicClassDBase extends JDialog {
 			}
 
 		});
-
 		setSize(columnSize[columnSize.length - 1], with);
+		if(point==null){
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		}else{
+		setLocation(point);
+		}
+		
 		round.StopWindow();
 		setVisible(true);
 	}
@@ -228,19 +239,54 @@ public class ViewTableBeisicClassDBase extends JDialog {
 		return table.convertRowIndexToModel(table.getSelectedRow());
 	}
 
-	private void btnAddListener(TranscluentWindow round, Users user, String titleTable, String[] columnNames,
+	private void btnAddListener(Users user, String titleTable, String[] columnNames,
 			@SuppressWarnings("rawtypes") Class[] types, int[] columnSize, String key, int rowTable, JButton btnAdd) {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				JFrame f = new JFrame();
-				new ViewAddNewObject(f, titleTable, dataTable, columnNames, types, key, rowTable);
-
+				ViewAddNewObject newObject = new ViewAddNewObject(new JFrame(), titleTable, dataTable, columnNames, types, key, rowTable);
+				if(!newObject.gettCancellPresset()){
+				
+					Point point = getLocationOnScreen();	
+				setVisible(false);
+				refreshTable(user, titleTable, columnNames, types, columnSize, key,  point);
+				}
 			}
+
+			
 
 		});
 	}
 
+	private void    refreshTable( Users user, String titleTable, String[] columnNames, @SuppressWarnings("rawtypes") Class[] types, int[] columnSize, String key, Point point) {
+		
+		TranscluentWindow round = new TranscluentWindow();
+		
+		final Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Object[][] data_Table = null;
+				JFrame f = new JFrame();
+				switch (key) {
+				case "Ind_num_doc":
+					data_Table = Ind_num_docDAO.getAll_Ind_num_doc_ForTable();
+					break;
+
+				default:
+					break;
+				}
+				
+				new ViewTableBeisicClassDBase(f, round, user, titleTable, columnNames, types, data_Table,	columnSize, key, point);
+				
+			}
+		});
+		thread.start();
+			
+	
+		
+	}
+	
+	
+	
 	private void btnSaveListener(JFrame f, String key, final JTable table, JButton btnSave) {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -251,7 +297,8 @@ public class ViewTableBeisicClassDBase extends JDialog {
 		});
 	}
 
-	private void btnDeleteListener(final JTable table, JButton btnDelete) {
+	private void btnDeleteListener(final JTable table, Users user, String titleTable, String[] columnNames,
+			@SuppressWarnings("rawtypes") Class[] types, int[] columnSize, String key, JButton btnDelete) {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -262,6 +309,9 @@ public class ViewTableBeisicClassDBase extends JDialog {
 				} else if (DeleteDialog(model.getValueAt(row, 2).toString()) == 0) {
 					Ind_num_doc object = Ind_num_docDAO.getValueInd_num_docById((int) model.getValueAt(row, 0));
 					Ind_num_docDAO.DeleteInd_num_doc(object);
+					Point point = getLocationOnScreen();	
+					setVisible(false);
+					refreshTable(user, titleTable, columnNames, types, columnSize, key,  point);
 				}
 
 			}
@@ -295,6 +345,9 @@ public class ViewTableBeisicClassDBase extends JDialog {
 
 	}
 
+
+	
+	
 	private void initColumnSizes(JTable table, int[] columnSize) {
 		int cols = table.getColumnCount();
 		TableColumn column = null;

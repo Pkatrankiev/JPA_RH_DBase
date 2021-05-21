@@ -56,6 +56,7 @@ public class ViewAddNewObject extends JDialog {
 	static JWindow popUpWindow ;
 	static JPanel popUpPanel ;
 	static FontMetrics metrics;
+	static boolean cancellPreset;
 
 	@SuppressWarnings("rawtypes")
 	public ViewAddNewObject(JFrame parent, String titleTable, Object[][] data_Table, String[] columnNames,
@@ -133,6 +134,7 @@ public class ViewAddNewObject extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 				
 					addData(key);
+					cancellPreset = false;
 					popUpWindow.setVisible(false);
 					removeAll();
 					dispose();
@@ -148,6 +150,7 @@ public class ViewAddNewObject extends JDialog {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				popUpWindow.setVisible(false);
+				cancellPreset = true;
 				dispose();
 			}
 
@@ -170,8 +173,12 @@ public class ViewAddNewObject extends JDialog {
 		return newMasive;
 	}
 
+		boolean gettCancellPresset(){
+			return cancellPreset;
+	
+		}
 
-
+	
 	private int getMaxLabelWidth(List<String> columnNames, FontMetrics metrics) {
 		
 	
@@ -224,7 +231,7 @@ public class ViewAddNewObject extends JDialog {
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-//				popUpWindow(textField, dictonary, maxLabelWidth);
+				popUpWindow(textField, dictonary, maxLabelWidth);
 			}
 			
 			@Override

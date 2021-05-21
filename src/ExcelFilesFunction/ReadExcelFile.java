@@ -117,7 +117,7 @@ public class ReadExcelFile {
 							if (CellNOEmpty(cell) && (cell.getStringCellValue().startsWith("Sample Volume :")||
 									cell.getStringCellValue().startsWith("Sample Weight :"))) {
 								quantity = sheet.getRow(row).getCell(col).getStringCellValue()
-										.replaceFirst("Sample Volume :", "").replace(",", ".");
+										.replaceFirst("Sample Volume :", "").replaceFirst("Sample Weight :", "").replace(",", ".");
 								System.out.println("  - "+quantity);
 							}
 						}

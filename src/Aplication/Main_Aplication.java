@@ -131,9 +131,9 @@ public class Main_Aplication {
 		
 		
 		
-		TestClases.Table_BeisicClasses();
+//		TestClases.Table_BeisicClasses();
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

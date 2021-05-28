@@ -100,6 +100,7 @@ public class FunctionForGenerateWordDocFile {
 
 		// "$$norma$$"
 		naredba = getNaredba(list_Naredbi, string_zab, string_doplDogov);
+		
 		String norm = createNormaforMap(result, naredba);
 		substitutionData.put(masive_column_table_result[5], norm);
 

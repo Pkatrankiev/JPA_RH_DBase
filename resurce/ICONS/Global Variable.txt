@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.230421
+MainWindow_Ver = Ver.280521
 
 
 $$DBase_SampleTableColumnName

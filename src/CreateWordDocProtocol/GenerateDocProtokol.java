@@ -157,7 +157,7 @@ public class GenerateDocProtokol {
 		FunctionForGenerateWordDocFile.clearListDokladMDA();
 
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
-
+		System.out.println(lastSampleIndex);
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
 		
 		
@@ -177,7 +177,7 @@ public class GenerateDocProtokol {
 				coutRow = 2;
 
 				lastSampleIndex = CreateListForMultiTable
-						.lastIndexSampleForFirstTab(smple_list.subList(lastSampleIndex, smple_list.size() - 1));
+						.lastIndexSampleForFirstTab(smple_list.subList(lastSampleIndex, (smple_list.size() - 1)));
 
 				masiveMergeRow = new int[lastSampleIndex + 2];
 				idexSample = 0;

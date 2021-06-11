@@ -37,7 +37,7 @@ import java.awt.Component;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+ 
 public class ResultsListInTableForReadDoc {
 
 	private static String[] values_Period;

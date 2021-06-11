@@ -177,6 +177,35 @@ public class SampleDAO {
 		return list;
 	}
 	
+		
+	
+		public static List<Sample> getListSampleByMounthlyReferenceForCNRDWater_Table(Period mounth, int godina) {
+			@SuppressWarnings("unused")
+			List<Obekt_na_izpitvane_sample> listObjectSample = Obekt_na_izpitvane_sampleDAO. getValueObekt_na_izpitvane_sampleByMounthlyReferenceForCNRDWater_Table();
+			
+//			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+			EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+			EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+			entitymanager.getTransaction().begin();
+
+			
+			
+			String hql = "SELECT e FROM Sample e WHERE e.godina_period = :godina "
+					+ " AND e.period = :mounth";
+			
+			Query query = entitymanager.createQuery(hql);
+			query.setParameter("godina", godina);
+			query.setParameter("mounth", mounth);
+			
+
+			@SuppressWarnings("unchecked")
+			List<Sample> list = query.getResultList();
+			entitymanager.close();
+			emfactory.close();
+
+			return list;
+		}
+		
 	
 	@SuppressWarnings("unchecked")
 	public static Object[] getListNonRecurringObjectFromColumn(String column_name) {

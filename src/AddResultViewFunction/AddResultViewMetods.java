@@ -62,6 +62,7 @@ import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
+
 public class AddResultViewMetods {
 
 	private static String[] masiveNameFortableHeader = { "Нуклид", "В протокол", "Активност", "Неопределеност", "МДА",

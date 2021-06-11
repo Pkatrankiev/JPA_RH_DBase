@@ -54,6 +54,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.sql.DataSource;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -91,6 +92,7 @@ import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import Reference.MounthlyReferenceForCNRDWater;
 import Reference.PeriodicReference;
 import Table.Table_Sample_List;
 import TableBeisicClassDBase.ViewTableBeisicClassDBase;
@@ -105,6 +107,7 @@ import WindowView.MainWindow;
 import WindowView.RequestMiniFrame;
 import WindowView.RequestView;
 import WindowView.TranscluentWindow;
+
 
 public class TestClases {
 
@@ -394,6 +397,14 @@ public class TestClases {
 		System.out.println(dobivFromResultTableList.getSelectDobiv().getId_dobiv());
 	}
 
+	
+	public static void MounthlyReferenceForCNRDWater_test() {
+	MounthlyReferenceForCNRDWater dialog = new MounthlyReferenceForCNRDWater();
+	dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	dialog.setVisible(true);
+	}
+	
+	
 	public static void Change_In_Dobiv_Nuclide() {
 
 		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(NuclideDAO.getValueSNuclideById(75));

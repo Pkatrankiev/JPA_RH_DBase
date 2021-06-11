@@ -30,7 +30,7 @@ import WindowView.DatePicker;
 
 public class CreateListLeftPanelStartWindowClass {
 
-	private static String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
+	
 	private static String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Въздух", "Вода" };
 
 	protected CreateListLeftPanelStartWindowClass(JProgressBar progressBarView, int startCheckYear) {
@@ -45,7 +45,7 @@ public class CreateListLeftPanelStartWindowClass {
 			JProgressBar progressBarView, int startCheckYear) {
 		List<List<LeftPanelStartWindowClass>> groupList = Lists.newArrayList();
 
-		FindFile ff = new FindFile();
+		
 		
 
 		String monitGroup = "";
@@ -80,7 +80,7 @@ public class CreateListLeftPanelStartWindowClass {
 				object.setLblLabel_Obect(Table_RequestToObektNaIzp.createStringListObektNaIzp(
 						Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), false));
 				object.setLblLabel_Sample(createStringPokazatel(request));
-				object.setLblLabel_Protokol(ff.findFile(request.getRecuest_code(), new File(dir_Protocols)));
+				object.setLblLabel_Protokol(getLabelProtokol(request.getRecuest_code()));
 				System.out.println(object.getLblLabel_Code() + " / " + object.getLblLabel_Obect() + " / "
 						+ object.getLblLabel_Protokol() + " / " + object.getLblLabel_Sample() + " / "
 						+ object.getMonitoringGroup() + " / ");
@@ -100,6 +100,12 @@ public class CreateListLeftPanelStartWindowClass {
 		return groupList;
 	}
 
+	public static String getLabelProtokol(String requestCode){
+		FindFile ff = new FindFile();
+		String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
+	return ff.findFile(requestCode, new File(dir_Protocols));
+	}
+	
 	public static void creadDataForRigthPanel(int startCheckYear) {
 		List<Request> listCeckRequest = createListCheckRequest(startCheckYear);
 

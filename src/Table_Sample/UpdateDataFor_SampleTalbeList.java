@@ -18,6 +18,7 @@ import DefaultTableList.TableObject_Class;
 import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.TranscluentWindow;
 
+
 public class UpdateDataFor_SampleTalbeList {
 	@SuppressWarnings("static-access")
 	public	static void updateData(TableList_OverallVariables objectTableList_OverallVariables, JTable table,  

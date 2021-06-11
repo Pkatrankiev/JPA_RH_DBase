@@ -90,7 +90,7 @@ import WindowView.DatePicker;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
-
+ 
 public class AddResultsViewWithTable_Test extends JDialog {
 
 	private static final long serialVersionUID = 1L;

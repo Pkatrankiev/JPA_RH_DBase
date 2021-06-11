@@ -34,7 +34,6 @@ import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 
-
 public class TableList_Functions {
 
 	

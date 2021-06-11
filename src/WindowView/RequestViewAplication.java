@@ -23,10 +23,9 @@ import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
 
+
 public class RequestViewAplication {
 
-	
-	
 	public static String[] getStringMassiveI_N_D() {
 		int i = 0;
 		List<Ind_num_doc> list = Ind_num_docDAO.getInListAllValueInd_num_doc();
@@ -128,6 +127,7 @@ public class RequestViewAplication {
 		}
 		return masive_Otclon;
 	}
+
 	public static ArrayList<String> getStringMassiveO_I_R() {
 
 		List<Obekt_na_izpitvane_request> list = Obekt_na_izpitvane_requestDAO.getInListAllValueObekt_na_izpitvane();
@@ -158,41 +158,42 @@ public class RequestViewAplication {
 
 	public static String getStringZabelejkiForRequest(Request request) {
 		String zabel_str = "";
-		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki()!=5) {
-			zabel_str = request.getZabelejki().getName_zabelejki()+ "; ";
+		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki() != 5) {
+			zabel_str = request.getZabelejki().getName_zabelejki() + "; ";
 		}
-		System.out.println("1--"+zabel_str);
-		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
-			zabel_str = zabel_str + request.getExtra_module().getDoplIzisk().getName_dopIzis()+ "; ";
+		System.out.println("1--" + zabel_str);
+		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis() != 1) {
+			zabel_str = zabel_str + request.getExtra_module().getDoplIzisk().getName_dopIzis() + "; ";
 		}
-		System.out.println("2--"+zabel_str);
-		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements().trim().length()>0) {
-			zabel_str = zabel_str + request.getExtra_module().getAdditional_requirements()+ "; ";
+		System.out.println("2--" + zabel_str);
+		if (request.getExtra_module() != null
+				&& request.getExtra_module().getAdditional_requirements().trim().length() > 0) {
+			zabel_str = zabel_str + request.getExtra_module().getAdditional_requirements() + "; ";
 		}
-		System.out.println("3--"+zabel_str);
-		int str_l =zabel_str.length();
-		if(str_l>2){
-			zabel_str = zabel_str.substring(0,str_l-2);
+		System.out.println("3--" + zabel_str);
+		int str_l = zabel_str.length();
+		if (str_l > 2) {
+			zabel_str = zabel_str.substring(0, str_l - 2);
 		}
-		System.out.println(str_l+"4--"+zabel_str);
+		System.out.println(str_l + "4--" + zabel_str);
 		return zabel_str;
 	}
 
 	public static List<String> getStringZabelejkiForProtokol(Request request) {
-		List<String>  zabel_str = new ArrayList<String>() ;
-		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki()!=5) {
+		List<String> zabel_str = new ArrayList<String>();
+		if (request.getZabelejki() != null && request.getZabelejki().getId_zabelejki() != 5) {
 			zabel_str.add(request.getZabelejki().getProtokol_name());
 		}
-		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis()!=1) {
-			zabel_str.add( request.getExtra_module().getDoplIzisk().getName_dopIzis());
+		if (request.getExtra_module() != null && request.getExtra_module().getDoplIzisk().getId_dopIzis() != 1) {
+			zabel_str.add(request.getExtra_module().getDoplIzisk().getName_dopIzis());
 		}
-		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements()!="") {
-			
-			zabel_str.add( request.getExtra_module().getAdditional_requirements());
+		if (request.getExtra_module() != null && request.getExtra_module().getAdditional_requirements() != "") {
+
+			zabel_str.add(request.getExtra_module().getAdditional_requirements());
 		}
 		return zabel_str;
 	}
-	
+
 	public static ArrayList<String> getStringZabelejki() {
 		List<Zabelejki> list = ZabelejkiDAO.getInListAllValueZabelejki();
 		ArrayList<String> arr = new ArrayList<String>();
@@ -215,13 +216,13 @@ public class RequestViewAplication {
 
 	// Sample
 	public static String writeSampleDescript(String[][] masiveSampleValue) {
-		String someLine="";
+		String someLine = "";
 		int[] numPoz = { 8, 20, 20, 30, 17, 10, 6 };
-		
-		String[] firsLine = {"Код", "Обект от заявката", "Обект на изпитване" , "Описание на пробата",
-				 "Референтна дата" , "Периодичност"};
+
+		String[] firsLine = { "Код", "Обект от заявката", "Обект на изпитване", "Описание на пробата",
+				"Референтна дата", "Периодичност" };
 		for (int i = 0; i < firsLine.length; i++) {
-			someLine += padString(firsLine[i], numPoz[i]) ;
+			someLine += padString(firsLine[i], numPoz[i]);
 		}
 		someLine += "\n";
 		String str_som = "";
@@ -290,7 +291,7 @@ public class RequestViewAplication {
 		}
 		return volSampleView;
 	}
-	
+
 	private static String padString(String str, int n) {
 		if (str.length() <= n) {
 			for (int j = str.length(); j < n; j++) {
@@ -301,7 +302,7 @@ public class RequestViewAplication {
 		}
 		return str;
 	}
-		
+
 	public static Boolean checkMaxVolume(String code, int minVolume, int maxVolume) {
 		Boolean underMaximum = true;
 		try {
@@ -313,5 +314,4 @@ public class RequestViewAplication {
 		return underMaximum;
 	}
 
-	
 }

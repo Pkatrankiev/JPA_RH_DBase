@@ -33,6 +33,7 @@ import DBase_Class.Sample;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 
+
 public class RequestViewFunction {
 	private static String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
 	private static String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();

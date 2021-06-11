@@ -26,6 +26,7 @@ import GlobalVariable.GlobalPathForDocFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
+
 public class GenerateDocRazpredFormul {
 
 	public static int maxRowInTableOnePage = 10;

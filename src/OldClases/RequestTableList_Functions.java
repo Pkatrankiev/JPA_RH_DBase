@@ -35,7 +35,7 @@ import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
-
+ 
 public class RequestTableList_Functions {
 
 	public static void OverallVariablesForRequestTable(String frame_name, Users user, Boolean firstLoad) {

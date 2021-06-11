@@ -235,6 +235,29 @@ Reference_LabelText_SampleCode = Код на пробата
 Reference_LabelText_CommentSample = <html>Описание на<br>пробата</html>t_
 Reference_LabelText_separatorInColumnName = …
 
+MounthlyReferenceForCNRDWater_BasicLabel = <html>СВЕДЕНИЕ<br>за обема на дренираните води от баня на ЦНРД към Изход-2 за:</html>
+MounthlyReferenceForCNRDWater_GodinaLabel = година
+MounthlyReferenceForCNRDWater_MesecLabel = месец
+MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 2020!
+
+MounthlyReferenceForCNRDWaterTable_ProtokolN = протокол №
+MounthlyReferenceForCNRDWaterTable_ObektSample = Обект на изпитване
+MounthlyReferenceForCNRDWaterTable_Obem = Изхвърлен обем
+MounthlyReferenceForCNRDWaterTable_Nuclide = Нуклиди
+MounthlyReferenceForCNRDWaterTable_SpActivnost = <html><center>Специфична<br>активност<br>[Bq/m3]</html>
+MounthlyReferenceForCNRDWaterTable_IzhvActivnost = <html><center>Изхвърлена<br>активност<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_NeopredOtnosit = <html><center>Разширена<br>неопред.<br>[%]</center></html>
+MounthlyReferenceForCNRDWaterTable_MDA = <html><center>МДА<br>[Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_NeopredAbsol = <html><center>Разширена<br>неопред.<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_KombiniranaNeopred = <html><center>Комбинирана<br>неопред.<br>[%]</center></html>
+MounthlyReferenceForCNRDWaterTable_IzhvSumarnaActivnost = <html><center>Изхвърлена<br>сумарна активност<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_ObshtObem = <html><center>Изхвърлен<br>общ обем<br>[m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_SumarnaObemnaActivnost = <html><center>Сумарна<br>Обемна активност<br>[Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% от<br>контролното ниво<br>[11100Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>Максималната стойност<br>на измерената обемна<br>активност за месеца<br>[Bq/l]</center></html>
+MounthlyReferenceForCNRDWater_TableLabel = Дренираните води от баня на ЦНРД към Изход-2 за: 
+
+
 MenuSampleMonthlyReference_TitleName = Месечна справка
 SampleMonthlyReference_TitleName = Справка за изработени проби
 

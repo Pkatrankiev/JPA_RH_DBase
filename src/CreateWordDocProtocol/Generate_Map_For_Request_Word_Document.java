@@ -19,7 +19,6 @@ import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 
-
 public class Generate_Map_For_Request_Word_Document {
 	
 	private static String key_request_code = "$$request_code$$";

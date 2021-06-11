@@ -34,6 +34,7 @@ import GlobalVariable.GlobalPathForDocFile;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
+
 public class GenerateDocProtokol {
 
 	private static String strKeyTemplateProtokol = "Протокол от изпитване";

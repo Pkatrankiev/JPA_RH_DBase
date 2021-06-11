@@ -35,7 +35,7 @@ import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
-
+ 
 public class ResultsTableList_Functions {
 
 	@SuppressWarnings("static-access")

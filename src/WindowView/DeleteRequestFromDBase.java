@@ -43,7 +43,6 @@ public class DeleteRequestFromDBase {
 		RequestDAO.DeleteRequest(request);
 	}
 
-
 	public static List<Results> listResultsByCodeRequest(Request request) {
 		List<Results> listResults = new ArrayList<>();
 		for (Sample sampleDBase : SampleDAO.getListSampleFromColumnByVolume("request", request)) {

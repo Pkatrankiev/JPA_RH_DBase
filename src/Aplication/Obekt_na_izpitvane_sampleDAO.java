@@ -101,6 +101,28 @@ public class Obekt_na_izpitvane_sampleDAO {
 
 		return list.get(0);
 	}
+	
+	public static List<Obekt_na_izpitvane_sample> getValueObekt_na_izpitvane_sampleByMounthlyReferenceForCNRDWater_Table() {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		
+		String hql = "SELECT e FROM Obekt_na_izpitvane_sample e WHERE e.name LIKE '%03D-SS02T%'";
+		Query query = entitymanager.createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		List<Obekt_na_izpitvane_sample> list = query.getResultList();
+		
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	@GET
 	public static Obekt_na_izpitvane_sample getValueObekt_na_izpitvane_sampleOrSaveByName(String name) {
@@ -125,5 +147,6 @@ public class Obekt_na_izpitvane_sampleDAO {
 
 		return list.get(0);
 	}
+
 	
 }

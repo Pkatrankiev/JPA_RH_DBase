@@ -72,8 +72,6 @@ import javax.swing.border.MatteBorder;
 
 import org.apache.commons.compress.utils.Lists;
 
-
-
 public class MainWindow_Old extends JFrame {
 	
 	

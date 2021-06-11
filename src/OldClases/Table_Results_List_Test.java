@@ -44,7 +44,7 @@ import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
-
+ 
 public class Table_Results_List_Test extends JDialog {
 
 	private static final long serialVersionUID = 1L;

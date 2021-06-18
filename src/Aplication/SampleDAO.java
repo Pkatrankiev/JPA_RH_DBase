@@ -252,6 +252,32 @@ public class SampleDAO {
 		return sample;
 	}
 
+	
+	
+	public static Sample getSampleByObject_Mesetc_Godina(Obekt_na_izpitvane_sample object, Period period, int godina) {
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		String hql = "SELECT e FROM Sample e WHERE e.godina_period = :godina "
+				+ " AND e.obekt_na_izpitvane_sample = :object"
+				+ " AND e.period = :period";
+
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("godina", godina);
+		query.setParameter("object", object);
+		query.setParameter("period", period);
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Sample> list = query.getResultList();
+
+		entitymanager.close();
+		emfactory.close();
+
+		return list.get(0);
+	}
+	
 	public static void updateSample(Sample sample) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);

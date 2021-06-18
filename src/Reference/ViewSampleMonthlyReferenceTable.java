@@ -158,7 +158,7 @@ public class ViewSampleMonthlyReferenceTable extends JDialog {
 					@Override
 					public void run() {
 					
-						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, masiveExtendLamels);
+						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, masiveExtendLamels, null);
 					}
 				});
 				thread.start();

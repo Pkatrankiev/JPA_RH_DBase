@@ -256,6 +256,13 @@ MounthlyReferenceForCNRDWaterTable_SumarnaObemnaActivnost = <html><center>Сумарн
 MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% от<br>контролното ниво<br>[11100Bq/m3]</center></html>
 MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>Максималната стойност<br>на измерената обемна<br>активност за месеца<br>[Bq/l]</center></html>
 MounthlyReferenceForCNRDWater_TableLabel = Дренираните води от баня на ЦНРД към Изход-2 за: 
+MounthlyReferenceForCNRDWater_OpenExcelFileLabel = Изберете Excel файла за докладване на изхвърлянията към БАК 4 и 5
+MounthlyReferenceForCNRDWater_OpenExcelFileFrameName = Избор на файл
+MounthlyReferenceForCNRDWater_OpenExcelFileNotBAKResults = Няма резултати за БАК 4 и 5 за 
+MounthlyReferenceForCNRDWater_OpenExcelFileNotCorectNuclideList = Не е коректен листа с нуклиди в таблицата на страница 
+MounthlyReferenceForCNRDWater_OpenExcelFileNotFound = Не е намерен файла 
+MounthlyReferenceForCNRDWater_OpenExcelFileIsOpen = Файлът е отворен
+
 
 
 MenuSampleMonthlyReference_TitleName = Месечна справка

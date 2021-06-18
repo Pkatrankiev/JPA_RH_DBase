@@ -33,6 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -60,17 +61,31 @@ import java.awt.Color;
 public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private static boolean changeObem = false;
 	private static Object[][] valueDataTable;
-	
+	private static  List<String> listSimbolNuclide;
 	private static JButton  btnReCalculateButton;
 	
-	public MounthlyReferenceForCNRDWater_Table(JFrame parent, TranscluentWindow round, String frame_name,
-			Object[][] masiveValueDataTable, String[] columnNames, List<String> listNuclideSimbol) {
+	static JLabel lblVolumeNuclide ;
+	static JLabel lblVolumeIzhvarlenaActivyty ;
+	static JLabel lblVolumeKombNeopred ;
+	static JLabel lblVolumeMDA ;
+	static JLabel lblValueSumActivyty ;
+	static JLabel lblValueIznverlenObshtObem ;
+	static JLabel lblVolumeSummObemnaActivyty ;
+	static JLabel lblVolumePercentKontrolnoNivo ;
+	static JLabel lblVolumeMaxObemnaActivyty ;
+	static DecimalFormat df ;
+	static JPanel top_panel;
+	static int[] columnWith =  {143,90,96,70,95,85,80,95,110};
+	
+	public MounthlyReferenceForCNRDWater_Table(JFrame parent, TranscluentWindow round, String frame_name, String mount_name,
+			int godina, Object[][] masiveValueDataTable, String[] columnNames, List<String> listNuclideSimbol) {
 		super(parent, frame_name, true);
 
 		JTable table = null;
 		valueDataTable = masiveValueDataTable;
+		listSimbolNuclide = listNuclideSimbol;
+		df = new DecimalFormat("0.00E00");
 		
 		
 		boolean NoReport = false;
@@ -87,19 +102,19 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		String labelPercentKontrolnoNivo = "";
 		String labelMaxObemnaActivyty = "";
 
-		String[][] masiveExtendLamels = null;
-
+		
 		Object[][] DataValue = ceateDataValue(valueDataTable, listNuclideSimbol);
 		
-		DataValue = reformatNumberValue(DataValue, 1);
+//		DataValue = convertValueToString(DataValue, 1);
 
-		valueDataTable = reformatNumberValue(valueDataTable, 4);
-
+		valueDataTable = convertValueToString(valueDataTable, 4);
+		String[] columnNameDataValue = new String[9];
+		
 		if (countRow < 2) {
 			labelNuclide = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_ReportString");
 			NoReport = true;
 		} else {
-			String[] columnNameDataValue = new String[9];
+			
 			labelNuclide = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 					.get("MounthlyReferenceForCNRDWaterTable_Nuclide");
 			columnNameDataValue[0] = labelNuclide.replace("<html>", " ").replace("</html>", " ")
@@ -145,32 +160,15 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			columnNameDataValue[8] = labelMaxObemnaActivyty.replace("<html>", " ").replace("</html>", " ")
 					.replace("<br>", " ").replace("<center>","").replace("</center>","");
 
-			masiveExtendLamels = createMasiveObjectToString(DataValue, columnNameDataValue);
+			
 
-			for (int i = 0; i < DataValue.length; i++) {
-				if (i == 0) {
-					DataValue[0][0] = "<html><center>" + DataValue[i][0] + "<br>";
-					DataValue[0][1] = "<html><center>" + DataValue[i][1] + "<br>";
-					DataValue[0][2] = "<html><center>" + DataValue[i][2] + "<br>";
-					DataValue[0][3] = "<html><center>" + DataValue[i][3] + "<br>";
-				} else {
-					DataValue[0][0] = (String) DataValue[0][0] + DataValue[i][0] + "<br>";
-					DataValue[0][1] = (String) DataValue[0][1] + DataValue[i][1] + "<br>";
-					DataValue[0][2] = (String) DataValue[0][2] + DataValue[i][2] + "<br>";
-					DataValue[0][3] = (String) DataValue[0][3] + DataValue[i][3] + "<br>";
-				}
-
-			}
-			DataValue[0][0] = (String) DataValue[0][0] + "</center></html>";
-			DataValue[0][1] = (String) DataValue[0][1] + "</center></html>";
-			DataValue[0][2] = (String) DataValue[0][2] + "</center></html>";
-			DataValue[0][3] = (String) DataValue[0][3] + "</center></html>";
+		
 
 			table = CreateDefaultTable(valueDataTable, columnNames);
 
 		}
 
-		JPanel top_panel = new JPanel();
+		top_panel = new JPanel();
 		top_panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		top_panel.setSize(new Dimension(2, 0));
 		getContentPane().add(top_panel, BorderLayout.NORTH);
@@ -253,70 +251,74 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			gbc_LabelMaxObemnaActivyty.gridy = 0;
 			top_panel.add(LabelMaxObemnaActivyty, gbc_LabelMaxObemnaActivyty);
 
-			JLabel lblVolumeNuclide = new JLabel(DataValue[0][0].toString());
+			lblVolumeNuclide = new JLabel();
 			GridBagConstraints gbc_lblVolumeNuclide = new GridBagConstraints();
 			gbc_lblVolumeNuclide.insets = new Insets(0, 0, 0, 5);
 			gbc_lblVolumeNuclide.gridx = 0;
 			gbc_lblVolumeNuclide.gridy = 1;
 			top_panel.add(lblVolumeNuclide, gbc_lblVolumeNuclide);
 
-			JLabel lblVolumeIzhvarlenaActivyty = new JLabel(DataValue[0][1].toString());
+			lblVolumeIzhvarlenaActivyty = new JLabel();
 			GridBagConstraints gbc_lblVolumeIzhvarlenaActivyty = new GridBagConstraints();
 			gbc_lblVolumeIzhvarlenaActivyty.insets = new Insets(0, 0, 0, 5);
 			gbc_lblVolumeIzhvarlenaActivyty.gridx = 1;
 			gbc_lblVolumeIzhvarlenaActivyty.gridy = 1;
 			top_panel.add(lblVolumeIzhvarlenaActivyty, gbc_lblVolumeIzhvarlenaActivyty);
 
-			JLabel lblVolumeKombNeopred = new JLabel(DataValue[0][2].toString());
+			lblVolumeKombNeopred = new JLabel();
 			GridBagConstraints gbc_lblVolumeKombNeopred = new GridBagConstraints();
 			gbc_lblVolumeKombNeopred.insets = new Insets(0, 0, 0, 5);
 			gbc_lblVolumeKombNeopred.gridx = 2;
 			gbc_lblVolumeKombNeopred.gridy = 1;
 			top_panel.add(lblVolumeKombNeopred, gbc_lblVolumeKombNeopred);
 
-			JLabel lblVolumeMDA = new JLabel(DataValue[0][3].toString());
+			lblVolumeMDA = new JLabel();
 			GridBagConstraints gbc_lblVolumeMDA = new GridBagConstraints();
 			gbc_lblVolumeMDA.insets = new Insets(0, 0, 0, 5);
 			gbc_lblVolumeMDA.gridx = 3;
 			gbc_lblVolumeMDA.gridy = 1;
 			top_panel.add(lblVolumeMDA, gbc_lblVolumeMDA);
 
-			JLabel lblValueSumActivyty = new JLabel(DataValue[0][4].toString());
+			lblValueSumActivyty = new JLabel();
 			GridBagConstraints gbc_lblValueSumActivyty = new GridBagConstraints();
 			gbc_lblValueSumActivyty.insets = new Insets(0, 0, 0, 5);
 			gbc_lblValueSumActivyty.gridx = 4;
 			gbc_lblValueSumActivyty.gridy = 1;
 			top_panel.add(lblValueSumActivyty, gbc_lblValueSumActivyty);
 
-			JLabel lblValueIznverlenObshtObem = new JLabel(DataValue[0][5].toString());
+			lblValueIznverlenObshtObem = new JLabel();
 			GridBagConstraints gbc_lblValueIznverlenObshtObem = new GridBagConstraints();
 			gbc_lblValueIznverlenObshtObem.insets = new Insets(0, 0, 0, 5);
 			gbc_lblValueIznverlenObshtObem.gridx = 5;
 			gbc_lblValueIznverlenObshtObem.gridy = 1;
 			top_panel.add(lblValueIznverlenObshtObem, gbc_lblValueIznverlenObshtObem);
 
-			JLabel lblVolumeSummObemnaActivyty = new JLabel(DataValue[0][6].toString());
+			lblVolumeSummObemnaActivyty = new JLabel();
 			GridBagConstraints gbc_lblVolumeSummObemnaActivyty = new GridBagConstraints();
 			gbc_lblVolumeSummObemnaActivyty.insets = new Insets(0, 0, 0, 5);
 			gbc_lblVolumeSummObemnaActivyty.gridx = 6;
 			gbc_lblVolumeSummObemnaActivyty.gridy = 1;
 			top_panel.add(lblVolumeSummObemnaActivyty, gbc_lblVolumeSummObemnaActivyty);
 
-			JLabel lblVolumePercentKontrolnoNivo = new JLabel(DataValue[0][7].toString());
+			lblVolumePercentKontrolnoNivo = new JLabel();
 			GridBagConstraints gbc_lblVolumePercentKontrolnoNivo = new GridBagConstraints();
 			gbc_lblVolumePercentKontrolnoNivo.insets = new Insets(0, 0, 0, 5);
 			gbc_lblVolumePercentKontrolnoNivo.gridx = 7;
 			gbc_lblVolumePercentKontrolnoNivo.gridy = 1;
 			top_panel.add(lblVolumePercentKontrolnoNivo, gbc_lblVolumePercentKontrolnoNivo);
 
-			JLabel lblVolumeMaxObemnaActivyty = new JLabel(DataValue[0][8].toString());
+			lblVolumeMaxObemnaActivyty = new JLabel();
 			GridBagConstraints gbc_lblVolumeMaxObemnaActivyty = new GridBagConstraints();
 			gbc_lblVolumeMaxObemnaActivyty.gridx = 8;
 			gbc_lblVolumeMaxObemnaActivyty.gridy = 1;
 			top_panel.add(lblVolumeMaxObemnaActivyty, gbc_lblVolumeMaxObemnaActivyty);
 
+			
+			
 			JScrollPane scrollPane = new JScrollPane(table);
 			getContentPane().add(scrollPane, BorderLayout.CENTER);
+			
+			viewLblVolume ( DataValue);
 		}
 		setSize(900, 220 + countRow * widshRow);
 		setLocationRelativeTo(null);
@@ -330,15 +332,16 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 
 		btnReCalculateButton = new JButton("ReCalc");
 		btnReCalcListener(btnReCalculateButton,  parent,  frame_name,
-				 masiveValueDataTable,  columnNames,  listNuclideSimbol) ;
+				 masiveValueDataTable,  columnNames,  listNuclideSimbol, mount_name, godina) ;
 		
 		if (!NoReport) {
 			JButton btnExportButton = new JButton("export");
 			panel_Btn.add(btnExportButton);
-			btnExportListener(frame_name, btnExportButton, table, masiveExtendLamels);
+			
+			btnExportListener(frame_name, btnExportButton, table, columnNameDataValue, listNuclideSimbol);
 
 		panel_Btn.add(btnReCalculateButton);
-		btnReCalculateButton.setEnabled(changeObem);
+		
 		}
 		
 		
@@ -351,23 +354,52 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		setVisible(true);
 	}
 
-	
-	
-	private String[][] createMasiveObjectToString(Object[][] dataValue, String[] columnNameDataValue) {
-		String[][] newMasive = new String[dataValue.length + 1][dataValue[0].length];
-		for (int i = 0; i < dataValue.length + 1; i++) {
-			for (int j = 0; j < dataValue[0].length; j++) {
-				if (i == 0) {
-					newMasive[i][j] = columnNameDataValue[j];
-				} else {
-					newMasive[i][j] = dataValue[i - 1][j].toString();
-				}
+	private static void viewLblVolume ( Object[][] DataValue){
+		
+		DataValue = convertValueToString(DataValue, 1);
+		
+		for (int i = 0; i < DataValue.length; i++) {
+			System.out.print(i);
+			for (int j = 0; j < DataValue[0].length; j++) {
+				System.out.print(" - "+DataValue[i][j]);
 			}
+			System.out.println();
 		}
-		return newMasive;
-	}
+		
+		for (int i = 0; i < DataValue.length; i++) {
+			if (i == 0) {
+				DataValue[0][0] = "<html><center>" + DataValue[i][0] + "<br>";
+				DataValue[0][1] = "<html><center>" + DataValue[i][1] + "<br>";
+				DataValue[0][2] = "<html><center>" + DataValue[i][2] + "<br>";
+				DataValue[0][3] = "<html><center>" + DataValue[i][3] + "<br>";
+			} else {
+				DataValue[0][0] = (String) DataValue[0][0] + DataValue[i][0] + "<br>";
+				DataValue[0][1] = (String) DataValue[0][1] + DataValue[i][1] + "<br>";
+				DataValue[0][2] = (String) DataValue[0][2] + DataValue[i][2] + "<br>";
+				DataValue[0][3] = (String) DataValue[0][3] + DataValue[i][3] + "<br>";
+			}
 
-	private Object[][] ceateDataValue(Object[][] DataTableValue, List<String> listNuclideSimbol) {
+		}
+		DataValue[0][0] = (String) DataValue[0][0] + "</center></html>";
+		DataValue[0][1] = (String) DataValue[0][1] + "</center></html>";
+		DataValue[0][2] = (String) DataValue[0][2] + "</center></html>";
+		DataValue[0][3] = (String) DataValue[0][3] + "</center></html>";
+		
+		lblVolumeNuclide.setText(DataValue[0][0].toString());
+		lblVolumeIzhvarlenaActivyty .setText(DataValue[0][1].toString());
+		lblVolumeKombNeopred .setText(DataValue[0][2].toString());
+		lblVolumeMDA.setText(DataValue[0][3].toString());
+		lblValueSumActivyty.setText(DataValue[0][4].toString());
+		lblValueIznverlenObshtObem.setText(DataValue[0][5].toString());
+		lblVolumeSummObemnaActivyty.setText(DataValue[0][6].toString());
+		lblVolumePercentKontrolnoNivo.setText(DataValue[0][7].toString());
+		lblVolumeMaxObemnaActivyty.setText(DataValue[0][8].toString());
+		
+		top_panel.repaint();
+	}
+	
+	
+	private static Object[][] ceateDataValue(Object[][] DataTableValue, List<String> listNuclideSimbol) {
 		Object[][] DataValue = new Object[listNuclideSimbol.size()][9];
 
 		for (int i = 0; i < DataValue.length; i++) {
@@ -380,22 +412,27 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			}
 
 		}
-		int kntrolnoNivo = 11100;
+		int kontrolnoNivo = 11100;
 		Double k = 0.0;
-		Double maxSpecifActivyty = 0.0, sumActivyty = 0.0;
+		Double maxSpecifActivyty = 0.0, sumActivyty = 0.0,  valActivyty = 0.0;
 		String previosProtokil = "";
 		for (int row = 0; row < DataTableValue.length; row++) {
 			if(!DataTableValue[row][2].toString().isEmpty()){
 			DataValue[0][5] = (Double) DataValue[0][5] +
 					Double.parseDouble(DataTableValue[row][2].toString());
 			}
-			
+			if(DataTableValue[row][4].toString().isEmpty()){
+				valActivyty = 0.0;
+			}else{
+				valActivyty = Double.parseDouble(DataTableValue[row][4].toString());
+				
+			}
 			if (! DataTableValue[row][0].toString().isEmpty() && previosProtokil.isEmpty()) {
 				
-				sumActivyty = (Double) DataTableValue[row][4];
+				sumActivyty = valActivyty;
 				
 			}else{
-				sumActivyty = sumActivyty + (Double) DataTableValue[row][4];
+				sumActivyty = sumActivyty + valActivyty;
 			
 				}
 				previosProtokil = DataTableValue[row][0].toString();
@@ -406,16 +443,21 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			for (int i = 0; i < listNuclideSimbol.size(); i++) {
 
 				if (DataTableValue[row][3].toString().equals(listNuclideSimbol.get(i))) {
+					if(!DataTableValue[row][4].toString().isEmpty()){
 					DataValue[i][1] = (Double) DataValue[i][1] + Double.parseDouble(DataTableValue[row][7].toString());
-					DataValue[0][4] = (Double) DataValue[0][4] + (Double) DataTableValue[row][7];
-					DataValue[0][6] = (Double) DataValue[0][6] + (Double) DataTableValue[row][4];
+					DataValue[0][4] = (Double) DataValue[0][4] + Double.parseDouble(DataTableValue[row][7].toString());
+					DataValue[0][6] = (Double) DataValue[0][6] + Double.parseDouble(DataTableValue[row][4].toString());
 					if(!DataTableValue[row][7].toString().isEmpty()){
-					k = ((Double) DataTableValue[row][8]) / 2;
+					k = Double.parseDouble(DataTableValue[row][8].toString()) / 2;
 					DataValue[i][2] = Double.parseDouble(DataValue[i][2].toString()) + (k * k);
 					}
-					if ((Double) DataValue[i][3] < (Double) DataTableValue[row][6]) {
-						DataValue[i][3] = (Double) DataTableValue[row][6];
 					}
+					System.out.println(Double.parseDouble(DataValue[i][3].toString()) +"  //  "+
+					Double.parseDouble( DataTableValue[row][6].toString()));
+					if (Double.parseDouble(DataValue[i][3].toString()) < Double.parseDouble( DataTableValue[row][6].toString())) {
+						DataValue[i][3] = Double.parseDouble(DataTableValue[row][6].toString());
+					}
+					
 				}
 			}
 
@@ -423,40 +465,59 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		for (int i = 0; i < DataValue.length; i++) {
 			if (i == 0) {
 			
-				DataValue[i][7] = ((Double) DataValue[i][6] * 100) / kntrolnoNivo;
+				DataValue[i][7] = ((Double) DataValue[i][6] * 100) / kontrolnoNivo;
 				DataValue[i][8] = maxSpecifActivyty/1000;
 			}
 			DataValue[i][0] = listNuclideSimbol.get(i);
 			DataValue[i][2] = (Math.sqrt((Double) DataValue[i][2]))*100 / (Double) DataValue[i][1];
 		}
+		
+		 System.out.println("  *****************************************");
 		return DataValue;
 	}
 
 	
 	
-	private Object[][] reformatNumberValue(Object[][] DataValue, int indexStartNumber) {
-		DecimalFormat df = new DecimalFormat("0.00E00");
+	private static Object[][] convertValueToString(Object[][] DataValue, int indexStartNumber) {
+		
 		for (int i = 0; i < DataValue.length; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (j >= indexStartNumber) {
-					try {
-						if ((Double) DataValue[i][j] == 0.0 || ((Double) DataValue[i][j]).isNaN()) {
-							DataValue[i][j] = "";
-						} else {
-
-							DataValue[i][j] = df.format(DataValue[i][j]);
-						}
-					} catch (IllegalArgumentException e) {
-						DataValue[i][j] = "";
-
-					}
-
+					
+					DataValue[i][j] = convertToStr(DataValue[i][j]);
+					
 				}
-				DataValue[i][j] = DataValue[i][j].toString().replace(",", ".");
+			
 			}
 
 		}
 		return DataValue;
+	}
+
+	private static Object convertToStr(Object obj) {
+		System.out.println(obj);
+//		try {
+		if(( (Double) obj).isNaN() ){
+			obj = "";
+		}
+			try {
+			if (Double.parseDouble(obj.toString()) == 0.0 ) {
+//				
+				obj = "";
+			} else {
+
+				obj = df.format(obj).replace(",", ".");
+				
+			}
+		} catch (IllegalArgumentException e) {
+			obj = "";
+
+		}
+//	} catch (ClassCastException e) {
+//		obj = "";
+//
+//	}
+		return obj;
 	}
 
 	
@@ -472,47 +533,29 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 
 	
 	private void btnReCalcListener(JButton btnReCalc, JFrame parent, String frame_name,
-			Object[][] masiveValueDataTable, String[] columnNames, List<String> listNuclideSimbol) {
+			Object[][] masiveValueDataTable,  String[] columnNameDataValue, List<String> listNuclideSimbol, String mount_name, int godina) {
 		
 		btnReCalc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TranscluentWindow round = new TranscluentWindow();
-
-				final Thread thread = new Thread(new Runnable() {
-					@Override
-					public void run() {
 			
-						Object[][]	newValueDataTable =	getNullInEmptyCells(masiveValueDataTable);			
-						new MounthlyReferenceForCNRDWater_Table(parent, round, frame_name, newValueDataTable, columnNames, listNuclideSimbol);
-					}
+				JFrame f = new JFrame();
+				
+				String frameName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+						.get("MounthlyReferenceForCNRDWater_OpenExcelFileFrameName");
+						new getExcelFileIzhvarlianiaBAK45(f, frameName, mount_name, godina,
+								getValueFromLabel(columnNameDataValue, listNuclideSimbol));
+						
+			}
 
 					
-				});
-				thread.start();
-			}
-		});
+					});
 
 	}
 	
-	private Object[][] getNullInEmptyCells(Object[][] masiveValueDataTable) {
-		for (int i = 0; i < masiveValueDataTable.length; i++) {
-			for (int j = 0; j < 9; j++) {
-				try {
-					masiveValueDataTable[i][j] = Double.parseDouble(masiveValueDataTable[i][j].toString());
-						
-				} catch (Exception e) {
-					if (masiveValueDataTable[i][j].toString().isEmpty()) {
-						masiveValueDataTable[i][j] = 0.0;
-					}
-				}
-				
-			}
-		}
-		return masiveValueDataTable;
-	}
+	
 	
 	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table,
-			String[][] masiveExtendLamels) {
+			 String[] columnNameDataValue, List<String> listNuclideSimbol) {
 		btnExportButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -520,10 +563,12 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-
+						
 						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name,
-								masiveExtendLamels);
+								getValueFromLabel(columnNameDataValue, listNuclideSimbol), columnWith);
 					}
+
+				
 				});
 				thread.start();
 
@@ -543,6 +588,73 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		});
 	}
 
+	
+	private String[][] getValueFromLabel(String[] columnNameDataValue, List<String> listNuclideSimbol) {
+		int count = listNuclideSimbol.size()+1;
+		String[][] dataValue = new String[count][9];
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 9; j++) {
+				if(i==0){
+					dataValue[i][j] = columnNameDataValue[j];
+				}else{
+				dataValue[i][j] = "";
+				}
+			}
+			
+		}
+		String[][] value = new String[4][listNuclideSimbol.size()];
+		
+		value[0] =  splitLabelToValue( lblVolumeNuclide.getText(), count-1) ;
+		value[1]  =  splitLabelToValue( lblVolumeIzhvarlenaActivyty .getText(), count-1) ;
+		value[2]  =  splitLabelToValue(lblVolumeKombNeopred .getText(), count-1) ;
+		value[3]  =  splitLabelToValue(lblVolumeMDA.getText(), count-1) ;
+		
+		
+		
+		for (int i = 1; i < count; i++) {
+		dataValue[i][0] =  value[0][i-1] ;
+		dataValue[i][1] =  value[1][i-1] ;
+		dataValue[i][2] =  value[2][i-1] ;
+		dataValue[i][3] =  value[3][i-1] ;
+		}
+		dataValue[1][4] =  lblValueSumActivyty.getText() ;
+		dataValue[1][5] =  lblValueIznverlenObshtObem .getText() ;
+		dataValue[1][6] =  lblVolumeSummObemnaActivyty.getText() ;
+		dataValue[1][7] =  lblVolumePercentKontrolnoNivo.getText() ;
+		dataValue[1][8] =  lblVolumeMaxObemnaActivyty.getText() ;
+		
+	for (int i = 0; i < dataValue.length; i++) {
+		for (int j = 0; j < dataValue[0].length; j++) {
+			System.out.print( dataValue[i][j]+" - ");
+		}
+		System.out.println();
+	}
+		
+		return  dataValue;
+	}
+	
+	public static String[] splitLabelToValue(String str, int count){
+		System.out.println("-->> "+str);
+		String[] dataValue = new String[count];
+		String obj = "";
+		for (int i = 0; i < count; i++) {
+			obj = str.substring(0, str.indexOf("<br>"));
+			System.out.println(obj);
+			dataValue[i] = obj.substring(obj.lastIndexOf(">")+1);
+			System.out.println(dataValue[i]);
+			str =str.substring( str.indexOf("<br>")+2);
+			System.out.println(str);
+			
+		}
+		for (int i = 0; i < count; i++) {
+			System.out.println(dataValue[i]);
+		}
+		
+		return dataValue;
+		
+	}
+	
+	
 	public static JTable CreateDefaultTable(Object[][] masiveDataTable, String[] columnNames) {
 		JTable table = new JTable();
 		
@@ -555,6 +667,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 
 			public void mousePressed(MouseEvent e) {
 				
+//				viewLblVolume ( ceateDataValue(masiveDataTable, listSimbolNuclide));		
 				
 
 			}
@@ -572,7 +685,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
+//				viewLblVolume ( ceateDataValue(masiveDataTable, listSimbolNuclide));	
 			}
 		});
 
@@ -604,13 +717,19 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 							Double k = 	Double.valueOf((String) value);	
 					if (!masiveDataTable[row][col].equals(value) && !masiveDataTable[row][col].equals("")) {
 							masiveDataTable[row][col] = value;
-							fireTableCellUpdated(row, col);
-													
+							recalculateRow(row,  table, masiveDataTable);
+						
+							viewLblVolume ( ceateDataValue(masiveDataTable, listSimbolNuclide));		
+							
+								
 						}
 						} catch (Exception e) {
 							
 						}
 					}
+
+
+				
 
 				};
 				
@@ -621,9 +740,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 //				table.getTableHeader (). GetDefaultRenderer (). SetHorizontalAlignment (SwingConstants.CENTER);
 				
 				((JLabel) table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-				
-				
-				
+			
 				initColumnSizes(table);
 			}
 
@@ -632,7 +749,45 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 	}
 	
 	
-	   private static void initColumnSizes(JTable table) {
+	private static void recalculateRow(int origRow, JTable table, Object[][] masiveDataTable) {
+	
+		boolean fl = true;
+		String previosProtokil = "1";
+	
+		for (int row = origRow; row < table.getRowCount(); row++) {
+		
+			if (! masiveDataTable[row][0].toString().isEmpty() && previosProtokil.isEmpty()) {
+				System.out.println(row);
+				fl = false;
+			}
+			if(fl){
+				if(!masiveDataTable[row][4].toString().isEmpty()){
+				System.out.println(row+"  "+masiveDataTable[row][6]);
+				Double k2= Double.parseDouble(masiveDataTable[origRow][2].toString());
+				Double k4= Double.parseDouble(masiveDataTable[row][4].toString());
+//				Double k7= Double.parseDouble(masiveDataTable[origRow][7].toString());
+				Double k5= Double.parseDouble(masiveDataTable[row][5].toString());
+				masiveDataTable[row][7] =  k2*k4;
+				masiveDataTable[row][8] = (Double) masiveDataTable[row][7]  * k5  / 100;
+				 
+				masiveDataTable[row][7] = convertToStr(masiveDataTable[row][7]);
+				masiveDataTable[row][8] = convertToStr(masiveDataTable[row][8]);
+				
+				((AbstractTableModel) table.getModel()). fireTableCellUpdated(row, 2);
+				((AbstractTableModel) table.getModel()). fireTableCellUpdated(row, 7);
+				((AbstractTableModel) table.getModel()). fireTableCellUpdated(row, 8);
+				 System.out.println(masiveDataTable[row][4]+"  "+masiveDataTable[row][7]+"  "+masiveDataTable[row][8]);
+			}
+			}
+			previosProtokil=masiveDataTable[row][0].toString();
+	}	
+		
+		
+		
+	}
+	
+		
+	private static void initColumnSizes(JTable table) {
 		   	
 //	    	DefaultTableModel model =(DefaultTableModel) table.getModel();
 	        TableColumn column = null;

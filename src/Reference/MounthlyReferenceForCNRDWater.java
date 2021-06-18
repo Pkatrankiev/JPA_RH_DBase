@@ -54,8 +54,10 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 	public MounthlyReferenceForCNRDWater() {
 
 		String[] strMounth = getStringMounth();
+	
+		setSize(410, 189);
+		setLocationRelativeTo(null);
 
-		setBounds(100, 100, 410, 189);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -160,23 +162,26 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 		});
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("    ------------------------------ " + comboBox.getSelectedItem().toString());
-
 				createVolumeAndViewTable(comboBox.getSelectedItem().toString(),
 						Integer.parseInt(txtFieldGodina.getText()));
 			}
 
 		});
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
 
+		});
+		
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setVisible(true);
 	}
 
 	private void createVolumeAndViewTable(String mesec, int godina) {
 
-		String[] columnNames = createColumnNameTableValue();
 		
-		Object[][] DataTableValue = createDataTableValue(mesec, godina);
-
-		List<String> listNuclideSimbol = createListSimbolNuclideWithVolume(DataTableValue);
 		
 		
 
@@ -186,30 +191,19 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 		final Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
+				String[] columnNames = createColumnNameTableValue();
+				
+				Object[][] DataTableValue = createDataTableValue(mesec, godina);
 
+				List<String> listNuclideSimbol = createListSimbolNuclideWithVolume(DataTableValue);
 				JFrame f = new JFrame();
 				String titleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MounthlyReferenceForCNRDWater_TableLabel")+mesec+" "+godina;
 							
-				new MounthlyReferenceForCNRDWater_Table(f, round, titleName, DataTableValue, columnNames, listNuclideSimbol);
+				new MounthlyReferenceForCNRDWater_Table(f, round, titleName,  mesec, godina, DataTableValue, columnNames, listNuclideSimbol);
 			}
 		});
 		thread.start();
-		
-		
-		
-//		for (int i = 0; i < DataValue.length; i++) {
-//			System.out.println(DataValue[i][0] + " - " + DataValue[i][1] + " - " + DataValue[i][2] + " - "
-//					+ DataValue[i][3] + " - " + DataValue[i][4] + " - " + DataValue[i][5] + " - " + DataValue[i][6]
-//					+ " - " + DataValue[i][7] + " - " + DataValue[i][8]);
-//		}
-//
-//		for (int i = 0; i < DataTableValue.length; i++) {
-//			System.out.println(DataTableValue[i][0] + " - " + DataTableValue[i][1] + " - " + DataTableValue[i][2] + " - "
-//					+ DataTableValue[i][3] + " - " + DataTableValue[i][4] + " - " + DataTableValue[i][5] + " - " + DataTableValue[i][6]
-//					+ " - " + DataTableValue[i][7] + " - " + DataTableValue[i][8]);
-//		}
-		
-		
+				
 		
 	}
 
@@ -260,8 +254,8 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 						Double specActivUTC = results.getUncertainty() * 1000;
 						Double MDA = results.getMda() * 1000;
 						Double specActivNeopred = specActiv > 0 ? specActivUTC * 100 / specActiv : 0.0;
-						Double izhvarlanaActiv = specActiv > 0 ? specActiv * izhvarlenObem : 0.0;
-						Double izhvarlanaActivUTC = specActiv > 0 ? izhvarlanaActiv * specActivNeopred / 100 : 0.0;
+						Double izhvarlenaActiv = specActiv > 0 ? specActiv * izhvarlenObem : 0.0;
+						Double izhvarlanaActivUTC = specActiv > 0 ? izhvarlenaActiv * specActivNeopred / 100 : 0.0;
 						String nuclideSimbol = results.getNuclide().getSymbol_nuclide();
 
 						objectClass.setProtokolN(CreateListLeftPanelStartWindowClass
@@ -274,7 +268,7 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 						objectClass.setSpecificActyvityUTC(specActivNeopred);
 						objectClass.setMDA(
 								Arrays.asList(listStrNameSimbolNuclideWithMDA).contains(nuclideSimbol) ? MDA : 0.0);
-						objectClass.setIzhvarlanaActyvity(izhvarlanaActiv);
+						objectClass.setIzhvarlanaActyvity(izhvarlenaActiv);
 						objectClass.setIzhvarlanaActyvityUTC(izhvarlanaActivUTC);
 						System.out.println(sample.getRequest().getRecuest_code());
 						listTableObject.add(objectClass);
@@ -384,4 +378,8 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 		return strMounth;
 	}
 
+	
+	
+	
+	
 }

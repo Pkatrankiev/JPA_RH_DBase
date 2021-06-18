@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,9 +32,11 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.Units;
 
 import DefaultTableList.TableList_Functions;
 import GlobalVariable.GlobalPathForDocFile;
@@ -121,6 +124,8 @@ Object[][] masive = {{1,"ass",123.23,true},
 			cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
 			cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			
+			
+			
 			Font font= workbook.createFont();
 		    font.setFontHeightInPoints((short)10);
 		    font.setFontName("Arial");
@@ -129,10 +134,10 @@ Object[][] masive = {{1,"ass",123.23,true},
 		    font.setBold(true);
 		    font.setItalic(false);
 		    
-//		    int widthExcel = 10;
-//		    int width256 = (int)Math.round((widthExcel*Units.DEFAULT_CHARACTER_WIDTH+5f)/Units.DEFAULT_CHARACTER_WIDTH*256f);
-//		    System.out.println(width256);
-//		    sheet.setColumnWidth(0, width256);
+		    int widthExcel = 10;
+		    int width256 = (int)Math.round((widthExcel*Units.DEFAULT_CHARACTER_WIDTH+5f)/Units.DEFAULT_CHARACTER_WIDTH*256f);
+		    System.out.println(width256);
+		    sheet.setColumnWidth(0, width256);
 		    
 		    
 		    
@@ -143,6 +148,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 		    for (int i = 0; i < masive1.length; i++) {
 				
 		    	cell = row.createCell(i, CellType.STRING);
+		    	 setBordrCell ( cell, workbook);
 	        	cell.setCellValue((String) masive1[i]);
 	        	 sheet.autoSizeColumn(i);
 	        	 sheet.setColumnWidth(i,sheet.getColumnWidth(i)+500);
@@ -175,7 +181,6 @@ Object[][] masive = {{1,"ass",123.23,true},
 				        	cell.setCellValue((Double) masive[rowTable][j]);
 				            break;
 				        }
-				     
 					
 				}
 					columnCount++;
@@ -200,6 +205,50 @@ Object[][] masive = {{1,"ass",123.23,true},
 		}
 	}
 
+	
+	public static Cell setBordrCell (Cell cell, Workbook workbook){
+	    CellStyle style = workbook.createCellStyle();  
+        style.setBorderBottom(BorderStyle.THIN);  
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());  
+        
+        style.setBorderRight(BorderStyle.THIN);  
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());  
+       
+        style.setBorderTop(BorderStyle.THIN);  
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());  
+        
+        style.setBorderLeft(BorderStyle.THIN);  
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        
+        cell.setCellStyle(style); 
+		
+		
+		return cell;
+		
+	}
+	
+	
+	
+	public static  CellStyle insertBorder (CellStyle style){
+	    
+        style.setBorderBottom(BorderStyle.DOUBLE);  
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());  
+        
+        style.setBorderRight(BorderStyle.THIN);  
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());  
+       
+        style.setBorderTop(BorderStyle.THIN);  
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());  
+        
+        style.setBorderLeft(BorderStyle.THIN);  
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        
+       
+		
+		
+		return style;
+		
+	}
 
 	public static void toExcel_original(JTable table) {
 
@@ -284,7 +333,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 		}
 	}
 
-	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName, String[][] masiveExtendLamels) {
+	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName, String[][] masiveExtendLamels, int[] columnWith) {
 		String excelFilePath =GlobalPathForDocFile.get_destinationDir() + "export.xls";
 		try {
 			TableColumnModel tcm = table.getColumnModel();
@@ -295,7 +344,6 @@ Object[][] masive = {{1,"ass",123.23,true},
 			
 			Cell cell = null;
 			
-			
 			Font fontHeader= workbook.createFont();
 		    fontHeader.setColor(IndexedColors.BLACK.getIndex());
 			fontHeader.setBold(true);
@@ -303,10 +351,12 @@ Object[][] masive = {{1,"ass",123.23,true},
 			
 			CellStyle cellStyleHeader = workbook.createCellStyle();
 			cellStyleHeader.setFont(fontHeader);
-			cellStyleHeader.setAlignment(HorizontalAlignment.CENTER);	
+			cellStyleHeader.setAlignment(HorizontalAlignment.CENTER);
+			cellStyleHeader.setVerticalAlignment(VerticalAlignment.CENTER);
 			cellStyleHeader.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
 			cellStyleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-			
+			cellStyleHeader.setWrapText(true);
+			insertBorder(cellStyleHeader);
 			SimpleDateFormat formatter =new SimpleDateFormat("yyyy.MM.dd"); 
 			SimpleDateFormat formatterTime =new SimpleDateFormat("dd.MM.yyyy hh:mm");
 			
@@ -335,6 +385,9 @@ Object[][] masive = {{1,"ass",123.23,true},
 				cell.setCellValue(TableList_Functions.reformatString(table.getColumnName(tableColumCount)));
 				 sheet.autoSizeColumn(excelColumnCount);
 	        	 sheet.setColumnWidth(excelColumnCount,sheet.getColumnWidth(excelColumnCount)+1000);
+	        	 if(columnWith!= null&& excelColumnCount<columnWith.length){
+	        		 sheet.setColumnWidth(excelColumnCount,columnWith[excelColumnCount]*37); 
+	        	 }
 				excelColumnCount++;
 				}
 			}
@@ -378,7 +431,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 				        	try {
 								cell.setCellValue(formatter.parse(volue.toString()));
 							} catch (ParseException e) {
-								// TODO Auto-generated catch block
+								
 								e.printStackTrace();
 							}
 				        	
@@ -411,6 +464,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 				     
 					
 				}
+						setBordrCell ( cell,  workbook);
 						excelColumnCount++;
 					}
 				}
@@ -428,10 +482,16 @@ Object[][] masive = {{1,"ass",123.23,true},
 			rowCount++;
 			for (int rowFromMasive = 0; rowFromMasive < masiveExtendLamels.length; rowFromMasive++) {
 				row = sheet.createRow(rowCount);
-				excelColumnCount = 1;
+				excelColumnCount = 0;
 				for (int columnFromMasive = 0; columnFromMasive < masiveExtendLamels[0].length; columnFromMasive++) {
 					cell = row.createCell(excelColumnCount, CellType.STRING);
+				
 		        	cell.setCellValue((String) masiveExtendLamels[rowFromMasive][columnFromMasive].toString());
+		        	if(rowFromMasive==0 && columnWith!= null ){
+		        		cell.setCellStyle(cellStyleHeader);
+		        	}else{
+		        	setBordrCell ( cell,  workbook);
+		        	}
 		        	excelColumnCount++;
 					}
 				rowCount++;
@@ -454,6 +514,8 @@ Object[][] masive = {{1,"ass",123.23,true},
 	}
 
 	
+	
+
 	public static void MessageDialog(String textInFrame, String textFrame) {
 		Icon otherIcon = null;
 		JFrame jf = new JFrame();

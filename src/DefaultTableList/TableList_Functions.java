@@ -54,7 +54,7 @@ public class TableList_Functions {
 	}
 	
 	public static String reformatString(String name_Column) {
-		return name_Column.replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", "");
+		return name_Column.replace("<html>", "").replace("<br>", " ").replace("</html>", "").replace("_", "").replace("<center>","").replace("</center>","");
 	}
 
 	@SuppressWarnings("static-access")

@@ -655,7 +655,7 @@ public class ViewReferenceTable extends JDialog {
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, masiveExtendLamels);
+						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name, masiveExtendLamels, null);
 					}
 				});
 				thread.start();

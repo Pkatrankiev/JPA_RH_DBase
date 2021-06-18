@@ -400,11 +400,10 @@ public class TestClases {
 	
 	public static void MounthlyReferenceForCNRDWater_test() {
 	MounthlyReferenceForCNRDWater dialog = new MounthlyReferenceForCNRDWater();
-	dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	dialog.setVisible(true);
+
 	}
 	
-	
+		
 	public static void Change_In_Dobiv_Nuclide() {
 
 		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(NuclideDAO.getValueSNuclideById(75));

@@ -1,5 +1,6 @@
 package Aplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -254,8 +255,10 @@ public class SampleDAO {
 
 	
 	
+	@SuppressWarnings("unchecked")
 	public static Sample getSampleByObject_Mesetc_Godina(Obekt_na_izpitvane_sample object, Period period, int godina) {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		List<Sample> list = new ArrayList<Sample>();
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
 		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
@@ -267,15 +270,13 @@ public class SampleDAO {
 		query.setParameter("godina", godina);
 		query.setParameter("object", object);
 		query.setParameter("period", period);
-		
-		
-		@SuppressWarnings("unchecked")
-		List<Sample> list = query.getResultList();
+				
+		list = query.getResultList();
 
 		entitymanager.close();
 		emfactory.close();
 
-		return list.get(0);
+		return (list.size()==0 ? null : list.get(0));
 	}
 	
 	public static void updateSample(Sample sample) {

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Aplication.UsersDAO;
 import DBase_Class.Users;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowViewAplication.AutoSuggestor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,14 +37,14 @@ public class Login extends JDialog {
 	private static Users curentUser = null;
 	private List<Users> users_list = null;
 
-	public Login(Frame parent, TranscluentWindow round) {
-		super(parent, "Логване", true);
-//		int idUser = 0;
-//		TranscluentWindow pro = new TranscluentWindow();
-//		pro.StartWindow();
+	public Login(Frame parent, String frameName, TranscluentWindow round) {
+		
+		super(parent, frameName, true);
+		String pass = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("LoginFrame_pass");
 		users_list = UsersDAO.getInListAllValueUsers();
 //		pro.StopWindow();
-		setBounds(100, 100, 254, 145);
+		setBounds(100, 100, 272, 145);
 		getContentPane().setLayout(new BorderLayout());
 		// центрира рамката (центъра на текущия монитор)
 		setLocationRelativeTo(null);
@@ -51,14 +52,15 @@ public class Login extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		lbl_Username = new JLabel("прякор");
-		lbl_Username.setBounds(10, 15, 46, 14);
+		lbl_Username = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("LoginFrame_UserName"));
+		lbl_Username.setBounds(10, 15, 109, 14);
 		contentPanel.add(lbl_Username);
 		{
 			txt_nik_name = new JTextField();
 			txt_nik_name.setHorizontalAlignment(SwingConstants.LEFT);
 			txt_nik_name.setToolTipText("nik-name");
-			txt_nik_name.setBounds(78, 12, 115, 20);
+			txt_nik_name.setBounds(129, 12, 115, 20);
 			contentPanel.add(txt_nik_name);
 			txt_nik_name.setColumns(10);
 			ArrayList<String> words = new ArrayList<>();
@@ -71,12 +73,12 @@ public class Login extends JDialog {
 
 			{
 				passwordField = new JPasswordField();
-				passwordField.setBounds(78, 43, 115, 20);
+				passwordField.setBounds(129, 43, 115, 20);
 				contentPanel.add(passwordField);
 			}
 
-			lbl_Password = new JLabel("парола");
-			lbl_Password.setBounds(10, 46, 46, 14);
+			lbl_Password = new JLabel(pass);
+			lbl_Password.setBounds(10, 46, 109, 14);
 			contentPanel.add(lbl_Password);
 
 			{

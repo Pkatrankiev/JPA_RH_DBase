@@ -51,8 +51,8 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 	private JTextField txtFieldGodina;
 	static String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
-	public MounthlyReferenceForCNRDWater() {
-
+	public MounthlyReferenceForCNRDWater(JFrame parent, String nameFrame) {
+		super(parent, nameFrame, true);
 		String[] strMounth = getStringMounth();
 	
 		setSize(410, 189);
@@ -137,10 +137,24 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				createVolumeAndViewTable(comboBox.getSelectedItem().toString(),
+						Integer.parseInt(txtFieldGodina.getText()));
+			}
 
+		});
+		
+		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+
+		});
 
 		txtFieldGodina.addKeyListener(new KeyListener() {
 
@@ -160,20 +174,10 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 
 			}
 		});
-		okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				createVolumeAndViewTable(comboBox.getSelectedItem().toString(),
-						Integer.parseInt(txtFieldGodina.getText()));
-			}
-
-		});
 		
-		okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-
-		});
+		
+		
+		
 		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);

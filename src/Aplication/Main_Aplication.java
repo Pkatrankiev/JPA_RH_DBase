@@ -129,13 +129,13 @@ public class Main_Aplication {
 		
 //		AplicantDAO.exctractDBase();
 		
-		TestClases.MounthlyReferenceForCNRDWater_test();
+//		TestClases.MounthlyReferenceForCNRDWater_test();
 		
 //		TestClases.Table_BeisicClasses();
 		
 	
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

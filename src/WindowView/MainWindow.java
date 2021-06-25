@@ -19,6 +19,7 @@ import Menu.MenuData_EnableSampleList;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
+import Menu.MenuEjectionIzhod2;
 import Menu.MenuOder;
 import Menu.MenuPeriodicReference;
 import Menu.MenuRequense_AddDobiveFrame;
@@ -214,12 +215,21 @@ public class MainWindow extends JFrame {
 		menu.add(createDataMenu());
 		menu.add(createWordDocMenu());
 		menu.add(createReferenceMenu());
+		menu.add(createEjectionMenu());
 		menu.add(createOderMenu());
 		menu.add(createLoginMenu(win), BorderLayout.EAST);
 
 		return menu;
 	}
 	
+	private JMenu createEjectionMenu() {
+		JMenu åjectionMenu = new JMenu(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjection_TitleName"));
+		åjectionMenu.setMnemonic(KeyEvent.VK_I);
+		åjectionMenu.add(new MenuEjectionIzhod2());
+		return åjectionMenu;
+	}
+
 	private JMenu createReferenceMenu() {
 		JMenu referenceMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_BtnMenu_Reference"));
@@ -313,7 +323,9 @@ public class MainWindow extends JFrame {
 
 	public static void StartLoginMenu(Frame win, JButton loginMenu) {
 		TranscluentWindow round = new TranscluentWindow();
-		loginDlg = new Login(win, round);
+		String frameName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("LoginFrame_Title");
+		loginDlg = new Login(win, frameName, round);
 		loginDlg.setVisible(true);
 
 		if (loginDlg.isSucceeded()) {

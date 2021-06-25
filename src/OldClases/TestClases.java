@@ -399,7 +399,8 @@ public class TestClases {
 
 	
 	public static void MounthlyReferenceForCNRDWater_test() {
-	MounthlyReferenceForCNRDWater dialog = new MounthlyReferenceForCNRDWater();
+		JFrame f = new JFrame();
+	new MounthlyReferenceForCNRDWater(f,"");
 
 	}
 	

@@ -1285,7 +1285,9 @@ public class RequestView extends JDialog {
 	}
 
 	private void Section_Date_Reception() {
-		JLabel lbl_date_reception = new JLabel("Дата / период на приемане:");
+		JLabel lbl_date_reception = new JLabel(
+				ReadFileWithGlobalTextVariable.
+				getGlobalTextVariableMap().get("RequestView_Section_Date_Reception"));
 		GridBagConstraints gbc_lbl_date_reception = new GridBagConstraints();
 		gbc_lbl_date_reception.anchor = GridBagConstraints.EAST;
 		gbc_lbl_date_reception.gridwidth = 2;
@@ -1353,7 +1355,9 @@ public class RequestView extends JDialog {
 						str_date_period_reception = RequestViewFunction.DateNaw(false);
 					}
 					final JFrame f = new JFrame();
-					DateChoice_period date_period_reception = new DateChoice_period(f, "Избор на дата / период на вземане", str_date_period_reception,
+					String label = ReadFileWithGlobalTextVariable.
+							getGlobalTextVariableMap().get("RequestView_Section_Date_Reception_DateChoice_period");
+					DateChoice_period date_period_reception = new DateChoice_period(f, label, str_date_period_reception,
 							withTime, forDateReception,fromTable);
 					date_period_reception.setVisible(true);
 					Boolean forTable = false;

@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.280521
+MainWindow_Ver = Ver.250621
 
 
 $$DBase_SampleTableColumnName
@@ -70,15 +70,21 @@ NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
 NewRequense_TitleName = Генериране на Нова Заявка
 NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
 MenuPeriodicReference_TitleName = Справки - Периодичен мониторинг
+MenuEjection_TitleName = Сведения
 
 $$Text_MessageDialog
 LogInText = Логнете се
-ValueForAllRow_Text = Въведете стойност за всички редове
+ValueForAllRow_Text = Въведете стойност за всички редовеmissing
 errorDataForResult_Text = Грешни данни за резултат:
 errorOfData = Грешка в данните
 noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
 clickToChoice = Натисни за избор
 ThereAreDublikataElements = Има повтарящи се елементи
+errorOfExcellFileFormat = Excel файлът трябва да е версия 97/2000/XP/2003
+
+LoginFrame_Title = Логване
+LoginFrame_UserName = потребителско име
+LoginFrame_pass = парола
 
 DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
 
@@ -99,6 +105,8 @@ RequestView_Sestion_Date_Time_Reference_Text = Референтна дата (средата на перио
 RequestView_Section_Choice_Period_Text = Периодичност
 RequestView_Section_Sample_Description_Text = Описание на пробите 
 RequestView_DialogError_CountSamples = Некоректен брой на пробите!
+RequestView_Section_Date_Reception = Дата / период на получаване на пробите: 
+RequestView_Section_Date_Reception_DateChoice_period = Избор на дата / период на получаване на пробите
 
 
 RequestView_Btn_InternetAplikant = Звено на ДП РАО
@@ -123,8 +131,8 @@ RequestViewFunction_Sborni = Сборни
 RequestViewFunction_za = за
 RequestViewFunction_mesec = м.
 
-ChoiceFromListWithPlusAndMinus_choiceText = Обект на изпитване
-ChoiceNew_O_I_R_choiceText = Нов Обект на изпитване
+ChoiceFromListWithPlusAndMinus_choiceText = Обект, от който са взети пробите
+ChoiceNew_O_I_R_choiceText = Нов Обект, от който са взети пробите
 ChoiceNew_Zabelejka_choiceText = Нов Текст на забележка
 ChoiceNew_dopIzis_choiceText = Нов Текст на Допълнителни изисквания
 ChoiceNew_New_Client_choiceText = Добавяне на Нов клиент
@@ -240,6 +248,8 @@ MounthlyReferenceForCNRDWater_GodinaLabel = година
 MounthlyReferenceForCNRDWater_MesecLabel = месец
 MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 2020!
 
+
+MounthlyReferenceForCNRDWaterTable_MenuEjectionIzhod2 = Изхвърляния към Изход 2
 MounthlyReferenceForCNRDWaterTable_ProtokolN = протокол №
 MounthlyReferenceForCNRDWaterTable_ObektSample = Обект на изпитване
 MounthlyReferenceForCNRDWaterTable_Obem = Изхвърлен обем
@@ -257,12 +267,18 @@ MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% от<br>
 MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>Максималната стойност<br>на измерената обемна<br>активност за месеца<br>[Bq/l]</center></html>
 MounthlyReferenceForCNRDWater_TableLabel = Дренираните води от баня на ЦНРД към Изход-2 за: 
 MounthlyReferenceForCNRDWater_OpenExcelFileLabel = Изберете Excel файла за докладване на изхвърлянията към БАК 4 и 5
+MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel = Нанесете обема изхвърлен от БАК 4 и 5 за месец 
+MounthlyReferenceForCNRDWater_ErrorObemBAK = Некоректно въведен обем
 MounthlyReferenceForCNRDWater_OpenExcelFileFrameName = Избор на файл
 MounthlyReferenceForCNRDWater_OpenExcelFileNotBAKResults = Няма резултати за БАК 4 и 5 за 
 MounthlyReferenceForCNRDWater_OpenExcelFileNotCorectNuclideList = Не е коректен листа с нуклиди в таблицата на страница 
 MounthlyReferenceForCNRDWater_OpenExcelFileNotFound = Не е намерен файла 
-MounthlyReferenceForCNRDWater_OpenExcelFileIsOpen = Файлът е отворен
+MounthlyReferenceForCNRDWater_NotSelectExcelFile = Не е избран файл  
+MounthlyReferenceForCNRDWater_excelFileIsOpen = Файлът е отворен
+MounthlyReferenceForCNRDWater_CheckKorektExcelFile  = СВЕДЕНИЕ
+MounthlyReferenceForCNRDWater_NotSelectCorectExcelFile = Не е избран коректен excel файл  
 
+MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = D:/BAK-2021-NEW.xls
 
 
 MenuSampleMonthlyReference_TitleName = Месечна справка

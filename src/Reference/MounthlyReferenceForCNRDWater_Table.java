@@ -330,7 +330,8 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-		btnReCalculateButton = new JButton("ReCalc");
+		btnReCalculateButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("MounthlyReferenceForCNRDWater_CheckKorektExcelFile"));
 		btnReCalcListener(btnReCalculateButton,  parent,  frame_name,
 				 masiveValueDataTable,  columnNames,  listNuclideSimbol, mount_name, godina) ;
 		
@@ -358,13 +359,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		
 		DataValue = convertValueToString(DataValue, 1);
 		
-		for (int i = 0; i < DataValue.length; i++) {
-			System.out.print(i);
-			for (int j = 0; j < DataValue[0].length; j++) {
-				System.out.print(" - "+DataValue[i][j]);
-			}
-			System.out.println();
-		}
+	
 		
 		for (int i = 0; i < DataValue.length; i++) {
 			if (i == 0) {

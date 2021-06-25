@@ -411,7 +411,7 @@ public class MainWindow_Old extends JFrame {
 
 	public static void StartLoginMenu(Frame win, JButton loginMenu) {
 		TranscluentWindow round = new TranscluentWindow();
-		loginDlg = new Login(win, round);
+		loginDlg = new Login(win, "", round);
 		loginDlg.setVisible(true);
 
 		if (loginDlg.isSucceeded()) {

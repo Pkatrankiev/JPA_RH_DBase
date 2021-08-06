@@ -18,6 +18,7 @@ import javax.swing.text.DocumentFilter;
 import org.apache.poi.hssf.OldExcelFormatException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.NotOLE2FileException;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -287,7 +288,10 @@ public class getExcelFileIzhvarlianiaBAK45 extends JDialog {
 		} catch (OldExcelFormatException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, errorOfExcellFileFormat, errorOfData, JOptionPane.ERROR_MESSAGE);
-
+		} catch (OfficeXmlFileException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, errorOfExcellFileFormat, errorOfData, JOptionPane.ERROR_MESSAGE);
+		
 		} catch (NotOLE2FileException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, notSelectCorectExcelFile, errorOfData, JOptionPane.ERROR_MESSAGE);

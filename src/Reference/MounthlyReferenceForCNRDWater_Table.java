@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +76,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 	static JLabel lblVolumePercentKontrolnoNivo ;
 	static JLabel lblVolumeMaxObemnaActivyty ;
 	static DecimalFormat df ;
+	static DecimalFormat kk ;
 	static JPanel top_panel;
 	static int[] columnWith =  {143,90,96,70,95,85,80,95,110};
 	
@@ -87,6 +89,9 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		listSimbolNuclide = listNuclideSimbol;
 		df = new DecimalFormat("0.00E00");
 		
+		
+		kk = new DecimalFormat("0.00E00");
+		kk.setRoundingMode(RoundingMode.HALF_UP);
 		
 		boolean NoReport = false;
 		int countRow = valueDataTable.length;
@@ -149,18 +154,16 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 					.get("MounthlyReferenceForCNRDWaterTable_SumarnaObemnaActivnost");
 			columnNameDataValue[6] = labelSumObemnaActivyty.replace("<html>", " ").replace("</html>", " ")
 					.replace("<br>", " ").replace("<center>","").replace("</center>","");
-			
-			labelPercentKontrolnoNivo = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-					.get("MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo");
-			columnNameDataValue[7] = labelPercentKontrolnoNivo.replace("<html>", " ").replace("</html>", " ")
-					.replace("<br>", " ").replace("<center>","").replace("</center>","");
-			
+		
 			labelMaxObemnaActivyty = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 					.get("MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca");
-			columnNameDataValue[8] = labelMaxObemnaActivyty.replace("<html>", " ").replace("</html>", " ")
+			columnNameDataValue[7] = labelMaxObemnaActivyty.replace("<html>", " ").replace("</html>", " ")
 					.replace("<br>", " ").replace("<center>","").replace("</center>","");
 
-			
+			labelPercentKontrolnoNivo = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+					.get("MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo");
+			columnNameDataValue[8] = labelPercentKontrolnoNivo.replace("<html>", " ").replace("</html>", " ")
+					.replace("<br>", " ").replace("<center>","").replace("</center>","");
 
 		
 
@@ -237,19 +240,21 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			gbc_LabelSumObemnaActivyty.gridy = 0;
 			top_panel.add(LabelSumObemnaActivyty, gbc_LabelSumObemnaActivyty);
 
-			JLabel LabelPercentKontrolnoNivo = new JLabel(labelPercentKontrolnoNivo);
-			GridBagConstraints gbc_LabelPercentKontrolnoNivo = new GridBagConstraints();
-			gbc_LabelPercentKontrolnoNivo.insets = new Insets(0, 0, 5, 5);
-			gbc_LabelPercentKontrolnoNivo.gridx = 7;
-			gbc_LabelPercentKontrolnoNivo.gridy = 0;
-			top_panel.add(LabelPercentKontrolnoNivo, gbc_LabelPercentKontrolnoNivo);
+			
 
 			JLabel LabelMaxObemnaActivyty = new JLabel(labelMaxObemnaActivyty);
 			GridBagConstraints gbc_LabelMaxObemnaActivyty = new GridBagConstraints();
 			gbc_LabelMaxObemnaActivyty.insets = new Insets(0, 0, 5, 0);
-			gbc_LabelMaxObemnaActivyty.gridx = 8;
+			gbc_LabelMaxObemnaActivyty.gridx = 7;
 			gbc_LabelMaxObemnaActivyty.gridy = 0;
 			top_panel.add(LabelMaxObemnaActivyty, gbc_LabelMaxObemnaActivyty);
+			
+			JLabel LabelPercentKontrolnoNivo = new JLabel(labelPercentKontrolnoNivo);
+			GridBagConstraints gbc_LabelPercentKontrolnoNivo = new GridBagConstraints();
+			gbc_LabelPercentKontrolnoNivo.insets = new Insets(0, 0, 5, 5);
+			gbc_LabelPercentKontrolnoNivo.gridx = 8;
+			gbc_LabelPercentKontrolnoNivo.gridy = 0;
+			top_panel.add(LabelPercentKontrolnoNivo, gbc_LabelPercentKontrolnoNivo);
 
 			lblVolumeNuclide = new JLabel();
 			GridBagConstraints gbc_lblVolumeNuclide = new GridBagConstraints();
@@ -299,19 +304,22 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			gbc_lblVolumeSummObemnaActivyty.gridx = 6;
 			gbc_lblVolumeSummObemnaActivyty.gridy = 1;
 			top_panel.add(lblVolumeSummObemnaActivyty, gbc_lblVolumeSummObemnaActivyty);
+			
+			
+			lblVolumeMaxObemnaActivyty = new JLabel();
+			GridBagConstraints gbc_lblVolumeMaxObemnaActivyty = new GridBagConstraints();
+			gbc_lblVolumeMaxObemnaActivyty.gridx = 7;
+			gbc_lblVolumeMaxObemnaActivyty.gridy = 1;
+			top_panel.add(lblVolumeMaxObemnaActivyty, gbc_lblVolumeMaxObemnaActivyty);
 
 			lblVolumePercentKontrolnoNivo = new JLabel();
 			GridBagConstraints gbc_lblVolumePercentKontrolnoNivo = new GridBagConstraints();
 			gbc_lblVolumePercentKontrolnoNivo.insets = new Insets(0, 0, 0, 5);
-			gbc_lblVolumePercentKontrolnoNivo.gridx = 7;
+			gbc_lblVolumePercentKontrolnoNivo.gridx = 8;
 			gbc_lblVolumePercentKontrolnoNivo.gridy = 1;
 			top_panel.add(lblVolumePercentKontrolnoNivo, gbc_lblVolumePercentKontrolnoNivo);
 
-			lblVolumeMaxObemnaActivyty = new JLabel();
-			GridBagConstraints gbc_lblVolumeMaxObemnaActivyty = new GridBagConstraints();
-			gbc_lblVolumeMaxObemnaActivyty.gridx = 8;
-			gbc_lblVolumeMaxObemnaActivyty.gridy = 1;
-			top_panel.add(lblVolumeMaxObemnaActivyty, gbc_lblVolumeMaxObemnaActivyty);
+			
 
 			
 			
@@ -387,8 +395,8 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		lblValueSumActivyty.setText(DataValue[0][4].toString());
 		lblValueIznverlenObshtObem.setText(DataValue[0][5].toString());
 		lblVolumeSummObemnaActivyty.setText(DataValue[0][6].toString());
-		lblVolumePercentKontrolnoNivo.setText(DataValue[0][7].toString());
-		lblVolumeMaxObemnaActivyty.setText(DataValue[0][8].toString());
+		lblVolumeMaxObemnaActivyty.setText(DataValue[0][7].toString());
+		lblVolumePercentKontrolnoNivo.setText(DataValue[0][8].toString());
 		
 		top_panel.repaint();
 	}
@@ -459,9 +467,9 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		}
 		for (int i = 0; i < DataValue.length; i++) {
 			if (i == 0) {
-			
-				DataValue[i][7] = ((Double) DataValue[i][6] * 100) / kontrolnoNivo;
-				DataValue[i][8] = maxSpecifActivyty/1000;
+				
+				DataValue[i][7] = maxSpecifActivyty/1000;
+				DataValue[i][8] = ((Double) maxSpecifActivyty * 100) / kontrolnoNivo;
 			}
 			DataValue[i][0] = listNuclideSimbol.get(i);
 			DataValue[i][2] = (Math.sqrt((Double) DataValue[i][2]))*100 / (Double) DataValue[i][1];
@@ -501,7 +509,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 				obj = "";
 			} else {
 
-				obj = df.format(obj).replace(",", ".");
+				obj = kk.format(obj).replace(",", ".");
 				
 			}
 		} catch (IllegalArgumentException e) {
@@ -615,8 +623,8 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 		dataValue[1][4] =  lblValueSumActivyty.getText() ;
 		dataValue[1][5] =  lblValueIznverlenObshtObem .getText() ;
 		dataValue[1][6] =  lblVolumeSummObemnaActivyty.getText() ;
-		dataValue[1][7] =  lblVolumePercentKontrolnoNivo.getText() ;
-		dataValue[1][8] =  lblVolumeMaxObemnaActivyty.getText() ;
+		dataValue[1][7] =  lblVolumeMaxObemnaActivyty.getText() ;
+		dataValue[1][8] =  lblVolumePercentKontrolnoNivo.getText() ;
 		
 	for (int i = 0; i < dataValue.length; i++) {
 		for (int j = 0; j < dataValue[0].length; j++) {

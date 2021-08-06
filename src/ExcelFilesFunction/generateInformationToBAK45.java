@@ -136,7 +136,7 @@ public class generateInformationToBAK45 {
 					}
 				}
 
-				dd = Double.parseDouble(DataValue[1][8].toString());
+				dd = Double.parseDouble(DataValue[1][7].toString());
 				if (dd > 0.0) {
 					cell = sheet.getRow(32).getCell(9);
 					cell.setCellValue(dd);

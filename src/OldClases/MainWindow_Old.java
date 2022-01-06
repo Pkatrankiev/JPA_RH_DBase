@@ -38,6 +38,7 @@ import DBase_Class.Period;
 import DBase_Class.Request;
 import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.GlobalPathForIcons;
+import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
 import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
@@ -425,7 +426,7 @@ public class MainWindow_Old extends JFrame {
 	public List<List<leftPanelStartWindowClass>> createListLeftPanelStartWindowClass(){
 		 List<List<leftPanelStartWindowClass>> groupList = Lists.newArrayList();
 
-		FindFile ff = new FindFile();
+//		FindFile ff = new FindFile();
 	String month = getPreviousMesec(1);
 	String monitGroup="";
 	for (int i = 0; i < listMonitoringGroup.length; i++) {
@@ -453,7 +454,7 @@ public class MainWindow_Old extends JFrame {
 			object.setLblLabel_Obect(Table_RequestToObektNaIzp.createStringListObektNaIzp(
 					Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest( request), false));
 			object.setLblLabel_Sample(createStringPokazatel(request));
-			object.setLblLabel_Protokol(ff.findFile(request.getRecuest_code(), new File(dir_Protocols)));
+			object.setLblLabel_Protokol(CreateListLeftPanelStartWindowClass.getLabelProtokol(request.getRecuest_code()));
 			System.out.println(object.getLblLabel_Code()+" / "+object.getLblLabel_Obect()+" / "+object.getLblLabel_Protokol()+
 					" / "+object.getLblLabel_Sample()+" / "+object.getMonitoringGroup()+" / ");
 			list.add(object);

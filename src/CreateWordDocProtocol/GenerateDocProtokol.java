@@ -45,7 +45,7 @@ public class GenerateDocProtokol {
 	private static String strKeyTemplateNewRow = "##$$%%";
 	private static String strKeyTemplateMDA = "$$MDA$$";
 	private static String strKeyUser = "$$sert$$";
-	private static String strKeyPodpisiTable = "Ръководител";
+	private static String strKeyPodpisiTable = "Ръководител ЛИ-РХ";
 	private static String strKeyzabTable = "$$%%";
 	private static String strKeyHeaderRow_1 = "Код на пробата";
 	private static String strKeyHeaderRow_2 = "1";
@@ -478,7 +478,7 @@ public class GenerateDocProtokol {
 
 		for (Metody list_Metody : AllListMetody) {
 
-			if(list_Metody.getCode_metody().contains("01")){
+			if(list_Metody.getCode_metody().contains("-01")){
 				
 				for (String nucklideAlpha : alphaNuclide) {
 					System.out.println("****   "+nucklideAlpha);

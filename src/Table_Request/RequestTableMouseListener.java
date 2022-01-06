@@ -117,8 +117,19 @@ public class RequestTableMouseListener {
 												.get("NewRequenseInTamplate_TitleName"))) {
 									JFrame f = new JFrame();
 									TranscluentWindow round = new TranscluentWindow();
-									new RequestView(f, objectTableList_OverallVariables.getUser(), choiseRequest, round,
-											false);
+									
+									final Thread thread = new Thread(new Runnable() {
+										@Override
+										public void run() {
+											
+											new RequestView(f, objectTableList_OverallVariables.getUser(), choiseRequest, round,
+													false);
+										}
+									});
+									thread.start();
+									
+									
+									
 								}
 							}
 						}

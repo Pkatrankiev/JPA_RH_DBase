@@ -311,7 +311,7 @@ public class RequestViewFunction {
 			int id_Period = PeriodDAO.getValuePeriodByPeriod(strChoice_Period).getId_period();
 			strMesec = " " + za + " ";
 			if (id_Period < 13) {
-				strMesec = mesec + " ";
+				strMesec = strMesec+mesec + " ";
 			}
 		}
 		txtInDescriptGrupSample += " " + strMesec + strChoice_Period + " " + str_period_sample;

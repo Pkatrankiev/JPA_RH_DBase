@@ -39,7 +39,14 @@ public class Main_Aplication {
 		
 //		TestClases.testSetText_Ob_na_Izp_Request();
 		
+		
+		
+		
 //		TestClases.testNewRequestVew();
+		
+//		TestClases.testSetNewSimbolInDescriptionSampleGrupe_Request();
+		
+		
 		
 //		TestClases.startCreateProtokolDocx();
 		
@@ -52,13 +59,14 @@ public class Main_Aplication {
 //		TestClases.AddResultsViewWithTable(3) ;
 		
 		
+		
 //		TestClases.Table_Results_List_Test(3) ;
 		
 		
 		
-//		TestClases.createProtocolWordDoc("Генериране на Протокол");
+//		TestClases.createProtocolWordDoc("Генериране на Заявка");
 		
-		
+//		Генериране на Заявка
 		
 		
 //		TestClases.createRazprFormWordDoc();
@@ -133,7 +141,10 @@ public class Main_Aplication {
 		
 //		TestClases.Table_BeisicClasses();
 		
-	
+//		TestClases.restoreDB_From_RemoteServer();
+		
+		
+//		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
 		StartMainWindow();
 		

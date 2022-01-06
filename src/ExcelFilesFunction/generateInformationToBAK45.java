@@ -34,7 +34,13 @@ public class generateInformationToBAK45 {
 			double obemBAK) {
 		FileOutputStream fileOut = null;
 		List<Results> listResultsBAK = getListResult_BAKToMesetcGodina(mount, godina);
-		String nameSheet = "0" + PeriodDAO.getValuePeriodByPeriod(mount).getId_period();
+		String nameSheet = "";
+		int numMouth = PeriodDAO.getValuePeriodByPeriod(mount).getId_period();
+		if(numMouth<10){
+		nameSheet = "0"+ numMouth;
+		}else{
+		nameSheet = numMouth+"";
+		}
 		String errorOfData = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData");
 		String notSelectCorectExcelFile = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("MounthlyReferenceForCNRDWater_NotSelectCorectExcelFile");

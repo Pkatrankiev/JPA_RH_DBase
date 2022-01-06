@@ -71,9 +71,13 @@ public class getExcelFileIzhvarlianiaBAK45 extends JDialog {
 				.get("MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel") + " " + mount_name;
 
 		String openBtn_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("openBtn_Text");
-		
-		nameSheet = "0" + PeriodDAO.getValuePeriodByPeriod(mount_name).getId_period();
-
+		int numMouth = PeriodDAO.getValuePeriodByPeriod(mount_name).getId_period();
+		if(numMouth<10){
+		nameSheet = "0"+ numMouth;
+		}else{
+		nameSheet = numMouth+"";
+		}
+System.out.println(nameSheet);
 		setSize(450, 180);
 		setLocationRelativeTo(null);
 

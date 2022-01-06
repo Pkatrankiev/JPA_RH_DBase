@@ -61,9 +61,12 @@ public class FunctionForGenerateWordDocFile {
 
 		// "$$sample_metod$$"
 		String code_samp_metody = result.getMetody().getCode_metody();
+		if(code_samp_metody.indexOf("/")>0){
+		code_samp_metody.substring(0, code_samp_metody.indexOf("/"));
+		}
 		substitutionData.put(masive_column_table_result[1], code_samp_metody);
 		// substitutionData.put(masive_column_table_result[1],
-		// code_samp_metody.substring(0, code_samp_metody.indexOf("/")));
+//		 code_samp_metody.substring(0, code_samp_metody.indexOf("/"));
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();

@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.250621
+MainWindow_Ver = Ver.060122
 
 
 $$DBase_SampleTableColumnName
@@ -89,24 +89,48 @@ LoginFrame_pass = парола
 DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
 
 RequestView_TitleFrame = Заявка за изпитване
-RequestView_Text = ЗАЯВКА ЗА ИЗПИТВАНЕ
+RequestView_Request_Title = ЗАЯВКА ЗА ИЗПИТВАНЕ
+RequestView_Extra_Request_Title = ЗАЯВКА ЗА ИЗВЪНРЕДНО ИЗПИТВАНЕ
 RequestView_Text_Formuliar = Ф 704-2
+RequestView_Text_Extra_Formuliar = Ф 704-3
+RequestView_CodeForRequest = Код на заявката
+RequestView_DateForRequest = Код на заявката
 RequestView_Text_InternalText = <html>За изпитвания извън обема,<br>предвиден във вътрешните документи</html>
 RequestView_Text_ExternalText = За изпитвания от външни клиенти
 RequestView_Section_Ind_Num_Doc_Text = Ид. номер на документа, изискващ изпитването: 
 RequestView_Section_Izpitvan_Produkt_Text = Изпитван продукт
 RequestView_obekt_na_izpitvane_Text = Обект, от който са взети пробите:
 RequestView_Btn_Izbor = Избор
+RequestView_Return_Sample = Връщане на пробите
 RequestView_CheckBox_InAccreditation_Text = Извън обхват
 RequestView_Section_Razmernost_Text = Размерност
 RequestView_Section_Pokazatel_Text = Изпитван показател:
 RequestView_Btn_Pokazatel_Text = Избор на показател
 RequestView_Sestion_Date_Time_Reference_Text = Референтна дата (средата на периода)
 RequestView_Section_Choice_Period_Text = Периодичност
+RequestView_Count_Sample = Брой на пробите
+RequestView_Error_Count_Sample = Некоректен брой
 RequestView_Section_Sample_Description_Text = Описание на пробите 
 RequestView_DialogError_CountSamples = Некоректен брой на пробите!
 RequestView_Section_Date_Reception = Дата / период на получаване на пробите: 
 RequestView_Section_Date_Reception_DateChoice_period = Избор на дата / период на получаване на пробите
+RequestView_Section_Date_Execution = Срок за изпълнение:
+RequestView_Section_Button_Date_Selection = Избор на дата
+RequestView_Section_Accepted = Приел:
+RequestView_Section_Add = Добавяне:
+RequestView_Section_Zab = Забележка:
+RequestView_Section_DopalnIziskv = Допълнителни изисквания на клиента:
+RequestView_Section_DopalnDogovorenosti = Допълнителни договорености:
+
+RequestView_Text_OR = или
+RequestView_JustONE = само едно от :
+
+RequestView_Section_Choise_AplicantNameFamily = Съгласувано с клиента
+
+RequestView_showMessageDialog_Error = Грешни данни за следните полета:
+RequestView_showMessageDialog_ErrorRefDataTime = Не сте въвели референтна дата и време!
+RequestView_showMessageDialog_ErrorCodeRequest = Не сте въвели код на пробата!
+RequestView_showMessageDialog_Error_NumberRequest = Заявка с този номер вече съществува
 
 
 RequestView_Btn_InternetAplikant = Звено на ДП РАО
@@ -286,6 +310,7 @@ SampleMonthlyReference_TitleName = Справка за изработени проби
 
 
 $$Button_Text
+cancelBtn_Text = Отказ
 exitBtn_Text = Изход
 saveBtn_Text = Запис
 openBtn_Text = Отвори

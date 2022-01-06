@@ -50,6 +50,7 @@ import java.util.concurrent.Future;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.sql.DataSource;
@@ -170,6 +171,84 @@ public class TestClases {
 		}
 	}
 
+	public static void testSetNewSimbolInDescriptionSampleGrupe_Request(String str) {
+		
+			
+			String one = "";
+			String tue = "";
+			String new_str = "";
+			boolean fl = true;
+			if(!str.isEmpty()||str.indexOf("˲")<0){
+			int i = str.indexOf("за ");
+			if(i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			i = str.indexOf("м. ");
+			if(fl && i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			
+			i = str.indexOf("за период");
+			if(i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			i = str.indexOf("период");
+			if(fl && i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			i = str.indexOf("за 3-то");
+			if(fl && i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			i = str.indexOf("за 1-во");
+			if(fl && i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			i = str.indexOf("за 2-ро");
+			if(fl && i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			i = str.indexOf("за 4-то");
+			if(fl && i>0){
+				one = str.substring(0, i).trim();
+				tue = str.substring(i).trim();
+				new_str = one+"˲ "+tue;
+				fl=false;
+			}
+			if(fl){
+				
+				new_str = str.trim()+"˲";
+			}
+			}
+			System.out.println("- "+new_str);
+			
+		
+			
+		}	
+	
+
+	
 	public static void testAddDobivView() {
 		TranscluentWindow round = new TranscluentWindow();
 
@@ -302,13 +381,14 @@ public class TestClases {
 	public static void testNewRequestVew() {
 		JFrame f = new JFrame();
 		Users user = UsersDAO.getValueUsersById(3);
-		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "4069");
+		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "4671");
 		TranscluentWindow round = new TranscluentWindow();
 
 		final Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				new RequestView(f, user, request, round, true);
+				
+				new RequestView(f, user, request, round, false);
 			}
 		});
 		thread.start();
@@ -958,15 +1038,49 @@ public class TestClases {
 		String PASS = "123";
 		String database = "rhdbase";
 		String path = "l:/Петър/";
-		// String fileName = "DB_backup_" + backupDateStr + ".sql";
+		String pathDump = "D:/DB_Backup.sql";
+		
+		String path1 = "c:\\xampp\\mysql\\bin\\mysqldump";
+		String path2 = "c:\\xampp\\mysql\\bin\\mysql";
 
+				String command= "cmd.exe /c "
+				                    + "\"\""+path1+"\"  "
+				                    + " --user="+USER
+				                    + " --password="+PASS
+				                    + " --host="+HOSTIP
+				                    + " --protocol=tcp "
+				                    + " --port="+PORT
+				                    + " --default-character-set=utf8 "
+				                    + " --single-transaction=TRUE "
+				                    + " --routines "
+				                    + " --events "
+				                    + "\""+database
+				                    +"\" "
+				                    + ">"
+				                    + " \""
+				                    + "D:\\DB_Backup.sql"
+				                    + "\""
+				                    + " \"";
+
+			
+				
+						
+				
+				
+		
+				String executeCmd1 = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
+						+ PASS + " " + database + " -r " + path;
+				String restoreCmd = PathToMySqlDumpFile + "mysql -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
+						+ PASS + "-e " + path + "DB_backup_02-09-20_1418.sql";
+		
+		
 		try {
-			String executeCmd = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
-					+ PASS + " " + database + " -r " + path;
-			String restoreCmd = PathToMySqlDumpFile + "mysql -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
-					+ PASS + "-e " + path + "DB_backup_02-09-20_1418.sql";
+			
 
-			Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
+			
+			
+			
+			Process runtimeProcess = Runtime.getRuntime().exec(command);
 			int processComplete = runtimeProcess.waitFor();
 			if (processComplete == 0) {
 				System.out.println("Backup taken successfully");

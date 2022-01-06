@@ -1,13 +1,18 @@
 package InfoPanelInMainWindow;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
+
+import GlobalVariable.GlobalPathForDocFile;
 
 public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<List<LeftPanelStartWindowClass>>, Integer> {
 
@@ -17,6 +22,9 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
     JLabel label;
     JButton btnProgressBar;
     JPanel under_panel_Right;
+    
+    static List<String> listAllProtokolFile = new ArrayList<>();
+    
     public CreateMainWindowInfoPanelWithProgrssBar(JProgressBar jProgressBar, JPanel under_panel_Left, 
     		JPanel under_panel_Right , JButton btnProgressBar  ) {
        this.jpb = jProgressBar;
@@ -36,6 +44,8 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
 
     @Override
     protected List<List<LeftPanelStartWindowClass>> doInBackground() throws Exception {
+    	getListAllProtokolFile(new File(GlobalPathForDocFile.get_destinationDir_Protocols()));
+    	VariableFromStartWindowPanel.setListAllProtokols(listAllProtokolFile);
     	int startCheckYear = Integer.parseInt(CreatRightPanel.getTextStartYear());
     	 List<List<LeftPanelStartWindowClass>> ss = CreateListLeftPanelStartWindowClass.createListLeftPanelStartWindowClass(jpb, startCheckYear);
         return ss;
@@ -43,6 +53,7 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
 
     protected void done() {
         try {
+        	
             List<List<LeftPanelStartWindowClass>> ss = get();
             VariableFromStartWindowPanel.setListLeftPanelStartWindow(ss);
             btnProgressBar.setEnabled(true);
@@ -54,4 +65,24 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
             e.printStackTrace();
         }
     }
+    
+public static String getListAllProtokolFile(File file) {
+		
+		File[] list = file.listFiles();
+		if (list != null) {
+			for (File fil : list) {
+				listAllProtokolFile.add(fil.getName());
+				if (fil.isDirectory()) {
+					getListAllProtokolFile( fil);
+				}
+
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+
+		}
+		return "";
+	}
+
+    
     }

@@ -8,6 +8,7 @@ private static  List<List<LeftPanelStartWindowClass>> listLeftPanelStartWindow;
 private static  List<Integer> listMissingRequestRightPanelStartWindow;
 private static  List<Integer> listMissingResultsRightPanelStartWindow;
 private static  List<Integer> listMissingProtokolsRightPanelStartWindow;
+private static  List<String> listAllProtokols;
 
 	public static void setListLeftPanelStartWindow(List<List<LeftPanelStartWindowClass>> listLeftPanelStartWindow) {
 	VariableFromStartWindowPanel.listLeftPanelStartWindow = listLeftPanelStartWindow;
@@ -43,5 +44,15 @@ private static  List<Integer> listMissingProtokolsRightPanelStartWindow;
 	
 	public static void setListMissingProtokolsRightPanelStartWindo(List<Integer>listMissingProtokolsRightPanelStartWindow) {
 		VariableFromStartWindowPanel.listMissingProtokolsRightPanelStartWindow = listMissingProtokolsRightPanelStartWindow;
+	}
+
+
+	public static List<String> getListAllProtokols() {
+		return listAllProtokols;
+	}
+
+
+	public static void setListAllProtokols(List<String> listAllProtokols) {
+		VariableFromStartWindowPanel.listAllProtokols = listAllProtokols;
 	}
 }

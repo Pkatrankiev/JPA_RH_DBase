@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 import org.apache.commons.compress.utils.Lists;
@@ -31,6 +32,9 @@ import WindowView.DatePicker;
 public class CreateListLeftPanelStartWindowClass {
 
 	
+	static List<String> listAllProtokolFile = new ArrayList<>();
+	
+	
 	private static String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Въздух", "Вода" };
 
 	protected CreateListLeftPanelStartWindowClass(JProgressBar progressBarView, int startCheckYear) {
@@ -45,17 +49,13 @@ public class CreateListLeftPanelStartWindowClass {
 			JProgressBar progressBarView, int startCheckYear) {
 		List<List<LeftPanelStartWindowClass>> groupList = Lists.newArrayList();
 
-		
-		
-
 		String monitGroup = "";
 
 		int ProgressBarSize = 0;
 		progressBarView.setValue(ProgressBarSize);
 		for (int i = 0; i < listMonitoringGroup.length; i++) {
 			monitGroup = listMonitoringGroup[i];
-			
-		
+
 			List<Request> techniIzh = cerateList(monitGroup);
 
 			double stepForProgressBar = 25;
@@ -100,12 +100,59 @@ public class CreateListLeftPanelStartWindowClass {
 		return groupList;
 	}
 
-	public static String getLabelProtokol(String requestCode){
-		FindFile ff = new FindFile();
-		String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
-	return ff.findFile(requestCode, new File(dir_Protocols));
+	public static String getLabelProtokol(String requestCode) {
+	
+		getListAllProtokolFile(new File(GlobalPathForDocFile.get_destinationDir_Protocols()));
+		String fileName = "...";
+		for (String string : listAllProtokolFile) {
+			if (string.startsWith(requestCode)) {
+				System.out.println(string);
+				return string;	
+			}
+		}
+		return fileName ;
 	}
 	
+	public static String getListAllProtokolFile(File file) {
+		
+		File[] list = file.listFiles();
+		if (list != null) {
+			for (File fil : list) {
+				listAllProtokolFile.add(fil.getName());
+				if (fil.isDirectory()) {
+					getListAllProtokolFile( fil);
+				}
+
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+
+		}
+		return "";
+	}
+
+//	public static String findFile(String name, File file, boolean fl) {
+//	
+//		
+//			File[] list = file.listFiles();
+//			if (list != null) {
+//				for (File fil : list) {
+//					System.out.println(name + " : " + fil.getName() + " -> " + fileName);
+//					listAllProtokolFile.add(fil.getName());
+//					if (fil.isDirectory()) {
+//						findFile(name, fil, fl);
+//					}
+//
+//				}
+//			} else {
+//				JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+//
+//			}
+//
+//		
+//		return fileName;
+//	}
+
 	public static void creadDataForRigthPanel(int startCheckYear) {
 		List<Request> listCeckRequest = createListCheckRequest(startCheckYear);
 
@@ -139,7 +186,7 @@ public class CreateListLeftPanelStartWindowClass {
 	}
 
 	public static List<Integer> createListMissingResults(List<Request> listCeckRequest) {
-	
+
 		List<Integer> listMissingResults = new ArrayList<Integer>();
 		List<Sample> listSampleResults = new ArrayList<Sample>();
 		int sampleCount = 0;
@@ -147,7 +194,7 @@ public class CreateListLeftPanelStartWindowClass {
 
 			sampleCount = request.getCounts_samples();
 			List<Results> listResultsByRequest = ResultsDAO.getListResultsFromColumnByVolume("request", request);
-			
+
 			System.out.println("listResultsByRequest.size " + listResultsByRequest.size());
 			for (Results results : listResultsByRequest) {
 				listSampleResults.add(results.getSample());
@@ -169,25 +216,25 @@ public class CreateListLeftPanelStartWindowClass {
 	}
 
 	public static List<Integer> createListMissingProtokols(List<Request> listCeckRequest) {
-		
-		String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
 
+		List<String> listAllProtokols =  VariableFromStartWindowPanel.getListAllProtokols();
+		
 		List<Integer> listMissingProtokol = new ArrayList<Integer>();
-		List<File> listFile = getListFile(dir_Protocols);
+		
 		Boolean fl = false;
 		String requestCode = "";
 		for (Request request : listCeckRequest) {
-			Iterator<File> itr = listFile.iterator();
-			System.out.println("Recuest_code " + request.getRecuest_code() + "  " + listFile.size());
+			Iterator<String> itr = listAllProtokols.iterator();
+			System.out.println("Recuest_code " + request.getRecuest_code() + "  " + listAllProtokols.size());
 			requestCode = request.getRecuest_code();
 			while (itr.hasNext()) {
-				File file = (File) itr.next();
-				if (file.getName().contains(requestCode)) {
-			
+				String file = (String) itr.next();
+				if (file.contains(requestCode)) {
+
 					fl = true;
 					itr.remove();
 				}
-			
+
 			}
 
 			if (!fl) {
@@ -204,22 +251,6 @@ public class CreateListLeftPanelStartWindowClass {
 		return listMissingProtokol;
 	}
 
-	private static List<File> getListFile(String fileDir) {
-		File dir = new File(fileDir);
-		
-		List<File> listFile = new ArrayList<File>();
-		File[] matches = dir.listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".doc")||name.endsWith(".docx");
-			}
-		});
-		
-		for (File file : matches) {
-			listFile.add(file);
-		}
-		return listFile;
-	}
-
 	private static List<Request> createListCheckRequest(int startCheckYear) {
 		List<Request> listCeckRequest = new ArrayList<Request>();
 		for (Request request : RequestDAO.getInListAllValueRequest()) {
@@ -232,13 +263,13 @@ public class CreateListLeftPanelStartWindowClass {
 		return listCeckRequest;
 	}
 
-	private static List<Request> cerateList( String monitGroup) {
+	private static List<Request> cerateList(String monitGroup) {
 		int curentYear = getYar();
-		
+
 		String month = getPreviousMesec(1);
 		if (monitGroup.equals("Вода")) {
 			month = getPreviousMesec(2);
-//			curentYear++;
+			// curentYear++;
 		}
 		List<Request> list = new ArrayList<Request>();
 		List<Request> listRequest = RequestDAO.getListRequestFromMonitoringProgramm(monitGroup);
@@ -298,7 +329,7 @@ public class CreateListLeftPanelStartWindowClass {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		int month = DatePicker.getActualyMonth() + 1;
 		if (month == 1) {
-			year --;
+			year--;
 		}
 		return year;
 	}

@@ -161,6 +161,8 @@ public class MainWindow extends JFrame {
 						
 						
 						btnProgressBar.setEnabled(false);
+						setStartYear();
+						
 						new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
 								under_panel_Right, btnProgressBar).execute();
 						
@@ -177,15 +179,13 @@ public class MainWindow extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				GenerateRequestWordDoc.deleteTempDataDir();
 				setVisible(false);
-				if(CreatRightPanel.getKorektYearInTxtField()){
-				List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table("MainWindow_text");
-				list_TableColumn.get(0).setName_Column(CreatRightPanel.getYearInTxtField());
-				TableColumnDAO.updateObjectTableColumn(list_TableColumn.get(0));
-				}
+				setStartYear();
 				 
 				dispose();
 				System.exit(0);
 			}
+
+			
 		});
 
 		round.StopWindow();
@@ -208,6 +208,14 @@ public class MainWindow extends JFrame {
 		}
 	}
 
+	private void setStartYear() {
+		if(CreatRightPanel.getKorektYearInTxtField()){
+		List<TableColumn> list_TableColumn = TableColumnDAO.getListTableColumnByTipe_Table("MainWindow_text");
+		list_TableColumn.get(0).setName_Column(CreatRightPanel.getYearInTxtField());
+		TableColumnDAO.updateObjectTableColumn(list_TableColumn.get(0));
+		}
+	}
+	
 	private JMenuBar createMenu(Frame win) {
 		JMenuBar menu = new JMenuBar();
 		// menu.setLayout(new BorderLayout());

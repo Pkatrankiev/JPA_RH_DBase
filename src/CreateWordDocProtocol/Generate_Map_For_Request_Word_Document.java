@@ -173,7 +173,7 @@ public class Generate_Map_For_Request_Word_Document {
 		String[] count_description_sample_group = new String[2];
 
 		int count = request.getCounts_samples();
-		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ");
+		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ").replaceAll("˲", " ");
 
 		Boolean period_fl = false;
 		for (int k = 0; k < count; k++) {
@@ -211,7 +211,7 @@ public class Generate_Map_For_Request_Word_Document {
 		String[] count_description_sample_group = new String[2];
 
 		int count = request.getCounts_samples();
-		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ");
+		String descrip_sam_gr_str = request.getDescription_sample_group().replaceAll("\n", " ").replaceAll("˲", " ");
 
 		Boolean period_fl = false;
 		for (int k = 0; k < count; k++) {

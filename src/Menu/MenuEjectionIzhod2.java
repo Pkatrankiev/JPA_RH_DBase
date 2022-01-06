@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Test_ReadGmmaReportFile;
 import Reference.MounthlyReferenceForCNRDWater;
 
 public class MenuEjectionIzhod2  extends AbstractMenuAction{

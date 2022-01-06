@@ -93,7 +93,6 @@ Object[][] masive = {{1,"ass",123.23,true},
 
 		
 		try {
-			@SuppressWarnings("resource")
 			Workbook workbook = new HSSFWorkbook();
 			Sheet sheet = workbook.createSheet();
 			
@@ -338,7 +337,6 @@ Object[][] masive = {{1,"ass",123.23,true},
 		try {
 			TableColumnModel tcm = table.getColumnModel();
 			
-			@SuppressWarnings("resource")
 			Workbook workbook = new HSSFWorkbook();
 			Sheet sheet = workbook.createSheet(sheetName);
 			

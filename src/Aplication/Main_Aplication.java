@@ -1,28 +1,8 @@
 package Aplication;
 
-import java.io.IOException;
-import java.util.Map;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.ws.rs.QueryParam;
 
-import DBase_Class.Results;
-import DBase_Class.Sample;
-import DBase_Class.Users;
-import ExcelFilesFunction.CreateExcelFile;
-import ExcelFilesFunction.ReadExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
-import OldClases.DBAutoBackupController;
-import OldClases.MainWindow_Old;
-import OldClases.TestClases;
-import OldClases.extractDBAse;
-import Reference.SampleMonthlyReference;
-import Table.Table_Results_List;
-import WindowView.AddDobivView;
-import WindowView.Login;
 import WindowView.MainWindow;
-import WindowView.MesejePanelInAddResultsView;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {

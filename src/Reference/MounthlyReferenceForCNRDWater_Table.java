@@ -1,11 +1,9 @@
 package Reference;
 
 import java.awt.BorderLayout;
-import java.awt.Choice;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -17,19 +15,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.print.attribute.standard.Finishings;
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -39,25 +31,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import Aplication.Obekt_na_izpitvane_sampleDAO;
-import Aplication.PeriodDAO;
-import Aplication.RequestDAO;
-import Aplication.ResultsDAO;
-import Aplication.SampleDAO;
-import DBase_Class.Obekt_na_izpitvane_sample;
-import DBase_Class.Period;
-import DBase_Class.Request;
-import DBase_Class.Results;
-import DBase_Class.Sample;
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
-import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
-import net.coderazzi.filters.gui.AutoChoices;
-import net.coderazzi.filters.gui.TableFilterHeader;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 

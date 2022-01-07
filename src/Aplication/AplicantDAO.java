@@ -137,7 +137,6 @@ public class AplicantDAO {
 		return null;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GET
 	public static void exctractDBase() {
 
@@ -150,6 +149,7 @@ public class AplicantDAO {
 		String dbPass = "root";
 		String hql =  "mysqldump -u "+dbUser+" -p "+dbPass+" "+dbName+" -r backup.sql";
 
+		@SuppressWarnings("unused")
 		Query query = entitymanager.createQuery(hql);
 		
 

@@ -8,7 +8,12 @@ import javax.swing.table.*;
 
 public class TableFromDatabase extends JFrame
 {
-    public TableFromDatabase()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public TableFromDatabase()
     {
         Vector<Object> columnNames = new Vector<Object>();
         Vector<Object> data = new Vector<Object>();
@@ -71,7 +76,13 @@ public class TableFromDatabase extends JFrame
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames)
         {
-        	@Override
+        	/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			@Override
             public Class getColumnClass(int column)
             {
                 for (int row = 0; row < getRowCount(); row++)

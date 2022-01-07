@@ -19,12 +19,15 @@ import javax.swing.table.*;
  *  by using the various constructors, or indirectly.
  *
  */
+@SuppressWarnings("serial")
 abstract class RowTableModel<T> extends AbstractTableModel
 {
 	protected List<T> modelData;
 	protected List<String> columnNames;
+	@SuppressWarnings("rawtypes")
 	protected Class[] columnClasses;
 	protected Boolean[] isColumnEditable;
+	@SuppressWarnings("rawtypes")
 	private Class rowClass = Object.class;
 	private boolean isModelEditable = true;
 
@@ -38,7 +41,7 @@ abstract class RowTableModel<T> extends AbstractTableModel
 	 *
 	 * @param rowClass  the class of row data to be added to the model
 	 */
-	protected RowTableModel(Class rowClass)
+	protected RowTableModel(@SuppressWarnings("rawtypes") Class rowClass)
 	{
 		setRowClass( rowClass );
 	}
@@ -99,7 +102,7 @@ abstract class RowTableModel<T> extends AbstractTableModel
 	 *						of the new columns
 	 *  @param rowClass     the class of row data to be added to the model
 	 */
-	protected RowTableModel(List<T> modelData, List<String> columnNames, Class rowClass)
+	protected RowTableModel(List<T> modelData, List<String> columnNames, @SuppressWarnings("rawtypes") Class rowClass)
 	{
 		setDataAndColumnNames(modelData, columnNames);
 		setRowClass( rowClass );
@@ -131,7 +134,7 @@ abstract class RowTableModel<T> extends AbstractTableModel
 	 *
 	 * @param rowClas		 the class of the row
 	 */
-	protected void setRowClass(Class rowClass)
+	protected void setRowClass(@SuppressWarnings("rawtypes") Class rowClass)
 	{
 		this.rowClass = rowClass;
 	}
@@ -148,6 +151,7 @@ abstract class RowTableModel<T> extends AbstractTableModel
 	 *  @param column  the column being queried
 	 *  @return the Class of the column being queried
 	*/
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int column)
 	{
 		Class columnClass = null;
@@ -471,7 +475,7 @@ abstract class RowTableModel<T> extends AbstractTableModel
 	 * @exception  ArrayIndexOutOfBoundsException
 	 *						if an invalid column was given
 	 */
-	public void setColumnClass(int column, Class columnClass)
+	public void setColumnClass(int column, @SuppressWarnings("rawtypes") Class columnClass)
 	{
 		columnClasses[column] = columnClass;
 		fireTableRowsUpdated(0, getRowCount() - 1);

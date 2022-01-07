@@ -17,7 +17,6 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
-import Aplication.TableColumnDAO;
 import Aplication.UsersDAO;
 import Aplication.ZabelejkiDAO;
 import DBase_Class.IzpitvanPokazatel;

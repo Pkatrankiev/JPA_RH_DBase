@@ -2,30 +2,9 @@ package OldClases;
 
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.font.TextAttribute;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.math.RoundingMode;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.CodeSource;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.AttributedString;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -35,32 +14,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.sql.DataSource;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
-import com.mysql.jdbc.CallableStatement;
 
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
@@ -73,25 +40,19 @@ import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.RequestDAO;
 import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
-import Aplication.SampleDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
 import DBase_Class.Dobiv;
-import DBase_Class.DopalnIziskv;
 import DBase_Class.Emition;
 import DBase_Class.IzpitvanPokazatel;
 import DBase_Class.Metody;
-import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TSI;
 import DBase_Class.Users;
-import DefaultTableList.TableList_OverallVariables;
-import DefaultTableList.TableObject_Class;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalFormatDate;
-import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.MounthlyReferenceForCNRDWater;
 import Reference.PeriodicReference;
@@ -540,7 +501,7 @@ public class TestClases {
 				
 
 				
-				
+				dim.getWidth();
 				new ViewTableBeisicClassDBase(f, round, user, titleTable, columnNames, classTypes, data_Table,	columnSize, key, null);
 				
 			}
@@ -745,7 +706,6 @@ public class TestClases {
 
 	public static void TestIterator() {
 
-		@SuppressWarnings("rawtypes")
 		List<Integer> listPeriod = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6));
 		List<Integer> kperiod = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
 
@@ -881,13 +841,17 @@ public class TestClases {
 		}
 	}
 
+	@SuppressWarnings({ "null", "unused" })
+
 	public static boolean tbBackup() {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.forLanguageTag("bg"));
 		java.util.Date currentDate = new java.util.Date();
 		Process p = null;
+		p.getInputStream();
 
 		Runtime runtime = Runtime.getRuntime();
+		
 		String bDump = "C:\\MySQL\\bin\\mysqldump.exe  --default-character-set=utf8 -uroot -p123 -c  -B shch2 -r "
 				+ "D:/" + dateFormat.format(currentDate) + "_backup" + ".sql";
 		// String executeCmd = LOCATION+" -u " + DBUSER + " --add-drop-database
@@ -929,7 +893,8 @@ public class TestClases {
 		}
 		return false;
 	}
-
+	
+	@SuppressWarnings( "unused" )
 	public static void testReferenceSample() {
 		String start_Date = "01.06.2020";
 		String end_Date = "31.08.2020";
@@ -1028,7 +993,7 @@ public class TestClases {
 		// return the list
 		return list;
 	}
-
+	@SuppressWarnings("unused")
 	public static void restoreDB_From_RemoteServer() {
 
 		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
@@ -1068,6 +1033,7 @@ public class TestClases {
 				
 				
 		
+				
 				String executeCmd1 = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
 						+ PASS + " " + database + " -r " + path;
 				String restoreCmd = PathToMySqlDumpFile + "mysql -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"

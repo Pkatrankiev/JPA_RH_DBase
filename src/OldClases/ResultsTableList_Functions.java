@@ -6,22 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import Aplication.DimensionDAO;
-import Aplication.IzpitvanPokazatelDAO;
-import Aplication.MetodyDAO;
-import Aplication.NuclideDAO;
-import Aplication.Obekt_na_izpitvane_requestDAO;
-import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
-import DBase_Class.IzpitvanPokazatel;
-import DBase_Class.List_izpitvan_pokazatel;
-import DBase_Class.Obekt_na_izpitvane_request;
+
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -30,11 +20,7 @@ import DBase_Class.Users;
 import DefaultTableList.TableList_OverallVariables;
 import DefaultTableList.TableObject_Class;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import WindowView.DateChoice_period;
-import WindowView.DatePicker;
-import WindowView.RequestViewAplication;
-import WindowView.RequestViewFunction;
-import WindowView.TranscluentWindow;
+
  
 public class ResultsTableList_Functions {
 

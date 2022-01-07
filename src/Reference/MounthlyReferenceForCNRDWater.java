@@ -20,7 +20,6 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
-import WindowView.AddInChoice;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
@@ -47,6 +46,7 @@ import java.awt.Component;
 
 public class MounthlyReferenceForCNRDWater extends JDialog {
 
+	private static final long serialVersionUID = 7534173139838953837L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtFieldGodina;
 	static String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));

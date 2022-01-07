@@ -67,8 +67,6 @@ import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import com.sun.corba.se.impl.orbutil.RepositoryIdInterface;
-
 import AddResultViewFunction.AddResultViewMetods;
 
 import javax.swing.SwingConstants;

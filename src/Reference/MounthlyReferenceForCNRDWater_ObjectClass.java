@@ -1,9 +1,5 @@
 package Reference;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class MounthlyReferenceForCNRDWater_ObjectClass {
 		
 	private String protokolN;

@@ -10,8 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Ind_num_doc;
-import DBase_Class.Request;
-import DBase_Class.Results;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 

@@ -1,7 +1,6 @@
 package InfoPanelInMainWindow;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -25,7 +24,6 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
-import OldClases.FindFile;
 import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 

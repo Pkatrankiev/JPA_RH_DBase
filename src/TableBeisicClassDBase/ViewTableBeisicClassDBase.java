@@ -23,26 +23,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
-
-import Aplication.DimensionDAO;
 import Aplication.Ind_num_docDAO;
-import Aplication.List_izpitvan_pokazatelDAO;
-import Aplication.MetodyDAO;
-import Aplication.NuclideDAO;
-import Aplication.RazmernostiDAO;
-import Aplication.RequestDAO;
-import Aplication.ResultsDAO;
-import Aplication.UsersDAO;
 import DBase_Class.Ind_num_doc;
-import DBase_Class.Request;
-import DBase_Class.Results;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;

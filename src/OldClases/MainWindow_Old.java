@@ -11,7 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -77,6 +77,7 @@ public class MainWindow_Old extends JFrame {
 	
 	
 	private static final long serialVersionUID = 8880252554988817126L;
+	@SuppressWarnings("unused")
 	private String dir_Protocols = GlobalPathForDocFile.get_destinationDir_Protocols();
 	private JPanel contentPane;
 	private static String loginStr = "logIn";

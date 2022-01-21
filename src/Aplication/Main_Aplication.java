@@ -1,7 +1,9 @@
 package Aplication;
 
 
+import CreateWordDocProtocol.GenerateDocProtokol;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import OldClases.TestClases;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 
@@ -44,7 +46,7 @@ public class Main_Aplication {
 		
 		
 		
-//		TestClases.createProtocolWordDoc("Генериране на Заявка");
+//		TestClases.createProtocolWordDoc("Генериране на Протокол");
 		
 //		Генериране на Заявка
 		
@@ -121,7 +123,7 @@ public class Main_Aplication {
 		
 //		TestClases.Table_BeisicClasses();
 		
-//		TestClases.restoreDB_From_RemoteServer();
+//		TestClases.backupDB_From_RemoteServer();
 		
 		
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");

@@ -267,7 +267,10 @@ public class CreateListLeftPanelStartWindowClass {
 		String month = getPreviousMesec(1);
 		if (monitGroup.equals("Вода")) {
 			month = getPreviousMesec(2);
-			// curentYear++;
+			if (month.equals("януари")) {
+				curentYear++;
+			
+			}
 		}
 		List<Request> list = new ArrayList<Request>();
 		List<Request> listRequest = RequestDAO.getListRequestFromMonitoringProgramm(monitGroup);
@@ -291,6 +294,7 @@ public class CreateListLeftPanelStartWindowClass {
 				}
 			}
 		}
+		System.out.println(monitGroup+ "  curentYear "+ curentYear + " / " + "month "+month);
 		System.out.println(max + " / " + min);
 
 		return list;

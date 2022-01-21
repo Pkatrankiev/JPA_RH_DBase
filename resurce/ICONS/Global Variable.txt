@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.060122
+MainWindow_Ver = Ver.200122
 
 
 $$DBase_SampleTableColumnName
@@ -81,6 +81,9 @@ noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
 clickToChoice = Натисни за избор
 ThereAreDublikataElements = Има повтарящи се елементи
 errorOfExcellFileFormat = Excel файлът трябва да е версия 97/2000/XP/2003
+checkAllResultsDialog = Липсват резултати за пробите:
+attention = Внимание
+attentionTwoProtokols = Изпринтете два оригинала на този протокол
 
 LoginFrame_Title = Логване
 LoginFrame_UserName = потребителско име

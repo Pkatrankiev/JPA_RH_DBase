@@ -20,6 +20,7 @@ import Aplication.IzpitvanPokazatelDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
+import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
@@ -31,9 +32,9 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
-
 
 public class GenerateDocProtokol {
 
@@ -65,8 +66,7 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
-//		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
-
+		checkAllResults( smple_list, pokazatel_list) ;
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
 		try {
@@ -160,8 +160,7 @@ public class GenerateDocProtokol {
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
 		System.out.println(lastSampleIndex);
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
-		
-		
+
 		int idexSample = 0;
 
 		for (Sample sample : smple_list) {
@@ -246,7 +245,9 @@ public class GenerateDocProtokol {
 			round.StopWindow();
 
 			if (recuest.getInd_num_doc() == null || recuest.getInd_num_doc().getId_ind_num_doc() == 1) {
-				JOptionPane.showMessageDialog(null, "Изпринтете два оригинала на този протокол", "Внимание",
+				JOptionPane.showMessageDialog(null,
+						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("attentionTwoProtokols"),
+						ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("attention"),
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
@@ -274,8 +275,8 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
-//		int countMetody = FunctionForGenerateWordDocFile.createCleanFromDuplicateListMetody(recuest).size();
-
+		
+		
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
 		try {
@@ -369,7 +370,7 @@ public class GenerateDocProtokol {
 		int lastSampleIndex = CreateListForMultiTable.lastIndexSampleForFirstTab(smple_list);
 
 		int[] masiveMergeRow = new int[lastSampleIndex + 2];
-			int idexSample = 0;
+		int idexSample = 0;
 
 		for (Sample sample : smple_list) {
 
@@ -468,35 +469,35 @@ public class GenerateDocProtokol {
 
 	}
 
-	
 	private static List<Results> arrangementListResultsByMetody(List<Results> result_list) {
-		String[] alphaNuclide = { "Am", "Cm", "Pu", "U","Sr" };
-		
+		String[] alphaNuclide = { "Am", "Cm", "Pu", "U", "Sr" };
+
 		List<Results> newResultList = new ArrayList<>();
 		List<Metody> AllListMetody = MetodyDAO.getList_MetodyByActingAndArrangement(true);
-	
 
 		for (Metody list_Metody : AllListMetody) {
 
-			if(list_Metody.getCode_metody().contains("-01")){
-				
+			if (list_Metody.getCode_metody().contains("-01")) {
+
 				for (String nucklideAlpha : alphaNuclide) {
-					System.out.println("****   "+nucklideAlpha);
+					System.out.println("****   " + nucklideAlpha);
+					for (Results rtesult : result_list) {
+						System.out
+								.println("nuclide " + rtesult.getNuclide().getSymbol_nuclide() + "  " + nucklideAlpha);
+						System.out.println("****>>>>>> ");
+						if (list_Metody.getId_metody() == (rtesult.getMetody().getId_metody())
+								&& rtesult.getNuclide().getSymbol_nuclide().contains(nucklideAlpha)) {
+							newResultList.add(rtesult);
+						}
+					}
+				}
+			} else
+
 				for (Results rtesult : result_list) {
-					System.out.println("nuclide " + rtesult.getNuclide().getSymbol_nuclide()+"  "+nucklideAlpha);
-					System.out.println("****>>>>>> ");
-					if (list_Metody.getId_metody() == (rtesult.getMetody().getId_metody()) && rtesult.getNuclide().getSymbol_nuclide().contains(nucklideAlpha)) {
+					if (list_Metody.getId_metody() == (rtesult.getMetody().getId_metody())) {
 						newResultList.add(rtesult);
 					}
 				}
-			}
-			}else
-			
-			for (Results rtesult : result_list) {
-				if (list_Metody.getId_metody() == (rtesult.getMetody().getId_metody())) {
-					newResultList.add(rtesult);
-				}
-			}
 
 		}
 
@@ -631,6 +632,40 @@ public class GenerateDocProtokol {
 		// AplicationDocTemplate.addRowToTable(new_table, headerRow_2,
 		// repl_results);
 		return new_table;
+	}
+
+	public static void checkAllResults(List<Sample> smple_list, List<IzpitvanPokazatel> pokazatel_list) {
+
+		boolean fl = true;
+		String textCheck = "";
+		for (Sample sample : smple_list) {
+			List<Results> result_list = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
+
+			for (IzpitvanPokazatel izpitvanPokazatel : pokazatel_list) {
+				fl = false;
+				for (Results results : result_list) {
+					if (results.getPokazatel().getId_pokazatel() == izpitvanPokazatel.getPokazatel()
+							.getId_pokazatel()) {
+						fl = true;
+					}
+				}
+				if (!fl) {
+					textCheck += sample.getRequest().getRecuest_code() + "-" + sample.getSample_code() + " - "
+							+ izpitvanPokazatel.getPokazatel().getName_pokazatel() + "\n";
+	}
+			}
+
+		}
+		if(!textCheck.isEmpty()){
+			textCheck = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+					.get("checkAllResultsDialog") 
+					+ "\n"
+					+textCheck;
+			JOptionPane.showMessageDialog(null, textCheck, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+					.get("attention"), JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+
 	}
 
 }

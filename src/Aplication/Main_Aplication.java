@@ -3,6 +3,7 @@ package Aplication;
 
 import CreateWordDocProtocol.GenerateDocProtokol;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import OldClases.ReadTextFile;
 import OldClases.TestClases;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
@@ -125,10 +126,11 @@ public class Main_Aplication {
 		
 //		TestClases.backupDB_From_RemoteServer();
 		
-		
+//		ReadTextFile.CreadMasiveFromReadFile("d:\\Q056001N.003");
+		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

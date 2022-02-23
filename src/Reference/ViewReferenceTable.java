@@ -55,7 +55,7 @@ public class ViewReferenceTable extends JDialog {
 
 	public ViewReferenceTable(JFrame parent, TranscluentWindow round, String frame_name, Choice choicePokazatel,
 			Choice choiceObectNaIzpit, Choice choiceObectNaProbata, Choice choiceGodina, Choice choiceIzpitProd,
-			JRadioButton rdbtnMDA, JRadioButton rdbtnMesechni, JRadioButton rdbtnAbsNeopred) {
+			JRadioButton rdbtnMDA, JRadioButton rdbtnMesechni, JRadioButton rdbtnAbsNeopred,  JRadioButton rdbtnBezNeopred) {
 		super(parent, frame_name, true);
 
 		JTable table = null;
@@ -104,7 +104,7 @@ public class ViewReferenceTable extends JDialog {
 			NoReport = true;
 		} else {
 			String[][] masiveDataTable = createMasiveStringDataTable(masiveValueDataTable, rdbtnMDA.isSelected(),
-					rdbtnAbsNeopred.isSelected());
+					rdbtnAbsNeopred.isSelected(), rdbtnBezNeopred);
 			String[] masivecolumnNames = createMasiveStringcolumnNames(masiveValueDataTable, separatorInColumnName);
 			table = CreateDefaultTable(masiveDataTable, masivecolumnNames, masiveValueDataTable, separatorInColumnName);
 
@@ -561,7 +561,7 @@ public class ViewReferenceTable extends JDialog {
 	}
 
 	private String[][] createMasiveStringDataTable(Object[][] masiveValueDataTable, boolean selectMDA,
-			boolean selectAbsNeopred) {
+			boolean selectAbsNeopred, JRadioButton rdbtnBezNeopred) {
 
 		String[][] listMasiveStringReferens = new String[masiveValueDataTable.length
 				- 1][masiveValueDataTable[0].length];
@@ -575,6 +575,7 @@ public class ViewReferenceTable extends JDialog {
 						if(((Results) masiveValueDataTable[i][j]).getValue_result()!=0){
 						listMasiveStringReferens[i - 1][j] = FunctionForGenerateWordDocFile
 								.formatter(((Results) masiveValueDataTable[i][j]).getValue_result());
+						if(!rdbtnBezNeopred.isSelected()){
 						if (selectAbsNeopred) {
 							listMasiveStringReferens[i - 1][j] = listMasiveStringReferens[i - 1][j] + " ± "
 									+ FunctionForGenerateWordDocFile.alignExpon(
@@ -586,6 +587,8 @@ public class ViewReferenceTable extends JDialog {
 											((Results) masiveValueDataTable[i][j]).getUncertainty()).toString();
 
 						}
+						}
+							
 					}else{
 						listMasiveStringReferens[i - 1][j] = "-";
 					}

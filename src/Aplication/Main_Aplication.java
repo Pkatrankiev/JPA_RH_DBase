@@ -1,6 +1,7 @@
 package Aplication;
 
 
+import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
 import CreateWordDocProtocol.GenerateDocProtokol;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.ReadTextFile;
@@ -111,6 +112,15 @@ public class Main_Aplication {
 		
 //		TestClases.testReferenceView();
 		
+		
+		
+//		TestClases.testNewResultFormat(4600,40);
+		
+//		FunctionForGenerateWordDocFile.StoinostAndNeopredelenost(19.0464	,3.94921);
+		
+		
+		
+		
 //		TestClases.testReferenceSample();
 //		
 //		TestClases.changeStringDateMeasurInResults("8.4.2019", "08.04.2019");
@@ -127,10 +137,10 @@ public class Main_Aplication {
 //		TestClases.backupDB_From_RemoteServer();
 		
 //		ReadTextFile.CreadMasiveFromReadFile("d:\\Q056001N.003");
-		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
+//		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

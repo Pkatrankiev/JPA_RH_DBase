@@ -61,12 +61,12 @@ public class FunctionForGenerateWordDocFile {
 
 		// "$$sample_metod$$"
 		String code_samp_metody = result.getMetody().getCode_metody();
-		if(code_samp_metody.indexOf("/")>0){
-		code_samp_metody.substring(0, code_samp_metody.indexOf("/"));
+		if (code_samp_metody.indexOf("/") > 0) {
+			code_samp_metody.substring(0, code_samp_metody.indexOf("/"));
 		}
 		substitutionData.put(masive_column_table_result[1], code_samp_metody);
 		// substitutionData.put(masive_column_table_result[1],
-//		 code_samp_metody.substring(0, code_samp_metody.indexOf("/"));
+		// code_samp_metody.substring(0, code_samp_metody.indexOf("/"));
 
 		// "$$nuclide$$"
 		String pokaz = result.getPokazatel().getName_pokazatel();
@@ -103,7 +103,7 @@ public class FunctionForGenerateWordDocFile {
 
 		// "$$norma$$"
 		naredba = getNaredba(list_Naredbi, string_zab, string_doplDogov);
-		
+
 		String norm = createNormaforMap(result, naredba);
 		substitutionData.put(masive_column_table_result[5], norm);
 
@@ -138,8 +138,11 @@ public class FunctionForGenerateWordDocFile {
 		String str_VAlue = "";
 
 		if (result.getValue_result() != 0) {
-			str_VAlue = formatter(result.getValue_result()) + " ± "
-					+ alignExpon(result.getValue_result(), result.getUncertainty());
+			
+			str_VAlue = StoinostAndNeopredelenost(result.getValue_result(), result.getUncertainty());
+			
+//			str_VAlue = formatter(result.getValue_result()) + " ± "
+//					+ alignExpon(result.getValue_result(), result.getUncertainty());
 			if (isZabContain10pecent(string_zab)) {
 				str_VAlue = str_VAlue + "*";
 			}
@@ -249,7 +252,6 @@ public class FunctionForGenerateWordDocFile {
 			}
 		}
 
-		
 		if (!obIzpRequest.equals(obIzpSample)) {
 
 			if (!str_ob_izp_sam.equals("")) {
@@ -257,7 +259,6 @@ public class FunctionForGenerateWordDocFile {
 			}
 			str_ob_izp_sam += obIzpSample;
 		}
-		
 
 		if (str_ob_izp_sam.equals("")) {
 			if (str_ob_izp_req_simpl.equals("")) {
@@ -365,6 +366,108 @@ public class FunctionForGenerateWordDocFile {
 		return str;
 	}
 
+	public static String StoinostAndNeopredelenost(double stoinost, double neopr) {
+
+//		neopr = 0.76699;
+//		stoinost = 6.73841;
+		String stoinostStr = "";
+//		NumberFormat frm = new DecimalFormat("0.00E00");
+		DecimalFormat frm_St1 = new DecimalFormat("0.0E00");
+		DecimalFormat frm_St2 = new DecimalFormat("0.00E00");
+		DecimalFormat frm_St3 = new DecimalFormat("0.000E00");
+		DecimalFormat frm_St4 = new DecimalFormat("0.0000E00");
+
+		// namirame expon na neopred
+		
+//		String exponStoinostStr = "";
+		int exponNeopr = getExpon(neopr);
+		// dokarvame neopred do wida 00.0
+		int IntValue = calculationValueInX_XXFormat(neopr, exponNeopr);
+		// otnovo namirame expon na neopred
+		int exponNeoprA = getExpon(IntValue);
+		// preizchislqvame nanovo expon za da poluchim neopred vuv vida 00
+		int newEsponNeop = exponNeopr + (exponNeoprA - 1);
+		int newNeopr = calculationValueInX_XXFormat(neopr, newEsponNeop);
+		
+//	System.out.println(exponNeopr + "  " + IntValue + "  " + exponNeoprA + "  " + newEsponNeop+" "+newNeopr);
+
+		//**********************************************************************
+		// namirame expon na stoinost
+		int exponStoinost = getExpon(stoinost);
+		stoinostStr = formatter(stoinost);
+//		String exponStoinostStr1 = stoinostStr.substring(stoinostStr.indexOf("E"));
+		
+		
+		int sub = exponStoinost - newEsponNeop;
+//		int k = (int) Math.pow(10, sub+1);
+//		String stoinostStr1 = formatter(Math.round(stoinost*k)/k);
+		
+//		double a = stoinost/( Math.pow(10, exponStoinost));
+//		System.out.println(stoinost+"  "+exponStoinost + "  " + sub + "  " +k+"  "+ a +"  "+stoinostStr1);
+		switch (sub) {
+		case 0:
+			stoinostStr = generateStringStoinostAndNeopred(frm_St1, newNeopr,stoinost);
+			break;
+		case 1:
+			stoinostStr = generateStringStoinostAndNeopred(frm_St2, newNeopr, stoinost);
+			break;
+		case 2:
+			stoinostStr = generateStringStoinostAndNeopred(frm_St3, newNeopr, stoinost);
+			break;
+			
+		case 3:
+			stoinostStr = generateStringStoinostAndNeopred(frm_St4, newNeopr, stoinost);
+			break;
+
+		default:
+			stoinostStr = formatter(stoinost) + " ± "
+					+ alignExpon(stoinost, neopr);	
+			
+			break;
+		}
+	
+
+		
+//		System.out.println(stoinostStr+" "+sub);
+		
+		return stoinostStr;
+
+	}
+	
+	public static String transformEXPto10(String val){
+		String exponStoinostStr = val.substring(val.indexOf("E")+1);
+		int exp = Integer.valueOf(exponStoinostStr);
+		String stoinostStr = val.substring(0,val.indexOf("E"));
+		
+		return exp==0?stoinostStr:stoinostStr+"10 "+exp;
+		
+	}
+
+	private static String generateStringStoinostAndNeopred(DecimalFormat frm_St, int newNeopr, double a) {
+		String stoinostStr;
+		String exponStoinostStr;
+		stoinostStr = formatter(a, frm_St);
+//		System.out.println("*************"+stoinostStr);
+		exponStoinostStr = stoinostStr.substring(stoinostStr.indexOf("E"));
+		stoinostStr = stoinostStr.substring(0,stoinostStr.indexOf("E"));
+		stoinostStr = stoinostStr+" ("+newNeopr+") "+exponStoinostStr;
+		return stoinostStr;
+	}
+
+	private static int calculationValueInX_XXFormat(double value, int exponNeopr) {
+		double a = (value * Math.pow(10, exponNeopr * (-1)));
+		// zakruglqvame nagore neopred za sluchai da ne stane 000.0
+		int IntValue = (int) Math.round(a * 10);
+	return IntValue;
+	}
+
+	private static int getExpon(double neopr) {
+		NumberFormat frm = new DecimalFormat("0.00E00");
+		String str = frm.format(neopr);
+		int exponNeopr = Integer.valueOf(str.substring(str.indexOf("E") + 1));
+		return exponNeopr;
+	}
+
 	public static String alignExpon(double basic, double foll) {
 		NumberFormat frm = new DecimalFormat("0.00E00");
 		NumberFormat frm_foll = new DecimalFormat("0.00");
@@ -390,6 +493,17 @@ public class FunctionForGenerateWordDocFile {
 		}
 		str_foll = str_foll.replace(",", ".");
 		return str_foll;
+	}
+	
+	
+	public static String formatter(double number, DecimalFormat formatter) {
+		
+		String fnumber = formatter.format(number);
+		if (!fnumber.contains("E-")) { // don't blast a negative sign
+			fnumber = fnumber.replace("E", "E+");
+		}
+		fnumber = fnumber.replace(",", ".").replace("E", "E");
+		return fnumber;
 	}
 
 	public static String formatter(double number) {

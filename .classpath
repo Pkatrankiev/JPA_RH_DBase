@@ -2,15 +2,19 @@
 <classpath>
 	<classpathentry excluding="myPackage/" kind="src" path="src"/>
 	<classpathentry kind="src" path="resurce"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="Lib/lib/commons-io-2.6-javadoc.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/commons-io-2.6.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/commons-lang3-3.7.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/docx-stamper-1.2.2.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/docx4j-2.8.1.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/eclipselink.jar" sourcepath="C:/Users/Mirsi/.m2/repository/org/eclipse/persistence/eclipselink/2.7.0-RC3/eclipselink-2.7.0-RC3-sources.jar"/>
-	<classpathentry kind="lib" path="Lib/lib/javax.persistence-2.1.0.jar"/>
-	<classpathentry kind="lib" path="Lib/lib/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="Lib/lib/javax.persistence-2.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="Lib/lib/javax.ws.rs-api-2.0.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/jdatepicker-1.3.4.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/mysql-connector-java-5.1.44-bin.jar"/>

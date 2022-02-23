@@ -56,6 +56,7 @@ public class PeriodicReference extends JDialog {
 	static Choice choiceGodina;
 	static JRadioButton rdbtnMDA;
 	static JRadioButton rdbtnAbsNeopred;
+	static JRadioButton rdbtnBezNeopred;
 	static String lbl_Text_MDA_Actyvnost = "";
 	
 
@@ -189,6 +190,16 @@ public class PeriodicReference extends JDialog {
 		gbc_rdbtnOtnNeopred.gridy = 4;
 		basic_panel_1.add(rdbtnOtnNeopred, gbc_rdbtnOtnNeopred);
 		rdbtnOtnNeopred.setSelected(false);
+		
+		rdbtnBezNeopred  = new JRadioButton(
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelRadioButton_BezNeopred"));
+		GridBagConstraints gbc_rdbtnBezNeopred = new GridBagConstraints();
+		gbc_rdbtnBezNeopred.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnBezNeopred.insets = new Insets(0, 0, 5, 0);
+		gbc_rdbtnBezNeopred.gridx = 4;
+		gbc_rdbtnBezNeopred.gridy = 5;
+		basic_panel_1.add(rdbtnBezNeopred, gbc_rdbtnBezNeopred);
+		rdbtnBezNeopred.setSelected(false);
 
 		JLabel lblObectNaProbata = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata"));
@@ -250,7 +261,8 @@ public class PeriodicReference extends JDialog {
 		gbc_rdbtnTrimesechni.gridy = 1;
 		basic_panel_1.add(rdbtnTrimesechni, gbc_rdbtnTrimesechni);
 		rdbtnTrimesechni.setSelected(false);
-
+		
+		
 		JButton btnStart = new JButton(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelButton_Start"));
 		GridBagConstraints gbc_btnStart = new GridBagConstraints();
@@ -264,10 +276,10 @@ public class PeriodicReference extends JDialog {
 		listener_btnStart(choicePokazatel, choiceObectNaIzpit, choiceObectNaProbata, choiceIzpitProd, choiceGodina, btnStart, rdbtnMDA,
 				rdbtnMesechni, rdbtnAbsNeopred);
 
-		llistener_rdbtnActivnost(rdbtnMDA, rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost);
+		llistener_rdbtnActivnost(rdbtnMDA, rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost, rdbtnBezNeopred);
 
-		llistener_rbtn1_VS_rdbtn2(rdbtnAbsNeopred, rdbtnOtnNeopred);
-
+		llistener_rbtn1_VS_rdbtn2_VS_rdbtn3(rdbtnAbsNeopred, rdbtnOtnNeopred, rdbtnBezNeopred);
+		
 		listener_ChoiceIzpitProd(choiceIzpitProd, choicePokazatel, choiceObectNaIzpit, choiceObectNaProbata);
 		listener_Pokazatel(choiceIzpitProd, choicePokazatel, choiceObectNaIzpit, choiceObectNaProbata);
 
@@ -301,12 +313,12 @@ public class PeriodicReference extends JDialog {
 	}
 	
 	private void llistener_rdbtnActivnost(JRadioButton rdbtnMDA, JRadioButton rdbtnActivnost,
-			JRadioButton rdbtnOtnNeopred, JRadioButton rdbtnAbsNeopred, JLabel lblNeopredelenost) {
-		VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost);
+			JRadioButton rdbtnOtnNeopred, JRadioButton rdbtnAbsNeopred, JLabel lblNeopredelenost, JRadioButton rdbtnBezNeopred) {
+		VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost, rdbtnBezNeopred);
 		rdbtnMDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectReversiveRButtons(rdbtnMDA, rdbtnActivnost);
-				VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost);
+				VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost, rdbtnBezNeopred);
 			}
 
 		});
@@ -314,13 +326,14 @@ public class PeriodicReference extends JDialog {
 		rdbtnActivnost.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectReversiveRButtons(rdbtnActivnost, rdbtnMDA);
-				VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost);
+				VisibleNeopredBlok(rdbtnActivnost, rdbtnOtnNeopred, rdbtnAbsNeopred, lblNeopredelenost, rdbtnBezNeopred);
 			}
 
 		});
 
 	}
 
+	@SuppressWarnings("unused")
 	private void llistener_rbtn1_VS_rdbtn2(JRadioButton rdbtn1, JRadioButton rdbtn2) {
 		rdbtn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -337,16 +350,64 @@ public class PeriodicReference extends JDialog {
 
 	}
 
+	private void llistener_rbtn1_VS_rdbtn2_VS_rdbtn3(JRadioButton rdbtn1, JRadioButton rdbtn2, JRadioButton rdbtn3) {
+		
+		
+		rdbtn2.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtn2.isSelected()){
+				rdbtn2.setSelected(true);
+				rdbtn1.setSelected(false);
+				rdbtn3.setSelected(false);
+				}else{
+					rdbtn2.setSelected(true);	
+				}
+			}
+		});
+		
+		
+		rdbtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtn1.isSelected()){
+				rdbtn2.setSelected(false);
+				rdbtn1.setSelected(true);
+				rdbtn3.setSelected(false);
+				}else{
+					rdbtn1.setSelected(true);	
+				}
+			}
+		});
+		
+	
+			rdbtn3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if(rdbtn3.isSelected()){
+					rdbtn2.setSelected(false);
+					rdbtn1.setSelected(false);
+					rdbtn3.setSelected(true);
+					}else{
+						rdbtn3.setSelected(true);	
+					}
+				}
+			});
+			
+		
+	}
+	
+	
 	private void VisibleNeopredBlok(JRadioButton rdbtnActivnost, JRadioButton rdbtnOtnNeopred,
-			JRadioButton rdbtnAbsNeopred, JLabel lblNeopredelenost) {
+			JRadioButton rdbtnAbsNeopred, JLabel lblNeopredelenost, JRadioButton rdbtnBezNeopred) {
 		if (rdbtnActivnost.isSelected()) {
 			rdbtnOtnNeopred.setVisible(true);
 			rdbtnAbsNeopred.setVisible(true);
+			rdbtnBezNeopred.setVisible(true);
 			lblNeopredelenost.setVisible(true);
 
 		} else {
 			rdbtnOtnNeopred.setVisible(false);
 			rdbtnAbsNeopred.setVisible(false);
+			rdbtnBezNeopred.setVisible(false);
 			lblNeopredelenost.setVisible(false);
 		}
 	}
@@ -367,6 +428,14 @@ public class PeriodicReference extends JDialog {
 
 		});
 	}
+	
+	private void selectReversiveRButtons(JRadioButton rdbtn_1, JRadioButton rdbtn_2) {
+		if (rdbtn_1.isSelected()) {
+			rdbtn_2.setSelected(false);
+		} else {
+			rdbtn_2.setSelected(true);
+		}
+	}
 
 	private void listener_btnStart(Choice choicePokazatel, Choice choiceObectNaIzpit, Choice choiceObectNaProbata, Choice choiceIzpitProd,
 			Choice choiceGodina, JButton btnStart, JRadioButton rdbtnMDA, JRadioButton rdbtnMesechni,
@@ -378,13 +447,15 @@ public class PeriodicReference extends JDialog {
 				TranscluentWindow round = new TranscluentWindow();
 
 				final Thread thread = new Thread(new Runnable() {
+				
+
 					@Override
 					public void run() {
 
 						JFrame f = new JFrame();
 						String titleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("PeriodicReference_TitleName");
 						new ViewReferenceTable(f, round,titleName, choicePokazatel, choiceObectNaIzpit, choiceObectNaProbata,
-								choiceGodina, choiceIzpitProd,   rdbtnMDA,  rdbtnMesechni,  rdbtnAbsNeopred);
+								choiceGodina, choiceIzpitProd,   rdbtnMDA,  rdbtnMesechni,  rdbtnAbsNeopred, rdbtnBezNeopred);
 						
 					}
 				});
@@ -467,13 +538,7 @@ public class PeriodicReference extends JDialog {
 		return globalListObektNaIzpitvane;
 	}
 
-	private void selectReversiveRButtons(JRadioButton rdbtn_1, JRadioButton rdbtn_2) {
-		if (rdbtn_1.isSelected()) {
-			rdbtn_2.setSelected(false);
-		} else {
-			rdbtn_2.setSelected(true);
-		}
-	}
+	
 
 	
 

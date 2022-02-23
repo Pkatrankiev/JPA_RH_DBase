@@ -250,6 +250,7 @@ Reference_LabelRadioButton_TriMesechni = тримесечни
 Reference_LabelRadioButton_MDA = МДА
 Reference_LabelRadioButton_OtnNeopred = Относителна
 Reference_LabelRadioButton_AbsNeopred = Абсолютна
+Reference_LabelRadioButton_BezNeopred = Без
 Reference_LabelRadioButton_Activnost = Активност
 Reference_LabelTextRazmernost = Размерност
 Reference_Table_Column_Nuclide = Нуклид

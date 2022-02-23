@@ -83,8 +83,7 @@ public class CreateWordprocessingMLDocument extends AbstractSample {
 	    // Example 4: Here is an easier way:
 	    String str = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:b /></w:rPr><w:t>Example 4</w:t></w:r></w:p>";
 	    
-	    mdp.addObject(
-	    			org.docx4j.XmlUtils.unmarshalString(str) );
+//	    mdp.addObject(org.docx4j.XmlUtils.unmarshalString(str) );
 
 	    
 	    // Example 5: Let's add a table
@@ -99,8 +98,7 @@ public class CreateWordprocessingMLDocument extends AbstractSample {
 	    
 		
 	   	// Pretty print the main document part
-		System.out.println(
-				XmlUtils.marshaltoString(mdp.getJaxbElement(), true, true) );
+//		System.out.println(	XmlUtils.marshaltoString(mdp.getJaxbElement(), true, true) );
 		
 		// Optionally save it
 		if (save) {

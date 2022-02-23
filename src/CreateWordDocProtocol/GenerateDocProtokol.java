@@ -2,7 +2,6 @@ package CreateWordDocProtocol;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,17 +9,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.xml.bind.JAXBException;
-import org.apache.log4j.*;
+
+import org.apache.log4j.BasicConfigurator;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.wml.*;
+import org.docx4j.wml.P;
+import org.docx4j.wml.Tbl;
+import org.docx4j.wml.Tr;
+import org.eclipse.persistence.exceptions.JAXBException;
 
 import Aplication.IzpitvanPokazatelDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
 import Aplication.Nuclide_to_PokazatelDAO;
-import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.IzpitvanPokazatel;
@@ -111,7 +112,7 @@ public class GenerateDocProtokol {
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, strKeyPodpisiTable);
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
-		} catch (Docx4JException | JAXBException e3) {
+		} catch (Docx4JException | javax.xml.bind.JAXBException e3) {
 			e3.printStackTrace();
 		}
 
@@ -321,7 +322,7 @@ public class GenerateDocProtokol {
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, strKeyPodpisiTable);
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
-		} catch (Docx4JException | JAXBException e3) {
+		} catch (Docx4JException | javax.xml.bind.JAXBException e3) {
 			e3.printStackTrace();
 		}
 

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBException;
 import org.apache.log4j.*;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -79,7 +78,7 @@ public class GenerateDocRazpredFormul {
 			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_key_table_row[0]);
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Прегледали:");
 
-		} catch (Docx4JException | JAXBException e3) {
+		} catch (Docx4JException | javax.xml.bind.JAXBException e3) {
 			e3.printStackTrace();
 		}
 

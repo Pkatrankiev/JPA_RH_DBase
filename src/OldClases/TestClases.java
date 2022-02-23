@@ -42,6 +42,7 @@ import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.TSI_DAO;
 import Aplication.UsersDAO;
+import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
 import DBase_Class.Dobiv;
 import DBase_Class.Emition;
 import DBase_Class.IzpitvanPokazatel;
@@ -240,6 +241,33 @@ public class TestClases {
 		thread.start();
 	}
 
+	
+	public static void testNewResultFormat(int firstRequest, int numberRequest) {
+		List<String> listString = new ArrayList<>();
+		
+		for (int i = firstRequest; i < firstRequest+numberRequest; i++) {
+			Request request = RequestDAO.getListRequestFromColumnByVolume("recuest_code", i+"").get(0);
+			List<Results> listResults = ResultsDAO. getListResultsFromColumnByVolume("request",request);
+			for (Results results : listResults) {
+				double val = results.getValue_result();
+				double uncer =  results.getUncertainty();
+				if(val!=0){
+				String str = FunctionForGenerateWordDocFile.StoinostAndNeopredelenost(val, uncer);
+			
+				
+				listString.add(FunctionForGenerateWordDocFile.formatter(val)+"  "+
+						FunctionForGenerateWordDocFile.formatter(uncer)+"  "+str+"  "+FunctionForGenerateWordDocFile.transformEXPto10(str));
+			}
+			}
+		}
+		
+		for (String string : listString) {
+			System.out.println(string);
+		}
+	}
+	
+	
+	
 	public static void test3() {
 		List<String> list = new ArrayList<String>();
 		String strObektIzpit = "Спецкорпус-1; Бак 4 и 5 (Изход 2)";

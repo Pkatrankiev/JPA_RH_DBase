@@ -842,7 +842,8 @@ public class AddResultViewMetods {
 			return 1;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-16") > 1 || selectedMetod.getCode_metody().indexOf("-15") > 1
-				|| selectedMetod.getCode_metody().indexOf("-07") > 1) {
+				|| selectedMetod.getCode_metody().indexOf("-07") > 1
+				|| selectedMetod.getCode_metody().indexOf("-14") > 1) {
 			return 16;
 		}
 		if (selectedMetod.getCode_metody().indexOf("-03") > 1) {

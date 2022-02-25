@@ -78,7 +78,7 @@ public class GenerateDocRazpredFormul {
 			tempTable = AplicationDocTemplate.getTemplateTable(tables, masive_key_table_row[0]);
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Прегледали:");
 
-		} catch (Docx4JException | javax.xml.bind.JAXBException e3) {
+		} catch (Docx4JException e3) {
 			e3.printStackTrace();
 		}
 

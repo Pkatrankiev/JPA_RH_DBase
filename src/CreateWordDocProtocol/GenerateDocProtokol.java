@@ -112,7 +112,7 @@ public class GenerateDocProtokol {
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, strKeyPodpisiTable);
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
-		} catch (Docx4JException | javax.xml.bind.JAXBException e3) {
+		} catch (Docx4JException | JAXBException e3) {
 			e3.printStackTrace();
 		}
 
@@ -322,7 +322,7 @@ public class GenerateDocProtokol {
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, strKeyPodpisiTable);
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
-		} catch (Docx4JException | javax.xml.bind.JAXBException e3) {
+		} catch (Docx4JException | JAXBException e3) {
 			e3.printStackTrace();
 		}
 

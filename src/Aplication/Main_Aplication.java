@@ -48,7 +48,7 @@ public class Main_Aplication {
 		
 		
 		
-//		TestClases.createProtocolWordDoc("Генериране на Протокол");
+		TestClases.createProtocolWordDoc("Генериране на Протокол");
 		
 //		Генериране на Заявка
 		
@@ -140,7 +140,7 @@ public class Main_Aplication {
 //		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-		StartMainWindow();
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

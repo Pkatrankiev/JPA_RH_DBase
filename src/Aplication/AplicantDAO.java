@@ -2,12 +2,11 @@ package Aplication;
 
 
 import java.util.List;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.ws.rs.GET;
-import javax.ws.rs.QueryParam;
-
 import DBase_Class.Aplicant;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 

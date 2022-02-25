@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,10 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-
 
 import org.docx4j.TextUtils;
 import org.docx4j.XmlUtils;
@@ -34,6 +30,7 @@ import org.docx4j.wml.P;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
+import org.eclipse.persistence.exceptions.JAXBException;
 
 
 public class AplicationDocTemplate {

@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.Test_ReadGmmaReportFile;
+import OldClases.Test_ReadGmmaReportFile_GammaCalExtrakt;
 
 
 public class MenuOder extends AbstractMenuAction{
@@ -23,7 +23,7 @@ public class MenuOder extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new Test_ReadGmmaReportFile(f, MenuOder_TitleName) ;
+			    	 new Test_ReadGmmaReportFile_GammaCalExtrakt(f, MenuOder_TitleName) ;
 			
 	}
 }

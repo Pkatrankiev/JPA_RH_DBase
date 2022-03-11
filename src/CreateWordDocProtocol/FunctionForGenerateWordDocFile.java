@@ -20,6 +20,7 @@ import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import WindowView.RequestViewFunction;
 
 public class FunctionForGenerateWordDocFile {
@@ -136,13 +137,15 @@ public class FunctionForGenerateWordDocFile {
 
 	private static String createValueForMap(Results result, String string_zab, String string_doplIzis) {
 		String str_VAlue = "";
+		String ProtokolResultNeopred = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("ProtokolResultNeopred");
 
 		if (result.getValue_result() != 0) {
-			
+			if(ProtokolResultNeopred.equals("1")) {
 			str_VAlue = StoinostAndNeopredelenost(result.getValue_result(), result.getUncertainty());
-			
-//			str_VAlue = formatter(result.getValue_result()) + " ± "
-//					+ alignExpon(result.getValue_result(), result.getUncertainty());
+			}else {
+			str_VAlue = formatter(result.getValue_result()) + " ± "
+					+ alignExpon(result.getValue_result(), result.getUncertainty());
+			}
 			if (isZabContain10pecent(string_zab)) {
 				str_VAlue = str_VAlue + "*";
 			}

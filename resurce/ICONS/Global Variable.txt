@@ -2,6 +2,9 @@
 
 MainWindow_Ver = Ver.200122
 
+ProtokolResultNeopred = 1
+
+MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = D:/BAK-2022-NEW.xls
 
 $$DBase_SampleTableColumnName
 
@@ -306,7 +309,7 @@ MounthlyReferenceForCNRDWater_excelFileIsOpen = Файлът е отворен
 MounthlyReferenceForCNRDWater_CheckKorektExcelFile  = СВЕДЕНИЕ
 MounthlyReferenceForCNRDWater_NotSelectCorectExcelFile = Не е избран коректен excel файл  
 
-MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = D:/BAK-2021-NEW.xls
+
 
 
 MenuSampleMonthlyReference_TitleName = Месечна справка

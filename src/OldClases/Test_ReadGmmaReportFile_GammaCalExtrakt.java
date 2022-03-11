@@ -32,13 +32,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 
-public class Test_ReadGmmaReportFile extends JDialog {
+public class Test_ReadGmmaReportFile_GammaCalExtrakt extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	
 
-	public Test_ReadGmmaReportFile(JFrame parent, String nameFrame) {
+	public Test_ReadGmmaReportFile_GammaCalExtrakt(JFrame parent, String nameFrame) {
 		super(parent, nameFrame, true);
 		GetVisibleLAF(this);
 
@@ -93,7 +93,7 @@ public class Test_ReadGmmaReportFile extends JDialog {
 		ReadGamaFile.getReadGamaFile(pathfileName);
 	}
 
-	private void GetVisibleLAF(Test_ReadGmmaReportFile win) {
+	private void GetVisibleLAF(Test_ReadGmmaReportFile_GammaCalExtrakt win) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			SwingUtilities.updateComponentTreeUI(win);
@@ -114,7 +114,7 @@ public class Test_ReadGmmaReportFile extends JDialog {
 		try {
 			Desktop.getDesktop().open(new File(path));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

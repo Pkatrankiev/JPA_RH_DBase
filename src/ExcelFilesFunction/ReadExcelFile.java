@@ -95,9 +95,7 @@ public class ReadExcelFile {
 				System.out.println(row);
 				if (sheet.getRow(row) != null){
 				cell = sheet.getRow(row).getCell(0);
-
 				if (CellNOEmpty(cell)) {
-
 					textNulCell = cell.getStringCellValue();
 					System.out.println(row + "  -  " + textNulCell);
 

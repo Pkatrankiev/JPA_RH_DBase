@@ -108,6 +108,8 @@ public class ReadExcelFile {
 							}
 						}
 					}
+					
+					
 					if (!textNulCell.isEmpty() && textNulCell.startsWith("Sample:")) {
 						cod_sample = textNulCell.replaceFirst("Sample:", "");
 						for (int col = 1; col <= 20; col += 1) {

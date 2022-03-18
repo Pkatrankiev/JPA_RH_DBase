@@ -270,6 +270,34 @@ public class AddResultViewMetods {
 
 		return tableResult;
 	}
+	
+	
+	
+	static Object[][] CreateMasiveObjectFromGeanyAlphaFile(Choice choicePokazatel) {
+		List<Nuclide_to_Pokazatel> listNucToPok = AddResultViewMetods.getListNuklideToPokazatel(choicePokazatel);
+		List<String> listSimbolBasicNuclide = AddResultViewMetods
+				.getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
+		OverallVariablesAddResults
+				.setMasuveSimbolNuclide(AddResultViewMetods.getMasiveSimbolNuclideToPokazatel(listNucToPok));
+		Results[] masiveResultsActivFromFile = ReadGamaFile.getMasivResultsWithAktivGenieAlpha();
+		Results[] masiveResultsMDAFromFile = ReadGamaFile.getMasivResultsMDAGenieAlpha(listSimbolBasicNuclide);
+		System.out.print(masiveResultsActivFromFile.length);
+		int countBigMasive = masiveResultsActivFromFile.length + masiveResultsMDAFromFile.length;
+		Object[][] tableResult = new Object[countBigMasive][tbl_Colum];
+
+		int k = 0;
+		for (int i = 0; i < masiveResultsActivFromFile.length; i++) {
+			tableResult[i] = rowWithValueResultsFromFile(masiveResultsActivFromFile[i]);
+			k++;
+		}
+		for (int i = 0; i < masiveResultsMDAFromFile.length; i++) {
+			tableResult[k] = rowWithValueResultsFromFile(masiveResultsMDAFromFile[i]);
+			k++;
+
+		}
+
+		return tableResult;
+	}
 
 	static Object[][] CreateMasiveObjectFromExcelFile(Choice choicePokazatel) {
 		List<Nuclide_to_Pokazatel> listNucToPok = getListNuklideToPokazatel(choicePokazatel);

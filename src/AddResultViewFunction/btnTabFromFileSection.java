@@ -3,6 +3,7 @@ package AddResultViewFunction;
 import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,10 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import AddDobivViewFunction.OverallVariablesAddDobiv;
 import Aplication.MetodyDAO;
-
+import DBase_Class.Dobiv;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
+import ExcelFilesFunction.ReadExcelFile;
 import Table.Add_DefaultTableModel;
 import WindowView.AddResultsView;
 import WindowView.ReadGamaFile;
@@ -22,12 +25,12 @@ import WindowView.ReadGamaFile;
 public class btnTabFromFileSection {
 
 	public static void btnTabFromFileListener(AddResultsView addResultsViewWithTable,JPanel basic_panel, JButton btnTabFromFile, Choice choiceMetody, JTextField txtRqstCode,
-			Choice choiceSmplCode, Choice choiceOIR, Choice choicePokazatel, Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv) {
+			Choice choiceSmplCode, Choice choiceOIR, Choice choicePokazatel, Choice choiceDobiv, JLabel lbl_StoinostiFromDobiv, JTextField txtBasicValueResult) {
 		
 		btnTabFromFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OverallVariablesAddResults.setValueFromDBase(false);
-				
+				String codeSamampleFromGamaFile ="";
 				if (OverallVariablesAddResults.getFlagIncertedFile()) {
 										
 					AddResultViewMetods.setWaitCursor(basic_panel);
@@ -38,7 +41,7 @@ public class btnTabFromFileSection {
 //							System.out.println(switCase+ " switCase------------------------------------------------");
 							switch (switCase) {
 							case 10:
-								String codeSamampleFromGamaFile = ReadGamaFile.getCod_sample();
+								codeSamampleFromGamaFile = ReadGamaFile.getCod_sample();
 								if (AddResultViewMetods.checkKorektFileName(codeSamampleFromGamaFile, codeSamample)) {
 								checkFor10SysError();
 								Users user = ReadGamaFile.getUserFromFile();
@@ -63,18 +66,47 @@ public class btnTabFromFileSection {
 								break;
 								
 							case 1:
-								Object[][] ssExcel_1 = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
-								List<Destruct_Result> destruct_Result_List_1 = OverallVariablesAddResults.getDestruct_Result_List();
 								
-								if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List_1)){
-									System.out.println(" **********************************************");	
+								if(txtBasicValueResult.getText().endsWith(".RPT") || txtBasicValueResult.getText().endsWith(".rpt")){
+								
+									 codeSamampleFromGamaFile = ReadGamaFile.getCod_sample();
+										if (AddResultViewMetods.checkKorektFileName(codeSamampleFromGamaFile, codeSamample)) {
+										checkFor10SysError();
+										Users user = ReadGamaFile.getUserFromFile();
+										String str = user.getName_users() + " " + user.getFamily_users();
+										choiceOIR.select(str);
+										Object[][] ss = AddResultViewMetods.CreateMasiveObjectFromGeanyAlphaFile(choicePokazatel);
+										Add_DefaultTableModel.setFromDBase(false);
+										AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ss);
+										Dobiv dobiv = ReadGamaFile.getDobivFromGenieAlphaFile(choiceSmplCode, choiceMetody);
+										List<Dobiv> listChoisedDobiv = new ArrayList<Dobiv>();
+										listChoisedDobiv.add(dobiv);
+										OverallVariablesAddDobiv.setListChoisedDobiv(listChoisedDobiv);
+										
+										DobivSection.setValueInChoiceDobivFromORTECFile(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv);
+//										
+										}	
+								}else{
 									
-									Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
-									AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel_1);
+									Object[][] ssExcel_1 = AddResultViewMetods.CreateMasiveObjectFromExcelFile( choicePokazatel);
+									List<Destruct_Result> destruct_Result_List_1 = OverallVariablesAddResults.getDestruct_Result_List();
 									
-									DobivSection.setValueInChoiceDobivFromORTECFile(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv);
-//									System.out.println(destruct_Result_List_1.length+"--------------------------------***************");
+									if(Add_DefaultTableModel.checkKorektFileNameAndMetod(choiceMetody,codeSamample, destruct_Result_List_1)){
+										System.out.println(" **********************************************");	
+										
+										Add_DefaultTableModel.setInChoiceOIR(choiceOIR);
+										AddResultViewMetods.createDataTableAndViewTableInPanel( addResultsViewWithTable,basic_panel, ssExcel_1);
+										
+										DobivSection.setValueInChoiceDobivFromORTECFile(OverallVariablesAddResults.getSelectedMetod(), choiceDobiv, lbl_StoinostiFromDobiv);
+//										System.out.println(destruct_Result_List_1.length+"--------------------------------***************");	
+									
+									}
+									
+									
 								}
+								
+								
+								
 								break;
 							}
 						} else {

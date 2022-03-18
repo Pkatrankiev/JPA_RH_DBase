@@ -49,18 +49,17 @@ public class btnOpenFileSection {
 											.getDestruct_Result_ListMDAAlfaExcelFile(pathfileName, forResults);
 									OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
 								}else{
-									List<Destruct_Result> destruct_Result_List = ReadExcelFile
-											.getDestruct_Result_ListFromOrtecExcelFile(pathfileName, forResults);
-									OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
-									Dobiv dobiv = ReadExcelFile.getDobivFromOrtecExcelFile(destruct_Result_List,
-											choiceSmplCode, selectMetodStr);
-									List<Dobiv> listChoisedDobiv = new ArrayList<Dobiv>();
-									listChoisedDobiv.add(dobiv);
-									OverallVariablesAddDobiv.setListChoisedDobiv(listChoisedDobiv);
+									if(pathfileName.endsWith(".RPT") || pathfileName.endsWith(".rpt")){
+										ReadGamaFile.getReadGamaFile(pathfileName);
+										sizeGamaList = ReadGamaFile.getListNuclideMDA();
+									}else{
+									readResultsAndDobivFromOrtecExelFile(choiceSmplCode, pathfileName, selectMetodStr,
+											forResults);
+									sizeExcelList = OverallVariablesAddResults.getDestruct_Result_List().size();
+									}
 									
 								}
-								sizeExcelList = OverallVariablesAddResults.getDestruct_Result_List().size();
-								System.out.println("-----------------------------------" + sizeExcelList);
+								
 							}
 
 							if (switCase == 10) {
@@ -96,7 +95,20 @@ public class btnOpenFileSection {
 
 			}
 
+			
 		});
 	}
-
+	private static void readResultsAndDobivFromOrtecExelFile(Choice choiceSmplCode, String pathfileName,
+			String selectMetodStr, Boolean forResults) {
+		List<Destruct_Result> destruct_Result_List = ReadExcelFile
+				.getDestruct_Result_ListFromOrtecExcelFile(pathfileName, forResults);
+		OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
+		Dobiv dobiv = ReadExcelFile.getDobivFromOrtecExcelFile(destruct_Result_List,
+				choiceSmplCode, selectMetodStr);
+		List<Dobiv> listChoisedDobiv = new ArrayList<Dobiv>();
+		listChoisedDobiv.add(dobiv);
+		OverallVariablesAddDobiv.setListChoisedDobiv(listChoisedDobiv);
+	}
+	
+	
 }

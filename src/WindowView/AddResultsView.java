@@ -558,7 +558,7 @@ public class AddResultsView extends JDialog {
 		btnOpenFileSection.btnOpenFileListener(btnOpenFile,  fileChooser, txtRqstCode,
 				choiceSmplCode, txtBasicValueResult, choiceMetody, choicePokazatel);
 		btnTabFromFileSection.btnTabFromFileListener(addResultsViewWithTable, basic_panel,  btnTabFromFile,  choiceMetody, txtRqstCode,
-				choiceSmplCode,  choiceOIR,  choicePokazatel, choiceDobiv, lbl_StoinostiFromDobiv);
+				choiceSmplCode,  choiceOIR,  choicePokazatel, choiceDobiv, lbl_StoinostiFromDobiv, txtBasicValueResult);
 		btnAddRowSection.btmAddRowListener(addResultsViewWithTable, btnAddRow, choicePokazatel);
 		LabelStoinostiFromDobivSection.LabelStoinFromDobivListener(lbl_StoinostiFromDobiv, choiceDobiv);
 		ButtonPanellListener.saveButtonListener(addResultsViewWithTable,  basic_panel,  saveButton, txtRqstCode,  choicePokazatel,  choiceMetody,

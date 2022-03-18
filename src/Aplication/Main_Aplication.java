@@ -1,10 +1,8 @@
 package Aplication;
 
 
-import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
-import CreateWordDocProtocol.GenerateDocProtokol;
+
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.ReadTextFile;
 import OldClases.TestClases;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
@@ -44,11 +42,11 @@ public class Main_Aplication {
 		
 		
 		
-//		TestClases.Table_Results_List_Test(3) ;
+		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 		
-		TestClases.createProtocolWordDoc("Генериране на Протокол");
+//		TestClases.createProtocolWordDoc("Генериране на Протокол");
 		
 //		Генериране на Заявка
 		

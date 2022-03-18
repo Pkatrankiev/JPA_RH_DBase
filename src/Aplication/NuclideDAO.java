@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 
 import AddResultViewFunction.SortListObjectByField;
 import DBase_Class.Nuclide;
+import DBase_Class.TSI;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class NuclideDAO {
@@ -162,10 +163,12 @@ public class NuclideDAO {
 
 		Query query = entitymanager.createQuery(hql);
 		query.setParameter("text", symbol);
-		if (query.getResultList().isEmpty()){
-			setValueNuclide("-", "-", symbol, 0.0, '-', true);	
-		}
-		Nuclide list = (Nuclide) query.getSingleResult();
+		Nuclide list;
+		if (query.getResultList().isEmpty()) {
+			list = null;
+		} else
+			list = (Nuclide) query.getSingleResult();
+		
 		entitymanager.close();
 		emfactory.close();
 

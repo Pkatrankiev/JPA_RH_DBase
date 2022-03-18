@@ -239,7 +239,7 @@ public class ReadExcelFile {
 		Dobiv dobiv = new Dobiv();
 		Sample sample = SampleCodeSection.getSampleObjectFromChoiceSampleCode(choiceSmplCode);
 		Izpitvan_produkt izpitProd = sample.getRequest().getIzpitvan_produkt();
-		dobiv.setCode_Standart(nuclideSimbol_StandardStr + cod_sample);
+		dobiv.setCode_Standart(nuclideSimbol_StandardStr +" "+ cod_sample);
 		dobiv.setMetody((Metody) MetodyDAO.getValueList_MetodyByCode(selectMetodStr));
 		dobiv.setIzpitvan_produkt(izpitProd);
 		dobiv.setDescription(sample.getRequest_to_obekt_na_izpitvane_request().getObektNaIzp().getSimple_Name() + ", "

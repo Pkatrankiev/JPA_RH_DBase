@@ -1,8 +1,8 @@
 #Sring
 
-MainWindow_Ver = Ver.200122
+MainWindow_Ver = Ver.310322
 
-ProtokolResultNeopred = 1
+ProtokolResultNeopred = 0
 
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = D:/BAK-2022-NEW.xls
 

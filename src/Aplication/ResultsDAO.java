@@ -245,6 +245,22 @@ public class ResultsDAO {
 		return list;
 	}
 	
+	public static List<Results> getListResults_InProtokol() {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		
+		Query query = entitymanager.createQuery("SELECT e FROM Results e WHERE e.inProtokol = 1 ORDER BY e.Id_results ASC");
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Results>  list =  query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+		return list;
+	}
 	
 	public static void updateResults(Results results) {
 

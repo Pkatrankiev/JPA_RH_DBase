@@ -924,8 +924,8 @@ public class TestClases {
 	
 	@SuppressWarnings( "unused" )
 	public static void testReferenceSample() {
-		String start_Date = "01.06.2020";
-		String end_Date = "31.08.2020";
+		String start_Date = "01.03.2022";
+		String end_Date = "31.03.2022";
 		String FORMAT_DATE = GlobalFormatDate.getFORMAT_DATE();
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern(FORMAT_DATE);
 

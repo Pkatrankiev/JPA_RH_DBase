@@ -4,6 +4,7 @@ package Aplication;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.TestClases;
+import Reference.SampleMonthlyReference;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 
@@ -42,7 +43,7 @@ public class Main_Aplication {
 		
 		
 		
-		TestClases.AddResultsViewWithTable(3) ;
+//		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 		
@@ -124,7 +125,7 @@ public class Main_Aplication {
 //		TestClases.changeStringDateMeasurInResults("8.4.2019", "08.04.2019");
 //		TestClases.TestIterator();
 		
-//		SampleMonthlyReference.SampleMonthlyReference();
+//		SampleMonthlyReference.SampleMonthly_Reference();
 		
 //		AplicantDAO.exctractDBase();
 		
@@ -138,7 +139,7 @@ public class Main_Aplication {
 //		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

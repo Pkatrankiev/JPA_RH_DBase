@@ -639,17 +639,20 @@ public class AddResultViewMetods {
 								System.out.println(listDobiv.size());
 								if (listDobiv.size() > 0) {
 									for (Dobiv dobiv : listDobiv) {
-										System.out.println(CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result));
-								
-										if(dobiv.getNuclide().getSymbol_nuclide().equals(dataTable[i][nuclide_Colum].toString())){
+										System.out.println("1- "+CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result));
+										System.out.println("2- "+dobiv.getNuclide().getSymbol_nuclide()+" "+(dataTable[i][nuclide_Colum].toString()));	
+										System.out.println("3- "+dobiv.getNuclide().getSymbol_nuclide().replaceAll("[0-9]", "")+
+												" "+dataTable[i][nuclide_Colum].toString().replaceAll("[0-9]", ""));
+										if(dobiv.getNuclide().getSymbol_nuclide().replaceAll("[0-9]", "").replaceAll("/", "").equals(dataTable[i][nuclide_Colum].toString().replaceAll("Cm", "Am").replaceAll("[0-9]", "").replaceAll("/", ""))){
 											
-											System.out.println(dobiv.getNuclide().getSymbol_nuclide()+""+(dataTable[i][nuclide_Colum].toString()));	
+											System.out.println(dobiv.getNuclide().getSymbol_nuclide()+" - "+(dataTable[i][nuclide_Colum].toString()));	
 										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result)) {
 											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
 										}
 										}else{
 											errDobiv = "несъвпадащи нуклиди за добиви" + "\n ";
 										}
+										
 									}
 								}
 							}
@@ -678,6 +681,7 @@ public class AddResultViewMetods {
 			JOptionPane.showMessageDialog(null, uncrtError, "Грешни данни за следните полета:",
 					JOptionPane.ERROR_MESSAGE);
 		}
+		
 		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim + inProtokol + errDobiv);
 	}
 

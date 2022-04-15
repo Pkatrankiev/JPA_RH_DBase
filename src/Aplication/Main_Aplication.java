@@ -39,7 +39,7 @@ public class Main_Aplication {
 		
 		
 		
-		TestClases.AddResultsViewWithTable(3) ;
+//		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 		
@@ -139,7 +139,7 @@ public class Main_Aplication {
 //		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

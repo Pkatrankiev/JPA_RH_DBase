@@ -30,8 +30,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TSI;
 import DBase_Class.Users;
-import ExcelFilesFunction.Destruct_Result;
-import ExcelFilesFunction.ReadExcelFile;
+
 
 public class ReadGamaFile {
 
@@ -135,7 +134,12 @@ public class ReadGamaFile {
 				if (countLineToNuclide > 2) {
 					if (stringLine[j].length != 0) {
 						if (stringArray[j].length() > 70 && stringArray[j].substring(25, 40).trim().indexOf("*") < 0) {
+						
+							if(!(transformNuclideSimbol(StringUtils.split(stringArray[j])[0])).equals(nuclideTracer.getSymbol_nuclide())){
+								System.out.println(transformNuclideSimbol(StringUtils.split(stringArray[j])[0])+"   -  "+(nuclideTracer.getSymbol_nuclide()));
 							listNuclideAkv.add(stringArray[j]);
+							System.out.println("IN");
+							}
 						}
 					} else {
 						flagNuclidy++;
@@ -305,11 +309,16 @@ public class ReadGamaFile {
 			str = listNuclideMDA.get(i).substring(6, 16).trim();
 			if (str.length() > 0) {
 				str = transformNuclideSimbol(str);
+				System.out.println(str+"  - "+(nuclideTracer.getSymbol_nuclide()));
+				if(str.equals(nuclideTracer.getSymbol_nuclide())){
+					fl = true;
+				}
 				for (int j = 0; j < listActiveNuclide.length; j++) {
 					if (listActiveNuclide[j][0].equals(str)) {
 						fl = true;
 					}
-				}
+				
+			}
 				if (!fl) {
 					str1[k][0] = str;
 					str1[k][1] = listNuclideMDA.get(i).substring(40, 55).trim();

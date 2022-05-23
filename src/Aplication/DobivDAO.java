@@ -19,6 +19,7 @@ import DBase_Class.Nuclide;
 import DBase_Class.TSI;
 import DBase_Class.Users;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class DobivDAO {
 //	static String name_DBase = "JPA_RH_DBase";
@@ -225,6 +226,7 @@ public class DobivDAO {
 			try {
 				entitymanager.getTransaction().commit();
 			} catch (javax.persistence.RollbackException e) {
+				ResourceLoader.appendToFile(e);
 				JOptionPane.showMessageDialog(null, "Прблем при обновяване на добив: "+dobiv.getCode_Standart()+" "+dobiv.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
 						JOptionPane.ERROR_MESSAGE);
 			}

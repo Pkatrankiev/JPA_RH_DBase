@@ -22,6 +22,7 @@ import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ResourceLoader;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
@@ -52,7 +53,7 @@ public class GenerateDocRazpredFormul {
 		try {
 			template = AplicationDocTemplate.getTemplate(nameTaplateProtokol);
 		} catch (FileNotFoundException | Docx4JException e) {
-
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		// zamestvane na elementite v parvata stranica na documanta
@@ -79,6 +80,7 @@ public class GenerateDocRazpredFormul {
 			podpisiTable = AplicationDocTemplate.getTemplateTable(tables, "Прегледали:");
 
 		} catch (Docx4JException e3) {
+			ResourceLoader.appendToFile(e3);
 			e3.printStackTrace();
 		}
 
@@ -158,13 +160,10 @@ public class GenerateDocRazpredFormul {
 			round.StopWindow();
 			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
-		} catch (IOException e) {
-
+		} catch (IOException | Docx4JException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
-		} catch (Docx4JException e) {
-
-			e.printStackTrace();
-		}
+		} 
 	}
 
 

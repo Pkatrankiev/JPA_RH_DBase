@@ -1,19 +1,28 @@
 package Aplication;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
+
 import DBase_Class.Aplicant;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
+import WindowView.TranscluentWindow;
 
 public class AplicantDAO {
 
 //	static String name_DBase = "JPA_RH_DBase";
 //	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
+	
+	static String errorOfData = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("attention");
 	
 	public static void setValueAplicant(String name, String family) {
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
@@ -136,26 +145,42 @@ public class AplicantDAO {
 		return null;
 	}
 	
-	@GET
-	public static void exctractDBase() {
+	public static void backupDB_From_RemoteServer(TranscluentWindow round) {
+		String text = "";
+		Date backupDate = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy_HHmm");
+		String backupDateStr = format.format(backupDate);
 
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
-		entitymanager.getTransaction().begin();
-		String dbName ="JPA_RH_DBase";
-		String dbUser = "root";
-		String dbPass = "root";
-		String hql =  "mysqldump -u "+dbUser+" -p "+dbPass+" "+dbName+" -r backup.sql";
+		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
+		String HOSTIP = "192.168.21.27";
+		String PORT = "3306";
+		String USER = "someuser";
+		String PASS = "123";
+		String database = "rhdbase";
+		String path = "DB_backup_" + backupDateStr + ".sql";
 
-		@SuppressWarnings("unused")
-		Query query = entitymanager.createQuery(hql);
-		
+		try {
+			String executeCmd = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
+					+ PASS + " " + database + " -r " + path;
+			Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+			int processComplete = runtimeProcess.waitFor();
+			if (processComplete == 0) {
+				text = "<html>Архивирането зашърши успешно.<br>Името на архива е: "+path;
+			} else {
+				text = "Не можа да се направи резервно копие";
+			}
+			round.StopWindow();
+			JOptionPane.showMessageDialog(null, text, errorOfData, JOptionPane.WARNING_MESSAGE);
 
-		
-		entitymanager.close();
-		emfactory.close();
-		
+		} catch (Exception e) {
+			ResourceLoader.appendToFile(e);
+			round.StopWindow();
+			text = "Възникна проблем при архивирането";
+			JOptionPane.showMessageDialog(null, text, errorOfData, JOptionPane.WARNING_MESSAGE);
+			
+			e.printStackTrace();
+		}
+
 	}
 	
 	

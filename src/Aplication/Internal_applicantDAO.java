@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Request;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class Internal_applicantDAO {
 	
@@ -147,6 +148,7 @@ public class Internal_applicantDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на данните на: " + valueEnt.getInternal_applicant_organization(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}

@@ -15,6 +15,7 @@ import DBase_Class.Metody_to_NiclideForDobive;
 
 import DBase_Class.Nuclide;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class Metody_to_NiclideForDobiveDAO {
 
@@ -122,6 +123,7 @@ public class Metody_to_NiclideForDobiveDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на Мотод-Нуклид: "+metody_to_NiclideForDobive.getMetody()+" "+metody_to_NiclideForDobive.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}

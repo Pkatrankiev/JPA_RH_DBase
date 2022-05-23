@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 
 import javax.swing.border.MatteBorder;
 
+import GlobalVariable.ResourceLoader;
+
 import javax.swing.JDialog;
 
 import java.awt.Dimension;
@@ -76,7 +78,7 @@ public class TableListRequestTamplate extends JDialog {
 							dispose();
 
 						} catch (NumberFormatException e1) {
-
+							ResourceLoader.appendToFile(e1);
 						}
 					}
 				});

@@ -43,7 +43,7 @@ public class Main_Aplication {
 		
 		
 		
-		TestClases.AddResultsViewWithTable(3) ;
+//		TestClases.AddResultsViewWithTable(3) ;
 		
 		
 		
@@ -70,7 +70,7 @@ public class Main_Aplication {
 		
 		
 		
-//		TestClases.backupDB_From_RemoteServer();
+//		AplicantDAO.backupDB_From_RemoteServer();
 		
 		
 		
@@ -82,7 +82,7 @@ public class Main_Aplication {
 //			e.printStackTrace();
 //		}
 		
-//		TestClases.Table_Results_List_Test(2, "request");
+//		TestClases.Table_Results_List_Test(3, "request");
 		
 		
 //		TestClases.setDataTime_Referense("28.10.2020 12:55");
@@ -139,7 +139,7 @@ public class Main_Aplication {
 //		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-//		StartMainWindow();
+		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

@@ -25,6 +25,7 @@ import Aplication.Internal_applicantDAO;
 import DBase_Class.Internal_applicant;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -188,6 +189,7 @@ public class Table_InternalApplicant_List extends JDialog {
 				tableSample[i][aplic_Id_Colum] = intApplic.getId_internal_applicant();
 				i++;
 			} catch (NumberFormatException e) {
+				ResourceLoader.appendToFile(e);
 				JOptionPane.showInputDialog(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
 			}
 		}

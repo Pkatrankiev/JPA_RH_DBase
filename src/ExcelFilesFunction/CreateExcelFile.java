@@ -40,6 +40,7 @@ import org.apache.poi.util.Units;
 
 import DefaultTableList.TableList_Functions;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ResourceLoader;
 
 public class CreateExcelFile {
 
@@ -73,8 +74,10 @@ public class CreateExcelFile {
 			excel.close();
 
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			MessageDialog(e.toString(), "файлова грешка");
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 	}
@@ -198,8 +201,10 @@ Object[][] masive = {{1,"ass",123.23,true},
 			GenerateRequestWordDoc.openWordDoc(excelFilePath);
 
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			MessageDialog(e.toString(), "файлова грешка");
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 	}
@@ -326,8 +331,10 @@ Object[][] masive = {{1,"ass",123.23,true},
 			outFile.close();
 
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			MessageDialog(e.toString(), "файлова грешка");
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 	}
@@ -429,7 +436,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 				        	try {
 								cell.setCellValue(formatter.parse(volue.toString()));
 							} catch (ParseException e) {
-								
+								ResourceLoader.appendToFile(e);
 								e.printStackTrace();
 							}
 				        	
@@ -442,6 +449,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 				        	try {
 								cell.setCellValue(formatterTime.parse(volue.toString()));
 							} catch (ParseException e) {
+								ResourceLoader.appendToFile(e);
 								cell.setCellValue(volue.toString());
 							}
 				        	
@@ -505,8 +513,10 @@ Object[][] masive = {{1,"ass",123.23,true},
 			GenerateRequestWordDoc.openWordDoc(excelFilePath);
 			
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			MessageDialog(e.toString(), "файлова грешка");
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 	}

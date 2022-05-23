@@ -19,6 +19,7 @@ import DBase_Class.Period;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
@@ -366,7 +367,7 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 			godina = Integer.parseInt(txtFieldGodina.getText());
 
 		} catch (NumberFormatException e) {
-
+			ResourceLoader.appendToFile(e);
 		}
 		return godina;
 	}

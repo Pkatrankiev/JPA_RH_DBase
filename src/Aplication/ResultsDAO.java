@@ -24,6 +24,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class ResultsDAO {
 
@@ -276,6 +277,7 @@ public class ResultsDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на резултат: "+results.getSample().getRequest().getRecuest_code()+"-"+results.getSample().getSample_code()+" "+results.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}

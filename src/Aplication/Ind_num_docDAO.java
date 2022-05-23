@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import DBase_Class.Ind_num_doc;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 
 public class Ind_num_docDAO {
 
@@ -122,6 +123,7 @@ public class Ind_num_docDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на резултат: "+object.getName(), "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
@@ -141,6 +143,7 @@ public class Ind_num_docDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,  "Прблем при изтриване на ред №: "+object.getId_ind_num_doc()+"Вероятно се използва в базата", "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}

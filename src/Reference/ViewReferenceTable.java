@@ -46,6 +46,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -461,7 +462,7 @@ public class ViewReferenceTable extends JDialog {
 						listSampleByPeriod.add(sample);
 					}
 				} catch (NullPointerException e) {
-
+					ResourceLoader.appendToFile(e);
 				}
 			}
 		}

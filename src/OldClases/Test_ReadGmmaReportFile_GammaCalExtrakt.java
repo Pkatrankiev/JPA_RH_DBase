@@ -90,7 +90,7 @@ public class Test_ReadGmmaReportFile_GammaCalExtrakt extends JDialog {
 
 	private void ReadGammaReportFile(JFileChooser fileChooser) {
 		String pathfileName = fileChooser.getSelectedFile().toString();
-		ReadGamaFile.getReadGamaFile(pathfileName);
+		ReadGamaFile.getReadGamaFile(pathfileName, false);
 	}
 
 	private void GetVisibleLAF(Test_ReadGmmaReportFile_GammaCalExtrakt win) {

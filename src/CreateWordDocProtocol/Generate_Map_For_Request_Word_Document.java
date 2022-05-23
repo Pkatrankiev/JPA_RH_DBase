@@ -14,6 +14,7 @@ import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ResourceLoader;
 import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
@@ -133,7 +134,7 @@ public class Generate_Map_For_Request_Word_Document {
 		try {
 			substitutionData.put(key_date_time_request, DatePicker.formatToProtokolDate(date_time_reference));
 		} catch (ParseException e) {
-			
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 

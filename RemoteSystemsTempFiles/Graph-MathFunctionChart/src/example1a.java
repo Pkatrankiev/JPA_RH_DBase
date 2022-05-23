@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.applet.*;
 import java.net.URL;
+
+import GlobalVariable.ResourceLoader;
 import graph.*;
 /*************************************************************************
 **
@@ -108,6 +110,7 @@ public class example1a extends Applet {
            markers.AddMarker(9,12,d,x,y);
 
         } catch(Exception e) {
+        	ResourceLoader.appendToFile(e);
             e.printStackTrace();
            System.out.println("Failed to create Marker URL!");
         }

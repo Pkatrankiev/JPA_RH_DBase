@@ -15,7 +15,7 @@ import AddDobivViewFunction.OverallVariablesAddDobiv;
 import DBase_Class.Dobiv;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
-
+import GlobalVariable.ResourceLoader;
 import WindowView.ReadGamaFile;
 
 public class btnOpenFileSection {
@@ -29,7 +29,9 @@ public class btnOpenFileSection {
 
 				// destruct_Result_List = new ArrayList<Destruct_Result>();
 				int sizeExcelList = 0, sizeGamaList = 0;
+				
 				try {
+					
 					String pathfileName = fileChooser.getSelectedFile().toString();
 					String stringfileName = fileChooser.getSelectedFile().getName();
 					String codeSamample = txtRqstCode.getText() + "-" + choiceSmplCode.getSelectedItem();
@@ -41,7 +43,8 @@ public class btnOpenFileSection {
 						if (!choiceMetody.getSelectedItem().trim().isEmpty()) {
 							String selectMetodStr = choiceMetody.getSelectedItem();
 							int switCase = AddResultViewMetods.selestTypeReadFileByChoiceMetod(OverallVariablesAddResults.getSelectedMetod(), choicePokazatel.getSelectedItem().toString());
-							
+							System.out.println("******************************************" + switCase);
+							System.out.println("******************************************" + switCase);
 							if (switCase== 1) {
 								Boolean forResults = true;
 								if(pathfileName.equals("MDA")){
@@ -50,7 +53,7 @@ public class btnOpenFileSection {
 									OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
 								}else{
 									if(pathfileName.endsWith(".RPT") || pathfileName.endsWith(".rpt")){
-										ReadGamaFile.getReadGamaFile(pathfileName);
+										ReadGamaFile.getReadGamaFile(pathfileName, true);
 										sizeGamaList = ReadGamaFile.getListNuclideMDA();
 									}else{
 									readResultsAndDobivFromOrtecExelFile(choiceSmplCode, pathfileName, selectMetodStr,
@@ -64,7 +67,7 @@ public class btnOpenFileSection {
 
 							if (switCase == 10) {
 
-								ReadGamaFile.getReadGamaFile(pathfileName);
+								ReadGamaFile.getReadGamaFile(pathfileName, false);
 								sizeGamaList = ReadGamaFile.getListNuclideMDA();
 							}
 							if (switCase == 16 || switCase == 3) {
@@ -88,7 +91,8 @@ public class btnOpenFileSection {
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
-				} catch (NullPointerException e2) {
+				} catch (Exception e2) {
+					ResourceLoader.appendToFile(e2);
 					JOptionPane.showMessageDialog(null, "Не сте избрали файл!\n"+"error 86", "Грешни данни",
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -98,6 +102,10 @@ public class btnOpenFileSection {
 			
 		});
 	}
+	
+	
+	
+	
 	private static void readResultsAndDobivFromOrtecExelFile(Choice choiceSmplCode, String pathfileName,
 			String selectMetodStr, Boolean forResults) {
 		List<Destruct_Result> destruct_Result_List = ReadExcelFile

@@ -18,6 +18,7 @@ import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForIcons;
+import GlobalVariable.ResourceLoader;
 import WindowView.AddInChoice;
 import WindowView.DateChoice;
 import WindowView.DatePicker;
@@ -136,6 +137,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 				if (ss == countSample)
 					notEmptryString = true;
 			} catch (NullPointerException e) {
+				ResourceLoader.appendToFile(e);
 				notEmptryString = false;
 			}
 			
@@ -356,7 +358,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 								txtArea_Sample_Descr[l].setText(sstr);
 
 							} catch (NumberFormatException e1) {
-
+								ResourceLoader.appendToFile(e1);
 							}
 						}
 					});

@@ -11,8 +11,10 @@ import DBase_Class.TableColumn;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForIcons;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import InfoPanelInMainWindow.CreatRightPanel;
 import InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar;
+import Menu.ArhiveDBase;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
@@ -204,6 +206,7 @@ public class MainWindow extends JFrame {
 			SwingUtilities.updateComponentTreeUI(win);
 			this.pack();
 		} catch (Exception ex) {
+			ResourceLoader.appendToFile(ex);
 			Logger.getLogger(JFileChooser.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
@@ -253,6 +256,7 @@ public class MainWindow extends JFrame {
 		oderMenu.setMnemonic(KeyEvent.VK_O);
 
 		oderMenu.add(new MenuOder());
+		oderMenu.add(new ArhiveDBase());
 		return oderMenu;
 	}
 	

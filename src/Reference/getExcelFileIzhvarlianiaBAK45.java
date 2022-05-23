@@ -26,6 +26,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import Aplication.PeriodDAO;
 import ExcelFilesFunction.generateInformationToBAK45;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -227,11 +228,13 @@ System.out.println(nameSheet);
 			textField.setForeground(Color.BLACK);
 			korrectObem = true;
 		} catch (NumberFormatException e1) {
+			ResourceLoader.appendToFile(e1);
 			try {
 				Double.parseDouble(textField.getText());
 				textField.setForeground(Color.BLACK);
 				korrectObem = true;
 			} catch (NumberFormatException e2) {
+				ResourceLoader.appendToFile(e2);
 				textField.setForeground(Color.RED);
 				korrectObem = false;
 			}
@@ -287,29 +290,27 @@ System.out.println(nameSheet);
 			}
 			
 
-		} catch (OldExcelFormatException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, errorOfExcellFileFormat, errorOfData, JOptionPane.ERROR_MESSAGE);
-		} catch (OfficeXmlFileException e) {
+		} catch (OldExcelFormatException | OfficeXmlFileException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, errorOfExcellFileFormat, errorOfData, JOptionPane.ERROR_MESSAGE);
 		
-		} catch (NotOLE2FileException e) {
+		} catch (NotOLE2FileException | NullPointerException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, notSelectCorectExcelFile, errorOfData, JOptionPane.ERROR_MESSAGE);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, notSelectCorectExcelFile, errorOfData, JOptionPane.ERROR_MESSAGE);
-			
-		} catch (StringIndexOutOfBoundsException e) {
+		}
+		catch (StringIndexOutOfBoundsException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, NotCorectNuclideList, errorOfData, JOptionPane.ERROR_MESSAGE);
 
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, fileNotFound, errorOfData, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 
 		} catch (IOException e) {
-
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		
@@ -345,6 +346,7 @@ System.out.println(nameSheet);
 							new generateInformationToBAK45(textField.getText(), mount_name, godina, DataValue, dd);
 
 						} catch (NumberFormatException e2) {
+							ResourceLoader.appendToFile(e2);
 							JOptionPane.showMessageDialog(null, ErrorObemBAK, errorOfData, JOptionPane.WARNING_MESSAGE);
 						}
 						

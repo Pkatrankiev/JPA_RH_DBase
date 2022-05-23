@@ -30,6 +30,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.TSI;
 import DBase_Class.Users;
+import GlobalVariable.ResourceLoader;
 
 
 public class ReadGamaFile {
@@ -48,7 +49,7 @@ public class ReadGamaFile {
 	private static String sigma;
 	private static String dobivFromFile;
 	private static String date_mesur;
-	private static Nuclide nuclideTracer;
+	private static Nuclide nuclideTracer = null;
 
 	public static int getCountLine() {
 		return countLine;
@@ -110,7 +111,7 @@ public class ReadGamaFile {
 		return stringArray;
 	}
 
-	public static void getReadGamaFile(String FILENAME) {
+	public static void getReadGamaFile(String FILENAME, boolean flAlpha) {
 
 		stringArray = CreadMasiveFromReadFile(FILENAME);
 
@@ -134,12 +135,15 @@ public class ReadGamaFile {
 				if (countLineToNuclide > 2) {
 					if (stringLine[j].length != 0) {
 						if (stringArray[j].length() > 70 && stringArray[j].substring(25, 40).trim().indexOf("*") < 0) {
-						
+						if(flAlpha){
 							if(!(transformNuclideSimbol(StringUtils.split(stringArray[j])[0])).equals(nuclideTracer.getSymbol_nuclide())){
 								System.out.println(transformNuclideSimbol(StringUtils.split(stringArray[j])[0])+"   -  "+(nuclideTracer.getSymbol_nuclide()));
 							listNuclideAkv.add(stringArray[j]);
 							System.out.println("IN");
 							}
+						}else{
+							listNuclideAkv.add(stringArray[j]);
+						}
 						}
 					} else {
 						flagNuclidy++;
@@ -397,7 +401,7 @@ public class ReadGamaFile {
 				listResults.add(results);
 
 			} catch (NumberFormatException e) {
-
+				ResourceLoader.appendToFile(e);
 			}
 
 		}
@@ -438,7 +442,7 @@ public class ReadGamaFile {
 				listResults.add(results);
 
 			} catch (NumberFormatException e) {
-
+				ResourceLoader.appendToFile(e);
 			}
 
 		}
@@ -571,6 +575,7 @@ public class ReadGamaFile {
 				newStringArray[i] = listString.get(i);
 			}
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		} finally {
 			try {
@@ -579,6 +584,7 @@ public class ReadGamaFile {
 				if (fr != null)
 					fr.close();
 			} catch (IOException ex) {
+				ResourceLoader.appendToFile(ex);
 				ex.printStackTrace();
 			}
 		}

@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.TableColumn;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class TableColumnDAO {
 
@@ -91,6 +92,7 @@ public class TableColumnDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на запис: " + tableColumn.getName_Column(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}

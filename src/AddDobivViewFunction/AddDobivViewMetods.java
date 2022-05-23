@@ -43,6 +43,8 @@ import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
 import DBase_Class.Users;
 import ExcelFilesFunction.ReadExcelFile;
+import GlobalVariable.ResourceLoader;
+import Reference.MounthlyReferenceForCNRDWater;
 import Table.Add_DefaultTableCellRenderer;
 import Table.Add_DefaultTableModel;
 import Table.Add_TableHeaderMouseListener;
@@ -213,8 +215,10 @@ public class AddDobivViewMetods {
 			rowFromTableDobiv[check_Colum] = "Провери";
 			rowFromTableDobiv[dobiv_Id_Colum] = dobiv.getId_dobiv();
 		} catch (NullPointerException e) {
+			 ResourceLoader.appendToFile(e);
 			JOptionPane.showInputDialog("Грешни данни за резултат:" , JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e) {
+			 ResourceLoader.appendToFile(e);
 			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
 		}
 		return rowFromTableDobiv;
@@ -531,10 +535,17 @@ public class AddDobivViewMetods {
 		List<List_izpitvan_pokazatel> listIzpPokazatel = getListList_izpitvan_pokazatelToMetod(choiceMetody);
 		List<Nuclide_to_Pokazatel> listNucToPok = getListNuklideToPokazatel(listIzpPokazatel);
 		List<String> listSimbolBasicNuclide =  AddResultViewMetods.getListSimbolBasikNulideFNuclideToPokazatel(listNucToPok);
+		
+		List<String> new_listSimbolBasicNuclide = MounthlyReferenceForCNRDWater.removeDuplicates(listSimbolBasicNuclide);
+		
+		System.out.println(listIzpPokazatel.size());
+		System.out.println(listNucToPok.size());
+		System.out.println(new_listSimbolBasicNuclide.size());
+		
 		// masuveSimbolNuclide =
 		// getMasiveSimbolNuclideToPokazatel(listNucToPok);
 		Dobiv[] masiveResultsFromFile = ReadExcelFile
-				.getMasivDobivsFromExcelFile(OverallVariablesAddDobiv.getDestruct_Result_List(), listSimbolBasicNuclide);
+				.getMasivDobivsFromExcelFile(OverallVariablesAddDobiv.getDestruct_Result_List(), new_listSimbolBasicNuclide);
 		Object[][] tableResult = new Object[masiveResultsFromFile.length][tbl_Colum];
 
 		for (int i = 0; i < masiveResultsFromFile.length; i++) {

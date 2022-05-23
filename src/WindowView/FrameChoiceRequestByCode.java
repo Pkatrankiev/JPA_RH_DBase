@@ -18,6 +18,7 @@ import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.Request;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ResourceLoader;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -126,7 +127,7 @@ public class FrameChoiceRequestByCode extends JDialog {
 							      		try {
 											greateWordDocChoiseWithTextFrame(nameFrame, textField.getText(), round);
 										} catch (ParseException e) {
-											// TODO Auto-generated catch block
+											ResourceLoader.appendToFile(e);
 											e.printStackTrace();
 										}
 									

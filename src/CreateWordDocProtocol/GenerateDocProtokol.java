@@ -34,6 +34,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import WindowView.RequestViewFunction;
 import WindowView.TranscluentWindow;
 
@@ -73,6 +74,7 @@ public class GenerateDocProtokol {
 		try {
 			template = AplicationDocTemplate.getTemplate(nameTaplateProtokol);
 		} catch (FileNotFoundException | Docx4JException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		// zamestvane na elementite v parvata stranica na documanta
@@ -113,6 +115,7 @@ public class GenerateDocProtokol {
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
 		} catch (Docx4JException | JAXBException e3) {
+			ResourceLoader.appendToFile(e3);
 			e3.printStackTrace();
 		}
 
@@ -253,11 +256,9 @@ public class GenerateDocProtokol {
 			}
 			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		} catch (Docx4JException e) {
-
+		
+		} catch (IOException | Docx4JException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 
@@ -283,6 +284,7 @@ public class GenerateDocProtokol {
 		try {
 			template = AplicationDocTemplate.getTemplate(nameTaplateProtokol);
 		} catch (FileNotFoundException | Docx4JException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		// zamestvane na elementite v parvata stranica na documanta
@@ -323,6 +325,7 @@ public class GenerateDocProtokol {
 			zabTable = AplicationDocTemplate.getTemplateTable(tables, strKeyzabTable);
 
 		} catch (Docx4JException | JAXBException e3) {
+			ResourceLoader.appendToFile(e3);
 			e3.printStackTrace();
 		}
 
@@ -464,7 +467,7 @@ public class GenerateDocProtokol {
 
 			e.printStackTrace();
 		} catch (Docx4JException e) {
-
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 

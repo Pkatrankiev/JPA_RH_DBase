@@ -50,6 +50,7 @@ import DBase_Class.Sample;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
+import GlobalVariable.ResourceLoader;
 import Table.Add_DefaultTableCellRenderer;
 import Table.Add_DefaultTableModel;
 import Table.Add_TableHeaderMouseListener;
@@ -362,10 +363,15 @@ public class AddResultViewMetods {
 
 	static Object[] rowWithValueResultsFromFile(Results result) {
 		Object[] rowFromTableResult = new Object[tbl_Colum];
+		
 		rowFromTableResult[nuclide_Colum] = result.getNuclide().getSymbol_nuclide();
 		rowFromTableResult[actv_value_Colum] = result.getValue_result();
 		rowFromTableResult[uncrt_Colum] = result.getUncertainty();
 		rowFromTableResult[mda_Colum] = result.getMda();
+		if(result.getValue_result()<result.getMda()){
+			rowFromTableResult[actv_value_Colum] = 0;
+			rowFromTableResult[uncrt_Colum] = 0;
+		}
 		rowFromTableResult[razm_Colum] = result.getRazmernosti().getName_razmernosti();
 		rowFromTableResult[sigma_Colum] = result.getSigma();
 		rowFromTableResult[qunt_Colum] = result.getQuantity();
@@ -399,12 +405,12 @@ public class AddResultViewMetods {
 			rowFromTableResult[in_Prot_Colum] = results.getInProtokol();
 			rowFromTableResult[check_Colum] = "Провери";
 			rowFromTableResult[rsult_Id_Colum] = results.getId_results();
-		} catch (NullPointerException e) {
+		} catch (NullPointerException | NumberFormatException e) {
+			 ResourceLoader.appendToFile(e);
 			JOptionPane.showInputDialog("Грешни данни за резултат:" + results.getId_results(),
 					JOptionPane.ERROR_MESSAGE);
-		} catch (NumberFormatException e) {
-			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-		}
+		} 
+
 		return rowFromTableResult;
 
 	}
@@ -553,8 +559,39 @@ public class AddResultViewMetods {
 
 		return tableResult;
 	}
-
+	static int getMaxUncertaintyFromCode_metody(Metody metod){
+		int uncertainty;
+		String str = metod.getCode_metody();
+		int k = str.indexOf("М.ЛИ-РХ-");
+		int key = Integer.parseInt(str.substring(k+8,k+10));
+		
+		switch (key) {
+		case 1:
+		case 7:
+		case 16:
+			uncertainty = 74;
+			break;
+		case 3:
+		case 14:
+		case 15:
+			uncertainty = 72;
+			break;
+		case 12:
+			uncertainty = 76;
+			break;
+		case 10:
+			uncertainty = 52;
+			break;
+		default:
+			uncertainty = 0;
+			break;
+		} 
+		
+	return uncertainty;
+	}
+	
 	static String strCurrentDataInDataTable(Object[][] dataTable, Choice choiceDobiv, Choice choicePokazatel) {
+		int maxUncertainty = getMaxUncertaintyFromCode_metody(OverallVariablesAddResults.getSelectedMetod());
 		String errDuplic = "";
 		String errTSI = "";
 		String uncrtError = "";
@@ -603,8 +640,8 @@ public class AddResultViewMetods {
 					if (actv != 0) {
 						if (uncrt == 0) {
 							nuclede_uncrtError = "нулева неопределеност";
-						} else if ((uncrt / actv) * 100 > 52) {
-							nuclede_uncrtError = "неопределеност >52%";
+						} else if ((uncrt / actv) * 100 > maxUncertainty) {
+							nuclede_uncrtError = "неопределеност >"+maxUncertainty+"%";
 						}
 					}
 					if (!nuclede_uncrtError.equals("")) {
@@ -659,6 +696,7 @@ public class AddResultViewMetods {
 						}
 
 					} catch (NumberFormatException e) {
+						ResourceLoader.appendToFile(e);
 						e.printStackTrace();
 						JOptionPane.showMessageDialog(null, "Липсва добив във файла", "Грешни данни",
 								JOptionPane.ERROR_MESSAGE);

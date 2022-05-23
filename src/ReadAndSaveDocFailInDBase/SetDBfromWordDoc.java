@@ -42,6 +42,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
+import GlobalVariable.ResourceLoader;
 import WindowView.TranscluentWindow;
  
 public class SetDBfromWordDoc {
@@ -464,7 +465,7 @@ public class SetDBfromWordDoc {
 
 						}
 					} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-
+						ResourceLoader.appendToFile(e);
 					}
 				}
 			}
@@ -515,7 +516,7 @@ public class SetDBfromWordDoc {
 			period = PeriodDAO.getPeriodById(c.getTime().getMonth() + 1);
 			year = c.getTime().getYear() + 1900;
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showInputDialog("Грешна дата: " + date_time_reference, JOptionPane.ERROR_MESSAGE);
 		}
@@ -662,7 +663,7 @@ public class SetDBfromWordDoc {
 		try {
 			c.setTime(sdf.parse(dt));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		c.add(Calendar.DATE, date); // number of days to add

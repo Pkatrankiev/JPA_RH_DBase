@@ -59,6 +59,7 @@ import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import Table_Request.Table_RequestToObektNaIzp;
 
 import java.awt.GridBagLayout;
@@ -912,7 +913,7 @@ public class RequestView extends JDialog {
 					txt_fid_date_time_reference.setText(textRefDate);
 
 				} catch (NumberFormatException e) {
-
+					ResourceLoader.appendToFile(e);
 				}
 			}
 		});
@@ -1065,16 +1066,19 @@ public class RequestView extends JDialog {
 						
 					}
 				} catch (NumberFormatException e) {
+					ResourceLoader.appendToFile(e);
 					JOptionPane.showMessageDialog(null, ReadFileWithGlobalTextVariable.
 							getGlobalTextVariableMap().get("RequestView_DialogError_CountSamples"), showMessageDialog_Error,
 							JOptionPane.ERROR_MESSAGE);
 				}
 			} catch (DateTimeParseException e) {
+				ResourceLoader.appendToFile(e);
 				JOptionPane.showMessageDialog(RequestView.this, ReadFileWithGlobalTextVariable.
 						getGlobalTextVariableMap().get("RequestView_showMessageDialog_ErrorRefDataTime"),showMessageDialog_Error, 
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (NumberFormatException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(RequestView.this, ReadFileWithGlobalTextVariable.
 					getGlobalTextVariableMap().get("RequestView_showMessageDialog_ErrorCodeRequest"), showMessageDialog_Error,
 					JOptionPane.ERROR_MESSAGE);
@@ -1416,7 +1420,7 @@ public class RequestView extends JDialog {
 					txtFld_date_period_reception.setText(textRefDate);
 
 				} catch (NumberFormatException e) {
-
+					ResourceLoader.appendToFile(e);
 				}
 
 			}

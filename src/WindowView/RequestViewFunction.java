@@ -32,6 +32,7 @@ import DBase_Class.Request;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 
 
 public class RequestViewFunction {
@@ -85,7 +86,7 @@ public class RequestViewFunction {
 			if (Integer.parseInt(code) >= minVolume && Integer.parseInt(code) <= maxVolume)
 				underMaximum = false;
 		} catch (NumberFormatException e) {
-
+			ResourceLoader.appendToFile(e);
 		}
 		return underMaximum;
 	}
@@ -244,7 +245,7 @@ public class RequestViewFunction {
 			count = Integer.parseInt(sampleCount);
 
 		} catch (NumberFormatException e) {
-
+			ResourceLoader.appendToFile(e);
 		}
 		if (count > 1) {
 			prob = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Probs");
@@ -291,7 +292,7 @@ public class RequestViewFunction {
 			count = Integer.parseInt(sampleCount);
 
 		} catch (NumberFormatException e) {
-
+			ResourceLoader.appendToFile(e);
 		}
 		if (count > 1) {
 			prob = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestViewFunction_Probs");

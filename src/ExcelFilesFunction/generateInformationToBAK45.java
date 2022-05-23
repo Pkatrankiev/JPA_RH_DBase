@@ -25,6 +25,7 @@ import DBase_Class.Period;
 import DBase_Class.Results;
 import DBase_Class.Sample;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 
 public class generateInformationToBAK45 {
 
@@ -158,6 +159,7 @@ public class generateInformationToBAK45 {
 					fileOut.close();
 					GenerateRequestWordDoc.openWordDoc(file_name);
 				} catch (IOException e) {
+					ResourceLoader.appendToFile(e);
 					JOptionPane.showMessageDialog(null, excelFileIsOpen, errorOfData, JOptionPane.ERROR_MESSAGE);
 					
 				
@@ -172,7 +174,7 @@ public class generateInformationToBAK45 {
 				
 		
 			} catch (IOException e) {
-
+				ResourceLoader.appendToFile(e);
 				e.printStackTrace();
 			}
 

@@ -42,6 +42,8 @@ import org.docx4j.wml.STVerticalAlignRun;
 
 import org.docx4j.wml.UnderlineEnumeration;
 
+import GlobalVariable.ResourceLoader;
+
 /**
 * This sample is useful if you want to see what objects are used in your
 * document.xml.
@@ -71,6 +73,7 @@ public class OpenMainDocumentAndTraverse extends AbstractSample
       }
       catch (IllegalArgumentException e)
       {
+    	  ResourceLoader.appendToFile(e);
          inputfilepath = System.getProperty("user.dir")
                + "/sample-docs/sample-docx.xml";
       }

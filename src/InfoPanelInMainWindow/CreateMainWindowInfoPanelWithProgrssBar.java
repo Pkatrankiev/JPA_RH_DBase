@@ -13,6 +13,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ResourceLoader;
 
 public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<List<LeftPanelStartWindowClass>>, Integer> {
 
@@ -62,6 +63,7 @@ public class CreateMainWindowInfoPanelWithProgrssBar extends SwingWorker<List<Li
             CreateLeftPanelInfo.creatLeftPanel(under_panel_Left);
            
         } catch (ExecutionException | InterruptedException e) {
+        	ResourceLoader.appendToFile(e);
             e.printStackTrace();
         }
     }

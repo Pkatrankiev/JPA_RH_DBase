@@ -1181,7 +1181,7 @@ public class AddDobivView_old extends JDialog {
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
 					if(selectedMetod.getCode_metody().equals("10")){
-					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
+					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString(),false);
 					}else{
 						Boolean forResults = false;
 						destruct_Result_List = ReadExcelFile.getDestruct_Result_ListFromExcelFile(f.getSelectedFile().toString(), forResults);

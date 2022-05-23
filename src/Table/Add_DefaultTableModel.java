@@ -10,6 +10,7 @@ import AddResultViewFunction.AddResultViewMetods;
 import DBase_Class.Users;
 import ExcelFilesFunction.Destruct_Result;
 import ExcelFilesFunction.ReadExcelFile;
+import GlobalVariable.ResourceLoader;
 import WindowView.DatePicker;
 
 public class Add_DefaultTableModel  {
@@ -66,6 +67,7 @@ public class Add_DefaultTableModel  {
 								masiveDataTable[row][col] = value;
 								fireTableCellUpdated(row, col);
 							} catch (NumberFormatException e) {
+								ResourceLoader.appendToFile(e);
 							}
 							break;
 							

@@ -8,6 +8,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import GlobalVariable.ResourceLoader;
+
 /**
  * Creates new docx from existing one.
  * @author gustinmi [at] gmail [dot] com
@@ -74,10 +76,11 @@ public class DocxZipCreator {
 
         }
         catch (IOException ioe){
+        	ResourceLoader.appendToFile(ioe);
             ioe.printStackTrace();
         }
         finally{
-            try { zos.closeEntry();} catch (IOException e) {}
+            try { zos.closeEntry();} catch (IOException e) {ResourceLoader.appendToFile(e);}
         }
     }
 
@@ -111,10 +114,11 @@ public class DocxZipCreator {
 
         }
         catch (IOException ioe){
+        	ResourceLoader.appendToFile(ioe);
             ioe.printStackTrace();
         }
         finally{
-            try { zos.closeEntry();} catch (IOException e) {}
+            try { zos.closeEntry();} catch (IOException e) {ResourceLoader.appendToFile(e);}
         }
     }
 

@@ -13,6 +13,7 @@ import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class Request_To_ObektNaIzpitvaneRequestDAO {
 
@@ -63,6 +64,7 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при обновяване на заявака-обект на изпитване: "
 							+ request_to_ObectNaIzp.getRequest().getRecuest_code(),
@@ -183,6 +185,7 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при изтриване на заявка-обект на изпитване: "
 							+ request_to_ObectNaIzp.getRequest().getRecuest_code(),

@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.310322
+MainWindow_Ver = Ver.200522
 
 ProtokolResultNeopred = 0
 
@@ -74,6 +74,8 @@ NewRequense_TitleName = Генериране на Нова Заявка
 NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
 MenuPeriodicReference_TitleName = Справки - Периодичен мониторинг
 MenuEjection_TitleName = Сведения
+ArhiveDBase_TitleName = Архив на Базата Данни
+
 
 $$Text_MessageDialog
 LogInText = Логнете се

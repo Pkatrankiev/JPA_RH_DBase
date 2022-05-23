@@ -58,7 +58,7 @@ public class UpdateDataFor_RequestTalbeList {
 			updateRequestObject(objectTableList_OverallVariables, table, rowForUpdate, request);
 
 		}
-		round.StopWindow();
+//		round.StopWindow();
 	}
 	
 	private static List_izpitvan_pokazatel[][] updateIzpitvanPokazatelObject(TableList_OverallVariables objectTableList_OverallVariables, JTable table, int row, Request request) {

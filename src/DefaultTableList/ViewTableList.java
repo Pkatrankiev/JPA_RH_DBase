@@ -241,8 +241,8 @@ public class ViewTableList extends JDialog {
 					
 					});
 				thread.start();
-
-				refresh_ViewTaleList(table_List, user, objectTableList_OverallVariables, choisetRequest);
+				round.StopWindow();
+//				refresh_ViewTaleList(table_List, user, objectTableList_OverallVariables, choisetRequest);
 			}
 		});
 	}

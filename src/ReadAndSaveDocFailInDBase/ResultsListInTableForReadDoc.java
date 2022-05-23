@@ -28,6 +28,8 @@ import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
+import GlobalVariable.ResourceLoader;
+
 import javax.swing.JPanel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -110,11 +112,10 @@ public class ResultsListInTableForReadDoc {
 					tableSample[i][rsult_Id_Colum ] = results.getId_results();
 
 					i++;
-				} catch (NullPointerException e) {
+				} catch (NullPointerException | NumberFormatException e) {
+					ResourceLoader.appendToFile(e);
 					JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-				} catch (NumberFormatException e) {
-					JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
-				}
+				} 
 
 			}
 

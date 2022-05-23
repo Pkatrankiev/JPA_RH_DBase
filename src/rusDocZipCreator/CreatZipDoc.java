@@ -8,6 +8,8 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
+import GlobalVariable.ResourceLoader;
+
 
 public class CreatZipDoc {
 	 
@@ -65,6 +67,7 @@ public class CreatZipDoc {
 	
 		}
 		catch (Exception e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		

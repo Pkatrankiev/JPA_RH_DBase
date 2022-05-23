@@ -32,6 +32,7 @@ import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
 import ExcelFilesFunction.CreateExcelFile;
+import GlobalVariable.ResourceLoader;
 import OldClases.Table_Request_List_old;
 import Table_Request.Table_RequestToObektNaIzp;
 import WindowView.DatePicker;
@@ -371,7 +372,7 @@ public class Table_Sample_List extends JDialog {
 
 				i++;
 			} catch (NumberFormatException e) {
-
+				ResourceLoader.appendToFile(e);
 			}
 		}
 		return tableSample;

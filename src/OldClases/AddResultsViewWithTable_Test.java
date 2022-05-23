@@ -1195,7 +1195,7 @@ public class AddResultsViewWithTable_Test extends JDialog {
 				f.showOpenDialog(null);
 				try {
 					txtBasicValueResult.setText((f.getSelectedFile()).toString());
-					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString());
+					ReadGamaFile.getReadGamaFile(f.getSelectedFile().toString(), false);
 
 					if (ReadGamaFile.getListNuclideMDA() > 0) {
 						flagIncertedFile = true;

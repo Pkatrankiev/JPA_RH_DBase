@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import Table.Add_DefaultTableModel;
 import AddResultViewFunction.SampleCodeSection;
 import AddResultViewFunction.OverallVariablesAddResults;
@@ -575,6 +576,7 @@ public class AddResultsView extends JDialog {
 			SwingUtilities.updateComponentTreeUI(win);
 			this.pack();
 		} catch (Exception ex) {
+			ResourceLoader.appendToFile(ex);
 			Logger.getLogger(JFileChooser.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}

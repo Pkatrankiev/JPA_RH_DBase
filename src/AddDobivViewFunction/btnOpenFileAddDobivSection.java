@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import AddResultViewFunction.AddResultViewMetods;
 import ExcelFilesFunction.ReadExcelFile;
+import GlobalVariable.ResourceLoader;
 import WindowView.ReadGamaFile;
 
 public class btnOpenFileAddDobivSection {
@@ -35,7 +36,7 @@ public class btnOpenFileAddDobivSection {
 					if (!choiceMetody.getSelectedItem().trim().isEmpty()){
 					if (choiceMetody.getSelectedItem().indexOf("10")>0){
 					
-						ReadGamaFile.getReadGamaFile(fileName);
+						ReadGamaFile.getReadGamaFile(fileName, false);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
 						Boolean forResults = false;
@@ -58,6 +59,7 @@ public class btnOpenFileAddDobivSection {
 				}
 					}
 				} catch (NullPointerException e2) {
+					 ResourceLoader.appendToFile(e2);
 					JOptionPane.showMessageDialog(null, "Не сте избрали файл!", "Грешни данни",
 							JOptionPane.ERROR_MESSAGE);
 				}

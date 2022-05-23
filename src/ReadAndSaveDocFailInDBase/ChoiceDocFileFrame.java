@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import CreateWordDocProtocol.GenerateRequestWordDoc;
+import GlobalVariable.ResourceLoader;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -39,6 +40,7 @@ public class ChoiceDocFileFrame extends JFrame {
 					ChoiceDocFileFrame frame = new ChoiceDocFileFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
+					ResourceLoader.appendToFile(e);
 					e.printStackTrace();
 				}
 			}
@@ -82,7 +84,7 @@ public class ChoiceDocFileFrame extends JFrame {
 				 try {
 					GenerateRequestWordDoc.openWordDoc(FILENAME);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					ResourceLoader.appendToFile(e);
 					e.printStackTrace();
 				}
 				 SetDBfromWordDoc.setVolume(FILENAME);

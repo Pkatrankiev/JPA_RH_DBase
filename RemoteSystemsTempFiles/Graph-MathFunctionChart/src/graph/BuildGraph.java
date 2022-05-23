@@ -2,6 +2,9 @@ package graph;
 
 import java.awt.*;
 import java.util.*;
+
+import GlobalVariable.ResourceLoader;
+
 import java.lang.*;
 import java.io.StreamTokenizer;
 import java.io.InputStream;
@@ -384,7 +387,7 @@ public class BuildGraph extends ScanWord {
                                       URL url = new URL(applet.getDocumentBase(),sval);
                                       nobj = new NamedObject(url,URL);
                                 } catch(Exception e) {
-                                     errorAtLine("Failed to build URL!");
+                                	errorAtLine("Failed to build URL!");
                                      return;
                                 } 
                            } else {
@@ -916,7 +919,7 @@ public class BuildGraph extends ScanWord {
                                applet.showStatus("BuildGraph: Built Font!");
                                 return true;
                           } catch(Exception e) {
-                              errorAtLine("Ill formed font specification");
+                        	  errorAtLine("Ill formed font specification");
                               return false;
                           }
                default:
@@ -1033,7 +1036,7 @@ public class BuildGraph extends ScanWord {
 		          try {
                                m = new Markers( (URL)nobj.getObject() );
                           } catch(Exception e) {
-                             errorAtLine("Failed to load markers: "+
+                        	 errorAtLine("Failed to load markers: "+
                                         e.getMessage());
                           }
                           break;

@@ -1276,7 +1276,7 @@ public class AddResultsViewWithTable extends JDialog {
 						
 					if (choiceMetody.getSelectedItem().indexOf("10")>0){
 					
-						ReadGamaFile.getReadGamaFile(fileName);
+						ReadGamaFile.getReadGamaFile(fileName, false);
 						sizeGamaList = ReadGamaFile.getListNuclideMDA();
 					} else {
 						Boolean forResults = true;

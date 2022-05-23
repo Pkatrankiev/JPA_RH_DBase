@@ -22,7 +22,7 @@ public class MenuRequense_AddDobiveFrame extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		Users loginDlg = Login.getCurentUser();
 		if (loginDlg == null) {
-			JOptionPane.showMessageDialog(null, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("logInMesege "));
+			JOptionPane.showMessageDialog(null, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("logInMesege"));
 		} else {
 		TranscluentWindow round = new TranscluentWindow();
 		

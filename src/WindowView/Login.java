@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import Aplication.UsersDAO;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import WindowViewAplication.AutoSuggestor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -194,6 +195,7 @@ public class Login extends JDialog {
 			}
 			return sb.toString();
 		} catch (java.security.NoSuchAlgorithmException e) {
+			ResourceLoader.appendToFile(e);
 		}
 		return null;
 	}

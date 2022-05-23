@@ -20,6 +20,8 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+
+import GlobalVariable.ResourceLoader;
 import WindowView.TranscluentWindow;
 
 public class GenerateRequestWordDoc {
@@ -56,6 +58,7 @@ public class GenerateRequestWordDoc {
 			openWordDoc(destinationDir + destinationName + ".docx");
 
 		} catch (IOException ioe) {
+			ResourceLoader.appendToFile(ioe);
 			System.out.println(ioe.getMessage());
 			return false;
 		}
@@ -101,6 +104,7 @@ public class GenerateRequestWordDoc {
 			br.close();
 			targetFile.delete();
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			br.close();
 			throw e;
 		}
@@ -122,6 +126,7 @@ public class GenerateRequestWordDoc {
 			fos.write(docxTemplate.getBytes("UTF-8"));
 			fos.close();
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			fos.close();
 			throw e;
 		}
@@ -205,7 +210,7 @@ public class GenerateRequestWordDoc {
 		try {
 			deleteTempData(new File(userTempDir));
 		} catch (IOException e) {
-			
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 	}
@@ -279,6 +284,7 @@ public class GenerateRequestWordDoc {
 			}
 			// p.waitFor();
 		} catch (IOException ioe) {
+			ResourceLoader.appendToFile(ioe);
 			ioe.printStackTrace();
 		}
 		

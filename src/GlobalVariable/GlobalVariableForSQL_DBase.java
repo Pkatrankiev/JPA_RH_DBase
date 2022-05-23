@@ -43,6 +43,7 @@ public class GlobalVariableForSQL_DBase {
 					createLokalDataBase());
 //			emfactory.createEntityManager();
 		} catch (PersistenceException| DatabaseException e) {
+			ResourceLoader.appendToFile(e);
 			NoConectionInDBaseDialog();
 		}
 		return emfactory;
@@ -55,6 +56,7 @@ public class GlobalVariableForSQL_DBase {
 			
 //			emfactory.createEntityManager();
 		} catch (Exception e) {
+			ResourceLoader.appendToFile(e);
 			NoConectionInDBaseDialog();
 		}
 //		if(UsersDAO.getInListAllValueUsers().isEmpty()){

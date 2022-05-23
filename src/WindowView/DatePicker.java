@@ -16,6 +16,7 @@ import java.util.Date;
 import javax.swing.*;
 
 import GlobalVariable.GlobalFormatDate;
+import GlobalVariable.ResourceLoader;
 
 public class DatePicker {
 
@@ -213,7 +214,7 @@ public class DatePicker {
 		try {
 			cal_time.setTime(sdf_time.parse(time));
 		} catch (ParseException e1) {
-
+			ResourceLoader.appendToFile(e1);
 			e1.printStackTrace();
 		}
 		minute = cal_time.get(Calendar.MINUTE);
@@ -233,6 +234,7 @@ public class DatePicker {
 				try {
 					cal_time.setTime(sdf_time.parse(label.getText()));
 				} catch (ParseException e) {
+					ResourceLoader.appendToFile(e);
 					JOptionPane.showMessageDialog(null, "Некоректен час!", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -373,7 +375,7 @@ public class DatePicker {
 			cal.setTime(df.parse(curentDate));
 
 		} catch (ParseException e) {
-
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 		if (startYear <= cal.get(Calendar.YEAR)) {

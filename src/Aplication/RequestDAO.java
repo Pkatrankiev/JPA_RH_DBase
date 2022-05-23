@@ -21,6 +21,7 @@ import DBase_Class.Request;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 import DBase_Class.Obekt_na_izpitvane_request;
 
 public class RequestDAO {
@@ -97,6 +98,7 @@ public class RequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при записа", "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
@@ -117,6 +119,7 @@ public class RequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на заявка: " + request.getRecuest_code(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
@@ -136,7 +139,7 @@ public class RequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
-			;
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,  "Прблем при запис на заявка: "+ valueEnt.getRecuest_code()+"kod na ExtraMod: "+valueEnt.getExtra_module().getId_extra_module() , "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
@@ -406,6 +409,7 @@ public class RequestDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,  "Прблем при изтриване на заявка: "+request.getRecuest_code(), "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}

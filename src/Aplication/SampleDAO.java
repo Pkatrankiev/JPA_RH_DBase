@@ -16,6 +16,7 @@ import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class SampleDAO {
 
@@ -293,6 +294,7 @@ public class SampleDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на проба: "+sample.getRequest().getRecuest_code()+"-"+sample.getSample_code(), "Проблем с база данни:",
 					JOptionPane.ERROR_MESSAGE);
 		}
@@ -312,6 +314,7 @@ public class SampleDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при изтриване на проба: " + samp.getRequest().getRecuest_code()+"-"+samp.getSample_code(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);

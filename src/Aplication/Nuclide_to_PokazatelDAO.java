@@ -15,6 +15,7 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Nuclide;
 import DBase_Class.Nuclide_to_Pokazatel;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class Nuclide_to_PokazatelDAO {
 
@@ -66,6 +67,7 @@ public class Nuclide_to_PokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на нуклид_показател: " + nuclide_to_Pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
@@ -160,6 +162,7 @@ public class Nuclide_to_PokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при изтриване на нуклид_показател: " + pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);

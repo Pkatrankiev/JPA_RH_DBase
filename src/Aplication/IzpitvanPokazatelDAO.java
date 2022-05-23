@@ -18,6 +18,7 @@ import DBase_Class.Metody;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 public class IzpitvanPokazatelDAO {
 
@@ -58,6 +59,7 @@ public class IzpitvanPokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на показател: " + izpitvan_pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
@@ -265,6 +267,7 @@ public class IzpitvanPokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при обновяване на показател: " + pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
@@ -302,6 +305,7 @@ public class IzpitvanPokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при изтриване на показател: " + pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
@@ -327,6 +331,7 @@ public class IzpitvanPokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при изтриване на показател: " + strInfo,
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}

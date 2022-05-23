@@ -13,6 +13,7 @@ import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_Pokazatel;
 import GlobalVariable.GlobalVariableForSQL_DBase;
+import GlobalVariable.ResourceLoader;
 
 
 public class Metody_to_PokazatelDAO {
@@ -64,6 +65,7 @@ public class Metody_to_PokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Прблем при обновяване на метод_показател: " + metody_to_Pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
 		}
@@ -150,6 +152,7 @@ public class Metody_to_PokazatelDAO {
 		try {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
 					"Прблем при изтриване на метод_показател: " + pokazatel.getPokazatel().getName_pokazatel(),
 					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);

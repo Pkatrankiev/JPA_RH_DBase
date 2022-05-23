@@ -22,6 +22,7 @@ import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import DBase_Class.Zabelejki;
+import GlobalVariable.ResourceLoader;
 
 
 public class RequestViewAplication {
@@ -208,6 +209,7 @@ public class RequestViewAplication {
 		try {
 			formatter = new MaskFormatter(s);
 		} catch (java.text.ParseException exc) {
+			ResourceLoader.appendToFile(exc);
 			System.err.println("formatter is bad: " + exc.getMessage());
 			System.exit(-1);
 		}
@@ -309,7 +311,7 @@ public class RequestViewAplication {
 			if (Integer.parseInt(code) >= minVolume && Integer.parseInt(code) <= maxVolume)
 				underMaximum = false;
 		} catch (NumberFormatException e) {
-
+			ResourceLoader.appendToFile(e);
 		}
 		return underMaximum;
 	}

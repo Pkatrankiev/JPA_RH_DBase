@@ -39,6 +39,7 @@ import DBase_Class.Results;
 import DBase_Class.Sample;
 import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
@@ -287,13 +288,11 @@ public class Table_Results_List extends JDialog {
 								i++;
 							
 						}
-						} catch (NullPointerException e) {
+						} catch (NullPointerException | NumberFormatException e) {
+							ResourceLoader.appendToFile(e);
 							JOptionPane.showInputDialog(
 									ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
-							} catch (NumberFormatException e) {
-								JOptionPane.showInputDialog(
-										ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
-							}
+							} 
 					}
 				}
 			}
@@ -347,15 +346,11 @@ public class Table_Results_List extends JDialog {
 						tableSample[i][rsult_Id_Colum] = results.getId_results();
 
 						i++;
-					} catch (NullPointerException e) {
+					} catch (NullPointerException | NumberFormatException e) {
+						ResourceLoader.appendToFile(e);
 						JOptionPane.showInputDialog(
 								ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
-					} catch (NumberFormatException e) {
-						JOptionPane.showInputDialog(
-								ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
-					
-					}
-
+					} 
 				}
 
 			}

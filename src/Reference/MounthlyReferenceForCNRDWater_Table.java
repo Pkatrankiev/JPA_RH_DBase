@@ -33,6 +33,7 @@ import javax.swing.table.TableColumn;
 
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import WindowView.TranscluentWindow;
 import javax.swing.border.LineBorder;
 
@@ -704,7 +705,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 								
 						}
 						} catch (Exception e) {
-							
+							ResourceLoader.appendToFile(e);	
 						}
 					}
 

@@ -29,6 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
 import Aplication.EmitionDAO;
@@ -401,8 +402,8 @@ public class TestClases {
 			public void run() {
 
 				JFrame f = new JFrame();
-				// new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
-				new AddResultsView(f, round, UsersDAO.getValueUsersById(i));
+				 new AddDobivView(f,round, UsersDAO.getValueUsersById(3));
+//				new AddResultsView(f, round, UsersDAO.getValueUsersById(i));
 
 				// new OldClases.AddResultsViewWithTable(f,round,
 				// UsersDAO.getValueUsersById(3));
@@ -972,35 +973,7 @@ public class TestClases {
 
 	}
 
-	public static void backupDB_From_RemoteServer() {
-		Date backupDate = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy_HHmm");
-		String backupDateStr = format.format(backupDate);
-
-		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
-		String HOSTIP = "192.168.21.27";
-		String PORT = "3306";
-		String USER = "someuser";
-		String PASS = "123";
-		String database = "rhdbase";
-		String path = "l:/Петър/DB_backup_" + backupDateStr + ".sql";
-
-		try {
-			String executeCmd = PathToMySqlDumpFile + "mysqldump -h " + HOSTIP + " -P " + PORT + " -u " + USER + " -p"
-					+ PASS + " " + database + " -r " + path;
-			Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-			int processComplete = runtimeProcess.waitFor();
-			if (processComplete == 0) {
-				System.out.println("Backup taken successfully");
-			} else {
-				System.out.println("Could not take mysql backup");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	public static <T> List<T> removeDuplicates(List<T> list) {
 		System.out.println("1   " + list.size());
@@ -1092,4 +1065,9 @@ public class TestClases {
 		JFrame f = new JFrame();
 		new FrameChoiceRequestByCode(f, "Генериране на Разпределителен формуляр");
 	}
+
+	
+
+
+	
 }

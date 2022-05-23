@@ -57,6 +57,7 @@ import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import GlobalVariable.ResourceLoader;
 import ReadAndSaveDocFailInDBase.ResultsListInTableForReadDoc;
 import WindowView.AddInChoice;
 import WindowView.AddInChoiceNameFamily;
@@ -835,7 +836,7 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 					txt_fid_date_time_reference.setText(textRefDate);
 
 				} catch (NumberFormatException e) {
-
+					ResourceLoader.appendToFile(e);
 				}
 			}
 		});
@@ -1003,14 +1004,17 @@ public class ExtraRequestViewForReadDoc extends JFrame {
 								txtArea_SampleDescription.setBorder(border);
 							}
 						} catch (NumberFormatException e) {
+							ResourceLoader.appendToFile(e);
 							JOptionPane.showMessageDialog(ExtraRequestViewForReadDoc.this, "Не сте въвели брой на пробите!",
 									"Грешни данни", JOptionPane.ERROR_MESSAGE);
 						}
 					} catch (DateTimeParseException e) {
+						ResourceLoader.appendToFile(e);
 						JOptionPane.showMessageDialog(ExtraRequestViewForReadDoc.this, "Не сте въвели референтна дата и време!",
 								"Грешни данни", JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (NumberFormatException e) {
+					ResourceLoader.appendToFile(e);
 					JOptionPane.showMessageDialog(ExtraRequestViewForReadDoc.this, "Не сте въвели код на пробата!",
 							"Грешни данни", JOptionPane.ERROR_MESSAGE);
 				}

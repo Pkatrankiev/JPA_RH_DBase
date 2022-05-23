@@ -28,7 +28,7 @@ import DBase_Class.TableColumn;
 import DBase_Class.Users;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-
+import GlobalVariable.ResourceLoader;
 import WindowView.DateChoice_period;
 import WindowView.DatePicker;
 import WindowView.RequestViewAplication;
@@ -216,7 +216,7 @@ public class TableList_Functions {
 
 				i++;
 			} catch (NumberFormatException e) {
-
+				ResourceLoader.appendToFile(e);
 			}
 		}
 		return tableSample;
@@ -294,16 +294,13 @@ public class TableList_Functions {
 								i++;
 
 							}
-						} catch (NullPointerException e) {
+						} catch (NullPointerException | NumberFormatException e) {
+							ResourceLoader.appendToFile(e);
 							System.out.println("************************************");
 							JOptionPane.showInputDialog(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 									.get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
 						} 
-						catch (NumberFormatException e) {
-							System.out.println("/////////////////////////////////////");
-							JOptionPane.showInputDialog(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-									.get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
-						}
+						
 					}
 				}
 			}

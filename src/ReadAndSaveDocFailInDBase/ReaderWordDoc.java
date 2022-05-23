@@ -16,6 +16,8 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
+import GlobalVariable.ResourceLoader;
+
 public class ReaderWordDoc {
 
 	private static String[][][] data;
@@ -67,7 +69,7 @@ public class ReaderWordDoc {
 
 
 		} catch (Exception e) {
-
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 
 		}

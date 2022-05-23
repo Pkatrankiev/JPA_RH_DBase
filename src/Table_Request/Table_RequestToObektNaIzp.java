@@ -32,6 +32,7 @@ import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
 import DBase_Class.Users;
+import GlobalVariable.ResourceLoader;
 import WindowView.ChoiceFromListWithPlusAndMinus;
 import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
@@ -235,6 +236,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 				table[i][obektNaIzp_Colum] = createStringListObektNaIzp(getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), false);
 				i++;
 			} catch (NumberFormatException e) {
+				ResourceLoader.appendToFile(e);
 				JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
 			}
 		}

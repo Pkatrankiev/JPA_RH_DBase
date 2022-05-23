@@ -20,6 +20,8 @@ import Aplication.SampleDAO;
 import DBase_Class.Request;
 import DBase_Class.Sample;
 import GlobalVariable.GlobalPathForIcons;
+import GlobalVariable.ResourceLoader;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -388,7 +390,7 @@ public class SampleViewAdd extends JDialog {
 								txtArea_Sample_Descr[l].setText(sstr);
 
 							} catch (NumberFormatException e1) {
-
+								ResourceLoader.appendToFile(e1);
 							}
 						}
 					});

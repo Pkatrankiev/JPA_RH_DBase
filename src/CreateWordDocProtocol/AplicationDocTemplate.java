@@ -32,6 +32,8 @@ import org.docx4j.wml.Text;
 import org.docx4j.wml.Tr;
 import org.eclipse.persistence.exceptions.JAXBException;
 
+import GlobalVariable.ResourceLoader;
+
 
 public class AplicationDocTemplate {
 	
@@ -42,6 +44,7 @@ public class AplicationDocTemplate {
 		try {
 			template = WordprocessingMLPackage.load(new FileInputStream(new File(name)));
 		} catch (FileNotFoundException | Docx4JException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, "Не намирам тамплет-документа", "Грешка в данните",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
@@ -161,7 +164,7 @@ k++;
 			template.save(f);
 			
 		} catch (Docx4JException e) {
-			
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
 	}

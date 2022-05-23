@@ -6,6 +6,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import GlobalVariable.ResourceLoader;
+
 
 
 /**
@@ -58,6 +60,7 @@ public class HTMLTextStylingContentHandler
            
         catch ( IOException e )
         {
+        	ResourceLoader.appendToFile(e);
             throw new SAXException( e );
         }
         super.startElement( uri, localName, name, attributes );
@@ -83,6 +86,7 @@ public class HTMLTextStylingContentHandler
         }
         catch ( IOException e )
         {
+        	ResourceLoader.appendToFile(e);
             throw new SAXException( e );
         }
         super.endElement( uri, localName, name );

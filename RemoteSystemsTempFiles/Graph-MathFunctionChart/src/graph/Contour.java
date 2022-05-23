@@ -4,6 +4,9 @@ import java.awt.*;
 import java.applet.*;
 import java.net.URL;
 import java.util.*;
+
+import GlobalVariable.ResourceLoader;
+
 import java.io.InputStream;
 
 /*
@@ -315,7 +318,7 @@ public class Contour extends G2Dint {
 
                 if (is != null) is.close();
         } catch(Exception e) {
-          System.out.println("Failed to load Grid from file ");
+         System.out.println("Failed to load Grid from file ");
           e.printStackTrace();
           if (is != null) try { is.close(); } catch (Exception ev) { }
           return false;
@@ -685,7 +688,7 @@ public class Contour extends G2Dint {
              for(i=0; i<levels.length; i++) levels[i] = zmin + 
                           Math.pow(Math.E,(double)(i+1)*inc);
 	   } catch (Exception e) {
-             System.out.println("Error calculateing Log levels!");
+		     System.out.println("Error calculateing Log levels!");
              System.out.println("... calculating linear levels instead");
              logLevels = false;
              calcLevels();
@@ -995,7 +998,7 @@ public class Contour extends G2Dint {
                 try {
                   curves[i].addElement(new DataSet(data, data.length/2));
                 } catch (Exception e) {
-                  System.out.println("Error loading contour into DataSet!");
+                 System.out.println("Error loading contour into DataSet!");
                   System.out.println("...Contour Level "+levels[i]);
                 }
               }

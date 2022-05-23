@@ -84,6 +84,7 @@ public class ReadFileWithGlobalTextVariable  {
 			}
 		
 	} catch (IOException e) {
+		ResourceLoader.appendToFile(e);
 		e.printStackTrace();
 	} finally {
 		try {
@@ -92,6 +93,7 @@ public class ReadFileWithGlobalTextVariable  {
 			if (fr != null)
 				fr.close();
 		} catch (IOException ex) {
+			ResourceLoader.appendToFile(ex);
 			ex.printStackTrace();
 		}
 	}

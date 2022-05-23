@@ -27,6 +27,7 @@ import DBase_Class.Sample;
 import DBase_Class.TSI;
 import DBase_Class.Users;
 import GlobalVariable.GlobalFormatDate;
+import GlobalVariable.ResourceLoader;
 import WindowView.ReadGamaFile;
 import WindowView.RequestViewFunction;
 
@@ -197,14 +198,17 @@ public class ReadExcelFile {
 			}
 
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			
 		} catch (OldExcelFormatException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Excel файлът трябва да е версия 97/2000/XP/2003", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
@@ -325,9 +329,11 @@ public class ReadExcelFile {
 			}
 
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
@@ -349,7 +355,7 @@ public class ReadExcelFile {
 		try {
 			dateNull = sdf.parse("01.01.1910");
 		} catch (ParseException e1) {
-
+			ResourceLoader.appendToFile(e1);
 			e1.printStackTrace();
 		}
 		try {
@@ -576,10 +582,12 @@ public class ReadExcelFile {
 
 			}
 		} catch (FileNotFoundException e) {
+			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null, errString, "Грешни данни", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 
 		} catch (IOException e) {
+			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Не е избран excel файл", "Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
@@ -633,6 +641,7 @@ public class ReadExcelFile {
 						listDobivs.add(dobiv);
 
 					} catch (NumberFormatException e) {
+						ResourceLoader.appendToFile(e);
 					}
 				}
 			}

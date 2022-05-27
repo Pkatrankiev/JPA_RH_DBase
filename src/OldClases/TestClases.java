@@ -29,15 +29,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.poi.hpsf.Decimal;
 
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
+import Aplication.EjectionDAO;
 import Aplication.EmitionDAO;
 import Aplication.Ind_num_docDAO;
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.Izpitvan_produktDAO;
 import Aplication.MetodyDAO;
 import Aplication.NuclideDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
+import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.ResultsDAO;
@@ -47,7 +51,10 @@ import CreateWordDocProtocol.FunctionForGenerateWordDocFile;
 import DBase_Class.Dobiv;
 import DBase_Class.Emition;
 import DBase_Class.IzpitvanPokazatel;
+import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Metody;
+import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Period;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -57,6 +64,7 @@ import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.MounthlyReferenceForCNRDWater;
+import Reference.MounthlyReferenceForMenuEjectionVolums;
 import Reference.PeriodicReference;
 import Table.Table_Sample_List;
 import TableBeisicClassDBase.ViewTableBeisicClassDBase;
@@ -361,11 +369,14 @@ public class TestClases {
 	}
 
 	@SuppressWarnings("unused")
-	private static void ChoiceListIzpPokazatel() {
+	public
+	static void ChoiceListIzpPokazatel() {
+		
+		
 		JFrame f = new JFrame();
-		List<String> bsic_list = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
+//		List<String> bsic_list = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
 		String label = "Изберете Обект на изпитване";
-		new ChoiceFromListWithPlusAndMinus(f, null, bsic_list, label);
+		new MounthlyReferenceForMenuEjectionVolums(f, label);
 	}
 
 	public static void testNewRequestVew() {
@@ -477,14 +488,14 @@ public class TestClases {
 		
 	public static void Change_In_Dobiv_Nuclide() {
 
-		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(NuclideDAO.getValueSNuclideById(75));
+		List<Dobiv> listNameDobivs = DobivDAO.getListDobivByNuclide(NuclideDAO.getValueNuclideById(75));
 		for (Dobiv dobiv : listNameDobivs) {
 			String code = dobiv.getCode_Standart().replaceAll("[^\\d]", "").replaceAll("-", "").trim();
 			// System.out.println(code);
 			int kod = Integer.valueOf(code.substring(0, 4));
 			if (kod > 4220) {
 				System.out.println(kod);
-				dobiv.setNuclide(NuclideDAO.getValueSNuclideById(55));
+				dobiv.setNuclide(NuclideDAO.getValueNuclideById(55));
 				DobivDAO.updateDobiv(dobiv);
 			}
 		}

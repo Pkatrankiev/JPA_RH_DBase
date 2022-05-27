@@ -209,3 +209,356 @@ java.lang.NullPointerException
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 20.01.2017 13:00;  2 / 21.01.2017 13:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 28.05.2018 20:40;  2 / 29.05.2018 15:10;  3 / 30.05.2018 02:17;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 02.12.2018 00:00;  2 / 16.11.2018 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 02.12.2018 00:00;  2 / 16.11.2018 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 30.12.2018 12:00;  2 / 01.02.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 12.02.2019 13:00;  2 / 11.02.2019 13:00;  3 / 11.02.2019 13:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 07.03.2019 12:00;  2 / 06.03.2019 12:00;  3 / 06.03.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 13.02.2019 12:00;  2 / 14.03.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 13.02.2019 12:00;  2 / 14.03.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.04.2019 14:00;  2 / 04.04.2019 14:00;  3 / 08.04.2019 12:00;  4 / 08.04.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 11.07.2019 14:00;  2 / 11.07.2019 14:00;  3 / 11.07.2019 14:00;  4 / 11.07.2019 14:00;  5 / 11.07.2019 14:00;  6 / 12.07.2019 14:00;  7 / 12.07.2019 14:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 11.07.2019 14:00;  2 / 12.07.2019 14:00;  3 / 12.07.2019 14:00;  4 / 12.07.2019 14:00;  5 / 19.07.2019 10:00;  6 / 19.07.2019 10:00;  7 / 19.07.2019 10:00;  8 / 19.07.2019 10:00;  9 / 19.07.2019 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 09.07.2019 14:00;  2 / 09.07.2019 14:00;  3 / 10.07.2019 14:00;  4 / 10.07.2019 14:00;  5 / 10.07.2019 14:00;  6 / 10.07.2019 14:00;  7 / 10.07.2019 14:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 23.05.2022 (11:43:02) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.07.2019 10:00;  2 / 04.07.2019 10:00;  3 / 04.07.2019 10:00;  4 / 04.07.2019 10:00;  5 / 08.07.2019 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:450)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:313)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 27.05.2022 (12:35:50) EEST > 
+java.util.concurrent.ExecutionException: Exception [EclipseLink-30005] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.PersistenceUnitLoadingException
+Exception Description: An exception was thrown while searching for persistence archives with ClassLoader: sun.misc.Launcher$AppClassLoader@73d16e93
+Internal Exception: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at javax.swing.SwingWorker.get(SwingWorker.java:602)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.done(CreateMainWindowInfoPanelWithProgrssBar.java:58)
+	at javax.swing.SwingWorker$5.run(SwingWorker.java:737)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.run(SwingWorker.java:832)
+	at sun.swing.AccumulativeRunnable.run(AccumulativeRunnable.java:112)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.actionPerformed(SwingWorker.java:842)
+	at javax.swing.Timer.fireActionPerformed(Timer.java:313)
+	at javax.swing.Timer$DoPostEvent.run(Timer.java:245)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: Exception [EclipseLink-30005] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.PersistenceUnitLoadingException
+Exception Description: An exception was thrown while searching for persistence archives with ClassLoader: sun.misc.Launcher$AppClassLoader@73d16e93
+Internal Exception: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.PersistenceUnitLoadingException.exceptionSearchingForPersistenceResources(PersistenceUnitLoadingException.java:127)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:115)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:188)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getDBase(GlobalVariableForSQL_DBase.java:42)
+	at Aplication.TableColumnDAO.getListTableColumnByTipe_Table(TableColumnDAO.java:50)
+	at InfoPanelInMainWindow.CreatRightPanel.getTextStartYear(CreatRightPanel.java:208)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:50)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createPredeployFailedPersistenceException(EntityManagerSetupImpl.java:2080)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.predeploy(EntityManagerSetupImpl.java:2071)
+	at org.eclipse.persistence.internal.jpa.deployment.JPAInitializer.callPredeploy(JPAInitializer.java:101)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:104)
+	... 13 more
+Caused by: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.predeployFailed(EntityManagerSetupException.java:231)
+	... 17 more
+Caused by: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.ValidationException.invalidTypeForSerializedAttribute(ValidationException.java:1142)
+	at org.eclipse.persistence.internal.jpa.metadata.converters.SerializedMetadata.process(SerializedMetadata.java:103)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processSerialized(MappingAccessor.java:2024)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processMappingConverter(MappingAccessor.java:1851)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processMappingValueConverter(MappingAccessor.java:1872)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.BasicAccessor.process(BasicAccessor.java:433)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataDescriptor.processMappingAccessors(MetadataDescriptor.java:1536)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.ClassAccessor.processMappingAccessors(ClassAccessor.java:1656)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.EntityAccessor.processMappingAccessors(EntityAccessor.java:1240)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.EntityAccessor.process(EntityAccessor.java:699)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataProject.processStage2(MetadataProject.java:1876)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataProcessor.processORMMetadata(MetadataProcessor.java:575)
+	at org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor.processORMetadata(PersistenceUnitProcessor.java:610)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.predeploy(EntityManagerSetupImpl.java:1992)
+	... 15 more
+
+< 27.05.2022 (12:38:31) EEST > 
+java.util.concurrent.ExecutionException: Exception [EclipseLink-30005] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.PersistenceUnitLoadingException
+Exception Description: An exception was thrown while searching for persistence archives with ClassLoader: sun.misc.Launcher$AppClassLoader@73d16e93
+Internal Exception: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at javax.swing.SwingWorker.get(SwingWorker.java:602)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.done(CreateMainWindowInfoPanelWithProgrssBar.java:58)
+	at javax.swing.SwingWorker$5.run(SwingWorker.java:737)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.run(SwingWorker.java:832)
+	at sun.swing.AccumulativeRunnable.run(AccumulativeRunnable.java:112)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.actionPerformed(SwingWorker.java:842)
+	at javax.swing.Timer.fireActionPerformed(Timer.java:313)
+	at javax.swing.Timer$DoPostEvent.run(Timer.java:245)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: Exception [EclipseLink-30005] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.PersistenceUnitLoadingException
+Exception Description: An exception was thrown while searching for persistence archives with ClassLoader: sun.misc.Launcher$AppClassLoader@73d16e93
+Internal Exception: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.PersistenceUnitLoadingException.exceptionSearchingForPersistenceResources(PersistenceUnitLoadingException.java:127)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:115)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:188)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getDBase(GlobalVariableForSQL_DBase.java:42)
+	at Aplication.TableColumnDAO.getListTableColumnByTipe_Table(TableColumnDAO.java:50)
+	at InfoPanelInMainWindow.CreatRightPanel.getTextStartYear(CreatRightPanel.java:208)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:50)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createPredeployFailedPersistenceException(EntityManagerSetupImpl.java:2080)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.predeploy(EntityManagerSetupImpl.java:2071)
+	at org.eclipse.persistence.internal.jpa.deployment.JPAInitializer.callPredeploy(JPAInitializer.java:101)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:104)
+	... 13 more
+Caused by: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.predeployFailed(EntityManagerSetupException.java:231)
+	... 17 more
+Caused by: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.ValidationException.invalidTypeForSerializedAttribute(ValidationException.java:1142)
+	at org.eclipse.persistence.internal.jpa.metadata.converters.SerializedMetadata.process(SerializedMetadata.java:103)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processSerialized(MappingAccessor.java:2024)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processMappingConverter(MappingAccessor.java:1851)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processMappingValueConverter(MappingAccessor.java:1872)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.BasicAccessor.process(BasicAccessor.java:433)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataDescriptor.processMappingAccessors(MetadataDescriptor.java:1536)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.ClassAccessor.processMappingAccessors(ClassAccessor.java:1656)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.EntityAccessor.processMappingAccessors(EntityAccessor.java:1240)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.EntityAccessor.process(EntityAccessor.java:699)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataProject.processStage2(MetadataProject.java:1876)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataProcessor.processORMMetadata(MetadataProcessor.java:575)
+	at org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor.processORMetadata(PersistenceUnitProcessor.java:610)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.predeploy(EntityManagerSetupImpl.java:1992)
+	... 15 more
+
+< 27.05.2022 (12:41:50) EEST > 
+java.util.concurrent.ExecutionException: Exception [EclipseLink-30005] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.PersistenceUnitLoadingException
+Exception Description: An exception was thrown while searching for persistence archives with ClassLoader: sun.misc.Launcher$AppClassLoader@73d16e93
+Internal Exception: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at javax.swing.SwingWorker.get(SwingWorker.java:602)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.done(CreateMainWindowInfoPanelWithProgrssBar.java:58)
+	at javax.swing.SwingWorker$5.run(SwingWorker.java:737)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.run(SwingWorker.java:832)
+	at sun.swing.AccumulativeRunnable.run(AccumulativeRunnable.java:112)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.actionPerformed(SwingWorker.java:842)
+	at javax.swing.Timer.fireActionPerformed(Timer.java:313)
+	at javax.swing.Timer$DoPostEvent.run(Timer.java:245)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: Exception [EclipseLink-30005] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.PersistenceUnitLoadingException
+Exception Description: An exception was thrown while searching for persistence archives with ClassLoader: sun.misc.Launcher$AppClassLoader@73d16e93
+Internal Exception: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.PersistenceUnitLoadingException.exceptionSearchingForPersistenceResources(PersistenceUnitLoadingException.java:127)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:115)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:188)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getDBase(GlobalVariableForSQL_DBase.java:42)
+	at Aplication.TableColumnDAO.getListTableColumnByTipe_Table(TableColumnDAO.java:50)
+	at InfoPanelInMainWindow.CreatRightPanel.getTextStartYear(CreatRightPanel.java:208)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:50)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: javax.persistence.PersistenceException: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createPredeployFailedPersistenceException(EntityManagerSetupImpl.java:2080)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.predeploy(EntityManagerSetupImpl.java:2071)
+	at org.eclipse.persistence.internal.jpa.deployment.JPAInitializer.callPredeploy(JPAInitializer.java:101)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:104)
+	... 13 more
+Caused by: Exception [EclipseLink-28018] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Predeployment of PersistenceUnit [JPA_RH_DBase] failed.
+Internal Exception: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.predeployFailed(EntityManagerSetupException.java:231)
+	... 17 more
+Caused by: Exception [EclipseLink-7155] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.ValidationException
+Exception Description: The type [class org.apache.poi.hpsf.Decimal] for the attribute [volum] on the entity class [class DBase_Class.Ejection] is not a valid type for a serialized mapping. The attribute type must implement the Serializable interface.
+	at org.eclipse.persistence.exceptions.ValidationException.invalidTypeForSerializedAttribute(ValidationException.java:1142)
+	at org.eclipse.persistence.internal.jpa.metadata.converters.SerializedMetadata.process(SerializedMetadata.java:103)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processSerialized(MappingAccessor.java:2024)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processMappingConverter(MappingAccessor.java:1851)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.MappingAccessor.processMappingValueConverter(MappingAccessor.java:1872)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.mappings.BasicAccessor.process(BasicAccessor.java:433)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataDescriptor.processMappingAccessors(MetadataDescriptor.java:1536)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.ClassAccessor.processMappingAccessors(ClassAccessor.java:1656)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.EntityAccessor.processMappingAccessors(EntityAccessor.java:1240)
+	at org.eclipse.persistence.internal.jpa.metadata.accessors.classes.EntityAccessor.process(EntityAccessor.java:699)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataProject.processStage2(MetadataProject.java:1876)
+	at org.eclipse.persistence.internal.jpa.metadata.MetadataProcessor.processORMMetadata(MetadataProcessor.java:575)
+	at org.eclipse.persistence.internal.jpa.deployment.PersistenceUnitProcessor.processORMetadata(PersistenceUnitProcessor.java:610)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.predeploy(EntityManagerSetupImpl.java:1992)
+	... 15 more

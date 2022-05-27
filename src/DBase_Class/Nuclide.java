@@ -24,8 +24,9 @@ public class Nuclide implements Serializable {
 	private Double half_life;
 	private Character genesis;
 	private Boolean favorite;
+	private int ejection_key;
 
-	public Nuclide (String name_bg, String name_en, String symbol, Double half_life, Character genesis, Boolean favorite) {
+	public Nuclide (String name_bg, String name_en, String symbol, Double half_life, Character genesis, Boolean favorite, int ejection_key) {
 		super();
 		this.name_bg = name_bg;
 		this.name_en = name_en;
@@ -33,6 +34,7 @@ public class Nuclide implements Serializable {
 		this.half_life = half_life;
 		this.genesis = genesis;
 		this.favorite = favorite;
+		this.ejection_key = ejection_key;
 	}
 
 	public Nuclide () {
@@ -89,6 +91,14 @@ public class Nuclide implements Serializable {
 
 	public void setFavorite_nuclide(Boolean favorite) {
 		this.favorite = favorite;
+	}
+
+	public int getEjection_key() {
+		return ejection_key;
+	}
+
+	public void setEjection_key(int ejection_key) {
+		this.ejection_key = ejection_key;
 	}
 
 }

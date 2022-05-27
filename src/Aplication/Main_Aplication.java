@@ -113,7 +113,11 @@ public class Main_Aplication {
 		
 		
 		
-//		TestClases.testNewResultFormat(4600,40);
+		TestClases.ChoiceListIzpPokazatel();
+		
+		
+		
+		
 		
 //		FunctionForGenerateWordDocFile.StoinostAndNeopredelenost(19.0464	,3.94921);
 		

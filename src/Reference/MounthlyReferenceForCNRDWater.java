@@ -372,7 +372,7 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 		return godina;
 	}
 
-	private String[] getStringMounth() {
+	public static String[] getStringMounth() {
 		List<Period> listMounth = PeriodDAO.getInListPeriod_Mesechni();
 		String[] strMounth = new String[listMounth.size()];
 		int i = 0;

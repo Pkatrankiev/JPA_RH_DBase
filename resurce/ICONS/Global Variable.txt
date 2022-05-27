@@ -73,7 +73,7 @@ NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
 NewRequense_TitleName = Генериране на Нова Заявка
 NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
 MenuPeriodicReference_TitleName = Справки - Периодичен мониторинг
-MenuEjection_TitleName = Сведения
+MenuEjection_TitleName = Изхвърляния
 ArhiveDBase_TitleName = Архив на Базата Данни
 
 
@@ -279,8 +279,9 @@ Reference_LabelText_separatorInColumnName = …
 MounthlyReferenceForCNRDWater_BasicLabel = <html>СВЕДЕНИЕ<br>за обема на дренираните води от баня на ЦНРД към Изход-2 за:</html>
 MounthlyReferenceForCNRDWater_GodinaLabel = година
 MounthlyReferenceForCNRDWater_MesecLabel = месец
-MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 2020!
+MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 
 
+MounthlyReferenceEjectionVolums_Btn_Reference = Справка
 
 MounthlyReferenceForCNRDWaterTable_MenuEjectionIzhod2 = Изхвърляния към Изход 2
 MounthlyReferenceForCNRDWaterTable_ProtokolN = протокол №

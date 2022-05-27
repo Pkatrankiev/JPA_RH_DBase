@@ -235,14 +235,14 @@ public class ViewTableList extends JDialog {
 							updateTableColumn(objectTableList_OverallVariables.getList_TableColumn());	
 							}
 						}
+						refresh_ViewTaleList(table_List, user, objectTableList_OverallVariables, choisetRequest);
 
 					}
 					
 					
 					});
 				thread.start();
-				round.StopWindow();
-//				refresh_ViewTaleList(table_List, user, objectTableList_OverallVariables, choisetRequest);
+				
 			}
 		});
 	}

@@ -22,6 +22,7 @@ import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
 import Menu.MenuEjectionIzhod2;
+import Menu.MenuEjectionVolums;
 import Menu.MenuOder;
 import Menu.MenuPeriodicReference;
 import Menu.MenuRequense_AddDobiveFrame;
@@ -238,6 +239,7 @@ public class MainWindow extends JFrame {
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjection_TitleName"));
 		åjectionMenu.setMnemonic(KeyEvent.VK_I);
 		åjectionMenu.add(new MenuEjectionIzhod2());
+		åjectionMenu.add(new MenuEjectionVolums());
 		return åjectionMenu;
 	}
 

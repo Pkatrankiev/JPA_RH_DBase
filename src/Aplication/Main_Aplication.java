@@ -4,6 +4,7 @@ package Aplication;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import OldClases.TestClases;
+import Reference.FormatDoubleNumber;
 import Reference.SampleMonthlyReference;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
@@ -113,9 +114,20 @@ public class Main_Aplication {
 		
 		
 		
-		TestClases.ChoiceListIzpPokazatel();
 		
 		
+		
+//		System.out.println(FormatDoubleNumber.formatDoubleToString(00.528,0, false)) ;
+		
+		
+		
+		
+		
+		
+		
+//		TestClases.ChoiceListIzpPokazatel();
+		
+//		KoeficientObjectDAO.setBasicValueKoeficientObject();
 		
 		
 		

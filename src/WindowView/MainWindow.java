@@ -21,6 +21,7 @@ import Menu.MenuData_EnableSampleList;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
+import Menu.MenuEjectionCalculate;
 import Menu.MenuEjectionIzhod2;
 import Menu.MenuEjectionVolums;
 import Menu.MenuOder;
@@ -238,8 +239,9 @@ public class MainWindow extends JFrame {
 		JMenu åjectionMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjection_TitleName"));
 		åjectionMenu.setMnemonic(KeyEvent.VK_I);
-		åjectionMenu.add(new MenuEjectionIzhod2());
 		åjectionMenu.add(new MenuEjectionVolums());
+		åjectionMenu.add(new MenuEjectionCalculate());
+		åjectionMenu.add(new MenuEjectionIzhod2());
 		return åjectionMenu;
 	}
 

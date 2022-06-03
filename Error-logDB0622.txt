@@ -1,0 +1,420 @@
+
+< 01.06.2022 (14:16:41) EEST > 
+javax.persistence.PersistenceException: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createDeployFailedPersistenceException(EntityManagerSetupImpl.java:898)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:838)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:216)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.createEntityManagerImpl(EntityManagerFactoryDelegate.java:324)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManagerImpl(EntityManagerFactoryImpl.java:348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManager(EntityManagerFactoryImpl.java:311)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getEntityManagerDBase(GlobalVariableForSQL_DBase.java:55)
+	at Aplication.PeriodDAO.getInListPeriod_Mesechni(PeriodDAO.java:58)
+	at Reference.MounthlyReferenceForCNRDWater.getStringMounth(MounthlyReferenceForCNRDWater.java:376)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.<init>(MounthlyReferenceForMenuEjectionCalculate.java:72)
+	at OldClases.TestClases.ChoiceListIzpPokazatel(TestClases.java:380)
+	at Aplication.Main_Aplication.main(Main_Aplication.java:116)
+Caused by: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.deployFailed(EntityManagerSetupException.java:239)
+	... 12 more
+Caused by: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildException(HermesParser.java:155)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.validate(HermesParser.java:347)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.populateQueryImp(HermesParser.java:278)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildQuery(HermesParser.java:163)
+	at org.eclipse.persistence.internal.jpa.EJBQueryImpl.buildEJBQLDatabaseQuery(EJBQueryImpl.java:140)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.processJPQLQuery(JPAQuery.java:223)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.prepare(JPAQuery.java:184)
+	at org.eclipse.persistence.queries.DatabaseQuery.prepareInternal(DatabaseQuery.java:631)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQuery(AbstractSession.java:4488)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQueries(AbstractSession.java:4448)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.initializeDescriptors(DatabaseSessionImpl.java:640)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.postConnectDatasource(DatabaseSessionImpl.java:863)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.login(DatabaseSessionImpl.java:820)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider.login(EntityManagerFactoryProvider.java:256)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:757)
+	... 10 more
+
+< 01.06.2022 (14:17:09) EEST > 
+javax.persistence.PersistenceException: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createDeployFailedPersistenceException(EntityManagerSetupImpl.java:898)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:838)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:216)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.createEntityManagerImpl(EntityManagerFactoryDelegate.java:324)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManagerImpl(EntityManagerFactoryImpl.java:348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManager(EntityManagerFactoryImpl.java:311)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getEntityManagerDBase(GlobalVariableForSQL_DBase.java:55)
+	at Aplication.PeriodDAO.getInListPeriod_Mesechni(PeriodDAO.java:58)
+	at Reference.MounthlyReferenceForCNRDWater.getStringMounth(MounthlyReferenceForCNRDWater.java:376)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.<init>(MounthlyReferenceForMenuEjectionCalculate.java:72)
+	at OldClases.TestClases.ChoiceListIzpPokazatel(TestClases.java:380)
+	at Aplication.Main_Aplication.main(Main_Aplication.java:116)
+Caused by: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.deployFailed(EntityManagerSetupException.java:239)
+	... 12 more
+Caused by: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildException(HermesParser.java:155)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.validate(HermesParser.java:347)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.populateQueryImp(HermesParser.java:278)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildQuery(HermesParser.java:163)
+	at org.eclipse.persistence.internal.jpa.EJBQueryImpl.buildEJBQLDatabaseQuery(EJBQueryImpl.java:140)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.processJPQLQuery(JPAQuery.java:223)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.prepare(JPAQuery.java:184)
+	at org.eclipse.persistence.queries.DatabaseQuery.prepareInternal(DatabaseQuery.java:631)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQuery(AbstractSession.java:4488)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQueries(AbstractSession.java:4448)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.initializeDescriptors(DatabaseSessionImpl.java:640)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.postConnectDatasource(DatabaseSessionImpl.java:863)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.login(DatabaseSessionImpl.java:820)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider.login(EntityManagerFactoryProvider.java:256)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:757)
+	... 10 more
+
+< 01.06.2022 (14:18:34) EEST > 
+javax.persistence.PersistenceException: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createDeployFailedPersistenceException(EntityManagerSetupImpl.java:898)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:838)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:216)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.createEntityManagerImpl(EntityManagerFactoryDelegate.java:324)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManagerImpl(EntityManagerFactoryImpl.java:348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManager(EntityManagerFactoryImpl.java:311)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getEntityManagerDBase(GlobalVariableForSQL_DBase.java:55)
+	at Aplication.PeriodDAO.getInListPeriod_Mesechni(PeriodDAO.java:58)
+	at Reference.MounthlyReferenceForCNRDWater.getStringMounth(MounthlyReferenceForCNRDWater.java:376)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.<init>(MounthlyReferenceForMenuEjectionCalculate.java:72)
+	at OldClases.TestClases.ChoiceListIzpPokazatel(TestClases.java:380)
+	at Aplication.Main_Aplication.main(Main_Aplication.java:116)
+Caused by: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.deployFailed(EntityManagerSetupException.java:239)
+	... 12 more
+Caused by: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildException(HermesParser.java:155)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.validate(HermesParser.java:347)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.populateQueryImp(HermesParser.java:278)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildQuery(HermesParser.java:163)
+	at org.eclipse.persistence.internal.jpa.EJBQueryImpl.buildEJBQLDatabaseQuery(EJBQueryImpl.java:140)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.processJPQLQuery(JPAQuery.java:223)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.prepare(JPAQuery.java:184)
+	at org.eclipse.persistence.queries.DatabaseQuery.prepareInternal(DatabaseQuery.java:631)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQuery(AbstractSession.java:4488)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQueries(AbstractSession.java:4448)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.initializeDescriptors(DatabaseSessionImpl.java:640)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.postConnectDatasource(DatabaseSessionImpl.java:863)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.login(DatabaseSessionImpl.java:820)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider.login(EntityManagerFactoryProvider.java:256)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:757)
+	... 10 more
+
+< 01.06.2022 (14:19:48) EEST > 
+javax.persistence.PersistenceException: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.createDeployFailedPersistenceException(EntityManagerSetupImpl.java:898)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:838)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:216)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.createEntityManagerImpl(EntityManagerFactoryDelegate.java:324)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManagerImpl(EntityManagerFactoryImpl.java:348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManager(EntityManagerFactoryImpl.java:311)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getEntityManagerDBase(GlobalVariableForSQL_DBase.java:55)
+	at Aplication.PeriodDAO.getInListPeriod_Mesechni(PeriodDAO.java:58)
+	at Reference.MounthlyReferenceForCNRDWater.getStringMounth(MounthlyReferenceForCNRDWater.java:376)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.<init>(MounthlyReferenceForMenuEjectionCalculate.java:72)
+	at OldClases.TestClases.ChoiceListIzpPokazatel(TestClases.java:380)
+	at Aplication.Main_Aplication.main(Main_Aplication.java:116)
+Caused by: Exception [EclipseLink-28019] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.EntityManagerSetupException
+Exception Description: Deployment of PersistenceUnit [JPA_RH_DBase] failed. Close all factories for this PersistenceUnit.
+Internal Exception: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.exceptions.EntityManagerSetupException.deployFailed(EntityManagerSetupException.java:239)
+	... 12 more
+Caused by: Exception [EclipseLink-0] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.JPQLException
+Exception Description: Problem compiling [SELECT e FROM KoeficientObject e WHERE e.OBECT_ID_OBEKT_NA_IZPITVANE = :text]. 
+[39, 68] The state field path 'e.OBECT_ID_OBEKT_NA_IZPITVANE' cannot be resolved to a valid type.
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildException(HermesParser.java:155)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.validate(HermesParser.java:347)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.populateQueryImp(HermesParser.java:278)
+	at org.eclipse.persistence.internal.jpa.jpql.HermesParser.buildQuery(HermesParser.java:163)
+	at org.eclipse.persistence.internal.jpa.EJBQueryImpl.buildEJBQLDatabaseQuery(EJBQueryImpl.java:140)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.processJPQLQuery(JPAQuery.java:223)
+	at org.eclipse.persistence.internal.jpa.JPAQuery.prepare(JPAQuery.java:184)
+	at org.eclipse.persistence.queries.DatabaseQuery.prepareInternal(DatabaseQuery.java:631)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQuery(AbstractSession.java:4488)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.processJPAQueries(AbstractSession.java:4448)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.initializeDescriptors(DatabaseSessionImpl.java:640)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.postConnectDatasource(DatabaseSessionImpl.java:863)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.login(DatabaseSessionImpl.java:820)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider.login(EntityManagerFactoryProvider.java:256)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:757)
+	... 10 more
+
+< 03.06.2022 (09:53:52) EEST > 
+javax.persistence.PersistenceException: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+Error Code: 0
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:844)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:216)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.createEntityManagerImpl(EntityManagerFactoryDelegate.java:324)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManagerImpl(EntityManagerFactoryImpl.java:348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.createEntityManager(EntityManagerFactoryImpl.java:311)
+	at GlobalVariable.GlobalVariableForSQL_DBase.getEntityManagerDBase(GlobalVariableForSQL_DBase.java:55)
+	at Aplication.PeriodDAO.getInListPeriod_Mesechni(PeriodDAO.java:58)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.generatePeriodMasive(MounthlyReferenceForMenuEjectionCalculate.java:289)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.<init>(MounthlyReferenceForMenuEjectionCalculate.java:104)
+	at OldClases.TestClases.ChoiceListIzpPokazatel(TestClases.java:380)
+	at Aplication.Main_Aplication.main(Main_Aplication.java:119)
+Caused by: Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+Error Code: 0
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:331)
+	at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:326)
+	at org.eclipse.persistence.sessions.DefaultConnector.connect(DefaultConnector.java:138)
+	at org.eclipse.persistence.sessions.DatasourceLogin.connectToDatasource(DatasourceLogin.java:170)
+	at org.eclipse.persistence.internal.databaseaccess.DatasourceAccessor.connectInternal(DatasourceAccessor.java:346)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.connectInternal(DatabaseAccessor.java:313)
+	at org.eclipse.persistence.internal.databaseaccess.DatasourceAccessor.connect(DatasourceAccessor.java:434)
+	at org.eclipse.persistence.sessions.server.ConnectionPool.buildConnection(ConnectionPool.java:217)
+	at org.eclipse.persistence.sessions.server.ConnectionPool.startUp(ConnectionPool.java:505)
+	at org.eclipse.persistence.sessions.server.ServerSession.connect(ServerSession.java:519)
+	at org.eclipse.persistence.internal.sessions.DatabaseSessionImpl.login(DatabaseSessionImpl.java:819)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryProvider.login(EntityManagerFactoryProvider.java:256)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:757)
+	... 10 more
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:341)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2222)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2017)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:779)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:389)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:330)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:208)
+	at org.eclipse.persistence.sessions.DefaultConnector.connect(DefaultConnector.java:98)
+	... 20 more
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:211)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:300)
+	... 35 more
+
+< 03.06.2022 (11:17:40) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:769)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$1$1.run(MounthlyReferenceForMenuEjectionCalculate.java:225)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (11:34:29) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:763)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$1$1.run(MounthlyReferenceForMenuEjectionCalculate.java:225)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (13:09:56) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:768)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$1$1.run(MounthlyReferenceForMenuEjectionCalculate.java:226)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (13:19:12) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:770)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$1$1.run(MounthlyReferenceForMenuEjectionCalculate.java:226)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (13:24:59) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:772)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$1$1.run(MounthlyReferenceForMenuEjectionCalculate.java:226)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (13:34:29) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:774)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$1$1.run(MounthlyReferenceForMenuEjectionCalculate.java:226)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (14:14:56) EEST > 
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at javax.swing.SwingWorker.get(SwingWorker.java:602)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.done(CreateMainWindowInfoPanelWithProgrssBar.java:58)
+	at javax.swing.SwingWorker$5.run(SwingWorker.java:737)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.run(SwingWorker.java:832)
+	at sun.swing.AccumulativeRunnable.run(AccumulativeRunnable.java:112)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.actionPerformed(SwingWorker.java:842)
+	at javax.swing.Timer.fireActionPerformed(Timer.java:313)
+	at javax.swing.Timer$DoPostEvent.run(Timer.java:245)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+	at java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:190)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:235)
+	at java.awt.WaitDispatchSupport$4.run(WaitDispatchSupport.java:233)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:233)
+	at java.awt.Dialog.show(Dialog.java:1084)
+	at java.awt.Component.show(Component.java:1671)
+	at java.awt.Component.setVisible(Component.java:1623)
+	at java.awt.Window.setVisible(Window.java:1014)
+	at java.awt.Dialog.setVisible(Dialog.java:1005)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.<init>(MounthlyReferenceForMenuEjectionCalculate.java:302)
+	at Menu.MenuEjectionCalculate.actionPerformed(MenuEjectionCalculate.java:25)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(BasicMenuItemUI.java:842)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(BasicMenuItemUI.java:886)
+	at java.awt.Component.processMouseEvent(Component.java:6539)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
+	at java.awt.Component.processEvent(Component.java:6304)
+	at java.awt.Container.processEvent(Container.java:2239)
+	at java.awt.Component.dispatchEventImpl(Component.java:4889)
+	at java.awt.Container.dispatchEventImpl(Container.java:2297)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4904)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4535)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4476)
+	at java.awt.Container.dispatchEventImpl(Container.java:2283)
+	at java.awt.Window.dispatchEventImpl(Window.java:2746)
+	at java.awt.Component.dispatchEvent(Component.java:4711)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:760)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:84)
+	at java.awt.EventQueue$4.run(EventQueue.java:733)
+	at java.awt.EventQueue$4.run(EventQueue.java:731)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:74)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:730)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:205)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+Caused by: java.lang.NullPointerException
+	at InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass.getLabelProtokol(CreateListLeftPanelStartWindowClass.java:106)
+	at InfoPanelInMainWindow.CreateListLeftPanelStartWindowClass.createListLeftPanelStartWindowClass(CreateListLeftPanelStartWindowClass.java:81)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:51)
+	at InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar.doInBackground(CreateMainWindowInfoPanelWithProgrssBar.java:1)
+	at javax.swing.SwingWorker$1.call(SwingWorker.java:295)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at javax.swing.SwingWorker.run(SwingWorker.java:334)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (14:15:53) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:791)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:242)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 03.06.2022 (14:19:59) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:794)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:242)
+	at java.lang.Thread.run(Thread.java:748)

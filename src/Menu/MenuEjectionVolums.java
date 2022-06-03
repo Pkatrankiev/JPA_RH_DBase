@@ -13,7 +13,7 @@ public class MenuEjectionVolums extends AbstractMenuAction{
 	
 	
 	private static final long serialVersionUID = 1L;
-	static String MenuEjectionVolums_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjectionVolums");
+	static String MenuEjectionVolums_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjection_Volums");
 	
 	public MenuEjectionVolums() {
 		super(MenuEjectionVolums_TitleName);

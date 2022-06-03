@@ -166,7 +166,7 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				enterGodina(txtFieldGodina, lblErrorGodina, okButton);
+				enterGodina(txtFieldGodina, lblErrorGodina, okButton, 2020);
 
 			}
 
@@ -339,15 +339,15 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 		return listAllNuclide;
 	}
 
-	public static boolean enterGodina(JTextField txtFieldGodina, JLabel lblErrorGodina, JButton okButton) {
+	public static boolean enterGodina(JTextField txtFieldGodina, JLabel lblErrorGodina, JButton okButton, int refGodina) {
 
 		boolean corectRequestCode = false;
 		txtFieldGodina.setText(RequestViewFunction.checkFormatString(txtFieldGodina.getText()));
 		int godina = getGodinafromTextFildGodina(txtFieldGodina);
-		if (godina < 2020) {
+		if (godina < refGodina) {
 			txtFieldGodina.setForeground(Color.red);
 			lblErrorGodina.setText(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-					.get("MounthlyReferenceForCNRDWater_GodinaLabel_Error"));
+					.get("MounthlyReferenceForCNRDWater_GodinaLabel_Error")+ " "+refGodina);
 			okButton.setEnabled(false);
 			corectRequestCode = false;
 		} else {

@@ -1,8 +1,6 @@
 package Reference;
 
 import java.awt.BorderLayout;
-import java.awt.Choice;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -22,10 +20,12 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
+
+import org.apache.commons.lang3.StringUtils;
 
 import Aplication.EjectionDAO;
 import Aplication.Izpitvan_produktDAO;
@@ -34,6 +34,7 @@ import Aplication.PeriodDAO;
 import DBase_Class.Ejection;
 import DBase_Class.Period;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+
 import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -59,8 +60,10 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 	final String[] strProdukt = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();
 	final String[] strObekt = Obekt_na_izpitvane_requestDAO.getMasiveStringAllValueObekt_na_izpitvane();
 	
-	int sizeV = 300;
-	int sizeH = 1080;
+	int sizeV = 240;
+	int sizeH = 1050;
+	int newRowWith = 22;
+	int lineWith = 15;
 	public MounthlyReferenceForMenuEjectionVolums(JFrame parent, String nameFrame) {
 		super(parent, nameFrame, true);
 		setResizable(false);
@@ -83,10 +86,10 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		scrollPane.setViewportView(basicPanel);
 		
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 22, 91, 64, 99, 80, 48, 40, 40 };
+		gbl_panel.columnWidths = new int[] { 10, 91, 64, 99, 80, 48, 40, 10 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 16, 0, 0, 16 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0,1.0,0.0,0.0,0.0,0.0 };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0,0.0,0.0,0.0,0.0,0.0 };
 		basicPanel.setLayout(gbl_panel);
 
 		
@@ -134,18 +137,25 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridwidth = 2;
+		gbc_lblNewLabel_3.gridwidth = 3;
 		gbc_lblNewLabel_3.gridx = 1;
 		gbc_lblNewLabel_3.gridy = 2;
 		basicPanel.add(lblErrorGodina, gbc_lblNewLabel_3);
 		
-		
+		JLabel lblReferenceEjection = new JLabel();
+		GridBagConstraints gbc_lblReferenceEjection = new GridBagConstraints();
+		gbc_lblReferenceEjection.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblReferenceEjection.gridwidth = 5;
+		gbc_lblReferenceEjection.insets = new Insets(0, 0, 5, 5);
+		gbc_lblReferenceEjection.gridx = 1;
+		gbc_lblReferenceEjection.gridy = 3;
+		basicPanel.add(lblReferenceEjection, gbc_lblReferenceEjection);
 		
 		JButton btnReference = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("MounthlyReferenceEjectionVolums_Btn_Reference"));
 		GridBagConstraints gbc_btnReference = new GridBagConstraints();
 		gbc_btnReference.gridwidth = 2;
-		gbc_btnReference.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_btnReference.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_btnReference.insets = new Insets(0, 0, 5, 5);
 		gbc_btnReference.gridx = 3;
 		gbc_btnReference.gridy = 1;
@@ -153,44 +163,25 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 
 		btnReference.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int countRow = StringUtils.countMatches(lblReferenceEjection.getText(), "<br>");
+				sizeV = sizeV - countRow*lineWith;
 				String mesec = (String) comboBox.getSelectedItem();
 				int godina = Integer.parseInt(txtFieldGodina.getText());
 				String textReference = createLblReference( mesec, godina);
-				lblErrorGodina.setText(textReference);
+				countRow = StringUtils.countMatches(textReference, "<br>");
+				lblReferenceEjection.setText(textReference);
+				sizeV = sizeV+ countRow*lineWith;
+				setSize(sizeH, sizeV);
+				basicPanel.repaint();
+				basicPanel.revalidate();
+		System.out.println(countRow+" - "+ textReference);		
 			}
 
 		
 
 		});
 		
-//		JLabel lbl_Emptry1 = new JLabel();
-//		GridBagConstraints gbc_lbl_Emptry1 = new GridBagConstraints();
-//		gbc_lbl_Emptry1.insets = new Insets(0, 0, 5, 5);
-//		gbc_lbl_Emptry1.gridx = 5;
-//		gbc_lbl_Emptry1.gridy = 1;
-//		basicPanel.add(lbl_Emptry1, gbc_lbl_Emptry1);
-//		
-//		JLabel lblEmptry = new JLabel();
-//		GridBagConstraints gbc_lblEmptry = new GridBagConstraints();
-//		gbc_lblEmptry.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_lblEmptry.insets = new Insets(0, 0, 5, 5);
-//		gbc_lblEmptry.gridx = 6;
-//		gbc_lblEmptry.gridy = 1;
-//		basicPanel.add(lblEmptry, gbc_lblEmptry);
-//		
 		
-		
-		
-	
-		
-//		JLabel lblNewLabel = new JLabel("");
-//		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-//		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_lblNewLabel.gridwidth = 4;
-//		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-//		gbc_lblNewLabel.gridx = 1;
-//		gbc_lblNewLabel.gridy = 3;
-//		basicPanel.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLACK);
@@ -268,7 +259,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 				} else {
 					btnPlus.setVisible(false);
 				}
-				sizeV = sizeV - 20;
+				sizeV = sizeV - newRowWith;
 				setSize(sizeH, sizeV);
 				basicPanel.repaint();
 				basicPanel.revalidate();
@@ -310,7 +301,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 				} else {
 					btnPlus.setVisible(false);
 				}
-				sizeV = sizeV+ 20;
+				sizeV = sizeV+ newRowWith;
 				setSize(sizeH, sizeV);
 				basicPanel.repaint();
 				basicPanel.revalidate();
@@ -330,10 +321,10 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JButton okButton = new JButton("OK");
-
-		okButton.setActionCommand(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+		JButton okButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("saveBtn_Text"));
+
+//		okButton.setActionCommand(
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		okButton.addActionListener(new ActionListener() {
@@ -370,7 +361,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				MounthlyReferenceForCNRDWater.enterGodina(txtFieldGodina, lblErrorGodina, btnReference);
+				MounthlyReferenceForCNRDWater.enterGodina(txtFieldGodina, lblErrorGodina, btnReference, 2022);
 
 			}
 
@@ -416,6 +407,32 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		basicPanel.add(textField_Volum[row], gbc_textField_Volum[row]);
 		textField_Volum[row].setColumns(5);
 		
+		textField_Volum[row].addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					double k = Double.parseDouble(textField_Volum[row].getText());
+					textField_Volum[row].setForeground(Color.BLACK);
+					System.out.println(k);
+				} catch (NumberFormatException e1) {
+					textField_Volum[row].setForeground(Color.RED);
+				}
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+			}
+		});
+		
+		
 		}
 
 	private void deleteRow(int row) {
@@ -431,34 +448,35 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		String str = "";
 		List<Ejection> listReferenceEjection = EjectionDAO.getListEjectionFromMesecANDGodina(per, godina);
 		
-//		List<Ejection> listReferenceEjection = EjectionDAO.getInListAllEjection();
+		if(!listReferenceEjection.isEmpty()){
 		String prod = listReferenceEjection.get(0).getProdukt().getName_zpitvan_produkt();
 		str = str + prod+"<br>";
 		for (Ejection ejection : listReferenceEjection) {
 			if(prod.equals(ejection.getProdukt().getName_zpitvan_produkt())){
 				str = str + ejection.getObect().getName_obekt_na_izpitvane()+" - "+
-						ejection.getVolum().toString()+" m3 <br>";
+						FormatDoubleNumber.formatDoubleToString(ejection.getVolum(),2, true)+" m3 <br>";
 			}else{
 				prod = ejection.getProdukt().getName_zpitvan_produkt();
 				str = str +prod+"<br>";
 				str = str + ejection.getObect().getName_obekt_na_izpitvane()+" - "+
-						ejection.getVolum().toString()+" m3 <br>";
+						FormatDoubleNumber.formatDoubleToString(ejection.getVolum(),2, true)+" m3 <br>";
 			}
 		}
 		if(!str.isEmpty()){
 			str = "<html>" + str +"</html>";
+		}
 		}
 		return str;
 	}
 	
 	private void saveEjectionObject(String mesec, int godina) {
 		Period per = PeriodDAO.getValuePeriodByPeriod(mesec);
-		int count = comboBox_Obekt.length;
+		
 		List<Ejection> listEjection = new ArrayList<Ejection>();
 		boolean fl = false;
+		try {
 		for (int i = 0; i < countCoice+1 ; i++) {
-			System.out.println(i+"");
-			System.out.println(i+"  "+comboBox_Obekt[i].getSelectedItem().toString());
+			Double.parseDouble(textField_Volum[i].getText());
 			Ejection ejection = new Ejection() ;
 			Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvane_requestByName(comboBox_Obekt[i].getSelectedItem().toString());
 			ejection.setGodina(godina);
@@ -467,30 +485,46 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 					getValueObekt_na_izpitvane_requestByName(comboBox_Obekt[i].getSelectedItem().toString()));
 			ejection.setProdukt(Izpitvan_produktDAO.
 					getValueIzpitvan_produktByName((comboBox_Produkt[i].getSelectedItem().toString())));
-			ejection.setVolum(Double.parseDouble(textField_Volum[i].getText()));
+			ejection.setVolum(FormatDoubleNumber.formatStringToDouble(textField_Volum[i].getText(),2));
 	
 			listEjection.add(ejection);
 		}
+		
 		List<Ejection> listReferenceEjection = EjectionDAO.getListEjectionFromMesecANDGodina(per, godina);	
 		
 		for (Ejection newEjection : listEjection ) {
 			fl = false;
-			for (Ejection refEjection : listReferenceEjection ) {	
-				if(newEjection.getProdukt().equals(refEjection.getProdukt()) &&
-						newEjection.getObect().equals(refEjection.getObect())){
+			
+			for (Ejection dataBaseEjection : listReferenceEjection ) {	
+				if( newEjection.getProdukt().getName_zpitvan_produkt().equals(dataBaseEjection.getProdukt().getName_zpitvan_produkt()) &&
+					newEjection.getObect().getName_obekt_na_izpitvane().equals(dataBaseEjection.getObect().getName_obekt_na_izpitvane())){
 					fl = true;
-					if(!newEjection.getVolum().equals(refEjection.getVolum())){
-						newEjection.setVolum(refEjection.getVolum());
-						EjectionDAO.updateEjection(newEjection);
+					
+					if(!FormatDoubleNumber.formatDoubleToString(newEjection.getVolum(),2, true).
+							equals(FormatDoubleNumber.formatDoubleToString(dataBaseEjection.getVolum(),2, true))){
+						dataBaseEjection.setVolum(newEjection.getVolum());
+						EjectionDAO.updateEjection(dataBaseEjection);
 						
 					}
 				}
 			}
+			
+
 			if(!fl){
 				EjectionDAO.setEjection(newEjection);
 				
 			}
+			
+		}
+} catch (NumberFormatException e1) {
+	JOptionPane.showMessageDialog(null, 
+			ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MounthlyReferenceForCNRDWater_ErrorObemBAK"), 
+			ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData"),
+			JOptionPane.ERROR_MESSAGE);	
 		}
 	}
+	
+	
+	
 	
 }

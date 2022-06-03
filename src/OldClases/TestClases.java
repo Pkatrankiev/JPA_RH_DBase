@@ -64,6 +64,7 @@ import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.MounthlyReferenceForCNRDWater;
+import Reference.MounthlyReferenceForMenuEjectionCalculate;
 import Reference.MounthlyReferenceForMenuEjectionVolums;
 import Reference.PeriodicReference;
 import Table.Table_Sample_List;
@@ -368,7 +369,7 @@ public class TestClases {
 		return m;
 	}
 
-	@SuppressWarnings("unused")
+	
 	public
 	static void ChoiceListIzpPokazatel() {
 		
@@ -376,7 +377,7 @@ public class TestClases {
 		JFrame f = new JFrame();
 //		List<String> bsic_list = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
 		String label = "Изберете Обект на изпитване";
-		new MounthlyReferenceForMenuEjectionVolums(f, label);
+		new  MounthlyReferenceForMenuEjectionCalculate(f,  label);
 	}
 
 	public static void testNewRequestVew() {

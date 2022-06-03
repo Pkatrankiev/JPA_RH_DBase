@@ -126,6 +126,27 @@ public class NuclideDAO {
 		return list;
 	}
 
+	@GET
+	public static List<Nuclide> getListNuclideEjection() {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		String hql = "SELECT e FROM Nuclide e WHERE e.ejection_key IS NOT NULL ORDER BY e.symbol ASC";
+		
+		Query query = entitymanager.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Nuclide> list = query.getResultList();
+		
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
 	public static String[] getMasiveStringAllValueNuclide(){
 		 List<Nuclide> list = getInListAllValueNuclide();
 		String[] values = new String[list.size()];

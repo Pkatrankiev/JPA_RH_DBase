@@ -201,10 +201,11 @@ public class generateInformationToBAK45 {
 	}
 
 	private List<Results> getListResult_BAKToMesetcGodina(String mount, int godina) {
+		int idObekt_na_izpitvane_sample_BAK4i5 = 5;
 		List<Results> listResults = new ArrayList<>();
 		Period period = PeriodDAO.getValuePeriodByPeriod(mount);
 		Obekt_na_izpitvane_sample object = Obekt_na_izpitvane_sampleDAO
-				.getValueObekt_na_izpitvane_sampleOrSaveByName("Бак 4 и 5");
+				.getValueObekt_na_izpitvane_sampleById(idObekt_na_izpitvane_sample_BAK4i5);
 		Sample samp = SampleDAO.getSampleByObject_Mesetc_Godina(object, period, godina);
 		if(samp!=null){
 			listResults = ResultsDAO.getListResultsFromCurentSampleInProtokol(samp);	

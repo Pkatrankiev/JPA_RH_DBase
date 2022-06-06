@@ -100,10 +100,12 @@ public class SampleMonthlyReference {
 		
 		List<Results> listResul = new ArrayList<>();
 //			list = ResultsDAO.getListResults_LargerByIDANDInProtokol(list.get(0).getId_results());
-
+		startDate = DatePicker.displacementDate(startDate, -1 );
+		endDate = DatePicker.displacementDate(endDate, 1 );
 		System.out.println(startDate + " - " + endDate);
 		for (Results results : list) {
 			System.out.println(results.getDate_measur());
+			
 			if (DatePicker.isDate2AfterDate1(startDate, results.getDate_measur())
 					&& DatePicker.isDate2AfterDate1(results.getDate_measur(), endDate)) {
 				listResul.add(results);
@@ -184,7 +186,6 @@ public class SampleMonthlyReference {
 		}
 		return listMasiveReferens;
 	}
-
 	
 	
 

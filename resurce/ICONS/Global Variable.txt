@@ -1,10 +1,10 @@
 #Sring
 
-MainWindow_Ver = Ver.030622
+MainWindow_Ver = Ver.060622
 
 ProtokolResultNeopred = 0
 
-MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = D:/BAK-2022-NEW.xls
+MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
 
 $$DBase_SampleTableColumnName
 
@@ -72,7 +72,7 @@ DeleteRequense_TitleName = Изтриване на Заявка
 NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
 NewRequense_TitleName = Генериране на Нова Заявка
 NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
-MenuPeriodicReference_TitleName = Справки - Периодичен мониторинг
+MenuPeriodicReference_TitleName = Периодичен мониторинг
 MenuEjection_TitleName = Изхвърляния
 MenuEjection_Volums = Обеми на Изхвърянията
 MenuEjection_Calculate = Изчисления за Изхвърлянията
@@ -245,7 +245,7 @@ LabelText_MDA = МДА
 LabelText_Add = Добавяне
 LabelText_Select = Изберете:
 
-PeriodicReference_TitleName = Справки - Периодичен мониторинг
+PeriodicReference_TitleName = Справка - Периодичен мониторинг
 Reference_LabelText_IzpitvanProdukt = Изпитван продукт
 Reference_LabelText_Obekt_Na_Izpitvane = Обект на изпитване
 Reference_LabelText_Pokazatel = Показател
@@ -304,10 +304,11 @@ MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% на<br>
 MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>Максималната стойност<br>на измерената обемна<br>активност за месеца<br>[Bq/l]</center></html>
 MounthlyReferenceForCNRDWater_TableLabel = Дренираните води от баня на ЦНРД към Изход-2 за: 
 MounthlyReferenceForCNRDWater_OpenExcelFileLabel = Изберете Excel файла за докладване на изхвърлянията към БАК 4 и 5
-MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel = Нанесете обема изхвърлен от БАК 4 и 5 за месец 
+MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel = Обема изхвърлен от БАК 4 и 5 за месец 
 MounthlyReferenceForCNRDWater_ErrorObemBAK = Некоректно въведен обем
 MounthlyReferenceForCNRDWater_OpenExcelFileFrameName = Избор на файл
 MounthlyReferenceForCNRDWater_OpenExcelFileNotBAKResults = Няма резултати за БАК 4 и 5 за 
+MounthlyReferenceForCNRDWater_OpenExcelFile_NotBAKObem = Няма нанесен обем за БАК 4 и 5 за 
 MounthlyReferenceForCNRDWater_OpenExcelFileNotCorectNuclideList = Не е коректен листа с нуклиди в таблицата на страница 
 MounthlyReferenceForCNRDWater_OpenExcelFileNotFound = Не е намерен файла 
 MounthlyReferenceForCNRDWater_NotSelectExcelFile = Не е избран файл  
@@ -318,7 +319,7 @@ MounthlyReferenceForCNRDWater_Koeficient = <html><center>коеф.<br>на загуби</cen
 
 
 
-MenuSampleMonthlyReference_TitleName = Месечна справка
+MenuSampleMonthlyReference_TitleName = Изработени проби
 SampleMonthlyReference_TitleName = Справка за изработени проби
 
 

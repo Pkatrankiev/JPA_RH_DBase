@@ -483,6 +483,22 @@ public class DatePicker {
 		return locDate2.after(locDate1);
 	}
 
+	public static String displacementDate(String origin_date, int displacement ) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		Date dt = null;
+		try {
+			dt = sdf.parse(origin_date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dt); 
+			cal.add(Calendar.DATE, displacement);
+			dt = cal.getTime();
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "Некоректни дати", "Грешка в данните", JOptionPane.ERROR_MESSAGE);
+		}
+	
+		return sdf.format(dt);
+	}
+	
 	public static String reformarDateMeasur(String origin_date) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");

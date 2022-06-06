@@ -14,15 +14,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -43,51 +41,38 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
-
-import CreateWordDocProtocol.GenerateRequestWordDoc;
-
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
-import org.apache.poi.util.Units;
 
 import Aplication.EjectionDAO;
-import Aplication.Izpitvan_produktDAO;
+
 import Aplication.KoeficientObjectDAO;
 import Aplication.NuclideDAO;
-import Aplication.Obekt_na_izpitvane_requestDAO;
-import Aplication.Obekt_na_izpitvane_sampleDAO;
 import Aplication.PeriodDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 
+import CreateWordDocProtocol.GenerateRequestWordDoc;
+
 import DBase_Class.Ejection;
 import DBase_Class.KoeficientObject;
 import DBase_Class.Nuclide;
-import DBase_Class.Obekt_na_izpitvane_sample;
 import DBase_Class.Period;
-import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
-import DefaultTableList.TableList_Functions;
-import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
@@ -458,7 +443,7 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 	}
 
-	private List<Ejection> generateListEjection(Period per, int godina) {
+	static List<Ejection> generateListEjection(Period per, int godina) {
 		Ejection sampleEject = new Ejection();
 		List<Ejection> listEjection = new ArrayList<Ejection>();
 		List<Period> listIDPeriodBiTrim = new ArrayList<Period>();
@@ -699,9 +684,6 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 			// column.sizeWidthToFit(); //or simple
 		}
 	}
-
-	
-	
 	
 	public static void toExcel( ) {
 		
@@ -855,17 +837,17 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		
 	}
 	
-	private static void createNumberCell(Workbook workbook,Row row, int col, String str, CellStyle cellStyleHeader) {
-		
-		Cell cell = null;
-		cell = row.createCell(col, CellType.NUMERIC);
-		DataFormat format = workbook.createDataFormat();
-		cellStyleHeader.setDataFormat(format.getFormat("0.00E00"));
-		cell.setCellStyle(cellStyleHeader);
-		
-		cell.setCellValue(FormatDoubleNumber.formatStringToDouble(str, 2));
-		
-	}
+//	private static void createNumberCell(Workbook workbook,Row row, int col, String str, CellStyle cellStyleHeader) {
+//		
+//		Cell cell = null;
+//		cell = row.createCell(col, CellType.NUMERIC);
+//		DataFormat format = workbook.createDataFormat();
+//		cellStyleHeader.setDataFormat(format.getFormat("0.00E00"));
+//		cell.setCellStyle(cellStyleHeader);
+//		
+//		cell.setCellValue(FormatDoubleNumber.formatStringToDouble(str, 2));
+//		
+//	}
 	
 	public static void MessageDialog(String textInFrame, String textFrame) {
 		Icon otherIcon = null;
@@ -876,7 +858,7 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 	}
 	
-public static  CellStyle insertBorder (CellStyle style){
+	public static  CellStyle insertBorder (CellStyle style){
 	    
         style.setBorderBottom(BorderStyle.DOUBLE);  
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());  

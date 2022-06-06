@@ -161,6 +161,7 @@ public class Main_Aplication {
 	private static void StartMainWindow() {
 		TranscluentWindow round = new TranscluentWindow();
 		
+		
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {

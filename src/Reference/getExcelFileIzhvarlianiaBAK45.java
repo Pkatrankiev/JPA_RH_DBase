@@ -23,7 +23,11 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.PeriodDAO;
+import DBase_Class.Ejection;
+import DBase_Class.Obekt_na_izpitvane_request;
+import DBase_Class.Period;
 import ExcelFilesFunction.generateInformationToBAK45;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
@@ -43,6 +47,7 @@ import java.awt.event.KeyListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,8 +56,7 @@ public class getExcelFileIzhvarlianiaBAK45 extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-	private JTextField textField_ObemBAK;
-	private static boolean korrectObem = true;
+	private JLabel textField_ObemBAK;
 	static String ExcelFileBAK_Path = "";
 	static String errorOfData = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData");
 	static String errorOfExcellFileFormat = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfExcellFileFormat");
@@ -71,12 +75,13 @@ public class getExcelFileIzhvarlianiaBAK45 extends JDialog {
 
 		String openBtn_Text = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("openBtn_Text");
 		int numMouth = PeriodDAO.getValuePeriodByPeriod(mount_name).getId_period();
+		double obemBAK = getObemBAK(mount_name,  godina);
 		if(numMouth<10){
 		nameSheet = "0"+ numMouth;
 		}else{
 		nameSheet = numMouth+"";
 		}
-System.out.println(nameSheet);
+		System.out.println(nameSheet);
 		setSize(450, 180);
 		setLocationRelativeTo(null);
 
@@ -121,7 +126,7 @@ System.out.println(nameSheet);
 		gbc_lblObemBAK.gridy = 2;
 		panel.add(lblObemBAK, gbc_lblObemBAK);
 
-		textField_ObemBAK = new JTextField();
+		textField_ObemBAK = new JLabel(FormatDoubleNumber.formatDoubleToString(obemBAK, 2, true));
 		textField_ObemBAK.setMinimumSize(new Dimension(80, 20));
 		GridBagConstraints gbc_textField_ObemBAK = new GridBagConstraints();
 		gbc_textField_ObemBAK.anchor = GridBagConstraints.EAST;
@@ -129,7 +134,7 @@ System.out.println(nameSheet);
 		gbc_textField_ObemBAK.gridx = 0;
 		gbc_textField_ObemBAK.gridy = 3;
 		panel.add(textField_ObemBAK, gbc_textField_ObemBAK);
-		textField_ObemBAK.setColumns(10);
+		
 
 		JLabel lblKubik = new JLabel("m3");
 		GridBagConstraints gbc_lblKubik = new GridBagConstraints();
@@ -168,78 +173,34 @@ System.out.println(nameSheet);
 
 		});
 
-		textField_ObemBAKBtnListener(textField_ObemBAK);
+		double obem_Bak4i5 = Double.parseDouble(textField_ObemBAK.getText());
+		if(obem_Bak4i5>0){
 		OpenBtnListener(OpenButton, textField);
-		okBtnListener(this, okButton, textField, mount_name, godina, DataValue, textField_ObemBAK);
-
+		okBtnListener(this, okButton, textField, mount_name, godina, DataValue, obem_Bak4i5	);
 		setVisible(true);
+		}else{
+			String noResults = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+					.get("MounthlyReferenceForCNRDWater_OpenExcelFile_NotBAKObem") +" "+ mount_name + " " + godina;
+			JOptionPane.showMessageDialog(null, noResults, errorOfData, JOptionPane.ERROR_MESSAGE);
+			setVisible(false);
+		}
 
 	}
 
-	public static void textField_ObemBAKBtnListener(JTextField textField) {
-		textField.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				checkInputSimbol(textField);
-
-			}
-
-		});
-
-		textField.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				checkInputSimbol(textField);
-
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				checkInputSimbol(textField);
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				checkInputSimbol(textField);
-
-			}
-
-		});
-	}
-
-	private static void checkInputSimbol(JTextField textField) {
-		((AbstractDocument) textField.getDocument()).setDocumentFilter(new DocumentFilter() {
-			Pattern regEx = Pattern.compile("\\.*\\d*");
-
-			@Override
-			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
-					throws BadLocationException {
-				Matcher matcher = regEx.matcher(text);
-				if (!matcher.matches()) {
-					return;
-				}
-				super.replace(fb, offset, length, text, attrs);
-			}
-		});
-		try {
-			Integer.parseInt(textField.getText());
-			textField.setForeground(Color.BLACK);
-			korrectObem = true;
-		} catch (NumberFormatException e1) {
-			ResourceLoader.appendToFile(e1);
-			try {
-				Double.parseDouble(textField.getText());
-				textField.setForeground(Color.BLACK);
-				korrectObem = true;
-			} catch (NumberFormatException e2) {
-				ResourceLoader.appendToFile(e2);
-				textField.setForeground(Color.RED);
-				korrectObem = false;
-			}
+private double getObemBAK(String mount_name, int godina) {
+	int idBAK4i5 = 14;
+	Period per = PeriodDAO.getValuePeriodByPeriod(mount_name);
+	List<Ejection> listEjection = MounthlyReferenceForMenuEjectionCalculate.generateListEjection( per,  godina);
+	Obekt_na_izpitvane_request obect = Obekt_na_izpitvane_requestDAO.getValueObekt_na_izpitvaneById(idBAK4i5);
+	for (Ejection ejection : listEjection) {
+		if(ejection.getObect().getName_obekt_na_izpitvane().equals(obect.getName_obekt_na_izpitvane())){
+			return ejection.getVolum();
 		}
 	}
+		return 0;
+	}
+
+
 
 	public static void OpenBtnListener(JButton OpenBtn, JTextField textField) {
 		OpenBtn.addActionListener(new ActionListener() {
@@ -313,48 +274,28 @@ System.out.println(nameSheet);
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-//		try {
-//			new FileOutputStream(fileName);
-//			} catch (FileNotFoundException e) {
-//				JOptionPane.showMessageDialog(null, excelFileIsOpen, errorOfData, JOptionPane.ERROR_MESSAGE);
-//				e.printStackTrace();
-//				fl = false;
-//			}
+
 		return fl;
 	}
 
 	public static void okBtnListener(JDialog dialog, JButton btn, JTextField textField, String mount_name, int godina,
-			Object[][] DataValue, JTextField textField_ObemBAK) {
+			Object[][] DataValue, double obemBAK4i5 ) {
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double dd = 0.0;
 				
-				String ErrorObemBAK = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-						.get("MounthlyReferenceForCNRDWater_ErrorObemBAK");
+							
 				if (checkCorectExcellFile(textField.getText())) {
-					if (korrectObem) {
-
 						try {
-							dd = Double.parseDouble(textField_ObemBAK.getText());
+							
 							dialog.setVisible(false);
-							new generateInformationToBAK45(textField.getText(), mount_name, godina, DataValue, dd);
+							new generateInformationToBAK45(textField.getText(), mount_name, godina, DataValue, obemBAK4i5);
 
 						} catch (NumberFormatException e2) {
 							ResourceLoader.appendToFile(e2);
-							JOptionPane.showMessageDialog(null, ErrorObemBAK, errorOfData, JOptionPane.WARNING_MESSAGE);
+							
 						}
-						
-					} else {
-
-						JOptionPane.showMessageDialog(null, ErrorObemBAK, errorOfData, JOptionPane.WARNING_MESSAGE);
-
-					}
+		
 				}
 			}
 		});

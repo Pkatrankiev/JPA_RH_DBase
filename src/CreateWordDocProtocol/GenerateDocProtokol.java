@@ -1,7 +1,9 @@
 package CreateWordDocProtocol;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,11 +13,13 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.BasicConfigurator;
+
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.P;
 import org.docx4j.wml.Tbl;
 import org.docx4j.wml.Tr;
+
 import org.eclipse.persistence.exceptions.JAXBException;
 
 import Aplication.IzpitvanPokazatelDAO;
@@ -68,7 +72,7 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
-		checkAllResults( smple_list, pokazatel_list) ;
+		checkAllResults(smple_list, pokazatel_list);
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
 		try {
@@ -256,7 +260,6 @@ public class GenerateDocProtokol {
 			}
 			GenerateRequestWordDoc.openWordDoc(GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
 
-		
 		} catch (IOException | Docx4JException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
@@ -277,8 +280,7 @@ public class GenerateDocProtokol {
 		List<Sample> smple_list = SampleDAO.getListSampleFromColumnByVolume("request", recuest);
 		List<IzpitvanPokazatel> pokazatel_list = IzpitvanPokazatelDAO
 				.getListIzpitvan_pokazatelFromColumnByVolume("request", recuest);
-		
-		
+
 		// zarejdame dokumenta
 		WordprocessingMLPackage template = null;
 		try {
@@ -656,20 +658,50 @@ public class GenerateDocProtokol {
 				if (!fl) {
 					textCheck += sample.getRequest().getRecuest_code() + "-" + sample.getSample_code() + " - "
 							+ izpitvanPokazatel.getPokazatel().getName_pokazatel() + "\n";
-	}
+				}
 			}
 
 		}
-		if(!textCheck.isEmpty()){
-			textCheck = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-					.get("checkAllResultsDialog") 
-					+ "\n"
-					+textCheck;
-			JOptionPane.showMessageDialog(null, textCheck, ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-					.get("attention"), JOptionPane.INFORMATION_MESSAGE);
+		if (!textCheck.isEmpty()) {
+			textCheck = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("checkAllResultsDialog") + "\n"
+					+ textCheck;
+			JOptionPane.showMessageDialog(null, textCheck,
+					ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("attention"),
+					JOptionPane.INFORMATION_MESSAGE);
 		}
-		
 
+	}
+
+	public static void deleteProtokol(String requestCode) {
+		try {
+			List<File> listAllProtokolFile = getListAllProtokolFile(
+					new File(GlobalPathForDocFile.get_destinationDir_Protocols()));
+			for (File fil : listAllProtokolFile) {
+				if (fil.getName().startsWith(requestCode)) {
+					fil.delete(); // returns Boolean value
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static List<File> getListAllProtokolFile(File file) {
+		List<File> listAllProtokolFile = new ArrayList<>();
+		File[] list = file.listFiles();
+		if (list != null) {
+			for (File fil : list) {
+				listAllProtokolFile.add(fil);
+				if (fil.isDirectory()) {
+					getListAllProtokolFile(fil);
+				}
+
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+
+		}
+		return listAllProtokolFile;
 	}
 
 }

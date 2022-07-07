@@ -111,7 +111,7 @@ public class RequestViewFunction {
 			choice_izpitvan_produkt.add(string);
 		}
 		if (tamplateRequest != null) {
-			choice_izpitvan_produkt.select(tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt());
+			choice_izpitvan_produkt.select(tamplateRequest.getIzpitvan_produkt().getName_zpitvan_produkt().trim());
 		}
 	}
 

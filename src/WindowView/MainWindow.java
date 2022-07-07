@@ -29,6 +29,7 @@ import Menu.MenuPeriodicReference;
 import Menu.MenuRequense_AddDobiveFrame;
 import Menu.MenuRequense_AddResultsFrame;
 import Menu.MenuRequense_DeleteRequense;
+import Menu.MenuRequense_EditRequense;
 import Menu.MenuRequense_NewRequense;
 import Menu.MenuRequense_NewRequenseInTamplate;
 import Menu.MenuSampleMonthlyReference;
@@ -276,6 +277,7 @@ public class MainWindow extends JFrame {
 		requenseMenu.add(new MenuRequense_AddDobiveFrame());
 		requenseMenu.add(new MenuRequense_AddResultsFrame());
 		requenseMenu.addSeparator();
+		requenseMenu.add(new MenuRequense_EditRequense());
 		requenseMenu.add(new MenuRequense_DeleteRequense());
 		return requenseMenu;
 	}

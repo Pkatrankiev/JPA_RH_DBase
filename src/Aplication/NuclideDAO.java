@@ -10,7 +10,6 @@ import javax.ws.rs.QueryParam;
 
 import AddResultViewFunction.SortListObjectByField;
 import DBase_Class.Nuclide;
-import DBase_Class.TSI;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class NuclideDAO {

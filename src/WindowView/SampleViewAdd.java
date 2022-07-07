@@ -566,7 +566,10 @@ public class SampleViewAdd extends JDialog {
 			volSampleView[i][2] = listSample.get(i).getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
 			volSampleView[i][3] = listSample.get(i).getDescription_sample();
 			volSampleView[i][4] = listSample.get(i).getDate_time_reference();
+			volSampleView[i][5] = "";
+			if(listSample.get(i).getPeriod()!=null){
 			volSampleView[i][5] = listSample.get(i).getPeriod().getValue();
+			}
 			volSampleView[i][6] = listSample.get(i).getGodina_period()+"";
 			
 		

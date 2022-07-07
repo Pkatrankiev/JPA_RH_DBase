@@ -1,6 +1,5 @@
 package CreateWordDocProtocol;
 
-import org.docx4j.XmlUtils;
 import org.docx4j.jaxb.Context;
 import org.docx4j.model.table.TblFactory;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -81,7 +80,7 @@ public class CreateWordprocessingMLDocument extends AbstractSample {
 
 	    
 	    // Example 4: Here is an easier way:
-	    String str = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:b /></w:rPr><w:t>Example 4</w:t></w:r></w:p>";
+//	    String str = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:r><w:rPr><w:b /></w:rPr><w:t>Example 4</w:t></w:r></w:p>";
 	    
 //	    mdp.addObject(org.docx4j.XmlUtils.unmarshalString(str) );
 

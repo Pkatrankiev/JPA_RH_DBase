@@ -26,12 +26,17 @@ public class DeleteRequestFromDBase {
 					"Ще изтриете ли заявка с код: " + request.getRecuest_code() + "? ", null,
 					JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION) {
-				DeleteAllObjectsConnectedByRequest(request);
+				DeleteAllObjectsConnectedByRequest(request, false);
 			}
 		}
 	}
 
-	private static void DeleteAllObjectsConnectedByRequest(Request request) {
+	static void DeleteAllObjectsConnectedByRequest(Request request, boolean biRequestView) {
+		if(biRequestView){
+		for (Results resultDBase : ResultsDAO.getListResultsFromColumnByVolume("request", request)) {
+			ResultsDAO.deleteResultsById(resultDBase.getId_results());
+		}
+		}
 		IzpitvanPokazatelDAO.deleteIzpitvanPokazatelByRequest(request);
 		for (Sample sampleDBase : SampleDAO.getListSampleFromColumnByVolume("request", request)) {
 			SampleDAO.deleteSample(sampleDBase);
@@ -40,7 +45,9 @@ public class DeleteRequestFromDBase {
 				.getRequest_To_ObektNaIzpitvaneRequestByRequest(request)) {
 			Request_To_ObektNaIzpitvaneRequestDAO.deleteRequest_To_ObektNaIzpitvaneRequest(requestToObektNaIzpReqst);
 		}
+		if(!biRequestView){
 		RequestDAO.DeleteRequest(request);
+		}
 	}
 
 	public static List<Results> listResultsByCodeRequest(Request request) {

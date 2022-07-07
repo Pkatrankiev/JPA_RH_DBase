@@ -50,7 +50,7 @@ public class SampleDAO {
 	}
 
 	public static Sample creatSampleFromValue(String sample_code, String description_sample, String date_time_reference,
-			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period, int godina_period) {
+			Request request, Obekt_na_izpitvane_sample obekt_na_izpitvane, Period period, int godina_period, Request_To_ObektNaIzpitvaneRequest request_To_ObektNaIzpitvaneRequest) {
 
 		Sample valueEnt = new Sample();
 		valueEnt.setSample_code(sample_code);
@@ -60,6 +60,7 @@ public class SampleDAO {
 		valueEnt.setObekt_na_izpitvane_sample(obekt_na_izpitvane);
 		valueEnt.setPeriod(period);
 		valueEnt.setGodina_period(godina_period);
+		valueEnt.setRequest_to_obekt_na_izpitvane_request(request_To_ObektNaIzpitvaneRequest);
 		
 		return valueEnt;
 	}

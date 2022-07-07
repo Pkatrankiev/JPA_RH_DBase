@@ -151,7 +151,8 @@ public class AplicantDAO {
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yy_HHmm");
 		String backupDateStr = format.format(backupDate);
 
-		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
+//		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
+		String PathToMySqlDumpFile = "TEMPLATES_DIRECTORY\\";
 		String HOSTIP = "192.168.21.27";
 		String PORT = "3306";
 		String USER = "someuser";

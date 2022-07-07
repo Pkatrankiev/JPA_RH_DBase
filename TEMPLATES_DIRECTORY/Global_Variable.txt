@@ -1,0 +1,358 @@
+#Sring
+
+MainWindow_Ver = Ver.070722
+
+ProtokolResultNeopred = 1
+AllResultInInjectionReference = 1
+
+MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
+
+$$DBase_SampleTableColumnName
+
+DBSTCN_Ind_num_doc_TableTitle = Таблица на Ид.Номер
+DBSTCN_Ind_num_doc_Id = Id
+DBSTCN_Ind_num_doc_Name = Код
+DBSTCN_Ind_num_doc_Content = Описание
+DBSTCN_btnADD_Text = Добавяне ня ред
+DBSTCN_btnDELETE_Text = Изтриване ня ред
+DBSTCN_Delete_Text = Изкате да изтриете запис:
+DBSTCN_InfoDialog_Text = Не сте маркирали ред
+
+
+TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
+destinationDir = DIRECTORY/
+destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/
+name_tamplate_Protocols = Protokol_NEW.docx
+name_tamplate_Request = Zaqvka_new.docx
+name_tamplate_RazpredForm = Razpred.docx
+text_dopalneniq_izklucheniq = ____________________
+
+logInMesege = Логнете се
+
+destinationIcons = ICONS/
+modifiIcon = Modify.gif
+addIcon = add-icon.gif
+SaveIcon = Save.gif
+OpenIcon = Open.gif
+winIcon = winIcon.png
+ajaxLoader = ajaxLoader.gif
+
+dataBaseName = JPA_RH_DBase
+noConectionInDBseMesage_textMesage = Не се свързвам с базата данни
+noConectionInDBaseDialog_BTN_Exit = Изход
+noConectionInDBaseDialog_BTN_Вaiting = Изчакване
+
+
+$$MainWindow_MenusTitle
+
+MainWindow_Title = ДП РАО, с-р Радиохимия
+MainWindow_Title_work =  -> работи
+MainWindow_LogInStr_Btn = logIn
+MainWindow_LogOutStr_Btn = logOut
+MainWindow_Btn_Refresh = Рефреш
+MainWindow_BtnMenu_Oder = Други
+MainWindow_BtnMenu_Reference = Справки
+MainWindow_BtnMenu_Request = Заявки
+MainWindow_BtnMenu_Data = Данни  
+MainWindow_BtnMenu_Documents = Документи
+
+
+$$MenuClasses
+EnableInternalAplicantTitleName = Редактиране на Вътрешни Клиенти
+EnableRequestList_TitleName = Списък на Заявките
+EnableSampleList_TitleName = Списък на Пробите
+EnableResultsList_TitleName = Списък на Резултатите
+ReadDataFromDocFileSaveInDBase_TitleName = Четене от Word и запис
+CreateProtokol_TitleName  = Генериране на Протокол
+CreateRazpredFormu_TitleName = Генериране на Разпределителен формуляр
+CreateRequest_TitleName = Генериране на Заявка
+MenuOder_TitleName = Гама Кал. Екстракт
+AddDobiveFrame_TitleName = Въвеждане на Добив
+AddResultsFrame_TitleName = Въвеждане на Резултати
+EditRequense_TitleName = Редактиране на Заявка
+DeleteRequense_TitleName = Изтриване на Заявка
+NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
+NewRequense_TitleName = Генериране на Нова Заявка
+NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
+MenuPeriodicReference_TitleName = Периодичен мониторинг
+MenuEjection_TitleName = Изхвърляния
+MenuEjection_Volums = Обеми на Изхвърянията
+MenuEjection_Calculate = Изчисления за Изхвърлянията
+ArhiveDBase_TitleName = Архив на Базата Данни
+
+
+$$Text_MessageDialog
+LogInText = Логнете се
+ValueForAllRow_Text = Въведете стойност за всички редове
+errorDataForResult_Text = Грешни данни за резултат:
+errorOfData = Грешка в данните
+noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
+clickToChoice = Натисни за избор
+ThereAreDublikataElements = Има повтарящи се елементи
+errorOfExcellFileFormat = Excel файлът трябва да е версия 97/2000/XP/2003
+checkAllResultsDialog = Липсват резултати за пробите:
+attention = Внимание
+attentionTwoProtokols = Изпринтете два оригинала на този протокол
+
+LoginFrame_Title = Логване
+LoginFrame_UserName = потребителско име
+LoginFrame_pass = парола
+
+DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
+
+RequestView_TitleFrame = Заявка за изпитване
+RequestView_Request_Title = ЗАЯВКА ЗА ИЗПИТВАНЕ
+RequestView_Extra_Request_Title = ЗАЯВКА ЗА ИЗВЪНРЕДНО ИЗПИТВАНЕ
+RequestView_Text_Formuliar = Ф 704-2
+RequestView_Text_Extra_Formuliar = Ф 704-3
+RequestView_CodeForRequest = Код на заявката
+RequestView_DateForRequest = Код на заявката
+RequestView_Text_InternalText = <html>За изпитвания извън обема,<br>предвиден във вътрешните документи</html>
+RequestView_Text_ExternalText = За изпитвания от външни клиенти
+RequestView_Section_Ind_Num_Doc_Text = Ид. номер на документа, изискващ изпитването: 
+RequestView_Section_Izpitvan_Produkt_Text = Изпитван продукт
+RequestView_obekt_na_izpitvane_Text = Обект, от който са взети пробите:
+RequestView_Btn_Izbor = Избор
+RequestView_Return_Sample = Връщане на пробите
+RequestView_CheckBox_InAccreditation_Text = Извън обхват
+RequestView_Section_Razmernost_Text = Размерност
+RequestView_Section_Pokazatel_Text = Изпитван показател:
+RequestView_Btn_Pokazatel_Text = Избор на показател
+RequestView_Sestion_Date_Time_Reference_Text = Референтна дата (средата на периода)
+RequestView_Section_Choice_Period_Text = Периодичност
+RequestView_Count_Sample = Брой на пробите
+RequestView_Error_Count_Sample = Некоректен брой
+RequestView_Section_Sample_Description_Text = Описание на пробите 
+RequestView_DialogError_CountSamples = Некоректен брой на пробите!
+RequestView_Section_Date_Reception = Дата / период на получаване на пробите: 
+RequestView_Section_Date_Reception_DateChoice_period = Избор на дата / период на получаване на пробите
+RequestView_Section_Date_Execution = Срок за изпълнение:
+RequestView_Section_Button_Date_Selection = Избор на дата
+RequestView_Section_Accepted = Приел:
+RequestView_Section_Add = Добавяне:
+RequestView_Section_Zab = Забележка:
+RequestView_Section_DopalnIziskv = Допълнителни изисквания на клиента:
+RequestView_Section_DopalnDogovorenosti = Допълнителни договорености:
+
+RequestView_Text_OR = или
+RequestView_JustONE = само едно от :
+
+RequestView_Section_Choise_AplicantNameFamily = Съгласувано с клиента
+
+RequestView_showMessageDialog_Error = Грешни данни за следните полета:
+RequestView_showMessageDialog_ErrorRefDataTime = Не сте въвели референтна дата и време!
+RequestView_showMessageDialog_ErrorCodeRequest = Не сте въвели код на пробата!
+RequestView_showMessageDialog_Error_NumberRequest = Заявка с този номер вече съществува
+RequestView_showMessageDialog_EditRequest_Result = <html>Въведете наново всички резултати за тази заявка<br>Генерирайте протокол</html>
+
+
+RequestView_Btn_InternetAplikant = Звено на ДП РАО
+RequestView_InternetAplikant_TitleFrame = Вътрешен за ДП РАО Заявител
+RequestView_InternalAplikant_Aplikant = Заявител
+RequestView_InternalAplikant_Adress = Адрес
+RequestView_InternalAplikant_Tell = Тел.:
+RequestView_InternalAplikant_AddToList = Вмъкване от списък:
+RequestView_InternalAplikant_Btn_Read = Прочети
+RequestView_External_Aplicant_TitleFrame = Външен за ДП РАО Заявител
+RequestView_Btn_External_Aplicant = Външни клиенти
+RequestView_Btn_External_Aplicant_Organization = Организация / Име:
+RequestView_Btn_External_Aplicant_Dogovor = Договор №:
+
+
+RequestViewFunction_ErrorDialog = Заявка с този номер вече съществува
+RequestViewFunction_ErrorNumber = Некоректен номер
+RequestViewFunction_Probe = проба
+RequestViewFunction_Sborna = Сборна
+RequestViewFunction_Probs = проби
+RequestViewFunction_Sborni = Сборни
+RequestViewFunction_za = за
+RequestViewFunction_mesec = м.
+
+ChoiceFromListWithPlusAndMinus_choiceText = Обект, от който са взети пробите
+ChoiceNew_O_I_R_choiceText = Нов Обект, от който са взети пробите
+ChoiceNew_Zabelejka_choiceText = Нов Текст на забележка
+ChoiceNew_dopIzis_choiceText = Нов Текст на Допълнителни изисквания
+ChoiceNew_New_Client_choiceText = Добавяне на Нов клиент
+
+
+$$Text_Table
+TableHeaderColumnName_NumberRequest = № на Заявката
+TableHeaderColumnName_CodeSample = Код на пробата
+TableHeaderColumnName_ObjectSample = Обект на пробата
+TableHeaderColumnName_MetodNaIzpitvane = Метод на изпитване
+TableHeaderColumnName_IzpitvanPokazatel = Изпитван показател
+TableHeaderColumnName_Nuclide = Нуклид
+TableHeaderColumnName_Ativity = Активност
+TableHeaderColumnName_Uncertainty = Неопределеност
+TableHeaderColumnName_Sigma = Сигма
+TableHeaderColumnName_MDA = МДА
+TableHeaderColumnName_Razmernosti = Размерност
+TableHeaderColumnName_Quantity = Количество
+TableHeaderColumnName_Dimension = Мярка
+TableHeaderColumnName_InProtokol = В протокол
+
+
+TableDobivFromResult_windowTitle_Text = Избор на добив
+TableDobivFromResult_Text = Изберете добив от списъка!
+TableDobivFromResult_Nuclide = Нуклид
+TableDobivFromResult_Dobiv = Добив
+
+
+InternalApplicant_List_TableTitle = Списък на Вътрешни Клиенти
+InternalApplicant_List_HeaderColumnName_Organization = Организация
+InternalApplicant_List_HeaderColumnName_Adress = Адрес
+InternalApplicant_List_HeaderColumnName_Telephon = Телефон
+
+Request_List_Table_LabelText_ChoiceColumn = Избор на колони - заявки
+Request_List_Table_LabelText_EditingData =  редактиране на данните
+Request_List_Table_DialogForCloseTable = <html>За да се отворят пробите от тази заявка<br>ще затворя този прозорец</html>
+Request_List_Table_DialogForChangeData =  <html>Има променени данни за заявки, които на са запазени<br>
+
+Sample_List_Table_LabelText_ChoiceColumn = Избор на колони - проби
+
+Results_List_Table_LabelText_ChoiceColumn = Избор на колони - резултати
+Results_List_Table_TitleName = Списък на Резултатите
+
+List_Table_LabelText_ChoiceColumn = Избор на колони
+List_Table_DialogSave_ChoiceColumn_frame_Text = Направете своя избор
+List_Table_DialogSave_ChoiceColumn_info_Text = <html>Има промени в показваните колони<br>Ще запишете ли промените?</html>
+
+AddDobivView_TitleName = Въвеждане на Добив
+AddDobivView_LabelText_CodeForStandart = Код на стандарта
+AddDobivView_LabelText_Opisanie = Описание
+AddDobivView_LabelText_IzpitvanProdukt = Изпитван продукт
+
+
+AddResultsView_TitleName = Въвеждане на Резултати
+AddResultsView_LabelText_CodeForRequest = Код на заявка
+AddResultsView_LabelText_NumberForSample = № на проба
+AddResultsView_LabelText_Pokazatel = Показател
+
+CheckViewValueDialogFrame_TitleName = Проверка на резултати
+CheckViewValueDialogFrame_NumberForRequest = № заявка
+CheckViewValueDialogFrame_Standart = Стандарт
+
+DateChoice_period_TitleName = Избор на референтна дата и време
+DateChoice_period_Label_FerferenceDate_Period = Референтна дата (средата на периода)
+DateChoice_period_Label_Start_Date = Начална дата
+
+Label_Text_Name = Име
+Label_Text_Family= Фамилия
+LabelText_IzvarshilAnaliza = Извършил анализа
+LabelText_IzvarshilHimObrabotka = Извършил Хим. обработ.
+LabelText_PatToFile = Път до файла
+LabelText_Metod = Метод
+LabelText_Dobiv = Добив
+LabelText_Activity = Активност
+LabelText_MDA = МДА
+LabelText_Add = Добавяне
+LabelText_Select = Изберете:
+
+PeriodicReference_TitleName = Справка - Периодичен мониторинг
+Reference_LabelText_IzpitvanProdukt = Изпитван продукт
+Reference_LabelText_Obekt_Na_Izpitvane = Обект на изпитване
+Reference_LabelText_Pokazatel = Показател
+Reference_LabelText_Neopredelenost = Неопределеност
+Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata = Обект на пробата
+Reference_LabelText_Godina = Година
+Reference_LabelRadioButton_mesechni = месечни
+Reference_LabelRadioButton_TriMesechni = тримесечни
+Reference_LabelRadioButton_MDA = МДА
+Reference_LabelRadioButton_OtnNeopred = Относителна
+Reference_LabelRadioButton_AbsNeopred = Абсолютна
+Reference_LabelRadioButton_BezNeopred = Без
+Reference_LabelRadioButton_Activnost = Активност
+Reference_LabelTextRazmernost = Размерност
+Reference_Table_Column_Nuclide = Нуклид
+Reference_LabelButton_Start = Старт
+Reference_ReportString = Няма намерени резултати
+Reference_LabelText_CodeRequest = № на Заявката
+Reference_LabelText_CountSample = Брои проби
+Reference_LabelText_DateRequest = Дата на заявката
+Reference_LabelText_Applicant = Заявител
+Reference_LabelText_InAcredition = В акредитация
+Reference_LabelText_Comment = <html>Описание на<br>пробите</html>
+Reference_LabelText_TSI = ТСИ
+Reference_LabelText_DateHimOper = Дата на Хим. обработ.
+Reference_LabelText_DateMeasurOper = Дата на анализа
+Reference_LabelText_InProtokol = В протокол
+Reference_LabelText_FileLokation = Основен файл
+Reference_LabelText_SampleCode = Код на пробата
+Reference_LabelText_CommentSample = <html>Описание на<br>пробата</html>t_
+Reference_LabelText_separatorInColumnName = …
+
+MounthlyReferenceForCNRDWater_BasicLabel = <html>СВЕДЕНИЕ<br>за обема на дренираните води от баня на ЦНРД към Изход-2 за:</html>
+MounthlyReferenceForCNRDWater_GodinaLabel = година
+MounthlyReferenceForCNRDWater_MesecLabel = месец
+MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 
+
+MounthlyReferenceEjectionVolums_Btn_Reference = Справка
+
+
+MounthlyReferenceForCNRDWaterTable_MenuEjectionIzhod2 = Изхвърляния към Изход 2
+MounthlyReferenceForCNRDWaterTable_ProtokolN = протокол №
+MounthlyReferenceForCNRDWaterTable_ObektSample = Обект на изпитване
+MounthlyReferenceForCNRDWaterTable_Obem = Изхвърлен обем
+MounthlyReferenceForCNRDWaterTable_Nuclide = Нуклиди
+MounthlyReferenceForCNRDWaterTable_SpActivnost = <html><center>Специфична<br>активност<br>[Bq/m3]</html>
+MounthlyReferenceForCNRDWaterTable_IzhvActivnost = <html><center>Изхвърлена<br>активност<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_NeopredOtnosit = <html><center>Разширена<br>неопред.<br>[%]</center></html>
+MounthlyReferenceForCNRDWaterTable_MDA = <html><center>МДА<br>[Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_NeopredAbsol = <html><center>Разширена<br>неопред.<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_KombiniranaNeopred = <html><center>Комбинирана<br>неопред.<br>[%]</center></html>
+MounthlyReferenceForCNRDWaterTable_IzhvSumarnaActivnost = <html><center>Изхвърлена<br>сумарна активност<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_ObshtObem = <html><center>Изхвърлен<br>общ обем<br>[m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_SumarnaObemnaActivnost = <html><center>Сумарна<br>Специфична активност<br>[Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% на<br>Максималната стойност<br>от контролното ниво<br>[11100Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>Максималната стойност<br>на измерената обемна<br>активност за месеца<br>[Bq/l]</center></html>
+MounthlyReferenceForCNRDWater_TableLabel = Дренираните води от баня на ЦНРД към Изход-2 за: 
+MounthlyReferenceForCNRDWater_OpenExcelFileLabel = Изберете Excel файла за докладване на изхвърлянията към БАК 4 и 5
+MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel = Обема изхвърлен от БАК 4 и 5 за месец 
+MounthlyReferenceForCNRDWater_ErrorObemBAK = Некоректно въведен обем
+MounthlyReferenceForCNRDWater_OpenExcelFileFrameName = Избор на файл
+MounthlyReferenceForCNRDWater_OpenExcelFileNotBAKResults = Няма резултати за БАК 4 и 5 за 
+MounthlyReferenceForCNRDWater_OpenExcelFile_NotBAKObem = Няма нанесен обем за БАК 4 и 5 за 
+MounthlyReferenceForCNRDWater_OpenExcelFileNotCorectNuclideList = Не е коректен листа с нуклиди в таблицата на страница 
+MounthlyReferenceForCNRDWater_OpenExcelFileNotFound = Не е намерен файла 
+MounthlyReferenceForCNRDWater_NotSelectExcelFile = Не е избран файл  
+MounthlyReferenceForCNRDWater_excelFileIsOpen = Файлът е отворен
+MounthlyReferenceForCNRDWater_CheckKorektExcelFile  = СВЕДЕНИЕ
+MounthlyReferenceForCNRDWater_NotSelectCorectExcelFile = Не е избран коректен excel файл  
+MounthlyReferenceForCNRDWater_Koeficient = <html><center>коеф.<br>на загуби</center></html>
+
+
+
+MenuSampleMonthlyReference_TitleName = Изработени проби
+SampleMonthlyReference_TitleName = Справка за изработени проби
+
+
+$$Button_Text
+cancelBtn_Text = Отказ
+exitBtn_Text = Изход
+saveBtn_Text = Запис
+openBtn_Text = Отвори
+showBtn_Text = Покажи
+OK_Btn_Text = OK
+Yes_Btn_Text = Да
+No_Btn_Text = Не
+newNuclideBtn_Text = Нов Нуклид
+BtnText_DataOfDBase = Данни от базата
+BtnText_DataOfFile = Данни от файл
+
+
+#int
+maxRowInOneTableOnePage = 24
+maxRowInFullTableOnePage = 32
+masiveMergeColumn-1 = 0
+masiveMergeColumn-2 = 1
+masiveMergeColumn-3 = 4
+
+#DBasePersisLokal
+javax.persistence.jdbc.url = jdbc:mysql://localhost:3306/rhdbase?characterEncoding=UTF-8
+javax.persistence.jdbc.user = root
+javax.persistence.jdbc.password = root
+
+#DBasePersisRemote
+javax.persistence.jdbc.url = jdbc:mysql://192.168.21.27:3306/rhdbase?characterEncoding=UTF-8
+javax.persistence.jdbc.user = someuser
+javax.persistence.jdbc.password = 123

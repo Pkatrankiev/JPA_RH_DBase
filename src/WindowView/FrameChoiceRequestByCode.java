@@ -17,6 +17,7 @@ import CreateWordDocProtocol.GenerateDocRazpredFormul;
 import CreateWordDocProtocol.Generate_Map_For_Request_Word_Document;
 import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.Request;
+import DBase_Class.Users;
 import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.ResourceLoader;
 
@@ -46,7 +47,7 @@ public class FrameChoiceRequestByCode extends JDialog {
 	private String fileRazpredDoc = GlobalPathForDocFile.get_NameTamplate_RazpredForm();
 	private String fileProtDoc = GlobalPathForDocFile.get_NameTamplate_Protokol();
 	
-	public FrameChoiceRequestByCode(JFrame parent, String nameFrame) {
+	public FrameChoiceRequestByCode(JFrame parent, String nameFrame, Users user) {
 		super(parent, nameFrame, true);
 		setSize(280, 160);
 		setLocationRelativeTo(null);
@@ -125,7 +126,7 @@ public class FrameChoiceRequestByCode extends JDialog {
 							     @Override
 							     public void run() {
 							      		try {
-											greateWordDocChoiseWithTextFrame(nameFrame, textField.getText(), round);
+											greateWordDocChoiseWithTextFrame(nameFrame, textField.getText(), round, user);
 										} catch (ParseException e) {
 											ResourceLoader.appendToFile(e);
 											e.printStackTrace();
@@ -160,7 +161,7 @@ public class FrameChoiceRequestByCode extends JDialog {
 		setVisible(true);
 	}
 
-	private void greateWordDocChoiseWithTextFrame(String nameFrame, String codeRequest, TranscluentWindow round) throws ParseException {
+	private void greateWordDocChoiseWithTextFrame(String nameFrame, String codeRequest, TranscluentWindow round, Users user) throws ParseException {
 		Request choiseRequest = RequestDAO.getRequestFromColumnByVolume("recuest_code", codeRequest);
 		String date_time_reference = RequestViewFunction.GenerateStringRefDateTimeFromRequest(choiseRequest);
 
@@ -184,6 +185,12 @@ public class FrameChoiceRequestByCode extends JDialog {
 		case "Изтриване на Заявка":
 			DeleteRequestFromDBase.Delete_RequestFromDBase(choiseRequest, round);
 		break;
+		
+		case "Редактиране на Заявка":
+			JFrame f = new JFrame();
+			new RequestView(f, user, choiseRequest, round, true);
+		break;
+		
 		default:
 			break;
 		}

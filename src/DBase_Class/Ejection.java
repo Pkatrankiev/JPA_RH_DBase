@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.poi.hpsf.Decimal;
 
 @Entity
 @Table

@@ -38,6 +38,7 @@ import Aplication.RequestDAO;
 import Aplication.Request_To_ObektNaIzpitvaneRequestDAO;
 import Aplication.SampleDAO;
 import Aplication.ZabelejkiDAO;
+import CreateWordDocProtocol.GenerateDocProtokol;
 import Aplication.AplicantDAO;
 import Aplication.External_applicantDAO;
 import Aplication.Extra_moduleDAO;
@@ -54,7 +55,6 @@ import DBase_Class.Period;
 import DBase_Class.Razmernosti;
 import DBase_Class.Request;
 import DBase_Class.Request_To_ObektNaIzpitvaneRequest;
-import DBase_Class.Sample;
 import DBase_Class.Users;
 import DBase_Class.Zabelejki;
 import GlobalVariable.GlobalFormatDate;
@@ -339,8 +339,9 @@ public class RequestView extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
+				if(!forEdit){
 				RequestViewFunction.enterRequestCode(txtField_RequestCode, lblError, corectRequestCode);
-
+				}
 			}
 
 			@Override
@@ -1727,19 +1728,19 @@ public class RequestView extends JDialog {
 
 					AddResultViewMetods.setWaitCursor(basicPanel);
 					AplicantDAO.saveValueAplicantWitchCheck(choice_AplicantNameFamily.getSelectedItem());
+				
 					if(forEdit){
-						for (Sample object : SampleDAO.getListSampleFromColumnByVolume("request",tamplateRequest)) {
-							SampleDAO.deleteSample(object);
-						}
+						DeleteRequestFromDBase.DeleteAllObjectsConnectedByRequest(tamplateRequest, true);
+						GenerateDocProtokol.deleteProtokol(tamplateRequest.getRecuest_code());
 						
-						for (Request_To_ObektNaIzpitvaneRequest object : Request_To_ObektNaIzpitvaneRequestDAO.
-								getRequest_To_ObektNaIzpitvaneRequestByRequest(tamplateRequest)) {
-							Request_To_ObektNaIzpitvaneRequestDAO.deleteRequest_To_ObektNaIzpitvaneRequest(object);
-						}	
-							}
-					request = createAndSaveRequest();
+						JOptionPane.showMessageDialog(null, 
+								ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestView_showMessageDialog_EditRequest_Result"),
+								"Внимание",
+								JOptionPane.INFORMATION_MESSAGE);
+						}
 					
-					saveRequest_To_ObektNaIzpitvaneRequest( listStringOfRequest_To_ObektNaIzpitvaneRequest);
+					request = createAndSaveRequest();
+					saveRequest_To_ObektNaIzpitvaneRequest(listStringOfRequest_To_ObektNaIzpitvaneRequest);
 					saveSample();
 					SaveIzpitvanPokazatel();
 					
@@ -1779,14 +1780,14 @@ public class RequestView extends JDialog {
 
 	private Request createAndSaveRequest() {
 		Extra_module extra_mod = Extra_moduleDAO.saveAndGetExtra_module(createExtraModule());
-		
 		Request request = createRequestObject(extra_mod);
 		if(forEdit){
-			request.setId_recuest(tamplateRequest.getId_recuest());	
-			RequestDAO.updateObjectRequest( request);
+			request.setId_recuest(tamplateRequest.getId_recuest());
+			RequestDAO.updateObjectRequest(request);
 		}else{
 		RequestDAO.saveRequestFromRequest(request);
 		}
+
 		return request;
 
 	}
@@ -2005,6 +2006,8 @@ public class RequestView extends JDialog {
 
 		}
 	}
+	
+
 
 	private void SaveIzpitvanPokazatel() {
 		if(forEdit){

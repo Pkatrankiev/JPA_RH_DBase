@@ -1,0 +1,18 @@
+
+< 04.07.2022 (10:26:07) EEST > 
+org.docx4j.openpackaging.exceptions.Docx4JException: Failed to save package to path DIRECTORY\4824_04.07.2022.docx
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:108)
+	at org.docx4j.openpackaging.packages.WordprocessingMLPackage.save(WordprocessingMLPackage.java:219)
+	at CreateWordDocProtocol.AplicationDocTemplate.writeDocxToStream(AplicationDocTemplate.java:164)
+	at CreateWordDocProtocol.GenerateDocProtokol.GenerateProtokolWordDoc(GenerateDocProtokol.java:247)
+	at WindowView.FrameChoiceRequestByCode.greateWordDocChoiseWithTextFrame(FrameChoiceRequestByCode.java:173)
+	at WindowView.FrameChoiceRequestByCode.access$2(FrameChoiceRequestByCode.java:163)
+	at WindowView.FrameChoiceRequestByCode$2$1.run(FrameChoiceRequestByCode.java:128)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.io.FileNotFoundException: DIRECTORY\4824_04.07.2022.docx (The process cannot access the file because it is being used by another process)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:106)
+	... 7 more

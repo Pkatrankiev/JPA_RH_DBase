@@ -21,7 +21,7 @@ public class MenuDoc_CreateRequest extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceRequestByCode(f, CreateRequest_TitleName) ;
+			    	 new FrameChoiceRequestByCode(f, CreateRequest_TitleName, null) ;
 			
 	}
 

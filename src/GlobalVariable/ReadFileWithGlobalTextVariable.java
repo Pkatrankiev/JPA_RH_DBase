@@ -1,7 +1,9 @@
 package GlobalVariable;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 public class ReadFileWithGlobalTextVariable  {
 
@@ -22,7 +26,7 @@ public class ReadFileWithGlobalTextVariable  {
 
 	public static void  CreadMasiveFromReadFile() {
 		BufferedReader br = null;
-		FileReader fr = null;
+//		FileReader fr = null;
 		List<String> listString = new ArrayList<String>();
 		globalTextVariableMap = new HashMap<String, String>();
 		globalIntVariableMap = new HashMap<String, String>();
@@ -31,13 +35,16 @@ public class ReadFileWithGlobalTextVariable  {
 		
 		try {
 			
-			String respath = "/ICONS/Global Variable.txt";
-			InputStream in = ReadFileWithGlobalTextVariable.class.getResourceAsStream(respath);
-			if ( in == null ){
-				System.out.println("***********************************");
-			}
-				
-	        br = new BufferedReader(new InputStreamReader(in,"Cp1251"));
+			String respath = "TEMPLATES_DIRECTORY\\Global_Variable.txt";
+			try {	
+			File fileDir = new File(respath);
+
+//			br = new BufferedReader(new InputStreamReader(, "Cp1251"));
+			
+			
+			InputStream in = new FileInputStream(fileDir);
+			br = new BufferedReader(new InputStreamReader(in,"Cp1251"));
+			
 			String sCurrentLine;
 			String flagTypeValue = "";
 			int index;
@@ -82,16 +89,20 @@ public class ReadFileWithGlobalTextVariable  {
 			for (String entry : globalDBasePersisRemoteMap.values()) {
 				System.out.println(entry);	
 			}
-		
-	} catch (IOException e) {
+			} catch (FileNotFoundException e) {
+				ResourceLoader.appendToFile(e);
+				JOptionPane.showMessageDialog(null, "Не намирам: TEMPLATES_DIRECTORY \\ Global_Variable.txt", "Грешка в данните",
+						JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
+	} catch (IOException  e) {
 		ResourceLoader.appendToFile(e);
 		e.printStackTrace();
 	} finally {
 		try {
 			if (br != null)
 				br.close();
-			if (fr != null)
-				fr.close();
+			
 		} catch (IOException ex) {
 			ResourceLoader.appendToFile(ex);
 			ex.printStackTrace();

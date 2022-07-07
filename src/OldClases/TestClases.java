@@ -383,14 +383,14 @@ public class TestClases {
 	public static void testNewRequestVew() {
 		JFrame f = new JFrame();
 		Users user = UsersDAO.getValueUsersById(3);
-		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "4671");
+		Request request = RequestDAO.getRequestFromColumnByVolume("recuest_code", "4945");
 		TranscluentWindow round = new TranscluentWindow();
 
 		final Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				
-				new RequestView(f, user, request, round, false);
+				new RequestView(f, user, request, round, true);
 			}
 		});
 		thread.start();
@@ -554,7 +554,7 @@ public class TestClases {
 
 	public static void startCreateProtokolDocx() {
 		JFrame f = new JFrame();
-		new FrameChoiceRequestByCode(f, "Генериране на Протокол");
+		new FrameChoiceRequestByCode(f, "Генериране на Протокол",null);
 		// String codeRequest = "3833";
 		//
 		// Request choiseRequest =
@@ -870,7 +870,7 @@ public class TestClases {
 
 	public static void createProtocolWordDoc(String str) {
 		JFrame f = new JFrame();
-		new FrameChoiceRequestByCode(f, str);
+		new FrameChoiceRequestByCode(f, str, null);
 	}
 
 	public static void changeStringDateMeasurInResults(String oldDate, String korektDate) {
@@ -1075,7 +1075,7 @@ public class TestClases {
 
 	public static void createRazprFormWordDoc() {
 		JFrame f = new JFrame();
-		new FrameChoiceRequestByCode(f, "Генериране на Разпределителен формуляр");
+		new FrameChoiceRequestByCode(f, "Генериране на Разпределителен формуляр", null);
 	}
 
 	

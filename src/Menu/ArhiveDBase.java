@@ -2,12 +2,8 @@ package Menu;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JPanel;
-
-import AddResultViewFunction.AddResultViewMetods;
 import Aplication.AplicantDAO;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 
 

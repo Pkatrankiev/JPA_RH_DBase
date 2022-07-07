@@ -22,7 +22,7 @@ public class MenuDoc_CreateRazpredFormu extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceRequestByCode(f, CreateRazpredFormu_TitleName) ;
+			    	 new FrameChoiceRequestByCode(f, CreateRazpredFormu_TitleName, null) ;
 			
 	}
 

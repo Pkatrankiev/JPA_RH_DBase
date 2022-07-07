@@ -30,7 +30,7 @@ import WindowView.DatePicker;
 public class CreateListLeftPanelStartWindowClass {
 
 	
-	static List<String> listAllProtokolFile = new ArrayList<>();
+	
 	
 	
 	private static String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Въздух", "Вода" };
@@ -99,7 +99,7 @@ public class CreateListLeftPanelStartWindowClass {
 	}
 
 	public static String getLabelProtokol(String requestCode) {
-	
+		List<String> listAllProtokolFile = 
 		getListAllProtokolFile(new File(GlobalPathForDocFile.get_destinationDir_Protocols()));
 		String fileName = "...";
 		for (String string : listAllProtokolFile) {
@@ -111,8 +111,8 @@ public class CreateListLeftPanelStartWindowClass {
 		return fileName ;
 	}
 	
-	public static String getListAllProtokolFile(File file) {
-		
+	public static List<String> getListAllProtokolFile(File file) {
+		List<String> listAllProtokolFile = new ArrayList<>();
 		File[] list = file.listFiles();
 		if (list != null) {
 			for (File fil : list) {
@@ -126,7 +126,7 @@ public class CreateListLeftPanelStartWindowClass {
 			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
 
 		}
-		return "";
+		return listAllProtokolFile;
 	}
 
 //	public static String findFile(String name, File file, boolean fl) {

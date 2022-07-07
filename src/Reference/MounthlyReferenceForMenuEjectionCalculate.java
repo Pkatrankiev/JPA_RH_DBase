@@ -93,14 +93,14 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 	private static String[] nameColumn;
 	static JPanel top_panel;
 	JPanel tablePanel = new JPanel();
-	
+
 	int sizeV = 160;
 	int sizeH = 390;
 	int newRowWith = 15;
 	int countRow = 0;
 	int headerWith = 80;
 	int tableLeth = 600;
-	static int[] columnExcellWith =  {66,167,167,59,80};
+	static int[] columnExcellWith = { 66, 167, 167, 59, 80 };
 
 	public MounthlyReferenceForMenuEjectionCalculate(JFrame parent, String frame_name) {
 		super(parent, frame_name, true);
@@ -162,8 +162,6 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 1;
 		top_panel.add(comboBox, gbc_comboBox);
-		
-		
 
 		JLabel lblError = new JLabel();
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
@@ -200,17 +198,15 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 		JButton exportButton = new JButton("export");
 		exportButton.setEnabled(false);
-		
-		
-		
+
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(!comboBox.getSelectedItem().toString().equals(mesec)){
-				exportButton.setEnabled(false);
-			}else{
-				exportButton.setEnabled(true);
-			}
+
+				if (!comboBox.getSelectedItem().toString().equals(mesec)) {
+					exportButton.setEnabled(false);
+				} else {
+					exportButton.setEnabled(true);
+				}
 			}
 
 		});
@@ -219,11 +215,11 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		getRootPane().setDefaultButton(exportButton);
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						
+
 						toExcel();
 					}
 
@@ -254,8 +250,7 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				 MounthlyReferenceForCNRDWater.enterGodina(txtFieldGodina,
-						 lblError, btnReference, 2022);
+				MounthlyReferenceForCNRDWater.enterGodina(txtFieldGodina, lblError, btnReference, 2022);
 
 			}
 
@@ -275,7 +270,7 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 					public void run() {
 						mesec = (String) comboBox.getSelectedItem();
 						createAndViewTable(lblError, exportButton);
-						
+
 						round.StopWindow();
 					}
 				});
@@ -288,13 +283,13 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 	}
 
 	private String[] generatePeriodMasive() {
-		
+
 		List<Period> listMounth = PeriodDAO.getInListPeriod_Mesechni();
 		List<Period> listTrim = PeriodDAO.getInListPeriod_TriMesechni();
 		for (Period period : listTrim) {
 			listMounth.add(period);
 		}
-		
+
 		String[] strMounth = new String[listMounth.size()];
 		int i = 0;
 		for (Period period : listMounth) {
@@ -302,12 +297,12 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 			i++;
 		}
 		return strMounth;
-		
+
 	}
 
 	private void createAndViewTable(JLabel lblError, JButton exportButton) {
 		JTable table = null;
-		
+
 		int godina = Integer.parseInt(txtFieldGodina.getText());
 		Object[][] DataValue = ceateDataValue(godina, mesec);
 
@@ -322,7 +317,7 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 			lblError.setText(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_ReportString"));
 			exportButton.setEnabled(false);
 		} else {
-			nameColumn =  createColumnNameTableValue();
+			nameColumn = createColumnNameTableValue();
 			table = CreateDefaultTable(valueDataTable, nameColumn);
 			exportButton.setEnabled(true);
 			tablePanel.add(new JScrollPane(table));
@@ -336,6 +331,8 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 	}
 
 	private Object[][] ceateDataValue(int godina, String period) {
+		String AllResultInInjectionReference = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("AllResultInInjectionReference");
 		Period per = PeriodDAO.getValuePeriodByPeriod(period);
 		List<Ejection> listEject = generateListEjection(per, godina);
 
@@ -358,10 +355,16 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 			// List<Results> listResults =
 			// ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			List<Results> listResults = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
-			for (Results results : listResults) {
-				for (Nuclide nuclide : listNuclideEjection) {
-					if (results.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
+			
+				for (Results results : listResults) {
+					if (AllResultInInjectionReference.equals("1")) {
 						listNewResults.add(results);
+					} else {
+					for (Nuclide nuclide : listNuclideEjection) {
+					
+						if (results.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
+							listNewResults.add(results);
+						}
 					}
 				}
 			}
@@ -422,8 +425,8 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 				DataTableValue[i][5] = convertToString(aktiv, 2, true);
 				DataTableValue[i][6] = convertToString(izvhAktiv, 2, true);
 				DataTableValue[i][7] = convertToString(uncert, 0, false);
-				if(uncert!=0){
-					DataTableValue[i][7] = "±"+DataTableValue[i][7]+"%";
+				if (uncert != 0) {
+					DataTableValue[i][7] = "±" + DataTableValue[i][7] + "%";
 				}
 				DataTableValue[i][8] = convertToString(mda, 2, true);
 
@@ -449,57 +452,57 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		List<Period> listIDPeriodBiTrim = new ArrayList<Period>();
 		List<String> listStringObectEjection = new ArrayList<String>();
 		int idPeriod = per.getId_period();
-		if(idPeriod>20 && idPeriod<40){
+		if (idPeriod > 20 && idPeriod < 40) {
 			switch (idPeriod) {
 			case 31:
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(1));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(2));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(3));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(1));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(2));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(3));
 				break;
 			case 32:
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(4));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(5));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(6));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(4));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(5));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(6));
 				break;
 			case 33:
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(7));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(8));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(9));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(7));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(8));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(9));
 				break;
 			case 34:
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(10));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(11));
-				listIDPeriodBiTrim .add(PeriodDAO.getPeriodById(12));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(10));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(11));
+				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(12));
 				break;
 			}
 			List<Ejection> listNewEjection = new ArrayList<Ejection>();
 			for (Period period : listIDPeriodBiTrim) {
-				for (Ejection eject : EjectionDAO.getListEjectionFromMesecANDGodina(period, godina)){
-					listNewEjection .add(eject);
+				for (Ejection eject : EjectionDAO.getListEjectionFromMesecANDGodina(period, godina)) {
+					listNewEjection.add(eject);
 				}
 			}
-			
-			for (Ejection eject : listNewEjection){
-				listStringObectEjection .add(eject.getObect().getName_obekt_na_izpitvane());
+
+			for (Ejection eject : listNewEjection) {
+				listStringObectEjection.add(eject.getObect().getName_obekt_na_izpitvane());
 			}
-			
+
 			listStringObectEjection = MounthlyReferenceForCNRDWater.removeDuplicates(listStringObectEjection);
 			for (String string : listStringObectEjection) {
-				double obem=0.0;
-			for (Ejection eject : listNewEjection){
-				if(string.equals(eject.getObect().getName_obekt_na_izpitvane())){
-					obem = obem+eject.getVolum();
-					sampleEject.setProdukt(eject.getProdukt());
-					sampleEject.setObect(eject.getObect());
-					sampleEject.setMesec(per);
-					sampleEject.setGodina(godina);
-					sampleEject.setVolum(obem);
+				double obem = 0.0;
+				for (Ejection eject : listNewEjection) {
+					if (string.equals(eject.getObect().getName_obekt_na_izpitvane())) {
+						obem = obem + eject.getVolum();
+						sampleEject.setProdukt(eject.getProdukt());
+						sampleEject.setObect(eject.getObect());
+						sampleEject.setMesec(per);
+						sampleEject.setGodina(godina);
+						sampleEject.setVolum(obem);
+					}
 				}
+				listEjection.add(sampleEject);
 			}
-			listEjection.add(sampleEject);
-			}
-			 
-		}else{
+
+		} else {
 			listEjection = EjectionDAO.getListEjectionFromMesecANDGodina(per, godina);
 		}
 		return listEjection;
@@ -557,10 +560,10 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 	}
 
 	private static String[] createExcellColumnNameValue(String[] columnNameDataValue) {
-		
+
 		for (int i = 0; i < columnNameDataValue.length; i++) {
-			columnNameDataValue[i] = columnNameDataValue[i].replace("<html>", "").replace("</html>", "").replace("<br>", " ")
-			.replace("<center>", "").replace("</center>", "");
+			columnNameDataValue[i] = columnNameDataValue[i].replace("<html>", "").replace("</html>", "")
+					.replace("<br>", " ").replace("<center>", "").replace("</center>", "");
 		}
 
 		return columnNameDataValue;
@@ -684,103 +687,88 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 			// column.sizeWidthToFit(); //or simple
 		}
 	}
-	
-	public static void toExcel( ) {
-		
+
+	public static void toExcel() {
+
 		try {
-			String excelFilePath =GlobalPathForDocFile.get_destinationDir() + "export.xls";	
-			String sheetName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-					.get("MenuEjection_TitleName");
+			String excelFilePath = GlobalPathForDocFile.get_destinationDir() + "export.xls";
+			String sheetName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjection_TitleName");
 			String[] excellnameColumn = createExcellColumnNameValue(nameColumn);
 			Workbook workbook = new HSSFWorkbook();
 			Sheet sheet = workbook.createSheet(sheetName);
-			Object [][] dataTable = valueDataTable;
-//			Cell cell = null;
-			
-			
-		  	
-		  	for (int i = 0; i < columnExcellWith.length; i++) {
-		  		sheet.setColumnWidth(i,columnExcellWith[i]*37);
+			Object[][] dataTable = valueDataTable;
+			// Cell cell = null;
+
+			for (int i = 0; i < columnExcellWith.length; i++) {
+				sheet.setColumnWidth(i, columnExcellWith[i] * 37);
 			}
-		  	
-		  	
-		  	
-			
-	
-			
-//			Create header column
+
+			// Create header column
 			Row row = sheet.createRow(0);
-			
-			String strMesec = "Месец: "+ mesec;
+
+			String strMesec = "Месец: " + mesec;
 			int excellRow = 0;
-			
-			
-			
+
 			for (int i = 0; i < dataTable.length; i++) {
-				
-				if(dataTable[i][0]!=""){
-					excellRow = excellRow +3;
-					
+
+				if (dataTable[i][0] != "") {
+					excellRow = excellRow + 3;
+
 					row = sheet.createRow(excellRow);
 					row.setHeightInPoints(22);
-					sheet.addMergedRegion(new CellRangeAddress(excellRow,excellRow,1,2));
-					sheet.addMergedRegion(new CellRangeAddress(excellRow,excellRow,3,4));
-					createCell(row, 1, dataTable[i][0].toString(),cellStyleBoldWithBorder(workbook, true,14));
-					createCell(row, 3, excellnameColumn[1],cellStyleBoldWithBorder(workbook, true,12));
-					
-					excellRow ++;
+					sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 1, 2));
+					sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 3, 4));
+					createCell(row, 1, dataTable[i][0].toString(), cellStyleBoldWithBorder(workbook, true, 14));
+					createCell(row, 3, excellnameColumn[1], cellStyleBoldWithBorder(workbook, true, 12));
+
+					excellRow++;
 					row = sheet.createRow(excellRow);
-					sheet.addMergedRegion(new CellRangeAddress(excellRow,excellRow,3,4));
-					createCell(row, 1, excellnameColumn[2],cellStyleBoldWithBorder(workbook, false,12));
-					createCell(row, 2, dataTable[i][2].toString(),cellStyleBoldWithBorder(workbook, true,12));
-					createCell(row, 3, dataTable[i][1].toString(),cellStyleBoldWithBorder(workbook, false,12));
-					
-					excellRow ++;
+					sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 3, 4));
+					createCell(row, 1, excellnameColumn[2], cellStyleBoldWithBorder(workbook, false, 12));
+					createCell(row, 2, dataTable[i][2].toString(), cellStyleBoldWithBorder(workbook, true, 12));
+					createCell(row, 3, dataTable[i][1].toString(), cellStyleBoldWithBorder(workbook, false, 12));
+
+					excellRow++;
 					row = sheet.createRow(excellRow);
-					createCell(row, 0, excellnameColumn[4],cellStyleBoldWithBorder(workbook, false,12));
-					createCell(row, 1, excellnameColumn[5],cellStyleBoldWithBorder(workbook, false,12));
-					String text = excellnameColumn[6]+"с "+excellnameColumn[3]+" "+dataTable[i][3];
-					createCell(row, 2, text ,cellStyleBoldWithBorder(workbook, false,12));
-					createCell(row, 3, excellnameColumn[7],cellStyleBoldWithBorder(workbook, false,8));
-					createCell(row, 4, excellnameColumn[8],cellStyleBoldWithBorder(workbook, false,12));
-					}
-				excellRow ++;
-				int k=0;
+					createCell(row, 0, excellnameColumn[4], cellStyleBoldWithBorder(workbook, false, 12));
+					createCell(row, 1, excellnameColumn[5], cellStyleBoldWithBorder(workbook, false, 12));
+					String text = excellnameColumn[6] + "с " + excellnameColumn[3] + " " + dataTable[i][3];
+					createCell(row, 2, text, cellStyleBoldWithBorder(workbook, false, 12));
+					createCell(row, 3, excellnameColumn[7], cellStyleBoldWithBorder(workbook, false, 8));
+					createCell(row, 4, excellnameColumn[8], cellStyleBoldWithBorder(workbook, false, 12));
+				}
+				excellRow++;
+				int k = 0;
 				row = sheet.createRow(excellRow);
 				boolean fl = false;
 				for (int j = 4; j < 9; j++) {
-					if(j>5)fl=true;
-					createCell(row, k, dataTable[i][j].toString(),cellStyleBoldWithBorder(workbook, fl,12));
+					if (j > 5)
+						fl = true;
+					createCell(row, k, dataTable[i][j].toString(), cellStyleBoldWithBorder(workbook, fl, 12));
 					k++;
-					}
-				
-				
+				}
 
 			}
-			
+
 			setBordersToMergedCells(workbook, sheet);
-			
+
 			row = sheet.createRow(0);
 			row.setHeightInPoints(22);
-			sheet.addMergedRegion(new CellRangeAddress(0,0,0,1));
-			createCell(row, 0, strMesec ,cellStyleBoldWitholtBorder(workbook, true, 14));
-			
-			excellRow = excellRow +3;
+			sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 1));
+			createCell(row, 0, strMesec, cellStyleBoldWitholtBorder(workbook, true, 14));
+
+			excellRow = excellRow + 3;
 			row = sheet.createRow(excellRow);
-			createCell(row, 1, "Изготвил:",cellStyleBoldWitholtBorder(workbook, false,12));
-			createCell(row, 3, "Проверил:",cellStyleBoldWitholtBorder(workbook, false,12));
-			sheet.addMergedRegion(new CellRangeAddress(excellRow,excellRow,3,4));
-			
-			
-			
-			
-			
+			createCell(row, 1, "Изготвил:", cellStyleBoldWitholtBorder(workbook, false, 12));
+			createCell(row, 3, "Проверил:", cellStyleBoldWitholtBorder(workbook, false, 12));
+			sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 3, 4));
+
 			FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
 			workbook.write(outFile);
 			outFile.close();
 
 			GenerateRequestWordDoc.openWordDoc(excelFilePath);
-			
+
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
 			MessageDialog(e.toString(), "файлова грешка");
@@ -790,65 +778,64 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		}
 	}
 
-	private static  CellStyle cellStyleBoldWithBorder(Workbook workbook, boolean fl, int size) {
+	private static CellStyle cellStyleBoldWithBorder(Workbook workbook, boolean fl, int size) {
 		CellStyle cellStyleHeader;
-		Font fontHeader= workbook.createFont();
+		Font fontHeader = workbook.createFont();
 		fontHeader.setFontName("Times New Roman");
-		fontHeader.setFontHeightInPoints((short)size);
+		fontHeader.setFontHeightInPoints((short) size);
 		fontHeader.setColor(IndexedColors.BLACK.getIndex());
 		fontHeader.setBold(fl);
 		cellStyleHeader = workbook.createCellStyle();
 		cellStyleHeader.setFont(fontHeader);
 		cellStyleHeader.setAlignment(HorizontalAlignment.CENTER);
 		cellStyleHeader.setVerticalAlignment(VerticalAlignment.CENTER);
-//			cellStyleHeader.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
-//			cellStyleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		// cellStyleHeader.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
+		// cellStyleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		cellStyleHeader.setWrapText(true);
 		setBordrCell(cellStyleHeader);
-		
-		return cellStyleHeader;
-	}
-	
-	private static  CellStyle cellStyleBoldWitholtBorder(Workbook workbook, boolean fl, int size) {
-		CellStyle cellStyleHeader;
-		Font fontHeader= workbook.createFont();
-		fontHeader.setFontName("Times New Roman");
-		fontHeader.setFontHeightInPoints((short)12);
-		fontHeader.setColor(IndexedColors.BLACK.getIndex());
-		fontHeader.setBold(fl);
-		cellStyleHeader = workbook.createCellStyle();
-		cellStyleHeader.setFont(fontHeader);
-		cellStyleHeader.setAlignment(HorizontalAlignment.CENTER);
-		cellStyleHeader.setVerticalAlignment(VerticalAlignment.CENTER);
-//			cellStyleHeader.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
-//			cellStyleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		cellStyleHeader.setWrapText(true);
-		
-		
+
 		return cellStyleHeader;
 	}
 
-	
+	private static CellStyle cellStyleBoldWitholtBorder(Workbook workbook, boolean fl, int size) {
+		CellStyle cellStyleHeader;
+		Font fontHeader = workbook.createFont();
+		fontHeader.setFontName("Times New Roman");
+		fontHeader.setFontHeightInPoints((short) 12);
+		fontHeader.setColor(IndexedColors.BLACK.getIndex());
+		fontHeader.setBold(fl);
+		cellStyleHeader = workbook.createCellStyle();
+		cellStyleHeader.setFont(fontHeader);
+		cellStyleHeader.setAlignment(HorizontalAlignment.CENTER);
+		cellStyleHeader.setVerticalAlignment(VerticalAlignment.CENTER);
+		// cellStyleHeader.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
+		// cellStyleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		cellStyleHeader.setWrapText(true);
+
+		return cellStyleHeader;
+	}
+
 	private static void createCell(Row row, int col, String str, CellStyle cellStyleHeader) {
 		Cell cell = null;
 		cell = row.createCell(col, CellType.STRING);
 		cell.setCellStyle(cellStyleHeader);
 		cell.setCellValue(str);
-		
+
 	}
-	
-//	private static void createNumberCell(Workbook workbook,Row row, int col, String str, CellStyle cellStyleHeader) {
-//		
-//		Cell cell = null;
-//		cell = row.createCell(col, CellType.NUMERIC);
-//		DataFormat format = workbook.createDataFormat();
-//		cellStyleHeader.setDataFormat(format.getFormat("0.00E00"));
-//		cell.setCellStyle(cellStyleHeader);
-//		
-//		cell.setCellValue(FormatDoubleNumber.formatStringToDouble(str, 2));
-//		
-//	}
-	
+
+	// private static void createNumberCell(Workbook workbook,Row row, int col,
+	// String str, CellStyle cellStyleHeader) {
+	//
+	// Cell cell = null;
+	// cell = row.createCell(col, CellType.NUMERIC);
+	// DataFormat format = workbook.createDataFormat();
+	// cellStyleHeader.setDataFormat(format.getFormat("0.00E00"));
+	// cell.setCellStyle(cellStyleHeader);
+	//
+	// cell.setCellValue(FormatDoubleNumber.formatStringToDouble(str, 2));
+	//
+	// }
+
 	public static void MessageDialog(String textInFrame, String textFrame) {
 		Icon otherIcon = null;
 		JFrame jf = new JFrame();
@@ -857,53 +844,50 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		JOptionPane.showMessageDialog(jf, textInFrame, textFrame, JOptionPane.PLAIN_MESSAGE, otherIcon);
 
 	}
-	
-	public static  CellStyle insertBorder (CellStyle style){
-	    
-        style.setBorderBottom(BorderStyle.DOUBLE);  
-        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());  
-        
-        style.setBorderRight(BorderStyle.THIN);  
-        style.setRightBorderColor(IndexedColors.BLACK.getIndex());  
-       
-        style.setBorderTop(BorderStyle.THIN);  
-        style.setTopBorderColor(IndexedColors.BLACK.getIndex());  
-        
-        style.setBorderLeft(BorderStyle.THIN);  
-        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        
-       
-		
-		
+
+	public static CellStyle insertBorder(CellStyle style) {
+
+		style.setBorderBottom(BorderStyle.DOUBLE);
+		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+		style.setBorderRight(BorderStyle.THIN);
+		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+		style.setBorderTop(BorderStyle.THIN);
+		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
 		return style;
-		
+
 	}
-	
-	public static CellStyle setBordrCell (CellStyle style){
-	    
-        style.setBorderBottom(BorderStyle.THIN);  
-        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());  
-        
-        style.setBorderRight(BorderStyle.THIN);  
-        style.setRightBorderColor(IndexedColors.BLACK.getIndex());  
-       
-        style.setBorderTop(BorderStyle.THIN);  
-        style.setTopBorderColor(IndexedColors.BLACK.getIndex());  
-        
-        style.setBorderLeft(BorderStyle.THIN);  
-        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-     
+
+	public static CellStyle setBordrCell(CellStyle style) {
+
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+
+		style.setBorderRight(BorderStyle.THIN);
+		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+		style.setBorderTop(BorderStyle.THIN);
+		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
 		return style;
-		
+
 	}
-	
+
 	private static void setBordersToMergedCells(Workbook workBook, Sheet sheet) {
-		  List<CellRangeAddress> mergedRegions = sheet.getMergedRegions();
-		  for (CellRangeAddress rangeAddress : mergedRegions) {
-		    RegionUtil.setBorderTop(BorderStyle.THIN, rangeAddress, sheet);
-		    RegionUtil.setBorderLeft(BorderStyle.THIN, rangeAddress, sheet);
-		    RegionUtil.setBorderRight(BorderStyle.THIN, rangeAddress, sheet);
-		    RegionUtil.setBorderBottom(BorderStyle.THIN, rangeAddress, sheet);
-		  }
+		List<CellRangeAddress> mergedRegions = sheet.getMergedRegions();
+		for (CellRangeAddress rangeAddress : mergedRegions) {
+			RegionUtil.setBorderTop(BorderStyle.THIN, rangeAddress, sheet);
+			RegionUtil.setBorderLeft(BorderStyle.THIN, rangeAddress, sheet);
+			RegionUtil.setBorderRight(BorderStyle.THIN, rangeAddress, sheet);
+			RegionUtil.setBorderBottom(BorderStyle.THIN, rangeAddress, sheet);
 		}
+	}
 }

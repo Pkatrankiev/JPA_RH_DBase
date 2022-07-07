@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
-import org.apache.poi.hpsf.Decimal;
+
 import DBase_Class.Ejection;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Obekt_na_izpitvane_request;

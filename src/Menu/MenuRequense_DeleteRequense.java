@@ -22,7 +22,7 @@ public class MenuRequense_DeleteRequense extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceRequestByCode(f, DeleteRequense_TitleName) ;
+			    	 new FrameChoiceRequestByCode(f, DeleteRequense_TitleName, null) ;
 			
 	}
 

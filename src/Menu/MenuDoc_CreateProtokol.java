@@ -21,7 +21,7 @@ public class MenuDoc_CreateProtokol extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	 new FrameChoiceRequestByCode(f, CreateProtokol_TitleName) ;
+			    	 new FrameChoiceRequestByCode(f, CreateProtokol_TitleName, null) ;
 			
 	}
 

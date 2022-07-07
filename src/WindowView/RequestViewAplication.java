@@ -49,10 +49,10 @@ public class RequestViewAplication {
 		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
 		String[] arr2 = new String[list.size()];
 		for (Izpitvan_produkt e : list) {
-			arr2[i] = ((Izpitvan_produkt) e).getName_zpitvan_produkt();
+			arr2[i] = e.getName_zpitvan_produkt();
 			i++;
 		}
-		arr2[0] = "";
+//		arr2[0] = "";
 		return arr2;
 	}
 

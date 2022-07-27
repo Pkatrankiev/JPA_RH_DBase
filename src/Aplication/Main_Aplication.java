@@ -3,7 +3,7 @@ package Aplication;
 
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-
+import OldClases.TestClases;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 
@@ -112,7 +112,10 @@ public class Main_Aplication {
  		
 //		CreateListLeftPanelStartWindowClass.createListMissingProtokols(null);
 		
-//		TestClases.testReferenceView();
+		
+		
+		
+//		TestClases.DobivReference();
 		
 		
 		

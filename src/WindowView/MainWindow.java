@@ -18,6 +18,7 @@ import Menu.ArhiveDBase;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
+import Menu.MenuDobivReference;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
 import Menu.MenuDoc_CreateRequest;
@@ -252,6 +253,7 @@ public class MainWindow extends JFrame {
 		referenceMenu.setMnemonic(KeyEvent.VK_R);
 		referenceMenu.add(new MenuSampleMonthlyReference());
 		referenceMenu.add(new MenuPeriodicReference());
+		referenceMenu.add(new MenuDobivReference());
 		return referenceMenu;
 	}
 

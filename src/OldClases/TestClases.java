@@ -63,6 +63,7 @@ import DBase_Class.Users;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import Reference.DobivReference;
 import Reference.MounthlyReferenceForCNRDWater;
 import Reference.MounthlyReferenceForMenuEjectionCalculate;
 import Reference.MounthlyReferenceForMenuEjectionVolums;
@@ -370,8 +371,16 @@ public class TestClases {
 	}
 
 	
-	public
-	static void ChoiceListIzpPokazatel() {
+	public	static void DobivReference() {
+		
+		
+		JFrame f = new JFrame();
+//		List<String> bsic_list = Obekt_na_izpitvane_requestDAO.getListStringAllValueObekt_na_izpitvane();
+		String label = "Добиви";
+		new  DobivReference(f,  label);
+	}
+
+public	static void ChoiceListIzpPokazatel() {
 		
 		
 		JFrame f = new JFrame();
@@ -379,7 +388,8 @@ public class TestClases {
 		String label = "Изберете Обект на изпитване";
 		new  MounthlyReferenceForMenuEjectionCalculate(f,  label);
 	}
-
+	
+	
 	public static void testNewRequestVew() {
 		JFrame f = new JFrame();
 		Users user = UsersDAO.getValueUsersById(3);

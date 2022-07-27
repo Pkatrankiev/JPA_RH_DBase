@@ -15,17 +15,18 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 public class GlobalVariableForSQL_DBase {
 
-	static Boolean isRemoteDBase =true;
+	
 
 	private static Map<String, String> globalTextVariableMap = ReadFileWithGlobalTextVariable
 			.getGlobalTextVariableMap();
 	static String dataBaseName = globalTextVariableMap.get("dataBaseName");
 	static String noConectionInDBseMesage = globalTextVariableMap.get("noConectionInDBseMesage_textMesage");
 
+
 	private static Map<String, String> createLokalDataBase() {
 
 		Map<String, String> persistenceMap = new HashMap<String, String>();
-		if (isRemoteDBase) {
+		if (globalTextVariableMap.get("remoteDBase").equals("1")) {
 			persistenceMap = ReadFileWithGlobalTextVariable.getGlobalDBasePersisRemoteMap();
 			
 		} else {

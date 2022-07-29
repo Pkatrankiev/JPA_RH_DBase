@@ -46,7 +46,7 @@ public class CreateListLeftPanelStartWindowClass {
 	public static List<List<LeftPanelStartWindowClass>> createListLeftPanelStartWindowClass(
 			JProgressBar progressBarView, int startCheckYear) {
 		List<List<LeftPanelStartWindowClass>> groupList = Lists.newArrayList();
-
+		List<String> listAllProtokolFile = CreateListLeftPanelStartWindowClass.getListAllProtokols();
 		String monitGroup = "";
 
 		int ProgressBarSize = 0;
@@ -78,7 +78,7 @@ public class CreateListLeftPanelStartWindowClass {
 				object.setLblLabel_Obect(Table_RequestToObektNaIzp.createStringListObektNaIzp(
 						Table_RequestToObektNaIzp.getListStringOfRequest_To_ObektNaIzpitvaneRequest(request), false));
 				object.setLblLabel_Sample(createStringPokazatel(request));
-				object.setLblLabel_Protokol(getLabelProtokol(request.getRecuest_code()));
+				object.setLblLabel_Protokol(getLabelProtokol(request.getRecuest_code(), listAllProtokolFile));
 				System.out.println(object.getLblLabel_Code() + " / " + object.getLblLabel_Obect() + " / "
 						+ object.getLblLabel_Protokol() + " / " + object.getLblLabel_Sample() + " / "
 						+ object.getMonitoringGroup() + " / ");
@@ -98,6 +98,26 @@ public class CreateListLeftPanelStartWindowClass {
 		return groupList;
 	}
 
+	public static List<String> getListAllProtokols() {
+		List<String> listAllProtokolFile = 
+		getListAllProtokolFile(new File(GlobalPathForDocFile.get_destinationDir_Protocols()));
+		
+		return listAllProtokolFile ;
+	}
+	
+	public static String getLabelProtokol(String requestCode, List<String> listAllProtokolFile) {
+		
+		String fileName = "...";
+		for (String string : listAllProtokolFile) {
+			if (string.startsWith(requestCode)) {
+				System.out.println(string);
+				return string;	
+			}
+		}
+		return fileName ;
+	}
+	
+	
 	public static String getLabelProtokol(String requestCode) {
 		List<String> listAllProtokolFile = 
 		getListAllProtokolFile(new File(GlobalPathForDocFile.get_destinationDir_Protocols()));

@@ -96,3 +96,53 @@ Caused by: java.net.ConnectException: Connection timed out: connect
 	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:211)
 	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:300)
 	... 40 more
+
+< 28.07.2022 (09:01:00) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:802)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:223)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 28.07.2022 (09:57:37) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:813)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:225)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 28.07.2022 (09:59:02) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:813)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:225)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 28.07.2022 (10:24:14) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:815)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:225)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 28.07.2022 (12:57:34) EEST > 
+java.io.FileNotFoundException: DIRECTORY\export.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.toExcel(MounthlyReferenceForMenuEjectionCalculate.java:843)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$2$1.run(MounthlyReferenceForMenuEjectionCalculate.java:229)
+	at java.lang.Thread.run(Thread.java:748)

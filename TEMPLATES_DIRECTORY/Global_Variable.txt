@@ -294,6 +294,7 @@ MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след
 
 MounthlyReferenceEjectionVolums_Btn_Reference = Справка
 
+listStringObectEjection = Спецкорпус-1 ; Спецкорпус-2
 
 MounthlyReferenceForCNRDWaterTable_MenuEjectionIzhod2 = Изхвърляния към Изход 2
 MounthlyReferenceForCNRDWaterTable_ProtokolN = протокол №

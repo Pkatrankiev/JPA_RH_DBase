@@ -22,7 +22,9 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -81,6 +83,9 @@ import WindowView.TranscluentWindow;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 	private static final long serialVersionUID = 7534173139838953837L;
@@ -100,7 +105,7 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 	int countRow = 0;
 	int headerWith = 80;
 	int tableLeth = 600;
-	static int[] columnExcellWith = { 66, 167, 167, 59, 80 };
+	static int[] columnExcellWith = { 90, 190, 120, 60, 80 };
 
 	public MounthlyReferenceForMenuEjectionCalculate(JFrame parent, String frame_name) {
 		super(parent, frame_name, true);
@@ -307,8 +312,10 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		Object[][] DataValue = ceateDataValue(godina, mesec);
 
 		valueDataTable = DataValue;
-		int countRow = valueDataTable.length;
-
+		int countRow = 0;
+		if(valueDataTable!=null){
+			countRow =valueDataTable.length;
+		}
 		tablePanel.removeAll();
 		lblError.setText("");
 		int header = 0;
@@ -334,13 +341,14 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		String AllResultInInjectionReference = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("AllResultInInjectionReference");
 		Period per = PeriodDAO.getValuePeriodByPeriod(period);
+		int idPeriod = per.getId_period();
 		List<Ejection> listEject = generateListEjection(per, godina);
-
+		Object[][] TableValue = null;
 		List<Sample> listNewSample = new ArrayList<>();
 		List<Results> listNewResults = new ArrayList<>();
 		List<Sample> listSample = SampleDAO.getListSampleByMounthlyReferenceForCNRDWater_Table(per, godina);
 		List<Nuclide> listNuclideEjection = NuclideDAO.getListNuclideEjection();
-
+		List<String> listAllProtokolFile = CreateListLeftPanelStartWindowClass.getListAllProtokols();
 		for (Ejection ejection : listEject) {
 			for (Sample sample : listSample) {
 				if (sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane()
@@ -349,19 +357,20 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 				}
 			}
 		}
-
+		
+if(listNewSample.size()>0){
 		for (Sample sample : listNewSample) {
 			System.out.println(sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 			// List<Results> listResults =
 			// ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
 			List<Results> listResults = ResultsDAO.getListResultsFromCurentSampleInProtokol(sample);
-			
-				for (Results results : listResults) {
-					if (AllResultInInjectionReference.equals("1")) {
-						listNewResults.add(results);
-					} else {
+
+			for (Results results : listResults) {
+				if (AllResultInInjectionReference.equals("1")) {
+					listNewResults.add(results);
+				} else {
 					for (Nuclide nuclide : listNuclideEjection) {
-					
+
 						if (results.getNuclide().getSymbol_nuclide().equals(nuclide.getSymbol_nuclide())) {
 							listNewResults.add(results);
 						}
@@ -374,10 +383,12 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 		Object[][] DataTableValue = new Object[listNewResults.size()][9];
 		List<KoeficientObject> listKoeficientObject = KoeficientObjectDAO.getInListAllValueKoeficientObject();
+		List<String> listStringAllProtokolFile = new ArrayList<>();
+
 		int i = 0;
 		int key = 0;
 		Nuclide nuclid;
-
+		int firstInfoRow = 0;
 		double koef;
 		double obem = 1;
 		double aktiv;
@@ -411,14 +422,21 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 					DataTableValue[i][1] = "";
 					DataTableValue[i][2] = "";
 					DataTableValue[i][3] = "";
+					listStringAllProtokolFile.add(CreateListLeftPanelStartWindowClass
+							.getLabelProtokol(result.getRequest().getRecuest_code(), listAllProtokolFile)
+							.replace(".docx", "").replace(".doc", ""));
 				} else {
 
 					DataTableValue[i][0] = obektNew;
-					DataTableValue[i][1] = CreateListLeftPanelStartWindowClass
-							.getLabelProtokol(result.getRequest().getRecuest_code());
+					if (i > 0) {
+						DataTableValue[firstInfoRow][1] = genarateStringFromList(
+								removeDuplicates(listStringAllProtokolFile)).replace(";", ";   ");
+						listStringAllProtokolFile.clear();
+					}
 					DataTableValue[i][2] = FormatDoubleNumber.formatDoubleToString(obem, 2, true);
 					DataTableValue[i][3] = FormatDoubleNumber.formatDoubleToString(koef, 2, false);
 					obektOld = obektNew;
+					firstInfoRow = i;
 				}
 
 				DataTableValue[i][4] = nuclid.getSymbol_nuclide();
@@ -434,47 +452,185 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 			}
 		}
-		for (int j = 0; j < DataTableValue.length; j++) {
-			System.out.println();
-			for (int j2 = 0; j2 < 9; j2++) {
-				System.out.print(DataTableValue[j][j2] + "  ");
-			}
-			System.out.println();
+		
+	if(listStringAllProtokolFile!=null || listStringAllProtokolFile.size()>0){
+		DataTableValue[firstInfoRow][1] = genarateStringFromList(removeDuplicates(listStringAllProtokolFile));
+	}
+		Object[][] newDataTableValue = removeNullRowInMasive(DataTableValue);
+
+		Object[][] sortDataTableValue = newDataTableValue;
+
+		if (idPeriod > 20 && idPeriod < 40) {
+			Object[][] DataTableValueSr = generateMasiveWithSr(godina, idPeriod, newDataTableValue);
+
+			sortDataTableValue = addRowWithSrInDataBale(DataTableValueSr, newDataTableValue);
+
 		}
 
-		return DataTableValue;
+		for (int j = 0; j < sortDataTableValue.length; j++) {
+			System.out.println();
+			for (int j2 = 0; j2 < 9; j2++) {
+				System.out.print(sortDataTableValue[j][j2] + "  ");
+			}
+			System.out.println();
+
+		}
+		
+		TableValue = sortDataTableValue;
+		
+}
+		return TableValue;
 
 	}
 
+	private Object[][] addRowWithSrInDataBale(Object[][] dataTableValueSr, Object[][] dataTableValue) {
+		int newCountRow = dataTableValueSr.length;
+		Object[][] newDataTableValue = new Object[dataTableValue.length + newCountRow][9];
+		int newRow = Integer.parseInt(dataTableValueSr[0][9].toString());
+		int indexTableSr = 0;
+		int indexDataTableValue = 0;
+
+		for (int i = 0; i < newDataTableValue.length; i++) {
+			if (i == newRow + 1) {
+				for (int j = 0; j < 3; j++) {
+					newDataTableValue[i] = copyValueToMasive(newDataTableValue[i], dataTableValueSr[indexTableSr]);
+					i++;
+					indexTableSr++;
+				}
+				i--;
+				if (indexTableSr < dataTableValueSr.length) {
+					newRow = Integer.parseInt(dataTableValueSr[indexTableSr][9].toString()) + indexTableSr;
+				}
+			} else {
+
+				newDataTableValue[i] = dataTableValue[indexDataTableValue];
+				indexDataTableValue++;
+			}
+		}
+		return newDataTableValue;
+	}
+
+	private Object[] copyValueToMasive(Object[] objects, Object[] objects2) {
+		for (int i = 0; i < objects.length; i++) {
+			objects[i] = objects2[i];
+		}
+		return objects;
+	}
+
+	private Object[][] removeNullRowInMasive(Object[][] DataTableValue) {
+		int k = 0;
+		int row = DataTableValue.length;
+		for (int j = 0; j < row; j++) {
+			if (DataTableValue[j][0] == null) {
+				k++;
+			}
+		}
+
+		int newRow = row - k;
+		Object[][] newDataTableValue = new Object[newRow][9];
+		for (int j = 0; j < newRow; j++) {
+			newDataTableValue[j] = DataTableValue[j];
+		}
+		return newDataTableValue;
+	}
+
+	private Object[][] generateMasiveWithSr(int godina, int idPeriod, Object[][] newDataTableValue) {
+		double aktiv;
+		double izvhAktiv;
+		Object[][] sortDataTableValue;
+		sortDataTableValue = sortData(newDataTableValue);
+		String strObektiNaIzpitwaneSr90 = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("listStringObectEjection");
+		List<String> listStringObectEjection = generateListFromString(strObektiNaIzpitwaneSr90);
+		List<List<Double>> listObemi = generateListObemBiTrimAndObekt(idPeriod, godina, listStringObectEjection);
+
+		Object[][] DataTableValueSr = new Object[3 * listStringObectEjection.size()][10];
+		int index = 0;
+		int s = 0;
+		for (List<Double> listObemTrim : listObemi) {
+			for (int j = 0; j < sortDataTableValue.length; j++) {
+				if (sortDataTableValue[j][0].toString().equals(listStringObectEjection.get(index))) {
+					int m = j + 1;
+					while (sortDataTableValue[m][0].toString().isEmpty()) {
+						if (sortDataTableValue[m][4].toString().equals("90Sr")) {
+							int mesec = 1;
+							for (Double obemMesec : listObemTrim) {
+								DataTableValueSr[s][0] = "";
+								DataTableValueSr[s][1] = "";
+								DataTableValueSr[s][2] = "";
+								DataTableValueSr[s][3] = "";
+								aktiv = 0;
+
+								if (!sortDataTableValue[m][5].toString().isEmpty()) {
+									aktiv = Double.parseDouble(sortDataTableValue[m][5].toString());
+								}
+								izvhAktiv = aktiv * obemMesec;
+
+								DataTableValueSr[s][4] = "";
+								DataTableValueSr[s][5] = "Обем за " + mesec + " месец " + obemMesec;
+								DataTableValueSr[s][6] = convertToString(izvhAktiv, 2, true);
+								DataTableValueSr[s][7] = sortDataTableValue[m][7];
+								DataTableValueSr[s][8] = sortDataTableValue[m][8];
+								if (obemMesec == 0) {
+									DataTableValueSr[s][6] = "";
+									DataTableValueSr[s][7] = "";
+									DataTableValueSr[s][8] = "";
+								}
+								DataTableValueSr[s][9] = m;
+								s++;
+								mesec++;
+							}
+						}
+						m++;
+					}
+				}
+			}
+			index++;
+		}
+
+		return DataTableValueSr;
+	}
+
+	private List<String> generateListFromString(String strObektiNaIzpitwaneSr90) {
+		List<String> listStringObectEjection = new ArrayList<>();
+		int index = strObektiNaIzpitwaneSr90.indexOf(";");
+		while (index > 0) {
+			System.out.println(strObektiNaIzpitwaneSr90);
+			listStringObectEjection.add(strObektiNaIzpitwaneSr90.substring(0, index).trim());
+			strObektiNaIzpitwaneSr90 = strObektiNaIzpitwaneSr90.substring(index + 1);
+			index = strObektiNaIzpitwaneSr90.indexOf(";");
+		}
+		listStringObectEjection.add(strObektiNaIzpitwaneSr90.trim());
+
+		for (String string : listStringObectEjection) {
+			System.out.println(string);
+		}
+
+		return listStringObectEjection;
+	}
+
+	public List<Results> sortByMetody(List<Results> resultList) {
+
+		Collections.sort(resultList, new Comparator<Results>() {
+
+			@Override
+			public int compare(Results result1, Results result2) {
+				return result1.getMetody().getName_metody().compareTo(result2.getMetody().getName_metody());
+			}
+
+		});
+		return resultList;
+	}
+
 	static List<Ejection> generateListEjection(Period per, int godina) {
-		Ejection sampleEject = new Ejection();
+
 		List<Ejection> listEjection = new ArrayList<Ejection>();
-		List<Period> listIDPeriodBiTrim = new ArrayList<Period>();
+
 		List<String> listStringObectEjection = new ArrayList<String>();
 		int idPeriod = per.getId_period();
+
 		if (idPeriod > 20 && idPeriod < 40) {
-			switch (idPeriod) {
-			case 31:
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(1));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(2));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(3));
-				break;
-			case 32:
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(4));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(5));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(6));
-				break;
-			case 33:
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(7));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(8));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(9));
-				break;
-			case 34:
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(10));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(11));
-				listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(12));
-				break;
-			}
+			List<Period> listIDPeriodBiTrim = generateListPeriodBiTrim(idPeriod);
 			List<Ejection> listNewEjection = new ArrayList<Ejection>();
 			for (Period period : listIDPeriodBiTrim) {
 				for (Ejection eject : EjectionDAO.getListEjectionFromMesecANDGodina(period, godina)) {
@@ -487,9 +643,17 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 			}
 
 			listStringObectEjection = MounthlyReferenceForCNRDWater.removeDuplicates(listStringObectEjection);
+
+			for (String string : listStringObectEjection) {
+				System.out.println(string);
+			}
+
 			for (String string : listStringObectEjection) {
 				double obem = 0.0;
+				Ejection sampleEject = new Ejection();
 				for (Ejection eject : listNewEjection) {
+					System.out.println(
+							string + "  " + eject.getObect().getName_obekt_na_izpitvane() + " " + eject.getVolum());
 					if (string.equals(eject.getObect().getName_obekt_na_izpitvane())) {
 						obem = obem + eject.getVolum();
 						sampleEject.setProdukt(eject.getProdukt());
@@ -500,12 +664,75 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 					}
 				}
 				listEjection.add(sampleEject);
+				System.out.println(sampleEject.getObect().getName_obekt_na_izpitvane() + " " + sampleEject.getVolum());
+				System.out.println();
 			}
 
 		} else {
 			listEjection = EjectionDAO.getListEjectionFromMesecANDGodina(per, godina);
 		}
+
+		for (Ejection eject : listEjection) {
+			System.out.println(
+					eject.getProdukt().getName_zpitvan_produkt() + " " + eject.getObect().getName_obekt_na_izpitvane()
+							+ " " + eject.getMesec().getValue() + " " + eject.getGodina() + " " + eject.getVolum());
+		}
+
 		return listEjection;
+	}
+
+	private static List<Period> generateListPeriodBiTrim(int idPeriod) {
+		List<Period> listIDPeriodBiTrim = new ArrayList<Period>();
+		switch (idPeriod) {
+		case 31:
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(1));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(2));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(3));
+			break;
+		case 32:
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(4));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(5));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(6));
+			break;
+		case 33:
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(7));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(8));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(9));
+			break;
+		case 34:
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(10));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(11));
+			listIDPeriodBiTrim.add(PeriodDAO.getPeriodById(12));
+			break;
+		}
+		return listIDPeriodBiTrim;
+	}
+
+	private static List<List<Double>> generateListObemBiTrimAndObekt(int idPeriod, int godina,
+			List<String> listStringObectEjection) {
+
+		List<List<Double>> listObemi = new ArrayList<>();
+		List<Period> listIDPeriodBiTrim = generateListPeriodBiTrim(idPeriod);
+		List<Ejection> listEjectionBiPeriod = new ArrayList<Ejection>();
+
+		for (Period period : listIDPeriodBiTrim) {
+			for (Ejection eject : EjectionDAO.getListEjectionFromMesecANDGodina(period, godina)) {
+				listEjectionBiPeriod.add(eject);
+			}
+		}
+		for (String string : listStringObectEjection) {
+			List<Double> listObektObemi = new ArrayList<>();
+			for (Ejection eject : listEjectionBiPeriod) {
+				if (string.equals(eject.getObect().getName_obekt_na_izpitvane())) {
+					listObektObemi.add(eject.getVolum());
+
+				}
+			}
+			listObemi.add(listObektObemi);
+
+		}
+
+		return listObemi;
 	}
 
 	private Double getKoeficient(List<KoeficientObject> listKoeficientObject, String obektNew) {
@@ -705,8 +932,11 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 			// Create header column
 			Row row = sheet.createRow(0);
-
 			String strMesec = "Месец: " + mesec;
+			if(mesec.contains("тримесечие")){
+				strMesec = mesec+" на "+year+".г";	
+			}
+			
 			int excellRow = 0;
 
 			for (int i = 0; i < dataTable.length; i++) {
@@ -727,12 +957,17 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 					createCell(row, 1, excellnameColumn[2], cellStyleBoldWithBorder(workbook, false, 12));
 					createCell(row, 2, dataTable[i][2].toString(), cellStyleBoldWithBorder(workbook, true, 12));
 					createCell(row, 3, dataTable[i][1].toString(), cellStyleBoldWithBorder(workbook, false, 12));
+					row.setHeightInPoints(calculatePixcelRowBiCountProtokols(dataTable[i][1].toString()));
 
 					excellRow++;
 					row = sheet.createRow(excellRow);
 					createCell(row, 0, excellnameColumn[4], cellStyleBoldWithBorder(workbook, false, 12));
 					createCell(row, 1, excellnameColumn[5], cellStyleBoldWithBorder(workbook, false, 12));
-					String text = excellnameColumn[6] + "с " + excellnameColumn[3] + " " + dataTable[i][3];
+
+					String text = excellnameColumn[6];
+					if (!dataTable[i][3].equals("1.00")) {
+						text = text + " с " + excellnameColumn[3] + " " + dataTable[i][3];
+					}
 					createCell(row, 2, text, cellStyleBoldWithBorder(workbook, false, 12));
 					createCell(row, 3, excellnameColumn[7], cellStyleBoldWithBorder(workbook, false, 8));
 					createCell(row, 4, excellnameColumn[8], cellStyleBoldWithBorder(workbook, false, 12));
@@ -775,6 +1010,70 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
+		}
+	}
+
+	private static int calculatePixcelRowBiCountProtokols(String protokols) {
+		int lengthString = protokols.length();
+		int newlengthString = protokols.replace(";", "").length();
+		int countProtokols = lengthString - newlengthString;
+		int pixcel = (countProtokols + 1) * 16;
+		return pixcel;
+	}
+
+	private Object[][] sortData(Object[][] dataTable) {
+
+		Object[][] newMasive = new Object[dataTable.length][9];
+
+		List<String> nuclide = new ArrayList<>();
+		List<Object[]> object = new ArrayList<>();
+		Object[] firstObject = null;
+		int row = 0;
+		for (int i = 0; i < dataTable.length; i++) {
+
+			if (dataTable[i][0] != "") {
+
+				sort(dataTable, nuclide, object, firstObject, row);
+
+				firstObject = dataTable[i];
+				row = i;
+				nuclide.clear();
+				object.clear();
+			}
+			nuclide.add(dataTable[i][4].toString());
+			object.add(dataTable[i]);
+		}
+
+		sort(dataTable, nuclide, object, firstObject, row);
+		return dataTable;
+	}
+
+	private void sort(Object[][] dataTable, List<String> nuclide, List<Object[]> object, Object[] firstObject,
+			int row) {
+		if (!nuclide.isEmpty()) {
+			int index = row;
+			Collections.sort(nuclide);
+			for (String simNuclide : nuclide) {
+				for (Object[] obj : object) {
+					if (simNuclide.equals(obj[4])) {
+						dataTable[index] = obj;
+					}
+				}
+				index++;
+			}
+			for (int j = 0; j < 4; j++) {
+				dataTable[row][j] = firstObject[j];
+				System.out.println(j + " ->" + firstObject[j]);
+			}
+			System.out.println(" nuclide.size() " + nuclide.size());
+			for (int l = row + 1; l < row + nuclide.size(); l++) {
+				for (int j = 0; j < 4; j++) {
+					System.out.println(j + " <->" + dataTable[l][j]);
+					dataTable[l][j] = "";
+					System.out.println(j + " <=>" + dataTable[l][j]);
+				}
+			}
+
 		}
 	}
 
@@ -823,18 +1122,32 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 
 	}
 
-	// private static void createNumberCell(Workbook workbook,Row row, int col,
-	// String str, CellStyle cellStyleHeader) {
-	//
-	// Cell cell = null;
-	// cell = row.createCell(col, CellType.NUMERIC);
-	// DataFormat format = workbook.createDataFormat();
-	// cellStyleHeader.setDataFormat(format.getFormat("0.00E00"));
-	// cell.setCellStyle(cellStyleHeader);
-	//
-	// cell.setCellValue(FormatDoubleNumber.formatStringToDouble(str, 2));
-	//
-	// }
+	private String genarateStringFromList(List<String> listString) {
+		String str = "";
+		for (String string : removeDuplicates(listString)) {
+			if (!string.trim().isEmpty()) {
+				str = str + string + "; ";
+			}
+		}
+		if (str.length() >= 2) {
+			str = str.substring(0, (str.length() - 2));
+		}
+		return str;
+	}
+
+	public static List<String> removeDuplicates(List<String> listAllNuclide) {
+
+		Set<String> set = new LinkedHashSet<>();
+		// Add the elements to set
+		set.addAll(listAllNuclide);
+		// Clear the list
+		listAllNuclide.clear();
+		// add the elements of set
+		// with no duplicates to the list
+		listAllNuclide.addAll(set);
+		// return the list
+		return listAllNuclide;
+	}
 
 	public static void MessageDialog(String textInFrame, String textFrame) {
 		Icon otherIcon = null;

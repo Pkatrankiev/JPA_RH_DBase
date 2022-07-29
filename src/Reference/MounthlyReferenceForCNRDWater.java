@@ -237,7 +237,7 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 
 	private Object[][] createDataTableValue(String mesec, int godina) {
 		Period mounth = PeriodDAO.getValuePeriodByPeriod(mesec);
-
+		List<String> listAllProtokolFile = CreateListLeftPanelStartWindowClass.getListAllProtokols();
 		List<Sample> listSample = SampleDAO.getListSampleByMounthlyReferenceForCNRDWater_Table(mounth, godina);
 		String[] listStrNameRezervoareCNRD = { "03D-SS02T01", "03D-SS02T02", "03D-SS02T03" };
 		String[] listStrNameSimbolNuclideWithMDA = { "60Co", "137Cs" };
@@ -264,7 +264,7 @@ public class MounthlyReferenceForCNRDWater extends JDialog {
 						String nuclideSimbol = results.getNuclide().getSymbol_nuclide();
 
 						objectClass.setProtokolN(CreateListLeftPanelStartWindowClass
-								.getLabelProtokol(sample.getRequest().getRecuest_code()));
+								.getLabelProtokol(sample.getRequest().getRecuest_code(), listAllProtokolFile));
 						objectClass.setSampleObjectName(
 								sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 						objectClass.setIzhvarlenObem(izhvarlenObem);

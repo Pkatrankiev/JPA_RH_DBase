@@ -15,6 +15,7 @@ import GlobalVariable.ResourceLoader;
 import InfoPanelInMainWindow.CreatRightPanel;
 import InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar;
 import Menu.ArhiveDBase;
+import Menu.ManuMounthlyReferenceEjectionRHtoORDK;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
@@ -244,6 +245,7 @@ public class MainWindow extends JFrame {
 		åjectionMenu.add(new MenuEjectionVolums());
 		åjectionMenu.add(new MenuEjectionCalculate());
 		åjectionMenu.add(new MenuEjectionIzhod2());
+		åjectionMenu.add(new ManuMounthlyReferenceEjectionRHtoORDK());
 		return åjectionMenu;
 	}
 

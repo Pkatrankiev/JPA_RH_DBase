@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.font.TextAttribute;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.AttributedString;
 import java.text.DateFormat;
@@ -30,6 +32,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.poi.hpsf.Decimal;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import AddResultViewFunction.AddResultViewMetods;
 import Aplication.DobivDAO;
@@ -64,6 +71,7 @@ import DefaultTableList.ViewTableList;
 import GlobalVariable.GlobalFormatDate;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.DobivReference;
+import Reference.MounthlyReferenceEjectionRHtoORDK;
 import Reference.MounthlyReferenceForCNRDWater;
 import Reference.MounthlyReferenceForMenuEjectionCalculate;
 import Reference.MounthlyReferenceForMenuEjectionVolums;
@@ -220,8 +228,22 @@ public class TestClases {
 			
 		}	
 	
+	public static void readExcelFile() {
+		try {
+		FileInputStream fis = new FileInputStream("D:\\123.xls");
 
+	@SuppressWarnings("resource")
+	Workbook workbook = new HSSFWorkbook(fis);
 	
+	Sheet sheet = workbook.getSheetAt(0);
+	Cell cell= sheet.getRow(0).getCell(1);
+	System.out.println(( cell.getCellStyle().getFillForegroundColorColor()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+			
 	public static void testAddDobivView() {
 		TranscluentWindow round = new TranscluentWindow();
 
@@ -496,6 +518,11 @@ public	static void ChoiceListIzpPokazatel() {
 
 	}
 	
+	public static void MounthlyReferenceEjectionRHtoORDK_test() {
+		JFrame f = new JFrame();
+	new MounthlyReferenceEjectionRHtoORDK(f,"");
+
+	}
 		
 	public static void Change_In_Dobiv_Nuclide() {
 

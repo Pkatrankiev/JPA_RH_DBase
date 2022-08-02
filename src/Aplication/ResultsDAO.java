@@ -211,6 +211,8 @@ public class ResultsDAO {
 
 		return SortListObjectByField.sortListResultsByCodedNuclide(list);
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public static List<Results> getListResultsByDataMeasurANDInProtokol(String dataMeasur) {

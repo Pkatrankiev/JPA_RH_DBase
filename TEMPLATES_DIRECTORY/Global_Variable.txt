@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.270722
+MainWindow_Ver = Ver.020822
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
@@ -293,6 +293,11 @@ MounthlyReferenceForCNRDWater_MesecLabel = месец
 MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 
 
 MounthlyReferenceEjectionVolums_Btn_Reference = Справка
+
+MounthlyReferenceEjectionRHtoORDK_BasicLabel = <html>СВЕДЕНИЕ<br>за изхвърлянията на 14С и 3Н от ВТ-1 и ВТ-2 за:</html>
+MounthlyReferenceEjectionRHtoORDK_Request_C = код на заявката за 14С
+MounthlyReferenceEjectionRHtoORDK_Request_H = код на заявката за 3Н
+MounthlyReferenceEjectionRHtoORDK_TitleName = изхвърляния на 14С и 3Н
 
 listStringObectEjection = Спецкорпус-1 ; Спецкорпус-2
 

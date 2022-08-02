@@ -1,0 +1,30 @@
+
+< 02.08.2022 (08:25:35) EEST > 
+java.io.FileNotFoundException: DIRECTORY\таблица РХ за ОРДК-юни.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceEjectionRHtoORDK.toExcel(MounthlyReferenceEjectionRHtoORDK.java:439)
+	at Reference.MounthlyReferenceEjectionRHtoORDK$5.run(MounthlyReferenceEjectionRHtoORDK.java:280)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 02.08.2022 (11:20:28) EEST > 
+java.io.FileNotFoundException: DIRECTORY\таблица РХ за ОРДК-юни.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceEjectionRHtoORDK.toExcel(MounthlyReferenceEjectionRHtoORDK.java:445)
+	at Reference.MounthlyReferenceEjectionRHtoORDK$5.run(MounthlyReferenceEjectionRHtoORDK.java:280)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 02.08.2022 (12:02:26) EEST > 
+java.io.FileNotFoundException: DIRECTORY\таблица РХ за ОРДК-юни.xls (Процесът не може да направи обръщение към файла, защото той се използва от друг процес)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at Reference.MounthlyReferenceEjectionRHtoORDK.toExcel(MounthlyReferenceEjectionRHtoORDK.java:444)
+	at Reference.MounthlyReferenceEjectionRHtoORDK$5.run(MounthlyReferenceEjectionRHtoORDK.java:280)
+	at java.lang.Thread.run(Thread.java:748)

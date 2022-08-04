@@ -51,6 +51,7 @@ public class ReadExcelFile {
 	private static String cod_sample;
 	private static String user_Analize = "";
 	private static String value_Standatd = "";
+	private static String uncert_Standatd = "";
 	private static String nuclide_StandardStr = "";
 	private static String nuclideSimbol_StandardStr = "";
 
@@ -66,7 +67,7 @@ public class ReadExcelFile {
 				+ destruct_Result.getUncert();
 	}
 
-	public static List<Destruct_Result> getDestruct_Result_ListFromOrtecExcelFile(String FILE_PATH,
+	public static List<Destruct_Result> getDestruct_Result_ListFromOrtecExcelFile1(String FILE_PATH,
 			Boolean forResults) {
 		DataFormatter formatter = new DataFormatter();
 		List<Destruct_Result> destruct_Result_List = new ArrayList<Destruct_Result>();
@@ -138,12 +139,16 @@ public class ReadExcelFile {
 						}
 					}
 					if (!textNulCell.isEmpty() && textNulCell.contains("Tracer Activity:")) {
+						int index = 0;
 						for (int col = 1; col <= 20; col += 1) {
 							cell = sheet.getRow(row).getCell(col);
 							if (CellNOEmpty(cell) && cell.getStringCellValue().startsWith("Tracer Recovery:")) {
-								value_Standatd = sheet.getRow(row).getCell(col).getStringCellValue()
-										.replace("Tracer Recovery:", "").replace(",", ".").replace("%", "");
+								value_Standatd = cell.getStringCellValue().replace("Tracer Recovery:", "").replace(",", ".").replace("%", "");
+								index = value_Standatd.indexOf("+/-")+4;
+								uncert_Standatd = value_Standatd.substring(index, index+9).trim(); 
 								value_Standatd = value_Standatd.substring(0, 7);
+								
+								
 								
 							}
 						}
@@ -250,7 +255,7 @@ public class ReadExcelFile {
 				+ sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane());
 		dobiv.setNuclide(NuclideDAO.getValueNuclideBySymbol(nuclideSimbol_StandardStr));
 		dobiv.setValue_result(Double.parseDouble(value_Standatd));
-		dobiv.setUncertainty(0.0);
+		dobiv.setUncertainty(Double.parseDouble(uncert_Standatd));
 		dobiv.setTsi(TSI_DAO.getValueTSIByName(destruct_Result.getTsi()));
 		dobiv.setDate_measur(destruct_Result.getDate_Analize());
 		dobiv.setDate_redac(RequestViewFunction.DateNaw(false));
@@ -506,7 +511,7 @@ public class ReadExcelFile {
 								break;
 							case "Размерност":
 								try {
-									dimencion = cell.getStringCellValue();
+									dimencion = cell.getStringCellValue().replaceAll("³", "3").replaceAll("l", "L");
 									errRazmer = "Размерност " + dimencion + " не е в списъка\n";
 									for (Razmernosti basicRazmernosti : RazmernostiDAO.getInListAllValueRazmernosti()) {
 

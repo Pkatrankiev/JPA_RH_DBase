@@ -859,6 +859,7 @@ public class AddResultViewMetods {
 			} else {
 				Dobiv dobiv = OverallVariablesAddDobiv.getListChoisedDobiv().get(0);
 				dobiv.setDate_chim_oper(OverallVariablesAddResults.getDataTable()[i][dateHimObr_Colum].toString());
+				dobiv.setDate_measur(OverallVariablesAddResults.getDataTable()[i][dateAnaliz_Colum].toString());
 				dobiv.setUser_chim_oper(user_ORHO);
 				dobiv.setUser_measur(user_OIR);
 				dobiv.setBasic_value(txtBasicValueResult.getText());

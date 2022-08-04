@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -120,15 +121,33 @@ public class DobivSection {
 	
 	static String generate_strStoinostiDobiv_Nuclide(Choice choiceDobiv) {
 		String strStoinostiDobiv_Nuclide = "";
+		String strrazmernostDobiv = "% , ";
+		
 		if (!choiceDobiv.getSelectedItem().trim().isEmpty()) {
-			for (Dobiv dobiv : DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem())) {
-				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + dobiv.getValue_result()
-						+ "% , ";
+			double valueDobiv = 0.0;
+			List<Dobiv> listDobivi = DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem());
+			if(listDobivi.size()>0 && !listDobivi.get(0).getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03")){
+				strrazmernostDobiv ="÷.å. , ";
+			}
+			for (Dobiv dobiv : listDobivi) {
+				valueDobiv = dobiv.getValue_result();
+				if(!listDobivi.get(0).getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03") && valueDobiv > 1 ){
+					valueDobiv = valueDobiv/100;
+				}
+				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + valueDobiv
+						+ strrazmernostDobiv;
 			}
 			if(strStoinostiDobiv_Nuclide.trim().isEmpty()){
 				 Dobiv dobiv = OverallVariablesAddDobiv.getListChoisedDobiv().get(0);
-				 strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + dobiv.getValue_result()
-					+ "% , ";
+				 if(!dobiv.getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03")){
+						strrazmernostDobiv ="÷.å. , ";
+					}
+				 valueDobiv = dobiv.getValue_result();
+					if(!dobiv.getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03") && valueDobiv > 1 ){
+						valueDobiv = valueDobiv/100;
+					}
+				 strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + valueDobiv
+					+ strrazmernostDobiv;
 			}
 			
 			if (!strStoinostiDobiv_Nuclide.isEmpty())
@@ -137,6 +156,7 @@ public class DobivSection {
 		}
 		return strStoinostiDobiv_Nuclide;
 	}
+	
 	
 
 }

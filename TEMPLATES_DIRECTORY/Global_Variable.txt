@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.020822
+MainWindow_Ver = Ver.040822
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1

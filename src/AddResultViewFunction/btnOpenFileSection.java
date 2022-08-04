@@ -109,7 +109,7 @@ public class btnOpenFileSection {
 	private static void readResultsAndDobivFromOrtecExelFile(Choice choiceSmplCode, String pathfileName,
 			String selectMetodStr, Boolean forResults) {
 		List<Destruct_Result> destruct_Result_List = ReadExcelFile
-				.getDestruct_Result_ListFromOrtecExcelFile(pathfileName, forResults);
+				.getDestruct_Result_ListFromOrtecExcelFile1(pathfileName, forResults);
 		OverallVariablesAddResults.setDestruct_Result_List(destruct_Result_List);
 		Dobiv dobiv = ReadExcelFile.getDobivFromOrtecExcelFile(destruct_Result_List,
 				choiceSmplCode, selectMetodStr);

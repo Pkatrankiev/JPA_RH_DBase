@@ -70,6 +70,7 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 	static String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 	private JTextField textField_BT_C;
 	private JTextField textField_BT_H;
+	static boolean errorFl = true;
 	public MounthlyReferenceEjectionRHtoORDK(JFrame parent, String nameFrame) {
 		super(parent, nameFrame, true);
 		setResizable(false);
@@ -129,6 +130,11 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 			contentPanel.add(lblError, gbc_lblError);
 			// lblErrorGodina.setVisible(false);
 		
+			JButton okButton = new JButton("OK");
+			
+			
+			
+			
 		JLabel lblBT_C = new JLabel(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("MounthlyReferenceEjectionRHtoORDK_Request_C"));
 		GridBagConstraints gbc_lblBT_C = new GridBagConstraints();
@@ -157,7 +163,7 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-				enterRequestCode(textField_BT_C, lblError);
+				enterRequestCode(textField_BT_C, lblError, okButton);
 
 			}
 
@@ -196,7 +202,7 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 
 			@Override
 			public void keyReleased(KeyEvent event) {
-				enterRequestCode(textField_BT_H, lblError);
+				enterRequestCode(textField_BT_H, lblError, okButton);
 
 			}
 
@@ -211,8 +217,6 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-
-		JButton okButton = new JButton("OK");
 
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -244,21 +248,26 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 		setVisible(true);
 	}
 			
-	public static void enterRequestCode(JTextField txtField_RequestCode, JLabel lblError) {
+	public static void enterRequestCode(JTextField txtField_RequestCode, JLabel lblError, JButton okButton) {
 		txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 		if (!RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 			txtField_RequestCode.setForeground(Color.red);
 			lblError.setText("Заявка с този номер не съществува");
+			errorFl = false;
+			okButton.setEnabled(false);
 		} else {
 
 			if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 				txtField_RequestCode.setForeground(Color.red);
 				lblError.setText("Некоректен номер");
+				errorFl = false;
+				okButton.setEnabled(false);
 			} else {
 				txtField_RequestCode.setForeground(Color.BLACK);
-
 				txtField_RequestCode.setBorder(new LineBorder(Color.BLACK));
 				lblError.setText("");
+				errorFl = true;
+				okButton.setEnabled(true);
 			}
 		}
 	}
@@ -322,6 +331,10 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 	private boolean checkRequestCodes(String mesec, String requestC, String requestH, JLabel lblError, TranscluentWindow round) {
 		String errorLabel ="";
 		boolean fl = true;
+		
+		if(!requestC.isEmpty() && !requestH.isEmpty()){
+			
+		
 		if(!checkCorectRequest_C(requestC, mesec)){
 			errorLabel ="<html>"+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestView_CodeForRequest")+
 					" "+ requestC +" не е за изхвърляния на 14С от ВТ в м."+ mesec+"</html>";
@@ -330,14 +343,17 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 		if(!checkCorectRequest_H(requestH, mesec)){
 			String str = "<html>"+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestView_CodeForRequest")+
 					" "+ requestH +" не е за изхвърляния на 3H от ВТ в м."+ mesec+"</html>";
-			if(errorLabel.isEmpty()){
+		
+		if(errorLabel.isEmpty()){
 			errorLabel = str;
 			}else{
 				errorLabel = errorLabel.replace("</html>", "")	+ str.replace("<html>", "<br>");
 			}
 		}
+		}else{
+			errorLabel = "Несте въвели код на заявката";
 		
-		
+		}
 		if(!errorLabel.isEmpty()){
 			lblError.setText(errorLabel);
 			round.StopWindow();

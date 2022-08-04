@@ -552,3 +552,30 @@ java.lang.NumberFormatException: For input string: "/-   1.61"
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+
+< 04.08.2022 (15:13:47) EEST > 
+java.lang.ArrayIndexOutOfBoundsException: 8
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.generateMasiveWithSr(MounthlyReferenceForMenuEjectionCalculate.java:563)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.ceateDataValue(MounthlyReferenceForMenuEjectionCalculate.java:467)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.createAndViewTable(MounthlyReferenceForMenuEjectionCalculate.java:312)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.access$1(MounthlyReferenceForMenuEjectionCalculate.java:308)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$5$1.run(MounthlyReferenceForMenuEjectionCalculate.java:277)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 04.08.2022 (15:14:46) EEST > 
+java.lang.ArrayIndexOutOfBoundsException: 8
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.generateMasiveWithSr(MounthlyReferenceForMenuEjectionCalculate.java:563)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.ceateDataValue(MounthlyReferenceForMenuEjectionCalculate.java:467)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.createAndViewTable(MounthlyReferenceForMenuEjectionCalculate.java:312)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.access$1(MounthlyReferenceForMenuEjectionCalculate.java:308)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$5$1.run(MounthlyReferenceForMenuEjectionCalculate.java:277)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 04.08.2022 (15:16:20) EEST > 
+java.lang.ArrayIndexOutOfBoundsException: 8
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.generateMasiveWithSr(MounthlyReferenceForMenuEjectionCalculate.java:563)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.ceateDataValue(MounthlyReferenceForMenuEjectionCalculate.java:467)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.createAndViewTable(MounthlyReferenceForMenuEjectionCalculate.java:312)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate.access$1(MounthlyReferenceForMenuEjectionCalculate.java:308)
+	at Reference.MounthlyReferenceForMenuEjectionCalculate$5$1.run(MounthlyReferenceForMenuEjectionCalculate.java:277)
+	at java.lang.Thread.run(Thread.java:748)

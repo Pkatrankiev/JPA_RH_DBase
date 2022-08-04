@@ -514,13 +514,15 @@ public	static void ChoiceListIzpPokazatel() {
 	
 	public static void MounthlyReferenceForCNRDWater_test() {
 		JFrame f = new JFrame();
-	new MounthlyReferenceForCNRDWater(f,"");
+//	new MounthlyReferenceForCNRDWater(f,"");
+	new MounthlyReferenceForMenuEjectionCalculate(f,"");
 
 	}
 	
 	public static void MounthlyReferenceEjectionRHtoORDK_test() {
 		JFrame f = new JFrame();
 	new MounthlyReferenceEjectionRHtoORDK(f,"");
+	
 
 	}
 		

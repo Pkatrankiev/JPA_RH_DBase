@@ -338,12 +338,15 @@ public class MounthlyReferenceForMenuEjectionCalculate extends JDialog {
 	}
 
 	private Object[][] ceateDataValue(int godina, String period) {
+		Object[][] TableValue = null;
+		try {
+		
 		String AllResultInInjectionReference = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("AllResultInInjectionReference");
 		Period per = PeriodDAO.getValuePeriodByPeriod(period);
 		int idPeriod = per.getId_period();
 		List<Ejection> listEject = generateListEjection(per, godina);
-		Object[][] TableValue = null;
+		
 		List<Sample> listNewSample = new ArrayList<>();
 		List<Results> listNewResults = new ArrayList<>();
 		List<Sample> listSample = SampleDAO.getListSampleByMounthlyReferenceForCNRDWater_Table(per, godina);
@@ -479,6 +482,12 @@ if(listNewSample.size()>0){
 		TableValue = sortDataTableValue;
 		
 }
+	} catch (Exception e) {
+		ResourceLoader.appendToFile(e);
+		JFrame jf = new JFrame();
+		jf.setAlwaysOnTop(true);
+		JOptionPane.showMessageDialog( jf, "Грешка: липсват данни", "Инфо панел", JOptionPane.PLAIN_MESSAGE);
+	}
 		return TableValue;
 
 	}

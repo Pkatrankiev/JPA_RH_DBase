@@ -251,7 +251,7 @@ public class Table_Sample_List extends JDialog {
 //								for (int i = 0; i < model.getRowCount(); i++) {
 //									listRow.add(i);
 //								}								
-									CreateExcelFile.toExcel(null, table, "Sample", null, null);
+									CreateExcelFile.toExcel(null, table, "Sample", null, null, "");
 												
 						
 							}

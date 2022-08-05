@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
+import org.apache.poi.hssf.usermodel.HSSFHeader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -29,6 +30,7 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -36,10 +38,13 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.util.Units;
 
+import AddResultViewFunction.AddResultViewMetods;
 import DefaultTableList.TableList_Functions;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
 
 public class CreateExcelFile {
@@ -339,9 +344,10 @@ Object[][] masive = {{1,"ass",123.23,true},
 		}
 	}
 
-	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName, String[][] masiveExtendLamels, int[] columnWith) {
+	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName, String[][] masiveExtendLamels, int[] columnWith, String headerText) {
 		String excelFilePath =GlobalPathForDocFile.get_destinationDir() + "export.xls";
 		try {
+			if(table.getRowCount()*table.getColumnCount()<4000){
 			TableColumnModel tcm = table.getColumnModel();
 			
 			Workbook workbook = new HSSFWorkbook();
@@ -502,15 +508,32 @@ Object[][] masive = {{1,"ass",123.23,true},
 					}
 				rowCount++;
 			}
-		}	
-			
-			
+		}
+	
+		rowCount = rowCount + 3;
+		row = sheet.createRow(rowCount);
+		cell = row.createCell(1, CellType.STRING);
+		cell.setCellValue("Изготвил:");
+		
+		cell = row.createCell(4, CellType.STRING);
+		cell.setCellValue("Проверил:");
+    			
+		
+		if(!headerText.isEmpty()){
+		Header header = sheet.getHeader();	
+		header.setCenter(headerText);
+		}
 			
 			FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
 			workbook.write(outFile);
 			outFile.close();
 
 			GenerateRequestWordDoc.openWordDoc(excelFilePath);
+			}else{
+				MessageDialog(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+						.get("cell_maximum_number_exceeded"), "файлова грешка");
+			}
+		
 			
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
@@ -521,6 +544,8 @@ Object[][] masive = {{1,"ass",123.23,true},
 		}
 	}
 
+	
+	
 	
 	
 

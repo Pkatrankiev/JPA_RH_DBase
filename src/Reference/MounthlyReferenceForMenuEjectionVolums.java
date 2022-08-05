@@ -27,6 +27,7 @@ import javax.swing.SwingConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
+import AddResultViewFunction.AddResultViewMetods;
 import Aplication.EjectionDAO;
 import Aplication.Izpitvan_produktDAO;
 import Aplication.Obekt_na_izpitvane_requestDAO;
@@ -167,7 +168,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 				sizeV = sizeV - countRow*lineWith;
 				String mesec = (String) comboBox.getSelectedItem();
 				int godina = Integer.parseInt(txtFieldGodina.getText());
-				String textReference = createLblReference( mesec, godina);
+				String textReference = createLblReference(basicPanel, mesec, godina);
 				countRow = StringUtils.countMatches(textReference, "<br>");
 				lblReferenceEjection.setText(textReference);
 				sizeV = sizeV+ countRow*lineWith;
@@ -331,7 +332,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				String mesec = (String) comboBox.getSelectedItem();
 				int godina = Integer.parseInt(txtFieldGodina.getText());
-				saveEjectionObject(mesec, godina);
+				saveEjectionObject(basicPanel, mesec, godina);
 			}
 
 			
@@ -442,15 +443,16 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 				
 	}
 	
-	private String createLblReference(String mesec, int godina) {
-		
+	private String createLblReference(JPanel basic_panel, String mesec, int godina) {
+		AddResultViewMetods.setWaitCursor(basic_panel);
 		Period per = PeriodDAO.getValuePeriodByPeriod(mesec);
-		String str = "";
+		String str = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+		.get("Reference_ReportString");
 		List<Ejection> listReferenceEjection = EjectionDAO.getListEjectionFromMesecANDGodina(per, godina);
 		
 		if(!listReferenceEjection.isEmpty()){
 		String prod = listReferenceEjection.get(0).getProdukt().getName_zpitvan_produkt();
-		str = str + prod+"<br>";
+		str = prod+"<br>";
 		for (Ejection ejection : listReferenceEjection) {
 			if(prod.equals(ejection.getProdukt().getName_zpitvan_produkt())){
 				str = str + ejection.getObect().getName_obekt_na_izpitvane()+" - "+
@@ -462,14 +464,20 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 						FormatDoubleNumber.formatDoubleToString(ejection.getVolum(),2, true)+" m3 <br>";
 			}
 		}
+		System.out.println("88"+str);
 		if(!str.isEmpty()){
 			str = "<html>" + str +"</html>";
 		}
 		}
+		AddResultViewMetods.setDefaultCursor(basic_panel);
+		
+		System.out.println(str);
 		return str;
 	}
 	
-	private void saveEjectionObject(String mesec, int godina) {
+	private void saveEjectionObject(JPanel basic_panel, String mesec, int godina) {
+		
+		AddResultViewMetods.setWaitCursor(basic_panel);
 		Period per = PeriodDAO.getValuePeriodByPeriod(mesec);
 		
 		List<Ejection> listEjection = new ArrayList<Ejection>();
@@ -522,6 +530,8 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 			ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData"),
 			JOptionPane.ERROR_MESSAGE);	
 		}
+		
+		AddResultViewMetods.setDefaultCursor(basic_panel);
 	}
 	
 	

@@ -44,13 +44,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import org.apache.poi.hssf.usermodel.HSSFHeader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Footer;
+import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -947,12 +951,16 @@ if(listNewSample.size()>0){
 			}
 			
 			int excellRow = 0;
+			int pageBreakRow = 0;
 
 			for (int i = 0; i < dataTable.length; i++) {
 
 				if (dataTable[i][0] != "") {
 					excellRow = excellRow + 3;
 
+					if(dataTable[i][0].toString().contains("Вентилационна") && pageBreakRow==0){
+						pageBreakRow = excellRow-2;
+					}
 					row = sheet.createRow(excellRow);
 					row.setHeightInPoints(22);
 					sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 1, 2));
@@ -1007,6 +1015,19 @@ if(listNewSample.size()>0){
 			createCell(row, 3, "Проверил:", cellStyleBoldWitholtBorder(workbook, false, 12));
 			sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 3, 4));
 
+			Footer footer = sheet.getFooter();
+			footer.setRight( "ст. " + HeaderFooter.page() + " от " + HeaderFooter.numPages() );
+			sheet.getRowBreaks();
+
+			sheet.setRowBreak(pageBreakRow);
+			
+//			Header header = sheet.getHeader();	
+//			header.setCenter("Center Header");
+//			header.setLeft("Left Header");
+//			header.setRight(HSSFHeader.font("Stencil-Normal", "Italic") +
+//			                HSSFHeader.fontSize((short) 16) + "Right w/ Stencil-Normal Italic font and size 16");
+			
+			
 			FileOutputStream outFile = new FileOutputStream(new File(excelFilePath));
 			workbook.write(outFile);
 			outFile.close();

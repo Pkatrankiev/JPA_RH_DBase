@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import AddResultViewFunction.AddResultViewMetods;
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
@@ -325,7 +326,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 			JButton btnExportButton = new JButton("export");
 			panel_Btn.add(btnExportButton);
 			
-			btnExportListener(frame_name, btnExportButton, table, columnNameDataValue, listNuclideSimbol);
+			btnExportListener(frame_name, btnExportButton, table, columnNameDataValue, listNuclideSimbol, mount_name, panel_Btn);
 
 		panel_Btn.add(btnReCalculateButton);
 		
@@ -536,7 +537,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 	
 	
 	private void btnExportListener(String frame_name, JButton btnExportButton, JTable table,
-			 String[] columnNameDataValue, List<String> listNuclideSimbol) {
+			 String[] columnNameDataValue, List<String> listNuclideSimbol, String mount_name, JPanel panel_Btn) {
 		btnExportButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -544,9 +545,11 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						
+						AddResultViewMetods.setWaitCursor(panel_Btn);
+						String headerText = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MounthlyReferenceForCNRDWater_TableLabel")+" ì. "+ mount_name;
 						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name,
-								getValueFromLabel(columnNameDataValue, listNuclideSimbol), columnWith);
+								getValueFromLabel(columnNameDataValue, listNuclideSimbol), columnWith, headerText);
+						AddResultViewMetods.setDefaultCursor(panel_Btn);
 					}
 
 				

@@ -1,6 +1,6 @@
 #Sring
 
-MainWindow_Ver = Ver.040822
+MainWindow_Ver = Ver.050822
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
@@ -86,6 +86,7 @@ LogInText = Логнете се
 ValueForAllRow_Text = Въведете стойност за всички редове
 errorDataForResult_Text = Грешни данни за резултат:
 errorOfData = Грешка в данните
+cell_maximum_number_exceeded = Броя на клетките са повече от 4000
 noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
 clickToChoice = Натисни за избор
 ThereAreDublikataElements = Има повтарящи се елементи

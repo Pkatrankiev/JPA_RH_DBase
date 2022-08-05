@@ -559,6 +559,7 @@ public class AddResultViewMetods {
 
 		return tableResult;
 	}
+	
 	static int getMaxUncertaintyFromCode_metody(Metody metod){
 		int uncertainty;
 		String str = metod.getCode_metody();

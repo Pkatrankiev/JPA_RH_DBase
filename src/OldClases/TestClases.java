@@ -512,11 +512,11 @@ public	static void ChoiceListIzpPokazatel() {
 	}
 
 	
-	public static void MounthlyReferenceForCNRDWater_test() {
+	public static void MounthlyReference_test() {
 		JFrame f = new JFrame();
-//	new MounthlyReferenceForCNRDWater(f,"");
-	new MounthlyReferenceForMenuEjectionCalculate(f,"");
-
+	new MounthlyReferenceForCNRDWater(f,"");
+//	new MounthlyReferenceForMenuEjectionCalculate(f,"");
+//	new MounthlyReferenceForMenuEjectionVolums(f,"");
 	}
 	
 	public static void MounthlyReferenceEjectionRHtoORDK_test() {

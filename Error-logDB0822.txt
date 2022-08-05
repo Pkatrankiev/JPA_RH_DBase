@@ -579,3 +579,213 @@ java.lang.ArrayIndexOutOfBoundsException: 8
 	at Reference.MounthlyReferenceForMenuEjectionCalculate.access$1(MounthlyReferenceForMenuEjectionCalculate.java:308)
 	at Reference.MounthlyReferenceForMenuEjectionCalculate$5$1.run(MounthlyReferenceForMenuEjectionCalculate.java:277)
 	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:00) EEST > 
+java.text.ParseException: Unparseable date: "1 / 12.02.2019 13:00;  2 / 11.02.2019 13:00;  3 / 11.02.2019 13:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 07.03.2019 12:00;  2 / 06.03.2019 12:00;  3 / 06.03.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.04.2019 14:00;  2 / 04.04.2019 14:00;  3 / 08.04.2019 12:00;  4 / 08.04.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.07.2019 10:00;  2 / 04.07.2019 10:00;  3 / 04.07.2019 10:00;  4 / 04.07.2019 10:00;  5 / 08.07.2019 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 09.10.2019 10:00;  2 / 08.10.2019 14:00;  3 / 08.10.2019 14:00;  4 / 08.10.2019 14:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.11.2019 14:00;  2 / 05.11.2019 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.03.2020 12:00;  2 / 06.03.2020 12:00;  3 / 06.03.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 02.04.2020 10:00;  2 / 03.04.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 19.05.2020 12:00;  2 / 19.05.2020 12:00;  3 / 19.05.2020 12:00;  4 / 19.05.2020 12:00;  5 / 19.05.2020 12:00;  6 / 19.05.2020 12:00;  7 / 08.05.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 14.09.2020 12:00;  2 / 17.09.2020 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 06.10.2020 10:00;  2 / 14.10.2020 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.11.2020 10:00;  2 / 09.11.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:15:01) EEST > 
+java.text.ParseException: Unparseable date: "1 / 02.12.2020 10:00;  2 / 03.12.2020 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:455)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:52) EEST > 
+java.text.ParseException: Unparseable date: "1 / 12.02.2019 13:00;  2 / 11.02.2019 13:00;  3 / 11.02.2019 13:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:52) EEST > 
+java.text.ParseException: Unparseable date: "1 / 07.03.2019 12:00;  2 / 06.03.2019 12:00;  3 / 06.03.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:52) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.04.2019 14:00;  2 / 04.04.2019 14:00;  3 / 08.04.2019 12:00;  4 / 08.04.2019 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.07.2019 10:00;  2 / 04.07.2019 10:00;  3 / 04.07.2019 10:00;  4 / 04.07.2019 10:00;  5 / 08.07.2019 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 09.10.2019 10:00;  2 / 08.10.2019 14:00;  3 / 08.10.2019 14:00;  4 / 08.10.2019 14:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.11.2019 14:00;  2 / 05.11.2019 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.03.2020 12:00;  2 / 06.03.2020 12:00;  3 / 06.03.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 02.04.2020 10:00;  2 / 03.04.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 19.05.2020 12:00;  2 / 19.05.2020 12:00;  3 / 19.05.2020 12:00;  4 / 19.05.2020 12:00;  5 / 19.05.2020 12:00;  6 / 19.05.2020 12:00;  7 / 08.05.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 14.09.2020 12:00;  2 / 17.09.2020 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 06.10.2020 10:00;  2 / 14.10.2020 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 04.11.2020 10:00;  2 / 09.11.2020 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 02.12.2020 10:00;  2 / 03.12.2020 10:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 13.04.2021 14:00;  2 / 13.04.2021 14:00;  3 / 13.04.2021 14:00;  4 / 13.04.2021 14:00;  5 / 19.04.2021 12:00;  6 / 19.04.2021 12:00;  7 / 19.04.2021 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 18.05.2021 14:00;  2 / 17.05.2021 11:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 08.07.2021 10:00;  2 / 05.07.2021 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 05.08.2022 (13:28:53) EEST > 
+java.text.ParseException: Unparseable date: "1 / 07.01.2022 13:00;  2 / 06.01.2022 12:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)

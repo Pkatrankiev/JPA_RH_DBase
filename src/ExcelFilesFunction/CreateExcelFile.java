@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
-import org.apache.poi.hssf.usermodel.HSSFHeader;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -38,14 +38,15 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.util.SystemOutLogger;
+
 import org.apache.poi.util.Units;
 
-import AddResultViewFunction.AddResultViewMetods;
+
 import DefaultTableList.TableList_Functions;
 import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
+import WindowView.MainWindow;
 
 public class CreateExcelFile {
 
@@ -345,7 +346,9 @@ Object[][] masive = {{1,"ass",123.23,true},
 	}
 
 	public static void toExcel(String tableTypeColumn[], JTable table, String sheetName, String[][] masiveExtendLamels, int[] columnWith, String headerText) {
+		
 		String excelFilePath =GlobalPathForDocFile.get_destinationDir() + "export.xls";
+		MainWindow.cerateDestinationDir();
 		try {
 			if(table.getRowCount()*table.getColumnCount()<4000){
 			TableColumnModel tcm = table.getColumnModel();

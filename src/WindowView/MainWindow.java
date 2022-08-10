@@ -214,7 +214,7 @@ public class MainWindow extends JFrame {
 	  
 	
 
-	private void cerateDestinationDir(){
+	public static void cerateDestinationDir(){
 		String destinationDir = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("destinationDir");
 		File destinationFolder = new File(destinationDir);
 		if (!destinationFolder.exists()) {

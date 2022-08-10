@@ -159,8 +159,11 @@ k++;
 	public static void writeDocxToStream(WordprocessingMLPackage template, String target)
 			throws IOException, Docx4JException {
 		File f = new File(target);
+		
+		
 
 		try {
+			
 			template.save(f);
 			
 		} catch (Docx4JException e) {

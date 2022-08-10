@@ -789,3 +789,100 @@ java.text.ParseException: Unparseable date: "1 / 07.01.2022 13:00;  2 / 06.01.20
 	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
 	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
 	at java.lang.Thread.run(Thread.java:748)
+
+< 09.08.2022 (12:37:03) EEST > 
+java.text.ParseException: Unparseable date: "1 / 13.10.2019 09:00;  2 / 19.10.2019 09:00;  3 / 23.10.2019 09:00;  "
+	at java.text.DateFormat.parse(DateFormat.java:366)
+	at ExcelFilesFunction.CreateExcelFile.toExcel(CreateExcelFile.java:456)
+	at DefaultTableList.ViewTableList$5$1.run(ViewTableList.java:296)
+	at java.lang.Thread.run(Thread.java:748)
+
+< 09.08.2022 (13:40:56) EEST > 
+org.docx4j.openpackaging.exceptions.Docx4JException: Failed to save package to path DIRECTORY\5000_09.08.2022.docx
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:108)
+	at org.docx4j.openpackaging.packages.WordprocessingMLPackage.save(WordprocessingMLPackage.java:219)
+	at CreateWordDocProtocol.AplicationDocTemplate.writeDocxToStream(AplicationDocTemplate.java:164)
+	at CreateWordDocProtocol.GenerateDocProtokol.GenerateProtokolWordDoc(GenerateDocProtokol.java:251)
+	at WindowView.FrameChoiceRequestByCode.greateWordDocChoiseWithTextFrame(FrameChoiceRequestByCode.java:174)
+	at WindowView.FrameChoiceRequestByCode.access$2(FrameChoiceRequestByCode.java:164)
+	at WindowView.FrameChoiceRequestByCode$2$1.run(FrameChoiceRequestByCode.java:129)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.FileNotFoundException: DIRECTORY\5000_09.08.2022.docx (Системата не може да намери указания път)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:106)
+	... 7 more
+
+< 09.08.2022 (13:47:23) EEST > 
+org.docx4j.openpackaging.exceptions.Docx4JException: Failed to save package to path DIRECTORY\4587_09.08.2022.docx
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:108)
+	at org.docx4j.openpackaging.packages.WordprocessingMLPackage.save(WordprocessingMLPackage.java:219)
+	at CreateWordDocProtocol.AplicationDocTemplate.writeDocxToStream(AplicationDocTemplate.java:164)
+	at CreateWordDocProtocol.GenerateDocProtokol.GenerateProtokolWordDoc(GenerateDocProtokol.java:251)
+	at WindowView.FrameChoiceRequestByCode.greateWordDocChoiseWithTextFrame(FrameChoiceRequestByCode.java:174)
+	at WindowView.FrameChoiceRequestByCode.access$2(FrameChoiceRequestByCode.java:164)
+	at WindowView.FrameChoiceRequestByCode$2$1.run(FrameChoiceRequestByCode.java:129)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.FileNotFoundException: DIRECTORY\4587_09.08.2022.docx (Системата не може да намери указания път)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:106)
+	... 7 more
+
+< 09.08.2022 (13:53:08) EEST > 
+org.docx4j.openpackaging.exceptions.Docx4JException: Failed to save package to path DIRECTORY\4958_09.08.2022.docx
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:108)
+	at org.docx4j.openpackaging.packages.WordprocessingMLPackage.save(WordprocessingMLPackage.java:219)
+	at CreateWordDocProtocol.AplicationDocTemplate.writeDocxToStream(AplicationDocTemplate.java:169)
+	at CreateWordDocProtocol.GenerateDocProtokol.GenerateProtokolWordDoc(GenerateDocProtokol.java:251)
+	at WindowView.FrameChoiceRequestByCode.greateWordDocChoiseWithTextFrame(FrameChoiceRequestByCode.java:174)
+	at WindowView.FrameChoiceRequestByCode.access$2(FrameChoiceRequestByCode.java:164)
+	at WindowView.FrameChoiceRequestByCode$2$1.run(FrameChoiceRequestByCode.java:129)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.FileNotFoundException: DIRECTORY\4958_09.08.2022.docx (Достъпът е отказан)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:106)
+	... 7 more
+
+< 09.08.2022 (13:57:32) EEST > 
+org.docx4j.openpackaging.exceptions.Docx4JException: Failed to save package to path DIRECTORY\4985_09.08.2022.docx
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:108)
+	at org.docx4j.openpackaging.packages.WordprocessingMLPackage.save(WordprocessingMLPackage.java:219)
+	at CreateWordDocProtocol.AplicationDocTemplate.writeDocxToStream(AplicationDocTemplate.java:167)
+	at CreateWordDocProtocol.GenerateDocProtokol.GenerateProtokolWordDoc(GenerateDocProtokol.java:251)
+	at WindowView.FrameChoiceRequestByCode.greateWordDocChoiseWithTextFrame(FrameChoiceRequestByCode.java:174)
+	at WindowView.FrameChoiceRequestByCode.access$2(FrameChoiceRequestByCode.java:164)
+	at WindowView.FrameChoiceRequestByCode$2$1.run(FrameChoiceRequestByCode.java:129)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.FileNotFoundException: DIRECTORY\4985_09.08.2022.docx (Системата не може да намери указания път)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:106)
+	... 7 more
+
+< 09.08.2022 (13:59:41) EEST > 
+org.docx4j.openpackaging.exceptions.Docx4JException: Failed to save package to path DIRECTORY\4958_09.08.2022.docx
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:108)
+	at org.docx4j.openpackaging.packages.WordprocessingMLPackage.save(WordprocessingMLPackage.java:219)
+	at CreateWordDocProtocol.AplicationDocTemplate.writeDocxToStream(AplicationDocTemplate.java:167)
+	at CreateWordDocProtocol.GenerateDocProtokol.GenerateProtokolWordDoc(GenerateDocProtokol.java:251)
+	at WindowView.FrameChoiceRequestByCode.greateWordDocChoiseWithTextFrame(FrameChoiceRequestByCode.java:174)
+	at WindowView.FrameChoiceRequestByCode.access$2(FrameChoiceRequestByCode.java:164)
+	at WindowView.FrameChoiceRequestByCode$2$1.run(FrameChoiceRequestByCode.java:129)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.FileNotFoundException: DIRECTORY\4958_09.08.2022.docx (Системата не може да намери указания път)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at org.docx4j.openpackaging.io.SaveToZipFile.save(SaveToZipFile.java:106)
+	... 7 more

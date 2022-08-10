@@ -10,7 +10,7 @@ import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 
 public class Main_Aplication {
-	
+	 
 	public static void main(String[] args) {
 	
 		ReadFileWithGlobalTextVariable.CreadMasiveFromReadFile();
@@ -178,10 +178,11 @@ public class Main_Aplication {
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 
+		    	
+		    		 
 		    	 new MainWindow(round);
 		    	
-		 			    	
+		    		    	
 		     }
 		    });
 		    thread.start();

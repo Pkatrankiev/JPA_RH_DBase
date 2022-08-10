@@ -21,14 +21,16 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
 import WindowView.TranscluentWindow;
 
 public class GenerateRequestWordDoc {
 
 	private static final String MAIN_DOCUMENT_PATH = "word/document.xml";
-	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
-	private static final String destinationDir = "TEMPLATES/";
+	private static final String TEMPLATE_DIRECTORY_ROOT = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TEMPLATE_DIRECTORY_ROOT");
+	private static final String destinationDir = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("destinationDir");
 
 	// Generates .docx document from given template and the substitution data
 	public static Boolean generateAndSend_Request_Docx(String templateName, String destinationName,
@@ -136,7 +138,7 @@ public class GenerateRequestWordDoc {
 	@SuppressWarnings({ "unused", "resource" })
 	private static void zip(File directory, File zipfile) throws IOException {
 
-		File dir = new File("TEMPLATES/");
+		File dir = new File("DIRECTORY/");
 		URI base = directory.toURI();
 		Deque<File> queue = new LinkedList<File>();
 		queue.push(directory);

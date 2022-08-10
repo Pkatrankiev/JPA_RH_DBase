@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 import DBase_Class.Aplicant;
+import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
@@ -152,7 +153,7 @@ public class AplicantDAO {
 		String backupDateStr = format.format(backupDate);
 
 //		String PathToMySqlDumpFile = "c:\\xampp\\mysql\\bin\\";
-		String PathToMySqlDumpFile = "TEMPLATES_DIRECTORY\\";
+		String PathToMySqlDumpFile = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("TEMPLATE_DIRECTORY_ROOT");
 		String HOSTIP = "192.168.21.27";
 		String PORT = "3306";
 		String USER = "someuser";

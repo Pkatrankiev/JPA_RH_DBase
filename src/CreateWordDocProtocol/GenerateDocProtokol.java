@@ -248,8 +248,13 @@ public class GenerateDocProtokol {
 
 		try {
 			String newNameProtokol = recuest.getRecuest_code() + "_" + RequestViewFunction.DateNaw(false) + ".docx";
-			AplicationDocTemplate.writeDocxToStream(template,
-					GlobalPathForDocFile.get_destinationDir() + newNameProtokol);
+			
+			String destinationDir = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("destinationDir");
+			File destinationFolder = new File(destinationDir);
+			if (!destinationFolder.exists()) {
+				destinationFolder.mkdirs();
+			}
+			AplicationDocTemplate.writeDocxToStream(template, destinationDir + newNameProtokol);
 			round.StopWindow();
 
 			if (recuest.getInd_num_doc() == null || recuest.getInd_num_doc().getId_ind_num_doc() == 1) {

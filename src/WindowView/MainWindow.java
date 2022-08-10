@@ -60,12 +60,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
 public class MainWindow extends JFrame {
 
+	
 	private static final long serialVersionUID = 8880252554988817126L;
 	private JPanel contentPane;
 
@@ -80,7 +82,7 @@ public class MainWindow extends JFrame {
 	
 
 	public MainWindow(TranscluentWindow round) {
-
+		
 		setMinimumSize(new Dimension(900, 600));
 		GetVisibleLAF(this);
 		setTitle(mainWindow_Title);
@@ -182,19 +184,23 @@ public class MainWindow extends JFrame {
 		 setJMenuBar(createMenu(this));
 
 		addWindowListener(new WindowAdapter() {
+			
 			@Override
 			public void windowClosing(WindowEvent e) {
 				GenerateRequestWordDoc.deleteTempDataDir();
 				setVisible(false);
 				setStartYear();
-				 
+				 				
 				dispose();
+				
 				System.exit(0);
 			}
 
 			
 		});
-
+		
+		cerateDestinationDir();
+		
 		round.StopWindow();
 		setVisible(true);
 
@@ -204,7 +210,18 @@ public class MainWindow extends JFrame {
 		basicPanel .revalidate();
 		basicPanel .repaint();
 	}
+	
+	  
+	
 
+	private void cerateDestinationDir(){
+		String destinationDir = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("destinationDir");
+		File destinationFolder = new File(destinationDir);
+		if (!destinationFolder.exists()) {
+			destinationFolder.mkdirs();
+		}
+	}
+	
 	private void GetVisibleLAF(final JFrame win) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -360,6 +377,18 @@ public class MainWindow extends JFrame {
 			loginMenu.setText(logOutStr);
 
 		}
-	}
+		
+		 
+
+}
+
+
+
+ 
+	 
+   
+    
+
+  
 
 }

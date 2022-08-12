@@ -298,7 +298,7 @@ MounthlyReferenceEjectionVolums_Btn_Reference = Справка
 MounthlyReferenceEjectionRHtoORDK_BasicLabel = <html>СВЕДЕНИЕ<br>за изхвърлянията на 14С и 3Н от ВТ-1 и ВТ-2 за:</html>
 MounthlyReferenceEjectionRHtoORDK_Request_C = код на заявката за 14С
 MounthlyReferenceEjectionRHtoORDK_Request_H = код на заявката за 3Н
-MounthlyReferenceEjectionRHtoORDK_TitleName = изхвърляния на 14С и 3Н
+MounthlyReferenceEjectionRHtoORDK_TitleName = Изхвърляния на 14С и 3Н
 
 listStringObectEjection = Спецкорпус-1 ; Спецкорпус-2
 

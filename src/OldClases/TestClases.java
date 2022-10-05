@@ -428,6 +428,8 @@ public	static void ChoiceListIzpPokazatel() {
 		thread.start();
 	}
 
+	
+	
 	@SuppressWarnings("unused")
 	private static void updateUserRedac() {
 		Users user = UsersDAO.getValueUsersById(3);

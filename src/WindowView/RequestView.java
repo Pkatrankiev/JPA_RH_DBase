@@ -955,7 +955,7 @@ public class RequestView extends JDialog {
 				if(period!=null){
 					strPer = period.getValue();
 				}
-				choice_Period.addItem(strPer);
+				choice_Period.select(strPer);
 			}
 			}
 		// Add item listener choice_Period
@@ -1019,7 +1019,7 @@ public class RequestView extends JDialog {
 				final JFrame f = new JFrame();
 				comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
 				int count_Sample = tamplateRequest.getCounts_samples();
-				String period = txt_fid_date_time_reference.getText();
+				String period = choice_Period.getSelectedItem();
 				String[][] masiveSampleFromTampleteRequest = SampleViewAdd.getVolumeSampleFromTampleteRequest(tamplateRequest);
 					new SampleViewAdd(f, count_Sample, Integer.valueOf(tamplateRequest.getRecuest_code()), comBox_O_I_S,
 						txt_fid_date_time_reference.getText(), period, masiveSampleFromTampleteRequest, tamplateRequest,
@@ -1041,10 +1041,21 @@ public class RequestView extends JDialog {
 			try {
 
 				String ref_Date_Time = txt_fid_date_time_reference.getText(); // refDate
-				LocalDate.parse(ref_Date_Time, DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)); // check
-																								// refDate
+				LocalDate.parse(ref_Date_Time, DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)); // check refDate
 				String period = choice_Period.getSelectedItem();
-
+				int choice = 0;
+				
+				if (period.equals("") && !choice_ind_num_doc.getSelectedItem().equals("")){ 
+					String str = ReadFileWithGlobalTextVariable.
+							getGlobalTextVariableMap().get("RequestView_showMessageDialog_ErrorPeriodeRequest");
+					
+					Object[] options = { "Да", "Не" };
+					choice = JOptionPane.showOptionDialog(null,str+ " \nЩе продължите ли?",
+							"Грешни данни", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					
+				}
+					if (choice == JOptionPane.YES_OPTION) {
+														
 				try {
 
 					int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText()); // broi
@@ -1072,6 +1083,8 @@ public class RequestView extends JDialog {
 							getGlobalTextVariableMap().get("RequestView_DialogError_CountSamples"), showMessageDialog_Error,
 							JOptionPane.ERROR_MESSAGE);
 				}
+				
+			}
 			} catch (DateTimeParseException e) {
 				ResourceLoader.appendToFile(e);
 				JOptionPane.showMessageDialog(RequestView.this, ReadFileWithGlobalTextVariable.

@@ -223,9 +223,9 @@ public class GenerateRequestWordDoc {
 		if (file.isDirectory()) {
 
 			// directory is empty, then delete it
-			if (file.list().length == 0)
-				file.delete();
-			else {
+			if (file.list().length == 0) {
+//				file.delete();
+			}else {
 				// list all the directory contents
 				String files[] = file.list();
 
@@ -238,8 +238,9 @@ public class GenerateRequestWordDoc {
 				}
 
 				// check the directory again, if empty then delete it
-				if (file.list().length == 0)
-					file.delete();
+				if (file.list().length == 0) {
+//					file.delete();
+				}
 			}
 		} else {
 			// if file, then delete it

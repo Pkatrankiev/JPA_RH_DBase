@@ -46,7 +46,7 @@ public class Main_Aplication {
 		
 //		TestClases.AddResultsViewWithTable(3) ;
 		
-		
+	
 		
 //		TestClases.AddResultsViewWithTable(3) ;
 		
@@ -80,6 +80,13 @@ public class Main_Aplication {
 		
 		
 		
+		
+//		 AplicantDAO. Restoredbfromsql();
+		
+		
+		 
+		 
+		 
 //		try {
 //			TestClases.getData();
 //		} catch (Exception e) {

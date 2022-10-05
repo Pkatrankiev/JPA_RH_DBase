@@ -143,6 +143,7 @@ RequestView_Section_Choise_AplicantNameFamily = Съгласувано с клиента
 RequestView_showMessageDialog_Error = Грешни данни за следните полета:
 RequestView_showMessageDialog_ErrorRefDataTime = Не сте въвели референтна дата и време!
 RequestView_showMessageDialog_ErrorCodeRequest = Не сте въвели код на пробата!
+RequestView_showMessageDialog_ErrorPeriodeRequest = Не сте въвели период на пробата!
 RequestView_showMessageDialog_Error_NumberRequest = Заявка с този номер вече съществува
 RequestView_showMessageDialog_EditRequest_Result = <html>Въведете наново всички резултати за тази заявка<br>Генерирайте протокол</html>
 

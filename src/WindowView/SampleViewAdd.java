@@ -264,7 +264,7 @@ public class SampleViewAdd extends JDialog {
 					{
 						txtArea_Sample_Descr[i] = new JTextArea();
 						txtArea_Sample_Descr[i] .setFont(font);
-						if (notEmptryString){
+						if (notEmptryString && ref_Date_Time.equals(incoming_masiveValueSample[i][4])){
 							txtArea_Sample_Descr[i].setText(incoming_masiveValueSample[i][3]);
 						}else{
 						if(tamplateRequest != null && i<listSample.size())
@@ -308,7 +308,8 @@ public class SampleViewAdd extends JDialog {
 						txtFld_Ref_date[i] = new JTextField(ref_Date_Time);
 						txtFld_Ref_date[i] .setFont(font);
 						txtFld_Ref_date[i].setPreferredSize(new Dimension(120, 20));
-						if (notEmptryString)
+						
+						if (notEmptryString && ref_Date_Time.equals(incoming_masiveValueSample[i][4]))
 							txtFld_Ref_date[i].setText(incoming_masiveValueSample[i][4]);
 												
 						txtFld_Ref_date[i].addKeyListener(new KeyListener() {
@@ -404,8 +405,9 @@ public class SampleViewAdd extends JDialog {
 //							comboBox_Period[i].addItem(string);
 //						}
 						comboBox_Period[i].setSelectedItem(period);
-						if (notEmptryString)
-							comboBox_Period[i].setSelectedItem(incoming_masiveValueSample[i][5]);
+						
+//						if (notEmptryString)
+//							comboBox_Period[i].setSelectedItem(incoming_masiveValueSample[i][5]);
 												
 						panel[i].add(comboBox_Period[i]);
 					}
@@ -417,8 +419,9 @@ public class SampleViewAdd extends JDialog {
 						txtFld_Year[i] = new JTextField(year);
 						txtFld_Year[i] .setFont(font);
 						txtFld_Year[i].setPreferredSize(new Dimension(37, 20));
-						if (notEmptryString)
-							txtFld_Year[i].setText(incoming_masiveValueSample[i][6]);
+						
+//						if (notEmptryString)
+//							txtFld_Year[i].setText(incoming_masiveValueSample[i][6]);
 						
 						panel[i].add(txtFld_Year[i]);
 						txtFld_Year[i].setColumns(3);

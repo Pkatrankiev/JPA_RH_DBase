@@ -129,17 +129,20 @@ public class SampleMonthlyReference {
 			int lastRequestId = 0;
 			for (Iterator<Results> itR = listResul.iterator(); itR.hasNext();) {
 				Results result = itR.next();
+				
 				if (result.getPokazatel().getId_pokazatel() == list_izpitvan_pokazatel.getId_pokazatel()) {
 					if (result.getSample().getId_sample() != lastSamleId) {
 						countForSampleByPokazatel++;
 						lastSamleId = result.getSample().getId_sample();
 					}
-
+					
+					
+					
 					if (result.getRequest().getId_recuest() != lastRequestId) {
 						lastRequestId = result.getRequest().getId_recuest();
 						listResultsByPokazatel.add(result);
 					}
-
+					System.out.println(list_izpitvan_pokazatel.getName_pokazatel()+" - "+ lastSamleId + " - " + result.getRequest().getRecuest_code() );
 					itR.remove();
 				}
 			}

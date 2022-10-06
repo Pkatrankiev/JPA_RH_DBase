@@ -255,7 +255,7 @@ public class ResultsDAO {
 		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 		
-		Query query = entitymanager.createQuery("SELECT e FROM Results e WHERE e.inProtokol = 1 ORDER BY e.Id_results ASC");
+		Query query = entitymanager.createQuery("SELECT e FROM Results e WHERE e.inProtokol = 1 ORDER BY e.request ASC");
 		
 		
 		@SuppressWarnings("unchecked")

@@ -28,8 +28,8 @@ public class ArhiveDBase extends AbstractMenuAction{
 		     @Override
 		     public void run() {
 		    	 
-//		    	 AplicantDAO.backupDB_From_RemoteServer(round);
-		    	 AplicantDAO. Restoredbfromsql();
+		    	 AplicantDAO.backupDB_From_RemoteServer(round);
+//		    	 AplicantDAO. Restoredbfromsql();
 		    	
 		 			    	
 		     }

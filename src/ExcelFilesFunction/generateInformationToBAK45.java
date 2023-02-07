@@ -140,8 +140,12 @@ public class generateInformationToBAK45 {
 						cell.setCellValue(MDACNRD > MDABAK ? MDACNRD : MDABAK);
 					}
 				}
-
-				dd = Double.parseDouble(DataValue[1][7].toString());
+				
+				String ss = DataValue[1][7].toString();
+				dd = 0.0;
+					if(!ss.isEmpty()) {
+				dd = Double.parseDouble(ss);
+					}
 				if (dd > 0.0) {
 					cell = sheet.getRow(32).getCell(9);
 					cell.setCellValue(dd);

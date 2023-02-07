@@ -1,10 +1,10 @@
 #Sring
 
-MainWindow_Ver = Ver.061022
+MainWindow_Ver = Ver.070223
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
-remoteDBase = 1
+remoteDBase = 0
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ÈÇÕÂÚÐËßÍÈß-ÈÇÕÎÄ2/2022/BAK-2022-NEW.xls
 
 $$DBase_SampleTableColumnName

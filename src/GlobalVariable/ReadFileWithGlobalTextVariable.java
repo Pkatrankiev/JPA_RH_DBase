@@ -91,7 +91,7 @@ public class ReadFileWithGlobalTextVariable  {
 			}
 			} catch (FileNotFoundException e) {
 				ResourceLoader.appendToFile(e);
-				JOptionPane.showMessageDialog(null, "�� �������: TEMPLATES_DIRECTORY \\ Global_Variable.txt", "������ � �������",
+				JOptionPane.showMessageDialog(null, "Не намирам: TEMPLATES_DIRECTORY \\ Global_Variable.txt", "Грешни данни",
 						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}

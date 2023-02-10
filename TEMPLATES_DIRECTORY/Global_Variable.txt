@@ -43,7 +43,6 @@ noConectionInDBseMesage_textMesage = Не се свързвам с базата данни
 noConectionInDBaseDialog_BTN_Exit = Изход
 noConectionInDBaseDialog_BTN_Вaiting = Изчакване
 
-
 $$MainWindow_MenusTitle
 
 MainWindow_Title = ДП РАО, с-р Радиохимия

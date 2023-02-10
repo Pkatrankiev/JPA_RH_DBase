@@ -24,13 +24,10 @@ public class Main_Aplication {
 			
 		
 //		TestClases.testNewRequestVew();
-		
-		
-		
+
 		
 		
 //		TestClases.testSetNewSimbolInDescriptionSampleGrupe_Request();
-		
 		
 		
 //		TestClases.startCreateProtokolDocx();

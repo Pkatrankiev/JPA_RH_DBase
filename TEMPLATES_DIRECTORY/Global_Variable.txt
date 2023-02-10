@@ -81,7 +81,6 @@ MenuEjection_Volums = Обеми на Изхвърянията
 MenuEjection_Calculate = Изчисления за Изхвърлянията
 ArhiveDBase_TitleName = Архив на Базата Данни
 
-
 $$Text_MessageDialog
 LogInText = Логнете се
 ValueForAllRow_Text = Въведете стойност за всички редове

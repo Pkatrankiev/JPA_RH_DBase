@@ -56,7 +56,7 @@ public class RequestCodeSection {
 				if (!RequestDAO.checkRequestCode(txtRqstCode.getText())) {
 					txtRqstCode.setForeground(Color.red);
 					lblError.setVisible(true);
-					lblError.setText("Заявка с този номер не съществува");
+					lblError.setText("Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°");
 					addResultsViewWithTable.validate();
 					addResultsViewWithTable.repaint();
 

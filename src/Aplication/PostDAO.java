@@ -19,9 +19,9 @@ public class PostDAO {
 
 	public static void setBasikValuePost() {
 		setValuePost("--");
-		setValuePost("Œ»–");
-		setValuePost("Œ–’Œ");
-		setValuePost("ŒÃŒ");
+		setValuePost("–û–ò–†");
+		setValuePost("–û–†–•–û");
+		setValuePost("–û–ú–û");
 
 	}
 

@@ -66,8 +66,8 @@ public class Metody_to_PokazatelDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на метод_показател: " + metody_to_Pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РјРµС‚РѕРґ_РїРѕРєР°Р·Р°С‚РµР»: " + metody_to_Pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();
@@ -96,12 +96,12 @@ public class Metody_to_PokazatelDAO {
 		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
-		Metody_to_Pokazatel мetody_to_Pokazatel = (Metody_to_Pokazatel) entitymanager.find(Metody_to_Pokazatel.class, id);
+		Metody_to_Pokazatel Рјetody_to_Pokazatel = (Metody_to_Pokazatel) entitymanager.find(Metody_to_Pokazatel.class, id);
 
 		entitymanager.close();
 		emfactory.close();
 
-		return мetody_to_Pokazatel;
+		return Рјetody_to_Pokazatel;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -154,8 +154,8 @@ public class Metody_to_PokazatelDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при изтриване на метод_показател: " + pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂР±Р»РµРј РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РјРµС‚РѕРґ_РїРѕРєР°Р·Р°С‚РµР»: " + pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

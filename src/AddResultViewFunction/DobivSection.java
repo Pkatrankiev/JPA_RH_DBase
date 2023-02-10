@@ -126,12 +126,12 @@ public class DobivSection {
 		if (!choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			double valueDobiv = 0.0;
 			List<Dobiv> listDobivi = DobivDAO.getList_DobivByCode_Standart(choiceDobiv.getSelectedItem());
-			if(listDobivi.size()>0 && !listDobivi.get(0).getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03")){
-				strrazmernostDobiv ="÷.å. , ";
+			if(listDobivi.size()>0 && !listDobivi.get(0).getMetody().getCode().contains("Ðœ.Ð›Ð˜-Ð Ð¥-03")){
+				strrazmernostDobiv ="Ñ‡.Ðµ. , ";
 			}
 			for (Dobiv dobiv : listDobivi) {
 				valueDobiv = dobiv.getValue_result();
-				if(!listDobivi.get(0).getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03") && valueDobiv > 1 ){
+				if(!listDobivi.get(0).getMetody().getCode().contains("Ðœ.Ð›Ð˜-Ð Ð¥-03") && valueDobiv > 1 ){
 					valueDobiv = valueDobiv/100;
 				}
 				strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + valueDobiv
@@ -139,11 +139,11 @@ public class DobivSection {
 			}
 			if(strStoinostiDobiv_Nuclide.trim().isEmpty()){
 				 Dobiv dobiv = OverallVariablesAddDobiv.getListChoisedDobiv().get(0);
-				 if(!dobiv.getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03")){
-						strrazmernostDobiv ="÷.å. , ";
+				 if(!dobiv.getMetody().getCode().contains("Ðœ.Ð›Ð˜-Ð Ð¥-03")){
+						strrazmernostDobiv ="Ñ‡.Ðµ. , ";
 					}
 				 valueDobiv = dobiv.getValue_result();
-					if(!dobiv.getMetody().getCode().contains("Ì.ËÈ-ÐÕ-03") && valueDobiv > 1 ){
+					if(!dobiv.getMetody().getCode().contains("Ðœ.Ð›Ð˜-Ð Ð¥-03") && valueDobiv > 1 ){
 						valueDobiv = valueDobiv/100;
 					}
 				 strStoinostiDobiv_Nuclide += dobiv.getNuclide().getSymbol_nuclide() + " " + valueDobiv

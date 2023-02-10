@@ -24,7 +24,7 @@ public class CreateLeftPanelInfo {
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		under_panel_Left.add(lblNewLabel);
-		lblNewLabel.setText("Проби от програма периодичен мониторинг за м." + month);
+		lblNewLabel.setText("РџСЂРѕР±Рё РѕС‚ РїСЂРѕРіСЂР°РјР° РїРµСЂРёРѕРґРёС‡РµРЅ РјРѕРЅРёС‚РѕСЂРёРЅРі Р·Р° Рј." + month);
 
 		
 		String inLabel = "";
@@ -35,8 +35,8 @@ public class CreateLeftPanelInfo {
 			panel2.setMaximumSize(new Dimension(32767, 20));
 			under_panel_Left.add(panel2);
 			panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			if(string.equals("Вода")){
-				inLabel = " за м." + CreateListLeftPanelStartWindowClass.getPreviousMesec(2); ;
+			if(string.equals("Р’РѕРґР°")){
+				inLabel = " Р·Р° Рј." + CreateListLeftPanelStartWindowClass.getPreviousMesec(2); ;
 				
 			}
 			JLabel lbl_Grup_ = new JLabel(string + inLabel);

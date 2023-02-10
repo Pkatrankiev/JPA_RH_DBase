@@ -66,8 +66,8 @@ import WindowView.TranscluentWindow;
 
 public class AddResultViewMetods {
 
-	private static String[] masiveNameFortableHeader = { "Нуклид", "В протокол", "Активност", "Неопределеност", "МДА",
-			"Размерност", "Сигма", "Количество", "Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка",
+	private static String[] masiveNameFortableHeader = { "РќСѓРєР»РёРґ", "Р’ РїСЂРѕС‚РѕРєРѕР»", "РђРєС‚РёРІРЅРѕСЃС‚", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "РњР”Рђ",
+			"Р Р°Р·РјРµСЂРЅРѕСЃС‚", "РЎРёРіРјР°", "РљРѕР»РёС‡РµСЃС‚РІРѕ", "РњСЏСЂРєР°", "Рў РЎ Р", "Р”Р°С‚Р°РҐРёРјРћР±СЂ", "Р”Р°С‚Р°РђРЅР°Р»РёР·", "РџСЂРѕРІРµСЂРєР°",
 			"Id_Result" };
 
 	private static String[] masiveTipeHeader = { "Choice", "Boolean_Check", "Double", "Double", "Double", "Choice",
@@ -121,9 +121,9 @@ public class AddResultViewMetods {
 	public static void BasicDataInport(Users user) {
 		OverallVariablesAddResults.setList_Users(UsersDAO.getInListAllValueUsers());
 		OverallVariablesAddResults.setList_UsersNameFamilyOIR(
-				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР")));
+				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћРР ")));
 		OverallVariablesAddResults.setList_UsersNameFamilyORHO(
-				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО")));
+				UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћР РҐРћ")));
 		OverallVariablesAddResults.setListSample(new ArrayList<Sample>());
 
 		OverallVariablesAddResults.setUser_Redac(user);
@@ -169,11 +169,11 @@ public class AddResultViewMetods {
 		if (fileName.indexOf(codeSamample) < 0) {
 			fl = false;
 			// display the showOptionDialog
-			Object[] options = { "Да", "Не" };
+			Object[] options = { "Р”Р°", "РќРµ" };
 			choice = JOptionPane.showOptionDialog(null,
-					"Кода  не съвпада с името на файла." + "\nкод от файл: " + fileName + " <--> въведен код: "
-							+ codeSamample + " \nЩе продължите ли?",
-					"Грешни данни", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					"РљРѕРґР°  РЅРµ СЃСЉРІРїР°РґР° СЃ РёРјРµС‚Рѕ РЅР° С„Р°Р№Р»Р°." + "\nРєРѕРґ РѕС‚ С„Р°Р№Р»: " + fileName + " <--> РІСЉРІРµРґРµРЅ РєРѕРґ: "
+							+ codeSamample + " \nР©Рµ РїСЂРѕРґСЉР»Р¶РёС‚Рµ Р»Рё?",
+					"Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			if (choice == JOptionPane.YES_OPTION) {
 				fl = true;
 			}
@@ -190,18 +190,18 @@ public class AddResultViewMetods {
 
 			for (Object destruct_Result : destruct_Result_List) {
 				if (OverallVariablesAddResults.getSelectedMetod().getCode_metody()
-						.indexOf(((Destruct_Result) destruct_Result).getMetod().replace("М.ЛИ-РХ-", "")) > 0) {
+						.indexOf(((Destruct_Result) destruct_Result).getMetod().replace("Рњ.Р›Р-Р РҐ-", "")) > 0) {
 					fl = true;
 				}
 			}
 			if (!fl) {
-				JOptionPane.showMessageDialog(null, "Не съвпада избрания метод и този от файла", "Грешни данни",
+				JOptionPane.showMessageDialog(null, "РќРµ СЃСЉРІРїР°РґР° РёР·Р±СЂР°РЅРёСЏ РјРµС‚РѕРґ Рё С‚РѕР·Рё РѕС‚ С„Р°Р№Р»Р°", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 						JOptionPane.ERROR_MESSAGE);
 			}
 			return fl;
 
 		} else {
-			JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ РјРµС‚РѕРґ", "Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 		return fl;
 	}
@@ -346,7 +346,7 @@ public class AddResultViewMetods {
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
 		rowFromTableResult[in_Prot_Colum] = false;
-		rowFromTableResult[check_Colum] = "Провери";
+		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -380,7 +380,7 @@ public class AddResultViewMetods {
 		rowFromTableResult[dateHimObr_Colum] = result.getDate_chim_oper();
 		rowFromTableResult[dateAnaliz_Colum] = result.getDate_measur();
 		rowFromTableResult[in_Prot_Colum] = false;
-		rowFromTableResult[check_Colum] = "Провери";
+		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -403,11 +403,11 @@ public class AddResultViewMetods {
 			rowFromTableResult[dateHimObr_Colum] = results.getDate_chim_oper();
 			rowFromTableResult[dateAnaliz_Colum] = results.getDate_measur();
 			rowFromTableResult[in_Prot_Colum] = results.getInProtokol();
-			rowFromTableResult[check_Colum] = "Провери";
+			rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 			rowFromTableResult[rsult_Id_Colum] = results.getId_results();
 		} catch (NullPointerException | NumberFormatException e) {
 			 ResourceLoader.appendToFile(e);
-			JOptionPane.showInputDialog("Грешни данни за резултат:" + results.getId_results(),
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:" + results.getId_results(),
 					JOptionPane.ERROR_MESSAGE);
 		} 
 
@@ -516,7 +516,7 @@ public class AddResultViewMetods {
 		}
 		nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -524,7 +524,7 @@ public class AddResultViewMetods {
 		JComboBox<?> comboBox = new JComboBox<Object>(valueForComboBox);
 		Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Column.setCellRenderer(renderer);
 	}
 
@@ -563,7 +563,7 @@ public class AddResultViewMetods {
 	static int getMaxUncertaintyFromCode_metody(Metody metod){
 		int uncertainty;
 		String str = metod.getCode_metody();
-		int k = str.indexOf("М.ЛИ-РХ-");
+		int k = str.indexOf("Рњ.Р›Р-Р РҐ-");
 		int key = Integer.parseInt(str.substring(k+8,k+10));
 		
 		switch (key) {
@@ -601,7 +601,7 @@ public class AddResultViewMetods {
 		String errQunt = "";
 		String errDim = "";
 		String errDobiv = "";
-		String inProtokol = "резултати в протокол" + "\n";
+		String inProtokol = "СЂРµР·СѓР»С‚Р°С‚Рё РІ РїСЂРѕС‚РѕРєРѕР»" + "\n";
 		List<String> listCodeNuclide = new ArrayList<String>();
 		if (dataTable != null) {
 			for (int i = 0; i < dataTable.length; i++) {
@@ -611,27 +611,27 @@ public class AddResultViewMetods {
 				if (mda + actv != 0) {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					if (dataTable[i][razm_Colum].toString().trim().isEmpty()) {
-						errRazm = "размерност " + "\n";
+						errRazm = "СЂР°Р·РјРµСЂРЅРѕСЃС‚ " + "\n";
 					}
 					String razm = dataTable[i][razm_Colum].toString();
 					String qunt = dataTable[i][qunt_Colum].toString();
 					if (!razm.trim().isEmpty() && !razm.replace("Bq", "").isEmpty()) {
 						if (qunt.trim().isEmpty() || Double.parseDouble(qunt) <= 0) {
-							errQunt = "количество " + "\n";
+							errQunt = "РєРѕР»РёС‡РµСЃС‚РІРѕ " + "\n";
 						}
 
 						if (dataTable[i][dimen_Colum].toString().trim().isEmpty()) {
-							errDim = "мярка " + "\n";
+							errDim = "РјСЏСЂРєР° " + "\n";
 						}
 
 					}
 
 					if (dataTable[i][TSI_Colum].toString().trim().isEmpty()) {
-						errTSI = "Т С И " + "\n";
+						errTSI = "Рў РЎ Р " + "\n";
 					}
 
 					if (DatePicker.incorrectDate(dataTable[i][dateAnaliz_Colum].toString().trim(), false)) {
-						errDateAnaliz = "дата на анализ" + "\n";
+						errDateAnaliz = "РґР°С‚Р° РЅР° Р°РЅР°Р»РёР·" + "\n";
 					}
 
 				}
@@ -640,14 +640,14 @@ public class AddResultViewMetods {
 					String nuclede_uncrtError = "";
 					if (actv != 0) {
 						if (uncrt == 0) {
-							nuclede_uncrtError = "нулева неопределеност";
+							nuclede_uncrtError = "РЅСѓР»РµРІР° РЅРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚";
 						} else if ((uncrt / actv) * 100 > maxUncertainty) {
-							nuclede_uncrtError = "неопределеност >"+maxUncertainty+"%";
+							nuclede_uncrtError = "РЅРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚ >"+maxUncertainty+"%";
 						}
 					}
 					if (!nuclede_uncrtError.equals("")) {
 
-						uncrtError += dataTable[i][nuclide_Colum].toString() + " е  с " + nuclede_uncrtError + "\n";
+						uncrtError += dataTable[i][nuclide_Colum].toString() + " Рµ  СЃ " + nuclede_uncrtError + "\n";
 					}
 					inProtokol = "";
 				}
@@ -685,10 +685,10 @@ public class AddResultViewMetods {
 											
 											System.out.println(dobiv.getNuclide().getSymbol_nuclide()+" - "+(dataTable[i][nuclide_Colum].toString()));	
 										if (!CompareDoubleUnits(dobiv.getValue_result(), dobivValueFromDestruct_Result)) {
-											errDobiv = "несъвпадащи стойности за добиви" + "\n ";
+											errDobiv = "РЅРµСЃСЉРІРїР°РґР°С‰Рё СЃС‚РѕР№РЅРѕСЃС‚Рё Р·Р° РґРѕР±РёРІРё" + "\n ";
 										}
 										}else{
-											errDobiv = "несъвпадащи нуклиди за добиви" + "\n ";
+											errDobiv = "РЅРµСЃСЉРІРїР°РґР°С‰Рё РЅСѓРєР»РёРґРё Р·Р° РґРѕР±РёРІРё" + "\n ";
 										}
 										
 									}
@@ -699,7 +699,7 @@ public class AddResultViewMetods {
 					} catch (NumberFormatException e) {
 						ResourceLoader.appendToFile(e);
 						e.printStackTrace();
-						JOptionPane.showMessageDialog(null, "Липсва добив във файла", "Грешни данни",
+						JOptionPane.showMessageDialog(null, "Р›РёРїСЃРІР° РґРѕР±РёРІ РІСЉРІ С„Р°Р№Р»Р°", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 								JOptionPane.ERROR_MESSAGE);
 					}
 
@@ -710,14 +710,14 @@ public class AddResultViewMetods {
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
 
 			if (deDupStringList.size() != listCodeNuclide.size()) {
-				errDuplic = "повтарящи се нуклиди" + "\n";
+				errDuplic = "РїРѕРІС‚Р°СЂСЏС‰Рё СЃРµ РЅСѓРєР»РёРґРё" + "\n";
 			}
 		} else {
-			errDuplic = "невъведени данни" + "\n";
+			errDuplic = "РЅРµРІСЉРІРµРґРµРЅРё РґР°РЅРЅРё" + "\n";
 		}
 
 		if (!uncrtError.equals("")) {
-			JOptionPane.showMessageDialog(null, uncrtError, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(null, uncrtError, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		

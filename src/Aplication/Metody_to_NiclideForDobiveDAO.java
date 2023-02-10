@@ -124,7 +124,7 @@ public class Metody_to_NiclideForDobiveDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на Мотод-Нуклид: "+metody_to_NiclideForDobive.getMetody()+" "+metody_to_NiclideForDobive.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РњРѕС‚РѕРґ-РќСѓРєР»РёРґ: "+metody_to_NiclideForDobive.getMetody()+" "+metody_to_NiclideForDobive.getNuclide().getSymbol_nuclide(), "РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

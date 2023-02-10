@@ -451,7 +451,7 @@ if(listNewSample.size()>0){
 				DataTableValue[i][6] = convertToString(izvhAktiv, 2, true);
 				DataTableValue[i][7] = convertToString(uncert, 0, false);
 				if (uncert != 0) {
-					DataTableValue[i][7] = "±" + DataTableValue[i][7] + "%";
+					DataTableValue[i][7] = "В±" + DataTableValue[i][7] + "%";
 				}
 				DataTableValue[i][8] = convertToString(mda, 2, true);
 
@@ -490,7 +490,7 @@ if(listNewSample.size()>0){
 		ResourceLoader.appendToFile(e);
 		JFrame jf = new JFrame();
 		jf.setAlwaysOnTop(true);
-		JOptionPane.showMessageDialog( jf, "Грешка: липсват данни", "Инфо панел", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog( jf, "Р“СЂРµС€РєР°: Р»РёРїСЃРІР°С‚ РґР°РЅРЅРё", "РРЅС„Рѕ РїР°РЅРµР»", JOptionPane.PLAIN_MESSAGE);
 	}
 		return TableValue;
 
@@ -580,7 +580,7 @@ if(listNewSample.size()>0){
 								izvhAktiv = aktiv * obemMesec;
 
 								DataTableValueSr[s][4] = "";
-								DataTableValueSr[s][5] = "Обем за " + mesec + " месец " + obemMesec;
+								DataTableValueSr[s][5] = "РћР±РµРј Р·Р° " + mesec + " РјРµСЃРµС† " + obemMesec;
 								DataTableValueSr[s][6] = convertToString(izvhAktiv, 2, true);
 								DataTableValueSr[s][7] = sortDataTableValue[m][7];
 								DataTableValueSr[s][8] = sortDataTableValue[m][8];
@@ -945,9 +945,9 @@ if(listNewSample.size()>0){
 
 			// Create header column
 			Row row = sheet.createRow(0);
-			String strMesec = "Месец: " + mesec;
-			if(mesec.contains("тримесечие")){
-				strMesec = mesec+" на "+year+".г";	
+			String strMesec = "РњРµСЃРµС†: " + mesec;
+			if(mesec.contains("С‚СЂРёРјРµСЃРµС‡РёРµ")){
+				strMesec = mesec+" РЅР° "+year+".Рі";	
 			}
 			
 			int excellRow = 0;
@@ -958,7 +958,7 @@ if(listNewSample.size()>0){
 				if (dataTable[i][0] != "") {
 					excellRow = excellRow + 3;
 
-					if(dataTable[i][0].toString().contains("Вентилационна") && pageBreakRow==0){
+					if(dataTable[i][0].toString().contains("Р’РµРЅС‚РёР»Р°С†РёРѕРЅРЅР°") && pageBreakRow==0){
 						pageBreakRow = excellRow-2;
 					}
 					row = sheet.createRow(excellRow);
@@ -983,7 +983,7 @@ if(listNewSample.size()>0){
 
 					String text = excellnameColumn[6];
 					if (!dataTable[i][3].equals("1.00")) {
-						text = text + " с " + excellnameColumn[3] + " " + dataTable[i][3];
+						text = text + " СЃ " + excellnameColumn[3] + " " + dataTable[i][3];
 					}
 					createCell(row, 2, text, cellStyleBoldWithBorder(workbook, false, 12));
 					createCell(row, 3, excellnameColumn[7], cellStyleBoldWithBorder(workbook, false, 8));
@@ -1011,12 +1011,12 @@ if(listNewSample.size()>0){
 
 			excellRow = excellRow + 3;
 			row = sheet.createRow(excellRow);
-			createCell(row, 1, "Изготвил:", cellStyleBoldWitholtBorder(workbook, false, 12));
-			createCell(row, 3, "Проверил:", cellStyleBoldWitholtBorder(workbook, false, 12));
+			createCell(row, 1, "РР·РіРѕС‚РІРёР»:", cellStyleBoldWitholtBorder(workbook, false, 12));
+			createCell(row, 3, "РџСЂРѕРІРµСЂРёР»:", cellStyleBoldWitholtBorder(workbook, false, 12));
 			sheet.addMergedRegion(new CellRangeAddress(excellRow, excellRow, 3, 4));
 
 			Footer footer = sheet.getFooter();
-			footer.setRight( "ст. " + HeaderFooter.page() + " от " + HeaderFooter.numPages() );
+			footer.setRight( "СЃС‚. " + HeaderFooter.page() + " РѕС‚ " + HeaderFooter.numPages() );
 			sheet.getRowBreaks();
 
 			sheet.setRowBreak(pageBreakRow);
@@ -1036,7 +1036,7 @@ if(listNewSample.size()>0){
 
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
-			MessageDialog(e.toString(), "файлова грешка");
+			MessageDialog(e.toString(), "С„Р°Р№Р»РѕРІР° РіСЂРµС€РєР°");
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();

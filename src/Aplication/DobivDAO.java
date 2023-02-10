@@ -227,7 +227,7 @@ public class DobivDAO {
 				entitymanager.getTransaction().commit();
 			} catch (javax.persistence.RollbackException e) {
 				ResourceLoader.appendToFile(e);
-				JOptionPane.showMessageDialog(null, "Прблем при обновяване на добив: "+dobiv.getCode_Standart()+" "+dobiv.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
+				JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РґРѕР±РёРІ: "+dobiv.getCode_Standart()+" "+dobiv.getNuclide().getSymbol_nuclide(), "РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:",
 						JOptionPane.ERROR_MESSAGE);
 			}
 

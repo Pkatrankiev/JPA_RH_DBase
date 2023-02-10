@@ -546,7 +546,7 @@ public class MounthlyReferenceForCNRDWater_Table extends JDialog {
 					@Override
 					public void run() {
 						AddResultViewMetods.setWaitCursor(panel_Btn);
-						String headerText = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MounthlyReferenceForCNRDWater_TableLabel")+" ì. "+ mount_name;
+						String headerText = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MounthlyReferenceForCNRDWater_TableLabel")+" Ð¼. "+ mount_name;
 						CreateExcelFile.toExcel(createMasiveTableTypeColumn(table), table, frame_name,
 								getValueFromLabel(columnNameDataValue, listNuclideSimbol), columnWith, headerText);
 						AddResultViewMetods.setDefaultCursor(panel_Btn);

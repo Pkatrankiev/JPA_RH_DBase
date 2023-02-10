@@ -124,7 +124,7 @@ public class SampleDAO {
 ////				System.out.println("Name Obekt_na_izpitvane:" + obekt_na_izpitvane.getName_obekt_na_izpitvane());
 //
 //				setValueSample(i + "", // sample_code
-//						"проби1", // description_sample
+//						"РїСЂРѕР±Рё1", // description_sample
 //						"22.12.2017 /12:00", // date_time_reference
 //						request, // request object
 //						obekt_na_izpitvane, period, 2017);
@@ -296,7 +296,7 @@ public class SampleDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на проба: "+sample.getRequest().getRecuest_code()+"-"+sample.getSample_code(), "Проблем с база данни:",
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РїСЂРѕР±Р°: "+sample.getRequest().getRecuest_code()+"-"+sample.getSample_code(), "РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -317,8 +317,8 @@ public class SampleDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при изтриване на проба: " + samp.getRequest().getRecuest_code()+"-"+samp.getSample_code(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂР±Р»РµРј РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїСЂРѕР±Р°: " + samp.getRequest().getRecuest_code()+"-"+samp.getSample_code(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

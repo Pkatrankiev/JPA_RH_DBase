@@ -139,9 +139,9 @@ public class RequestViewForReadDoc extends JFrame {
 				0 };
 		p.setLayout(gbl_p);
 
-		String text1 = "<html>ДЪРЖАВНО ПРЕДПРИЯТИЕ “РАДИОАКТИВНИ ОТПАДЪЦИ“<br> ЛАБОРАТОРИЯ ЗА ИЗПИТВАНЕ<br><br><br>"
-				+ "CЕКТОР РАДИОХИМИЯ<br>" + "ЛИ – РХ <br>" + "гр. Козлодуй<br>"
-				+ "тел.: (0973) 7 24 01  e-mail: LI-RH_DPRAO@mail.bg</html>";
+		String text1 = "<html>Р”РЄР Р–РђР’РќРћ РџР Р•Р”РџР РРЇРўРР• вЂњР РђР”РРћРђРљРўРР’РќР РћРўРџРђР”РЄР¦РвЂњ<br> Р›РђР‘РћР РђРўРћР РРЇ Р—Рђ РР—РџРРўР’РђРќР•<br><br><br>"
+				+ "CР•РљРўРћР  Р РђР”РРћРҐРРњРРЇ<br>" + "Р›Р вЂ“ Р РҐ <br>" + "РіСЂ. РљРѕР·Р»РѕРґСѓР№<br>"
+				+ "С‚РµР».: (0973) 7 24 01  e-mail: LI-RH_DPRAO@mail.bg</html>";
 		JLabel lblNewLabel = new JLabel("<html><div style='text-align: center;'>" + text1 + "</div></html>");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -155,7 +155,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		p.add(lblNewLabel, gbc_lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("ФК 508-1");
+		JLabel lblNewLabel_1 = new JLabel("Р¤Рљ 508-1");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridwidth = 5;
@@ -165,7 +165,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		p.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("ЗАЯВКА ЗА ИЗПИТВАНЕ");
+		JLabel lblNewLabel_2 = new JLabel("Р—РђРЇР’РљРђ Р—Рђ РР—РџРРўР’РђРќР•");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -174,8 +174,8 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lblNewLabel_2.gridy = 2;
 		p.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
-		String text2 = "<html>Попълва се от ЛИ-РХ за изпитвания, извършвани по програми и документи, вътрешни за<br>"
-				+ "ДП „Радиоактивни отпадъци”</html>";
+		String text2 = "<html>РџРѕРїСЉР»РІР° СЃРµ РѕС‚ Р›Р-Р РҐ Р·Р° РёР·РїРёС‚РІР°РЅРёСЏ, РёР·РІСЉСЂС€РІР°РЅРё РїРѕ РїСЂРѕРіСЂР°РјРё Рё РґРѕРєСѓРјРµРЅС‚Рё, РІСЉС‚СЂРµС€РЅРё Р·Р°<br>"
+				+ "Р”Рџ вЂћР Р°РґРёРѕР°РєС‚РёРІРЅРё РѕС‚РїР°РґСЉС†РёвЂќ</html>";
 
 		lblError = new JLabel(" ");
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
@@ -198,9 +198,9 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_panel_1.gridy = 3;
 		p.add(panel_1, gbc_panel_1);
 
-		JLabel label = new JLabel("№");
+		JLabel label = new JLabel("в„–");
 		panel_1.add(label);
-		// TODO txtField_RequestCode (код на заявката)
+		// TODO txtField_RequestCode (РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°)
 		txtField_RequestCode = new JTextField();
 		txtField_RequestCode.setText(tamplateRequest.getRecuest_code());
 		txtField_RequestCode.setForeground(Color.GRAY);
@@ -217,13 +217,13 @@ public class RequestViewForReadDoc extends JFrame {
 				txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 				if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 					txtField_RequestCode.setForeground(Color.red);
-					lblError.setText("Заявка с този номер вече съществува");
+					lblError.setText("Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°");
 					corectRequestCode = false;
 				} else {
 
 					if (RequestViewAplication.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 						txtField_RequestCode.setForeground(Color.red);
-						lblError.setText("Некоректен номер");
+						lblError.setText("РќРµРєРѕСЂРµРєС‚РµРЅ РЅРѕРјРµСЂ");
 						corectRequestCode = false;
 					} else {
 						txtField_RequestCode.setForeground(Color.BLACK);
@@ -246,7 +246,7 @@ public class RequestViewForReadDoc extends JFrame {
 		JLabel label_2 = new JLabel("/");
 		panel_1.add(label_2);
 
-		// TODO txtFld_Date_Request (дата на заявката)
+		// TODO txtFld_Date_Request (РґР°С‚Р° РЅР° Р·Р°СЏРІРєР°С‚Р°)
 		txtFld_Date_Request = new JTextField();
 		txtFld_Date_Request.setColumns(8);
 		border = txtFld_Date_Request.getBorder();
@@ -301,7 +301,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lblNewLabel_4.gridy = 5;
 		p.add(lblNewLabel_4, gbc_lblNewLabel_4);
 
-		JLabel lbl_ind_num_doc = new JLabel("Ид. номер на документа, изискващ изпитването: ");
+		JLabel lbl_ind_num_doc = new JLabel("РРґ. РЅРѕРјРµСЂ РЅР° РґРѕРєСѓРјРµРЅС‚Р°, РёР·РёСЃРєРІР°С‰ РёР·РїРёС‚РІР°РЅРµС‚Рѕ: ");
 		lbl_ind_num_doc.setBorder(null);
 		lbl_ind_num_doc.setFont(font);
 		GridBagConstraints gbc_lbl_ind_num_doc = new GridBagConstraints();
@@ -312,7 +312,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_ind_num_doc.gridy = 6;
 		p.add(lbl_ind_num_doc, gbc_lbl_ind_num_doc);
 
-		// TODO choice_ind_num_doc (Ид. номер на документа)
+		// TODO choice_ind_num_doc (РРґ. РЅРѕРјРµСЂ РЅР° РґРѕРєСѓРјРµРЅС‚Р°)
 
 		choice_ind_num_doc = new Choice();
 		choice_ind_num_doc.setFont(font);
@@ -355,7 +355,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		});
 
-		JLabel lbl_izpitvan_produkt = new JLabel("Изпитван продукт");
+		JLabel lbl_izpitvan_produkt = new JLabel("РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚");
 		GridBagConstraints gbc_lbl_izpitvan_produkt = new GridBagConstraints();
 		gbc_lbl_izpitvan_produkt.anchor = GridBagConstraints.WEST;
 		gbc_lbl_izpitvan_produkt.insets = new Insets(0, 0, 5, 5);
@@ -363,7 +363,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_izpitvan_produkt.gridy = 8;
 		p.add(lbl_izpitvan_produkt, gbc_lbl_izpitvan_produkt);
 
-		// TODO choice_izpitvan_produkt (изпитван продукт)
+		// TODO choice_izpitvan_produkt (РёР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚)
 		choice_izpitvan_produkt = new Choice();
 		choice_izpitvan_produkt.setFont(font);
 		String[] arr1 = RequestViewAplication.getStringMassiveIzpitvanProdukt();
@@ -403,7 +403,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		});
 
-		JLabel lbl_obekt_na_izpitvane_request = new JLabel("Обект, от който са взети пробите:");
+		JLabel lbl_obekt_na_izpitvane_request = new JLabel("РћР±РµРєС‚, РѕС‚ РєРѕР№С‚Рѕ СЃР° РІР·РµС‚Рё РїСЂРѕР±РёС‚Рµ:");
 		GridBagConstraints gbc_lbl_obekt_na_izpitvane_request = new GridBagConstraints();
 		gbc_lbl_obekt_na_izpitvane_request.anchor = GridBagConstraints.WEST;
 		gbc_lbl_obekt_na_izpitvane_request.insets = new Insets(0, 0, 5, 5);
@@ -411,7 +411,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_obekt_na_izpitvane_request.gridy = 9;
 		p.add(lbl_obekt_na_izpitvane_request, gbc_lbl_obekt_na_izpitvane_request);
 
-		// TODO choice_obekt_na_izpitvane_request (обект на изпитване)
+		// TODO choice_obekt_na_izpitvane_request (РѕР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ)
 		choice_obekt_na_izpitvane_request = new Choice();
 		choice_obekt_na_izpitvane_request.setFont(font);
 		choice_obekt_na_izpitvane_request.setPreferredSize(new Dimension(205, 20));
@@ -450,7 +450,7 @@ public class RequestViewForReadDoc extends JFrame {
 			}
 		});
 
-		JButton btn_add__obekt_na_izpitvane_request = new JButton("Добавяне");
+		JButton btn_add__obekt_na_izpitvane_request = new JButton("Р”РѕР±Р°РІСЏРЅРµ");
 		btn_add__obekt_na_izpitvane_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean fl = false;
@@ -479,7 +479,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_add__obekt_na_izpitvane_request.gridy = 9;
 		p.add(btn_add__obekt_na_izpitvane_request, gbc_btn_add__obekt_na_izpitvane_request);
 
-		JLabel lbl_Razmernost = new JLabel("Размерност");
+		JLabel lbl_Razmernost = new JLabel("Р Р°Р·РјРµСЂРЅРѕСЃС‚");
 		GridBagConstraints gbc_lbl_Razmernost = new GridBagConstraints();
 		gbc_lbl_Razmernost.anchor = GridBagConstraints.WEST;
 		gbc_lbl_Razmernost.insets = new Insets(0, 0, 5, 5);
@@ -487,7 +487,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_Razmernost.gridy = 10;
 		p.add(lbl_Razmernost, gbc_lbl_Razmernost);
 
-		// TODO choice_Razmernost (размерност)
+		// TODO choice_Razmernost (СЂР°Р·РјРµСЂРЅРѕСЃС‚)
 		choice_Razmernost = new Choice();
 		choice_Razmernost.setFont(font);
 		choice_Razmernost.setPreferredSize(new Dimension(60, 20));
@@ -505,7 +505,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_choice_Razmernost.gridy = 10;
 		p.add(choice_Razmernost, gbc_choice_Razmernost);
 
-		chckbx_accreditation = new JCheckBox("Извън обхват", !tamplateRequest.getAccreditation());
+		chckbx_accreditation = new JCheckBox("РР·РІСЉРЅ РѕР±С…РІР°С‚", !tamplateRequest.getAccreditation());
 		GridBagConstraints gbc_chckbx_accreditation = new GridBagConstraints();
 		gbc_chckbx_accreditation.anchor = GridBagConstraints.EAST;
 		gbc_chckbx_accreditation.insets = new Insets(0, 0, 5, 5);
@@ -513,7 +513,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_chckbx_accreditation.gridy = 10;
 		p.add(chckbx_accreditation, gbc_chckbx_accreditation);
 
-		JLabel lbl_list_izpitvan_pokazatel = new JLabel("Изпитван показател:");
+		JLabel lbl_list_izpitvan_pokazatel = new JLabel("РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»:");
 		GridBagConstraints gbc_lbl_list_izpitvan_pokazatel = new GridBagConstraints();
 		gbc_lbl_list_izpitvan_pokazatel.anchor = GridBagConstraints.WEST;
 		gbc_lbl_list_izpitvan_pokazatel.insets = new Insets(0, 0, 5, 5);
@@ -521,7 +521,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_list_izpitvan_pokazatel.gridy = 11;
 		p.add(lbl_list_izpitvan_pokazatel, gbc_lbl_list_izpitvan_pokazatel);
 
-		// TODO txtArea_list_izpitvan_pokazatel (изпитван показарел)
+		// TODO txtArea_list_izpitvan_pokazatel (РёР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°СЂРµР»)
 		txtArea_list_izpitvan_pokazatel = new JTextArea();
 		txtArea_list_izpitvan_pokazatel.setFont(font);
 		// txtArea_list_izpitvan_pokazatel.setFont(arg0);
@@ -557,7 +557,7 @@ public class RequestViewForReadDoc extends JFrame {
 			txtArea_list_izpitvan_pokazatel.setText(strTamplate.substring(0, cout_str - 1));
 		}
 
-		JButton btn_list_izpitvan_pokazatel = new JButton("Избор на показател");
+		JButton btn_list_izpitvan_pokazatel = new JButton("РР·Р±РѕСЂ РЅР° РїРѕРєР°Р·Р°С‚РµР»");
 		btn_list_izpitvan_pokazatel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -591,7 +591,7 @@ public class RequestViewForReadDoc extends JFrame {
 		p.add(btn_list_izpitvan_pokazatel, gbc_btn_list_izpitvan_pokazatel);
 
 		// date_time_reception
-		JLabel lbl_date_time_reception = new JLabel("Референтна дата (средата на периода)");
+		JLabel lbl_date_time_reception = new JLabel("Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° (СЃСЂРµРґР°С‚Р° РЅР° РїРµСЂРёРѕРґР°)");
 		GridBagConstraints gbc_lbl_date_time_reception = new GridBagConstraints();
 		gbc_lbl_date_time_reception.gridwidth = 2;
 		gbc_lbl_date_time_reception.anchor = GridBagConstraints.EAST;
@@ -600,7 +600,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_date_time_reception.gridy = 12;
 		p.add(lbl_date_time_reception, gbc_lbl_date_time_reception);
 
-		// TODO txtArea_Descript_grup_Sample (описание на групата проби)
+		// TODO txtArea_Descript_grup_Sample (РѕРїРёСЃР°РЅРёРµ РЅР° РіСЂСѓРїР°С‚Р° РїСЂРѕР±Рё)
 		txtArea_Descript_grup_Sample = new JTextArea();
 		txtArea_Descript_grup_Sample.setFont(font);
 
@@ -612,7 +612,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_txtArea_Descript_grup_Sample.gridy = 14;
 		p.add(txtArea_Descript_grup_Sample, gbc_txtArea_Descript_grup_Sample);
 
-		// TODO choice_Period (период)
+		// TODO choice_Period (РїРµСЂРёРѕРґ)
 
 		final Choice choice_Period = new Choice();
 		choice_Period.setFont(font);
@@ -629,7 +629,7 @@ public class RequestViewForReadDoc extends JFrame {
 			choice_Period.add(string);
 		}
 
-		// TODO txt_fid_date_time_reference (референтна дата час)
+		// TODO txt_fid_date_time_reference (СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° С‡Р°СЃ)
 		date_time_reference = date_time_reference.replaceAll("/", " ");
 		txt_fid_date_time_reference = new JTextField(date_time_reference);
 		txt_fid_date_time_reference.addKeyListener(new KeyListener() {
@@ -663,7 +663,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_date_time_reference.gridy = 12;
 		p.add(txt_fid_date_time_reference, gbc_date_time_reference);
 
-		JButton btn_date_time_reception = new JButton("Избор");
+		JButton btn_date_time_reception = new JButton("РР·Р±РѕСЂ");
 		btn_date_time_reception.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -700,7 +700,7 @@ public class RequestViewForReadDoc extends JFrame {
 		p.add(btn_date_time_reception, gbc_btn_date_time_reception);
 		// GridBagConstraints gbc_textField_a;
 
-		JLabel lbl_Period = new JLabel("Периодичност");
+		JLabel lbl_Period = new JLabel("РџРµСЂРёРѕРґРёС‡РЅРѕСЃС‚");
 		GridBagConstraints gbc_lbl_Period = new GridBagConstraints();
 		gbc_lbl_Period.anchor = GridBagConstraints.EAST;
 		gbc_lbl_Period.insets = new Insets(0, 0, 5, 5);
@@ -716,7 +716,7 @@ public class RequestViewForReadDoc extends JFrame {
 	}
 		});
 
-		JLabel lbl_Count_Sample = new JLabel("Брой на пробите ");
+		JLabel lbl_Count_Sample = new JLabel("Р‘СЂРѕР№ РЅР° РїСЂРѕР±РёС‚Рµ ");
 		GridBagConstraints gbc_lbl_Count_Sample = new GridBagConstraints();
 		gbc_lbl_Count_Sample.anchor = GridBagConstraints.EAST;
 		gbc_lbl_Count_Sample.insets = new Insets(0, 0, 5, 5);
@@ -732,7 +732,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lblError_Count_Sample.gridy = 16;
 		p.add(lblError_Count_Sample, gbc_lblError_Count_Sample);
 
-		// TODO txtFld_Count_Sample (брой на пробите)
+		// TODO txtFld_Count_Sample (Р±СЂРѕР№ РЅР° РїСЂРѕР±РёС‚Рµ)
 		txtFld_Count_Sample = new JTextField();
 		txtFld_Count_Sample.setText(tamplateRequest.getCounts_samples() + "");
 		txtFld_Count_Sample.addKeyListener(new KeyListener() {
@@ -750,7 +750,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 				if (RequestViewAplication.checkMaxVolume(txtFld_Count_Sample.getText(), 0, 20)) {
 					txtFld_Count_Sample.setForeground(Color.red);
-					lblError_Count_Sample.setText("Некоректен брой");
+					lblError_Count_Sample.setText("РќРµРєРѕСЂРµРєС‚РµРЅ Р±СЂРѕР№");
 
 				} else {
 					txtFld_Count_Sample.setForeground(Color.BLACK);
@@ -776,7 +776,7 @@ public class RequestViewForReadDoc extends JFrame {
 		p.add(txtFld_Count_Sample, gbc_txtFld_Count_Sample);
 		txtFld_Count_Sample.setColumns(3);
 
-		// TODO txtArea_SampleDescription (описание на пробите)
+		// TODO txtArea_SampleDescription (РѕРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±РёС‚Рµ)
 		txtArea_SampleDescription = new JTextArea();
 		txtArea_SampleDescription.setFont(font);
 		GridBagConstraints gbc_txtArea_SampleDescription = new GridBagConstraints();
@@ -789,7 +789,7 @@ public class RequestViewForReadDoc extends JFrame {
 		txtArea_SampleDescription.setEditable(false);
 
 		comBox_O_I_S = RequestViewAplication.getStringMassiveO_I_S();
-		JButton btn_SampleDescription = new JButton("Описание на пробите");
+		JButton btn_SampleDescription = new JButton("РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±РёС‚Рµ");
 		btn_SampleDescription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -803,7 +803,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_SampleDescription.gridy = 15;
 		p.add(btn_SampleDescription, gbc_btn_SampleDescription);
 
-		JLabel lbl_SampleDescription = new JLabel("Описание на пробите ");
+		JLabel lbl_SampleDescription = new JLabel("РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±РёС‚Рµ ");
 		GridBagConstraints gbc_lbl_SampleDescription = new GridBagConstraints();
 		gbc_lbl_SampleDescription.anchor = GridBagConstraints.WEST;
 		gbc_lbl_SampleDescription.insets = new Insets(0, 0, 5, 5);
@@ -813,7 +813,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		// date_execution
 		// ************************************************************************
-		JLabel lbl_date_execution = new JLabel("Срок за изпълнение:");
+		JLabel lbl_date_execution = new JLabel("РЎСЂРѕРє Р·Р° РёР·РїСЉР»РЅРµРЅРёРµ:");
 		GridBagConstraints gbc_lbl_date_execution = new GridBagConstraints();
 		gbc_lbl_date_execution.anchor = GridBagConstraints.EAST;
 		gbc_lbl_date_execution.gridwidth = 2;
@@ -822,7 +822,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_date_execution.gridy = 19;
 		p.add(lbl_date_execution, gbc_lbl_date_execution);
 
-		// TODO txtFld_date_execution (срок за изпълнение)
+		// TODO txtFld_date_execution (СЃСЂРѕРє Р·Р° РёР·РїСЉР»РЅРµРЅРёРµ)
 		txtFld_date_execution = new JTextField(tamplateRequest.getDate_execution());
 		txtFld_date_execution.addKeyListener(new KeyListener() {
 
@@ -855,7 +855,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_txtFld_date_execution.gridy = 19;
 		p.add(txtFld_date_execution, gbc_txtFld_date_execution);
 
-		JButton btn_date_execution = new JButton("Избор на дата");
+		JButton btn_date_execution = new JButton("РР·Р±РѕСЂ РЅР° РґР°С‚Р°");
 		btn_date_execution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final JFrame f = new JFrame();
@@ -884,7 +884,7 @@ public class RequestViewForReadDoc extends JFrame {
 
 		// date_time_request
 		// *****************************************************************
-		JLabel lbl_date_time_request = new JLabel("Дата и час на приемане:");
+		JLabel lbl_date_time_request = new JLabel("Р”Р°С‚Р° Рё С‡Р°СЃ РЅР° РїСЂРёРµРјР°РЅРµ:");
 		GridBagConstraints gbc_lbl_date_time_request = new GridBagConstraints();
 		gbc_lbl_date_time_request.anchor = GridBagConstraints.EAST;
 		gbc_lbl_date_time_request.gridwidth = 2;
@@ -893,7 +893,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_date_time_request.gridy = 20;
 		p.add(lbl_date_time_request, gbc_lbl_date_time_request);
 
-		// TODO txtFld_date_time_request (дата на приемане)
+		// TODO txtFld_date_time_request (РґР°С‚Р° РЅР° РїСЂРёРµРјР°РЅРµ)
 		txtFld_date_reception = new JTextField(tamplateRequest.getDate_reception());
 		txtFld_date_reception.addKeyListener(new KeyListener() {
 
@@ -926,7 +926,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_txtFld_date_time_request.gridy = 20;
 		p.add(txtFld_date_reception, gbc_txtFld_date_time_request);
 
-		JButton btn_date_time_request = new JButton("Избор на дата");
+		JButton btn_date_time_request = new JButton("РР·Р±РѕСЂ РЅР° РґР°С‚Р°");
 		btn_date_time_request.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final JFrame f = new JFrame();
@@ -953,7 +953,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_date_time_request.gridy = 20;
 		p.add(btn_date_time_request, gbc_btn_date_time_request);
 
-		JLabel lblNewLabel_3 = new JLabel("Приел:");
+		JLabel lblNewLabel_3 = new JLabel("РџСЂРёРµР»:");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -970,7 +970,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_User.gridy = 21;
 		p.add(lbl_User, gbc_lbl_User);
 
-		JLabel lbl_note = new JLabel("Забележка:");
+		JLabel lbl_note = new JLabel("Р—Р°Р±РµР»РµР¶РєР°:");
 		GridBagConstraints gbc_lbl_note = new GridBagConstraints();
 		gbc_lbl_note.anchor = GridBagConstraints.WEST;
 		gbc_lbl_note.insets = new Insets(0, 0, 5, 5);
@@ -978,7 +978,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_lbl_note.gridy = 22;
 		p.add(lbl_note, gbc_lbl_note);
 
-		// TODO choice_Zab (забележка)
+		// TODO choice_Zab (Р·Р°Р±РµР»РµР¶РєР°)
 
 		ArrayList<String> arrayZab = RequestViewAplication.getStringZabelejki();
 		choice_Zab = new Choice();
@@ -1000,7 +1000,7 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_choice_Zab.gridy = 23;
 		p.add(choice_Zab, gbc_choice_Zab);
 
-		JButton btn_add_Zab = new JButton("Добавяне");
+		JButton btn_add_Zab = new JButton("Р”РѕР±Р°РІСЏРЅРµ");
 		btn_add_Zab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -1034,8 +1034,8 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_add_Zab.gridy = 23;
 		p.add(btn_add_Zab, gbc_btn_add_Zab);
 
-		// TODO btn_save ( Запис )
-		JButton btn_save = new JButton("Запис");
+		// TODO btn_save ( Р—Р°РїРёСЃ )
+		JButton btn_save = new JButton("Р—Р°РїРёСЃ");
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
@@ -1052,8 +1052,8 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_save.gridy = 25;
 		p.add(btn_save, gbc_btn_save);
 
-		// TODO btn_Preview ( Превю )
-		JButton btn_Preview = new JButton("Превю");
+		// TODO btn_Preview ( РџСЂРµРІСЋ )
+		JButton btn_Preview = new JButton("РџСЂРµРІСЋ");
 		btn_Preview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (checkRequest()) {
@@ -1069,8 +1069,8 @@ public class RequestViewForReadDoc extends JFrame {
 		gbc_btn_Preview.gridy = 25;
 		p.add(btn_Preview, gbc_btn_Preview);
 
-		// TODO btn_Template ( Резултати )
-		JButton btn_Template = new JButton("Резултати");
+		// TODO btn_Template ( Р РµР·СѓР»С‚Р°С‚Рё )
+		JButton btn_Template = new JButton("Р РµР·СѓР»С‚Р°С‚Рё");
 		btn_Template.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ResultsListInTableForReadDoc.DrawTableWithEnableResultsList(tamplateRequest);
@@ -1095,63 +1095,63 @@ public class RequestViewForReadDoc extends JFrame {
 
 		if (!corectRequestCode) {
 			txtField_RequestCode.setBorder(new LineBorder(Color.RED));
-			str_RequestCode = "код на заявката" + "\n";
+			str_RequestCode = "РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°" + "\n";
 			saveCheck = false;
 		}
 		String str_RequestDate = "";
 		if (DatePicker.incorrectDate(txtFld_Date_Request.getText(), false)) {
 			txtFld_Date_Request.setBorder(new LineBorder(Color.RED));
-			str_RequestDate = "дата на заявката" + "\n";
+			str_RequestDate = "РґР°С‚Р° РЅР° Р·Р°СЏРІРєР°С‚Р°" + "\n";
 			saveCheck = false;
 		}
 		String str_Izpit_Prod = "";
 		if (choice_izpitvan_produkt.getSelectedItem().equals("")) {
 			choice_izpitvan_produkt.setBackground(Color.RED);
-			str_Izpit_Prod = "изпитван продукт" + "\n";
+			str_Izpit_Prod = "РёР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚" + "\n";
 			saveCheck = false;
 		}
 		String str_Obekt_Izpit = "";
 		if (choice_obekt_na_izpitvane_request.getSelectedItem().equals("")) {
 			choice_obekt_na_izpitvane_request.setBackground(Color.RED);
-			str_Obekt_Izpit = "обект на изпитване" + "\n";
+			str_Obekt_Izpit = "РѕР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ" + "\n";
 			saveCheck = false;
 		}
 		String str_L_I_P = "";
 		if (txtArea_list_izpitvan_pokazatel.getText().equals("")) {
 			txtArea_list_izpitvan_pokazatel.setBorder(new LineBorder(Color.RED));
-			str_L_I_P = "изпитван показател" + "\n";
+			str_L_I_P = "РёР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»" + "\n";
 			saveCheck = false;
 		}
 		String str_corectRefDate = "";
 		if (DatePicker.incorrectDate(txt_fid_date_time_reference.getText(), true)) {
 			txt_fid_date_time_reference.setBorder(new LineBorder(Color.RED));
-			str_corectRefDate = "референтна дата" + "\n";
+			str_corectRefDate = "СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р°" + "\n";
 			saveCheck = false;
 		}
 		String str_SampleDescription = "";
 		if (txtArea_SampleDescription.getText().equals("")) {
 			txtArea_SampleDescription.setBorder(new LineBorder(Color.RED));
-			str_SampleDescription = "описание на пробите" + "\n";
+			str_SampleDescription = "РѕРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±РёС‚Рµ" + "\n";
 			saveCheck = false;
 		}
 		String str_DateExecution = "";
 		if (DatePicker.incorrectDate(txtFld_date_execution.getText(), false)) {
 			txtFld_date_execution.setBorder(new LineBorder(Color.RED));
-			str_DateExecution = "срок за изпълнение" + "\n";
+			str_DateExecution = "СЃСЂРѕРє Р·Р° РёР·РїСЉР»РЅРµРЅРёРµ" + "\n";
 			saveCheck = false;
 		}
 
 		String str_DateTimeRequest = "";
 		if (DatePicker.incorrectDate(txtFld_date_reception.getText(), false)) {
 			txtFld_date_reception.setBorder(new LineBorder(Color.RED));
-			str_DateTimeRequest = "дата на приемане" + "\n";
+			str_DateTimeRequest = "РґР°С‚Р° РЅР° РїСЂРёРµРјР°РЅРµ" + "\n";
 			saveCheck = false;
 		}
 		if (!saveCheck) {
 			String str = str_RequestCode + str_RequestDate + str_Izpit_Prod + str_Obekt_Izpit + str_L_I_P
 					+ str_corectRefDate + str_SampleDescription + str_DateExecution + str_DateTimeRequest;
 			System.out.println(str);
-			JOptionPane.showMessageDialog(RequestViewForReadDoc.this, str, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(RequestViewForReadDoc.this, str, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -1160,11 +1160,11 @@ public class RequestViewForReadDoc extends JFrame {
 
 	private void saveRequestSamplePokazatelTable(Request request) {
 
-		// TODO Update Request ( презапис на заявка )
+		// TODO Update Request ( РїСЂРµР·Р°РїРёСЃ РЅР° Р·Р°СЏРІРєР° )
 
 		RequestDAO.updateObjectRequest(createRequestObject(request));
 
-		// TODO Update IzpitvanPokaztel ( презапис на Изпитван показател )
+		// TODO Update IzpitvanPokaztel ( РїСЂРµР·Р°РїРёСЃ РЅР° РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР» )
 
 		ArrayList<List_izpitvan_pokazatel> list_izpitvan_pokazatel = ChoiceL_I_P.getListI_PFormChoiceL_P();
 		for (List_izpitvan_pokazatel l_I_P : list_izpitvan_pokazatel) {
@@ -1172,7 +1172,7 @@ public class RequestViewForReadDoc extends JFrame {
 			IzpitvanPokazatelDAO.setValueIzpitvanPokazatel(l_I_P, request, null);
 		}
 
-		// TODO Update Sample ( презапис на проби )
+		// TODO Update Sample ( РїСЂРµР·Р°РїРёСЃ РЅР° РїСЂРѕР±Рё )
 
 		int count_Sample = Integer.valueOf(txtFld_Count_Sample.getText());
 		masiveSampleValue = SampleViewFromReadDocFile.getVolumeSampleView(count_Sample);
@@ -1323,13 +1323,13 @@ public class RequestViewForReadDoc extends JFrame {
 				}
 			} catch (NumberFormatException e) {
 				ResourceLoader.appendToFile(e);
-				JOptionPane.showMessageDialog(RequestViewForReadDoc.this, "Не сте въвели брой на пробите!",
-						"Грешни данни", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(RequestViewForReadDoc.this, "РќРµ СЃС‚Рµ РІСЉРІРµР»Рё Р±СЂРѕР№ РЅР° РїСЂРѕР±РёС‚Рµ!",
+						"Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (DateTimeParseException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(RequestViewForReadDoc.this, "Не сте въвели референтна дата и време!",
-					"Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(RequestViewForReadDoc.this, "РќРµ СЃС‚Рµ РІСЉРІРµР»Рё СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° Рё РІСЂРµРјРµ!",
+					"Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

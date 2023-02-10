@@ -48,19 +48,19 @@ public class btnOpenFileAddDobivSection {
 						OverallVariablesAddDobiv.setFlagIncertedFile ( true);
 					} else {
 						OverallVariablesAddDobiv.setFlagIncertedFile ( false);
-						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+						JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 								JOptionPane.ERROR_MESSAGE);
 
 					}
 					}else {
 						OverallVariablesAddDobiv.setFlagIncertedFile ( false);
-						JOptionPane.showMessageDialog(null, "Не сте избрали метод", "Грешни данни",
+						JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РјРµС‚РѕРґ", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 								JOptionPane.ERROR_MESSAGE);
 				}
 					}
 				} catch (NullPointerException e2) {
 					 ResourceLoader.appendToFile(e2);
-					JOptionPane.showMessageDialog(null, "Не сте избрали файл!", "Грешни данни",
+					JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё С„Р°Р№Р»!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 							JOptionPane.ERROR_MESSAGE);
 				}
 

@@ -154,8 +154,8 @@ public class AddResultsViewWithTable extends JDialog {
 	Boolean viewAddRowButton = false;
 	Boolean flagIncertedFile = false;
 
-	private static String[] tableHeader = { "Нуклид", "В протокол", "Активност", "Неопределеност", "МДА", "Размерност",
-			"Сигма", "Количество", "Мярка", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка", "Id_Result" };
+	private static String[] tableHeader = { "РќСѓРєР»РёРґ", "Р’ РїСЂРѕС‚РѕРєРѕР»", "РђРєС‚РёРІРЅРѕСЃС‚", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "РњР”Рђ", "Р Р°Р·РјРµСЂРЅРѕСЃС‚",
+			"РЎРёРіРјР°", "РљРѕР»РёС‡РµСЃС‚РІРѕ", "РњСЏСЂРєР°", "Рў РЎ Р", "Р”Р°С‚Р°РҐРёРјРћР±СЂ", "Р”Р°С‚Р°РђРЅР°Р»РёР·", "РџСЂРѕРІРµСЂРєР°", "Id_Result" };
 
 	@SuppressWarnings("rawtypes")
 	private static Class[] types = { String.class, Boolean.class, String.class, String.class, String.class,
@@ -179,10 +179,10 @@ public class AddResultsViewWithTable extends JDialog {
 	private static int rsult_Id_Colum = 13;
 
 	public AddResultsViewWithTable(JFrame parent, TranscluentWindow round, Users user) {
-		super(parent, "Въвеждане на Резултати", true);
+		super(parent, "Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р РµР·СѓР»С‚Р°С‚Рё", true);
 		list_Users = UsersDAO.getInListAllValueUsers();
-		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР"));
-		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО"));
+		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћРР "));
+		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћР РҐРћ"));
 		listSample = new ArrayList<Sample>();
 
 		user_Redac = user;
@@ -336,7 +336,7 @@ public class AddResultsViewWithTable extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		JButton okButton = new JButton("Запис");
+		JButton okButton = new JButton("Р—Р°РїРёСЃ");
 		okButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -514,7 +514,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void DobivSection(JPanel panel) {
-		JLabel lblDobiv = new JLabel("Добив");
+		JLabel lblDobiv = new JLabel("Р”РѕР±РёРІ");
 		GridBagConstraints gbc_lblDobiv = new GridBagConstraints();
 		gbc_lblDobiv.anchor = GridBagConstraints.EAST;
 		gbc_lblDobiv.insets = new Insets(0, 0, 5, 5);
@@ -604,7 +604,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void BasicValueFileSection(JPanel panel) {
-		JLabel lblBasicValueRsltsFile = new JLabel("Път до файла");
+		JLabel lblBasicValueRsltsFile = new JLabel("РџСЉС‚ РґРѕ С„Р°Р№Р»Р°");
 		GridBagConstraints gbc_lblBasicValueRsltsFile = new GridBagConstraints();
 		gbc_lblBasicValueRsltsFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBasicValueRsltsFile.anchor = GridBagConstraints.EAST;
@@ -650,7 +650,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void ChoiceOIR_Section(JPanel panel) {
-		JLabel lblNewLabel_2 = new JLabel("Извършил анализа");
+		JLabel lblNewLabel_2 = new JLabel("РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -707,7 +707,7 @@ public class AddResultsViewWithTable extends JDialog {
 		gbc_lblNameMetod.gridy = 4;
 		panel.add(lblNameMetod, gbc_lblNameMetod);
 
-		JLabel lblMetody = new JLabel("Метод");
+		JLabel lblMetody = new JLabel("РњРµС‚РѕРґ");
 		GridBagConstraints gbc_lblMetody = new GridBagConstraints();
 		gbc_lblMetody.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMetody.gridx = 0;
@@ -794,7 +794,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 
 	private void ChoiceORHO_Section(JPanel panel) {
-		JLabel lblNewLabel_1 = new JLabel("Извършил Хим. обработ.");
+		JLabel lblNewLabel_1 = new JLabel("РР·РІСЉСЂС€РёР» РҐРёРј. РѕР±СЂР°Р±РѕС‚.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
@@ -841,7 +841,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void PokazatelSection(JPanel panel) {
 
-		JLabel lblPokazatel = new JLabel("Показател");
+		JLabel lblPokazatel = new JLabel("РџРѕРєР°Р·Р°С‚РµР»");
 		GridBagConstraints gbc_lblPokazatel = new GridBagConstraints();
 		gbc_lblPokazatel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPokazatel.gridx = 0;
@@ -892,7 +892,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void SampleCodeSection(JPanel panel) {
 
-		JLabel lblSmplCode = new JLabel("№ на проба");
+		JLabel lblSmplCode = new JLabel("в„– РЅР° РїСЂРѕР±Р°");
 		GridBagConstraints gbc_lblSmplCode = new GridBagConstraints();
 		gbc_lblSmplCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSmplCode.gridx = 2;
@@ -1037,7 +1037,7 @@ public class AddResultsViewWithTable extends JDialog {
 		panel.add(lblError, gbc_lblError);
 		lblError.setVisible(false);
 
-		JLabel lblRqstCode = new JLabel("Код на заявка");
+		JLabel lblRqstCode = new JLabel("РљРѕРґ РЅР° Р·Р°СЏРІРєР°");
 		GridBagConstraints gbc_lblRqstCode = new GridBagConstraints();
 		gbc_lblRqstCode.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblRqstCode.insets = new Insets(0, 0, 5, 5);
@@ -1093,7 +1093,7 @@ public class AddResultsViewWithTable extends JDialog {
 				if (!RequestDAO.checkRequestCode(txtRqstCode.getText())) {
 					txtRqstCode.setForeground(Color.red);
 					lblError.setVisible(true);
-					lblError.setText("Заявка с този номер не съществува");
+					lblError.setText("Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°");
 					validate();
 					repaint();
 
@@ -1144,7 +1144,7 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 		nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -1152,7 +1152,7 @@ public class AddResultsViewWithTable extends JDialog {
 		JComboBox<?> comboBox1 = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox1));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
 
@@ -1160,7 +1160,7 @@ public class AddResultsViewWithTable extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Dimension);
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Dimension_Column.setCellRenderer(renderer);
 	}
 
@@ -1168,14 +1168,14 @@ public class AddResultsViewWithTable extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(masiveTSI);
 		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		tSI_column.setCellRenderer(renderer);
 
 	}
 
 	private void btnDataFromDBase(JPanel panel) {
 
-		JButton btnDataFromDBase = new JButton("Данни от базата");
+		JButton btnDataFromDBase = new JButton("Р”Р°РЅРЅРё РѕС‚ Р±Р°Р·Р°С‚Р°");
 		btnDataFromDBaseListener(panel, btnDataFromDBase);
 		GridBagConstraints gbc_btnDataFromDBase = new GridBagConstraints();
 		gbc_btnDataFromDBase.gridwidth = 2;
@@ -1226,7 +1226,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void btnAddRow(JPanel basic_panel) {
 
-		btnAddRow = new JButton("нов Нуклид");
+		btnAddRow = new JButton("РЅРѕРІ РќСѓРєР»РёРґ");
 		btmAddRowListener(basic_panel, btnAddRow);
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
 		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
@@ -1249,7 +1249,7 @@ public class AddResultsViewWithTable extends JDialog {
 	}
 	
 	private void btnOpenFile(JPanel panel) {
-		JButton btnOpenFile = new JButton("Отвори");
+		JButton btnOpenFile = new JButton("РћС‚РІРѕСЂРё");
 		btnOpenFileListener(btnOpenFile);
 		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
 		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
@@ -1288,18 +1288,18 @@ public class AddResultsViewWithTable extends JDialog {
 						flagIncertedFile = true;
 					} else {
 						flagIncertedFile = false;
-						JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+						JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 								JOptionPane.ERROR_MESSAGE);
 
 					}
 					}else {
 						flagIncertedFile = false;
-						JOptionPane.showMessageDialog(null, "Не сте избрали метод", "Грешни данни",
+						JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РјРµС‚РѕРґ", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 								JOptionPane.ERROR_MESSAGE);
 				}
 					}
 				} catch (NullPointerException e2) {
-					JOptionPane.showMessageDialog(null, "Не сте избрали файл!", "Грешни данни",
+					JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё С„Р°Р№Р»!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -1426,7 +1426,7 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void btnTabFromFile(JPanel basic_panel) {
 
-		JButton btnTabFromFile = new JButton("Данни от файл");
+		JButton btnTabFromFile = new JButton("Р”Р°РЅРЅРё РѕС‚ С„Р°Р№Р»");
 		btnTabFromFileListener(basic_panel, btnTabFromFile);
 		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
 		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
@@ -1472,13 +1472,13 @@ public class AddResultsViewWithTable extends JDialog {
 								break;
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
+							JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ РјРµС‚РѕРґ", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					
 					AddResultsViewWithTable.setDefaultCursor(basic_panel);
 				} else {
-					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+					JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 							JOptionPane.ERROR_MESSAGE);
 
 				}
@@ -1492,8 +1492,8 @@ public class AddResultsViewWithTable extends JDialog {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
 		if (choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
 				&& Double.compare(sysError, 10.00) != 0) {
-			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
-					"Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РґРѕР±Р°РІРµРЅР° 10% СЃРёСЃС‚РµРјР°С‚РёС‡РЅР° \nРіСЂРµС€РєР° РєСЉРј РЅРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚С‚Р°",
+					"Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -1504,18 +1504,18 @@ public class AddResultsViewWithTable extends JDialog {
 			
 			for (Destruct_Result destruct_Result : destruct_Result_List) {
 				if (selectedMetod.getCode_metody()
-					.indexOf(destruct_Result.getMetod().replace("М.ЛИ-РХ-", "")) > 0) {
+					.indexOf(destruct_Result.getMetod().replace("Рњ.Р›Р-Р РҐ-", "")) > 0) {
 				fl = true;
 			} 
 			}
 				if(!fl) {					
-						JOptionPane.showMessageDialog(null, "Не съвпада избрания метод и този от файла", "Грешни данни",
+						JOptionPane.showMessageDialog(null, "РќРµ СЃСЉРІРїР°РґР° РёР·Р±СЂР°РЅРёСЏ РјРµС‚РѕРґ Рё С‚РѕР·Рё РѕС‚ С„Р°Р№Р»Р°", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 								JOptionPane.ERROR_MESSAGE);
 									}
 				return fl;
 		
 		}else{
-			JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ РјРµС‚РѕРґ", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return fl;
@@ -1543,9 +1543,9 @@ public class AddResultsViewWithTable extends JDialog {
 		if (fileName.indexOf(codeSamample) < 0) {
 			fl = false;
 			// display the showOptionDialog
-			Object[] options = { "Да", "Не" };
-			choice = JOptionPane.showOptionDialog(null, "Кода  не съвпада \nс името на файла. \nЩе продължите ли?",
-					"Грешни данни", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			Object[] options = { "Р”Р°", "РќРµ" };
+			choice = JOptionPane.showOptionDialog(null, "РљРѕРґР°  РЅРµ СЃСЉРІРїР°РґР° \nСЃ РёРјРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. \nР©Рµ РїСЂРѕРґСЉР»Р¶РёС‚Рµ Р»Рё?",
+					"Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			if (choice == JOptionPane.YES_OPTION) {
 				fl = true;
 			}
@@ -1744,7 +1744,7 @@ public class AddResultsViewWithTable extends JDialog {
 	private static String getStringOfQuantyti(JTable table, int col) {
 		final JFrame f = new JFrame();
 		String incertData = table.getValueAt(table.getSelectedRow(), col).toString();
-		String string = (String) JOptionPane.showInputDialog(f, "Въведете стойност за всички редове", "",
+		String string = (String) JOptionPane.showInputDialog(f, "Р’СЉРІРµРґРµС‚Рµ СЃС‚РѕР№РЅРѕСЃС‚ Р·Р° РІСЃРёС‡РєРё СЂРµРґРѕРІРµ", "",
 				JOptionPane.PLAIN_MESSAGE, null, null, incertData);
 
 		return string;
@@ -1841,7 +1841,7 @@ public class AddResultsViewWithTable extends JDialog {
 		rowFromTableResult[dateHimObr_Colum] = result.getDate_chim_oper();
 		rowFromTableResult[dateAnaliz_Colum] = result.getDate_measur();
 		rowFromTableResult[in_Prot_Colum] = false;
-		rowFromTableResult[check_Colum] = "Провери";
+		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -1861,7 +1861,7 @@ public class AddResultsViewWithTable extends JDialog {
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
 		rowFromTableResult[in_Prot_Colum] = false;
-		rowFromTableResult[check_Colum] = "Провери";
+		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableResult[rsult_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -1884,13 +1884,13 @@ public class AddResultsViewWithTable extends JDialog {
 			rowFromTableResult[dateHimObr_Colum] = results.getDate_chim_oper();
 			rowFromTableResult[dateAnaliz_Colum] = results.getDate_measur();
 			rowFromTableResult[in_Prot_Colum] = results.getInProtokol();
-			rowFromTableResult[check_Colum] = "Провери";
+			rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 			rowFromTableResult[rsult_Id_Colum] = results.getId_results();
 		} catch (NullPointerException e) {
-			JOptionPane.showInputDialog("Грешни данни за резултат:" + results.getId_results(),
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:" + results.getId_results(),
 					JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e) {
-			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 		}
 		return rowFromTableResult;
 
@@ -1902,38 +1902,38 @@ public class AddResultsViewWithTable extends JDialog {
 
 		if (txtRqstCode.getText().trim().isEmpty()) {
 			txtRqstCode.setBackground(Color.RED);
-			str_Error = str_Error + "код на заявката" + "\n";
+			str_Error = str_Error + "РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°" + "\n";
 			saveCheck = false;
 		}
 
 		if (choicePokazatel.getSelectedItem().trim().isEmpty()) {
 			choicePokazatel.setBackground(Color.RED);
-			str_Error = str_Error + "изпитван показател" + "\n";
+			str_Error = str_Error + "РёР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceMetody.getSelectedItem().trim().isEmpty()) {
 			choiceMetody.setBackground(Color.RED);
-			str_Error = str_Error + "метод" + "\n";
+			str_Error = str_Error + "РјРµС‚РѕРґ" + "\n";
 
 			saveCheck = false;
 		}
 
 		if (choiceOIR.getSelectedItem().trim().isEmpty()) {
 			choiceOIR.setBackground(Color.RED);
-			str_Error = str_Error + "извършил анализа" + "\n";
+			str_Error = str_Error + "РёР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°" + "\n";
 			saveCheck = false;
 		}
 
 		if (!listSimbolBasikNulideToMetod.isEmpty() && choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
-			str_Error = str_Error + "изв. хим. обработка" + "\n";
+			str_Error = str_Error + "РёР·РІ. С…РёРј. РѕР±СЂР°Р±РѕС‚РєР°" + "\n";
 			saveCheck = false;
 		}
 
 		if (!listSimbolBasikNulideToMetod.isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			choiceDobiv.setBackground(Color.RED);
-			str_Error = str_Error + "добив" + "\n";
+			str_Error = str_Error + "РґРѕР±РёРІ" + "\n";
 			saveCheck = false;
 		}
 
@@ -1944,7 +1944,7 @@ public class AddResultsViewWithTable extends JDialog {
 		}
 
 		if (!saveCheck) {
-			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, str_Error, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, str_Error, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -1959,7 +1959,7 @@ public class AddResultsViewWithTable extends JDialog {
 		String errRazm = "";
 		String errQunt = "";
 		String errDim = "";
-		String inProtokol = "резултати в протокол" + "\n";
+		String inProtokol = "СЂРµР·СѓР»С‚Р°С‚Рё РІ РїСЂРѕС‚РѕРєРѕР»" + "\n";
 		List<String> listCodeNuclide = new ArrayList<String>();
 		if (dataTable != null) {
 			for (int i = 0; i < dataTable.length; i++) {
@@ -1969,27 +1969,27 @@ public class AddResultsViewWithTable extends JDialog {
 				if (mda + actv != 0) {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					if (dataTable[i][razm_Colum].toString().trim().isEmpty()) {
-						errRazm = "размерност " + "\n";
+						errRazm = "СЂР°Р·РјРµСЂРЅРѕСЃС‚ " + "\n";
 					}
 					String razm = dataTable[i][razm_Colum].toString();
 					String qunt = dataTable[i][qunt_Colum].toString();
 					if (!razm.trim().isEmpty() && !razm.replace("Bq", "").isEmpty()) {
 						if (qunt.trim().isEmpty() || Double.parseDouble(qunt) <= 0) {
-							errQunt = "количество " + "\n";
+							errQunt = "РєРѕР»РёС‡РµСЃС‚РІРѕ " + "\n";
 						}
 
 						if (dataTable[i][dimen_Colum].toString().trim().isEmpty()) {
-							errDim = "мярка " + "\n";
+							errDim = "РјСЏСЂРєР° " + "\n";
 						}
 
 					}
 
 					if (dataTable[i][TSI_Colum].toString().trim().isEmpty()) {
-						errTSI = "Т С И " + "\n";
+						errTSI = "Рў РЎ Р " + "\n";
 					}
 
 					if (DatePicker.incorrectDate(dataTable[i][dateAnaliz_Colum].toString().trim(), false)) {
-						errDateAnaliz = "дата на анализ" + "\n";
+						errDateAnaliz = "РґР°С‚Р° РЅР° Р°РЅР°Р»РёР·" + "\n";
 					}
 
 				}
@@ -1998,14 +1998,14 @@ public class AddResultsViewWithTable extends JDialog {
 					String nuclede_uncrtError = "";
 					if (actv != 0) {
 						if (uncrt == 0) {
-							nuclede_uncrtError = "нулева неопределеност";
+							nuclede_uncrtError = "РЅСѓР»РµРІР° РЅРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚";
 						} else if ((uncrt / actv) * 100 > 52) {
-							nuclede_uncrtError = "неопределеност >52%";
+							nuclede_uncrtError = "РЅРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚ >52%";
 						}
 					}
 					if (!nuclede_uncrtError.equals("")) {
 
-						uncrtError += dataTable[i][nuclide_Colum].toString() + " е  с " + nuclede_uncrtError + "\n";
+						uncrtError += dataTable[i][nuclide_Colum].toString() + " Рµ  СЃ " + nuclede_uncrtError + "\n";
 					}
 					inProtokol = "";
 				}
@@ -2015,14 +2015,14 @@ public class AddResultsViewWithTable extends JDialog {
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
 
 			if (deDupStringList.size() != listCodeNuclide.size()) {
-				errDuplic = "повтарящи се нуклиди" + "\n";
+				errDuplic = "РїРѕРІС‚Р°СЂСЏС‰Рё СЃРµ РЅСѓРєР»РёРґРё" + "\n";
 			}
 		} else {
-			errDuplic = "невъведени данни" + "\n";
+			errDuplic = "РЅРµРІСЉРІРµРґРµРЅРё РґР°РЅРЅРё" + "\n";
 		}
 
 		if (!uncrtError.equals("")) {
-			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, uncrtError, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(AddResultsViewWithTable.this, uncrtError, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return (errTSI + errDateAnaliz + errDuplic + errRazm + errQunt + errDim + inProtokol);

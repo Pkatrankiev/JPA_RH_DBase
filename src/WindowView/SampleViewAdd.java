@@ -74,7 +74,7 @@ public class SampleViewAdd extends JDialog {
 	@SuppressWarnings("unchecked")
 	public SampleViewAdd(Frame parent, final int countSample, int requestCode,  ArrayList<String> comBox_O_I_S, String ref_Date_Time, String period,
 			String[][] incoming_masiveValueSample, Request tamplateRequest, List<String>  listStringOfRequest_To_ObektNaIzpitvaneRequest) {
-		super(parent, "Информация за пробите", true);
+		super(parent, "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїСЂРѕР±РёС‚Рµ", true);
 		
 		List<Sample> listSample = new ArrayList<Sample>();
 		if(tamplateRequest != null){
@@ -96,37 +96,37 @@ public class SampleViewAdd extends JDialog {
 			panel_Label.setMaximumSize(new Dimension(1120, 30));
 			panel_Label.setAutoscrolls(true);
 
-			JLabel lbl_sam_code = new JLabel("Код");
+			JLabel lbl_sam_code = new JLabel("РљРѕРґ");
 			lbl_sam_code.setPreferredSize(new Dimension(50, 20));
 			lbl_sam_code.setHorizontalAlignment(JLabel.CENTER);
 			lbl_sam_code.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_sam_code);
 			
-			JLabel lbl_OI_Request = new JLabel("Обект от който са взети пробите");
+			JLabel lbl_OI_Request = new JLabel("РћР±РµРєС‚ РѕС‚ РєРѕР№С‚Рѕ СЃР° РІР·РµС‚Рё РїСЂРѕР±РёС‚Рµ");
 			lbl_OI_Request.setPreferredSize(new Dimension(220, 20));
 			lbl_OI_Request.setHorizontalAlignment(JLabel.CENTER);
 			lbl_OI_Request.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_OI_Request);
 			
-			JLabel lbl_OI = new JLabel("Обект на изпитване");
+			JLabel lbl_OI = new JLabel("РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ");
 			lbl_OI.setPreferredSize(new Dimension(225, 20));
 			lbl_OI.setHorizontalAlignment(JLabel.CENTER);
 			lbl_OI.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_OI);
 			
-			JLabel lbl_Samp_Descr = new JLabel("Описание на пробата");
+			JLabel lbl_Samp_Descr = new JLabel("РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±Р°С‚Р°");
 			lbl_Samp_Descr.setPreferredSize(new Dimension(300, 20));
 			lbl_Samp_Descr.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Samp_Descr.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Samp_Descr);
 			
-			JLabel lbl_Ref_date = new JLabel("Референтна дата");
+			JLabel lbl_Ref_date = new JLabel("Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р°");
 			lbl_Ref_date.setPreferredSize(new Dimension(130, 20));
 			lbl_Ref_date.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Ref_date.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Ref_date);
 			
-			JLabel lbl_Preiod = new JLabel("Периодичност");
+			JLabel lbl_Preiod = new JLabel("РџРµСЂРёРѕРґРёС‡РЅРѕСЃС‚");
 			lbl_Preiod.setPreferredSize(new Dimension(142, 20));
 			lbl_Preiod.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Preiod.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -234,7 +234,7 @@ public class SampleViewAdd extends JDialog {
 								Boolean fl = false;
 								final JFrame f = new JFrame();
 
-								new AddInChoice(f, "Обект на изпитване", comBox_O_I_S,
+								new AddInChoice(f, "РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ", comBox_O_I_S,
 										(String) comboBox_OI[l].getSelectedItem());
 
 								String str = AddInChoice.getChoice();
@@ -490,12 +490,12 @@ public class SampleViewAdd extends JDialog {
 						for (int i = 0; i < countSample; i++) {
 
 							if (!corectYear[i]) {
-								str_Year = "некоректна година" + "\n";
+								str_Year = "РЅРµРєРѕСЂРµРєС‚РЅР° РіРѕРґРёРЅР°" + "\n";
 								saveCheck = false;
 							}
 
 							if (!corect_Ref_date[i]) {
-								str_Ref_date = "некоректна дата" + "\n";
+								str_Ref_date = "РЅРµРєРѕСЂРµРєС‚РЅР° РґР°С‚Р°" + "\n";
 								saveCheck = false;
 							}
 							
@@ -503,7 +503,7 @@ public class SampleViewAdd extends JDialog {
 						if (!saveCheck) {
 							String str = str_Ref_date + str_Year;
 
-							JOptionPane.showMessageDialog(SampleViewAdd.this, str, "Грешни данни за следните полета:",
+							JOptionPane.showMessageDialog(SampleViewAdd.this, str, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
 							getVolumeSampleView(countSample);

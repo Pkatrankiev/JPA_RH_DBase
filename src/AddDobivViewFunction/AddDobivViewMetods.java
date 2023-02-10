@@ -61,7 +61,7 @@ public class AddDobivViewMetods {
 	private static String[] masiveTipeHeader = { "Choice", "Double", "Double",  "Choice",
 			 "DatePicker", "DatePicker", "Check", "Id" };
 	
-	private static String[] tableHeader = { "Нуклид", "Добив", "Неопределеност", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка",
+	private static String[] tableHeader = { "РќСѓРєР»РёРґ", "Р”РѕР±РёРІ", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "Рў РЎ Р", "Р”Р°С‚Р°РҐРёРјРћР±СЂ", "Р”Р°С‚Р°РђРЅР°Р»РёР·", "РџСЂРѕРІРµСЂРєР°",
 	"Id_Result" };
 	
 	private static String[] masiveTipeColumn = { "Choice", "Double", "Double",  "Choice", "DatePicker", "DatePicker", "Check", "Id" };
@@ -97,8 +97,8 @@ public class AddDobivViewMetods {
 		OverallVariablesAddDobiv.setList_Users (UsersDAO.getInListAllValueUsers());
 		OverallVariablesAddDobiv.setUser_Redac(user);
 
-		OverallVariablesAddDobiv.setList_UsersNameFamilyOIR( UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР")));
-		OverallVariablesAddDobiv.setList_UsersNameFamilyORHO ( UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО")));
+		OverallVariablesAddDobiv.setList_UsersNameFamilyOIR( UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћРР ")));
+		OverallVariablesAddDobiv.setList_UsersNameFamilyORHO ( UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћР РҐРћ")));
 		OverallVariablesAddDobiv.setListMetody ( MetodyDAO.getInListAllValueMetody());
 		List<String> list= new ArrayList<String>();
 		for (Dobiv dobiv : DobivDAO.getListAllDobiv()) {
@@ -198,7 +198,7 @@ public class AddDobivViewMetods {
 		rowFromTableResult[TSI_Colum] = "";
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
-		rowFromTableResult[check_Colum] = "Провери";
+		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableResult[dobiv_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -212,14 +212,14 @@ public class AddDobivViewMetods {
 			rowFromTableDobiv[TSI_Colum] = dobiv.getTsi().getName();
 			rowFromTableDobiv[dateHimObr_Colum] = dobiv.getDate_chim_oper();
 			rowFromTableDobiv[dateAnaliz_Colum] = dobiv.getDate_measur();
-			rowFromTableDobiv[check_Colum] = "Провери";
+			rowFromTableDobiv[check_Colum] = "РџСЂРѕРІРµСЂРё";
 			rowFromTableDobiv[dobiv_Id_Colum] = dobiv.getId_dobiv();
 		} catch (NullPointerException e) {
 			 ResourceLoader.appendToFile(e);
-			JOptionPane.showInputDialog("Грешни данни за резултат:" , JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:" , JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e) {
 			 ResourceLoader.appendToFile(e);
-			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 		}
 		return rowFromTableDobiv;
 	}
@@ -232,7 +232,7 @@ public class AddDobivViewMetods {
 			rowFromTableDobiv[TSI_Colum] = dobiv.getTsi().getName();
 		rowFromTableDobiv[dateHimObr_Colum] = dobiv.getDate_chim_oper();
 		rowFromTableDobiv[dateAnaliz_Colum] = dobiv.getDate_measur();
-		rowFromTableDobiv[check_Colum] = "Провери";
+		rowFromTableDobiv[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableDobiv[dobiv_Id_Colum] = null;
 		return rowFromTableDobiv;
 	}
@@ -326,7 +326,7 @@ public class AddDobivViewMetods {
 		}
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -334,7 +334,7 @@ public class AddDobivViewMetods {
 		JComboBox<?> comboBox = new JComboBox<Object>(OverallVariablesAddDobiv.getMasiveTSI());
 		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		tSI_column.setCellRenderer(renderer);
 
 	}
@@ -353,15 +353,15 @@ public class AddDobivViewMetods {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					
 					if (dataTable[i][TSI_Colum].toString().trim().isEmpty()) {
-						errTSI = "Т С И " + "\n";
+						errTSI = "Рў РЎ Р " + "\n";
 					}
 					
 					if (DatePicker.incorrectDate(dataTable[i][dateHimObr_Colum].toString().trim(), false)) {
-						errDateHim =  "дата на хим. обраб." + "\n";
+						errDateHim =  "РґР°С‚Р° РЅР° С…РёРј. РѕР±СЂР°Р±." + "\n";
 					}
 					
 					if (DatePicker.incorrectDate(dataTable[i][dateAnaliz_Colum].toString().trim(), false)) {
-						errDateAnaliz = "дата на анализ" + "\n";
+						errDateAnaliz = "РґР°С‚Р° РЅР° Р°РЅР°Р»РёР·" + "\n";
 					}
 
 				}
@@ -370,10 +370,10 @@ public class AddDobivViewMetods {
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
 			
 			if (deDupStringList.size() != listCodeNuclide.size()) {
-				errDuplic = "повтарящи се нуклиди" + "\n";
+				errDuplic = "РїРѕРІС‚Р°СЂСЏС‰Рё СЃРµ РЅСѓРєР»РёРґРё" + "\n";
 			}
 		} else {
-			errDuplic =  "невъведени данни"+ "\n";
+			errDuplic =  "РЅРµРІСЉРІРµРґРµРЅРё РґР°РЅРЅРё"+ "\n";
 		}
 		return (errTSI + errDateHim  + errDateAnaliz + errDuplic);
 	}
@@ -473,31 +473,31 @@ public class AddDobivViewMetods {
 
 		if (txtStandartCode.getText().trim().isEmpty()) {
 			txtStandartCode.setBackground(Color.RED);
-		str_Error = str_Error + "код на стандарта" + "\n";
+		str_Error = str_Error + "РєРѕРґ РЅР° СЃС‚Р°РЅРґР°СЂС‚Р°" + "\n";
 		 saveCheck = false;
 		 }
 
 		if (choiceIzpitProd.getSelectedItem().trim().isEmpty()) {
 			choiceIzpitProd.setBackground(Color.RED);
-			str_Error = str_Error + "изпитван продукт" + "\n";
+			str_Error = str_Error + "РёР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceMetody.getSelectedItem().trim().isEmpty()) {
 			choiceMetody.setBackground(Color.RED);
-			str_Error = str_Error + "метод" + "\n";
+			str_Error = str_Error + "РјРµС‚РѕРґ" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceOIR.getSelectedItem().trim().isEmpty()) {
 			choiceOIR.setBackground(Color.RED);
-			str_Error = str_Error + "извършил анализа" + "\n";
+			str_Error = str_Error + "РёР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
-			str_Error = str_Error + "изв. хим. обработка" + "\n";
+			str_Error = str_Error + "РёР·РІ. С…РёРј. РѕР±СЂР°Р±РѕС‚РєР°" + "\n";
 			saveCheck = false;
 		}
 
@@ -507,7 +507,7 @@ public class AddDobivViewMetods {
 		}
 
 		if (!saveCheck) {
-			JOptionPane.showMessageDialog(addDobivView, str_Error, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(addDobivView, str_Error, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

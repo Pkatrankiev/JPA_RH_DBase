@@ -47,7 +47,7 @@ public class Login extends JDialog {
 //		pro.StopWindow();
 		setBounds(100, 100, 272, 145);
 		getContentPane().setLayout(new BorderLayout());
-		// центрира рамката (центъра на текущия монитор)
+		// С†РµРЅС‚СЂРёСЂР° СЂР°РјРєР°С‚Р° (С†РµРЅС‚СЉСЂР° РЅР° С‚РµРєСѓС‰РёСЏ РјРѕРЅРёС‚РѕСЂ)
 		setLocationRelativeTo(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

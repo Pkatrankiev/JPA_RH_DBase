@@ -143,7 +143,7 @@ public class Table_InternalApplicant_List extends JDialog {
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton("Р—Р°РїРёСЃ");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						

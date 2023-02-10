@@ -50,7 +50,7 @@ public class Test_ReadGmmaReportFile_GammaCalExtrakt extends JDialog {
 		setContentPane(contentPane);
 		JFileChooser fileChooser = new JFileChooser("c:/GENIE2K/REPFILES");
 		String path = "D:/CallGamma.xls";
-		JButton btnReadfile = new JButton("Активност по линии");
+		JButton btnReadfile = new JButton("РђРєС‚РёРІРЅРѕСЃС‚ РїРѕ Р»РёРЅРёРё");
 
 		btnReadfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -69,7 +69,7 @@ public class Test_ReadGmmaReportFile_GammaCalExtrakt extends JDialog {
 		});
 		contentPane.add(btnReadfile, BorderLayout.NORTH);
 
-		JButton btnNewButton = new JButton("Ефективности по енергя");
+		JButton btnNewButton = new JButton("Р•С„РµРєС‚РёРІРЅРѕСЃС‚Рё РїРѕ РµРЅРµСЂРіСЏ");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -127,13 +127,13 @@ boolean CheckingEnabledFile = true;
 			try {
 
 				// FileWriter excel = new FileWriter(out);
-				excel.write("Енергия" + "\t");
+				excel.write("Р•РЅРµСЂРіРёСЏ" + "\t");
 				if(listNuk.get(1).getNeopredelenost()!=null){
-				excel.write("Ефективност" + "\t");
+				excel.write("Р•С„РµРєС‚РёРІРЅРѕСЃС‚" + "\t");
 				}else{
-					excel.write("Активност" + "\t");
+					excel.write("РђРєС‚РёРІРЅРѕСЃС‚" + "\t");
 				}
-				excel.write("Неопределеност" + "\t");
+				excel.write("РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚" + "\t");
 				excel.write("\n");
 				for (nuklide nuk : listNuk) {
 					excel.write(nuk.getEnergy().toString() + "\t");
@@ -148,7 +148,7 @@ boolean CheckingEnabledFile = true;
 				System.out.println(e);
 			}
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Файла "+path+" е отворен!", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "Р¤Р°Р№Р»Р° "+path+" Рµ РѕС‚РІРѕСЂРµРЅ!", "Р“СЂРµС€РєР° РІ РґР°РЅРЅРёС‚Рµ",
 					JOptionPane.ERROR_MESSAGE);
 			CheckingEnabledFile = false;
 			e.printStackTrace();

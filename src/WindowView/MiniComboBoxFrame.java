@@ -22,7 +22,7 @@ public class MiniComboBoxFrame extends JDialog {
 	private String strChoice;
 
 	public MiniComboBoxFrame(Frame parent, String[] comBox_O_I_R, String incomingStr) {
-		super(parent, "Информация за пробите", true);
+		super(parent, "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїСЂРѕР±РёС‚Рµ", true);
 		setBounds(100, 100, 250, 120);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

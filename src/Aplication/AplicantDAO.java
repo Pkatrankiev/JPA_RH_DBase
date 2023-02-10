@@ -178,9 +178,9 @@ public class AplicantDAO {
 			Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
 			int processComplete = runtimeProcess.waitFor();
 			if (processComplete == 0) {
-				text = "<html>Архивирането зашърши успешно.<br>Името на архива е: "+path;
+				text = "<html>РђСЂС…РёРІРёСЂР°РЅРµС‚Рѕ Р·Р°С€СЉСЂС€Рё СѓСЃРїРµС€РЅРѕ.<br>РРјРµС‚Рѕ РЅР° Р°СЂС…РёРІР° Рµ: "+path;
 			} else {
-				text = "Не можа да се направи резервно копие";
+				text = "РќРµ РјРѕР¶Р° РґР° СЃРµ РЅР°РїСЂР°РІРё СЂРµР·РµСЂРІРЅРѕ РєРѕРїРёРµ";
 			}
 			round.StopWindow();
 			JOptionPane.showMessageDialog(null, text, errorOfData, JOptionPane.WARNING_MESSAGE);
@@ -188,7 +188,7 @@ public class AplicantDAO {
 		} catch (Exception e) {
 			ResourceLoader.appendToFile(e);
 			round.StopWindow();
-			text = "Възникна проблем при архивирането";
+			text = "Р’СЉР·РЅРёРєРЅР° РїСЂРѕР±Р»РµРј РїСЂРё Р°СЂС…РёРІРёСЂР°РЅРµС‚Рѕ";
 			JOptionPane.showMessageDialog(null, text, errorOfData, JOptionPane.WARNING_MESSAGE);
 			
 			e.printStackTrace();

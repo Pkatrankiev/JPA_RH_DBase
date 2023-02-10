@@ -43,7 +43,7 @@ public class ReadFileWithGlobalTextVariable  {
 			
 			
 			InputStream in = new FileInputStream(fileDir);
-			br = new BufferedReader(new InputStreamReader(in,"Cp1251"));
+			br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
 			
 			String sCurrentLine;
 			String flagTypeValue = "";
@@ -91,7 +91,7 @@ public class ReadFileWithGlobalTextVariable  {
 			}
 			} catch (FileNotFoundException e) {
 				ResourceLoader.appendToFile(e);
-				JOptionPane.showMessageDialog(null, "Не намирам: TEMPLATES_DIRECTORY \\ Global_Variable.txt", "Грешка в данните",
+				JOptionPane.showMessageDialog(null, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: TEMPLATES_DIRECTORY \\ Global_Variable.txt", "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
 						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}

@@ -280,7 +280,7 @@ public class ResultsDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на резултат: "+results.getSample().getRequest().getRecuest_code()+"-"+results.getSample().getSample_code()+" "+results.getNuclide().getSymbol_nuclide(), "Проблем с база данни:",
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° СЂРµР·СѓР»С‚Р°С‚: "+results.getSample().getRequest().getRecuest_code()+"-"+results.getSample().getSample_code()+" "+results.getNuclide().getSymbol_nuclide(), "РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

@@ -13,7 +13,7 @@ public class MenuRequense_RequenseList extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
 	public MenuRequense_RequenseList() {
-		super("Списък на Заявките ");
+		super("РЎРїРёСЃСЉРє РЅР° Р—Р°СЏРІРєРёС‚Рµ ");
 		// TODO Auto-generated constructor stub
 	}
 

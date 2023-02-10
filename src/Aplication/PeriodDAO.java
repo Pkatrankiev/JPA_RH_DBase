@@ -94,25 +94,25 @@ public class PeriodDAO {
 	
 	public static void setBasicValuePeriod() {
 		
-		setValuePeriod(1, "Януари");
-		setValuePeriod(2, "Февруари");
-		setValuePeriod(3, "Март");
-		setValuePeriod(4, "Април");
-		setValuePeriod(5, "Май");
-		setValuePeriod(6, "Юни");
-		setValuePeriod(7, "Юли");
-		setValuePeriod(8, "Август");
-		setValuePeriod(9, "Септември");
-		setValuePeriod(10, "Октомври");
-		setValuePeriod(11, "Ноември");
-		setValuePeriod(12, "Декември");
-		setValuePeriod(31, "1-во тримесечие");
-		setValuePeriod(32, "2-ро тримесечие");
-		setValuePeriod(33, "3-то тримесечие");
-		setValuePeriod(34, "4-то тримесечие");
-		setValuePeriod(61, "1-во полугодие");
-		setValuePeriod(62, "2-ро полугодие");
-		setValuePeriod(99, "годишен");
+		setValuePeriod(1, "РЇРЅСѓР°СЂРё");
+		setValuePeriod(2, "Р¤РµРІСЂСѓР°СЂРё");
+		setValuePeriod(3, "РњР°СЂС‚");
+		setValuePeriod(4, "РђРїСЂРёР»");
+		setValuePeriod(5, "РњР°Р№");
+		setValuePeriod(6, "Р®РЅРё");
+		setValuePeriod(7, "Р®Р»Рё");
+		setValuePeriod(8, "РђРІРіСѓСЃС‚");
+		setValuePeriod(9, "РЎРµРїС‚РµРјРІСЂРё");
+		setValuePeriod(10, "РћРєС‚РѕРјРІСЂРё");
+		setValuePeriod(11, "РќРѕРµРјРІСЂРё");
+		setValuePeriod(12, "Р”РµРєРµРјРІСЂРё");
+		setValuePeriod(31, "1-РІРѕ С‚СЂРёРјРµСЃРµС‡РёРµ");
+		setValuePeriod(32, "2-СЂРѕ С‚СЂРёРјРµСЃРµС‡РёРµ");
+		setValuePeriod(33, "3-С‚Рѕ С‚СЂРёРјРµСЃРµС‡РёРµ");
+		setValuePeriod(34, "4-С‚Рѕ С‚СЂРёРјРµСЃРµС‡РёРµ");
+		setValuePeriod(61, "1-РІРѕ РїРѕР»СѓРіРѕРґРёРµ");
+		setValuePeriod(62, "2-СЂРѕ РїРѕР»СѓРіРѕРґРёРµ");
+		setValuePeriod(99, "РіРѕРґРёС€РµРЅ");
 		
 		
 		}

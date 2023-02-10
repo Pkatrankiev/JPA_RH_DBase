@@ -126,32 +126,32 @@ import WindowView.AddResultsView;
 
 		if (txtRqstCode.getText().trim().isEmpty()) {
 			txtRqstCode.setBackground(Color.RED);
-			str_Error = str_Error + "код на заявката" + "\n";
+			str_Error = str_Error + "РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°" + "\n";
 			saveCheck = false;
 		}
 
 		if (choicePokazatel.getSelectedItem().trim().isEmpty()) {
 			choicePokazatel.setBackground(Color.RED);
-			str_Error = str_Error + "изпитван показател" + "\n";
+			str_Error = str_Error + "РёР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceMetody.getSelectedItem().trim().isEmpty()) {
 			choiceMetody.setBackground(Color.RED);
-			str_Error = str_Error + "метод" + "\n";
+			str_Error = str_Error + "РјРµС‚РѕРґ" + "\n";
 
 			saveCheck = false;
 		}
 
 		if (choiceOIR.getSelectedItem().trim().isEmpty()) {
 			choiceOIR.setBackground(Color.RED);
-			str_Error = str_Error + "извършил анализа" + "\n";
+			str_Error = str_Error + "РёР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°" + "\n";
 			saveCheck = false;
 		}
 
 		if (!OverallVariablesAddResults.getListSimbolBasikNulideToMetod().isEmpty() && choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
-			str_Error = str_Error + "изв. хим. обработка" + "\n";
+			str_Error = str_Error + "РёР·РІ. С…РёРј. РѕР±СЂР°Р±РѕС‚РєР°" + "\n";
 			saveCheck = false;
 		}
 		System.out.println(choiceDobiv.getSelectedItem().trim().isEmpty());
@@ -159,7 +159,7 @@ import WindowView.AddResultsView;
 
 		if (!OverallVariablesAddResults.getListSimbolBasikNulideToMetod().isEmpty() && choiceDobiv.getSelectedItem().trim().isEmpty()) {
 			choiceDobiv.setBackground(Color.RED);
-			str_Error = str_Error + "добив" + "\n";
+			str_Error = str_Error + "РґРѕР±РёРІ" + "\n";
 			saveCheck = false;
 		}
 		String chekstrCurrentDataInDataTable = AddResultViewMetods.strCurrentDataInDataTable(OverallVariablesAddResults.getDataTable(), choiceDobiv, choicePokazatel);
@@ -170,7 +170,7 @@ import WindowView.AddResultsView;
 		}
 
 		if (!saveCheck) {
-			JOptionPane.showMessageDialog(null, str_Error, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(null, str_Error, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

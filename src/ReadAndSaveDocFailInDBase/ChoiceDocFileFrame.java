@@ -63,7 +63,7 @@ public class ChoiceDocFileFrame extends JFrame {
 		panel.setMinimumSize(new Dimension(10, 50));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel_1 = new JLabel("œ˙Ú Í˙Ï ‘‡ÈÎ‡:");
+		JLabel lblNewLabel_1 = new JLabel("–ü—ä—Ç –∫—ä–º –§–∞–π–ª–∞:");
 		panel.add(lblNewLabel_1);
 		
 		textField = new JTextField("c:\\Soft\\Protokoli 2017\\");

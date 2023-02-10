@@ -21,10 +21,10 @@ public class Internal_applicantDAO {
 	
 
 	public static void setBasikValueInternal_applicant(){
-		setValueInternal_applicant("няма информация", "няма информация", "няма информация");
-		setValueInternal_applicant("Държавно предприятие “Радиоактивни отпадъци", "гр.Колодуй", "67-90");
-		setValueInternal_applicant("ДП РАО, с-р ОРДК", "гр.Колодуй", "67-90");
-		setValueInternal_applicant("ДП РАО, с-р РХ1", "гр.Колодуй", "20-24");
+		setValueInternal_applicant("РЅСЏРјР° РёРЅС„РѕСЂРјР°С†РёСЏ", "РЅСЏРјР° РёРЅС„РѕСЂРјР°С†РёСЏ", "РЅСЏРјР° РёРЅС„РѕСЂРјР°С†РёСЏ");
+		setValueInternal_applicant("Р”СЉСЂР¶Р°РІРЅРѕ РїСЂРµРґРїСЂРёСЏС‚РёРµ вЂњР Р°РґРёРѕР°РєС‚РёРІРЅРё РѕС‚РїР°РґСЉС†Рё", "РіСЂ.РљРѕР»РѕРґСѓР№", "67-90");
+		setValueInternal_applicant("Р”Рџ Р РђРћ, СЃ-СЂ РћР Р”Рљ", "РіСЂ.РљРѕР»РѕРґСѓР№", "67-90");
+		setValueInternal_applicant("Р”Рџ Р РђРћ, СЃ-СЂ Р РҐ1", "РіСЂ.РљРѕР»РѕРґСѓР№", "20-24");
 		
 	}
 
@@ -149,8 +149,8 @@ public class Internal_applicantDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на данните на: " + valueEnt.getInternal_applicant_organization(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РґР°РЅРЅРёС‚Рµ РЅР°: " + valueEnt.getInternal_applicant_organization(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

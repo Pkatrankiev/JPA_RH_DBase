@@ -225,7 +225,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		generateRow(countCoice, basicPanel, gbl_panel);
 		
 		
-		// btnMinus (премахване на елемент)
+		// btnMinus (РїСЂРµРјР°С…РІР°РЅРµ РЅР° РµР»РµРјРµРЅС‚)
 		final JButton btnMinus = new JButton("-");
 		btnMinus.setPreferredSize(new Dimension(37, 23));
 		btnMinus.setMargin(new Insets(0, 1, 1, 1));
@@ -268,7 +268,7 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		});
 		
 		
-		// btnPlus (добавяне на елемент)
+		// btnPlus (РґРѕР±Р°РІСЏРЅРµ РЅР° РµР»РµРјРµРЅС‚)
 		countCoice = 0;
 		btnPlus = new JButton("+");
 		btnPlus.setMargin(new Insets(0, 1, 1, 1));

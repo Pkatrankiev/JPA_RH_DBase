@@ -61,7 +61,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		Object[][] dataTable = getDataTable();
 		int counRow = dataTable.length;
 		
-		setTitle("Таблица на изпитваните обекти към заявка");
+		setTitle("РўР°Р±Р»РёС†Р° РЅР° РёР·РїРёС‚РІР°РЅРёС‚Рµ РѕР±РµРєС‚Рё РєСЉРј Р·Р°СЏРІРєР°");
 		setBounds(100, 100, 650, counRow*25+50);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -158,7 +158,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton("Р—Р°РїРёСЃ");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
@@ -179,7 +179,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 					panel_Btn.add(btnSave);
 				}
 				
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton("РР·С…РѕРґ");
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
@@ -203,7 +203,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		}
 		
 		JFrame f = new JFrame();
-		new ChoiceFromListWithPlusAndMinus(f, OriginalListObektNaIzp, bsic_listObektNaIzpit, "Обект на изпитване");
+		new ChoiceFromListWithPlusAndMinus(f, OriginalListObektNaIzp, bsic_listObektNaIzpit, "РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ");
 		List<String> listFromChoiceObektNaIzp = ChoiceFromListWithPlusAndMinus.getMasiveStringFromChoice();
 			
 		return checkForChange(listFromChoiceObektNaIzp, OriginalListObektNaIzp);
@@ -237,7 +237,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 				i++;
 			} catch (NumberFormatException e) {
 				ResourceLoader.appendToFile(e);
-				JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		return table;
@@ -257,7 +257,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 		for (int i = 0; i < list.size(); i++) {
 			if(i==endIndex-1 && str.length()>0){
 				str = str.substring(0, str.length()-2);
-				str = str+" и "	;
+				str = str+" Рё "	;
 			}
 			if(forRequestVew && (str+list.get(i)).length()>70){
 				endLine = "\n";
@@ -314,7 +314,7 @@ public class Table_RequestToObektNaIzp  extends JDialog {
 	}
 
 	private String[] getTabHeader() {
-		String[] tableHeader = { "Код на заявка", "Обект на изпитване", "Id" };
+		String[] tableHeader = { "РљРѕРґ РЅР° Р·Р°СЏРІРєР°", "РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ", "Id" };
 		return tableHeader;
 	}
 

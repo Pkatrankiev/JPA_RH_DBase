@@ -18,11 +18,11 @@ public class Obekt_na_izpitvane_sampleDAO {
 	
 
 	public static void setBasicValueObekt_na_izpitvane_sample() {
-		setValueObekt_na_izpitvane_sample("Вентилационна тръба-1");
-		setValueObekt_na_izpitvane_sample("Вентилационна тръба-2");
-		setValueObekt_na_izpitvane_sample("Спец корпус-1");
-		setValueObekt_na_izpitvane_sample("Спец корпус-2");
-		setValueObekt_na_izpitvane_sample("БАК 1и2");
+		setValueObekt_na_izpitvane_sample("Р’РµРЅС‚РёР»Р°С†РёРѕРЅРЅР° С‚СЂСЉР±Р°-1");
+		setValueObekt_na_izpitvane_sample("Р’РµРЅС‚РёР»Р°С†РёРѕРЅРЅР° С‚СЂСЉР±Р°-2");
+		setValueObekt_na_izpitvane_sample("РЎРїРµС† РєРѕСЂРїСѓСЃ-1");
+		setValueObekt_na_izpitvane_sample("РЎРїРµС† РєРѕСЂРїСѓСЃ-2");
+		setValueObekt_na_izpitvane_sample("Р‘РђРљ 1Рё2");
 
 	}
 

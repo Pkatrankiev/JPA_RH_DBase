@@ -71,7 +71,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 	@SuppressWarnings("unchecked")
 	public SampleViewFromReadDocFile(Frame parent,  Request tamplateRequest,  ArrayList<String> comBox_O_I_S, String ref_Date_Time, String period,
 			String[][] stringVol) {
-		super(parent, "Редакция на пробите", true);
+		super(parent, "Р РµРґР°РєС†РёСЏ РЅР° РїСЂРѕР±РёС‚Рµ", true);
 		int countSample= tamplateRequest.getCounts_samples();
 		setBounds(100, 100, 910, (countSample * 29) + 120);
 		getContentPane().setLayout(new BorderLayout());
@@ -88,27 +88,27 @@ public class SampleViewFromReadDocFile extends JDialog {
 			panel_Label.setMaximumSize(new Dimension(900, 30));
 			panel_Label.setAutoscrolls(true);
 
-			JLabel lbl_sam_code = new JLabel("Код");
+			JLabel lbl_sam_code = new JLabel("РљРѕРґ");
 			lbl_sam_code.setPreferredSize(new Dimension(50, 20));
 			lbl_sam_code.setHorizontalAlignment(JLabel.CENTER);
 			lbl_sam_code.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_sam_code);
-			JLabel lbl_OI = new JLabel("Обект на изпитване");
+			JLabel lbl_OI = new JLabel("РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ");
 			lbl_OI.setPreferredSize(new Dimension(225, 20));
 			lbl_OI.setHorizontalAlignment(JLabel.CENTER);
 			lbl_OI.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_OI);
-			JLabel lbl_Samp_Descr = new JLabel("Описание на пробата");
+			JLabel lbl_Samp_Descr = new JLabel("РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±Р°С‚Р°");
 			lbl_Samp_Descr.setPreferredSize(new Dimension(300, 20));
 			lbl_Samp_Descr.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Samp_Descr.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Samp_Descr);
-			JLabel lbl_Ref_date = new JLabel("Референтна дата");
+			JLabel lbl_Ref_date = new JLabel("Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р°");
 			lbl_Ref_date.setPreferredSize(new Dimension(130, 20));
 			lbl_Ref_date.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Ref_date.setBorder(new LineBorder(new Color(0, 0, 0)));
 			panel_Label.add(lbl_Ref_date);
-			JLabel lbl_Preiod = new JLabel("Периодичност");
+			JLabel lbl_Preiod = new JLabel("РџРµСЂРёРѕРґРёС‡РЅРѕСЃС‚");
 			lbl_Preiod.setPreferredSize(new Dimension(142, 20));
 			lbl_Preiod.setHorizontalAlignment(JLabel.CENTER);
 			lbl_Preiod.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -456,12 +456,12 @@ public class SampleViewFromReadDocFile extends JDialog {
 						for (int i = 0; i < countSample; i++) {
 
 							if (!corectYear[i]) {
-								str_Year = "некоректна година" + "\n";
+								str_Year = "РЅРµРєРѕСЂРµРєС‚РЅР° РіРѕРґРёРЅР°" + "\n";
 								saveCheck = false;
 							}
 
 							if (!corect_Ref_date[i]) {
-								str_Ref_date = "некоректна дата" + "\n";
+								str_Ref_date = "РЅРµРєРѕСЂРµРєС‚РЅР° РґР°С‚Р°" + "\n";
 								saveCheck = false;
 							}
 							// String str_Izpit_Prod = "";
@@ -469,7 +469,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 							// (choice_izpitvan_produkt.getSelectedItem().equals(""))
 							// {
 							// choice_izpitvan_produkt.setBackground(Color.RED);
-							// str_Izpit_Prod = "изпитван продукт" + "\n";
+							// str_Izpit_Prod = "РёР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚" + "\n";
 							// saveCheck = false;
 							// }
 							// String str_Obekt_Izpit = "";
@@ -477,7 +477,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 							// (choice_obekt_na_izpitvane_request.getSelectedItem().equals(""))
 							// {
 							// choice_obekt_na_izpitvane_request.setBackground(Color.RED);
-							// str_Obekt_Izpit = "обект на изпитване" + "\n";
+							// str_Obekt_Izpit = "РѕР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ" + "\n";
 							// saveCheck = false;
 							// }
 							// String str_L_I_P = "";
@@ -486,7 +486,7 @@ public class SampleViewFromReadDocFile extends JDialog {
 							// {
 							// txtArea_list_izpitvan_pokazatel.setBorder(new
 							// LineBorder(Color.RED));
-							// str_L_I_P = "изпитван показател" + "\n";
+							// str_L_I_P = "РёР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»" + "\n";
 							// saveCheck = false;
 							// }
 							// String str_corectRefDate = "";
@@ -495,14 +495,14 @@ public class SampleViewFromReadDocFile extends JDialog {
 							// {
 							// txt_fid_date_time_reception.setBorder(new
 							// LineBorder(Color.RED));
-							// str_corectRefDate = "референтна дата" + "\n";
+							// str_corectRefDate = "СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р°" + "\n";
 							// saveCheck = false;
 							// }
 						}
 						if (!saveCheck) {
 							String str = str_Ref_date + str_Year;
 
-							JOptionPane.showMessageDialog(SampleViewFromReadDocFile.this, str, "Грешни данни за следните полета:",
+							JOptionPane.showMessageDialog(SampleViewFromReadDocFile.this, str, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
 							getVolumeSampleView(countSample);

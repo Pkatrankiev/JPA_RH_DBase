@@ -116,7 +116,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 			gbc_choice[0].gridy = 1;
 			panel.add(choice[0], gbc_choice[0]);
 		}
-		// TODO btnMinus (премахване на елемент)
+		// TODO btnMinus (РїСЂРµРјР°С…РІР°РЅРµ РЅР° РµР»РµРјРµРЅС‚)
 		final JButton btnMinus = new JButton("-");
 		btnMinus.setPreferredSize(new Dimension(37, 23));
 		btnMinus.setMargin(new Insets(0, 1, 1, 1));
@@ -153,7 +153,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		gbc_btnMinus.gridy = 1;
 		panel.add(btnMinus, gbc_btnMinus);
 
-		// TODO btnPlus (добавяне на елемент)
+		// TODO btnPlus (РґРѕР±Р°РІСЏРЅРµ РЅР° РµР»РµРјРµРЅС‚)
 		countCoice = 0;
 		btnPlus = new JButton("+");
 		btnPlus.setMargin(new Insets(0, 1, 1, 1));
@@ -205,7 +205,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 		dialog.setLocationRelativeTo(parent);
 		dialog.setLocationRelativeTo(parent);
 
-		// TODO paint old elements (изобразяване на привнесени елементи)
+		// TODO paint old elements (РёР·РѕР±СЂР°Р·СЏРІР°РЅРµ РЅР° РїСЂРёРІРЅРµСЃРµРЅРё РµР»РµРјРµРЅС‚Рё)
 		if (incomingValueStringList != null) {
 			countCoice = 0;
 			for (String incomingString : incomingValueStringList) {
@@ -241,7 +241,7 @@ public class ChoiceFromListWithPlusAndMinus extends JDialog {
 
 		}
 
-		// TODO buttonPane (панела с бутони ОК Cancel)
+		// TODO buttonPane (РїР°РЅРµР»Р° СЃ Р±СѓС‚РѕРЅРё РћРљ Cancel)
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);

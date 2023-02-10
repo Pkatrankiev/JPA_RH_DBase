@@ -18,9 +18,9 @@ public class External_applicantDAO {
 	// GlobalVariableForSQL_DBase.getLokalDBase();
 
 	public static void setBasikValueExternal_applicant() {
-		setValueExternal_applicant("няма информация", "няма информация", "", "няма информация");
-		setValueExternal_applicant("ДП РАО", "гр.Колодуй", "", "2345");
-		setValueExternal_applicant("ДП РАО1", "гр.Колодуй2", "0888123456", "ном:2345");
+		setValueExternal_applicant("РЅСЏРјР° РёРЅС„РѕСЂРјР°С†РёСЏ", "РЅСЏРјР° РёРЅС„РѕСЂРјР°С†РёСЏ", "", "РЅСЏРјР° РёРЅС„РѕСЂРјР°С†РёСЏ");
+		setValueExternal_applicant("Р”Рџ Р РђРћ", "РіСЂ.РљРѕР»РѕРґСѓР№", "", "2345");
+		setValueExternal_applicant("Р”Рџ Р РђРћ1", "РіСЂ.РљРѕР»РѕРґСѓР№2", "0888123456", "РЅРѕРј:2345");
 
 	}
 

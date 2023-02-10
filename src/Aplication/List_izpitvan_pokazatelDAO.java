@@ -18,12 +18,12 @@ public class List_izpitvan_pokazatelDAO {
 	
 	
 public static void setBasikValuePokazatel(){
-	setValueList_pokazatel("Съдържание на гама-излъчващи радионуклиди:");
-	setValueList_pokazatel("Съдържание на алфа-излъчващи радионуклиди:");
-	setValueList_pokazatel("Съдържание на 55Fe");
-	setValueList_pokazatel("Съдържание на 63Ni");
-	setValueList_pokazatel("Съдържание на 90Sr");
-	setValueList_pokazatel("Съдържание на 241Pu");
+	setValueList_pokazatel("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° РіР°РјР°-РёР·Р»СЉС‡РІР°С‰Рё СЂР°РґРёРѕРЅСѓРєР»РёРґРё:");
+	setValueList_pokazatel("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° Р°Р»С„Р°-РёР·Р»СЉС‡РІР°С‰Рё СЂР°РґРёРѕРЅСѓРєР»РёРґРё:");
+	setValueList_pokazatel("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° 55Fe");
+	setValueList_pokazatel("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° 63Ni");
+	setValueList_pokazatel("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° 90Sr");
+	setValueList_pokazatel("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° 241Pu");
 	
 	
 }

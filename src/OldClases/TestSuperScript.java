@@ -41,7 +41,7 @@ public class TestSuperScript {
 		} catch (FileNotFoundException | Docx4JException e) {
 			e.printStackTrace();
 		}
-		String textString = "Текст1 текст2 60Co текст3 137Cs текст4";
+		String textString = "РўРµРєСЃС‚1 С‚РµРєСЃС‚2 60Co С‚РµРєСЃС‚3 137Cs С‚РµРєСЃС‚4";
 		List<Nuclide> list_Nuclide = NuclideDAO.getInListAllValueNuclide();
 		GenerateMapForRequestWordDocument();
 
@@ -285,7 +285,7 @@ public class TestSuperScript {
 		substitutionData.put("$$4$$", "Test4");
 		substitutionData.put("$$5$$", "Test5");
 		substitutionData.put("$$6$$", "Test6");
-		substitutionData.put("$$8$$", "Текст1 текст2 60Co текст3 137Cs текст4");
+		substitutionData.put("$$8$$", "РўРµРєСЃС‚1 С‚РµРєСЃС‚2 60Co С‚РµРєСЃС‚3 137Cs С‚РµРєСЃС‚4");
 
 		return substitutionData;
 	}

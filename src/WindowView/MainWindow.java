@@ -256,14 +256,14 @@ public class MainWindow extends JFrame {
 	}
 	
 	private JMenu createEjectionMenu() {
-		JMenu åjectionMenu = new JMenu(
+		JMenu ejectionMenu = new JMenu(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MenuEjection_TitleName"));
-		åjectionMenu.setMnemonic(KeyEvent.VK_I);
-		åjectionMenu.add(new MenuEjectionVolums());
-		åjectionMenu.add(new MenuEjectionCalculate());
-		åjectionMenu.add(new MenuEjectionIzhod2());
-		åjectionMenu.add(new ManuMounthlyReferenceEjectionRHtoORDK());
-		return åjectionMenu;
+		ejectionMenu.setMnemonic(KeyEvent.VK_I);
+		ejectionMenu.add(new MenuEjectionVolums());
+		ejectionMenu.add(new MenuEjectionCalculate());
+		ejectionMenu.add(new MenuEjectionIzhod2());
+		ejectionMenu.add(new ManuMounthlyReferenceEjectionRHtoORDK());
+		return ejectionMenu;
 	}
 
 	private JMenu createReferenceMenu() {

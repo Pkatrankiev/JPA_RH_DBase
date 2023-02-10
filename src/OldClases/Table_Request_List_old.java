@@ -76,9 +76,9 @@ public class Table_Request_List_old extends JDialog {
 	private static List<Integer> listRowForUpdate;
 	private static Object[][] dataTable;
 
-	private static String[] tableHeader = { "№ на Заявката", "Ид.№ на документа", "Дата на заявката",
-			"Изпитван продукт", "Обект на изпитване", "Показател", "Размерност", "Брой проби", "Описание на пробите",
-			"Референтна дата", "Срок на изпълнение", "Време на приемане", "Приел заявката", "Забележка", "Id User" };
+	private static String[] tableHeader = { "в„– РЅР° Р—Р°СЏРІРєР°С‚Р°", "РРґ.в„– РЅР° РґРѕРєСѓРјРµРЅС‚Р°", "Р”Р°С‚Р° РЅР° Р·Р°СЏРІРєР°С‚Р°",
+			"РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚", "РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ", "РџРѕРєР°Р·Р°С‚РµР»", "Р Р°Р·РјРµСЂРЅРѕСЃС‚", "Р‘СЂРѕР№ РїСЂРѕР±Рё", "РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±РёС‚Рµ",
+			"Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р°", "РЎСЂРѕРє РЅР° РёР·РїСЉР»РЅРµРЅРёРµ", "Р’СЂРµРјРµ РЅР° РїСЂРёРµРјР°РЅРµ", "РџСЂРёРµР» Р·Р°СЏРІРєР°С‚Р°", "Р—Р°Р±РµР»РµР¶РєР°", "Id User" };
 
 	private static String name_rqst_code_Colum = tableHeader[0];
 //	private static String name_id_ND_Colum = tableHeader[1];
@@ -114,7 +114,7 @@ public class Table_Request_List_old extends JDialog {
 	private static int user_Id_Colum = 14;
 
 	public Table_Request_List_old(JFrame parent, TranscluentWindow round, Users user, Request tamplateRequest) {
-		super(parent, "Списък на Заявките", true);
+		super(parent, "РЎРїРёСЃСЉРє РЅР° Р—Р°СЏРІРєРёС‚Рµ", true);
 
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
@@ -332,7 +332,7 @@ public class Table_Request_List_old extends JDialog {
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton("Р—Р°РїРёСЃ");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -358,7 +358,7 @@ public class Table_Request_List_old extends JDialog {
 				if (user != null && user.getIsAdmin()) {
 					panel_Btn.add(btnSave);
 				}
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton("РР·С…РѕРґ");
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
@@ -374,7 +374,7 @@ public class Table_Request_List_old extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
 
@@ -383,7 +383,7 @@ public class Table_Request_List_old extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_I_P);
 		I_P_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		I_P_Column.setCellRenderer(renderer);
 	}
 	
@@ -391,7 +391,7 @@ public class Table_Request_List_old extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(value_users);
 		users_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		users_Column.setCellRenderer(renderer);
 	}
 
@@ -399,7 +399,7 @@ public class Table_Request_List_old extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Id_Num_Doc);
 		id_Num_Doc_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		id_Num_Doc_Column.setCellRenderer(renderer);
 	}
 
@@ -407,7 +407,7 @@ public class Table_Request_List_old extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(value_Zabelejki);
 		zabel_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		zabel_Column.setCellRenderer(renderer);
 	}
 
@@ -518,7 +518,7 @@ public class Table_Request_List_old extends JDialog {
 		if (list.size() == ChoiceL_I_P.getChoiceL_P().size()) {
 			table.setValueAt(CreateStringListIzpPokaz(choiceLP), row, columnIndex);
 		} else {
-			JOptionPane.showMessageDialog(null, "Не можете да променяте броя Показатели", "Грешка в данните",
+			JOptionPane.showMessageDialog(null, "РќРµ РјРѕР¶РµС‚Рµ РґР° РїСЂРѕРјРµРЅСЏС‚Рµ Р±СЂРѕСЏ РџРѕРєР°Р·Р°С‚РµР»Рё", "Р“СЂРµС€РєР° РІ РґР°РЅРЅРёС‚Рµ",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}

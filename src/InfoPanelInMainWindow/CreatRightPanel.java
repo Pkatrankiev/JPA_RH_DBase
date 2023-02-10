@@ -48,14 +48,14 @@ public class CreatRightPanel {
 		
 		String curentData = DatePicker.getCurentDate(true);
 		
-		curentData = "Към "+curentData+" Последната заявка е ";
+		curentData = "РљСЉРј "+curentData+" РџРѕСЃР»РµРґРЅР°С‚Р° Р·Р°СЏРІРєР° Рµ ";
 		JLabel lbl_text_Last_Request = new JLabel(curentData+RequestDAO.getMaxRequestCode()+". ");
 		
 		
 		text_Panel_Right.add(lbl_text_Last_Request);
 
 
-		JLabel lbl_text_Panel_Right = new JLabel("Пропуснати записи от ");
+		JLabel lbl_text_Panel_Right = new JLabel("РџСЂРѕРїСѓСЃРЅР°С‚Рё Р·Р°РїРёСЃРё РѕС‚ ");
 		text_Panel_Right.add(lbl_text_Panel_Right);
 
 		textField_Panel_Right = new JTextField();
@@ -88,7 +88,7 @@ public class CreatRightPanel {
 		});
 		IntegerDocumentFilter.addTo(textField_Panel_Right);
 
-		JLabel lbl2_text_Panel_Right = new JLabel("г.:");
+		JLabel lbl2_text_Panel_Right = new JLabel("Рі.:");
 		text_Panel_Right.add(lbl2_text_Panel_Right);
 
 		JPanel column_Panel_Right = new JPanel();
@@ -128,12 +128,12 @@ public class CreatRightPanel {
 		panel_missing_protokol.setMaximumSize(new Dimension(100, 32767));
 		panel_missing_protokol.setLayout(new BoxLayout(panel_missing_protokol, BoxLayout.Y_AXIS));
 
-		JLabel lblLabel_Code = new JLabel("Пропуснати");
+		JLabel lblLabel_Code = new JLabel("РџСЂРѕРїСѓСЃРЅР°С‚Рё");
 		panel_missing_request.add(lblLabel_Code);
 		lblLabel_Code.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblLabel_Code.setMaximumSize(new Dimension(80, 14));
 
-		JLabel lblNewLabel_1 = new JLabel("заявки");
+		JLabel lblNewLabel_1 = new JLabel("Р·Р°СЏРІРєРё");
 		panel_missing_request.add(lblNewLabel_1);
 
 		setsLabel(listMissingRequest, panel_missing_request);
@@ -142,12 +142,12 @@ public class CreatRightPanel {
 		panel_missing_request.repaint();
 
 		listMissingRequest = VariableFromStartWindowPanel.getListMissingResultsRightPanelStartWindo();
-		JLabel lblResults = new JLabel("Заявки без");
+		JLabel lblResults = new JLabel("Р—Р°СЏРІРєРё Р±РµР·");
 		panel_missing_results.add(lblResults);
 		lblResults.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblResults.setMaximumSize(new Dimension(60, 14));
 
-		lblResults = new JLabel("резултати");
+		lblResults = new JLabel("СЂРµР·СѓР»С‚Р°С‚Рё");
 		panel_missing_results.add(lblResults);
 
 		setsLabel(listMissingRequest, panel_missing_results);
@@ -157,12 +157,12 @@ public class CreatRightPanel {
 
 		listMissingRequest = VariableFromStartWindowPanel.getListMissingProtokolsRightPanelStartWindo();
 
-		JLabel lblProtokol = new JLabel("Заявки без");
+		JLabel lblProtokol = new JLabel("Р—Р°СЏРІРєРё Р±РµР·");
 		panel_missing_protokol.add(lblProtokol);
 		lblProtokol.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblProtokol.setMaximumSize(new Dimension(60, 14));
 
-		lblProtokol = new JLabel("протокол");
+		lblProtokol = new JLabel("РїСЂРѕС‚РѕРєРѕР»");
 		panel_missing_protokol.add(lblProtokol);
 
 		setsLabel(listMissingRequest, panel_missing_protokol);

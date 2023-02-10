@@ -20,10 +20,10 @@ public class DeleteRequestFromDBase {
 	public static void Delete_RequestFromDBase(Request request, TranscluentWindow round) {
 		round.StopWindow();
 		if (listResultsByCodeRequest(request).size() > 0) {
-			JOptionPane.showMessageDialog(null, "Не може да се изрие заявката.\nИма въведени резултати за нея.");
+			JOptionPane.showMessageDialog(null, "РќРµ РјРѕР¶Рµ РґР° СЃРµ РёР·СЂРёРµ Р·Р°СЏРІРєР°С‚Р°.\nРРјР° РІСЉРІРµРґРµРЅРё СЂРµР·СѓР»С‚Р°С‚Рё Р·Р° РЅРµСЏ.");
 		} else {
 			int result = JOptionPane.showConfirmDialog(null,
-					"Ще изтриете ли заявка с код: " + request.getRecuest_code() + "? ", null,
+					"Р©Рµ РёР·С‚СЂРёРµС‚Рµ Р»Рё Р·Р°СЏРІРєР° СЃ РєРѕРґ: " + request.getRecuest_code() + "? ", null,
 					JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION) {
 				DeleteAllObjectsConnectedByRequest(request, false);

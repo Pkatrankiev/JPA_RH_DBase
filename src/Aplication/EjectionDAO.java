@@ -128,8 +128,8 @@ public class EjectionDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на резултат: "+ejection.getObect().getName_obekt_na_izpitvane()+"-"+
-			ejection.getMesec().getValue()+" "+ejection.getGodina(), "Проблем с база данни:",
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° СЂРµР·СѓР»С‚Р°С‚: "+ejection.getObect().getName_obekt_na_izpitvane()+"-"+
+			ejection.getMesec().getValue()+" "+ejection.getGodina(), "РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

@@ -554,7 +554,7 @@ public class InfoResultMiniFrame extends JDialog {
 
 
 	private String getResult(Results result) {
-		return  FunctionForGenerateWordDocFile.formatter(result.getValue_result()) + " ± "
+		return  FunctionForGenerateWordDocFile.formatter(result.getValue_result()) + " Â± "
 				+FunctionForGenerateWordDocFile. alignExpon(result.getValue_result(), result.getUncertainty());
 		
 	}

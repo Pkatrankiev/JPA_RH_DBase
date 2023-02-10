@@ -578,7 +578,7 @@ public class ViewReferenceTable extends JDialog {
 								.formatter(((Results) masiveValueDataTable[i][j]).getValue_result());
 						if(!rdbtnBezNeopred.isSelected()){
 						if (selectAbsNeopred) {
-							listMasiveStringReferens[i - 1][j] = listMasiveStringReferens[i - 1][j] + " ± "
+							listMasiveStringReferens[i - 1][j] = listMasiveStringReferens[i - 1][j] + " Â± "
 									+ FunctionForGenerateWordDocFile.alignExpon(
 											((Results) masiveValueDataTable[i][j]).getValue_result(),
 											((Results) masiveValueDataTable[i][j]).getUncertainty());

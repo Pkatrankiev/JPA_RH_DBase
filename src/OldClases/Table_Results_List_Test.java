@@ -82,7 +82,7 @@ public class Table_Results_List_Test extends JDialog {
 		Class[] types = getTypes();
 		dataTable = getDataTable(request);
 
-		setTitle("Списък на Резултатите");
+		setTitle("РЎРїРёСЃСЉРє РЅР° Р РµР·СѓР»С‚Р°С‚РёС‚Рµ");
 		values_Metody = MetodyDAO.getMasiveStringAllValueMetody();
 		values_Izpit_Pokazatel = List_izpitvan_pokazatelDAO.getMasiveStringAllValueList_Izpitvan_Pokazatel();
 		values_Nuclide = NuclideDAO.getMasiveStringAllValueNuclide();
@@ -204,7 +204,7 @@ public class Table_Results_List_Test extends JDialog {
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton("Р—Р°РїРёСЃ");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -225,7 +225,7 @@ public class Table_Results_List_Test extends JDialog {
 					panel_Btn.add(btnSave);
 				}
 
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton("РР·С…РѕРґ");
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
@@ -288,10 +288,10 @@ public class Table_Results_List_Test extends JDialog {
 
 							}
 						} catch (NullPointerException e) {
-							JOptionPane.showInputDialog("Грешни данни за резултат:" + results.getId_results(),
+							JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:" + results.getId_results(),
 									JOptionPane.ERROR_MESSAGE);
 						} catch (NumberFormatException e) {
-							JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
@@ -351,9 +351,9 @@ public class Table_Results_List_Test extends JDialog {
 
 						i++;
 					} catch (NullPointerException e) {
-						JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 					} catch (NumberFormatException e) {
-						JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 					}
 
 				}
@@ -391,9 +391,9 @@ public class Table_Results_List_Test extends JDialog {
 	}
 
 	private String[] getTabHeader() {
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
-				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
-				"Количество", "Мярка", "В протокол", "Id" };
+		String[] tableHeader = { "в„– РЅР° Р—Р°СЏРІРєР°С‚Р°", "РљРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°", "РћР±РµРєС‚ РЅР° РїСЂРѕР±Р°С‚Р°", "РњРµС‚РѕРґ РЅР° РёР·РїРёС‚РІР°РЅРµ",
+				"РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»", "РќСѓРєР»РёРґ", "РђРєС‚РёРІРЅРѕСЃС‚", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "РЎРёРіРјР°", "РњР”Рђ", "Р Р°Р·РјРµСЂРЅРѕСЃС‚",
+				"РљРѕР»РёС‡РµСЃС‚РІРѕ", "РњСЏСЂРєР°", "Р’ РїСЂРѕС‚РѕРєРѕР»", "Id" };
 		return tableHeader;
 	}
 
@@ -429,7 +429,7 @@ public class Table_Results_List_Test extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Izpit_Pokazatel);
 		izpit_Pokazatel_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		izpit_Pokazatel_Column.setCellRenderer(renderer);
 	}
 
@@ -437,7 +437,7 @@ public class Table_Results_List_Test extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Period);
 		Period_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Period_Column.setCellRenderer(renderer);
 	}
 
@@ -445,7 +445,7 @@ public class Table_Results_List_Test extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Metody);
 		Metody_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Metody_Column.setCellRenderer(renderer);
 	}
 
@@ -453,7 +453,7 @@ public class Table_Results_List_Test extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Nuclide);
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -461,7 +461,7 @@ public class Table_Results_List_Test extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
 
@@ -469,7 +469,7 @@ public class Table_Results_List_Test extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Dimension);
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Dimension_Column.setCellRenderer(renderer);
 	}
 

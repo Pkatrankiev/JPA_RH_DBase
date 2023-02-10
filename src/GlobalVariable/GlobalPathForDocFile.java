@@ -30,7 +30,7 @@ public class GlobalPathForDocFile {
 	
 //	private static final String TEMPLATE_DIRECTORY_ROOT = "TEMPLATES_DIRECTORY/";
 //	private static final String destinationDir = "DIRECTORY/";
-//	private static final String destinationDir_Protocols = "l:/ЛИ-РХ/Протоколи/";
+//	private static final String destinationDir_Protocols = "l:/Р›Р-Р РҐ/РџСЂРѕС‚РѕРєРѕР»Рё/";
 //	public static final int maxRowInOneTableOnePage = 24;
 //	public static final int maxRowInFullTableOnePage = 32;
 //	private static final Integer[] masiveMergeColumn = {0,1,4};

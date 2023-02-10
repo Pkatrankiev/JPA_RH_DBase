@@ -57,10 +57,10 @@ public class RequestMiniFrame extends JDialog {
 				
 				String applicant = "";
 				if (request.getExtra_module()==null) {
-					applicant = "ДП \"РАО\"";	
+					applicant = "Р”Рџ \"Р РђРћ\"";	
 				}else{
 					if(request.getExtra_module().getInternal_applicant()==null&& request.getExtra_module().getInternal_applicant()==null){
-						applicant = "ДП \"РАО\"";
+						applicant = "Р”Рџ \"Р РђРћ\"";
 					}else{
 					if (request.getExtra_module().getInternal_applicant()!=null) {
 						applicant = request.getExtra_module().getInternal_applicant().getInternal_applicant_organization();
@@ -77,7 +77,7 @@ public class RequestMiniFrame extends JDialog {
 				gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 				getContentPane().setLayout(gridBagLayout);
 				
-				JLabel requestCode_label = new JLabel("Код на заявката");
+				JLabel requestCode_label = new JLabel("РљРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°");
 				GridBagConstraints gbc_requestCode_label = new GridBagConstraints();
 				gbc_requestCode_label.anchor = GridBagConstraints.WEST;
 				gbc_requestCode_label.insets = new Insets(0, 0, 5, 5);
@@ -115,7 +115,7 @@ public class RequestMiniFrame extends JDialog {
 				
 				if(request.getInd_num_doc()!=null){
 					String IDNumberRequest = request.getInd_num_doc().getName();
-				JLabel IdNumber_label = new JLabel("Ид. номер");
+				JLabel IdNumber_label = new JLabel("РРґ. РЅРѕРјРµСЂ");
 				GridBagConstraints gbc_IdNumber_label = new GridBagConstraints();
 				gbc_IdNumber_label.anchor = GridBagConstraints.WEST;
 				gbc_IdNumber_label.insets = new Insets(0, 0, 5, 5);
@@ -138,7 +138,7 @@ public class RequestMiniFrame extends JDialog {
 				
 				
 				
-				JLabel applicant_label = new JLabel("Заявител");
+				JLabel applicant_label = new JLabel("Р—Р°СЏРІРёС‚РµР»");
 				GridBagConstraints gbc_applicant_label = new GridBagConstraints();
 				gbc_applicant_label.anchor = GridBagConstraints.WEST;
 				gbc_applicant_label.insets = new Insets(0, 0, 5, 5);
@@ -158,7 +158,7 @@ public class RequestMiniFrame extends JDialog {
 				maxWidth = getMaxWidth(maxWidth, applicant_value);
 				
 				
-				JLabel I_P_R_label = new JLabel("Изпитван продукт");
+				JLabel I_P_R_label = new JLabel("РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚");
 				GridBagConstraints gbc_I_P_R_label = new GridBagConstraints();
 				gbc_I_P_R_label.anchor = GridBagConstraints.WEST;
 				gbc_I_P_R_label.insets = new Insets(0, 0, 5, 5);
@@ -178,7 +178,7 @@ public class RequestMiniFrame extends JDialog {
 				maxWidth = getMaxWidth(maxWidth, I_P_R_Value);
 				
 				
-				JLabel O_I_R_label = new JLabel("Обект на изпитване");
+				JLabel O_I_R_label = new JLabel("РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ");
 				GridBagConstraints gbc_O_I_R_label = new GridBagConstraints();
 				gbc_O_I_R_label.anchor = GridBagConstraints.WEST;
 				gbc_O_I_R_label.insets = new Insets(0, 0, 5, 5);
@@ -198,7 +198,7 @@ public class RequestMiniFrame extends JDialog {
 				maxWidth = getMaxWidth(maxWidth, O_I_R_value);
 				
 				
-				JLabel lblPokazatel = new JLabel("Изпитван показател");
+				JLabel lblPokazatel = new JLabel("РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»");
 				GridBagConstraints gbc_lblPokazatel = new GridBagConstraints();
 				gbc_lblPokazatel.anchor = GridBagConstraints.WEST;
 				gbc_lblPokazatel.insets = new Insets(0, 0, 5, 5);
@@ -219,7 +219,7 @@ public class RequestMiniFrame extends JDialog {
 				
 				
 				
-				JLabel countSample_label = new JLabel("Брой проби");
+				JLabel countSample_label = new JLabel("Р‘СЂРѕР№ РїСЂРѕР±Рё");
 				GridBagConstraints gbc_countSample_label = new GridBagConstraints();
 				gbc_countSample_label.anchor = GridBagConstraints.WEST;
 				gbc_countSample_label.insets = new Insets(0, 0, 0, 5);

@@ -73,11 +73,11 @@ public class btnTabFromFileAddDobivSection {
 						break;
 					}
 					} else {
-						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showInputDialog("РЎР°РјРѕ Р·Р° РјРµС‚РѕРґ Рњ.Р›Р-Р РҐ-10", JOptionPane.ERROR_MESSAGE);
 					}
 					AddResultViewMetods.setDefaultCursor(basic_panel);
 				} else {
-					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showInputDialog("РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 

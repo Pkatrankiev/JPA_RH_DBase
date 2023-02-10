@@ -102,18 +102,18 @@ public class DialogFrames {
 		jf.setAlwaysOnTop(true);
 		/**	
 		 * 	
-		Object (returns String) – Shows a question-message dialog requesting input from the user.
-		Object, Object (returns String) – Shows a question-message dialog requesting 
+		Object (returns String) â€“ Shows a question-message dialog requesting input from the user.
+		Object, Object (returns String) â€“ Shows a question-message dialog requesting 
 										input from the user with the input value initialized.
-		Component, Object (returns String) – Shows a question-message dialog requesting 
+		Component, Object (returns String) â€“ Shows a question-message dialog requesting 
 											input from the user. Returns the input as String. 
 											The Component determines the Frame in which the dialog 
 											is displayed; if null, or if the parentComponent has no 
 											Frame, a default Frame is used.
-		Component, Object, Object (returns String) – Same as above. The only difference is that the 
+		Component, Object, Object (returns String) â€“ Same as above. The only difference is that the 
 											input field has an initial value set through the last 
 											Object parameter.
-		Component, Object, String, int (returns String) – Shows a dialog requesting 	
+		Component, Object, String, int (returns String) â€“ Shows a dialog requesting 	
 											input from the user. The dialog has a title 
 											set through the String parameter and a MessageType 
 											set through the int parameter. The different MessageTypes 
@@ -123,7 +123,7 @@ public class DialogFrames {
 																WARNING_MESSAGE
 																QUESTION_MESSAGE
 																PLAIN_MESSAGE
-		Component, Object, String, int, Icon, Object[], Object (returns Object) – Prompts the user for 
+		Component, Object, String, int, Icon, Object[], Object (returns Object) â€“ Prompts the user for 
 												input in a blocking dialog where the initial selection, 
 												possible selections, and all other options can be specified. 
 												The Icon (if not null) is displayed inside the dialog and

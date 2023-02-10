@@ -81,19 +81,19 @@ public class btnOpenFileSection {
 								OverallVariablesAddResults.setFlagIncertedFile(true);
 							} else {
 								OverallVariablesAddResults.setFlagIncertedFile(false);
-								JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!\n"+"error 75", "Грешни данни",
+								JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»!\n"+"error 75", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 										JOptionPane.ERROR_MESSAGE);
 
 							}
 						} else {
 							OverallVariablesAddResults.setFlagIncertedFile(false);
-							JOptionPane.showMessageDialog(null, "Не сте избрали метод!\n"+"error 81", "Грешни данни",
+							JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РјРµС‚РѕРґ!\n"+"error 81", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				} catch (Exception e2) {
 					ResourceLoader.appendToFile(e2);
-					JOptionPane.showMessageDialog(null, "Не сте избрали файл!\n"+"error 86", "Грешни данни",
+					JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё С„Р°Р№Р»!\n"+"error 86", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 							JOptionPane.ERROR_MESSAGE);
 				}
 

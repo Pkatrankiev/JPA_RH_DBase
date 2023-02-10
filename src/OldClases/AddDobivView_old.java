@@ -128,15 +128,15 @@ public class AddDobivView_old extends JDialog {
 	private static JTextField textFieldDobivDescrip;
 
 	public AddDobivView_old(JFrame parent, TranscluentWindow round, Users user) {
-		super(parent, "Въвеждане на Добив", true);
+		super(parent, "Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р”РѕР±РёРІ", true);
 		list_Users = UsersDAO.getInListAllValueUsers();
 		// list_UsersNameFamily =
 		// UsersDAO.getListStringAllName_FamilyUsersByPost(null);
 
 		user_Redac = user;
 
-		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОИР"));
-		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("ОРХО"));
+		list_UsersNameFamilyOIR = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћРР "));
+		list_UsersNameFamilyORHO = UsersDAO.getListStringAllName_FamilyUsersByPost(PostDAO.getValuePostByName("РћР РҐРћ"));
 		listMetody = MetodyDAO.getInListAllValueMetody();
 		for (Dobiv dobiv : DobivDAO.getListAllDobiv()) {
 			listStandartCodeAllDobiv.add(dobiv.getCode_Standart());
@@ -196,7 +196,7 @@ public class AddDobivView_old extends JDialog {
 
 	private void ChoiceOIR_Section(JPanel panel) {
 
-		JLabel lblNewLabel_2 = new JLabel("Извършил анализа");
+		JLabel lblNewLabel_2 = new JLabel("РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -240,7 +240,7 @@ public class AddDobivView_old extends JDialog {
 
 	private void MetodSection(JPanel panel) {
 		Dimension dim = new Dimension(550, 14);
-		JLabel lblMetody = new JLabel("Метод");
+		JLabel lblMetody = new JLabel("РњРµС‚РѕРґ");
 		GridBagConstraints gbc_lblMetody = new GridBagConstraints();
 		gbc_lblMetody.anchor = GridBagConstraints.EAST;
 		gbc_lblMetody.insets = new Insets(0, 0, 5, 5);
@@ -347,7 +347,7 @@ public class AddDobivView_old extends JDialog {
 	}
 
 	private void ChoiceORHO_Section(JPanel panel) {
-		JLabel lblNewLabel_1 = new JLabel("Извършил Хим. обработ.");
+		JLabel lblNewLabel_1 = new JLabel("РР·РІСЉСЂС€РёР» РҐРёРј. РѕР±СЂР°Р±РѕС‚.");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
@@ -391,7 +391,7 @@ public class AddDobivView_old extends JDialog {
 
 	private void DobivDescriptionSection(JPanel panel) {
 
-		JLabel lblDobivDescrip = new JLabel("Описание");
+		JLabel lblDobivDescrip = new JLabel("РћРїРёСЃР°РЅРёРµ");
 		GridBagConstraints gbc_lblDobivDescrip = new GridBagConstraints();
 		gbc_lblDobivDescrip.gridwidth = 2;
 		gbc_lblDobivDescrip.insets = new Insets(0, 0, 5, 5);
@@ -412,7 +412,7 @@ public class AddDobivView_old extends JDialog {
 	}
 
 	public void IzpitvanProduktSection(JPanel panel) {
-		JLabel lblIzpitProd = new JLabel("Изпитван продукт");
+		JLabel lblIzpitProd = new JLabel("РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚");
 		GridBagConstraints gbc_lblIzpitProd = new GridBagConstraints();
 		gbc_lblIzpitProd.anchor = GridBagConstraints.EAST;
 		gbc_lblIzpitProd.insets = new Insets(0, 0, 5, 5);
@@ -467,7 +467,7 @@ public class AddDobivView_old extends JDialog {
 		basic_panel.add(lblError, gbc_lblError);
 		lblError.setVisible(false);
 
-		JLabel lblStandartCode = new JLabel("Код на стандарта");
+		JLabel lblStandartCode = new JLabel("РљРѕРґ РЅР° СЃС‚Р°РЅРґР°СЂС‚Р°");
 		GridBagConstraints gbc_lblStandartCode = new GridBagConstraints();
 		gbc_lblStandartCode.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblStandartCode.insets = new Insets(0, 0, 5, 5);
@@ -532,7 +532,7 @@ public class AddDobivView_old extends JDialog {
 				if (listChoisedDobiv.size() == 0) {
 					txtStandartCode.setForeground(Color.red);
 					lblError.setVisible(true);
-					lblError.setText("Добиви с този код не съществуват");
+					lblError.setText("Р”РѕР±РёРІРё СЃ С‚РѕР·Рё РєРѕРґ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°С‚");
 					corectStandartCode = true;
 					validate();
 					repaint();
@@ -542,7 +542,7 @@ public class AddDobivView_old extends JDialog {
 					txtStandartCode.setBorder(new LineBorder(Color.BLACK));
 					// txtStandartCode.setEditable(false);
 					lblError.setVisible(true);
-					lblError.setText("Добиви с този код съществуват");
+					lblError.setText("Р”РѕР±РёРІРё СЃ С‚РѕР·Рё РєРѕРґ СЃСЉС‰РµСЃС‚РІСѓРІР°С‚");
 					textFieldDobivDescrip.setText(listChoisedDobiv.get(0).getDescription());
 					choiceIzpitProd.select(listChoisedDobiv.get(0).getIzpitvan_produkt().getName_zpitvan_produkt());
 					choiceOIR.select(UsersDAO.getStringName_FamilyUser(listChoisedDobiv.get(0).getUser_measur()));
@@ -565,7 +565,7 @@ public class AddDobivView_old extends JDialog {
 
 	private void btnDataFromDBase(JPanel panel) {
 
-		JButton btnCreadTable = new JButton("Данни от базата");
+		JButton btnCreadTable = new JButton("Р”Р°РЅРЅРё РѕС‚ Р±Р°Р·Р°С‚Р°");
 		btnCreadTableListenerFromDBase(panel, btnCreadTable);
 		GridBagConstraints gbc_btnCreadTable = new GridBagConstraints();
 		gbc_btnCreadTable.gridwidth = 2;
@@ -684,12 +684,12 @@ public class AddDobivView_old extends JDialog {
 			rowFromTableDobiv[TSI_Colum] = dobiv.getTsi().getName();
 			rowFromTableDobiv[dateHimObr_Colum] = dobiv.getDate_chim_oper();
 			rowFromTableDobiv[dateAnaliz_Colum] = dobiv.getDate_measur();
-			rowFromTableDobiv[check_Colum] = "Провери";
+			rowFromTableDobiv[check_Colum] = "РџСЂРѕРІРµСЂРё";
 			rowFromTableDobiv[dobiv_Id_Colum] = dobiv.getId_dobiv();
 		} catch (NullPointerException e) {
-			JOptionPane.showInputDialog("Грешни данни за резултат:" + dobiv.getId_dobiv(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:" + dobiv.getId_dobiv(), JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e) {
-			JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 		}
 		return rowFromTableDobiv;
 	}
@@ -702,7 +702,7 @@ public class AddDobivView_old extends JDialog {
 		rowFromTableResult[TSI_Colum] = "";
 		rowFromTableResult[dateHimObr_Colum] = "";
 		rowFromTableResult[dateAnaliz_Colum] = "";
-		rowFromTableResult[check_Colum] = "Провери";
+		rowFromTableResult[check_Colum] = "РџСЂРѕРІРµСЂРё";
 		rowFromTableResult[dobiv_Id_Colum] = null;
 		return rowFromTableResult;
 	}
@@ -903,7 +903,7 @@ public class AddDobivView_old extends JDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-		JButton okButton = new JButton("Запис");
+		JButton okButton = new JButton("Р—Р°РїРёСЃ");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Dobiv> listDobivsForSave = creadListFromDobivObjectForSave();
@@ -935,31 +935,31 @@ public class AddDobivView_old extends JDialog {
 
 		if (txtStandartCode.getText().trim().isEmpty()) {
 			txtStandartCode.setBackground(Color.RED);
-		str_Error = str_Error + "код на стандарта" + "\n";
+		str_Error = str_Error + "РєРѕРґ РЅР° СЃС‚Р°РЅРґР°СЂС‚Р°" + "\n";
 		 saveCheck = false;
 		 }
 
 		if (choiceIzpitProd.getSelectedItem().trim().isEmpty()) {
 			choiceIzpitProd.setBackground(Color.RED);
-			str_Error = str_Error + "изпитван продукт" + "\n";
+			str_Error = str_Error + "РёР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceMetody.getSelectedItem().trim().isEmpty()) {
 			choiceMetody.setBackground(Color.RED);
-			str_Error = str_Error + "метод" + "\n";
+			str_Error = str_Error + "РјРµС‚РѕРґ" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceOIR.getSelectedItem().trim().isEmpty()) {
 			choiceOIR.setBackground(Color.RED);
-			str_Error = str_Error + "извършил анализа" + "\n";
+			str_Error = str_Error + "РёР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°" + "\n";
 			saveCheck = false;
 		}
 
 		if (choiceORHO.getSelectedItem().trim().isEmpty()) {
 			choiceORHO.setBackground(Color.RED);
-			str_Error = str_Error + "изв. хим. обработка" + "\n";
+			str_Error = str_Error + "РёР·РІ. С…РёРј. РѕР±СЂР°Р±РѕС‚РєР°" + "\n";
 			saveCheck = false;
 		}
 
@@ -969,7 +969,7 @@ public class AddDobivView_old extends JDialog {
 		}
 
 		if (!saveCheck) {
-			JOptionPane.showMessageDialog(AddDobivView_old.this, str_Error, "Грешни данни за следните полета:",
+			JOptionPane.showMessageDialog(AddDobivView_old.this, str_Error, "Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -990,15 +990,15 @@ public class AddDobivView_old extends JDialog {
 					listCodeNuclide.add(dataTable[i][nuclide_Colum].toString());
 					
 					if (dataTable[i][TSI_Colum].toString().trim().isEmpty()) {
-						errTSI = "Т С И " + "\n";
+						errTSI = "Рў РЎ Р " + "\n";
 					}
 					
 					if (DatePicker.incorrectDate(dataTable[i][dateHimObr_Colum].toString().trim(), false)) {
-						errDateHim =  "дата на хим. обраб." + "\n";
+						errDateHim =  "РґР°С‚Р° РЅР° С…РёРј. РѕР±СЂР°Р±." + "\n";
 					}
 					
 					if (DatePicker.incorrectDate(dataTable[i][dateAnaliz_Colum].toString().trim(), false)) {
-						errDateAnaliz = "дата на анализ" + "\n";
+						errDateAnaliz = "РґР°С‚Р° РЅР° Р°РЅР°Р»РёР·" + "\n";
 					}
 
 				}
@@ -1007,10 +1007,10 @@ public class AddDobivView_old extends JDialog {
 			List<String> deDupStringList = new ArrayList<>(new HashSet<>(listCodeNuclide));
 			
 			if (deDupStringList.size() != listCodeNuclide.size()) {
-				errDuplic = "повтарящи се нуклиди" + "\n";
+				errDuplic = "РїРѕРІС‚Р°СЂСЏС‰Рё СЃРµ РЅСѓРєР»РёРґРё" + "\n";
 			}
 		} else {
-			errDuplic =  "невъведени данни"+ "\n";
+			errDuplic =  "РЅРµРІСЉРІРµРґРµРЅРё РґР°РЅРЅРё"+ "\n";
 		}
 		return (errTSI + errDateHim  + errDateAnaliz + errDuplic);
 	}
@@ -1112,7 +1112,7 @@ public class AddDobivView_old extends JDialog {
 	}
 
 	private void BasicValueFileSection(JPanel panel) {
-		JLabel lblBasicValueRsltsFile = new JLabel("Път до файла");
+		JLabel lblBasicValueRsltsFile = new JLabel("РџСЉС‚ РґРѕ С„Р°Р№Р»Р°");
 		GridBagConstraints gbc_lblBasicValueRsltsFile = new GridBagConstraints();
 		gbc_lblBasicValueRsltsFile.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBasicValueRsltsFile.anchor = GridBagConstraints.EAST;
@@ -1146,7 +1146,7 @@ public class AddDobivView_old extends JDialog {
 		}
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -1154,13 +1154,13 @@ public class AddDobivView_old extends JDialog {
 		JComboBox<?> comboBox = new JComboBox<Object>(masiveTSI);
 		tSI_column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		tSI_column.setCellRenderer(renderer);
 
 	}
 
 	private void btnOpenFile(JPanel panel) {
-		JButton btnOpenFile = new JButton("Отвори");
+		JButton btnOpenFile = new JButton("РћС‚РІРѕСЂРё");
 		btnOpenFileListener(btnOpenFile);
 		GridBagConstraints gbc_btnBasicDataFile = new GridBagConstraints();
 		gbc_btnBasicDataFile.anchor = GridBagConstraints.WEST;
@@ -1204,7 +1204,7 @@ public class AddDobivView_old extends JDialog {
 
 	private void btnTabFromFile(JPanel basic_panel) {
 
-		JButton btnTabFromFile = new JButton("Данни от файл");
+		JButton btnTabFromFile = new JButton("Р”Р°РЅРЅРё РѕС‚ С„Р°Р№Р»");
 		btnTabFromFileListener(basic_panel, btnTabFromFile);
 		GridBagConstraints gbc_btnTabFromFile = new GridBagConstraints();
 		gbc_btnTabFromFile.anchor = GridBagConstraints.WEST;
@@ -1215,7 +1215,7 @@ public class AddDobivView_old extends JDialog {
 	}
 
 	private void btnAddRow(JPanel basic_panel) {
-		btnAddRow = new JButton("нов Нуклид");
+		btnAddRow = new JButton("РЅРѕРІ РќСѓРєР»РёРґ");
 		btmAddRowListener(basic_panel, btnAddRow);
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
 		gbc_btnAddRow.anchor = GridBagConstraints.EAST;
@@ -1247,10 +1247,10 @@ public class AddDobivView_old extends JDialog {
 
 						}
 					} else {
-						JOptionPane.showInputDialog("Само за метод М.ЛИ-РХ-10", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showInputDialog("РЎР°РјРѕ Р·Р° РјРµС‚РѕРґ Рњ.Р›Р-Р РҐ-10", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showInputDialog("Не сте избрали коректен файл", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showInputDialog("РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -1324,7 +1324,7 @@ public class AddDobivView_old extends JDialog {
 	}
 
 	private static String[] getTabHeader() {
-		String[] tableHeader = { "Нуклид", "Добив", "Неопределеност", "Т С И", "ДатаХимОбр", "ДатаАнализ", "Проверка",
+		String[] tableHeader = { "РќСѓРєР»РёРґ", "Р”РѕР±РёРІ", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "Рў РЎ Р", "Р”Р°С‚Р°РҐРёРјРћР±СЂ", "Р”Р°С‚Р°РђРЅР°Р»РёР·", "РџСЂРѕРІРµСЂРєР°",
 				"Id_Result" };
 		return tableHeader;
 	}

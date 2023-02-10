@@ -62,7 +62,7 @@ public class FrameChoiceRequestByCode extends JDialog {
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblNewLabel = new JLabel("Въведете № на заявката:");
+			JLabel lblNewLabel = new JLabel("Р’СЉРІРµРґРµС‚Рµ в„– РЅР° Р·Р°СЏРІРєР°С‚Р°:");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -169,24 +169,24 @@ public class FrameChoiceRequestByCode extends JDialog {
 				choiseRequest, RequestViewFunction.generateStringListIzpitvanPokazatelFromrequest(choiseRequest),
 				RequestViewFunction.generateMasiveSampleDescriptionFromRequest(choiseRequest), date_time_reference);
 		switch (nameFrame) {
-		case "Генериране на Протокол":
+		case "Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РџСЂРѕС‚РѕРєРѕР»":
 			
 			GenerateDocProtokol.GenerateProtokolWordDoc(fileProtDoc, choiseRequest, substitutionData, round);
 					
 			break;
-		case "Генериране на Заявка":
+		case "Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° Р—Р°СЏРІРєР°":
 			GenerateRequestWordDoc.generateAndSend_Request_Docx(fileRequestDoc,
 					"Z-" + choiseRequest.getRecuest_code() + "_" + choiseRequest.getDate_request(), substitutionData, round);
 			break;
-		case "Генериране на Разпределителен формуляр":
+		case "Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° Р Р°Р·РїСЂРµРґРµР»РёС‚РµР»РµРЅ С„РѕСЂРјСѓР»СЏСЂ":
 			GenerateDocRazpredFormul.GenerateRazpFormWordDoc(fileRazpredDoc, choiseRequest, substitutionData, round);
 			break;
 			
-		case "Изтриване на Заявка":
+		case "РР·С‚СЂРёРІР°РЅРµ РЅР° Р—Р°СЏРІРєР°":
 			DeleteRequestFromDBase.Delete_RequestFromDBase(choiseRequest, round);
 		break;
 		
-		case "Редактиране на Заявка":
+		case "Р РµРґР°РєС‚РёСЂР°РЅРµ РЅР° Р—Р°СЏРІРєР°":
 			JFrame f = new JFrame();
 			new RequestView(f, user, choiseRequest, round, true);
 		break;
@@ -205,9 +205,9 @@ public class FrameChoiceRequestByCode extends JDialog {
 
 		if (!corectRequestCode) {
 			textField.setBorder(new LineBorder(Color.RED));
-			str_RequestCode = "код на заявката";
+			str_RequestCode = "РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°";
 			saveCheck = false;
-			JOptionPane.showMessageDialog(FrameChoiceRequestByCode.this, str_RequestCode, "Грешни данни",
+			JOptionPane.showMessageDialog(FrameChoiceRequestByCode.this, str_RequestCode, "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -218,13 +218,13 @@ public class FrameChoiceRequestByCode extends JDialog {
 		txtField_RequestCode.setText(RequestViewFunction.checkFormatString(txtField_RequestCode.getText()));
 		if (!RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 			txtField_RequestCode.setForeground(Color.red);
-			lblError.setText("Заявка с този номер не съществува");
+			lblError.setText("Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°");
 			corectRequestCode = false;
 		} else {
 
 			if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 				txtField_RequestCode.setForeground(Color.red);
-				lblError.setText("Некоректен номер");
+				lblError.setText("РќРµРєРѕСЂРµРєС‚РµРЅ РЅРѕРјРµСЂ");
 				corectRequestCode = false;
 			} else {
 				txtField_RequestCode.setForeground(Color.BLACK);

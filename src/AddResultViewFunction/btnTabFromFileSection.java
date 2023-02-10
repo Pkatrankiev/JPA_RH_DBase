@@ -109,13 +109,13 @@ public class btnTabFromFileSection {
 								break;
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Не е избран метод", "Грешни данни",
+							JOptionPane.showMessageDialog(null, "РќРµ Рµ РёР·Р±СЂР°РЅ РјРµС‚РѕРґ", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					
 						AddResultViewMetods.setDefaultCursor(basic_panel);
 				} else {
-					JOptionPane.showMessageDialog(null, "Не сте избрали коректен файл!", "Грешни данни",
+					JOptionPane.showMessageDialog(null, "РќРµ СЃС‚Рµ РёР·Р±СЂР°Р»Рё РєРѕСЂРµРєС‚РµРЅ С„Р°Р№Р»!", "Р“СЂРµС€РЅРё РґР°РЅРЅРё",
 							JOptionPane.ERROR_MESSAGE);
 
 				}
@@ -135,8 +135,8 @@ public class btnTabFromFileSection {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
 		if (OverallVariablesAddResults.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
 				&& Double.compare(sysError, 10.00) != 0) {
-			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
-					"Грешни данни", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РќРµ Рµ РґРѕР±Р°РІРµРЅР° 10% СЃРёСЃС‚РµРјР°С‚РёС‡РЅР° \nРіСЂРµС€РєР° РєСЉРј РЅРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚С‚Р°",
+					"Р“СЂРµС€РЅРё РґР°РЅРЅРё", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

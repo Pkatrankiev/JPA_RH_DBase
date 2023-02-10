@@ -66,9 +66,9 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при обновяване на заявака-обект на изпитване: "
+					"РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° Р·Р°СЏРІР°РєР°-РѕР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ: "
 							+ request_to_ObectNaIzp.getRequest().getRecuest_code(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();
@@ -187,9 +187,9 @@ public class Request_To_ObektNaIzpitvaneRequestDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при изтриване на заявка-обект на изпитване: "
+					"РџСЂР±Р»РµРј РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° Р·Р°СЏРІРєР°-РѕР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ: "
 							+ request_to_ObectNaIzp.getRequest().getRecuest_code(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

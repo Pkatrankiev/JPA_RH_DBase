@@ -93,8 +93,8 @@ public class TableColumnDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на запис: " + tableColumn.getName_Column(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° Р·Р°РїРёСЃ: " + tableColumn.getName_Column(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

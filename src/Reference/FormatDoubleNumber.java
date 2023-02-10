@@ -125,7 +125,7 @@ private static String getSubstringToCrease(String number, int crease) {
 private static String getExponentSubstringToCrease(String numberWithExp, int crease) {
 	String str  = numberWithExp;
 	System.out.println("numberWithExp  "+numberWithExp );
-	numberWithExp = numberWithExp.replace(",", ".").replace("Å", "E");
+	numberWithExp = numberWithExp.replace(",", ".").replace("Ð•", "E");
 	int beginIndex = numberWithExp.indexOf(".");
 	int exponIndex = numberWithExp.indexOf("E")+1;
 	System.out.println("exponIndex  "+exponIndex );

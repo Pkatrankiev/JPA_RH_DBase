@@ -51,9 +51,9 @@ public class Table_Sample_List extends JDialog {
 	private static Object[][] dataTable;
 	private static List<Integer> listChangedSampleId;
 
-	private static String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на изпитване",
-			"Описание на групата проби", "Обект на пробата", "Описание на пробата", "Референтна дата", "Приод",
-			"Година", "Id" };
+	private static String[] tableHeader = { "в„– РЅР° Р—Р°СЏРІРєР°С‚Р°", "РљРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°", "РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ",
+			"РћРїРёСЃР°РЅРёРµ РЅР° РіСЂСѓРїР°С‚Р° РїСЂРѕР±Рё", "РћР±РµРєС‚ РЅР° РїСЂРѕР±Р°С‚Р°", "РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±Р°С‚Р°", "Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р°", "РџСЂРёРѕРґ",
+			"Р“РѕРґРёРЅР°", "Id" };
 
 	private static int tbl_Colum = 10;
 	private static int rqst_code_Colum = 0;
@@ -79,7 +79,7 @@ public class Table_Sample_List extends JDialog {
 //	private static String name_smpl_Id_Colum = tableHeader[9];
 
 	public Table_Sample_List(JFrame parent, TranscluentWindow round, Request templateRequest) {
-		super(parent, "Списък на Пробите", true);
+		super(parent, "РЎРїРёСЃСЉРє РЅР° РџСЂРѕР±РёС‚Рµ", true);
 
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
@@ -262,7 +262,7 @@ public class Table_Sample_List extends JDialog {
 				});
 				panel_Btn.add(btnExportButton);
 
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton("Р—Р°РїРёСЃ");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -286,7 +286,7 @@ public class Table_Sample_List extends JDialog {
 
 					panel_Btn.add(btnSave);
 				}
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton("РР·С…РѕРґ");
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						setVisible(false);
@@ -305,7 +305,7 @@ public class Table_Sample_List extends JDialog {
 		JComboBox comboBox = new JComboBox(values_O_I_S);
 		O_I_S_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		O_I_S_Column.setCellRenderer(renderer);
 	}
 
@@ -315,7 +315,7 @@ public class Table_Sample_List extends JDialog {
 		JComboBox comboBox = new JComboBox(values_Period);
 		Period_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Period_Column.setCellRenderer(renderer);
 	}
 

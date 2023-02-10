@@ -70,9 +70,9 @@ public class ResultsListInTableForReadDoc {
 	
 	public static void DrawTableWithEnableResultsList(Request request) {
 		request_basic = request;
-		String[] tableHeader = { "№ на Заявката", "Код на пробата", "Обект на пробата", "Метод на изпитване",
-				"Изпитван показател", "Нуклид", "Активност", "Неопределеност", "Сигма", "МДА", "Размерност",
-				"Количество", "Мярка", "В протокол", "Id" };
+		String[] tableHeader = { "в„– РЅР° Р—Р°СЏРІРєР°С‚Р°", "РљРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°", "РћР±РµРєС‚ РЅР° РїСЂРѕР±Р°С‚Р°", "РњРµС‚РѕРґ РЅР° РёР·РїРёС‚РІР°РЅРµ",
+				"РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»", "РќСѓРєР»РёРґ", "РђРєС‚РёРІРЅРѕСЃС‚", "РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚", "РЎРёРіРјР°", "РњР”Рђ", "Р Р°Р·РјРµСЂРЅРѕСЃС‚",
+				"РљРѕР»РёС‡РµСЃС‚РІРѕ", "РњСЏСЂРєР°", "Р’ РїСЂРѕС‚РѕРєРѕР»", "Id" };
 		@SuppressWarnings("rawtypes")
 		Class[] types = { Integer.class, String.class, String.class, String.class, String.class, String.class,
 				Double.class, Double.class, Integer.class, Double.class, String.class, Double.class, String.class,
@@ -114,7 +114,7 @@ public class ResultsListInTableForReadDoc {
 					i++;
 				} catch (NullPointerException | NumberFormatException e) {
 					ResourceLoader.appendToFile(e);
-					JOptionPane.showInputDialog("Грешни данни за резултат:", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showInputDialog("Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:", JOptionPane.ERROR_MESSAGE);
 				} 
 
 			}
@@ -132,7 +132,7 @@ public class ResultsListInTableForReadDoc {
 	}
 
 	public static void TableResultsListEditable(String[] columnNames, Object[][] data, @SuppressWarnings("rawtypes") Class[] types) {
-		JFrame frame = new JFrame("Редактиране на Резултатите");
+		JFrame frame = new JFrame("Р РµРґР°РєС‚РёСЂР°РЅРµ РЅР° Р РµР·СѓР»С‚Р°С‚РёС‚Рµ");
 
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// values_O_I_S =
@@ -221,7 +221,7 @@ public class ResultsListInTableForReadDoc {
 				frame.getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				JButton btnSave = new JButton("Запис");
+				JButton btnSave = new JButton("Р—Р°РїРёСЃ");
 				btnSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						updateData(table);
@@ -231,7 +231,7 @@ public class ResultsListInTableForReadDoc {
 				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				panel_Btn.add(btnSave);
 
-				JButton btnCancel = new JButton("Изход");
+				JButton btnCancel = new JButton("РР·С…РѕРґ");
 				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						frame.setVisible(false);
@@ -248,7 +248,7 @@ public class ResultsListInTableForReadDoc {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Izpit_Pokazatel);
 		izpit_Pokazatel_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		izpit_Pokazatel_Column.setCellRenderer(renderer);
 	}
 
@@ -256,7 +256,7 @@ public class ResultsListInTableForReadDoc {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Period);
 		Period_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Period_Column.setCellRenderer(renderer);
 	}
 
@@ -264,7 +264,7 @@ public class ResultsListInTableForReadDoc {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Metody);
 		Metody_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Metody_Column.setCellRenderer(renderer);
 	}
 
@@ -272,7 +272,7 @@ public class ResultsListInTableForReadDoc {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Nuclide);
 		Nuclide_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Nuclide_Column.setCellRenderer(renderer);
 	}
 
@@ -280,7 +280,7 @@ public class ResultsListInTableForReadDoc {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Razmernosti);
 		Razmernosti_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Razmernosti_Column.setCellRenderer(renderer);
 	}
 
@@ -288,7 +288,7 @@ public class ResultsListInTableForReadDoc {
 		JComboBox<?> comboBox = new JComboBox<Object>(values_Dimension);
 		Dimension_Column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Натисни за избор");
+		renderer.setToolTipText("РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ");
 		Dimension_Column.setCellRenderer(renderer);
 	}
 

@@ -23,12 +23,12 @@ public class Izpitvan_produktDAO {
 	
 
 	public static void setBasikValueIzpitvan_produkt() {
-		setValueIzpitvan_produkt("Строителен материал");
-		setValueIzpitvan_produkt("Технологичен отпадък");
-		setValueIzpitvan_produkt("Течни изхвърляния");
-		setValueIzpitvan_produkt("Води");
-		setValueIzpitvan_produkt("Газообразни изхвърляния");
-		setValueIzpitvan_produkt("Въздух");
+		setValueIzpitvan_produkt("РЎС‚СЂРѕРёС‚РµР»РµРЅ РјР°С‚РµСЂРёР°Р»");
+		setValueIzpitvan_produkt("РўРµС…РЅРѕР»РѕРіРёС‡РµРЅ РѕС‚РїР°РґСЉРє");
+		setValueIzpitvan_produkt("РўРµС‡РЅРё РёР·С…РІСЉСЂР»СЏРЅРёСЏ");
+		setValueIzpitvan_produkt("Р’РѕРґРё");
+		setValueIzpitvan_produkt("Р“Р°Р·РѕРѕР±СЂР°Р·РЅРё РёР·С…РІСЉСЂР»СЏРЅРёСЏ");
+		setValueIzpitvan_produkt("Р’СЉР·РґСѓС…");
 
 	}
 

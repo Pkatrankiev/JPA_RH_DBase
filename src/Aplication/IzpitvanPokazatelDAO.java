@@ -60,8 +60,8 @@ public class IzpitvanPokazatelDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на показател: " + izpitvan_pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РїРѕРєР°Р·Р°С‚РµР»: " + izpitvan_pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();
@@ -269,8 +269,8 @@ public class IzpitvanPokazatelDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при обновяване на показател: " + pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РїРѕРєР°Р·Р°С‚РµР»: " + pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();
@@ -307,8 +307,8 @@ public class IzpitvanPokazatelDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при изтриване на показател: " + pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂР±Р»РµРј РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїРѕРєР°Р·Р°С‚РµР»: " + pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();
@@ -332,8 +332,8 @@ public class IzpitvanPokazatelDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при изтриване на показател: " + strInfo,
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїРѕРєР°Р·Р°С‚РµР»: " + strInfo,
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

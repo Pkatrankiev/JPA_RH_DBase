@@ -33,7 +33,7 @@ public class CreateListLeftPanelStartWindowClass {
 	
 	
 	
-	private static String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Въздух", "Вода" };
+	private static String[] listMonitoringGroup = { "Р“Р°Р·РѕРѕР±СЂР°Р·РЅРё РёР·С…РІСЉСЂР»СЏРЅРёСЏ", "РўРµС‡РЅРё РёР·С…РІСЉСЂР»СЏРЅРёСЏ", "Р’СЉР·РґСѓС…", "Р’РѕРґР°" };
 
 	protected CreateListLeftPanelStartWindowClass(JProgressBar progressBarView, int startCheckYear) {
 		VariableFromStartWindowPanel
@@ -143,7 +143,7 @@ public class CreateListLeftPanelStartWindowClass {
 
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+			JOptionPane.showMessageDialog(null, "РќРµРґРѕСЃС‚РёРіР°Рј РґРѕ РґРёСЂРµРєС‚РѕСЂРёСЏ:" + "");
 
 		}
 		return listAllProtokolFile;
@@ -163,7 +163,7 @@ public class CreateListLeftPanelStartWindowClass {
 //
 //				}
 //			} else {
-//				JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+//				JOptionPane.showMessageDialog(null, "РќРµРґРѕСЃС‚РёРіР°Рј РґРѕ РґРёСЂРµРєС‚РѕСЂРёСЏ:" + "");
 //
 //			}
 //
@@ -285,9 +285,9 @@ public class CreateListLeftPanelStartWindowClass {
 		int curentYear = getYar();
 
 		String month = getPreviousMesec(1);
-		if (monitGroup.equals("Вода")) {
+		if (monitGroup.equals("Р’РѕРґР°")) {
 			month = getPreviousMesec(2);
-			if (month.equals("януари")) {
+			if (month.equals("СЏРЅСѓР°СЂРё")) {
 				curentYear++;
 			
 			}
@@ -326,13 +326,13 @@ public class CreateListLeftPanelStartWindowClass {
 		if (list.size() > 1) {
 			str = "<html>";
 			for (IzpitvanPokazatel izpPok : list) {
-				str = str + izpPok.getPokazatel().getName_pokazatel().replaceFirst("Съдържание на ", "") + "<br>";
+				str = str + izpPok.getPokazatel().getName_pokazatel().replaceFirst("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° ", "") + "<br>";
 			}
 
 			str = str.substring(0, str.length() - 4);
 			str = str + "</html>";
 		} else {
-			str = list.get(0).getPokazatel().getName_pokazatel().replaceFirst("Съдържание на ", "");
+			str = list.get(0).getPokazatel().getName_pokazatel().replaceFirst("РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° ", "");
 		}
 		return str;
 	}

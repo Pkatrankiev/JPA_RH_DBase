@@ -73,7 +73,7 @@ public class GlobalVariableForSQL_DBase {
         
 
         String[] options = {globalTextVariableMap.get("noConectionInDBaseDialog_BTN_Exit"), 
-				globalTextVariableMap.get("noConectionInDBaseDialog_BTN_Âaiting")};
+				globalTextVariableMap.get("noConectionInDBaseDialog_BTN_Ð’aiting")};
 		 
         int x = JOptionPane.showOptionDialog(jf, noConectionInDBseMesage,"",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);

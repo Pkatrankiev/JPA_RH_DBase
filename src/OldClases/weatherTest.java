@@ -68,11 +68,11 @@ public class weatherTest {
                 System.out.println();
                 
                 int index = DateTime.indexOf("T");
-                System.out.println("Дата: "+DateTime.substring(0, index));
-                 System.out.println("Час: "+DateTime.substring(index+1, index+6));
+                System.out.println("Р”Р°С‚Р°: "+DateTime.substring(0, index));
+                 System.out.println("Р§Р°СЃ: "+DateTime.substring(index+1, index+6));
                 System.out.println(IconPhrase+"  "+CloudCover+"%");
-                System.out.println("Температура "+temperatureValue+" "+temperatureUnit);
-                System.out.println("Вятър "+WindSpeedValue+" "+WindSpeedUnit+" "+DirectionLocalized);
+                System.out.println("РўРµРјРїРµСЂР°С‚СѓСЂР° "+temperatureValue+" "+temperatureUnit);
+                System.out.println("Р’СЏС‚СЉСЂ "+WindSpeedValue+" "+WindSpeedUnit+" "+DirectionLocalized);
                 
                 System.out.println();              
 

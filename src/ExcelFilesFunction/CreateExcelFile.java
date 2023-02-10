@@ -81,7 +81,7 @@ public class CreateExcelFile {
 
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
-			MessageDialog(e.toString(), "файлова грешка");
+			MessageDialog(e.toString(), "С„Р°Р№Р»РѕРІР° РіСЂРµС€РєР°");
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
@@ -94,10 +94,10 @@ public class CreateExcelFile {
 		Object[] masive1 = {"fffffffff2","assdry","dsfsdf","wwwwwwww"};
 		
 Object[][] masive = {{1,"ass",123.23,true},
-					{2,"асве",123.23,false},
-					{22,"кл;лук",123.23,true},
+					{2,"Р°СЃРІРµ",123.23,false},
+					{22,"РєР»;Р»СѓРє",123.23,true},
 					{34,"assdf",123.23,true},
-					{88,"дфсeeeeeeвеф",123.23,true},
+					{88,"РґС„СЃeeeeeeРІРµС„",123.23,true},
 								};
 
 		
@@ -208,7 +208,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
-			MessageDialog(e.toString(), "файлова грешка");
+			MessageDialog(e.toString(), "С„Р°Р№Р»РѕРІР° РіСЂРµС€РєР°");
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
@@ -319,12 +319,12 @@ Object[][] masive = {{1,"ass",123.23,true},
 			//// Cell cell = sheet.createRow(rowCount).createCell(columnCount);
 			//// cell.setCellValue((String) field);
 			// if (field instanceof String) {
-			// System.out.println("теьт-"+field);
+			// System.out.println("С‚РµСЊС‚-"+field);
 			// Cell cell = row.createCell(columnCount);
 			// cell.setCellValue((String) field);
 			// }
 			// if (field instanceof Integer) {
-			// System.out.println("инт-"+field);
+			// System.out.println("РёРЅС‚-"+field);
 			// Cell cell = row.createCell(columnCount);
 			// cell.setCellValue((Integer) field);
 			// }
@@ -338,7 +338,7 @@ Object[][] masive = {{1,"ass",123.23,true},
 
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
-			MessageDialog(e.toString(), "файлова грешка");
+			MessageDialog(e.toString(), "С„Р°Р№Р»РѕРІР° РіСЂРµС€РєР°");
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();
@@ -516,10 +516,10 @@ Object[][] masive = {{1,"ass",123.23,true},
 		rowCount = rowCount + 3;
 		row = sheet.createRow(rowCount);
 		cell = row.createCell(1, CellType.STRING);
-		cell.setCellValue("Изготвил:");
+		cell.setCellValue("РР·РіРѕС‚РІРёР»:");
 		
 		cell = row.createCell(4, CellType.STRING);
-		cell.setCellValue("Проверил:");
+		cell.setCellValue("РџСЂРѕРІРµСЂРёР»:");
     			
 		
 		if(!headerText.isEmpty()){
@@ -534,13 +534,13 @@ Object[][] masive = {{1,"ass",123.23,true},
 			GenerateRequestWordDoc.openWordDoc(excelFilePath);
 			}else{
 				MessageDialog(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
-						.get("cell_maximum_number_exceeded"), "файлова грешка");
+						.get("cell_maximum_number_exceeded"), "С„Р°Р№Р»РѕРІР° РіСЂРµС€РєР°");
 			}
 		
 			
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
-			MessageDialog(e.toString(), "файлова грешка");
+			MessageDialog(e.toString(), "С„Р°Р№Р»РѕРІР° РіСЂРµС€РєР°");
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();

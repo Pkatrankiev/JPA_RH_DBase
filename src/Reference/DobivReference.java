@@ -630,7 +630,7 @@ public class DobivReference extends JDialog {
 
 		columnNames[k] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_TSI");
 		columnNames[k + 1] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_ORH");
-		columnNames[k + 2] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_O–Ã");
+		columnNames[k + 2] = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_O–†–ú");
 
 		return columnNames;
 	}
@@ -801,7 +801,7 @@ public class DobivReference extends JDialog {
 			
 //			Create label text
 			
-			String label = sheetName+" Ì‡ ÏÂÚÓ‰ "+metod+" Á‡ "+year+"„.";
+			String label = sheetName+" –Ω–∞ –º–µ—Ç–æ–¥ "+metod+" –∑–∞ "+year+"–≥.";
 			Row row = sheet.createRow(0);
 					cell = row.createCell(0, CellType.STRING);
 					cell.setCellStyle(cellStyleLabel);
@@ -821,7 +821,7 @@ public class DobivReference extends JDialog {
 					 if(i<columnCount){
 				cell.setCellValue(excellnameColumn[i]);
 					 }else{
-						 cell.setCellValue("ƒ‡Ú‡");
+						 cell.setCellValue("–î–∞—Ç–∞");
 					 }
 				 sheet.autoSizeColumn(i);
 				
@@ -870,7 +870,7 @@ public class DobivReference extends JDialog {
 			
 		} catch (FileNotFoundException e) {
 			ResourceLoader.appendToFile(e);
-			MessageDialog(e.toString(), "Ù‡ÈÎÓ‚‡ „Â¯Í‡");
+			MessageDialog(e.toString(), "—Ñ–∞–π–ª–æ–≤–∞ –≥—Ä–µ—à–∫–∞");
 		} catch (IOException e) {
 			ResourceLoader.appendToFile(e);
 			e.printStackTrace();

@@ -200,7 +200,7 @@ public class CreateListForMultiTable {
 
 	public static Boolean PokazatelIfGamaOrAlpha(String pokaz) {
 		Boolean fl = false;
-		if (pokaz.indexOf("ãàìà") > 0 || pokaz.indexOf("àëôà") > 0) {
+		if (pokaz.indexOf("Ğ³Ğ°Ğ¼Ğ°") > 0 || pokaz.indexOf("Ğ°Ğ»Ñ„Ğ°") > 0) {
 
 			fl = true;
 		}

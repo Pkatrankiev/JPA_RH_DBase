@@ -30,7 +30,7 @@ public class TableListRequestTamplate extends JDialog {
 	private static int index = 0;
 
 	public  TableListRequestTamplate(Frame parent, String[] columnNames, Object[][] data) {
-		super(parent, "Информация за пробите", true);
+		super(parent, "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїСЂРѕР±РёС‚Рµ", true);
 		
 //		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

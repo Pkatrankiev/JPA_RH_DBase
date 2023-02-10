@@ -49,7 +49,7 @@ public class CodeDobivSection {
 				if (OverallVariablesAddDobiv.getListChoisedDobiv().size() == 0) {
 					txtStandartCode.setForeground(Color.red);
 					lblError.setVisible(true);
-					lblError.setText("Добиви с този код не съществуват");
+					lblError.setText("Р”РѕР±РёРІРё СЃ С‚РѕР·Рё РєРѕРґ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°С‚");
 					OverallVariablesAddDobiv.setCorectStandartCode(true);
 					
 
@@ -58,7 +58,7 @@ public class CodeDobivSection {
 					txtStandartCode.setBorder(new LineBorder(Color.BLACK));
 					// txtStandartCode.setEditable(false);
 					lblError.setVisible(true);
-					lblError.setText("Добиви с този код съществуват");
+					lblError.setText("Р”РѕР±РёРІРё СЃ С‚РѕР·Рё РєРѕРґ СЃСЉС‰РµСЃС‚РІСѓРІР°С‚");
 					textFieldDobivDescrip.setText(OverallVariablesAddDobiv.getListChoisedDobiv().get(0).getDescription());
 					choiceIzpitProd.select(OverallVariablesAddDobiv.getListChoisedDobiv().get(0).getIzpitvan_produkt().getName_zpitvan_produkt());
 					choiceOIR.select(UsersDAO.getStringName_FamilyUser(OverallVariablesAddDobiv.getListChoisedDobiv().get(0).getUser_measur()));

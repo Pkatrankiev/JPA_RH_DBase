@@ -23,19 +23,19 @@ public class MesejePanelInAddResultsFuncion implements Runnable {
 		
 		String[][] saveStr = createmasive(resultListForSave);
 		
-		Object[] options1 = { "Да", "Отказ" };
+		Object[] options1 = { "Р”Р°", "РћС‚РєР°Р·" };
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 			if(!resultListForDelete.isEmpty()){
 	String[][] deleteStr  = createmasiveDelete(resultListForDelete);
-		panel.add(createTextPanel("За изтриване"));
+		panel.add(createTextPanel("Р—Р° РёР·С‚СЂРёРІР°РЅРµ"));
 		panel.add(MesejePanelInAddResultsView.creadJPanel(deleteStr));
 		}
-		panel.add(createTextPanel("За запис"));
+		panel.add(createTextPanel("Р—Р° Р·Р°РїРёСЃ"));
 		panel.add(MesejePanelInAddResultsView.creadJPanel(saveStr));
 		
-		result = JOptionPane.showOptionDialog(null, panel, "Данни за базата", JOptionPane.YES_NO_CANCEL_OPTION,
+		result = JOptionPane.showOptionDialog(null, panel, "Р”Р°РЅРЅРё Р·Р° Р±Р°Р·Р°С‚Р°", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options1, null);
 		
 	}
@@ -45,19 +45,19 @@ public static void MesejePanelInAddDobivFuncion(List<Dobiv> resultListForSave, L
 		
 		String[][] saveStr = createmasiveDobiv(resultListForSave);
 		
-		Object[] options1 = { "Да", "Отказ"};
+		Object[] options1 = { "Р”Р°", "РћС‚РєР°Р·"};
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 			if(!resultListForDelete.isEmpty()){
 	String[][] deleteStr  = createMasiveDeleteDobiv(resultListForDelete);
-		panel.add(createTextPanel("За изтриване"));
+		panel.add(createTextPanel("Р—Р° РёР·С‚СЂРёРІР°РЅРµ"));
 		panel.add(MesejePanelInAddResultsView.creadJPanel(deleteStr));
 		}
-		panel.add(createTextPanel("За запис"));
+		panel.add(createTextPanel("Р—Р° Р·Р°РїРёСЃ"));
 		panel.add(MesejePanelInAddResultsView.creadJPanel(saveStr));
 		
-		result = JOptionPane.showOptionDialog(null, panel, "Данни за базата", JOptionPane.YES_NO_CANCEL_OPTION,
+		result = JOptionPane.showOptionDialog(null, panel, "Р”Р°РЅРЅРё Р·Р° Р±Р°Р·Р°С‚Р°", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.ERROR_MESSAGE, null, options1, null);
 		
 	}
@@ -68,7 +68,7 @@ public static void MesejePanelInAddDobivFuncion(List<Dobiv> resultListForSave, L
 	private static String[][] createmasive(List<Results> resultListForSave) {
 		String inProt;
 		String[][] masive = new String[resultListForSave.size()+1][3];
-		masive[0] = new String[] { "Нуклид", "Активност", "МДА" };
+		masive[0] = new String[] { "РќСѓРєР»РёРґ", "РђРєС‚РёРІРЅРѕСЃС‚", "РњР”Рђ" };
 		int i =1;
 		for (Results res : resultListForSave) {
 			inProt="   ";
@@ -86,7 +86,7 @@ public static void MesejePanelInAddDobivFuncion(List<Dobiv> resultListForSave, L
 	private static String[][] createmasiveDobiv(List<Dobiv> resultListForSave) {
 		
 		String[][] masive = new String[resultListForSave.size()+1][3];
-		masive[0] = new String[] { "Нуклид", "Добив",""};
+		masive[0] = new String[] { "РќСѓРєР»РёРґ", "Р”РѕР±РёРІ",""};
 		int i =1;
 		for (Dobiv res : resultListForSave) {
 			
@@ -100,7 +100,7 @@ public static void MesejePanelInAddDobivFuncion(List<Dobiv> resultListForSave, L
 	
 	private static String[][] createmasiveDelete(List<Results> resultListForDelete) {
 		String[][] masive = new String[resultListForDelete.size()+1][3];
-		masive[0] = new String[] { "Нуклид", "Активност", "МДА" };
+		masive[0] = new String[] { "РќСѓРєР»РёРґ", "РђРєС‚РёРІРЅРѕСЃС‚", "РњР”Рђ" };
 		int i =1;
 		for (Results res : resultListForDelete) {
 			Results result = ResultsDAO.getValueResultsById(res.getId_results());
@@ -114,7 +114,7 @@ public static void MesejePanelInAddDobivFuncion(List<Dobiv> resultListForSave, L
 	
 	private static String[][] createMasiveDeleteDobiv(List<Dobiv> resultListForDelete) {
 		String[][] masive = new String[resultListForDelete.size()+1][3];
-		masive[0] = new String[] { "Нуклид", "Добив","" };
+		masive[0] = new String[] { "РќСѓРєР»РёРґ", "Р”РѕР±РёРІ","" };
 		int i =1;
 		for (Dobiv res : resultListForDelete) {
 			Dobiv result = DobivDAO.getDobivById(res.getId_dobiv());

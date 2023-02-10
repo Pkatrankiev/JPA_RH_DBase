@@ -182,8 +182,7 @@ public class Main_Aplication {
 		    	
 		    		 
 		    	 new MainWindow(round);
-		    	
-		    		    	
+	 	    		    	
 		     }
 		    });
 		    thread.start();

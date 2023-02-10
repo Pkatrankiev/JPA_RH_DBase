@@ -68,8 +68,8 @@ public class Nuclide_to_PokazatelDAO {
 			entitymanager.getTransaction().commit();
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
-			JOptionPane.showMessageDialog(null, "Прблем при обновяване на нуклид_показател: " + nuclide_to_Pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "РџСЂР±Р»РµРј РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РЅСѓРєР»РёРґ_РїРѕРєР°Р·Р°С‚РµР»: " + nuclide_to_Pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();
@@ -97,12 +97,12 @@ public class Nuclide_to_PokazatelDAO {
 		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
 		entitymanager.getTransaction().begin();
 
-		Nuclide_to_Pokazatel мetody_to_Pokazatel = (Nuclide_to_Pokazatel) entitymanager.find(Nuclide_to_Pokazatel.class, id);
+		Nuclide_to_Pokazatel Рјetody_to_Pokazatel = (Nuclide_to_Pokazatel) entitymanager.find(Nuclide_to_Pokazatel.class, id);
 
 		entitymanager.close();
 		emfactory.close();
 
-		return мetody_to_Pokazatel;
+		return Рјetody_to_Pokazatel;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,8 +164,8 @@ public class Nuclide_to_PokazatelDAO {
 		} catch (javax.persistence.RollbackException e) {
 			ResourceLoader.appendToFile(e);
 			JOptionPane.showMessageDialog(null,
-					"Прблем при изтриване на нуклид_показател: " + pokazatel.getPokazatel().getName_pokazatel(),
-					"Проблем с база данни:", JOptionPane.ERROR_MESSAGE);
+					"РџСЂР±Р»РµРј РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РЅСѓРєР»РёРґ_РїРѕРєР°Р·Р°С‚РµР»: " + pokazatel.getPokazatel().getName_pokazatel(),
+					"РџСЂРѕР±Р»РµРј СЃ Р±Р°Р·Р° РґР°РЅРЅРё:", JOptionPane.ERROR_MESSAGE);
 		}
 
 		entitymanager.close();

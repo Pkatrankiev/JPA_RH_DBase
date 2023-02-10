@@ -1,33 +1,34 @@
 #Sring
 
+
 MainWindow_Ver = Ver.070223
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
 remoteDBase = 0
-MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
+MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/РР—РҐР’РЄР Р›РЇРќРРЇ-РР—РҐРћР”2/2022/BAK-2022-NEW.xls
 
 $$DBase_SampleTableColumnName
 
-DBSTCN_Ind_num_doc_TableTitle = Таблица на Ид.Номер
+DBSTCN_Ind_num_doc_TableTitle = РўР°Р±Р»РёС†Р° РЅР° РРґ.РќРѕРјРµСЂ
 DBSTCN_Ind_num_doc_Id = Id
-DBSTCN_Ind_num_doc_Name = Код
-DBSTCN_Ind_num_doc_Content = Описание
-DBSTCN_btnADD_Text = Добавяне ня ред
-DBSTCN_btnDELETE_Text = Изтриване ня ред
-DBSTCN_Delete_Text = Изкате да изтриете запис:
-DBSTCN_InfoDialog_Text = Не сте маркирали ред
+DBSTCN_Ind_num_doc_Name = РљРѕРґ
+DBSTCN_Ind_num_doc_Content = РћРїРёСЃР°РЅРёРµ
+DBSTCN_btnADD_Text = Р”РѕР±Р°РІСЏРЅРµ РЅСЏ СЂРµРґ
+DBSTCN_btnDELETE_Text = РР·С‚СЂРёРІР°РЅРµ РЅСЏ СЂРµРґ
+DBSTCN_Delete_Text = РР·РєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ Р·Р°РїРёСЃ:
+DBSTCN_InfoDialog_Text = РќРµ СЃС‚Рµ РјР°СЂРєРёСЂР°Р»Рё СЂРµРґ
 
 
 TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
-destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/
+destinationDir_Protocols = l:/Р›Р-Р РҐ/РџСЂРѕС‚РѕРєРѕР»Рё/
 name_tamplate_Protocols = Protokol_NEW.docx
 name_tamplate_Request = Zaqvka_new.docx
 name_tamplate_RazpredForm = Razpred.docx
 text_dopalneniq_izklucheniq = ____________________
 
-logInMesege = Логнете се
+logInMesege = Р›РѕРіРЅРµС‚Рµ СЃРµ
 
 destinationIcons = ICONS/
 modifiIcon = Modify.gif
@@ -38,318 +39,319 @@ winIcon = winIcon.png
 ajaxLoader = ajaxLoader.gif
 
 dataBaseName = JPA_RH_DBase
-noConectionInDBseMesage_textMesage = Не се свързвам с базата данни
-noConectionInDBaseDialog_BTN_Exit = Изход
-noConectionInDBaseDialog_BTN_Вaiting = Изчакване
+noConectionInDBseMesage_textMesage = РќРµ СЃРµ СЃРІСЉСЂР·РІР°Рј СЃ Р±Р°Р·Р°С‚Р° РґР°РЅРЅРё
+noConectionInDBaseDialog_BTN_Exit = РР·С…РѕРґ
+noConectionInDBaseDialog_BTN_Р’aiting = РР·С‡Р°РєРІР°РЅРµ
+
 
 $$MainWindow_MenusTitle
 
-MainWindow_Title = ДП РАО, с-р Радиохимия
-MainWindow_Title_work =  -> работи
+MainWindow_Title = Р”Рџ Р РђРћ, СЃ-СЂ Р Р°РґРёРѕС…РёРјРёСЏ
+MainWindow_Title_work =  -> СЂР°Р±РѕС‚Рё
 MainWindow_LogInStr_Btn = logIn
 MainWindow_LogOutStr_Btn = logOut
-MainWindow_Btn_Refresh = Рефреш
-MainWindow_BtnMenu_Oder = Други
-MainWindow_BtnMenu_Reference = Справки
-MainWindow_BtnMenu_Request = Заявки
-MainWindow_BtnMenu_Data = Данни  
-MainWindow_BtnMenu_Documents = Документи
+MainWindow_Btn_Refresh = Р РµС„СЂРµС€
+MainWindow_BtnMenu_Oder = Р”СЂСѓРіРё
+MainWindow_BtnMenu_Reference = РЎРїСЂР°РІРєРё
+MainWindow_BtnMenu_Request = Р—Р°СЏРІРєРё
+MainWindow_BtnMenu_Data = Р”Р°РЅРЅРё  
+MainWindow_BtnMenu_Documents = Р”РѕРєСѓРјРµРЅС‚Рё
 
 
 $$MenuClasses
-EnableInternalAplicantTitleName = Редактиране на Вътрешни Клиенти
-EnableRequestList_TitleName = Списък на Заявките
-EnableSampleList_TitleName = Списък на Пробите
-EnableResultsList_TitleName = Списък на Резултатите
-ReadDataFromDocFileSaveInDBase_TitleName = Четене от Word и запис
-CreateProtokol_TitleName  = Генериране на Протокол
-CreateRazpredFormu_TitleName = Генериране на Разпределителен формуляр
-CreateRequest_TitleName = Генериране на Заявка
-MenuOder_TitleName = Гама Кал. Екстракт
-AddDobiveFrame_TitleName = Въвеждане на Добив
-AddResultsFrame_TitleName = Въвеждане на Резултати
-EditRequense_TitleName = Редактиране на Заявка
-DeleteRequense_TitleName = Изтриване на Заявка
-NewExtraRequense_TitleName = Генериране на Нова Извънредна Заявка
-NewRequense_TitleName = Генериране на Нова Заявка
-NewRequenseInTamplate_TitleName = Нова Заявка от шаблон
-MenuPeriodicReference_TitleName = Периодичен мониторинг
-MenuEjection_TitleName = Изхвърляния
-MenuEjection_Volums = Обеми на Изхвърянията
-MenuEjection_Calculate = Изчисления за Изхвърлянията
-ArhiveDBase_TitleName = Архив на Базата Данни
+EnableInternalAplicantTitleName = Р РµРґР°РєС‚РёСЂР°РЅРµ РЅР° Р’СЉС‚СЂРµС€РЅРё РљР»РёРµРЅС‚Рё
+EnableRequestList_TitleName = РЎРїРёСЃСЉРє РЅР° Р—Р°СЏРІРєРёС‚Рµ
+EnableSampleList_TitleName = РЎРїРёСЃСЉРє РЅР° РџСЂРѕР±РёС‚Рµ
+EnableResultsList_TitleName = РЎРїРёСЃСЉРє РЅР° Р РµР·СѓР»С‚Р°С‚РёС‚Рµ
+ReadDataFromDocFileSaveInDBase_TitleName = Р§РµС‚РµРЅРµ РѕС‚ Word Рё Р·Р°РїРёСЃ
+CreateProtokol_TitleName  = Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РџСЂРѕС‚РѕРєРѕР»
+CreateRazpredFormu_TitleName = Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° Р Р°Р·РїСЂРµРґРµР»РёС‚РµР»РµРЅ С„РѕСЂРјСѓР»СЏСЂ
+CreateRequest_TitleName = Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° Р—Р°СЏРІРєР°
+MenuOder_TitleName = Р“Р°РјР° РљР°Р». Р•РєСЃС‚СЂР°РєС‚
+AddDobiveFrame_TitleName = Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р”РѕР±РёРІ
+AddResultsFrame_TitleName = Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р РµР·СѓР»С‚Р°С‚Рё
+EditRequense_TitleName = Р РµРґР°РєС‚РёСЂР°РЅРµ РЅР° Р—Р°СЏРІРєР°
+DeleteRequense_TitleName = РР·С‚СЂРёРІР°РЅРµ РЅР° Р—Р°СЏРІРєР°
+NewExtraRequense_TitleName = Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РќРѕРІР° РР·РІСЉРЅСЂРµРґРЅР° Р—Р°СЏРІРєР°
+NewRequense_TitleName = Р“РµРЅРµСЂРёСЂР°РЅРµ РЅР° РќРѕРІР° Р—Р°СЏРІРєР°
+NewRequenseInTamplate_TitleName = РќРѕРІР° Р—Р°СЏРІРєР° РѕС‚ С€Р°Р±Р»РѕРЅ
+MenuPeriodicReference_TitleName = РџРµСЂРёРѕРґРёС‡РµРЅ РјРѕРЅРёС‚РѕСЂРёРЅРі
+MenuEjection_TitleName = РР·С…РІСЉСЂР»СЏРЅРёСЏ
+MenuEjection_Volums = РћР±РµРјРё РЅР° РР·С…РІСЉСЂСЏРЅРёСЏС‚Р°
+MenuEjection_Calculate = РР·С‡РёСЃР»РµРЅРёСЏ Р·Р° РР·С…РІСЉСЂР»СЏРЅРёСЏС‚Р°
+ArhiveDBase_TitleName = РђСЂС…РёРІ РЅР° Р‘Р°Р·Р°С‚Р° Р”Р°РЅРЅРё
 
 $$Text_MessageDialog
-LogInText = Логнете се
-ValueForAllRow_Text = Въведете стойност за всички редове
-errorDataForResult_Text = Грешни данни за резултат:
-errorOfData = Грешка в данните
-cell_maximum_number_exceeded = Броя на клетките са повече от 4000
-noChengeNumberOfPokazateli = Не можете да променяте броя Показатели
-clickToChoice = Натисни за избор
-ThereAreDublikataElements = Има повтарящи се елементи
-errorOfExcellFileFormat = Excel файлът трябва да е версия 97/2000/XP/2003
-checkAllResultsDialog = Липсват резултати за пробите:
-attention = Внимание
-attentionTwoProtokols = Изпринтете два оригинала на този протокол
+LogInText = Р›РѕРіРЅРµС‚Рµ СЃРµ
+ValueForAllRow_Text = Р’СЉРІРµРґРµС‚Рµ СЃС‚РѕР№РЅРѕСЃС‚ Р·Р° РІСЃРёС‡РєРё СЂРµРґРѕРІРµ
+errorDataForResult_Text = Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЂРµР·СѓР»С‚Р°С‚:
+errorOfData = Р“СЂРµС€РєР° РІ РґР°РЅРЅРёС‚Рµ
+cell_maximum_number_exceeded = Р‘СЂРѕСЏ РЅР° РєР»РµС‚РєРёС‚Рµ СЃР° РїРѕРІРµС‡Рµ РѕС‚ 4000
+noChengeNumberOfPokazateli = РќРµ РјРѕР¶РµС‚Рµ РґР° РїСЂРѕРјРµРЅСЏС‚Рµ Р±СЂРѕСЏ РџРѕРєР°Р·Р°С‚РµР»Рё
+clickToChoice = РќР°С‚РёСЃРЅРё Р·Р° РёР·Р±РѕСЂ
+ThereAreDublikataElements = РРјР° РїРѕРІС‚Р°СЂСЏС‰Рё СЃРµ РµР»РµРјРµРЅС‚Рё
+errorOfExcellFileFormat = Excel С„Р°Р№Р»СЉС‚ С‚СЂСЏР±РІР° РґР° Рµ РІРµСЂСЃРёСЏ 97/2000/XP/2003
+checkAllResultsDialog = Р›РёРїСЃРІР°С‚ СЂРµР·СѓР»С‚Р°С‚Рё Р·Р° РїСЂРѕР±РёС‚Рµ:
+attention = Р’РЅРёРјР°РЅРёРµ
+attentionTwoProtokols = РР·РїСЂРёРЅС‚РµС‚Рµ РґРІР° РѕСЂРёРіРёРЅР°Р»Р° РЅР° С‚РѕР·Рё РїСЂРѕС‚РѕРєРѕР»
 
-LoginFrame_Title = Логване
-LoginFrame_UserName = потребителско име
-LoginFrame_pass = парола
+LoginFrame_Title = Р›РѕРіРІР°РЅРµ
+LoginFrame_UserName = РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ
+LoginFrame_pass = РїР°СЂРѕР»Р°
 
-DefauiltTableMouseListener_EditColumnPokazatel = Избор на Изпитван Показател
+DefauiltTableMouseListener_EditColumnPokazatel = РР·Р±РѕСЂ РЅР° РР·РїРёС‚РІР°РЅ РџРѕРєР°Р·Р°С‚РµР»
 
-RequestView_TitleFrame = Заявка за изпитване
-RequestView_Request_Title = ЗАЯВКА ЗА ИЗПИТВАНЕ
-RequestView_Extra_Request_Title = ЗАЯВКА ЗА ИЗВЪНРЕДНО ИЗПИТВАНЕ
-RequestView_Text_Formuliar = Ф 704-2
-RequestView_Text_Extra_Formuliar = Ф 704-3
-RequestView_CodeForRequest = Код на заявката
-RequestView_DateForRequest = Дата на заявката
-RequestView_Text_InternalText = <html>За изпитвания извън обема,<br>предвиден във вътрешните документи</html>
-RequestView_Text_ExternalText = За изпитвания от външни клиенти
-RequestView_Section_Ind_Num_Doc_Text = Ид. номер на документа, изискващ изпитването: 
-RequestView_Section_Izpitvan_Produkt_Text = Изпитван продукт
-RequestView_obekt_na_izpitvane_Text = Обект, от който са взети пробите:
-RequestView_Btn_Izbor = Избор
-RequestView_Return_Sample = Връщане на пробите
-RequestView_CheckBox_InAccreditation_Text = Извън обхват
-RequestView_Section_Razmernost_Text = Размерност
-RequestView_Section_Pokazatel_Text = Изпитван показател:
-RequestView_Btn_Pokazatel_Text = Избор на показател
-RequestView_Sestion_Date_Time_Reference_Text = Референтна дата (средата на периода)
-RequestView_Section_Choice_Period_Text = Периодичност
-RequestView_Count_Sample = Брой на пробите
-RequestView_Error_Count_Sample = Некоректен брой
-RequestView_Section_Sample_Description_Text = Описание на пробите 
-RequestView_DialogError_CountSamples = Некоректен брой на пробите!
-RequestView_Section_Date_Reception = Дата / период на получаване на пробите: 
-RequestView_Section_Date_Reception_DateChoice_period = Избор на дата / период на получаване на пробите
-RequestView_Section_Date_Execution = Срок за изпълнение:
-RequestView_Section_Button_Date_Selection = Избор на дата
-RequestView_Section_Accepted = Приел:
-RequestView_Section_Add = Добавяне:
-RequestView_Section_Zab = Забележка:
-RequestView_Section_DopalnIziskv = Допълнителни изисквания на клиента:
-RequestView_Section_DopalnDogovorenosti = Допълнителни договорености:
+RequestView_TitleFrame = Р—Р°СЏРІРєР° Р·Р° РёР·РїРёС‚РІР°РЅРµ
+RequestView_Request_Title = Р—РђРЇР’РљРђ Р—Рђ РР—РџРРўР’РђРќР•
+RequestView_Extra_Request_Title = Р—РђРЇР’РљРђ Р—Рђ РР—Р’РЄРќР Р•Р”РќРћ РР—РџРРўР’РђРќР•
+RequestView_Text_Formuliar = Р¤ 704-2
+RequestView_Text_Extra_Formuliar = Р¤ 704-3
+RequestView_CodeForRequest = РљРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р°
+RequestView_DateForRequest = Р”Р°С‚Р° РЅР° Р·Р°СЏРІРєР°С‚Р°
+RequestView_Text_InternalText = <html>Р—Р° РёР·РїРёС‚РІР°РЅРёСЏ РёР·РІСЉРЅ РѕР±РµРјР°,<br>РїСЂРµРґРІРёРґРµРЅ РІСЉРІ РІСЉС‚СЂРµС€РЅРёС‚Рµ РґРѕРєСѓРјРµРЅС‚Рё</html>
+RequestView_Text_ExternalText = Р—Р° РёР·РїРёС‚РІР°РЅРёСЏ РѕС‚ РІСЉРЅС€РЅРё РєР»РёРµРЅС‚Рё
+RequestView_Section_Ind_Num_Doc_Text = РРґ. РЅРѕРјРµСЂ РЅР° РґРѕРєСѓРјРµРЅС‚Р°, РёР·РёСЃРєРІР°С‰ РёР·РїРёС‚РІР°РЅРµС‚Рѕ: 
+RequestView_Section_Izpitvan_Produkt_Text = РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚
+RequestView_obekt_na_izpitvane_Text = РћР±РµРєС‚, РѕС‚ РєРѕР№С‚Рѕ СЃР° РІР·РµС‚Рё РїСЂРѕР±РёС‚Рµ:
+RequestView_Btn_Izbor = РР·Р±РѕСЂ
+RequestView_Return_Sample = Р’СЂСЉС‰Р°РЅРµ РЅР° РїСЂРѕР±РёС‚Рµ
+RequestView_CheckBox_InAccreditation_Text = РР·РІСЉРЅ РѕР±С…РІР°С‚
+RequestView_Section_Razmernost_Text = Р Р°Р·РјРµСЂРЅРѕСЃС‚
+RequestView_Section_Pokazatel_Text = РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»:
+RequestView_Btn_Pokazatel_Text = РР·Р±РѕСЂ РЅР° РїРѕРєР°Р·Р°С‚РµР»
+RequestView_Sestion_Date_Time_Reference_Text = Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° (СЃСЂРµРґР°С‚Р° РЅР° РїРµСЂРёРѕРґР°)
+RequestView_Section_Choice_Period_Text = РџРµСЂРёРѕРґРёС‡РЅРѕСЃС‚
+RequestView_Count_Sample = Р‘СЂРѕР№ РЅР° РїСЂРѕР±РёС‚Рµ
+RequestView_Error_Count_Sample = РќРµРєРѕСЂРµРєС‚РµРЅ Р±СЂРѕР№
+RequestView_Section_Sample_Description_Text = РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±РёС‚Рµ 
+RequestView_DialogError_CountSamples = РќРµРєРѕСЂРµРєС‚РµРЅ Р±СЂРѕР№ РЅР° РїСЂРѕР±РёС‚Рµ!
+RequestView_Section_Date_Reception = Р”Р°С‚Р° / РїРµСЂРёРѕРґ РЅР° РїРѕР»СѓС‡Р°РІР°РЅРµ РЅР° РїСЂРѕР±РёС‚Рµ: 
+RequestView_Section_Date_Reception_DateChoice_period = РР·Р±РѕСЂ РЅР° РґР°С‚Р° / РїРµСЂРёРѕРґ РЅР° РїРѕР»СѓС‡Р°РІР°РЅРµ РЅР° РїСЂРѕР±РёС‚Рµ
+RequestView_Section_Date_Execution = РЎСЂРѕРє Р·Р° РёР·РїСЉР»РЅРµРЅРёРµ:
+RequestView_Section_Button_Date_Selection = РР·Р±РѕСЂ РЅР° РґР°С‚Р°
+RequestView_Section_Accepted = РџСЂРёРµР»:
+RequestView_Section_Add = Р”РѕР±Р°РІСЏРЅРµ:
+RequestView_Section_Zab = Р—Р°Р±РµР»РµР¶РєР°:
+RequestView_Section_DopalnIziskv = Р”РѕРїСЉР»РЅРёС‚РµР»РЅРё РёР·РёСЃРєРІР°РЅРёСЏ РЅР° РєР»РёРµРЅС‚Р°:
+RequestView_Section_DopalnDogovorenosti = Р”РѕРїСЉР»РЅРёС‚РµР»РЅРё РґРѕРіРѕРІРѕСЂРµРЅРѕСЃС‚Рё:
 
-RequestView_Text_OR = или
-RequestView_JustONE = само едно от :
+RequestView_Text_OR = РёР»Рё
+RequestView_JustONE = СЃР°РјРѕ РµРґРЅРѕ РѕС‚ :
 
-RequestView_Section_Choise_AplicantNameFamily = Съгласувано с клиента
+RequestView_Section_Choise_AplicantNameFamily = РЎСЉРіР»Р°СЃСѓРІР°РЅРѕ СЃ РєР»РёРµРЅС‚Р°
 
-RequestView_showMessageDialog_Error = Грешни данни за следните полета:
-RequestView_showMessageDialog_ErrorRefDataTime = Не сте въвели референтна дата и време!
-RequestView_showMessageDialog_ErrorCodeRequest = Не сте въвели код на пробата!
-RequestView_showMessageDialog_ErrorPeriodeRequest = Не сте въвели период на пробата!
-RequestView_showMessageDialog_Error_NumberRequest = Заявка с този номер вече съществува
-RequestView_showMessageDialog_EditRequest_Result = <html>Въведете наново всички резултати за тази заявка<br>Генерирайте протокол</html>
-
-
-RequestView_Btn_InternetAplikant = Звено на ДП РАО
-RequestView_InternetAplikant_TitleFrame = Вътрешен за ДП РАО Заявител
-RequestView_InternalAplikant_Aplikant = Заявител
-RequestView_InternalAplikant_Adress = Адрес
-RequestView_InternalAplikant_Tell = Тел.:
-RequestView_InternalAplikant_AddToList = Вмъкване от списък:
-RequestView_InternalAplikant_Btn_Read = Прочети
-RequestView_External_Aplicant_TitleFrame = Външен за ДП РАО Заявител
-RequestView_Btn_External_Aplicant = Външни клиенти
-RequestView_Btn_External_Aplicant_Organization = Организация / Име:
-RequestView_Btn_External_Aplicant_Dogovor = Договор №:
+RequestView_showMessageDialog_Error = Р“СЂРµС€РЅРё РґР°РЅРЅРё Р·Р° СЃР»РµРґРЅРёС‚Рµ РїРѕР»РµС‚Р°:
+RequestView_showMessageDialog_ErrorRefDataTime = РќРµ СЃС‚Рµ РІСЉРІРµР»Рё СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° Рё РІСЂРµРјРµ!
+RequestView_showMessageDialog_ErrorCodeRequest = РќРµ СЃС‚Рµ РІСЉРІРµР»Рё РєРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°!
+RequestView_showMessageDialog_ErrorPeriodeRequest = РќРµ СЃС‚Рµ РІСЉРІРµР»Рё РїРµСЂРёРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°!
+RequestView_showMessageDialog_Error_NumberRequest = Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°
+RequestView_showMessageDialog_EditRequest_Result = <html>Р’СЉРІРµРґРµС‚Рµ РЅР°РЅРѕРІРѕ РІСЃРёС‡РєРё СЂРµР·СѓР»С‚Р°С‚Рё Р·Р° С‚Р°Р·Рё Р·Р°СЏРІРєР°<br>Р“РµРЅРµСЂРёСЂР°Р№С‚Рµ РїСЂРѕС‚РѕРєРѕР»</html>
 
 
-RequestViewFunction_ErrorDialog = Заявка с този номер вече съществува
-RequestViewFunction_ErrorNumber = Некоректен номер
-RequestViewFunction_Probe = проба
-RequestViewFunction_Sborna = Сборна
-RequestViewFunction_Probs = проби
-RequestViewFunction_Sborni = Сборни
-RequestViewFunction_za = за
-RequestViewFunction_mesec = м.
+RequestView_Btn_InternetAplikant = Р—РІРµРЅРѕ РЅР° Р”Рџ Р РђРћ
+RequestView_InternetAplikant_TitleFrame = Р’СЉС‚СЂРµС€РµРЅ Р·Р° Р”Рџ Р РђРћ Р—Р°СЏРІРёС‚РµР»
+RequestView_InternalAplikant_Aplikant = Р—Р°СЏРІРёС‚РµР»
+RequestView_InternalAplikant_Adress = РђРґСЂРµСЃ
+RequestView_InternalAplikant_Tell = РўРµР».:
+RequestView_InternalAplikant_AddToList = Р’РјСЉРєРІР°РЅРµ РѕС‚ СЃРїРёСЃСЉРє:
+RequestView_InternalAplikant_Btn_Read = РџСЂРѕС‡РµС‚Рё
+RequestView_External_Aplicant_TitleFrame = Р’СЉРЅС€РµРЅ Р·Р° Р”Рџ Р РђРћ Р—Р°СЏРІРёС‚РµР»
+RequestView_Btn_External_Aplicant = Р’СЉРЅС€РЅРё РєР»РёРµРЅС‚Рё
+RequestView_Btn_External_Aplicant_Organization = РћСЂРіР°РЅРёР·Р°С†РёСЏ / РРјРµ:
+RequestView_Btn_External_Aplicant_Dogovor = Р”РѕРіРѕРІРѕСЂ в„–:
 
-ChoiceFromListWithPlusAndMinus_choiceText = Обект, от който са взети пробите
-ChoiceNew_O_I_R_choiceText = Нов Обект, от който са взети пробите
-ChoiceNew_Zabelejka_choiceText = Нов Текст на забележка
-ChoiceNew_dopIzis_choiceText = Нов Текст на Допълнителни изисквания
-ChoiceNew_New_Client_choiceText = Добавяне на Нов клиент
+
+RequestViewFunction_ErrorDialog = Р—Р°СЏРІРєР° СЃ С‚РѕР·Рё РЅРѕРјРµСЂ РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°
+RequestViewFunction_ErrorNumber = РќРµРєРѕСЂРµРєС‚РµРЅ РЅРѕРјРµСЂ
+RequestViewFunction_Probe = РїСЂРѕР±Р°
+RequestViewFunction_Sborna = РЎР±РѕСЂРЅР°
+RequestViewFunction_Probs = РїСЂРѕР±Рё
+RequestViewFunction_Sborni = РЎР±РѕСЂРЅРё
+RequestViewFunction_za = Р·Р°
+RequestViewFunction_mesec = Рј.
+
+ChoiceFromListWithPlusAndMinus_choiceText = РћР±РµРєС‚, РѕС‚ РєРѕР№С‚Рѕ СЃР° РІР·РµС‚Рё РїСЂРѕР±РёС‚Рµ
+ChoiceNew_O_I_R_choiceText = РќРѕРІ РћР±РµРєС‚, РѕС‚ РєРѕР№С‚Рѕ СЃР° РІР·РµС‚Рё РїСЂРѕР±РёС‚Рµ
+ChoiceNew_Zabelejka_choiceText = РќРѕРІ РўРµРєСЃС‚ РЅР° Р·Р°Р±РµР»РµР¶РєР°
+ChoiceNew_dopIzis_choiceText = РќРѕРІ РўРµРєСЃС‚ РЅР° Р”РѕРїСЉР»РЅРёС‚РµР»РЅРё РёР·РёСЃРєРІР°РЅРёСЏ
+ChoiceNew_New_Client_choiceText = Р”РѕР±Р°РІСЏРЅРµ РЅР° РќРѕРІ РєР»РёРµРЅС‚
 
 
 $$Text_Table
-TableHeaderColumnName_NumberRequest = № на Заявката
-TableHeaderColumnName_CodeSample = Код на пробата
-TableHeaderColumnName_ObjectSample = Обект на пробата
-TableHeaderColumnName_MetodNaIzpitvane = Метод на изпитване
-TableHeaderColumnName_IzpitvanPokazatel = Изпитван показател
-TableHeaderColumnName_Nuclide = Нуклид
-TableHeaderColumnName_Ativity = Активност
-TableHeaderColumnName_Uncertainty = Неопределеност
-TableHeaderColumnName_Sigma = Сигма
-TableHeaderColumnName_MDA = МДА
-TableHeaderColumnName_Razmernosti = Размерност
-TableHeaderColumnName_Quantity = Количество
-TableHeaderColumnName_Dimension = Мярка
-TableHeaderColumnName_InProtokol = В протокол
+TableHeaderColumnName_NumberRequest = в„– РЅР° Р—Р°СЏРІРєР°С‚Р°
+TableHeaderColumnName_CodeSample = РљРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°
+TableHeaderColumnName_ObjectSample = РћР±РµРєС‚ РЅР° РїСЂРѕР±Р°С‚Р°
+TableHeaderColumnName_MetodNaIzpitvane = РњРµС‚РѕРґ РЅР° РёР·РїРёС‚РІР°РЅРµ
+TableHeaderColumnName_IzpitvanPokazatel = РР·РїРёС‚РІР°РЅ РїРѕРєР°Р·Р°С‚РµР»
+TableHeaderColumnName_Nuclide = РќСѓРєР»РёРґ
+TableHeaderColumnName_Ativity = РђРєС‚РёРІРЅРѕСЃС‚
+TableHeaderColumnName_Uncertainty = РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚
+TableHeaderColumnName_Sigma = РЎРёРіРјР°
+TableHeaderColumnName_MDA = РњР”Рђ
+TableHeaderColumnName_Razmernosti = Р Р°Р·РјРµСЂРЅРѕСЃС‚
+TableHeaderColumnName_Quantity = РљРѕР»РёС‡РµСЃС‚РІРѕ
+TableHeaderColumnName_Dimension = РњСЏСЂРєР°
+TableHeaderColumnName_InProtokol = Р’ РїСЂРѕС‚РѕРєРѕР»
 
 
-TableDobivFromResult_windowTitle_Text = Избор на добив
-TableDobivFromResult_Text = Изберете добив от списъка!
-TableDobivFromResult_Nuclide = Нуклид
-TableDobivFromResult_Dobiv = Добив
+TableDobivFromResult_windowTitle_Text = РР·Р±РѕСЂ РЅР° РґРѕР±РёРІ
+TableDobivFromResult_Text = РР·Р±РµСЂРµС‚Рµ РґРѕР±РёРІ РѕС‚ СЃРїРёСЃСЉРєР°!
+TableDobivFromResult_Nuclide = РќСѓРєР»РёРґ
+TableDobivFromResult_Dobiv = Р”РѕР±РёРІ
 
 
-InternalApplicant_List_TableTitle = Списък на Вътрешни Клиенти
-InternalApplicant_List_HeaderColumnName_Organization = Организация
-InternalApplicant_List_HeaderColumnName_Adress = Адрес
-InternalApplicant_List_HeaderColumnName_Telephon = Телефон
+InternalApplicant_List_TableTitle = РЎРїРёСЃСЉРє РЅР° Р’СЉС‚СЂРµС€РЅРё РљР»РёРµРЅС‚Рё
+InternalApplicant_List_HeaderColumnName_Organization = РћСЂРіР°РЅРёР·Р°С†РёСЏ
+InternalApplicant_List_HeaderColumnName_Adress = РђРґСЂРµСЃ
+InternalApplicant_List_HeaderColumnName_Telephon = РўРµР»РµС„РѕРЅ
 
-Request_List_Table_LabelText_ChoiceColumn = Избор на колони - заявки
-Request_List_Table_LabelText_EditingData =  редактиране на данните
-Request_List_Table_DialogForCloseTable = <html>За да се отворят пробите от тази заявка<br>ще затворя този прозорец</html>
-Request_List_Table_DialogForChangeData =  <html>Има променени данни за заявки, които на са запазени<br>
+Request_List_Table_LabelText_ChoiceColumn = РР·Р±РѕСЂ РЅР° РєРѕР»РѕРЅРё - Р·Р°СЏРІРєРё
+Request_List_Table_LabelText_EditingData =  СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РґР°РЅРЅРёС‚Рµ
+Request_List_Table_DialogForCloseTable = <html>Р—Р° РґР° СЃРµ РѕС‚РІРѕСЂСЏС‚ РїСЂРѕР±РёС‚Рµ РѕС‚ С‚Р°Р·Рё Р·Р°СЏРІРєР°<br>С‰Рµ Р·Р°С‚РІРѕСЂСЏ С‚РѕР·Рё РїСЂРѕР·РѕСЂРµС†</html>
+Request_List_Table_DialogForChangeData =  <html>РРјР° РїСЂРѕРјРµРЅРµРЅРё РґР°РЅРЅРё Р·Р° Р·Р°СЏРІРєРё, РєРѕРёС‚Рѕ РЅР° СЃР° Р·Р°РїР°Р·РµРЅРё<br>
 
-Sample_List_Table_LabelText_ChoiceColumn = Избор на колони - проби
+Sample_List_Table_LabelText_ChoiceColumn = РР·Р±РѕСЂ РЅР° РєРѕР»РѕРЅРё - РїСЂРѕР±Рё
 
-Results_List_Table_LabelText_ChoiceColumn = Избор на колони - резултати
-Results_List_Table_TitleName = Списък на Резултатите
+Results_List_Table_LabelText_ChoiceColumn = РР·Р±РѕСЂ РЅР° РєРѕР»РѕРЅРё - СЂРµР·СѓР»С‚Р°С‚Рё
+Results_List_Table_TitleName = РЎРїРёСЃСЉРє РЅР° Р РµР·СѓР»С‚Р°С‚РёС‚Рµ
 
-List_Table_LabelText_ChoiceColumn = Избор на колони
-List_Table_DialogSave_ChoiceColumn_frame_Text = Направете своя избор
-List_Table_DialogSave_ChoiceColumn_info_Text = <html>Има промени в показваните колони<br>Ще запишете ли промените?</html>
+List_Table_LabelText_ChoiceColumn = РР·Р±РѕСЂ РЅР° РєРѕР»РѕРЅРё
+List_Table_DialogSave_ChoiceColumn_frame_Text = РќР°РїСЂР°РІРµС‚Рµ СЃРІРѕСЏ РёР·Р±РѕСЂ
+List_Table_DialogSave_ChoiceColumn_info_Text = <html>РРјР° РїСЂРѕРјРµРЅРё РІ РїРѕРєР°Р·РІР°РЅРёС‚Рµ РєРѕР»РѕРЅРё<br>Р©Рµ Р·Р°РїРёС€РµС‚Рµ Р»Рё РїСЂРѕРјРµРЅРёС‚Рµ?</html>
 
-AddDobivView_TitleName = Въвеждане на Добив
-AddDobivView_LabelText_CodeForStandart = Код на стандарта
-AddDobivView_LabelText_Opisanie = Описание
-AddDobivView_LabelText_IzpitvanProdukt = Изпитван продукт
+AddDobivView_TitleName = Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р”РѕР±РёРІ
+AddDobivView_LabelText_CodeForStandart = РљРѕРґ РЅР° СЃС‚Р°РЅРґР°СЂС‚Р°
+AddDobivView_LabelText_Opisanie = РћРїРёСЃР°РЅРёРµ
+AddDobivView_LabelText_IzpitvanProdukt = РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚
 
 
-AddResultsView_TitleName = Въвеждане на Резултати
-AddResultsView_LabelText_CodeForRequest = Код на заявка
-AddResultsView_LabelText_NumberForSample = № на проба
-AddResultsView_LabelText_Pokazatel = Показател
+AddResultsView_TitleName = Р’СЉРІРµР¶РґР°РЅРµ РЅР° Р РµР·СѓР»С‚Р°С‚Рё
+AddResultsView_LabelText_CodeForRequest = РљРѕРґ РЅР° Р·Р°СЏРІРєР°
+AddResultsView_LabelText_NumberForSample = в„– РЅР° РїСЂРѕР±Р°
+AddResultsView_LabelText_Pokazatel = РџРѕРєР°Р·Р°С‚РµР»
 
-CheckViewValueDialogFrame_TitleName = Проверка на резултати
-CheckViewValueDialogFrame_NumberForRequest = № заявка
-CheckViewValueDialogFrame_Standart = Стандарт
+CheckViewValueDialogFrame_TitleName = РџСЂРѕРІРµСЂРєР° РЅР° СЂРµР·СѓР»С‚Р°С‚Рё
+CheckViewValueDialogFrame_NumberForRequest = в„– Р·Р°СЏРІРєР°
+CheckViewValueDialogFrame_Standart = РЎС‚Р°РЅРґР°СЂС‚
 
-DateChoice_period_TitleName = Избор на референтна дата и време
-DateChoice_period_Label_FerferenceDate_Period = Референтна дата (средата на периода)
-DateChoice_period_Label_Start_Date = Начална дата
+DateChoice_period_TitleName = РР·Р±РѕСЂ РЅР° СЂРµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° Рё РІСЂРµРјРµ
+DateChoice_period_Label_FerferenceDate_Period = Р РµС„РµСЂРµРЅС‚РЅР° РґР°С‚Р° (СЃСЂРµРґР°С‚Р° РЅР° РїРµСЂРёРѕРґР°)
+DateChoice_period_Label_Start_Date = РќР°С‡Р°Р»РЅР° РґР°С‚Р°
 
-Label_Text_Name = Име
-Label_Text_Family= Фамилия
-LabelText_IzvarshilAnaliza = Извършил анализа
-LabelText_IzvarshilHimObrabotka = Извършил Хим. обработ.
-LabelText_PatToFile = Път до файла
-LabelText_Metod = Метод
-LabelText_Dobiv = Добив
-LabelText_Activity = Активност
-LabelText_MDA = МДА
-LabelText_Add = Добавяне
-LabelText_Select = Изберете:
+Label_Text_Name = РРјРµ
+Label_Text_Family= Р¤Р°РјРёР»РёСЏ
+LabelText_IzvarshilAnaliza = РР·РІСЉСЂС€РёР» Р°РЅР°Р»РёР·Р°
+LabelText_IzvarshilHimObrabotka = РР·РІСЉСЂС€РёР» РҐРёРј. РѕР±СЂР°Р±РѕС‚.
+LabelText_PatToFile = РџСЉС‚ РґРѕ С„Р°Р№Р»Р°
+LabelText_Metod = РњРµС‚РѕРґ
+LabelText_Dobiv = Р”РѕР±РёРІ
+LabelText_Activity = РђРєС‚РёРІРЅРѕСЃС‚
+LabelText_MDA = РњР”Рђ
+LabelText_Add = Р”РѕР±Р°РІСЏРЅРµ
+LabelText_Select = РР·Р±РµСЂРµС‚Рµ:
 
-PeriodicReference_TitleName = Справка - Периодичен мониторинг
-Reference_LabelText_IzpitvanProdukt = Изпитван продукт
-Reference_LabelText_Obekt_Na_Izpitvane = Обект на изпитване
-Reference_LabelText_Pokazatel = Показател
-Reference_LabelText_Neopredelenost = Неопределеност
-Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata = Обект на пробата
-Reference_LabelText_Godina = Година
-Reference_LabelRadioButton_mesechni = месечни
-Reference_LabelRadioButton_TriMesechni = тримесечни
-Reference_LabelRadioButton_MDA = МДА
-Reference_LabelRadioButton_OtnNeopred = Относителна
-Reference_LabelRadioButton_AbsNeopred = Абсолютна
-Reference_LabelRadioButton_BezNeopred = Без
-Reference_LabelRadioButton_Activnost = Активност
-Reference_LabelTextRazmernost = Размерност
-Reference_Table_Column_Nuclide = Нуклид
-Reference_LabelButton_Start = Старт
-Reference_ReportString = Няма намерени резултати
-Reference_LabelText_CodeRequest = № на Заявката
-Reference_LabelText_CountSample = Брои проби
-Reference_LabelText_DateRequest = Дата на заявката
-Reference_LabelText_Applicant = Заявител
-Reference_LabelText_InAcredition = В акредитация
-Reference_LabelText_Comment = <html>Описание на<br>пробите</html>
-Reference_LabelText_TSI = ТСИ
-Reference_LabelText_DateHimOper = Дата на Хим. обработ.
-Reference_LabelText_DateMeasurOper = Дата на анализа
-Reference_LabelText_InProtokol = В протокол
-Reference_LabelText_FileLokation = Основен файл
-Reference_LabelText_SampleCode = Код на пробата
-Reference_LabelText_CommentSample = <html>Описание на<br>пробата</html>
-Reference_LabelText_separatorInColumnName = …
-Reference_LabelText_CodeStandart = Код на стандарта
-Reference_LabelText_ORH = <html>Извършил<br>радиохимичната<br>обработка</html>
-Reference_LabelText_OРМ = <html>Извършил<br>анализа</html>
+PeriodicReference_TitleName = РЎРїСЂР°РІРєР° - РџРµСЂРёРѕРґРёС‡РµРЅ РјРѕРЅРёС‚РѕСЂРёРЅРі
+Reference_LabelText_IzpitvanProdukt = РР·РїРёС‚РІР°РЅ РїСЂРѕРґСѓРєС‚
+Reference_LabelText_Obekt_Na_Izpitvane = РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ
+Reference_LabelText_Pokazatel = РџРѕРєР°Р·Р°С‚РµР»
+Reference_LabelText_Neopredelenost = РќРµРѕРїСЂРµРґРµР»РµРЅРѕСЃС‚
+Reference_LabelText_Obekt_Na_Izpitvane_Na_Probata = РћР±РµРєС‚ РЅР° РїСЂРѕР±Р°С‚Р°
+Reference_LabelText_Godina = Р“РѕРґРёРЅР°
+Reference_LabelRadioButton_mesechni = РјРµСЃРµС‡РЅРё
+Reference_LabelRadioButton_TriMesechni = С‚СЂРёРјРµСЃРµС‡РЅРё
+Reference_LabelRadioButton_MDA = РњР”Рђ
+Reference_LabelRadioButton_OtnNeopred = РћС‚РЅРѕСЃРёС‚РµР»РЅР°
+Reference_LabelRadioButton_AbsNeopred = РђР±СЃРѕР»СЋС‚РЅР°
+Reference_LabelRadioButton_BezNeopred = Р‘РµР·
+Reference_LabelRadioButton_Activnost = РђРєС‚РёРІРЅРѕСЃС‚
+Reference_LabelTextRazmernost = Р Р°Р·РјРµСЂРЅРѕСЃС‚
+Reference_Table_Column_Nuclide = РќСѓРєР»РёРґ
+Reference_LabelButton_Start = РЎС‚Р°СЂС‚
+Reference_ReportString = РќСЏРјР° РЅР°РјРµСЂРµРЅРё СЂРµР·СѓР»С‚Р°С‚Рё
+Reference_LabelText_CodeRequest = в„– РЅР° Р—Р°СЏРІРєР°С‚Р°
+Reference_LabelText_CountSample = Р‘СЂРѕРё РїСЂРѕР±Рё
+Reference_LabelText_DateRequest = Р”Р°С‚Р° РЅР° Р·Р°СЏРІРєР°С‚Р°
+Reference_LabelText_Applicant = Р—Р°СЏРІРёС‚РµР»
+Reference_LabelText_InAcredition = Р’ Р°РєСЂРµРґРёС‚Р°С†РёСЏ
+Reference_LabelText_Comment = <html>РћРїРёСЃР°РЅРёРµ РЅР°<br>РїСЂРѕР±РёС‚Рµ</html>
+Reference_LabelText_TSI = РўРЎР
+Reference_LabelText_DateHimOper = Р”Р°С‚Р° РЅР° РҐРёРј. РѕР±СЂР°Р±РѕС‚.
+Reference_LabelText_DateMeasurOper = Р”Р°С‚Р° РЅР° Р°РЅР°Р»РёР·Р°
+Reference_LabelText_InProtokol = Р’ РїСЂРѕС‚РѕРєРѕР»
+Reference_LabelText_FileLokation = РћСЃРЅРѕРІРµРЅ С„Р°Р№Р»
+Reference_LabelText_SampleCode = РљРѕРґ РЅР° РїСЂРѕР±Р°С‚Р°
+Reference_LabelText_CommentSample = <html>РћРїРёСЃР°РЅРёРµ РЅР°<br>РїСЂРѕР±Р°С‚Р°</html>
+Reference_LabelText_separatorInColumnName = вЂ¦
+Reference_LabelText_CodeStandart = РљРѕРґ РЅР° СЃС‚Р°РЅРґР°СЂС‚Р°
+Reference_LabelText_ORH = <html>РР·РІСЉСЂС€РёР»<br>СЂР°РґРёРѕС…РёРјРёС‡РЅР°С‚Р°<br>РѕР±СЂР°Р±РѕС‚РєР°</html>
+Reference_LabelText_OР Рњ = <html>РР·РІСЉСЂС€РёР»<br>Р°РЅР°Р»РёР·Р°</html>
 
-Reference_LabelText_Dobiv_FrameName = Справка за добивите
-Reference_LabelText_Dobiv_Menu = Добиви
+Reference_LabelText_Dobiv_FrameName = РЎРїСЂР°РІРєР° Р·Р° РґРѕР±РёРІРёС‚Рµ
+Reference_LabelText_Dobiv_Menu = Р”РѕР±РёРІРё
   
-MounthlyReferenceForCNRDWater_BasicLabel = <html>СВЕДЕНИЕ<br>за обема на дренираните води от баня на ЦНРД към Изход-2 за:</html>
-MounthlyReferenceForCNRDWater_GodinaLabel = година
-MounthlyReferenceForCNRDWater_MesecLabel = месец
-MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 
+MounthlyReferenceForCNRDWater_BasicLabel = <html>РЎР’Р•Р”Р•РќРР•<br>Р·Р° РѕР±РµРјР° РЅР° РґСЂРµРЅРёСЂР°РЅРёС‚Рµ РІРѕРґРё РѕС‚ Р±Р°РЅСЏ РЅР° Р¦РќР Р” РєСЉРј РР·С…РѕРґ-2 Р·Р°:</html>
+MounthlyReferenceForCNRDWater_GodinaLabel = РіРѕРґРёРЅР°
+MounthlyReferenceForCNRDWater_MesecLabel = РјРµСЃРµС†
+MounthlyReferenceForCNRDWater_GodinaLabel_Error = РіРѕРґРёРЅР°С‚Р° РґР° Рµ СЃР»РµРґ 
 
-MounthlyReferenceEjectionVolums_Btn_Reference = Справка
+MounthlyReferenceEjectionVolums_Btn_Reference = РЎРїСЂР°РІРєР°
 
-MounthlyReferenceEjectionRHtoORDK_BasicLabel = <html>СВЕДЕНИЕ<br>за изхвърлянията на 14С и 3Н от ВТ-1 и ВТ-2 за:</html>
-MounthlyReferenceEjectionRHtoORDK_Request_C = код на заявката за 14С
-MounthlyReferenceEjectionRHtoORDK_Request_H = код на заявката за 3Н
-MounthlyReferenceEjectionRHtoORDK_TitleName = Изхвърляния на 14С и 3Н
+MounthlyReferenceEjectionRHtoORDK_BasicLabel = <html>РЎР’Р•Р”Р•РќРР•<br>Р·Р° РёР·С…РІСЉСЂР»СЏРЅРёСЏС‚Р° РЅР° 14РЎ Рё 3Рќ РѕС‚ Р’Рў-1 Рё Р’Рў-2 Р·Р°:</html>
+MounthlyReferenceEjectionRHtoORDK_Request_C = РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р° Р·Р° 14РЎ
+MounthlyReferenceEjectionRHtoORDK_Request_H = РєРѕРґ РЅР° Р·Р°СЏРІРєР°С‚Р° Р·Р° 3Рќ
+MounthlyReferenceEjectionRHtoORDK_TitleName = РР·С…РІСЉСЂР»СЏРЅРёСЏ РЅР° 14РЎ Рё 3Рќ
 
-listStringObectEjection = Спецкорпус-1 ; Спецкорпус-2
+listStringObectEjection = РЎРїРµС†РєРѕСЂРїСѓСЃ-1 ; РЎРїРµС†РєРѕСЂРїСѓСЃ-2
 
-MounthlyReferenceForCNRDWaterTable_MenuEjectionIzhod2 = Изхвърляния към Изход 2
-MounthlyReferenceForCNRDWaterTable_ProtokolN = протокол №
-MounthlyReferenceForCNRDWaterTable_ObektSample = Обект на изпитване
-MounthlyReferenceForCNRDWaterTable_Obem = Изхвърлен обем
-MounthlyReferenceForCNRDWaterTable_Nuclide = Нуклиди
-MounthlyReferenceForCNRDWaterTable_SpActivnost = <html><center>Специфична<br>активност<br>[Bq/m3]</html>
-MounthlyReferenceForCNRDWaterTable_IzhvActivnost = <html><center>Изхвърлена<br>активност<br>[Bq]</center></html>
-MounthlyReferenceForCNRDWaterTable_NeopredOtnosit = <html><center>Разширена<br>неопред.<br>[%]</center></html>
-MounthlyReferenceForCNRDWaterTable_MDA = <html><center>МДА<br>[Bq/m3]</center></html>
-MounthlyReferenceForCNRDWaterTable_NeopredAbsol = <html><center>Разширена<br>неопред.<br>[Bq]</center></html>
-MounthlyReferenceForCNRDWaterTable_KombiniranaNeopred = <html><center>Комбинирана<br>неопред.<br>[%]</center></html>
-MounthlyReferenceForCNRDWaterTable_IzhvSumarnaActivnost = <html><center>Изхвърлена<br>сумарна активност<br>[Bq]</center></html>
-MounthlyReferenceForCNRDWaterTable_ObshtObem = <html><center>Изхвърлен<br>общ обем<br>[m3]</center></html>
-MounthlyReferenceForCNRDWaterTable_SumarnaObemnaActivnost = <html><center>Сумарна<br>Специфична активност<br>[Bq/m3]</center></html>
-MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% на<br>Максималната стойност<br>от контролното ниво<br>[11100Bq/m3]</center></html>
-MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>Максималната стойност<br>на измерената обемна<br>активност за месеца<br>[Bq/l]</center></html>
-MounthlyReferenceForCNRDWater_TableLabel = Дренираните води от баня на ЦНРД към Изход-2 за: 
-MounthlyReferenceForCNRDWater_OpenExcelFileLabel = Изберете Excel файла за докладване на изхвърлянията към БАК 4 и 5
-MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel = Обема изхвърлен от БАК 4 и 5 за месец 
-MounthlyReferenceForCNRDWater_ErrorObemBAK = Некоректно въведен обем
-MounthlyReferenceForCNRDWater_OpenExcelFileFrameName = Избор на файл
-MounthlyReferenceForCNRDWater_OpenExcelFileNotBAKResults = Няма резултати за БАК 4 и 5 за 
-MounthlyReferenceForCNRDWater_OpenExcelFile_NotBAKObem = Няма нанесен обем за БАК 4 и 5 за 
-MounthlyReferenceForCNRDWater_OpenExcelFileNotCorectNuclideList = Не е коректен листа с нуклиди в таблицата на страница 
-MounthlyReferenceForCNRDWater_OpenExcelFileNotFound = Не е намерен файла 
-MounthlyReferenceForCNRDWater_NotSelectExcelFile = Не е избран файл  
-MounthlyReferenceForCNRDWater_excelFileIsOpen = Файлът е отворен
-MounthlyReferenceForCNRDWater_CheckKorektExcelFile  = СВЕДЕНИЕ
-MounthlyReferenceForCNRDWater_NotSelectCorectExcelFile = Не е избран коректен excel файл  
-MounthlyReferenceForCNRDWater_Koeficient = <html><center>коеф.<br>на загуби</center></html>
+MounthlyReferenceForCNRDWaterTable_MenuEjectionIzhod2 = РР·С…РІСЉСЂР»СЏРЅРёСЏ РєСЉРј РР·С…РѕРґ 2
+MounthlyReferenceForCNRDWaterTable_ProtokolN = РїСЂРѕС‚РѕРєРѕР» в„–
+MounthlyReferenceForCNRDWaterTable_ObektSample = РћР±РµРєС‚ РЅР° РёР·РїРёС‚РІР°РЅРµ
+MounthlyReferenceForCNRDWaterTable_Obem = РР·С…РІСЉСЂР»РµРЅ РѕР±РµРј
+MounthlyReferenceForCNRDWaterTable_Nuclide = РќСѓРєР»РёРґРё
+MounthlyReferenceForCNRDWaterTable_SpActivnost = <html><center>РЎРїРµС†РёС„РёС‡РЅР°<br>Р°РєС‚РёРІРЅРѕСЃС‚<br>[Bq/m3]</html>
+MounthlyReferenceForCNRDWaterTable_IzhvActivnost = <html><center>РР·С…РІСЉСЂР»РµРЅР°<br>Р°РєС‚РёРІРЅРѕСЃС‚<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_NeopredOtnosit = <html><center>Р Р°Р·С€РёСЂРµРЅР°<br>РЅРµРѕРїСЂРµРґ.<br>[%]</center></html>
+MounthlyReferenceForCNRDWaterTable_MDA = <html><center>РњР”Рђ<br>[Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_NeopredAbsol = <html><center>Р Р°Р·С€РёСЂРµРЅР°<br>РЅРµРѕРїСЂРµРґ.<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_KombiniranaNeopred = <html><center>РљРѕРјР±РёРЅРёСЂР°РЅР°<br>РЅРµРѕРїСЂРµРґ.<br>[%]</center></html>
+MounthlyReferenceForCNRDWaterTable_IzhvSumarnaActivnost = <html><center>РР·С…РІСЉСЂР»РµРЅР°<br>СЃСѓРјР°СЂРЅР° Р°РєС‚РёРІРЅРѕСЃС‚<br>[Bq]</center></html>
+MounthlyReferenceForCNRDWaterTable_ObshtObem = <html><center>РР·С…РІСЉСЂР»РµРЅ<br>РѕР±С‰ РѕР±РµРј<br>[m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_SumarnaObemnaActivnost = <html><center>РЎСѓРјР°СЂРЅР°<br>РЎРїРµС†РёС„РёС‡РЅР° Р°РєС‚РёРІРЅРѕСЃС‚<br>[Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_PercentKontrolnoNivo = <html><center>% РЅР°<br>РњР°РєСЃРёРјР°Р»РЅР°С‚Р° СЃС‚РѕР№РЅРѕСЃС‚<br>РѕС‚ РєРѕРЅС‚СЂРѕР»РЅРѕС‚Рѕ РЅРёРІРѕ<br>[11100Bq/m3]</center></html>
+MounthlyReferenceForCNRDWaterTable_MaxObemnaActivnostZaMeseca = <html><center>РњР°РєСЃРёРјР°Р»РЅР°С‚Р° СЃС‚РѕР№РЅРѕСЃС‚<br>РЅР° РёР·РјРµСЂРµРЅР°С‚Р° РѕР±РµРјРЅР°<br>Р°РєС‚РёРІРЅРѕСЃС‚ Р·Р° РјРµСЃРµС†Р°<br>[Bq/l]</center></html>
+MounthlyReferenceForCNRDWater_TableLabel = Р”СЂРµРЅРёСЂР°РЅРёС‚Рµ РІРѕРґРё РѕС‚ Р±Р°РЅСЏ РЅР° Р¦РќР Р” РєСЉРј РР·С…РѕРґ-2 Р·Р°: 
+MounthlyReferenceForCNRDWater_OpenExcelFileLabel = РР·Р±РµСЂРµС‚Рµ Excel С„Р°Р№Р»Р° Р·Р° РґРѕРєР»Р°РґРІР°РЅРµ РЅР° РёР·С…РІСЉСЂР»СЏРЅРёСЏС‚Р° РєСЉРј Р‘РђРљ 4 Рё 5
+MounthlyReferenceForCNRDWater_IzhvarlenObemBAKLabel = РћР±РµРјР° РёР·С…РІСЉСЂР»РµРЅ РѕС‚ Р‘РђРљ 4 Рё 5 Р·Р° РјРµСЃРµС† 
+MounthlyReferenceForCNRDWater_ErrorObemBAK = РќРµРєРѕСЂРµРєС‚РЅРѕ РІСЉРІРµРґРµРЅ РѕР±РµРј
+MounthlyReferenceForCNRDWater_OpenExcelFileFrameName = РР·Р±РѕСЂ РЅР° С„Р°Р№Р»
+MounthlyReferenceForCNRDWater_OpenExcelFileNotBAKResults = РќСЏРјР° СЂРµР·СѓР»С‚Р°С‚Рё Р·Р° Р‘РђРљ 4 Рё 5 Р·Р° 
+MounthlyReferenceForCNRDWater_OpenExcelFile_NotBAKObem = РќСЏРјР° РЅР°РЅРµСЃРµРЅ РѕР±РµРј Р·Р° Р‘РђРљ 4 Рё 5 Р·Р° 
+MounthlyReferenceForCNRDWater_OpenExcelFileNotCorectNuclideList = РќРµ Рµ РєРѕСЂРµРєС‚РµРЅ Р»РёСЃС‚Р° СЃ РЅСѓРєР»РёРґРё РІ С‚Р°Р±Р»РёС†Р°С‚Р° РЅР° СЃС‚СЂР°РЅРёС†Р° 
+MounthlyReferenceForCNRDWater_OpenExcelFileNotFound = РќРµ Рµ РЅР°РјРµСЂРµРЅ С„Р°Р№Р»Р° 
+MounthlyReferenceForCNRDWater_NotSelectExcelFile = РќРµ Рµ РёР·Р±СЂР°РЅ С„Р°Р№Р»  
+MounthlyReferenceForCNRDWater_excelFileIsOpen = Р¤Р°Р№Р»СЉС‚ Рµ РѕС‚РІРѕСЂРµРЅ
+MounthlyReferenceForCNRDWater_CheckKorektExcelFile  = РЎР’Р•Р”Р•РќРР•
+MounthlyReferenceForCNRDWater_NotSelectCorectExcelFile = РќРµ Рµ РёР·Р±СЂР°РЅ РєРѕСЂРµРєС‚РµРЅ excel С„Р°Р№Р»  
+MounthlyReferenceForCNRDWater_Koeficient = <html><center>РєРѕРµС„.<br>РЅР° Р·Р°РіСѓР±Рё</center></html>
 
 
 
-MenuSampleMonthlyReference_TitleName = Изработени проби
-SampleMonthlyReference_TitleName = Справка за изработени проби
+MenuSampleMonthlyReference_TitleName = РР·СЂР°Р±РѕС‚РµРЅРё РїСЂРѕР±Рё
+SampleMonthlyReference_TitleName = РЎРїСЂР°РІРєР° Р·Р° РёР·СЂР°Р±РѕС‚РµРЅРё РїСЂРѕР±Рё
 
 
 $$Button_Text
-cancelBtn_Text = Отказ
-exitBtn_Text = Изход
-saveBtn_Text = Запис
-openBtn_Text = Отвори
-showBtn_Text = Покажи
+cancelBtn_Text = РћС‚РєР°Р·
+exitBtn_Text = РР·С…РѕРґ
+saveBtn_Text = Р—Р°РїРёСЃ
+openBtn_Text = РћС‚РІРѕСЂРё
+showBtn_Text = РџРѕРєР°Р¶Рё
 OK_Btn_Text = OK
-Yes_Btn_Text = Да
-No_Btn_Text = Не
-newNuclideBtn_Text = Нов Нуклид
-BtnText_DataOfDBase = Данни от базата
-BtnText_DataOfFile = Данни от файл
+Yes_Btn_Text = Р”Р°
+No_Btn_Text = РќРµ
+newNuclideBtn_Text = РќРѕРІ РќСѓРєР»РёРґ
+BtnText_DataOfDBase = Р”Р°РЅРЅРё РѕС‚ Р±Р°Р·Р°С‚Р°
+BtnText_DataOfFile = Р”Р°РЅРЅРё РѕС‚ С„Р°Р№Р»
 
 
 #int

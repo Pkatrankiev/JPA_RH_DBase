@@ -1,6 +1,5 @@
 #Sring
 
-
 MainWindow_Ver = Ver.070223
 
 ProtokolResultNeopred = 1

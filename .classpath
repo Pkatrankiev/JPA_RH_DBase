@@ -46,7 +46,7 @@
 	<classpathentry kind="lib" path="Lib/lib/new/xmlbeans-3.1.0.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/javax.xml.bind.jar"/>
 	<classpathentry kind="lib" path="Lib/lib/javax.ws.rs-api-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/JavaProjectEclipce/JPA_RH_DBase/Lib/lib/org.json-chargebee-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/JavaProjectEclipce/JPA_RH_DBase/Lib/lib/jsoup-1.15.3.jar"/>
+	<classpathentry kind="lib" path="Lib/lib/jsoup-1.15.3.jar"/>
+	<classpathentry kind="lib" path="Lib/lib/org.json-chargebee-1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

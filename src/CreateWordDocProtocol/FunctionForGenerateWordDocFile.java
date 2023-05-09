@@ -392,7 +392,7 @@ public class FunctionForGenerateWordDocFile {
 		int newEsponNeop = exponNeopr + (exponNeoprA - 1);
 		int newNeopr = calculationValueInX_XXFormat(neopr, newEsponNeop);
 		
-//	System.out.println(exponNeopr + "  " + IntValue + "  " + exponNeoprA + "  " + newEsponNeop+" "+newNeopr);
+	System.out.println(exponNeopr + " * " + IntValue + " - " + exponNeoprA + " + " + newEsponNeop+" . "+newNeopr);
 
 		//**********************************************************************
 		// namirame expon na stoinost
@@ -400,13 +400,13 @@ public class FunctionForGenerateWordDocFile {
 		stoinostStr = formatter(stoinost);
 //		String exponStoinostStr1 = stoinostStr.substring(stoinostStr.indexOf("E"));
 		
-		
+		System.out.println(newEsponNeop+"  "+exponStoinost);
 		int sub = exponStoinost - newEsponNeop;
-//		int k = (int) Math.pow(10, sub+1);
+		int k = (int) Math.pow(10, sub+1);
 //		String stoinostStr1 = formatter(Math.round(stoinost*k)/k);
 		
-//		double a = stoinost/( Math.pow(10, exponStoinost));
-//		System.out.println(stoinost+"  "+exponStoinost + "  " + sub + "  " +k+"  "+ a +"  "+stoinostStr1);
+		double a = stoinost/( Math.pow(10, exponStoinost));
+		System.out.println(stoinost+"  "+exponStoinost + "  " + sub + "  " +k+"  "+ a +"  "+stoinostStr);
 		switch (sub) {
 		case 0:
 			stoinostStr = generateStringStoinostAndNeopred(frm_St1, newNeopr,stoinost);
@@ -431,7 +431,7 @@ public class FunctionForGenerateWordDocFile {
 	
 
 		
-//		System.out.println(stoinostStr+" "+sub);
+		System.out.println(stoinostStr+" * "+sub);
 		
 		return stoinostStr;
 
@@ -450,10 +450,23 @@ public class FunctionForGenerateWordDocFile {
 		String stoinostStr;
 		String exponStoinostStr;
 		stoinostStr = formatter(a, frm_St);
-//		System.out.println("*************"+stoinostStr);
+		System.out.println("*************"+stoinostStr);
 		exponStoinostStr = stoinostStr.substring(stoinostStr.indexOf("E"));
 		stoinostStr = stoinostStr.substring(0,stoinostStr.indexOf("E"));
+		
+		stoinostStr = addNullThenStoinosIs99999(frm_St, a, stoinostStr);
+		
 		stoinostStr = stoinostStr+" ("+newNeopr+") "+exponStoinostStr;
+		return stoinostStr;
+	}
+
+	private static String addNullThenStoinosIs99999(DecimalFormat frm_St, double a, String stoinostStr) {
+		String stoinos = formatter(a, frm_St);
+		int sttr = Integer.parseInt(stoinos.substring(stoinos.indexOf("E")+1, stoinos.length()));
+		System.out.println(sttr+"  "+getExpon(a));
+		if(sttr!=getExpon(a)) {
+			stoinostStr = stoinostStr+"0";
+		}
 		return stoinostStr;
 	}
 

@@ -1,7 +1,7 @@
 #Sring
 
 
-MainWindow_Ver = Ver.070223
+MainWindow_Ver = Ver.090523
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
@@ -32,6 +32,7 @@ logInMesege = Логнете се
 
 destinationIcons = ICONS/
 modifiIcon = Modify.gif
+
 addIcon = add-icon.gif
 SaveIcon = Save.gif
 OpenIcon = Open.gif

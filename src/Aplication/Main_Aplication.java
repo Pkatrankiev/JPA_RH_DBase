@@ -2,11 +2,8 @@ package Aplication;
 
 
 
-import java.io.IOException;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import OldClases.TestClases;
-import Reference.SampleMonthlyReference;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 

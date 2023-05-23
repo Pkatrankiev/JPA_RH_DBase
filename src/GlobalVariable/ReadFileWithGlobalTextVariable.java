@@ -84,8 +84,7 @@ public class ReadFileWithGlobalTextVariable  {
 				System.out.println(sCurrentLine.substring(0, index)+"  -  "+sCurrentLine.substring(index+1).trim());
 				}
 			}
-			
-			
+						
 			System.out.println("++++++++++++++++++++++");	
 			for (String entry : globalDBasePersisRemoteMap.values()) {
 				System.out.println(entry);	

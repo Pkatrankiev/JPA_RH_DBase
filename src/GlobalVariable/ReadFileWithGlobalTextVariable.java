@@ -85,6 +85,7 @@ public class ReadFileWithGlobalTextVariable  {
 				}
 			}
 			
+			
 			System.out.println("++++++++++++++++++++++");	
 			for (String entry : globalDBasePersisRemoteMap.values()) {
 				System.out.println(entry);	

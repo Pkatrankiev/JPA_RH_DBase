@@ -1490,9 +1490,9 @@ public class AddResultsViewWithTable extends JDialog {
 
 	private void checkFor10SysError() {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
-		if (choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
+		if (choiseRequest.getZabelejki().getName_zabelejki().toString().indexOf("10 %") > 0
 				&& Double.compare(sysError, 10.00) != 0) {
-			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
+			JOptionPane.showMessageDialog(null, "Не е добавена 10 % систематична \nгрешка към неопределеността",
 					"Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
 	}

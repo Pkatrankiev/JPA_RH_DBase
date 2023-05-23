@@ -130,7 +130,7 @@ public class FunctionForGenerateWordDocFile {
 	}
 
 	static Boolean isZabContain10pecent(String string_zab) {
-		if (string_zab.indexOf("10%") >= 0)
+		if (string_zab.indexOf("10 %") >= 0)
 			return true;
 		return false;
 	}

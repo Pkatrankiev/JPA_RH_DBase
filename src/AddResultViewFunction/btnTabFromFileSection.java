@@ -133,9 +133,9 @@ public class btnTabFromFileSection {
 	
 	private static void checkFor10SysError() {
 		Double sysError = Double.parseDouble((String) ReadGamaFile.getSysError());
-		if (OverallVariablesAddResults.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10%") > 0
+		if (OverallVariablesAddResults.getChoiseRequest().getZabelejki().getName_zabelejki().toString().indexOf("10 %") > 0
 				&& Double.compare(sysError, 10.00) != 0) {
-			JOptionPane.showMessageDialog(null, "Не е добавена 10% систематична \nгрешка към неопределеността",
+			JOptionPane.showMessageDialog(null, "Не е добавена 10 % систематична \nгрешка към неопределеността",
 					"Грешни данни", JOptionPane.ERROR_MESSAGE);
 		}
 	}

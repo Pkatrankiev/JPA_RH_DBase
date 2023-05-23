@@ -40,6 +40,8 @@ public class RequestViewFunction {
 	private static String FORMAT_DATE_TIME = GlobalFormatDate.getFORMAT_DATE_TIME();
 
 	public static void enterRequestCode(JTextField txtField_RequestCode, JLabel lblError, Boolean corectRequestCode) {
+		int maxRequestCode = Integer.parseInt(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("maxRequestCode"));
+		
 		txtField_RequestCode.setText(checkFormatString(txtField_RequestCode.getText()));
 		if (RequestDAO.checkRequestCode(txtField_RequestCode.getText())) {
 			txtField_RequestCode.setForeground(Color.red);
@@ -48,7 +50,7 @@ public class RequestViewFunction {
 			corectRequestCode = false;
 		} else {
 
-			if (checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
+			if (checkMaxVolume(txtField_RequestCode.getText(), 3000, maxRequestCode)) {
 				txtField_RequestCode.setForeground(Color.red);
 				lblError.setText(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 						.get("RequestViewFunction_ErrorNumber"));

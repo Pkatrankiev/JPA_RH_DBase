@@ -1952,7 +1952,7 @@ public class RequestView extends JDialog {
 		}
 
 		String str_checkZabToInObhvat = "";
-		if (choice_Zab.getSelectedItem().indexOf("10%") > 0 && !chckbx_accreditation.isSelected()) {
+		if (choice_Zab.getSelectedItem().indexOf("10 %") > 0 && !chckbx_accreditation.isSelected()) {
 			chckbx_accreditation.setBorder(new LineBorder(Color.RED));
 			str_checkZabToInObhvat = checkZabToInObhvat + "\n";
 			saveCheck = false;

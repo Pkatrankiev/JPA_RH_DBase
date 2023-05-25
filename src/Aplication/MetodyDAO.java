@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Metody;
+import DBase_Class.Nuclide;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 
@@ -166,6 +167,21 @@ public class MetodyDAO {
 		emfactory.close();
 
 		return list;
+	}
+	
+	public static void updateMetody(Metody metod) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		entitymanager.find(Metody.class, metod.getId_metody());
+		entitymanager.merge(metod);
+		
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
 	}
 	
 	

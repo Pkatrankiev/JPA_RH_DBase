@@ -41,4 +41,29 @@ public class EmitionDAO {
 		return list;
 	}
 	
+
+	public static Emition getEmitionByEmition_name(String emition) {
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		
+		String hql = "SELECT e FROM Emition e WHERE e.emition_name = :text";
+		
+		Query query = entitymanager.createQuery(hql);
+		query.setParameter("text", emition);
+
+		Emition list = (Emition) query.getSingleResult();
+
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+	
+	
+	
+	
+	
+	
 }

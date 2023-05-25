@@ -2,8 +2,16 @@ package Aplication;
 
 
 
+import java.io.IOException;
 
+import javax.swing.JFrame;
+
+import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
+import ManagementBasicClassTable.MetodClassManagement;
+import OldClases.TestClases;
+import Reference.SampleMonthlyReference;
+import WindowView.Login;
 import WindowView.MainWindow;
 import WindowView.TranscluentWindow;
 
@@ -166,13 +174,35 @@ public class Main_Aplication {
 //		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-		StartMainWindow();
+		TranscluentWindow round = new TranscluentWindow();
+		
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 
+		    	 JFrame f = new JFrame();
+//		 		new Table_Results_List_Test(f,round,Login.getCurentUser(), null);
+		 		
+//		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
+		 		
+		 		new MetodClassManagement(f, round, UsersDAO.getValueUsersById(3));
+		 			    	
+		     }
+		    });
+		    thread.start();
+		
+		
+		
+		
+	
+		
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {
-		TranscluentWindow round = new TranscluentWindow();
-		
-		
+		final TranscluentWindow round = new TranscluentWindow();
+				
 		 final Thread thread = new Thread(new Runnable() {
 		     @Override
 		     public void run() {

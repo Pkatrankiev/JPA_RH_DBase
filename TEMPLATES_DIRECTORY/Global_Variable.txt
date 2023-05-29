@@ -240,6 +240,17 @@ DateChoice_period_TitleName = Избор на референтна дата и �
 DateChoice_period_Label_FerferenceDate_Period = Референтна дата (средата на периода)
 DateChoice_period_Label_Start_Date = Начална дата
 
+MetodClassManagement_DialogText = Въведете текста след кода на метода
+MetodClassManagement_TitleName = Списък методи
+MetodClassManagement_Code = Код
+MetodClassManagement_Deskript = Описание
+MetodClassManagement_InAcreidt = В акредитация
+MetodClassManagement_Acting = Активен
+MetodClassManagement_Arangement = Поредност в Протокола
+MetodClassManagement_Emition = Тип емисия
+
+
+
 Label_Text_Name = Име
 Label_Text_Family= Фамилия
 LabelText_IzvarshilAnaliza = Извършил анализа

@@ -195,12 +195,10 @@ TableHeaderColumnName_Quantity = Количество
 TableHeaderColumnName_Dimension = Мярка
 TableHeaderColumnName_InProtokol = В протокол
 
-
 TableDobivFromResult_windowTitle_Text = Избор на добив
 TableDobivFromResult_Text = Изберете добив от списъка!
 TableDobivFromResult_Nuclide = Нуклид
 TableDobivFromResult_Dobiv = Добив
-
 
 InternalApplicant_List_TableTitle = Списък на Вътрешни Клиенти
 InternalApplicant_List_HeaderColumnName_Organization = Организация
@@ -226,7 +224,6 @@ AddDobivView_LabelText_CodeForStandart = Код на стандарта
 AddDobivView_LabelText_Opisanie = Описание
 AddDobivView_LabelText_IzpitvanProdukt = Изпитван продукт
 
-
 AddResultsView_TitleName = Въвеждане на Резултати
 AddResultsView_LabelText_CodeForRequest = Код на заявка
 AddResultsView_LabelText_NumberForSample = № на проба
@@ -248,8 +245,6 @@ MetodClassManagement_InAcreidt = В акредитация
 MetodClassManagement_Acting = Активен
 MetodClassManagement_Arangement = Поредност в Протокола
 MetodClassManagement_Emition = Тип емисия
-
-
 
 Label_Text_Name = Име
 Label_Text_Family= Фамилия

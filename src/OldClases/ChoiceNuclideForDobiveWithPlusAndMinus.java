@@ -112,19 +112,19 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		choice[0] = new Choice();
 		choice[0].setPreferredSize(new Dimension(120, 23));
 		
-		if (incomingValueStringList == null) {
-			for (String string : basic_list) {
-				choice[0].add(string);
-			}
-
-			gbc_choice[0] = new GridBagConstraints();
-			gbc_choice[0].fill = GridBagConstraints.HORIZONTAL;
-			gbc_choice[0].insets = new Insets(0, 0, 5, 5);
-			gbc_choice[0].gridx = 1;
-			gbc_choice[0].gridy = 1;
-			panel.add(choice[0], gbc_choice[0]);
-		}
-		// TODO btnMinus (премахване на елемент)
+//		if (incomingValueStringList == null) {
+//			for (String string : basic_list) {
+//				choice[0].add(string);
+//			}
+//
+//			gbc_choice[0] = new GridBagConstraints();
+//			gbc_choice[0].fill = GridBagConstraints.HORIZONTAL;
+//			gbc_choice[0].insets = new Insets(0, 0, 5, 5);
+//			gbc_choice[0].gridx = 1;
+//			gbc_choice[0].gridy = 1;
+//			panel.add(choice[0], gbc_choice[0]);
+//		}
+		// btnMinus (премахване на елемент)
 		final JButton btnMinus = new JButton("-");
 		btnMinus.setPreferredSize(new Dimension(37, 23));
 		btnMinus.setMargin(new Insets(0, 1, 1, 1));
@@ -161,7 +161,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		gbc_btnMinus.gridy = 1;
 		panel.add(btnMinus, gbc_btnMinus);
 
-		// TODO btnPlus (добавяне на елемент)
+		// btnPlus (добавяне на елемент)
 		countCoice = 0;
 		btnPlus = new JButton("+");
 		btnPlus.setMargin(new Insets(0, 1, 1, 1));
@@ -213,7 +213,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		dialog.setLocationRelativeTo(parent);
 		dialog.setLocationRelativeTo(parent);
 
-		// TODO paint old elements (изобразяване на привнесени елементи)
+		// paint old elements (изобразяване на привнесени елементи)
 		if (incomingValueStringList != null) {
 			countCoice = 0;
 			for (String incomingString : incomingValueStringList) {
@@ -249,7 +249,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 
 		}
 
-		// TODO buttonPane (панела с бутони ОК Cancel)
+		//  buttonPane (панела с бутони ОК Cancel)
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);

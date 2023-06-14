@@ -31,6 +31,8 @@ import Aplication.DimensionDAO;
 import Aplication.EmitionDAO;
 import Aplication.List_izpitvan_pokazatelDAO;
 import Aplication.MetodyDAO;
+import Aplication.Metody_to_NiclideForDobiveDAO;
+import Aplication.Metody_to_PokazatelDAO;
 import Aplication.NuclideDAO;
 import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
@@ -38,6 +40,9 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import DBase_Class.Emition;
 import DBase_Class.Metody;
+import DBase_Class.Metody_to_NiclideForDobive;
+import DBase_Class.Metody_to_Pokazatel;
+import DBase_Class.Nuclide;
 import DBase_Class.Request;
 import DBase_Class.Results;
 import DBase_Class.Sample;
@@ -60,14 +65,16 @@ public class MetodClassManagement extends JDialog {
 	private static Object[][] dataTable;
 
 	
-	private static int tbl_Colum = 7;
+	private static int tbl_Colum = 9;
 	private static int metody_code_Colum = 0;
 	private static int metody_descript_Colum = 1;
 	private static int metody_InAcredit_Colum = 2;
 	private static int metody_Acting_Colum = 3;
 	private static int metody_Arrangement_Colum = 4;
 	private static int metody_Emition_Colum = 5;
-	private static int metody_ID_Colum = 6;
+	private static int metody_NiclideForDobiv_Colum = 6;
+	private static int metody_ToPokazatel_Colum = 7;
+	private static int metody_ID_Colum = 8;
 	
 	
 	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("clickToChoice");
@@ -291,6 +298,8 @@ public class MetodClassManagement extends JDialog {
 							tableMetody[i][metody_Acting_Colum] = metod.getActing_metody();
 							tableMetody[i][metody_Arrangement_Colum] = metod.getArrangement();
 							tableMetody[i][metody_Emition_Colum] = metod.getEmition().getEmition_name();
+							tableMetody[i][metody_NiclideForDobiv_Colum] = getStringNuclideForDobive(metod);
+							tableMetody[i][metody_ToPokazatel_Colum] = getStringToPokazatel(metod);
 							tableMetody[i][metody_ID_Colum] = metod.getId_metody();
 							
 							i++;
@@ -310,65 +319,33 @@ public class MetodClassManagement extends JDialog {
 		return tableMetody;
 	}
 
-	@SuppressWarnings("unused")
-//	private Object[][] getDataTableDAO() {
-//		List<Request> listAllRequest = RequestDAO.getInListAllValueRequest();
-//		List<Results> listAllResults = ResultsDAO.getInListAllValueResults();
-//
-//		Object[][] tableSample = new Object[listAllResults.size()][tbl_Colum];
-//		int i = 0;
-//		for (Request request : listAllRequest) {
-//
-//			List<Sample> listSample = SampleDAO.getListSampleFromColumnByVolume("request", request);
-//
-//			for (Sample sample : listSample) {
-//
-//				List<Results> listResults = ResultsDAO.getListResultsFromColumnByVolume("sample", sample);
-//				for (Results results : listResults) {
-//
-//					try {
-//						int request_code = Integer.parseInt(results.getSample().getRequest().getRecuest_code());
-//						tableSample[i][rqst_code_Colum] = request_code;
-//						tableSample[i][smpl_code_Colum] = sample.getSample_code();
-//						tableSample[i][obk_Izp_Colum] = sample.getObekt_na_izpitvane_sample().getName_obekt_na_izpitvane();
-//						tableSample[i][mtd_Izp_Colum] = results.getMetody().getCode_metody();
-//						tableSample[i][izp_Pok_Colum] = results.getPokazatel().getName_pokazatel();
-//						tableSample[i][nuclide_Colum] = results.getNuclide().getSymbol_nuclide();
-//						tableSample[i][actv_value_Colum] = results.getValue_result();
-//						tableSample[i][uncrt_Colum] = results.getUncertainty();
-//						tableSample[i][sigma_Colum] = results.getSigma();
-//						tableSample[i][mda_Colum] = results.getMda();
-//						tableSample[i][razm_Colum] = results.getRazmernosti().getName_razmernosti();
-//						tableSample[i][qunt_Colum] = results.getQuantity();
-//						tableSample[i][dimen_Colum] = "";
-//						if (results.getDimension() != null) {
-//							tableSample[i][dimen_Colum] = results.getDimension().getName_dimension();
-//						}
-//						tableSample[i][in_Prot_Colum] = results.getInProtokol();
-//						tableSample[i][rsult_Id_Colum] = results.getId_results();
-//
-//						i++;
-//					} catch (NullPointerException | NumberFormatException e) {
-//						ResourceLoader.appendToFile(e);
-//						JOptionPane.showInputDialog(
-//								ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorDataForResult_Text"), JOptionPane.ERROR_MESSAGE);
-//					} 
-//				}
-//
-//			}
-//		}
-//
-//		Object[][] tableSampleNew = new Object[i][tbl_Colum];
-//		for (int j = 0; j < tableSampleNew.length; j++) {
-//			for (int k = 0; k < tbl_Colum; k++) {
-//				tableSampleNew[j][k] = tableSample[j][k];
-//			}
-//		}
-//
-//		return tableSampleNew;
-//	}
+	private Object getStringNuclideForDobive(Metody metod) {
+		String str = "";
+		List<Metody_to_NiclideForDobive> list = Metody_to_NiclideForDobiveDAO.getListMetody_to_NiclideForDobiveByMetody(metod);
+		for (Metody_to_NiclideForDobive metody_to_NiclideForDobive : list) {
+			str += metody_to_NiclideForDobive.getNuclide().getSymbol_nuclide()+", ";
+		}
+		
+		if(str.length()>0) {
+			str = str.substring(0, str.length()-2);
+		}
+		return str;
+	}
 
-	
+	private Object getStringToPokazatel(Metody metod) {
+		String str = "";
+		List<Metody_to_Pokazatel> list = Metody_to_PokazatelDAO.getListMetody_to_PokazatelByMetody(metod);
+		for (Metody_to_Pokazatel metody_to_Pokazatel : list) {
+			str += metody_to_Pokazatel.getPokazatel().getName_pokazatel()+", ";
+		}
+		if(str.length()>0) {
+			str = str.substring(0, str.length()-2);
+		}
+		return str;
+		
+	}
+
+
 	
 	
 	
@@ -407,14 +384,14 @@ public class MetodClassManagement extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private Class[] getTypes() {
 
-		Class[] types = { String.class, String.class, Boolean.class, Boolean.class, Integer.class, String.class, Integer.class};
+		Class[] types = { String.class, String.class, Boolean.class, Boolean.class, Integer.class, String.class, String.class, String.class, Integer.class};
 
 		return types;
 	}
 	
 	private String[] getStringTypeColumn() {
 
-		String[] types = { "String", "String","Boolean_Check", "Boolean_Check", "Integer", "String", "Integer"};
+		String[] types = { "String", "String","Boolean_Check", "Boolean_Check", "Integer", "String", "String", "String", "Integer"};
 
 		return types;
 	}
@@ -422,7 +399,9 @@ public class MetodClassManagement extends JDialog {
 	private Object[] getlong() {
 
 		Object[] types = {  "123456789012345678901234567890", "123456789012345678901234567890123456789012345678901234567890", 
-				Boolean.TRUE, Boolean.TRUE, new Integer(20), "12345678901234567890",  new Integer(2000) };
+				Boolean.TRUE, Boolean.TRUE, new Integer(20), "12345678901234567890", 
+				"123456789012345678901234567890123456789012345678901234567890", 
+				"123456789012345678901234567890123456789012345678901234567890", new Integer(2000) };
 
 		return types;
 	}
@@ -437,6 +416,8 @@ public class MetodClassManagement extends JDialog {
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_Acting"), 
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_Arangement"), 
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_Emition"), 
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_NuclideDobiv"),
+				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_Pokazatel"),
 				"id"
 				};
 		return tableHeader;

@@ -5,7 +5,7 @@ MainWindow_Ver = Ver.230523
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
-remoteDBase = 1
+remoteDBase = 0
 maxRequestCode = 9999
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
 
@@ -245,6 +245,8 @@ MetodClassManagement_InAcreidt = В акредитация
 MetodClassManagement_Acting = Активен
 MetodClassManagement_Arangement = Поредност в Протокола
 MetodClassManagement_Emition = Тип емисия
+MetodClassManagement_NuclideDobiv = Списък с нуклиди за добив
+MetodClassManagement_Pokazatel = Списък с показатели
 
 Label_Text_Name = Име
 Label_Text_Family= Фамилия

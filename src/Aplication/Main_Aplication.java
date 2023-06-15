@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
-import ManagementBasicClassTable.MetodClassManagement;
+import ManagementBasicClassTable.ManagementMetodClass;
 import OldClases.ChoiceNuclideForDobiveWithPlusAndMinus;
 import OldClases.TestClases;
 import Reference.SampleMonthlyReference;
@@ -187,7 +187,7 @@ public class Main_Aplication {
 		 		
 //		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
 		 		
-		 		new MetodClassManagement(f, round, UsersDAO.getValueUsersById(3));
+		 		new ManagementMetodClass(f, round, UsersDAO.getValueUsersById(3), null);
 		 			    	
 		     }
 		    });

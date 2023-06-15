@@ -1,6 +1,7 @@
 package ManagementBasicClassTable;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,7 @@ import Aplication.RazmernostiDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
+import Aplication.UsersDAO;
 import DBase_Class.Emition;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
@@ -50,12 +52,13 @@ import DBase_Class.Users;
 import ExcelFilesFunction.CreateExcelFile;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
+import OldClases.ChoiceNuclideForDobiveWithPlusAndMinus;
 import WindowView.RequestMiniFrame;
 import WindowView.TranscluentWindow;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class MetodClassManagement extends JDialog {
+public class ManagementMetodClass extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -81,13 +84,17 @@ public class MetodClassManagement extends JDialog {
 	private static String dialogText = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_DialogText");
 	
 
-	public MetodClassManagement(JFrame parent, TranscluentWindow round, Users user) {
+	public ManagementMetodClass(JFrame parent, TranscluentWindow round, Users user, Object[][] dataTableWithNewRow) {
 		super(parent, "", true);
 
 		String[] columnNames = getTabHeader();
 		@SuppressWarnings("rawtypes")
 		Class[] types = getTypes();
-		dataTable = getDataTable();
+		if(dataTableWithNewRow!=null) {
+			dataTable = dataTableWithNewRow;
+		}else {
+			dataTable = getDataTable();	
+		}
 		String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_TitleName");
 		setTitle(title);
 		
@@ -96,9 +103,27 @@ public class MetodClassManagement extends JDialog {
 		
 		
 		listWhithChangeRow = new ArrayList<Integer>() ;
-		final JTable table = new JTable();// new DefaultTableModel(rowData,
-											// columnNames));
+//		final JTable table = new JTable();// new DefaultTableModel(rowData,
+		
+		DefaultTableModel model =new DefaultTableModel(dataTable, columnNames);									// columnNames));
+		  JTable table = new JTable(model){
+			  
+			private static final long serialVersionUID = 1L;
 
+			public Component prepareRenderer
+			  (TableCellRenderer renderer,int Index_row, int Index_col) {
+			  Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
+			  //even index, selected or not selected
+			  if (Index_row % 2 == 0 && !isCellSelected(Index_row, Index_col)) {
+			  comp.setBackground(Color.lightGray);
+			  } 
+			  else {
+			  comp.setBackground(Color.white);
+			  }
+			  return comp;
+			  }
+			  };
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {}
@@ -106,7 +131,9 @@ public class MetodClassManagement extends JDialog {
 			public void mousePressed(MouseEvent e) {
 				System.out.println(table.getSelectedColumn());
 				
-				DefaultTableModel model =(DefaultTableModel) table.getModel();
+				
+				
+				
 				if (table.getSelectedColumn() == metody_code_Colum ) {
 					table.rowAtPoint(e.getPoint());
 					table.columnAtPoint(e.getPoint());
@@ -130,9 +157,35 @@ public class MetodClassManagement extends JDialog {
 					}
 
 				}
-				
+				if (table.getSelectedColumn() == metody_NiclideForDobiv_Colum ) {
+					table.rowAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
+					int selectedRow = getSelectedModelRow(table);
+					String stringNuclideDobiv = (String) model.getValueAt(getSelectedModelRow(table), metody_NiclideForDobiv_Colum );
+					int idSelectedMetod = (Integer) model.getValueAt(getSelectedModelRow(table), metody_ID_Colum );
+					System.out.println(idSelectedMetod);
+					String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_NuclideDobiv");
+					String codeMetod = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
+					List<String> listStringNuklideFromMetod = generateListStrFromStrNiclideForDobivData(stringNuclideDobiv);
+					JFrame f = new JFrame();
+					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, listStringNuklideFromMetod,codeMetod);
+
+					List<String> listChoiceNuclideForDobive = ChoiceNuclideForDobiveWithPlusAndMinus.getMasiveStringFromChoice();
+					for (String class1 : listChoiceNuclideForDobive) {
+						System.out.println(class1);
+					}
+					
+					String newStringNuclideDobiv = getStringNuclideForDobive(listChoiceNuclideForDobive);
+					
+					model.setValueAt(newStringNuclideDobiv, selectedRow, metody_NiclideForDobiv_Colum);
+					if (!newStringNuclideDobiv.equals(stringNuclideDobiv)) {
+						AddInUpdateList(selectedRow);
+					}
+				}
 			
 							}
+
+		
 		});
 
 		new TableFilterHeader(table, AutoChoices.ENABLED);
@@ -145,6 +198,7 @@ public class MetodClassManagement extends JDialog {
 			public void run() {
 				DefaultTableModel dtm = new DefaultTableModel(dataTable, columnNames) {
 
+					
 					private static final long serialVersionUID = 1L;
 					@SuppressWarnings("rawtypes")
 					private Class[] types2 = types;
@@ -209,8 +263,45 @@ public class MetodClassManagement extends JDialog {
 				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-				JButton btnExportButton = new JButton("export");
+				JButton btnNewRow = new JButton("new Row");
 
+				btnNewRow.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+
+						final Thread thread = new Thread(new Runnable() {
+							@Override
+							public void run() {
+								DefaultTableModel model =(DefaultTableModel) table.getModel();
+								
+								System.out.println( model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum ));
+								Object[] tableMetody = new Object[9] ;
+								tableMetody[metody_code_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
+								tableMetody[metody_descript_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_descript_Colum );
+								tableMetody[metody_InAcredit_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum );
+								tableMetody[metody_Acting_Colum] = model.getValueAt(getSelectedModelRow(table), metody_Acting_Colum );
+								tableMetody[metody_Arrangement_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_Arrangement_Colum );
+								tableMetody[metody_Emition_Colum] = model.getValueAt(getSelectedModelRow(table), metody_Emition_Colum );
+								tableMetody[metody_NiclideForDobiv_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_NiclideForDobiv_Colum );
+								tableMetody[metody_ToPokazatel_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_ToPokazatel_Colum );
+								tableMetody[metody_ID_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_ID_Colum );
+								
+								Object[][]  dataTableWithNewRow = new Object[dataTable.length+1][9];
+								for (int i = 0; i < dataTable.length; i++) {
+									dataTableWithNewRow[i] = dataTable[i];
+								}
+								dataTableWithNewRow[dataTable.length] = tableMetody;
+								setVisible(false);
+								new ManagementMetodClass(parent, round,  user, dataTableWithNewRow);
+						
+							}
+						});
+						thread.start();
+
+					}
+				});
+				panel_Btn.add(btnNewRow);
+				
+				JButton btnExportButton = new JButton("export");
 				btnExportButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -281,6 +372,17 @@ public class MetodClassManagement extends JDialog {
 		setVisible(true);
 	}
 
+	private List<String> generateListStrFromStrNiclideForDobivData(String stringNuclideDobiv) {
+		List<String> listChoiceNuclideForDobive = new ArrayList<>();
+		String[] list = stringNuclideDobiv.split(",");
+		for (String string : list) {
+			listChoiceNuclideForDobive.add(string.trim());
+		}
+		
+		return listChoiceNuclideForDobive;
+	}
+	
+	
 	private Object[][] getDataTable() {
 		List<Metody> listAllMetody = MetodyDAO.getInListAllValueMetody();
 	
@@ -319,6 +421,22 @@ public class MetodClassManagement extends JDialog {
 		return tableMetody;
 	}
 
+	private String getStringNuclideForDobive(List<String> list) {
+		String str = "";
+		
+		for (String nuclide : list) {
+			str += nuclide+", ";
+		}
+		
+		if(str.length()>0) {
+			str = str.substring(0, str.length()-2);
+		}
+		return str;
+	}
+	
+	
+	
+	
 	private Object getStringNuclideForDobive(Metody metod) {
 		String str = "";
 		List<Metody_to_NiclideForDobive> list = Metody_to_NiclideForDobiveDAO.getListMetody_to_NiclideForDobiveByMetody(metod);

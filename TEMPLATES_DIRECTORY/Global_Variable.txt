@@ -247,6 +247,8 @@ MetodClassManagement_Arangement = Поредност в Протокола
 MetodClassManagement_Emition = Тип емисия
 MetodClassManagement_NuclideDobiv = Списък с нуклиди за добив
 MetodClassManagement_Pokazatel = Списък с показатели
+MetodClassManagement_ChoceNuclideDobiv = Изберете нуклидите за добив към метод:
+					
 
 Label_Text_Name = Име
 Label_Text_Family= Фамилия

@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +49,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 	static Boolean cancelBtnTurn=false;
 
 	public ChoiceNuclideForDobiveWithPlusAndMinus(JFrame parent,
-			String labelString, Metody metod) {
+			String labelString, List<String> listStringNuklideFromMetod, String codeMetod) {
 		
 				
 		super(parent, labelString, true);
@@ -63,14 +65,11 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		
 		List<String> basic_list = listStringAllNuklide;
 		
-		List<Metody_to_NiclideForDobive> listMetofordobiv = Metody_to_NiclideForDobiveDAO.getListMetody_to_NiclideForDobiveByMetody(metod);
-		List<String>  listStringNuklideFromMetod = new ArrayList<>();
-		for (Metody_to_NiclideForDobive metody_to_NiclideForDobive : listMetofordobiv) {
-			listStringNuklideFromMetod.add(metody_to_NiclideForDobive.getNuclide().getSymbol_nuclide());
-		}
+		
 		
 		List<String> incomingValueStringList = listStringNuklideFromMetod;
-
+		String label ="<html>"+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_ChoceNuclideDobiv");
+		label += "<br>"+ codeMetod+"</html>";
 		
 		old_incomingValueStringList = incomingValueStringList;
 		old_bsic_list = basic_list;
@@ -78,7 +77,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		
 		
 		
-		setSize(250, 310);
+		setSize(280, 320);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
@@ -98,8 +97,9 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		panel.setLayout(gbl_panel);
 
 		
-		JLabel lblFirst = new JLabel(labelString);
+		JLabel lblFirst = new JLabel(label);
 		GridBagConstraints gbc_lblFirst = new GridBagConstraints();
+		gbc_lblFirst.gridwidth = 3;
 		gbc_lblFirst.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFirst.gridx = 1;
 		gbc_lblFirst.gridy = 0;
@@ -278,32 +278,20 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		JButton cancelButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					if (old_incomingValueStringList != null) {
-						cancelBtnTurn = true; 
-//						masiveStringFromChoice.clear();
-					masiveStringFromChoice = old_incomingValueStringList;
-				
-					
-					
-				}
-				removeAll();
-				dispose();
+					cancelMethod();
 
 			}
+
+
 		});
 		// cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
-//		dialog.addWindowListener(new WindowAdapter() {
-//			public void windowClosing(WindowEvent evt) {
-//				countCoice = 0;
-//				for (String string : incomingValueStringList) {
-//					choice[countCoice].select(string);
-//					countCoice++;
-//				}
-//				dispose();
-//			}
-//		});
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
+				cancelMethod();
+			}
+		});
 
 		setVisible(true);
 	}
@@ -319,7 +307,19 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		return false;
 
     }
+	
+	private void cancelMethod() {
+		if (old_incomingValueStringList != null) {
+			cancelBtnTurn = true; 
+//				masiveStringFromChoice.clear();
+		masiveStringFromChoice = old_incomingValueStringList;
 
+		
+		
+}
+removeAll();
+dispose();
+	}
 	
 	public static List<String> createMasiveStringFromChoice() {
 		List<String> list = new ArrayList<String>();

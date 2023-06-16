@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 
 import DBase_Class.Metody;
 import DBase_Class.Nuclide;
+import DBase_Class.Results;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 
@@ -184,6 +185,17 @@ public class MetodyDAO {
 		emfactory.close();
 	}
 	
+	public static void setValueMetody(Metody valueEnt) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
 	
 	public static String[] getMasiveStringAllValueMetody(){
 		 List<Metody> list = getInListAllValueMetody();

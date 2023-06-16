@@ -49,7 +49,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 	static Boolean cancelBtnTurn=false;
 
 	public ChoiceNuclideForDobiveWithPlusAndMinus(JFrame parent,
-			String labelString, List<String> listStringNuklideFromMetod, String codeMetod) {
+			String labelString, List<String> listStringAllNuklide, List<String> listStringNuklideFromMetod,String codeMetod) {
 		
 				
 		super(parent, labelString, true);
@@ -57,11 +57,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		final JDialog dialog = new JDialog();
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
-		List<Nuclide> listNuclide = NuclideDAO.getInListAllValueNuclide();
-		List<String>  listStringAllNuklide = new ArrayList<>();
-		for (Nuclide nuclide : listNuclide) {
-			listStringAllNuklide.add(nuclide.getSymbol_nuclide());
-		}
+		
 		
 		List<String> basic_list = listStringAllNuklide;
 		

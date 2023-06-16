@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
@@ -27,6 +28,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import Aplication.DimensionDAO;
 import Aplication.EmitionDAO;
@@ -41,6 +43,7 @@ import Aplication.ResultsDAO;
 import Aplication.SampleDAO;
 import Aplication.UsersDAO;
 import DBase_Class.Emition;
+import DBase_Class.List_izpitvan_pokazatel;
 import DBase_Class.Metody;
 import DBase_Class.Metody_to_NiclideForDobive;
 import DBase_Class.Metody_to_Pokazatel;
@@ -105,6 +108,37 @@ public class ManagementMetodClass extends JDialog {
 		listWhithChangeRow = new ArrayList<Integer>() ;
 //		final JTable table = new JTable();// new DefaultTableModel(rowData,
 		
+		
+		JPanel panel_Btn = new JPanel();
+		panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
+		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+
+		JButton btnNewRow = new JButton("new Row");
+		panel_Btn.add(btnNewRow);
+		
+		JButton btnExportButton = new JButton("export");
+		panel_Btn.add(btnExportButton);
+		
+		
+		JButton btnSave = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
+		btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
+		btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		if (user != null && user.getIsAdmin()) {
+			panel_Btn.add(btnSave);
+		}
+
+		JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+		panel_Btn.add(btnCancel);
+		
+		
+		
+		
 		DefaultTableModel model =new DefaultTableModel(dataTable, columnNames);									// columnNames));
 		  JTable table = new JTable(model){
 			  
@@ -114,84 +148,42 @@ public class ManagementMetodClass extends JDialog {
 			  (TableCellRenderer renderer,int Index_row, int Index_col) {
 			  Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
 			  //even index, selected or not selected
-			  if (Index_row % 2 == 0 && !isCellSelected(Index_row, Index_col)) {
+			  if (Index_row % 2 == 0) {
 			  comp.setBackground(Color.lightGray);
-			  } 
-			  else {
+			  }else {
 			  comp.setBackground(Color.white);
 			  }
+			  if (isCellSelected(Index_row, Index_col)) {
+				  comp.setBackground(Color.yellow);
+			}
+						  
+			  if ((int)getValueAt(Index_row, metody_ID_Colum)>5000) {
+				  comp.setForeground(Color.red);  
+			  } else {
+				  comp.setForeground(Color.black); 
+				  }
+			 if(listWhithChangeRow.size()>0) {
+			 for (int changeRow : listWhithChangeRow) {
+				    if (Index_row == changeRow) {
+					  comp.setForeground(Color.blue);  
+				  } else {
+					  comp.setForeground(Color.black); 
+					  } 
+			 }
+			}else {
+				 comp.setForeground(Color.black);	
+			}
+			  
 			  return comp;
 			  }
 			  };
 		
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-
-			public void mousePressed(MouseEvent e) {
-				System.out.println(table.getSelectedColumn());
-				
-				
-				
-				
-				if (table.getSelectedColumn() == metody_code_Colum ) {
-					table.rowAtPoint(e.getPoint());
-					table.columnAtPoint(e.getPoint());
-					
-					int selectedRow = getSelectedModelRow(table);
-					
-					
-					String AllTextCodeMetody = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
-					int begin = AllTextCodeMetody.indexOf(" ");
-					String code = AllTextCodeMetody.substring(0, begin);
-					String textCodeMetody = AllTextCodeMetody.substring(begin+1);
-					String newTextCodeMetody ;
-					try {
-						newTextCodeMetody = code + " "+ JOptionPane.showInputDialog(null, dialogText, textCodeMetody).trim();
-					} catch (NullPointerException e2) {
-						newTextCodeMetody = AllTextCodeMetody;
-					} 
-					model.setValueAt(newTextCodeMetody, selectedRow, metody_code_Colum);
-					if (!newTextCodeMetody.equals(AllTextCodeMetody)) {
-						AddInUpdateList(selectedRow);
-					}
-
-				}
-				if (table.getSelectedColumn() == metody_NiclideForDobiv_Colum ) {
-					table.rowAtPoint(e.getPoint());
-					table.columnAtPoint(e.getPoint());
-					int selectedRow = getSelectedModelRow(table);
-					String stringNuclideDobiv = (String) model.getValueAt(getSelectedModelRow(table), metody_NiclideForDobiv_Colum );
-					int idSelectedMetod = (Integer) model.getValueAt(getSelectedModelRow(table), metody_ID_Colum );
-					System.out.println(idSelectedMetod);
-					String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_NuclideDobiv");
-					String codeMetod = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
-					List<String> listStringNuklideFromMetod = generateListStrFromStrNiclideForDobivData(stringNuclideDobiv);
-					JFrame f = new JFrame();
-					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, listStringNuklideFromMetod,codeMetod);
-
-					List<String> listChoiceNuclideForDobive = ChoiceNuclideForDobiveWithPlusAndMinus.getMasiveStringFromChoice();
-					for (String class1 : listChoiceNuclideForDobive) {
-						System.out.println(class1);
-					}
-					
-					String newStringNuclideDobiv = getStringNuclideForDobive(listChoiceNuclideForDobive);
-					
-					model.setValueAt(newStringNuclideDobiv, selectedRow, metody_NiclideForDobiv_Colum);
-					if (!newStringNuclideDobiv.equals(stringNuclideDobiv)) {
-						AddInUpdateList(selectedRow);
-					}
-				}
-			
-							}
+		
 
 		
-		});
-
-		new TableFilterHeader(table, AutoChoices.ENABLED);
 
 		
-		
+//	/////////////////////////////////////////////////////////////////////////////////////////////////	
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -244,121 +236,31 @@ public class ManagementMetodClass extends JDialog {
 					}
 
 				};
-
+		
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
-
+				tableMouseListener( table);
+				new TableFilterHeader(table, AutoChoices.ENABLED);
+				
 				setUp_Emition(table, table.getColumnModel().getColumn(metody_Emition_Colum));
 				
-
 				table.getColumnModel().getColumn(metody_ID_Colum).setWidth(0);
 				table.getColumnModel().getColumn(metody_ID_Colum).setMinWidth(0);
 				table.getColumnModel().getColumn(metody_ID_Colum).setMaxWidth(0);
 				table.getColumnModel().getColumn(metody_ID_Colum).setPreferredWidth(0);
 				
 				 initColumnSizes(table);
-
-				JPanel panel_Btn = new JPanel();
-				panel_Btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				getContentPane().add(panel_Btn, BorderLayout.SOUTH);
-				panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-				JButton btnNewRow = new JButton("new Row");
-
-				btnNewRow.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-
-						final Thread thread = new Thread(new Runnable() {
-							@Override
-							public void run() {
-								DefaultTableModel model =(DefaultTableModel) table.getModel();
-								
-								System.out.println( model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum ));
-								Object[] tableMetody = new Object[9] ;
-								tableMetody[metody_code_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
-								tableMetody[metody_descript_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_descript_Colum );
-								tableMetody[metody_InAcredit_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum );
-								tableMetody[metody_Acting_Colum] = model.getValueAt(getSelectedModelRow(table), metody_Acting_Colum );
-								tableMetody[metody_Arrangement_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_Arrangement_Colum );
-								tableMetody[metody_Emition_Colum] = model.getValueAt(getSelectedModelRow(table), metody_Emition_Colum );
-								tableMetody[metody_NiclideForDobiv_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_NiclideForDobiv_Colum );
-								tableMetody[metody_ToPokazatel_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_ToPokazatel_Colum );
-								tableMetody[metody_ID_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_ID_Colum );
-								
-								Object[][]  dataTableWithNewRow = new Object[dataTable.length+1][9];
-								for (int i = 0; i < dataTable.length; i++) {
-									dataTableWithNewRow[i] = dataTable[i];
-								}
-								dataTableWithNewRow[dataTable.length] = tableMetody;
-								setVisible(false);
-								new ManagementMetodClass(parent, round,  user, dataTableWithNewRow);
-						
-							}
-						});
-						thread.start();
-
-					}
-				});
-				panel_Btn.add(btnNewRow);
-				
-				JButton btnExportButton = new JButton("export");
-				btnExportButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-
-//						TranscluentWindow p = new TranscluentWindow();
-
-						final Thread thread = new Thread(new Runnable() {
-							@Override
-							public void run() {
-
-									table.getRowSorter();
-//								List<Integer> listRow = new ArrayList<Integer>();
-//								for (int i = 0; i < model.getRowCount(); i++) {
-//									listRow.add(i);
-//								}								
-									CreateExcelFile.toExcel(getStringTypeColumn() , table, title, null, null, "");
-												
-						
-							}
-						});
-						thread.start();
-
-					}
-				});
-				panel_Btn.add(btnExportButton);
-				
-				
-				JButton btnSave = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("saveBtn_Text"));
-				btnSave.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-
-						TranscluentWindow round = new TranscluentWindow();
-						final Thread thread = new Thread(new Runnable() {
-							@Override
-							public void run() {
-								updateData(table, round);
-							}
-						});
-						thread.start();
-
-					}
-				});
-				btnSave.setHorizontalAlignment(SwingConstants.RIGHT);
-				btnSave.setAlignmentX(Component.RIGHT_ALIGNMENT);
-				if (user != null && user.getIsAdmin()) {
-					panel_Btn.add(btnSave);
-				}
-
-				JButton btnCancel = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("exitBtn_Text"));
-				btnCancel.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						setVisible(false);
-					}
-				});
-				panel_Btn.add(btnCancel);
-
+				 btnSaveActinListener(btnSave, table);
+				 btnNewRowActionListener(parent, round, user, table, btnNewRow);
+				 btnExportActionListener(title, btnExportButton,table);
+				 
+				 
 			}
+
+		
 		});
+	
+//		/////////////////////////////////////////////////////////////////////////////////////////////////	
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -372,6 +274,186 @@ public class ManagementMetodClass extends JDialog {
 		setVisible(true);
 	}
 
+	private void btnExportActionListener(String title, JButton btnExportButton, JTable table) {
+		btnExportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+//				TranscluentWindow p = new TranscluentWindow();
+
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+
+							table.getRowSorter();
+//						List<Integer> listRow = new ArrayList<Integer>();
+//						for (int i = 0; i < model.getRowCount(); i++) {
+//							listRow.add(i);
+//						}								
+							CreateExcelFile.toExcel(getStringTypeColumn() , table, title, null, null, "");
+										
+				
+					}
+				});
+				thread.start();
+
+			}
+		});
+	}
+
+	private void btnSaveActinListener(JButton btnSave, JTable table) {
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				TranscluentWindow round = new TranscluentWindow();
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						updateData(table, round);
+					}
+				});
+				thread.start();
+
+			}
+		});
+	}
+
+	private void btnNewRowActionListener(JFrame parent, TranscluentWindow round, Users user, JTable table,
+			JButton btnNewRow) {
+		btnNewRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						DefaultTableModel model =(DefaultTableModel) table.getModel();
+						
+						System.out.println( model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum ));
+						Object[] tableMetody = new Object[9] ;
+						tableMetody[metody_code_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
+						tableMetody[metody_descript_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_descript_Colum );
+						tableMetody[metody_InAcredit_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum );
+						tableMetody[metody_Acting_Colum] = model.getValueAt(getSelectedModelRow(table), metody_Acting_Colum );
+						tableMetody[metody_Arrangement_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_Arrangement_Colum );
+						tableMetody[metody_Emition_Colum] = model.getValueAt(getSelectedModelRow(table), metody_Emition_Colum );
+						tableMetody[metody_NiclideForDobiv_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_NiclideForDobiv_Colum );
+						tableMetody[metody_ToPokazatel_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_ToPokazatel_Colum );
+						tableMetody[metody_ID_Colum] = (int) model.getValueAt(getSelectedModelRow(table), metody_ID_Colum )+5000;
+						
+						Object[][]  dataTableWithNewRow = new Object[dataTable.length+1][9];
+						for (int i = 0; i < dataTable.length; i++) {
+							dataTableWithNewRow[i] = dataTable[i];
+						}
+						dataTableWithNewRow[dataTable.length] = tableMetody;
+						setVisible(false);
+						new ManagementMetodClass(parent, round,  user, dataTableWithNewRow);
+				
+					}
+				});
+				thread.start();
+
+			}
+		});
+	}
+
+
+
+	private void tableMouseListener( JTable table) {
+		
+		TableModel model = table.getModel() ;
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			public void mousePressed(MouseEvent e) {
+				System.out.println(table.getSelectedColumn());
+							
+				
+				if (table.getSelectedColumn() == metody_code_Colum ) {
+					table.rowAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
+					
+					int selectedRow = getSelectedModelRow(table);
+					
+					
+					String AllTextCodeMetody = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
+					int begin = AllTextCodeMetody.indexOf(" ");
+					String code = AllTextCodeMetody.substring(0, begin);
+					String textCodeMetody = AllTextCodeMetody.substring(begin+1);
+					String newTextCodeMetody ;
+					try {
+						newTextCodeMetody = code + " "+ JOptionPane.showInputDialog(null, dialogText, textCodeMetody).trim();
+					} catch (NullPointerException e2) {
+						newTextCodeMetody = AllTextCodeMetody;
+					} 
+					model.setValueAt(newTextCodeMetody, selectedRow, metody_code_Colum);
+					if (!newTextCodeMetody.equals(AllTextCodeMetody)) {
+						AddInUpdateList(selectedRow);
+					}
+
+				}
+				if (table.getSelectedColumn() == metody_NiclideForDobiv_Colum ) {
+					table.rowAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
+					int selectedRow = getSelectedModelRow(table);
+					String stringNuclideDobiv = (String) model.getValueAt(getSelectedModelRow(table), metody_NiclideForDobiv_Colum );
+					int idSelectedMetod = (Integer) model.getValueAt(getSelectedModelRow(table), metody_ID_Colum );
+					System.out.println(idSelectedMetod);
+					String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_NuclideDobiv");
+					String codeMetod = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
+					List<String> listStringNuklideFromMetod = generateListStrFromStrNiclideForDobivData(stringNuclideDobiv);
+					
+					JFrame f = new JFrame();
+					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, getListStrAllNuclide(), listStringNuklideFromMetod,codeMetod);
+
+					List<String> listChoiceNuclideForDobive = ChoiceNuclideForDobiveWithPlusAndMinus.getMasiveStringFromChoice();
+					for (String class1 : listChoiceNuclideForDobive) {
+						System.out.println(class1);
+					}
+					
+					String newStringNuclideDobiv = getStringNuclideForDobive(listChoiceNuclideForDobive);
+					
+					model.setValueAt(newStringNuclideDobiv, selectedRow, metody_NiclideForDobiv_Colum);
+					if (!newStringNuclideDobiv.equals(stringNuclideDobiv)) {
+						AddInUpdateList(selectedRow);
+					}
+				}
+			
+				if (table.getSelectedColumn() == metody_ToPokazatel_Colum ) {
+					table.rowAtPoint(e.getPoint());
+					table.columnAtPoint(e.getPoint());
+					int selectedRow = getSelectedModelRow(table);
+					String stringToPokazatel = (String) model.getValueAt(getSelectedModelRow(table), metody_ToPokazatel_Colum );
+					int idSelectedMetod = (Integer) model.getValueAt(getSelectedModelRow(table), metody_ID_Colum );
+					System.out.println(idSelectedMetod);
+					String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_Pokazatel");
+					String codeMetod = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
+					List<String> listStringNuklideFromMetod = generateListStrFromStrNiclideForDobivData(stringToPokazatel);
+					JFrame f = new JFrame();
+					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, getListStrAllPokazatel(),listStringNuklideFromMetod,codeMetod);
+
+					List<String> listChoiceNuclideForDobive = ChoiceNuclideForDobiveWithPlusAndMinus.getMasiveStringFromChoice();
+					for (String class1 : listChoiceNuclideForDobive) {
+						System.out.println(class1);
+					}
+					
+					String newStringNuclideDobiv = getStringNuclideForDobive(listChoiceNuclideForDobive);
+					
+					model.setValueAt(newStringNuclideDobiv, selectedRow, metody_ToPokazatel_Colum);
+					System.out.println(newStringNuclideDobiv+""+stringToPokazatel);
+					if (!newStringNuclideDobiv.equals(stringToPokazatel)) {
+						AddInUpdateList(selectedRow);
+					}
+				}
+				
+							}
+
+		
+		});
+	}
+
+	
+
 	private List<String> generateListStrFromStrNiclideForDobivData(String stringNuclideDobiv) {
 		List<String> listChoiceNuclideForDobive = new ArrayList<>();
 		String[] list = stringNuclideDobiv.split(",");
@@ -380,6 +462,24 @@ public class ManagementMetodClass extends JDialog {
 		}
 		
 		return listChoiceNuclideForDobive;
+	}
+	
+	private List<String> getListStrAllNuclide(){
+	List<Nuclide> listNuclide = NuclideDAO.getInListAllValueNuclide();
+	List<String>  listStringAllNuklide = new ArrayList<>();
+	for (Nuclide nuclide : listNuclide) {
+		listStringAllNuklide.add(nuclide.getSymbol_nuclide());
+	}
+	return listStringAllNuklide;
+	}
+	
+	protected List<String> getListStrAllPokazatel() {
+		List<List_izpitvan_pokazatel> listAllPokazatel = List_izpitvan_pokazatelDAO.getInListAllValuePokazatel();
+		List<String>  listStringAllPokazatel = new ArrayList<>();
+		for (List_izpitvan_pokazatel pokazatel : listAllPokazatel) {
+			listStringAllPokazatel.add(pokazatel.getName_pokazatel());
+		}
+		return listStringAllPokazatel;
 	}
 	
 	
@@ -434,10 +534,9 @@ public class ManagementMetodClass extends JDialog {
 		return str;
 	}
 	
+		
 	
-	
-	
-	private Object getStringNuclideForDobive(Metody metod) {
+	private static Object getStringNuclideForDobive(Metody metod) {
 		String str = "";
 		List<Metody_to_NiclideForDobive> list = Metody_to_NiclideForDobiveDAO.getListMetody_to_NiclideForDobiveByMetody(metod);
 		for (Metody_to_NiclideForDobive metody_to_NiclideForDobive : list) {
@@ -450,7 +549,7 @@ public class ManagementMetodClass extends JDialog {
 		return str;
 	}
 
-	private Object getStringToPokazatel(Metody metod) {
+	private static Object getStringToPokazatel(Metody metod) {
 		String str = "";
 		List<Metody_to_Pokazatel> list = Metody_to_PokazatelDAO.getListMetody_to_PokazatelByMetody(metod);
 		for (Metody_to_Pokazatel metody_to_Pokazatel : list) {
@@ -463,21 +562,68 @@ public class ManagementMetodClass extends JDialog {
 		
 	}
 
-
+	private static void AddInUpdateList(int row) {
+		int index = (int) dataTable[row][metody_ID_Colum];
+		Metody metod = MetodyDAO.getValueMetodyById(index);
+		
+		if(dataTable[row][metody_code_Colum].equals( metod.getCode_metody())
+		&& dataTable[row][metody_descript_Colum].equals(  metod.getName())
+		&& dataTable[row][metody_InAcredit_Colum] .equals(  metod.getInAcredit())
+		&& dataTable[row][metody_Acting_Colum] .equals(  metod.getActing_metody())
+		&& dataTable[row][metody_Arrangement_Colum] .equals(  metod.getArrangement())
+		&& dataTable[row][metody_Emition_Colum] .equals( metod.getEmition().getEmition_name())
+		&& dataTable[row][metody_NiclideForDobiv_Colum] .equals( getStringNuclideForDobive(metod))
+		&& dataTable[row][metody_ToPokazatel_Colum] .equals( getStringToPokazatel(metod))
+		&& listWhithChangeRow.contains(row)) {
+			System.out.println(row+"++++++++++++++++++++++++++++++++++++++++++++++++++++");
+			Iterator<Integer> itr = listWhithChangeRow.iterator();
+			while (itr.hasNext()) {
+			int obg = itr.next();
+			if(obg==row) {
+				System.out.println(row+"******************************************");	
+				itr.remove();
+			}
+			}
+		}
+		
+		if (listWhithChangeRow.isEmpty()) {
+			listWhithChangeRow.add(row);
+		} else {
+			if (!listWhithChangeRow.contains(row)) {
+				listWhithChangeRow.add(row);
+			}
+		}
 	
-	
+	}
 	
 	private static void updateData(JTable table, TranscluentWindow round) {
-
+		int index;
 		for (int changeRoe : listWhithChangeRow) {
-			Metody metod = MetodyDAO.getValueMetodyById((int) dataTable[changeRoe][metody_ID_Colum]);
-			udateResultObject(table, changeRoe, metod);
+			index = (int) dataTable[changeRoe][metody_ID_Colum];
+			if(index >= 5000) {
+				saveNewMetod(table, changeRoe);
+			}else {
+			Metody metod = MetodyDAO.getValueMetodyById(index);
+			udateMetod(table, changeRoe, metod);
+			}
 		}
 		round.StopWindow();
 	}
 	
+	private static void saveNewMetod(JTable table, int row) {
+		Metody metod = new Metody();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		metod.setCode((String) model.getValueAt(row, metody_code_Colum));
+		metod.setName((String) model.getValueAt(row, metody_descript_Colum));
+		metod.setInAcredit((Boolean) model.getValueAt(row, metody_InAcredit_Colum));
+		metod.setActing_metody((Boolean) model.getValueAt(row, metody_Acting_Colum));
+		metod.setArrangement((Integer) model.getValueAt(row, metody_Arrangement_Colum));
+		metod.setEmition(EmitionDAO.getEmitionByEmition_name((String) model.getValueAt(row, metody_Emition_Colum)));
+		
+		MetodyDAO.setValueMetody(metod);
+	}
 	
-	private static void udateResultObject(JTable table, int row, Metody metod) {
+	private static void udateMetod(JTable table, int row, Metody metod) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		metod.setCode((String) model.getValueAt(row, metody_code_Colum));
 		metod.setName((String) model.getValueAt(row, metody_descript_Colum));
@@ -586,7 +732,7 @@ public class ManagementMetodClass extends JDialog {
 		return values;
 	}
     	
-	private static void AddInUpdateList(int row) {
+	private static void AddInUpdateList1(int row) {
 
 		if (listWhithChangeRow.isEmpty()) {
 			listWhithChangeRow.add(row);
@@ -598,6 +744,8 @@ public class ManagementMetodClass extends JDialog {
 	
 	}
     
+	
+	
     
     private int getSelectedModelRow(JTable table) {
 		return  table.convertRowIndexToModel(table.getSelectedRow());

@@ -81,13 +81,13 @@ public class ManagementMetodClass extends JDialog {
 	private static int metody_NiclideForDobiv_Colum = 6;
 	private static int metody_ToPokazatel_Colum = 7;
 	private static int metody_ID_Colum = 8;
-	
+	private static int removeID_Metody = 0;
 	
 	private static String clickToChoice = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("clickToChoice");
 	private static String dialogText = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_DialogText");
 	
 
-	public ManagementMetodClass(JFrame parent, TranscluentWindow round, Users user, Object[][] dataTableWithNewRow) {
+	public ManagementMetodClass(JFrame parent, TranscluentWindow round, Users user, Object[][] dataTableWithNewRow, List<Integer> listChange) {
 		super(parent, "", true);
 
 		String[] columnNames = getTabHeader();
@@ -98,14 +98,22 @@ public class ManagementMetodClass extends JDialog {
 		}else {
 			dataTable = getDataTable();	
 		}
+		
+		if(listChange!=null) {
+			listWhithChangeRow = listChange ;
+		}else {
+			listWhithChangeRow = new ArrayList<Integer>() ;
+		}
+		
+		
 		String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_TitleName");
 		setTitle(title);
 		
-		
+		int countRow = dataTable.length;
 		values_Emition = getMasiveStringAllValueEmition();
 		
 		
-		listWhithChangeRow = new ArrayList<Integer>() ;
+	
 //		final JTable table = new JTable();// new DefaultTableModel(rowData,
 		
 		
@@ -115,7 +123,13 @@ public class ManagementMetodClass extends JDialog {
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
 		JButton btnNewRow = new JButton("new Row");
+		btnNewRow.setEnabled(false);
 		panel_Btn.add(btnNewRow);
+		
+		JButton btnRemoveNewRow = new JButton("remove Row");
+		btnRemoveNewRow.setEnabled(false);
+		panel_Btn.add(btnRemoveNewRow);
+		
 		
 		JButton btnExportButton = new JButton("export");
 		panel_Btn.add(btnExportButton);
@@ -147,33 +161,49 @@ public class ManagementMetodClass extends JDialog {
 			public Component prepareRenderer
 			  (TableCellRenderer renderer,int Index_row, int Index_col) {
 			  Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
+			  int id_Metod = (int)getValueAt(Index_row, metody_ID_Colum);	
 			  //even index, selected or not selected
+			 
 			  if (Index_row % 2 == 0) {
-			  comp.setBackground(Color.lightGray);
-			  }else {
-			  comp.setBackground(Color.white);
-			  }
-			  if (isCellSelected(Index_row, Index_col)) {
-				  comp.setBackground(Color.yellow);
+				  comp.setBackground(Color.lightGray);
+				  }else {
+				  comp.setBackground(Color.white);
+				  }
+			
+			 if(listWhithChangeRow.size() > 0 ) {
+			 for (int changeIdMetody : listWhithChangeRow) {
+					
+				    if (id_Metod == changeIdMetody ) {
+				    	System.out.println("blue + "+id_Metod );
+				    	 comp.setBackground(Color.BLUE);  
+				  } 
+			 }
 			}
-						  
-			  if ((int)getValueAt(Index_row, metody_ID_Colum)>5000) {
+//			 else {
+//				 comp.setForeground(Color.black);	
+//			}
+			 
+			 if (isCellSelected(Index_row, Index_col)) {
+				
+					  comp.setBackground(Color.yellow);
+					  btnNewRow.setEnabled(true);
+					   
+					   if(id_Metod>5000) {
+						   btnRemoveNewRow.setEnabled(true);
+						   removeID_Metody = id_Metod;
+					   }else {
+						   btnRemoveNewRow.setEnabled(false);  
+					   }
+				} 
+			 
+			 
+			 
+			 if (id_Metod > 5000) {
 				  comp.setForeground(Color.red);  
 			  } else {
 				  comp.setForeground(Color.black); 
 				  }
-			 if(listWhithChangeRow.size()>0) {
-			 for (int changeRow : listWhithChangeRow) {
-				    if (Index_row == changeRow) {
-					  comp.setForeground(Color.blue);  
-				  } else {
-					  comp.setForeground(Color.black); 
-					  } 
-			 }
-			}else {
-				 comp.setForeground(Color.black);	
-			}
-			  
+			 
 			  return comp;
 			  }
 			  };
@@ -250,12 +280,15 @@ public class ManagementMetodClass extends JDialog {
 				table.getColumnModel().getColumn(metody_ID_Colum).setPreferredWidth(0);
 				
 				 initColumnSizes(table);
-				 btnSaveActinListener(btnSave, table);
-				 btnNewRowActionListener(parent, round, user, table, btnNewRow);
+				 btnSaveActionListener(parent, user, btnSave, table);
+				 btnNewRowActionListener(parent,  user, table, btnNewRow);
+				 btnRemoveNewRowActionListener(parent,  user, table, btnRemoveNewRow);
 				 btnExportActionListener(title, btnExportButton,table);
 				 
 				 
 			}
+
+		
 
 		
 		});
@@ -264,7 +297,7 @@ public class ManagementMetodClass extends JDialog {
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
-		setSize(1200, 800);
+		setSize(1200, 100+countRow*20);
 		setLocationRelativeTo(null);
 		round.StopWindow();
 
@@ -274,6 +307,37 @@ public class ManagementMetodClass extends JDialog {
 		setVisible(true);
 	}
 
+	private void btnRemoveNewRowActionListener(JFrame parent,  Users user, JTable table,
+			JButton btnRemoveNewRow) {
+		
+		btnRemoveNewRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TranscluentWindow round = new TranscluentWindow();
+				final Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+							Object[][]  dataTableWithNewRow = new Object[dataTable.length-1][9];
+						int k = 0;
+						for (int i = 0; i < dataTable.length; i++) {
+							if((int)dataTable[i][metody_ID_Colum] != removeID_Metody) {
+							dataTableWithNewRow[k] = dataTable[i];
+							k++;
+							}
+						}
+						
+						setVisible(false);
+						new ManagementMetodClass(parent, round,  user, dataTableWithNewRow, listWhithChangeRow);
+				
+					}
+				});
+				thread.start();
+
+			}
+		});
+		
+	}
+	
+	
 	private void btnExportActionListener(String title, JButton btnExportButton, JTable table) {
 		btnExportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -300,7 +364,7 @@ public class ManagementMetodClass extends JDialog {
 		});
 	}
 
-	private void btnSaveActinListener(JButton btnSave, JTable table) {
+	private void btnSaveActionListener(JFrame parent,  Users user, JButton btnSave, JTable table) {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -309,6 +373,8 @@ public class ManagementMetodClass extends JDialog {
 					@Override
 					public void run() {
 						updateData(table, round);
+						setVisible(false);
+						new ManagementMetodClass(parent, round,  user, null, null);
 					}
 				});
 				thread.start();
@@ -317,17 +383,15 @@ public class ManagementMetodClass extends JDialog {
 		});
 	}
 
-	private void btnNewRowActionListener(JFrame parent, TranscluentWindow round, Users user, JTable table,
+	private void btnNewRowActionListener(JFrame parent, Users user, JTable table,
 			JButton btnNewRow) {
 		btnNewRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				TranscluentWindow round = new TranscluentWindow();
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
 						DefaultTableModel model =(DefaultTableModel) table.getModel();
-						
-						System.out.println( model.getValueAt(getSelectedModelRow(table), metody_InAcredit_Colum ));
 						Object[] tableMetody = new Object[9] ;
 						tableMetody[metody_code_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
 						tableMetody[metody_descript_Colum] =  model.getValueAt(getSelectedModelRow(table), metody_descript_Colum );
@@ -345,7 +409,7 @@ public class ManagementMetodClass extends JDialog {
 						}
 						dataTableWithNewRow[dataTable.length] = tableMetody;
 						setVisible(false);
-						new ManagementMetodClass(parent, round,  user, dataTableWithNewRow);
+						new ManagementMetodClass(parent, round,  user, dataTableWithNewRow, listWhithChangeRow);
 				
 					}
 				});
@@ -366,9 +430,6 @@ public class ManagementMetodClass extends JDialog {
 			public void mouseReleased(MouseEvent e) {}
 
 			public void mousePressed(MouseEvent e) {
-				System.out.println(table.getSelectedColumn());
-							
-				
 				if (table.getSelectedColumn() == metody_code_Colum ) {
 					table.rowAtPoint(e.getPoint());
 					table.columnAtPoint(e.getPoint());
@@ -404,7 +465,8 @@ public class ManagementMetodClass extends JDialog {
 					List<String> listStringNuklideFromMetod = generateListStrFromStrNiclideForDobivData(stringNuclideDobiv);
 					
 					JFrame f = new JFrame();
-					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, getListStrAllNuclide(), listStringNuklideFromMetod,codeMetod);
+					String label ="<html>"+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_ChoceNuclideDobiv");
+					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, getListStrAllNuclide(), listStringNuklideFromMetod,codeMetod, label);
 
 					List<String> listChoiceNuclideForDobive = ChoiceNuclideForDobiveWithPlusAndMinus.getMasiveStringFromChoice();
 					for (String class1 : listChoiceNuclideForDobive) {
@@ -430,7 +492,8 @@ public class ManagementMetodClass extends JDialog {
 					String codeMetod = (String) model.getValueAt(getSelectedModelRow(table), metody_code_Colum );
 					List<String> listStringNuklideFromMetod = generateListStrFromStrNiclideForDobivData(stringToPokazatel);
 					JFrame f = new JFrame();
-					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, getListStrAllPokazatel(),listStringNuklideFromMetod,codeMetod);
+					String label ="<html>"+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_ChocePokazatel");
+					new ChoiceNuclideForDobiveWithPlusAndMinus(f,  title, getListStrAllPokazatel(),listStringNuklideFromMetod,codeMetod, label);
 
 					List<String> listChoiceNuclideForDobive = ChoiceNuclideForDobiveWithPlusAndMinus.getMasiveStringFromChoice();
 					for (String class1 : listChoiceNuclideForDobive) {
@@ -454,7 +517,7 @@ public class ManagementMetodClass extends JDialog {
 
 	
 
-	private List<String> generateListStrFromStrNiclideForDobivData(String stringNuclideDobiv) {
+	private static List<String> generateListStrFromStrNiclideForDobivData(String stringNuclideDobiv) {
 		List<String> listChoiceNuclideForDobive = new ArrayList<>();
 		String[] list = stringNuclideDobiv.split(",");
 		for (String string : list) {
@@ -564,6 +627,8 @@ public class ManagementMetodClass extends JDialog {
 
 	private static void AddInUpdateList(int row) {
 		int index = (int) dataTable[row][metody_ID_Colum];
+		if(index < 5000) {
+	
 		Metody metod = MetodyDAO.getValueMetodyById(index);
 		
 		if(dataTable[row][metody_code_Colum].equals( metod.getCode_metody())
@@ -574,39 +639,44 @@ public class ManagementMetodClass extends JDialog {
 		&& dataTable[row][metody_Emition_Colum] .equals( metod.getEmition().getEmition_name())
 		&& dataTable[row][metody_NiclideForDobiv_Colum] .equals( getStringNuclideForDobive(metod))
 		&& dataTable[row][metody_ToPokazatel_Colum] .equals( getStringToPokazatel(metod))
-		&& listWhithChangeRow.contains(row)) {
-			System.out.println(row+"++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		&& listWhithChangeRow.contains(metod.getId_metody())) {
 			Iterator<Integer> itr = listWhithChangeRow.iterator();
 			while (itr.hasNext()) {
 			int obg = itr.next();
-			if(obg==row) {
-				System.out.println(row+"******************************************");	
+			if(obg==metod.getId_metody()) {
 				itr.remove();
 			}
 			}
-		}
+		}else {
 		
 		if (listWhithChangeRow.isEmpty()) {
-			listWhithChangeRow.add(row);
+			listWhithChangeRow.add(metod.getId_metody());
 		} else {
-			if (!listWhithChangeRow.contains(row)) {
-				listWhithChangeRow.add(row);
+			if (!listWhithChangeRow.contains(metod.getId_metody())) {
+				listWhithChangeRow.add(metod.getId_metody());
 			}
 		}
-	
+		}
+		}
 	}
 	
 	private static void updateData(JTable table, TranscluentWindow round) {
-		int index;
-		for (int changeRoe : listWhithChangeRow) {
-			index = (int) dataTable[changeRoe][metody_ID_Colum];
-			if(index >= 5000) {
-				saveNewMetod(table, changeRoe);
+		int tableIdMetody;
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
+		for (int row = 0; row < dataTable.length; row++) {
+			tableIdMetody = (int) model.getValueAt(row, metody_ID_Colum);
+		for (int changeIdMetody : listWhithChangeRow) {
+			if(tableIdMetody >= 5000) {
+			saveNewMetod(table, row);
 			}else {
-			Metody metod = MetodyDAO.getValueMetodyById(index);
-			udateMetod(table, changeRoe, metod);
+				if(tableIdMetody == changeIdMetody) {
+			Metody metod = MetodyDAO.getValueMetodyById(tableIdMetody);
+			udateMetod(table, row, metod);
+				}
 			}
 		}
+	}
 		round.StopWindow();
 	}
 	
@@ -621,7 +691,32 @@ public class ManagementMetodClass extends JDialog {
 		metod.setEmition(EmitionDAO.getEmitionByEmition_name((String) model.getValueAt(row, metody_Emition_Colum)));
 		
 		MetodyDAO.setValueMetody(metod);
+		saveNew_Metody_to_NiclideForDobive(row, model);
+		saveNew_Metody_to_Pokazatel(row,  model);
 	}
+
+	private static void saveNew_Metody_to_NiclideForDobive(int row, DefaultTableModel model) {
+		Metody metod;
+		List<String> listStringNuklideDobivFromMetod = generateListStrFromStrNiclideForDobivData((String) model.getValueAt(row, metody_NiclideForDobiv_Colum));
+		metod = MetodyDAO.getValueList_MetodyByCode((String) model.getValueAt(row, metody_code_Colum));
+		for (String symbol : listStringNuklideDobivFromMetod) {
+			Nuclide nuclide = NuclideDAO.getValueNuclideBySymbol(symbol);
+			Metody_to_NiclideForDobiveDAO.setValueMetody_to_NiclideForDobive(nuclide,  metod);
+		}
+	}
+	
+	private static void saveNew_Metody_to_Pokazatel(int row, DefaultTableModel model) {
+		
+		String stringToPokazatel = (String) model.getValueAt(row, metody_ToPokazatel_Colum );
+		List<String> listStringNuklidepokazatelFromMetod = generateListStrFromStrNiclideForDobivData(stringToPokazatel);
+		Metody metod = MetodyDAO.getValueList_MetodyByCode((String) model.getValueAt(row, metody_code_Colum));
+		for (String symbol : listStringNuklidepokazatelFromMetod) {
+			List_izpitvan_pokazatel izpitvanPokazatel = List_izpitvan_pokazatelDAO.getValueIzpitvan_pokazatelByName(symbol);
+			Metody_to_PokazatelDAO.setValueMetody_to_Pokazatel(izpitvanPokazatel,  metod);
+		}
+	}
+	
+	
 	
 	private static void udateMetod(JTable table, int row, Metody metod) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -662,8 +757,9 @@ public class ManagementMetodClass extends JDialog {
 	
 	private Object[] getlong() {
 
-		Object[] types = {  "123456789012345678901234567890", "123456789012345678901234567890123456789012345678901234567890", 
-				Boolean.TRUE, Boolean.TRUE, new Integer(20), "12345678901234567890", 
+		@SuppressWarnings("removal")
+		Object[] types = {  "12345678901234567890123456789012345678901234567890", "12345678901234567890123456789012345678901234567890123456789012345678901234567890", 
+				Boolean.TRUE, Boolean.TRUE, new Integer(20), "1234567890123456789012345", 
 				"123456789012345678901234567890123456789012345678901234567890", 
 				"123456789012345678901234567890123456789012345678901234567890", new Integer(2000) };
 
@@ -706,18 +802,18 @@ public class ManagementMetodClass extends JDialog {
             comp = headerRenderer.getTableCellRendererComponent(
                                  null, column.getHeaderValue(),
                                  false, false, 0, 0);
-            headerWidth = comp.getPreferredSize().width;
+            headerWidth = comp.getPreferredSize().width+15;
 
             comp = table.getDefaultRenderer(model.getColumnClass(i)).
                              getTableCellRendererComponent(
                                  table, longValues[i],
                                  false, false, 0, i);
-            cellWidth = comp.getPreferredSize().width;
+            cellWidth = comp.getPreferredSize().width+15;
 
            
 
             column.setPreferredWidth(Math.max(headerWidth, cellWidth));
-//            column.sizeWidthToFit(); //or simple
+            column.sizeWidthToFit(); //or simple
         }
     }
 	
@@ -732,18 +828,6 @@ public class ManagementMetodClass extends JDialog {
 		return values;
 	}
     	
-	private static void AddInUpdateList1(int row) {
-
-		if (listWhithChangeRow.isEmpty()) {
-			listWhithChangeRow.add(row);
-		} else {
-			if (!listWhithChangeRow.contains(row)) {
-				listWhithChangeRow.add(row);
-			}
-		}
-	
-	}
-    
 	
 	
     

@@ -187,7 +187,7 @@ public class Main_Aplication {
 		 		
 //		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
 		 		
-		 		new ManagementMetodClass(f, round, UsersDAO.getValueUsersById(3), null);
+		 		new ManagementMetodClass(f, round, UsersDAO.getValueUsersById(3), null, null);
 		 			    	
 		     }
 		    });

@@ -49,7 +49,7 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 	static Boolean cancelBtnTurn=false;
 
 	public ChoiceNuclideForDobiveWithPlusAndMinus(JFrame parent,
-			String labelString, List<String> listStringAllNuklide, List<String> listStringNuklideFromMetod,String codeMetod) {
+			String labelString, List<String> listStringAllNuklide, List<String> listStringNuklideFromMetod,String codeMetod, String label) {
 		
 				
 		super(parent, labelString, true);
@@ -64,7 +64,6 @@ public class ChoiceNuclideForDobiveWithPlusAndMinus extends JDialog {
 		
 		
 		List<String> incomingValueStringList = listStringNuklideFromMetod;
-		String label ="<html>"+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_ChoceNuclideDobiv");
 		label += "<br>"+ codeMetod+"</html>";
 		
 		old_incomingValueStringList = incomingValueStringList;

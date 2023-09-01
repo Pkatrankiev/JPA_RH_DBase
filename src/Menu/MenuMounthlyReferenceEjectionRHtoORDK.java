@@ -8,13 +8,13 @@ import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.MounthlyReferenceEjectionRHtoORDK;
 
 
-public class ManuMounthlyReferenceEjectionRHtoORDK extends AbstractMenuAction{
+public class MenuMounthlyReferenceEjectionRHtoORDK extends AbstractMenuAction{
 	
 	
 	private static final long serialVersionUID = 1L;
 	static String ManuMounthlyReferenceEjectionRHtoORDK_TitleName = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MounthlyReferenceEjectionRHtoORDK_TitleName");
 	
-	public ManuMounthlyReferenceEjectionRHtoORDK() {
+	public MenuMounthlyReferenceEjectionRHtoORDK() {
 		super(ManuMounthlyReferenceEjectionRHtoORDK_TitleName);
 		
 	}

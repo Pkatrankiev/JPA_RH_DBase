@@ -249,6 +249,7 @@ MetodClassManagement_NuclideDobiv = Списък с нуклиди за доби
 MetodClassManagement_Pokazatel = Списък с показатели
 MetodClassManagement_ChoceNuclideDobiv = Изберете нуклидите за добив към метод:
 MetodClassManagement_ChocePokazatel = Изберете показателите към метод:
+MetodClassManagement_DublicateMetodKode = Съществува метод с код:
 					
 
 Label_Text_Name = Име

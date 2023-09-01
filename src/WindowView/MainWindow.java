@@ -15,10 +15,13 @@ import GlobalVariable.ResourceLoader;
 import InfoPanelInMainWindow.CreatRightPanel;
 import InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar;
 import Menu.ArhiveDBase;
-import Menu.ManuMounthlyReferenceEjectionRHtoORDK;
+import Menu.MenuMounthlyReferenceEjectionRHtoORDK;
+import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
+import Menu.MenuData_ManagementMetodClass;
+import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuDobivReference;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
@@ -191,7 +194,7 @@ public class MainWindow extends JFrame {
 				setVisible(false);
 				setStartYear();
 				 				
-				dispose();
+//				dispose();
 				
 				System.exit(0);
 			}
@@ -262,7 +265,7 @@ public class MainWindow extends JFrame {
 		ejectionMenu.add(new MenuEjectionVolums());
 		ejectionMenu.add(new MenuEjectionCalculate());
 		ejectionMenu.add(new MenuEjectionIzhod2());
-		ejectionMenu.add(new ManuMounthlyReferenceEjectionRHtoORDK());
+		ejectionMenu.add(new MenuMounthlyReferenceEjectionRHtoORDK());
 		return ejectionMenu;
 	}
 
@@ -310,8 +313,10 @@ public class MainWindow extends JFrame {
 		dataMenu.add(new MenuData_EnableRequestList());
 		dataMenu.add(new MenuData_EnableSampleList());
 		dataMenu.add(new MenuData_EnableResultsList());
-		// dataMenu.add(new MenuData_EnableInternalAplicant());
-		// dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
+		dataMenu.addSeparator();
+		dataMenu.add(new MenuData_ManagementMetodClass());
+//		 dataMenu.add(new MenuData_EnableInternalAplicant());
+//		 dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
 
 		return dataMenu;
 	}

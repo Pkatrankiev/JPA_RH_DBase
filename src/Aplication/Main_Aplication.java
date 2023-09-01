@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import ManagementBasicClassTable.ManagementMetodClass;
+import ManagementBasicClassTable.StylesExample6;
 import OldClases.ChoiceNuclideForDobiveWithPlusAndMinus;
 import OldClases.TestClases;
 import Reference.SampleMonthlyReference;
@@ -176,22 +177,22 @@ public class Main_Aplication {
 //		ReadTextFile.convertTextFromFilenameToTextInNewFilename("d:\\Q056001N.003", "Spectrum1");
 //		CreateListLeftPanelStartWindowClass.getLabelProtokol("4784");
 		
-		TranscluentWindow round = new TranscluentWindow();
-		
-		 final Thread thread = new Thread(new Runnable() {
-		     @Override
-		     public void run() {
-		    	 
-		    	 JFrame f = new JFrame();
-//		 		new Table_Results_List_Test(f,round,Login.getCurentUser(), null);
-		 		
-//		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
-		 		
-		 		new ManagementMetodClass(f, round, UsersDAO.getValueUsersById(3), null, null);
-		 			    	
-		     }
-		    });
-		    thread.start();
+//		TranscluentWindow round = new TranscluentWindow();
+//		
+//		 final Thread thread = new Thread(new Runnable() {
+//		     @Override
+//		     public void run() {
+//		    	 
+//		    	 JFrame f = new JFrame();
+////		 		new Table_Results_List_Test(f,round,Login.getCurentUser(), null);
+//		 		
+////		 		new Table_Results_List(f,round,Login.getCurentUser(), null);
+//		 		
+//		 		new ManagementMetodClass(f, round, UsersDAO.getValueUsersById(3), null, null);
+//		 			    	
+//		     }
+//		    });
+//		    thread.start();
 		
 		
 		
@@ -199,7 +200,7 @@ public class Main_Aplication {
 //		
 //		new ChoiceNuclideForDobiveWithPlusAndMinus(f,  "Обект на изпитване", MetodyDAO.getValueMetodyById(2));
 	
-		
+	new StylesExample6();
 		
 //		StartMainWindow();
 		

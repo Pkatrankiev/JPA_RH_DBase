@@ -125,6 +125,10 @@ public class ManagementMetodClass extends JDialog {
 		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
+		JButton btnHelpButton = new JButton("Help");
+		panel_Btn.add(btnHelpButton);
+		
+		
 		JButton btnNewRow = new JButton("new Row");
 		btnNewRow.setEnabled(false);
 		panel_Btn.add(btnNewRow);
@@ -292,7 +296,7 @@ public class ManagementMetodClass extends JDialog {
 				 btnNewRowActionListener(parent,  user, table, btnNewRow);
 				 btnRemoveNewRowActionListener(parent,  user, table, btnRemoveNewRow);
 				 btnExportActionListener(title, btnExportButton,table);
-				 
+				 btnHelpActionListener( btnHelpButton);
 				 
 			}
 
@@ -345,44 +349,27 @@ public class ManagementMetodClass extends JDialog {
 		
 	}
 	
-	private void btnHelpActionListener( JButton btnhelpButton) {
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setEditable(false);
-		java.net.URL helpURL = TextSamplerDemo.class.getResource(
-		                                "TextSamplerDemoHelp.html");
-		if (helpURL != null) {
-		    try {
-		        editorPane.setPage(helpURL);
-		    } catch (IOException e) {
-		        System.err.println("Attempted to read a bad URL: " + helpURL);
-		    }
-		} else {
-		    System.err.println("Couldn't find file: TextSamplerDemoHelp.html");
-		}
-
-		//Put the editor pane in a scroll pane.
-		JScrollPane editorScrollPane = new JScrollPane(editorPane);
-		editorScrollPane.setVerticalScrollBarPolicy(
-		                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		editorScrollPane.setPreferredSize(new Dimension(250, 145));
-		editorScrollPane.setMinimumSize(new Dimension(10, 10));
+	private void btnHelpActionListener( JButton btnHelpButton) {
+		btnHelpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame f = new JFrame();
+				String label = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_HelpMetodsManagement");
+				new HelpWindow(f, label);
+		
+			}
+		});
 	}
 	
 	private void btnExportActionListener(String title, JButton btnExportButton, JTable table) {
 		btnExportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-//				TranscluentWindow p = new TranscluentWindow();
-
 				final Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
 
 							table.getRowSorter();
-//						List<Integer> listRow = new ArrayList<Integer>();
-//						for (int i = 0; i < model.getRowCount(); i++) {
-//							listRow.add(i);
-//						}								
+					
 							CreateExcelFile.toExcel(getStringTypeColumn() , table, title, null, null, "");
 										
 				

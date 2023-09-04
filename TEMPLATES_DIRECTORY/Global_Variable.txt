@@ -1,11 +1,11 @@
 #Sring
 
 
-MainWindow_Ver = Ver.230523
+MainWindow_Ver = Ver.010923
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
-remoteDBase = 0
+remoteDBase = 1
 maxRequestCode = 9999
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
 
@@ -249,7 +249,8 @@ MetodClassManagement_NuclideDobiv = Списък с нуклиди за доби
 MetodClassManagement_Pokazatel = Списък с показатели
 MetodClassManagement_ChoceNuclideDobiv = Изберете нуклидите за добив към метод:
 MetodClassManagement_ChocePokazatel = Изберете показателите към метод:
-MetodClassManagement_DublicateMetodKode = Съществува метод с код:
+MetodClassManagement_ChoceNuclideDobiv = Съществува метод с код:
+MetodClassManagement_HelpMetodsManagement = Упътване за Списък Методи
 					
 
 Label_Text_Name = Име

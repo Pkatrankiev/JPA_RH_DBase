@@ -5,7 +5,7 @@ MainWindow_Ver = Ver.010923
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
-remoteDBase = 1
+remoteDBase = 0
 maxRequestCode = 9999
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
 
@@ -251,6 +251,9 @@ MetodClassManagement_ChoceNuclideDobiv = Изберете нуклидите з�
 MetodClassManagement_ChocePokazatel = Изберете показателите към метод:
 MetodClassManagement_ChoceNuclideDobiv = Съществува метод с код:
 MetodClassManagement_HelpMetodsManagement = Упътване за Списък Методи
+MetodClassManagement_NewRow = Нов Ред
+MetodClassManagement_RemoveRow = Изтр. Ред
+MetodClassManagement_Help = Помощ
 					
 
 Label_Text_Name = Име

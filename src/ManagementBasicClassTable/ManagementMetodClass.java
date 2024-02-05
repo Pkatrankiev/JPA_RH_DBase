@@ -107,9 +107,14 @@ public class ManagementMetodClass extends JDialog {
 		}else {
 			listWhithChangeRow = new ArrayList<Integer>() ;
 		}
+		String fTit = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_TitleName");
+		if (user != null && user.getIsAdmin()) {
+			fTit +=  " "	+ ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MainWindow_Title_work") + " "
+				+ user.getName_users() + " " + user.getFamily_users();
+		}
 		
+		String title = fTit;
 		
-		String title = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_TitleName");
 		setTitle(title);
 		
 		int countRow = dataTable.length;
@@ -125,18 +130,21 @@ public class ManagementMetodClass extends JDialog {
 		getContentPane().add(panel_Btn, BorderLayout.SOUTH);
 		panel_Btn.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-		JButton btnHelpButton = new JButton("Help");
+		JButton btnHelpButton = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_Help"));
 		panel_Btn.add(btnHelpButton);
 		
 		
-		JButton btnNewRow = new JButton("new Row");
+		JButton btnNewRow = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_NewRow"));
 		btnNewRow.setEnabled(false);
+		if (user != null && user.getIsAdmin()) {
 		panel_Btn.add(btnNewRow);
+		}
 		
-		JButton btnRemoveNewRow = new JButton("remove Row");
+		JButton btnRemoveNewRow = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_RemoveRow"));
 		btnRemoveNewRow.setEnabled(false);
+		if (user != null && user.getIsAdmin()) {
 		panel_Btn.add(btnRemoveNewRow);
-		
+		}
 		
 		JButton btnExportButton = new JButton("export");
 		panel_Btn.add(btnExportButton);
@@ -450,9 +458,10 @@ public class ManagementMetodClass extends JDialog {
 				if (getSelectedModelRow(table) != -1) {
 				int selectRow = getSelectedModelRow(table);
 				int idSelectedMetod = (Integer) model.getValueAt(selectRow, metody_ID_Colum );
+				
 				System.out.println(selectRow+" "+selectRow);
 				
-				if (table.getSelectedColumn() == metody_code_Colum ) {
+				if (table.getSelectedColumn() == metody_code_Colum) {
 					
 					String AllTextCodeMetody = (String) model.getValueAt(selectRow, metody_code_Colum );
 					int begin = AllTextCodeMetody.indexOf(" ");
@@ -474,7 +483,7 @@ public class ManagementMetodClass extends JDialog {
 					}
 
 				}
-				if (table.getSelectedColumn() == metody_NiclideForDobiv_Colum) {
+				if (table.getSelectedColumn() == metody_NiclideForDobiv_Colum && idSelectedMetod > 5000) {
 					
 					int selectedRow = getSelectedModelRow(table);
 					String stringNuclideDobiv = (String) model.getValueAt(selectRow, metody_NiclideForDobiv_Colum );
@@ -500,7 +509,7 @@ public class ManagementMetodClass extends JDialog {
 					}
 				}
 			
-				if (table.getSelectedColumn() == metody_ToPokazatel_Colum) {
+				if (table.getSelectedColumn() == metody_ToPokazatel_Colum && idSelectedMetod > 5000) {
 					
 					int selectedRow = getSelectedModelRow(table);
 					String stringToPokazatel = (String) model.getValueAt(selectRow, metody_ToPokazatel_Colum );
@@ -532,13 +541,14 @@ public class ManagementMetodClass extends JDialog {
 
 	protected boolean checkUnikateCode(String newTextCodeMetody, int idSelectedMetod) {
 		
-		String MetodClassManagement_DublicateMetodKode = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_DublicateMetodKode");
-		MetodClassManagement_DublicateMetodKode = "<html>"+MetodClassManagement_DublicateMetodKode+"<br>"+newTextCodeMetody+"</html>";
+		String MetodClassManagement_ChoceNuclideDobiv = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_ChoceNuclideDobiv");
+		String errorOfData = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData");
+		MetodClassManagement_ChoceNuclideDobiv = "<html>"+MetodClassManagement_ChoceNuclideDobiv+"<br>"+newTextCodeMetody+"</html>";
 		for (int i = 0; i < dataTable.length; i++) {
 			if(newTextCodeMetody.equals(dataTable[i][metody_code_Colum]) 
 					&& idSelectedMetod != (int) dataTable[i][metody_ID_Colum]) {
 				
-				JOptionPane.showMessageDialog(null, MetodClassManagement_DublicateMetodKode,"", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, MetodClassManagement_ChoceNuclideDobiv,errorOfData, JOptionPane.WARNING_MESSAGE);
 				return true;	
 			}
 		}

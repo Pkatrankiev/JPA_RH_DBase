@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import ManagementBasicClassTable.ManagementMetodClass;
+import ManagementBasicClassTable.ManagementUsersClass;
+import ManagementBasicClassTable.ReadFailHelpWindow;
 import ManagementBasicClassTable.HelpWindow;
 import OldClases.ChoiceNuclideForDobiveWithPlusAndMinus;
 import OldClases.TestClases;
@@ -201,6 +203,7 @@ public class Main_Aplication {
 //		new ChoiceNuclideForDobiveWithPlusAndMinus(f,  "Обект на изпитване", MetodyDAO.getValueMetodyById(2));
 	
 	
+		
 		
 		StartMainWindow();
 		

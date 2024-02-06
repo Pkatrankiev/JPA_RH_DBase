@@ -289,7 +289,7 @@ public class ManagementMetodClass extends JDialog {
 		
 				table.setModel(dtm);
 				table.setFillsViewportHeight(true);
-				tableMouseListener( table);
+				tableMouseListener( table, user);
 				new TableFilterHeader(table, AutoChoices.ENABLED);
 				
 				setUp_Emition(table, table.getColumnModel().getColumn(metody_Emition_Colum));
@@ -362,7 +362,9 @@ public class ManagementMetodClass extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame f = new JFrame();
 				String label = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_HelpMetodsManagement");
-				new HelpWindow(f, label);
+				String respath = "TEMPLATES_DIRECTORY\\Help_ManagementMetod.txt";
+				String metodText = ReadFailHelpWindow. CreadMasiveFromReadFile(respath);
+				new HelpWindow(f, label, metodText);
 		
 			}
 		});
@@ -446,7 +448,7 @@ public class ManagementMetodClass extends JDialog {
 
 
 
-	private void tableMouseListener( JTable table) {
+	private void tableMouseListener( JTable table, Users user) {
 		
 		TableModel model = table.getModel() ;
 		
@@ -460,7 +462,7 @@ public class ManagementMetodClass extends JDialog {
 				int idSelectedMetod = (Integer) model.getValueAt(selectRow, metody_ID_Colum );
 				
 				System.out.println(selectRow+" "+selectRow);
-				
+				if (user != null && user.getIsAdmin()) {
 				if (table.getSelectedColumn() == metody_code_Colum) {
 					
 					String AllTextCodeMetody = (String) model.getValueAt(selectRow, metody_code_Colum );
@@ -476,12 +478,13 @@ public class ManagementMetodClass extends JDialog {
 					} catch (NullPointerException e2) {
 						newTextCodeMetody = AllTextCodeMetody;
 					} 
-				}while (checkUnikateCode(newTextCodeMetody, idSelectedMetod));
+				}while (checkUnikateCode(table, newTextCodeMetody, idSelectedMetod, selectRow));
 					model.setValueAt(newTextCodeMetody, selectRow, metody_code_Colum);
 					if (!newTextCodeMetody.equals(AllTextCodeMetody)) {
 						AddInUpdateList(selectRow);
 					}
 
+				}
 				}
 				if (table.getSelectedColumn() == metody_NiclideForDobiv_Colum && idSelectedMetod > 5000) {
 					
@@ -539,14 +542,14 @@ public class ManagementMetodClass extends JDialog {
 
 	
 
-	protected boolean checkUnikateCode(String newTextCodeMetody, int idSelectedMetod) {
-		
+	protected boolean checkUnikateCode(JTable table, String newTextCodeMetody, int idSelectedMetod, int row) {
+		TableModel model = table.getModel() ;
 		String MetodClassManagement_ChoceNuclideDobiv = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("MetodClassManagement_ChoceNuclideDobiv");
 		String errorOfData = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("errorOfData");
 		MetodClassManagement_ChoceNuclideDobiv = "<html>"+MetodClassManagement_ChoceNuclideDobiv+"<br>"+newTextCodeMetody+"</html>";
-		for (int i = 0; i < dataTable.length; i++) {
-			if(newTextCodeMetody.equals(dataTable[i][metody_code_Colum]) 
-					&& idSelectedMetod != (int) dataTable[i][metody_ID_Colum]) {
+		for (int i = 0; i < model.getRowCount(); i++) {
+			if(i != row && newTextCodeMetody.equals(model.getValueAt(i, metody_code_Colum)) 
+					&& idSelectedMetod != (int) model.getValueAt(i, metody_ID_Colum)) {
 				
 				JOptionPane.showMessageDialog(null, MetodClassManagement_ChoceNuclideDobiv,errorOfData, JOptionPane.WARNING_MESSAGE);
 				return true;	

@@ -9,30 +9,16 @@ import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
+import DBase_Class.Metody;
 import DBase_Class.Post;
 import DBase_Class.Users;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class UsersDAO {
 
-//	static String name_DBase = "JPA_RH_DBase";
-//	static 	EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getLokalDBase();
-	
 
-	public static void setBasicValueUsers(){
-//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
-		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
-		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
-		entitymanager.getTransaction().begin();
-		
-		
-		setValueUsers("═σ∩ετφα≥", "═σ∩ετφα≥", "123", "123", false, PostDAO.getValuePostById(1));	
-	setValueUsers("╠Φ⌡αΦδ", "┴αδα≈σΓ", "mbalachev", "123", false, PostDAO.getValuePostById(2));
-	setValueUsers("╧σ≥·≡", "╩α≥≡αφΩΦσΓ","pkatrankiev", "123", false, PostDAO.getValuePostById(2));
-	setValueUsers("╠α≡≥Φφ", "╚δΦσΓ", "miliev", "123", true, PostDAO.getValuePostById(4));
-}
 //	Users
-	public static void setValueUsers(String name, String family, String nikName, String pass, Boolean isAdmin, Post post) {
+	public static void setValueUsers(String name, String family, String nikName, String pass, Boolean isAdmin, Post post, Boolean acting) {
 
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
 		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
@@ -46,6 +32,7 @@ public class UsersDAO {
 		valueEnt.setPass_users(pass);
 		valueEnt.setIsAdmin(isAdmin);
 		valueEnt.setPost(post);
+		valueEnt.setIsAdmin(acting);
 
 		entitymanager.persist(valueEnt);
 		entitymanager.getTransaction().commit();
@@ -53,6 +40,33 @@ public class UsersDAO {
 		emfactory.close();
 	}
 
+	public static void setValueUsers(Users valueEnt) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+		entitymanager.persist(valueEnt);
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+
+	public static void updateUsers(Users user) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		entitymanager.find(Metody.class, user.getId_users());
+		entitymanager.merge(user);
+		
+		entitymanager.getTransaction().commit();
+		entitymanager.close();
+		emfactory.close();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<Users> getInListAllValueUsers() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -160,6 +174,24 @@ public class UsersDAO {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<Users> getValueUsersByActing() {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createQuery("SELECT e FROM Users e WHERE e.acting = 1");
+
+		List<Users> list = query.getResultList();
+		entitymanager.close();
+		emfactory.close();
+
+		return list;
+	}
+
+	
 	@SuppressWarnings("unchecked")
 	public static List<Users> getListUsersFromColumnByVolume(String column_name, Object volume_check) {
 

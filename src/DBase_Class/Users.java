@@ -24,6 +24,7 @@ public class Users implements Serializable {
 	private String pass;
 	private Boolean isAdmin;
 	private Post post;
+	private Boolean acting;
 
 	public Users(Integer id, 
 			String name, 
@@ -31,7 +32,8 @@ public class Users implements Serializable {
 			String nikName, 
 			String pass, 
 			Boolean isAdmin, 
-			Post post) {
+			Post post,
+			Boolean acting) {
 		super();
 		this.name = name;
 		this.family = family;
@@ -39,6 +41,7 @@ public class Users implements Serializable {
 		this.pass = pass;
 		this.isAdmin = isAdmin;
 		this.post = post;
+		this.setActing(acting);
 	}
 
 	public Users() {
@@ -96,6 +99,14 @@ public class Users implements Serializable {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public Boolean getActing() {
+		return acting;
+	}
+
+	public void setActing(Boolean acting) {
+		this.acting = acting;
 	}
 	
 }

@@ -17,6 +17,7 @@ import GlobalVariable.ResourceLoader;
 import WindowViewAplication.AutoSuggestor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
@@ -29,7 +30,8 @@ public class Login extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JButton okButton;
-	private JButton cancelButton;
+	private JButton clearButton;
+	private JButton exitButton;
 	private static JTextField txt_nik_name;
 	private static JPasswordField passwordField;
 	private JLabel lbl_Username;
@@ -43,7 +45,7 @@ public class Login extends JDialog {
 		super(parent, frameName, true);
 		String pass = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("LoginFrame_pass");
-		users_list = UsersDAO.getInListAllValueUsers();
+		users_list = UsersDAO.getValueUsersByActing();
 //		pro.StopWindow();
 		setBounds(100, 100, 272, 145);
 		getContentPane().setLayout(new BorderLayout());
@@ -105,10 +107,8 @@ public class Login extends JDialog {
 				}
 
 				{
-					cancelButton = new JButton("Cancel");
-					cancelButton.setActionCommand("Cancel");
-
-					cancelButton.addActionListener(new ActionListener() {
+					clearButton = new JButton("Clear");
+					clearButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							passwordField.setText("");
 							txt_nik_name.setText("");
@@ -116,9 +116,23 @@ public class Login extends JDialog {
 					});
 
 				}
+				
+				{
+					exitButton = new JButton("Exit");
+					exitButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							logOut();
+							dispose();
+							
+						}
+					});
+
+				}
+				
 				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				buttonPane.add(okButton);
-				buttonPane.add(cancelButton);
+				buttonPane.add(clearButton);
+				buttonPane.add(exitButton);
 			}
 			this.setDefaultCloseOperation(Login.DO_NOTHING_ON_CLOSE);
 			this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -171,8 +185,8 @@ public class Login extends JDialog {
 			JOptionPane.showMessageDialog(Login.this, "Invalid username or password", "Login",
 					JOptionPane.ERROR_MESSAGE);
 			// reset username and password
-			passwordField.setText("");
-			txt_nik_name.setText("");
+//			passwordField.setText("");
+//			txt_nik_name.setText("");
 
 		}
 	}

@@ -21,6 +21,7 @@ import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_ManagementMetodClass;
+import Menu.MenuData_ManagementUsersClass;
 import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuDobivReference;
 import Menu.MenuDoc_CreateProtokol;
@@ -315,6 +316,7 @@ public class MainWindow extends JFrame {
 		dataMenu.add(new MenuData_EnableResultsList());
 		dataMenu.addSeparator();
 		dataMenu.add(new MenuData_ManagementMetodClass());
+		dataMenu.add(new MenuData_ManagementUsersClass());
 //		 dataMenu.add(new MenuData_EnableInternalAplicant());
 //		 dataMenu.add(new MenuData_ReadDataFromDocFileSaveInDBase());
 

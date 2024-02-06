@@ -254,6 +254,17 @@ MetodClassManagement_HelpMetodsManagement = Упътване за Списък �
 MetodClassManagement_NewRow = Нов Ред
 MetodClassManagement_RemoveRow = Изтр. Ред
 MetodClassManagement_Help = Помощ
+
+Users_Name = Име
+Users_Family = Фамилия
+Users_NikName = Прякор
+Users_Pass = Парола
+Users_Post = Дъжност
+Users_isActing = Активен
+Users_isAdmin = Админ
+Users_Dublikate_NikName = Съществува такъв прякор:
+Users_Chenge_Pass = Може да промените паролата
+Users_HelpUsersManagement = Упътване за Списък Служители
 					
 
 Label_Text_Name = Име

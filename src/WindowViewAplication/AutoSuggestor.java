@@ -221,13 +221,17 @@ public class AutoSuggestor {
 	        int windowX = 0;
 	        int windowY = 0;
 
-	        windowX = container.getX() + textField.getX() + 5;
-	        if (suggestionsPanel.getHeight() > autoSuggestionPopUpWindow.getMinimumSize().height) {
-	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height;
-	        } else {
-	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight()+100;
-	        }
-
+	        windowX = container.getX() + textField.getX() + 7;
+	        
+//	        if (suggestionsPanel.getHeight() > autoSuggestionPopUpWindow.getMinimumSize().height) {
+	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height+3;
+//	        } else {
+//	            windowY = container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight()+100;
+//	        }
+	        System.out.println(suggestionsPanel.getHeight());
+	        System.out.println(container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getMinimumSize().height);
+	        System.out.println(container.getY() + textField.getY() + textField.getHeight() + autoSuggestionPopUpWindow.getHeight()+100);
+	        System.out.println(windowX+"  "+ windowY);
 	        autoSuggestionPopUpWindow.setLocation(windowX, windowY);
 	        autoSuggestionPopUpWindow.setMinimumSize(new Dimension(textField.getWidth(), 30));
 	        autoSuggestionPopUpWindow.revalidate();

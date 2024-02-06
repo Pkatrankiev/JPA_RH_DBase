@@ -207,9 +207,9 @@ public class MainWindow extends JFrame {
 		round.StopWindow();
 		setVisible(true);
 
-		new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
-				under_panel_Right, btnProgressBar)
-				.execute();
+//		new CreateMainWindowInfoPanelWithProgrssBar(progressBar, under_panel_Left,
+//				under_panel_Right, btnProgressBar)
+//				.execute();
 		basicPanel .revalidate();
 		basicPanel .repaint();
 	}

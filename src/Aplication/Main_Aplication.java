@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import DefaultTableList.ViewTableList;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import ManagementBasicClassTable.ManagementMetodClass;
+import ManagementBasicClassTable.ManagementUsersClass;
 import ManagementBasicClassTable.HelpWindow;
 import OldClases.ChoiceNuclideForDobiveWithPlusAndMinus;
 import OldClases.TestClases;
@@ -201,8 +202,24 @@ public class Main_Aplication {
 //		new ChoiceNuclideForDobiveWithPlusAndMinus(f,  "Обект на изпитване", MetodyDAO.getValueMetodyById(2));
 	
 	
+		TranscluentWindow round = new TranscluentWindow();
+		 final Thread thread = new Thread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 JFrame f = new JFrame();
+		    	 new ManagementUsersClass(f, round, UsersDAO.getValueUsersById(3), null, null);
+				     }
+		    });
+		    thread.start();
 		
-		StartMainWindow();
+		
+		
+		
+		
+		
+		
+		
+//		StartMainWindow();
 		
 	}
 	private static void StartMainWindow() {

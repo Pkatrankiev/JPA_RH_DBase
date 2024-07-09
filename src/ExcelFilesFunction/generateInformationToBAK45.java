@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -147,16 +146,17 @@ public class generateInformationToBAK45 {
 				dd = Double.parseDouble(ss);
 					}
 				if (dd > 0.0) {
-					cell = sheet.getRow(32).getCell(9);
+					cell = sheet.getRow(32).getCell(10);
 					cell.setCellValue(dd);
 				}
 
 				if (maxObAktBAK > 0.0) {
-					cell = sheet.getRow(33).getCell(9);
+					cell = sheet.getRow(33).getCell(10);
 					cell.setCellValue(maxObAktBAK / 1000);
 				}
 
-
+				workbook.setForceFormulaRecalculation(true);
+				
 				try {
 					fileOut = new FileOutputStream(file_name);
 					workbook.write(fileOut);
@@ -217,6 +217,6 @@ public class generateInformationToBAK45 {
 		return listResults;
 	}
 
-
+	
 
 }

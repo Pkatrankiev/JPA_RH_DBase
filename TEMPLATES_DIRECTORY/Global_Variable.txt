@@ -23,7 +23,7 @@ DBSTCN_InfoDialog_Text = Не сте маркирали ред
 
 TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
-destinationDir_Protocols = l:/ЛИ-РХ/Протоколи/
+destinationDir_Protocols = D:/ЛИ-РХ/Протоколи/
 name_tamplate_Protocols = Protokol_NEW.docx
 name_tamplate_Request = Zaqvka_new.docx
 name_tamplate_RazpredForm = Razpred.docx
@@ -136,7 +136,7 @@ RequestView_Section_Add = Добавяне:
 RequestView_Section_Zab = Забележка:
 RequestView_Section_DopalnIziskv = Допълнителни изисквания на клиента:
 RequestView_Section_DopalnDogovorenosti = Допълнителни договорености:
-
+RequestView_Section_Co_And_Cs = задължително 60Co и 137Cs
 RequestView_Text_OR = или
 RequestView_JustONE = само едно от :
 
@@ -325,6 +325,7 @@ MounthlyReferenceForCNRDWater_MesecLabel = месец
 MounthlyReferenceForCNRDWater_GodinaLabel_Error = годината да е след 
 
 MounthlyReferenceEjectionVolums_Btn_Reference = Справка
+MounthlyReferenceEjectionVolums_Btn_Editing = Изтриване
 
 MounthlyReferenceEjectionRHtoORDK_BasicLabel = <html>СВЕДЕНИЕ<br>за изхвърлянията на 14С и 3Н от ВТ-1 и ВТ-2 за:</html>
 MounthlyReferenceEjectionRHtoORDK_Request_C = код на заявката за 14С

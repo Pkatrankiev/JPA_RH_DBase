@@ -1,5 +1,8 @@
 package Aplication;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import DBase_Class.Izpitvan_produkt;
+import DBase_Class.Izpitvan_produkt_IsActive;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 public class Izpitvan_produktDAO {
@@ -85,6 +89,51 @@ public class Izpitvan_produktDAO {
 		return values;
 	}
 	
+	public static String[] getMasiveStringAllActiveValueIzpitvan_produkt() {
+
+		List<Izpitvan_produkt_IsActive> listActIzpProd = Izpitvan_produkt_IsActiveDAO.getInListActive_Izpitvan_produkt_IsActive();
+		List<Izpitvan_produkt> list = new ArrayList<>();
+		for (Izpitvan_produkt_IsActive activeIpitvanProdukt : listActIzpProd) {
+			list.add(activeIpitvanProdukt.getIzpitvanProdukt());
+		}
+		sortByIzpitvan_produktName(list);
+		String[] values = new String[list.size()];
+		int i = 0;
+		for (Izpitvan_produkt izpitvan_produkt : list) {
+			values[i] = izpitvan_produkt.getName_zpitvan_produkt();
+			i++;
+		}
+		return values;
+	}
+	
+	 public static void sortByIzpitvan_produktName(List<Izpitvan_produkt> listIzpitvanProdukt){	    		    	
+
+	  		Collections.sort(listIzpitvanProdukt, new Comparator<Izpitvan_produkt>() {
+	  		 
+			@Override
+			public int compare(Izpitvan_produkt o1, Izpitvan_produkt o2) {
+				 return o1.getName_zpitvan_produkt().compareTo(o2.getName_zpitvan_produkt());
+			}
+	  		});
+	  	
+		    }
+	
+
+	public static List<Izpitvan_produkt> getInListAllActiveValueIzpitvan_produkt() {
+		List<Izpitvan_produkt_IsActive> listActIzpProd = Izpitvan_produkt_IsActiveDAO.getInListActive_Izpitvan_produkt_IsActive();
+		List<Izpitvan_produkt> list = new ArrayList<>();
+		for (Izpitvan_produkt_IsActive activeIpitvanProdukt : listActIzpProd) {
+			list.add(activeIpitvanProdukt.getIzpitvanProdukt());
+		}
+		sortByIzpitvan_produktName(list);
+
+		for (Izpitvan_produkt e : list) {
+			System.out.println("Num:" + ((Izpitvan_produkt) e).getId_zpitvan_produkt() + "  NAME :"
+					+ ((Izpitvan_produkt) e).getName_zpitvan_produkt());
+		}
+		return list;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<Izpitvan_produkt> getInListAllValueIzpitvan_produkt() {
 //		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
@@ -143,5 +192,7 @@ public class Izpitvan_produktDAO {
 
 		return list;
 	}
-
+	
+		
+	
 }

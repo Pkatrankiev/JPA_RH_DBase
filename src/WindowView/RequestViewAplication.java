@@ -46,7 +46,8 @@ public class RequestViewAplication {
 
 	public static String[] getStringMassiveIzpitvanProdukt() {
 		int i = 0;
-		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
+//		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllValueIzpitvan_produkt();
+		List<Izpitvan_produkt> list = Izpitvan_produktDAO.getInListAllActiveValueIzpitvan_produkt();
 		String[] arr2 = new String[list.size()];
 		for (Izpitvan_produkt e : list) {
 			arr2[i] = e.getName_zpitvan_produkt();

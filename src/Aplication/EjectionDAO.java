@@ -13,7 +13,6 @@ import DBase_Class.Ejection;
 import DBase_Class.Izpitvan_produkt;
 import DBase_Class.Obekt_na_izpitvane_request;
 import DBase_Class.Period;
-
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ResourceLoader;
 
@@ -136,5 +135,32 @@ public class EjectionDAO {
 		entitymanager.close();
 		emfactory.close();
 	}	
+	
+	
+	public static void deleteEjection(Ejection ejection) {
+
+//		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(name_DBase);
+		EntityManagerFactory emfactory = GlobalVariableForSQL_DBase.getDBase();
+		EntityManager entitymanager = GlobalVariableForSQL_DBase.getEntityManagerDBase(emfactory);
+		entitymanager.getTransaction().begin();
+			
+		Query query = entitymanager.createQuery("delete from Ejection where id =:id");
+		try {
+		query.setParameter("id", ejection.getId_ejection());
+		query.executeUpdate();
+      	entitymanager.getTransaction().commit();
+		} catch (javax.persistence.RollbackException e) {
+			ResourceLoader.appendToFile(e);
+			JOptionPane.showMessageDialog(null,  "Прблем при изтриване на резултат: "+ejection.getObect().getName_obekt_na_izpitvane()+"-"+
+			ejection.getMesec().getValue()+" "+ejection.getGodina(), "Проблем с база данни:",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+		entitymanager.close();
+		emfactory.close();
+	}
+	
+
+	
 	
 }

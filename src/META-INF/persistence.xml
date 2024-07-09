@@ -39,6 +39,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 		<class>DBase_Class.Emition</class>
 		<class>DBase_Class.Ejection</class>
 		<class>DBase_Class.KoeficientObject</class>
+		<class>DBase_Class.Izpitvan_produkt_IsActive</class>
 	
 		<properties>						
 			<property name="javax.persistence.jdbc.url"

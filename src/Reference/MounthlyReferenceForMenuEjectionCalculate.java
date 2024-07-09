@@ -44,7 +44,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import org.apache.poi.hssf.usermodel.HSSFHeader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -54,7 +53,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Footer;
-import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -423,15 +421,15 @@ if(listNewSample.size()>0){
 				if (key > 1) {
 					mda = result.getMda();
 				}
-
+				String str = CreateListLeftPanelStartWindowClass
+						.getLabelProtokol(result.getRequest().getRecuest_code(), listAllProtokolFile)
+						.replace(".docx", "").replace(".doc", "");
 				if (obektNew.equals(obektOld)) {
 					DataTableValue[i][0] = "";
 					DataTableValue[i][1] = "";
 					DataTableValue[i][2] = "";
 					DataTableValue[i][3] = "";
-					listStringAllProtokolFile.add(CreateListLeftPanelStartWindowClass
-							.getLabelProtokol(result.getRequest().getRecuest_code(), listAllProtokolFile)
-							.replace(".docx", "").replace(".doc", ""));
+					listStringAllProtokolFile.add(str);
 				} else {
 
 					DataTableValue[i][0] = obektNew;
@@ -439,6 +437,7 @@ if(listNewSample.size()>0){
 						DataTableValue[firstInfoRow][1] = genarateStringFromList(
 								removeDuplicates(listStringAllProtokolFile)).replace(";", ";   ");
 						listStringAllProtokolFile.clear();
+						listStringAllProtokolFile.add(str);
 					}
 					DataTableValue[i][2] = FormatDoubleNumber.formatDoubleToString(obem, 2, true);
 					DataTableValue[i][3] = FormatDoubleNumber.formatDoubleToString(koef, 2, false);
@@ -1053,7 +1052,7 @@ if(listNewSample.size()>0){
 
 	private Object[][] sortData(Object[][] dataTable) {
 
-		Object[][] newMasive = new Object[dataTable.length][9];
+//		Object[][] newMasive = new Object[dataTable.length][9];
 
 		List<String> nuclide = new ArrayList<>();
 		List<Object[]> object = new ArrayList<>();

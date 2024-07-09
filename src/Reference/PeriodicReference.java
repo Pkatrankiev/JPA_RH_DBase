@@ -102,6 +102,7 @@ public class PeriodicReference extends JDialog {
 		gbc_choiceIzpitProd.gridy = 1;
 		basic_panel_1.add(choiceIzpitProd, gbc_choiceIzpitProd);
 		getIntemsInChoice(choiceIzpitProd, Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt());
+//		getIntemsInChoice(choiceIzpitProd, Izpitvan_produktDAO.getMasiveStringAllActiveValueIzpitvan_produkt());
 
 		JLabel lblPokazatel = new JLabel(
 				ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("Reference_LabelText_Pokazatel"));

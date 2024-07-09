@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SwingWorker;
+import javax.swing.*;
 
 import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.ResourceLoader;

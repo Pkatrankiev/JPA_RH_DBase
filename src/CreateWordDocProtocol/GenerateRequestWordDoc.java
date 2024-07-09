@@ -56,6 +56,7 @@ public class GenerateRequestWordDoc {
 		
 			// Clean temp data
 			deleteTempData(new File(userTempDir));
+			deleteTempData(new File(userTempDir));
 			round.StopWindow();
 			openWordDoc(destinationDir + destinationName + ".docx");
 
@@ -115,9 +116,14 @@ public class GenerateRequestWordDoc {
 		while (substitutionDataIterator.hasNext()) {
 			Map.Entry<String, String> pair = (Map.Entry<String, String>) substitutionDataIterator.next();
 			if (docxTemplate.contains(pair.getKey())) {
-				if (pair.getValue() != null)
+				if (pair.getValue() != null) {
+					if(pair.getKey().equals("$$pokazatel_razmernost_1$$") && pair.getValue().contains("гама")) {
+						String newtext = createNewTextGamaPokazatel(pair.getValue());
+						docxTemplate = docxTemplate.replace(pair.getKey(), newtext);
+					}else {
 					docxTemplate = docxTemplate.replace(pair.getKey(), pair.getValue());
-				else
+					}
+				}else
 					docxTemplate = docxTemplate.replace(pair.getKey(), "NEDOSTAJE");
 			}
 		}
@@ -132,6 +138,16 @@ public class GenerateRequestWordDoc {
 			fos.close();
 			throw e;
 		}
+	}
+
+	private static String createNewTextGamaPokazatel(String value) {
+		String RequestView_Section_Co_And_Cs = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("RequestView_Section_Co_And_Cs");
+		int index = value.indexOf("/");
+		String str1 = value.substring(0, index);
+		String str2 = value.substring(index);
+		
+		return str1+", "+RequestView_Section_Co_And_Cs+" "+str2;
+		 
 	}
 
 	// Zipps specified directory and all its subdirectories
@@ -221,10 +237,9 @@ public class GenerateRequestWordDoc {
 	private static void deleteTempData(File file) throws IOException {
 
 		if (file.isDirectory()) {
-
 			// directory is empty, then delete it
 			if (file.list().length == 0) {
-//				file.delete();
+				file.delete();
 			}else {
 				// list all the directory contents
 				String files[] = file.list();
@@ -232,14 +247,13 @@ public class GenerateRequestWordDoc {
 				for (String temp : files) {
 					// construct the file structure
 					File fileDelete = new File(file, temp);
-
 					// recursive delete
 					deleteTempData(fileDelete);
 				}
 
 				// check the directory again, if empty then delete it
 				if (file.list().length == 0) {
-//					file.delete();
+					file.delete();
 				}
 			}
 		} else {

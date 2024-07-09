@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import Reference.MounthlyReferenceForMenuEjectionVolums;
+import WindowView.Login;
 
 public class MenuEjectionVolums extends AbstractMenuAction{
 	
@@ -22,7 +23,7 @@ public class MenuEjectionVolums extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 			    	JFrame f = new JFrame();
-			    	new MounthlyReferenceForMenuEjectionVolums(f, MenuEjectionVolums_TitleName) ;
+			    	new MounthlyReferenceForMenuEjectionVolums(f, MenuEjectionVolums_TitleName, Login.getCurentUser()) ;
 			    	
 			
 	}

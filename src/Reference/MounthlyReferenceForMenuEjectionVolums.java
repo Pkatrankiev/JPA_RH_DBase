@@ -34,6 +34,7 @@ import Aplication.Obekt_na_izpitvane_requestDAO;
 import Aplication.PeriodDAO;
 import DBase_Class.Ejection;
 import DBase_Class.Period;
+import DBase_Class.Users;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 
 import javax.swing.JSeparator;
@@ -58,14 +59,15 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 	static String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 	
 	final String[] strMounth = MounthlyReferenceForCNRDWater.getStringMounth();
-	final String[] strProdukt = Izpitvan_produktDAO.getMasiveStringAllValueIzpitvan_produkt();
+	final String[] strProdukt = Izpitvan_produktDAO.getMasiveStringAllActiveValueIzpitvan_produkt();
 	final String[] strObekt = Obekt_na_izpitvane_requestDAO.getMasiveStringAllValueObekt_na_izpitvane();
-	
+	String mesec = "";
+	int godina;
 	int sizeV = 240;
 	int sizeH = 1050;
 	int newRowWith = 22;
 	int lineWith = 15;
-	public MounthlyReferenceForMenuEjectionVolums(JFrame parent, String nameFrame) {
+	public MounthlyReferenceForMenuEjectionVolums(JFrame parent, String nameFrame, Users user) {
 		super(parent, nameFrame, true);
 		setResizable(false);
 		
@@ -133,6 +135,8 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		gbc_comboBox.gridy = 1;
 		basicPanel.add(comboBox, gbc_comboBox);
 		
+	
+		
 		
 		JLabel lblErrorGodina = new JLabel();
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -155,7 +159,6 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 		JButton btnReference = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
 				.get("MounthlyReferenceEjectionVolums_Btn_Reference"));
 		GridBagConstraints gbc_btnReference = new GridBagConstraints();
-		gbc_btnReference.gridwidth = 2;
 		gbc_btnReference.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_btnReference.insets = new Insets(0, 0, 5, 5);
 		gbc_btnReference.gridx = 3;
@@ -166,8 +169,8 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				int countRow = StringUtils.countMatches(lblReferenceEjection.getText(), "<br>");
 				sizeV = sizeV - countRow*lineWith;
-				String mesec = (String) comboBox.getSelectedItem();
-				int godina = Integer.parseInt(txtFieldGodina.getText());
+				mesec = (String) comboBox.getSelectedItem();
+				godina = Integer.parseInt(txtFieldGodina.getText());
 				String textReference = createLblReference(basicPanel, mesec, godina);
 				countRow = StringUtils.countMatches(textReference, "<br>");
 				lblReferenceEjection.setText(textReference);
@@ -182,7 +185,24 @@ public class MounthlyReferenceForMenuEjectionVolums extends JDialog {
 
 		});
 		
+		if(user != null && user.getIsAdmin()) {
+		JButton btnEditEjectionVolue = new JButton(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap()
+				.get("MounthlyReferenceEjectionVolums_Btn_Editing"));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.gridy = 1;
+		basicPanel.add(btnEditEjectionVolue, gbc_btnNewButton);
 		
+		btnEditEjectionVolue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mesec = (String) comboBox.getSelectedItem();
+				godina = Integer.parseInt(txtFieldGodina.getText());
+				new DeleteEjectionFrame(parent, mesec, godina);	
+			}
+		});
+		
+		}
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLACK);

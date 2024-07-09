@@ -10,8 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 
 import DBase_Class.Metody;
-import DBase_Class.Nuclide;
-import DBase_Class.Results;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 
 

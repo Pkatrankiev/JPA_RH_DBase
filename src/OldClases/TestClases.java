@@ -496,7 +496,7 @@ public	static void ChoiceListIzpPokazatel() {
 			@Override
 			public void run() {
 
-				new MainWindow(round);
+				new MainWindow(round, "");
 
 			}
 		});

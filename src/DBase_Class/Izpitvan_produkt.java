@@ -27,7 +27,7 @@ public class Izpitvan_produkt implements Serializable {
 		 private int Id_izpitvan_produkt;
 
 		 private String name;
-		
+				
 
 		 public Izpitvan_produkt(String name) {
 		     super( );
@@ -52,6 +52,8 @@ public class Izpitvan_produkt implements Serializable {
 		 public void setName_zpitvan_produkt(String name) {
 		 this.name = name;
 		 }
+
+		
 
 
 }

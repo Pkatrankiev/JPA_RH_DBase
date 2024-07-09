@@ -14,6 +14,7 @@ import javax.swing.JProgressBar;
 import org.apache.commons.compress.utils.Lists;
 
 import Aplication.IzpitvanPokazatelDAO;
+import Aplication.Izpitvan_produktDAO;
 import Aplication.PeriodDAO;
 import Aplication.RequestDAO;
 import Aplication.ResultsDAO;
@@ -33,7 +34,12 @@ public class CreateListLeftPanelStartWindowClass {
 	
 	
 	
-	private static String[] listMonitoringGroup = { "Газообразни изхвърляния", "Течни изхвърляния", "Въздух", "Вода" };
+	private static String[] listMonitoringGroup = {
+			Izpitvan_produktDAO.getValueIzpitvan_produktById(5).getName_zpitvan_produkt(), //"Газообразни изхвърляния"
+			Izpitvan_produktDAO.getValueIzpitvan_produktById(3).getName_zpitvan_produkt(), //"Течни изхвърляния"
+			Izpitvan_produktDAO.getValueIzpitvan_produktById(6).getName_zpitvan_produkt(), //"Въздух"
+			Izpitvan_produktDAO.getValueIzpitvan_produktById(4).getName_zpitvan_produkt()  //"Води"
+			};
 
 	protected CreateListLeftPanelStartWindowClass(JProgressBar progressBarView, int startCheckYear) {
 		VariableFromStartWindowPanel
@@ -149,27 +155,6 @@ public class CreateListLeftPanelStartWindowClass {
 		return listAllProtokolFile;
 	}
 
-//	public static String findFile(String name, File file, boolean fl) {
-//	
-//		
-//			File[] list = file.listFiles();
-//			if (list != null) {
-//				for (File fil : list) {
-//					System.out.println(name + " : " + fil.getName() + " -> " + fileName);
-//					listAllProtokolFile.add(fil.getName());
-//					if (fil.isDirectory()) {
-//						findFile(name, fil, fl);
-//					}
-//
-//				}
-//			} else {
-//				JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
-//
-//			}
-//
-//		
-//		return fileName;
-//	}
 
 	public static void creadDataForRigthPanel(int startCheckYear) {
 		List<Request> listCeckRequest = createListCheckRequest(startCheckYear);
@@ -284,8 +269,9 @@ public class CreateListLeftPanelStartWindowClass {
 	private static List<Request> cerateList(String monitGroup) {
 		int curentYear = getYar();
 
+		String vodi = Izpitvan_produktDAO.getValueIzpitvan_produktById(4).getName_zpitvan_produkt();  //"Води"
 		String month = getPreviousMesec(1);
-		if (monitGroup.equals("Вода")) {
+		if (monitGroup.equals(vodi)) {
 			month = getPreviousMesec(2);
 			if (month.equals("януари")) {
 				curentYear++;
@@ -298,8 +284,10 @@ public class CreateListLeftPanelStartWindowClass {
 		int countNeseseryRequest = 15;
 
 		int max = listRequest.size();
+		System.out.println(max +" -> "+monitGroup);
 		int min = 0;
-		System.out.println(max + " / " + listRequest.get(0).getRecuest_code() + " - "
+		System.out.println(max + " / " 
+		+ listRequest.get(0).getRecuest_code() + " - "
 				+ listRequest.get(max - 1).getRecuest_code());
 		if (max > countNeseseryRequest) {
 			min = max - countNeseseryRequest;

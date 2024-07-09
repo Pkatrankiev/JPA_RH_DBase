@@ -371,7 +371,7 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 		
 		int[] columnExcellWith = { 110, 90, 90, 60, 110, 130, 90 };
 		String[] label_H = {"A (3H), Bq/ml","U (3H), Bq/ml","MDA(3H), Bq/ml"};
-		String[] label_C = {"A (14C), Bq/ml","U (14C), Bq/ml","MDA(14C), Bq/ml"};
+		String[] label_C = {"A (14C), Bq/m³","U (14C), Bq/m³","MDA(14C), Bq/m³"};
 		
 		try {
 			String name = "таблица РХ за ОРДК-";

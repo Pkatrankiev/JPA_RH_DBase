@@ -7,7 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
- class ChangeColor extends JLabel implements TableCellRenderer {
+ @SuppressWarnings("serial")
+class ChangeColor extends JLabel implements TableCellRenderer {
 //	private int columnIndex;
 //
 //	public ChangeColor(int index) {

@@ -1,6 +1,7 @@
 package WindowView;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,13 +17,11 @@ import InfoPanelInMainWindow.CreatRightPanel;
 import InfoPanelInMainWindow.CreateMainWindowInfoPanelWithProgrssBar;
 import Menu.ArhiveDBase;
 import Menu.MenuMounthlyReferenceEjectionRHtoORDK;
-import Menu.MenuData_EnableInternalAplicant;
 import Menu.MenuData_EnableRequestList;
 import Menu.MenuData_EnableResultsList;
 import Menu.MenuData_EnableSampleList;
 import Menu.MenuData_ManagementMetodClass;
 import Menu.MenuData_ManagementUsersClass;
-import Menu.MenuData_ReadDataFromDocFileSaveInDBase;
 import Menu.MenuDobivReference;
 import Menu.MenuDoc_CreateProtokol;
 import Menu.MenuDoc_CreateRazpredFormu;
@@ -65,6 +64,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -85,7 +86,7 @@ public class MainWindow extends JFrame {
 	private static Login loginDlg;
 	
 
-	public MainWindow(TranscluentWindow round) {
+	public MainWindow(TranscluentWindow round, String Mainversion) {
 		
 		setMinimumSize(new Dimension(900, 600));
 		GetVisibleLAF(this);
@@ -105,7 +106,7 @@ public class MainWindow extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 
-		JLabel lblVer = new JLabel(version + " ");
+		JLabel lblVer = new JLabel(getVersion(Mainversion) + " ");
 		panel_1.add(lblVer);
 
 		JProgressBar progressBar = new JProgressBar();
@@ -217,6 +218,26 @@ public class MainWindow extends JFrame {
 	
 	  
 	
+
+	
+	private String getVersion(String mainversion) {
+		Date datMainVersion = null;
+		Date datVersion = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+			try {
+				datMainVersion = sdf.parse(mainversion);
+				datVersion = sdf.parse(version.replace("Ver.", ""));
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return version;
+			}
+		
+
+		return datMainVersion.before(datVersion) ? version : "Ver."+mainversion;
+	}
+
+
+
 
 	public static void cerateDestinationDir(){
 		String destinationDir = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("destinationDir");

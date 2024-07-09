@@ -3,7 +3,6 @@ package Aplication;
 
 import java.awt.HeadlessException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 import DBase_Class.Aplicant;
-import GlobalVariable.GlobalPathForDocFile;
 import GlobalVariable.GlobalVariableForSQL_DBase;
 import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
@@ -211,21 +209,21 @@ public class AplicantDAO {
 //             String dbPass = "YourUserPassword";
 
         	
-        	String PathToMySqlDumpFile = "TEMPLATES_DIRECTORY\\";
-    		String remoteDBase = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("remoteDBase");
+//        	String PathToMySqlDumpFile = "TEMPLATES_DIRECTORY\\";
+//    		String remoteDBase = ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("remoteDBase");
+//    		String remoteDBase = "1";
+//    		String HOSTIP = "192.168.21.27";
+//    		String USER = "someuser";
+//    		String PASS = "123";
     		
-    		String HOSTIP = "192.168.21.27";
-    		String USER = "someuser";
-    		String PASS = "123";
-    		
-    		if(remoteDBase.equals("0")) {
-    			 HOSTIP = "localhost";
-    			 USER = "root";
-    			 PASS = "root1";
-    		}
-    		String PORT = "3306";
-    		String database = "rhdbase";
-    		String path = "DB_backup_21-08-22_.sql";
+//    		if(remoteDBase.equals("0")) {
+//    			 HOSTIP = "localhost";
+//    			 USER = "root";
+//    			 PASS = "root1";
+//    		}
+//    		String PORT = "3306";
+//    		String database = "rhdbase";
+//    		String path = "DB_backup_21-08-22_.sql";
         	
         	System.out.println("1111111111111111111111111");
             /*NOTE: Creating Path Constraints for restoring*/
@@ -237,9 +235,9 @@ public class AplicantDAO {
 //            String executeCmd =  "TEMPLATES_DIRECTORY\\mysql"+ " --user="  + USER + " --password="
 //					+ PASS + " "+ database + " < "  + path;
             
-            
-        	String[] executeCmd = new String[]{"TEMPLATES_DIRECTORY\\mysql", "--user=root", " --password=root", " rhdbase <  ",
-            		"D:\\JavaProjectEclipce\\JPA_RH_DBase\\TEMPLATES_DIRECTORY\\DB_backup_21-08-22_1539.sql"};
+        	String[] executeCmd = new String[]{"TEMPLATES_DIRECTORY\\mysql", "--user=root", "--password=root", "rhdbase","-e", " source "+"d:\\eclipse-workspace\\JPA_RH_DBase\\TEMPLATES_DIRECTORY\\DB_backup_04-06-24_1352.sql"}; 
+//        	String[] executeCmd = new String[]{"TEMPLATES_DIRECTORY\\mysql", "--user=root", "--password=root", " rhdbase <  ",
+//            		"d:\\eclipse-workspace\\JPA_RH_DBase\\TEMPLATES_DIRECTORY\\DB_backup_04-06-24_1352.sql"};
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
             System.out.println("22222222222222222222222222");
             Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
@@ -263,5 +261,30 @@ public class AplicantDAO {
         }
 
     }
+	
+	public static boolean restoreDB( String source) {  
+		String dbName = "rhdbase";
+		String dbPassword = "root";
+		String dbUserName = "root";
+		String[] executeCmd = new String[]{"TEMPLATES_DIRECTORY\\mysql", "--user=" + dbUserName, "--password=" + dbPassword, dbName,"-e", " source "+source};  
+		Process runtimeProcess;  
+		try {  
+		runtimeProcess = Runtime.getRuntime().exec(executeCmd);  
+		int processComplete = runtimeProcess.waitFor();  
+		if (processComplete == 0) {  
+		    System.out.println("Backup restored successfully");  
+		    return true;  
+		  
+		} else {  
+		     System.out.println("Could not restore the backup");  
+		       }  
+		        } catch (Exception ex) {  
+		            ex.printStackTrace();  
+		        }  
+		        return false;  
+		}	
+	
+	
+	
 	
 }

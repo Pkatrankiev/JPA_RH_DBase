@@ -149,7 +149,7 @@ public class CreateListLeftPanelStartWindowClass {
 
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
+			JOptionPane.showMessageDialog(null, "Недостигам до директория: " + GlobalPathForDocFile.get_destinationDir_Protocols());
 
 		}
 		return listAllProtokolFile;

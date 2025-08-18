@@ -1,12 +1,12 @@
 #Sring
 
 
-MainWindow_Ver = Ver.010923
+MainWindow_Ver = Ver.180825
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
-remoteDBase = 1
-maxRequestCode = 9999
+remoteDBase = 0
+maxRequestCode = 99999
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
 
 $$DBase_SampleTableColumnName
@@ -23,7 +23,7 @@ DBSTCN_InfoDialog_Text = Не сте маркирали ред
 
 TEMPLATE_DIRECTORY_ROOT = TEMPLATES_DIRECTORY/
 destinationDir = DIRECTORY/
-destinationDir_Protocols = D:/ЛИ-РХ/Протоколи/
+destinationDir_Protocols = L:/ЛИ-РХ/Протоколи/
 name_tamplate_Protocols = Protokol_NEW.docx
 name_tamplate_Request = Zaqvka_new.docx
 name_tamplate_RazpredForm = Razpred.docx

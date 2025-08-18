@@ -19,6 +19,7 @@ import CreateWordDocProtocol.GenerateDocProtokol;
 import DBase_Class.Request;
 import DBase_Class.Users;
 import GlobalVariable.GlobalPathForDocFile;
+import GlobalVariable.ReadFileWithGlobalTextVariable;
 import GlobalVariable.ResourceLoader;
 
 import java.awt.GridBagLayout;
@@ -221,8 +222,8 @@ public class FrameChoiceRequestByCode extends JDialog {
 			lblError.setText("Заявка с този номер не съществува");
 			corectRequestCode = false;
 		} else {
-
-			if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
+			int maxRequestCode = Integer.parseInt(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("maxRequestCode"));
+			if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, maxRequestCode)) {
 				txtField_RequestCode.setForeground(Color.red);
 				lblError.setText("Некоректен номер");
 				corectRequestCode = false;

@@ -5,7 +5,7 @@ MainWindow_Ver = Ver.010923
 
 ProtokolResultNeopred = 1
 AllResultInInjectionReference = 1
-remoteDBase = 0
+remoteDBase = 1
 maxRequestCode = 9999
 MounthlyReferenceForCNRDWater_ExcelFileBAK_Path = l:/ИЗХВЪРЛЯНИЯ-ИЗХОД2/2022/BAK-2022-NEW.xls
 

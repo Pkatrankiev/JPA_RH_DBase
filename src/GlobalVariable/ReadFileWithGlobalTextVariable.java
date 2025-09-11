@@ -7,16 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-
-import java.nio.charset.*;
 
 public class ReadFileWithGlobalTextVariable  {
 
@@ -47,11 +43,7 @@ public class ReadFileWithGlobalTextVariable  {
 			
 			
 			InputStream in = new FileInputStream(fileDir);
-			
-			 Charset charset = detectCharset(fileDir);
-			 br = new BufferedReader(new InputStreamReader(in, charset));
-			 
-//			br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+			br = new BufferedReader(new InputStreamReader(in,"UTF-8"));
 			
 			String sCurrentLine;
 			String flagTypeValue = "";
@@ -119,38 +111,6 @@ public class ReadFileWithGlobalTextVariable  {
 	
 	}
 	
-	private static Charset detectCharset(File file) throws IOException {
-        // Първо пробваме UTF-8
-        if (isDecodable(file, StandardCharsets.UTF_8)) {
-            return StandardCharsets.UTF_8;
-        }
-        // После Windows-1251
-        Charset win1251 = Charset.forName("windows-1251");
-        if (isDecodable(file, win1251)) {
-            return win1251;
-        }
-        // Ако не пасва - по подразбиране UTF-8
-        return StandardCharsets.UTF_8;
-    }
-
-	private static boolean isDecodable(File file, Charset charset) throws IOException {
-        CharsetDecoder decoder = charset.newDecoder()
-                .onMalformedInput(CodingErrorAction.REPORT)
-                .onUnmappableCharacter(CodingErrorAction.REPORT);
-
-        try (InputStream in = new FileInputStream(file);
-             Reader reader = new InputStreamReader(in, decoder)) {
-            char[] buffer = new char[4096];
-            while (reader.read(buffer) != -1) {
-                // Ако има грешка, ще влезе в catch
-            }
-            return true;
-        } catch (CharacterCodingException e) {
-            return false;
-        }
-    }
-
-
 	public static Map<String, String> getGlobalIntVariableMap() {
 		return globalIntVariableMap;
 	}

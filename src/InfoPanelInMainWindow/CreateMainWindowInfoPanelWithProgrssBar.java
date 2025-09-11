@@ -80,7 +80,7 @@ public static String getListAllProtokolFile(File file) {
 
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Недостигам до директория: " + GlobalPathForDocFile.get_destinationDir_Protocols());
+			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
 
 		}
 		return "";

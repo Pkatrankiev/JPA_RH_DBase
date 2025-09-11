@@ -703,7 +703,7 @@ public class GenerateDocProtokol {
 
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Недостигам до директория: " + GlobalPathForDocFile.get_destinationDir_Protocols());
+			JOptionPane.showMessageDialog(null, "Недостигам до директория:" + "");
 
 		}
 		return listAllProtokolFile;

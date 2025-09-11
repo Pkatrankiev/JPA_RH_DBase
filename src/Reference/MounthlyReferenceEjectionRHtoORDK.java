@@ -256,8 +256,8 @@ public class MounthlyReferenceEjectionRHtoORDK extends JDialog {
 			errorFl = false;
 			okButton.setEnabled(false);
 		} else {
-			int maxRequestCode = Integer.parseInt(ReadFileWithGlobalTextVariable.getGlobalTextVariableMap().get("maxRequestCode"));
-			if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, maxRequestCode)) {
+
+			if (RequestViewFunction.checkMaxVolume(txtField_RequestCode.getText(), 3000, 6000)) {
 				txtField_RequestCode.setForeground(Color.red);
 				lblError.setText("Некоректен номер");
 				errorFl = false;
